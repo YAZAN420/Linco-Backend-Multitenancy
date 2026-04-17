@@ -1,54 +1,69 @@
+import { Logger } from '@nestjs/common';
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
+import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
 import { MailPort } from 'src/core/mail/mail.port';
 
-@Processor('mail-queue', { concurrency: 10 })
+interface MailJobData {
+  email: string;
+  token: string;
+}
+
+@Processor(IAM_CONSTANTS.MAIL_QUEUE, { concurrency: 10 })
 export class MailProcessor extends WorkerHost {
+  private readonly logger = new Logger(MailProcessor.name);
+
+  private readonly handlers: Record<
+    string,
+    (data: MailJobData) => Promise<void>
+  >;
+
   constructor(private readonly mailPort: MailPort) {
     super();
+    this.handlers = {
+      [MAIL_JOBS.SEND_VERIFICATION_EMAIL]: (data) =>
+        this.mailPort.sendVerificationEmail(data.email, data.token),
+      [MAIL_JOBS.SEND_PASSWORD_RESET_EMAIL]: (data) =>
+        this.mailPort.sendPasswordResetEmail(data.email, data.token),
+    };
   }
-  async process(
-    job: Job<{ email: string; token: string }, any, string>,
-  ): Promise<any> {
-    const { email, token } = job.data;
-    try {
-      if (job.name === 'send-verification-email') {
-        await this.mailPort.sendVerificationEmail(email, token);
-        console.log(`[Queue] Verification email sent to ${email}`);
-      } else if (job.name === 'send-password-reset-email') {
-        await this.mailPort.sendPasswordResetEmail(email, token);
-        console.log(`[Queue] Password reset email sent to ${email}`);
-      }
-    } catch (error) {
-      console.error(`[Queue] Failed to send email to ${email}`, error);
-      throw error;
+
+  async process(job: Job<MailJobData>): Promise<void> {
+    const handler = this.handlers[job.name];
+
+    if (!handler) {
+      this.logger.warn(`Unknown mail job type: ${job.name}`);
+      return;
     }
+
+    await handler(job.data);
+    this.logger.log(`${job.name} sent to ${job.data.email}`);
   }
+
   @OnWorkerEvent('active')
-  onActive(job: Job) {
-    console.log(
-      `[🚀 Worker] Starting job ${job.id} of type ${job.name}. Attempt: ${job.attemptsMade + 1}`,
+  onActive(job: Job): void {
+    this.logger.log(
+      `Starting job ${job.id} [${job.name}] - Attempt ${job.attemptsMade + 1}`,
     );
   }
 
   @OnWorkerEvent('completed')
-  onCompleted(job: Job, result: any) {
-    console.log(
-      `[✅ Worker] Job ${job.id} completed successfully. Result: ${result}`,
-    );
+  onCompleted(job: Job): void {
+    this.logger.log(`Job ${job.id} [${job.name}] completed`);
   }
 
   @OnWorkerEvent('failed')
-  onFailed(job: Job, error: Error) {
-    console.error(
-      `[❌ Worker] Job ${job.id} failed on attempt ${job.attemptsMade}. Error: ${error.message}`,
-    );
+  onFailed(job: Job, error: Error): void {
+    const isLastAttempt = job.attemptsMade >= (job.opts.attempts ?? 0);
 
-    if (job.attemptsMade < job.opts.attempts!) {
-      console.log(`[🔄 Worker] Will retry job ${job.id} later...`);
+    if (isLastAttempt) {
+      this.logger.error(
+        `Job ${job.id} [${job.name}] permanently failed: ${error.message}`,
+        error.stack,
+      );
     } else {
-      console.error(
-        `[💀 Worker] Job ${job.id} has permanently failed after all attempts.`,
+      this.logger.warn(
+        `Job ${job.id} [${job.name}] failed (attempt ${job.attemptsMade}), will retry`,
       );
     }
   }

@@ -1,74 +1,84 @@
-import { UsersQueryService } from './users/application/users-query.service';
 import { Module, DynamicModule, OnApplicationBootstrap } from '@nestjs/common';
-import { CoreModule } from './core/core.module';
-import { IamModule } from './iam/iam.module';
-import { UsersModule } from './users/users.module';
-import { UsersInfrastructureModule } from './users/infrastructure/users-infrastructure.module';
-import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
-import { CacheModule } from './core/cache/cache.module';
-import { DatabaseModule } from './core/database/database.module';
 import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
-import { CachePort } from './core/cache/cache.port';
+
+import { CoreModule } from './core/core.module';
+import { CacheModule } from './core/cache/cache.module';
+import { DatabaseModule } from './core/database/database.module';
 import { MailModule } from './core/mail/mail.module';
-@Module({
-  imports: [
-    IamModule,
-    MailModule,
-    CacheModule,
-    BullModule.forRoot({
-      connection: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT || '6379', 10),
-        password: process.env.REDIS_PASSWORD,
-        tls: process.env.REDIS_PASSWORD
-          ? { rejectUnauthorized: false }
-          : undefined,
-        maxRetriesPerRequest: null,
-        enableReadyCheck: false,
-        keepAlive: 30000,
-        retryStrategy(times) {
-          return Math.min(times * 100, 3000);
-        },
-      },
-    }),
-    BullBoardModule.forRoot({
-      route: '/queues',
-      adapter: ExpressAdapter,
-    }),
-  ],
-  providers: [
-    UsersQueryService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: HttpCacheInterceptor,
-    },
-  ],
-})
+import { CachePort } from './core/cache/cache.port';
+
+import { IamModule } from './iam/iam.module';
+import { UsersModule } from './users/users.module';
+import { UsersInfrastructureModule } from './users/infrastructure/users-infrastructure.module';
+
+import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
+import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+
+import redisConfig from './config/redis.config';
+import { ConfigType } from '@nestjs/config';
+
+@Module({})
 export class AppModule implements OnApplicationBootstrap {
   constructor(private readonly cachePort: CachePort) {}
-  onApplicationBootstrap() {
-    this.cachePort
-      .deleteByPattern('GET:*')
-      .then(() => console.log('✅ Cache cleared successfully'))
-      .catch((err) => {
-        console.error(err);
-      });
+
+  async onApplicationBootstrap(): Promise<void> {
+    try {
+      await this.cachePort.deleteByPattern('GET:*');
+      console.log('✅ Cache cleared on bootstrap');
+    } catch (err) {
+      console.error('❌ Failed to clear cache on bootstrap', err);
+    }
   }
+
   static register(options: ApplicationBootstrapOptions): DynamicModule {
     return {
       module: AppModule,
       imports: [
-        CoreModule.forRoot({ driver: options.driver }),
-
+        CoreModule.forRoot(options),
+        CacheModule,
         DatabaseModule.use(options.driver),
+        MailModule,
 
+        IamModule,
         UsersModule.withInfrastructure(
           UsersInfrastructureModule.use(options.driver),
         ),
+
+        BullModule.forRootAsync({
+          useFactory: (redisConfiguration: ConfigType<typeof redisConfig>) => ({
+            connection: {
+              host: redisConfiguration.host,
+              port: redisConfiguration.port,
+              password: redisConfiguration.password,
+              tls: redisConfiguration.password
+                ? { rejectUnauthorized: false }
+                : undefined,
+              maxRetriesPerRequest: null,
+              enableReadyCheck: false,
+              keepAlive: 30000,
+              retryStrategy: (times: number) => Math.min(times * 100, 3000),
+            },
+          }),
+          inject: [redisConfig.KEY],
+        }),
+        BullBoardModule.forRoot({
+          route: '/queues',
+          adapter: ExpressAdapter,
+        }),
+      ],
+      providers: [
+        {
+          provide: APP_INTERCEPTOR,
+          useClass: HttpCacheInterceptor,
+        },
+        {
+          provide: APP_INTERCEPTOR,
+          useClass: ResponseInterceptor,
+        },
       ],
     };
   }

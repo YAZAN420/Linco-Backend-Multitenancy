@@ -8,7 +8,7 @@ import { CaslAdapter } from './casl.adapter';
     CaslAbilityFactory,
     {
       provide: AuthorizationPort,
-      useClass: CaslAdapter, // ربط الواجهة بالتنفيذ
+      useClass: CaslAdapter,
     },
   ],
   exports: [AuthorizationPort],

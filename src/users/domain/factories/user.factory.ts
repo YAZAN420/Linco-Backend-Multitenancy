@@ -1,62 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { Role } from '../enums/role.enum';
 import { Email } from '../value-objects/email.vo';
-import { User } from '../user';
 import { Username } from '../value-objects/username.vo';
+import { User } from '../user';
+import { UserPersistenceData } from '../user-persistence.interface';
 import { v7 as uuidv7 } from 'uuid';
+
 @Injectable()
 export class UserFactory {
-  public createNew(
-    usernameStr: string,
-    emailStr: string,
-    passwordHash: string,
-  ): User {
+  createNew(usernameStr: string, emailStr: string, passwordHash: string): User {
     const email = new Email(emailStr);
     const username = new Username(usernameStr);
-    const id: string = uuidv7();
+    const now = new Date();
+
     return new User(
-      id,
+      uuidv7(),
       username,
       email,
       Role.Regular,
       passwordHash,
-      new Date(),
-      new Date(),
+      now,
+      now,
       false,
       false,
     );
   }
-  public reconstitute(
-    id: string,
-    usernameStr: string,
-    emailStr: string,
-    passwordHash: string,
-    role: Role,
-    createdAt: Date,
-    updatedAt: Date,
-    isEmailVerified: boolean,
-    isTwoFactorEnabled: boolean,
-    refreshToken?: string | null,
-    twoFactorAuthenticationSecret?: string | null,
-    emailVerificationToken?: string | null,
-    passwordResetToken?: string | null,
-    passwordResetExpires?: Date | null,
-  ): User {
+
+  reconstitute(data: UserPersistenceData): User {
     return new User(
-      id,
-      new Username(usernameStr),
-      new Email(emailStr),
-      role,
-      passwordHash,
-      createdAt,
-      updatedAt,
-      isEmailVerified,
-      isTwoFactorEnabled,
-      refreshToken,
-      twoFactorAuthenticationSecret,
-      emailVerificationToken,
-      passwordResetToken,
-      passwordResetExpires,
+      data._id,
+      new Username(data.username),
+      new Email(data.email),
+      data.role,
+      data.password,
+      data.createdAt,
+      data.updatedAt,
+      data.isEmailVerified,
+      data.isTwoFactorAuthenticationEnabled,
+      data.refreshToken,
+      data.twoFactorAuthenticationSecret,
+      data.emailVerificationToken,
+      data.passwordResetToken,
+      data.passwordResetExpires,
     );
   }
 }

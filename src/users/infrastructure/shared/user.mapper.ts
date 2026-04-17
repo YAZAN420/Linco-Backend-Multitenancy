@@ -1,45 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/users/domain/user';
 import { UserFactory } from 'src/users/domain/factories/user.factory';
-import { User as InMemoryUser } from '../entities/user.entity';
+import { UserPersistenceData } from 'src/users/domain/user-persistence.interface';
+
 @Injectable()
 export class UserMapper {
   constructor(private readonly userFactory: UserFactory) {}
 
-  toDomain(doc: InMemoryUser): User {
-    return this.userFactory.reconstitute(
-      doc._id,
-      doc.username,
-      doc.email,
-      doc.password,
-      doc.role,
-      doc.createdAt!,
-      doc.updatedAt!,
-      doc.isEmailVerified,
-      doc.isTwoFactorAuthenticationEnabled,
-      doc.refreshToken,
-      doc.twoFactorAuthenticationSecret,
-      doc.emailVerificationToken,
-      doc.passwordResetToken,
-      doc.passwordResetExpires,
-    );
+  toDomain(raw: UserPersistenceData): User {
+    return this.userFactory.reconstitute(raw);
   }
 
-  toPersistence(user: User): Record<string, any> {
+  toPersistence(user: User): UserPersistenceData {
     return {
       _id: user.getId(),
       username: user.getUsernameValue(),
       email: user.getEmailValue(),
       role: user.getRole(),
       password: user.getPasswordHash(),
-      isTwoFactorAuthenticationEnabled:
-        user.getIsTwoFactorAuthenticationEnabled(),
       isEmailVerified: user.getIsEmailVerified(),
+      isTwoFactorAuthenticationEnabled: user.getIsTwoFactorEnabled(),
       refreshToken: user.getRefreshToken(),
-      twoFactorAuthenticationSecret: user.getTwoFactorAuthenticationSecret(),
+      twoFactorAuthenticationSecret: user.getTwoFactorSecret(),
       emailVerificationToken: user.getEmailVerificationToken(),
       passwordResetToken: user.getPasswordResetToken(),
       passwordResetExpires: user.getPasswordResetExpires(),
+      createdAt: user.getCreatedAt(),
+      updatedAt: user.getUpdatedAt(),
     };
   }
 }

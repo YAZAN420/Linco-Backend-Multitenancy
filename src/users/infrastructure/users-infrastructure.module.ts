@@ -9,8 +9,9 @@ export class UsersInfrastructureModule {
       driver === 'mongoose'
         ? MongooseUserPersistenceModule
         : InMemoryUserPersistenceModule;
+
     return {
-      module: persistenceModule,
+      module: UsersInfrastructureModule,
       imports: [persistenceModule],
       exports: [persistenceModule],
     };

@@ -4,7 +4,7 @@ import { Username } from './value-objects/username.vo';
 
 export class User {
   constructor(
-    private readonly id: string,
+    public readonly id: string,
     private username: Username,
     private email: Email,
     private role: Role,
@@ -74,6 +74,14 @@ export class User {
 
   getUpdatedAt(): Date {
     return this.updatedAt;
+  }
+
+  getIsTwoFactorAuthenticationEnabled(): boolean {
+    return this.isTwoFactorAuthenticationEnabled;
+  }
+
+  getTwoFactorAuthenticationSecret(): string | null {
+    return this.twoFactorAuthenticationSecret;
   }
 
   changeUsername(newUsernameStr: string): void {

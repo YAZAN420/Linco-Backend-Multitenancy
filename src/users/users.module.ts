@@ -14,11 +14,13 @@ import { UsersCommandService } from './application/users-command.service';
   exports: [UsersQueryService, UsersCommandService, UserFactory],
 })
 export class UsersModule {
-  static withInfrastructure(infrastuctureModule: Type | DynamicModule) {
+  static withInfrastructure(
+    infrastructureModule: Type | DynamicModule,
+  ): DynamicModule {
     return {
       module: UsersModule,
-      imports: [infrastuctureModule],
-      exports: [infrastuctureModule],
+      imports: [infrastructureModule],
+      exports: [infrastructureModule],
     };
   }
 }

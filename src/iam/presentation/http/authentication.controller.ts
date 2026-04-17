@@ -10,58 +10,71 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { AuthenticationService } from '../../application/services/authentication.service';
-import { Public } from './decorators/public.decorator';
-import { ActiveUser } from './decorators/active-user.decorator';
-import type { ActiveUserData } from '../../domain/interfaces/active-user-data.interface';
-import { SignInResponse } from './interfaces/sign-in-response.interface';
-import jwtConfig from 'src/config/jwt.config';
 import type { ConfigType } from '@nestjs/config';
 import type { Request, Response } from 'express';
+import jwtConfig from 'src/config/jwt.config';
+import { User } from 'src/users/domain/user';
+import { UserResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
+
+import { AuthenticationService } from '../../application/services/authentication.service';
+import { RegistrationService } from '../../application/services/registration.service';
+import { PasswordManagementService } from '../../application/services/password-management.service';
+import { TwoFactorAuthService } from '../../application/services/two-factor-auth.service';
+import { TokenService } from '../../application/services/token.service';
+
+import { ActiveUser } from './decorators/active-user.decorator';
+import { Public } from './decorators/public.decorator';
+import type { ActiveUserData } from '../../domain/interfaces/active-user-data.interface';
+
 import {
   AuthRefreshTokens,
   AuthSignIn,
   AuthSignUp,
   AuthTurnOn2FA,
 } from './decorators/authentication.decorators';
-import { User } from 'src/users/domain/user';
-import { UserResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
+
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { TurnOn2FADto } from './dto/turn-on-2fa.dto';
 
 @Controller('authentication')
 export class AuthenticationController {
   constructor(
     private readonly authService: AuthenticationService,
+    private readonly registrationService: RegistrationService,
+    private readonly passwordService: PasswordManagementService,
+    private readonly twoFactorService: TwoFactorAuthService,
+    private readonly tokenService: TokenService,
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
   @AuthSignUp()
-  signUp(@Body() signUp: SignUpDto) {
-    return this.authService.signUp(signUp);
+  signUp(@Body() dto: SignUpDto) {
+    return this.registrationService.signUp(dto);
   }
+
   @AuthSignIn()
   async signIn(
     @Req() request: Request,
-    @Body() signIn: SignInDto,
+    @Body() dto: SignInDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const result: SignInResponse = await this.authService.signIn(
+    const result = await this.authService.signIn(
       request.user as User,
-      signIn.tfaCode,
+      dto.tfaCode,
     );
-    response.cookie('refreshToken', result.tokens.refreshToken, {
-      httpOnly: true,
-      secure: this.jwtConfiguration.cookieSecure,
-      sameSite: 'strict',
-      maxAge: this.jwtConfiguration.cookieMaxAge,
-    });
+
+    this.setRefreshTokenCookie(response, result.tokens.refreshToken);
+
     return {
       message: 'User signed in successfully',
       data: {
-        user: UserResponseDto.fromEntity(result.user),
+        user: UserResponseDto.from(result.user),
         accessToken: result.tokens.accessToken,
       },
     };
@@ -74,43 +87,52 @@ export class AuthenticationController {
   }
 
   @AuthRefreshTokens()
-  refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
-    return this.authService.refreshTokens(refreshTokenDto);
+  refreshTokens(@Body() dto: RefreshTokenDto) {
+    return this.tokenService.refreshTokens(dto);
   }
 
   @Post('2fa/generate')
-  async generateQrCode(@ActiveUser() user: ActiveUserData) {
-    const qrCodeDataUrl =
-      await this.authService.generateTwoFactorAuthenticationSecret(user);
-    return { data: { qrCode: qrCodeDataUrl } };
+  generateQrCode(@ActiveUser() user: ActiveUserData) {
+    return this.twoFactorService.generateSecret(user);
   }
 
   @AuthTurnOn2FA()
-  async turnOnTwoFactorAuthentication(
+  turnOnTwoFactorAuthentication(
     @ActiveUser() user: ActiveUserData,
-    @Body('tfaCode') tfaCode: string,
+    @Body() dto: TurnOn2FADto,
   ) {
-    return this.authService.turnOnTwoFactorAuthentication(user.id, tfaCode);
+    return this.twoFactorService.turnOn(user.id, dto.tfaCode);
   }
 
   @Public()
   @Get('verify-email')
-  async verifyEmail(@Query('token') token: string) {
-    return this.authService.verifyEmail(token);
+  verifyEmail(@Query() dto: VerifyEmailDto) {
+    return this.registrationService.verifyEmail(dto.token);
   }
 
   @Public()
   @Post('forgot-password')
-  async forgotPassword(@Body('email') email: string) {
-    return this.authService.forgotPassword(email);
+  @HttpCode(HttpStatus.OK)
+  forgotPassword(@Body() dto: ForgotPasswordDto) {
+    return this.passwordService.forgotPassword(dto.email);
   }
 
   @Public()
   @Post('reset-password')
-  async resetPassword(
-    @Query('token') token: string,
-    @Body('password') newPassword: string,
-  ) {
-    return this.authService.resetPassword(token, newPassword);
+  @HttpCode(HttpStatus.OK)
+  resetPassword(@Body() dto: ResetPasswordDto) {
+    return this.passwordService.resetPassword(dto.token, dto.password);
+  }
+
+  private setRefreshTokenCookie(
+    response: Response,
+    refreshToken: string,
+  ): void {
+    response.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: this.jwtConfiguration.cookieSecure,
+      sameSite: 'strict',
+      maxAge: this.jwtConfiguration.cookieMaxAge,
+    });
   }
 }

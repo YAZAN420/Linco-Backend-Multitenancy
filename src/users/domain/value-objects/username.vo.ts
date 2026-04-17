@@ -2,24 +2,24 @@ export class Username {
   private readonly value: string;
 
   constructor(value: string) {
-    const trimmedValue = value.trim();
+    const trimmed = value.trim();
 
-    if (trimmedValue.length < 3 || trimmedValue.length > 20) {
+    if (trimmed.length < 3 || trimmed.length > 20) {
       throw new Error('Username must be between 3 and 20 characters');
     }
 
-    if (!/^[a-zA-Z0-9_]+$/.test(trimmedValue)) {
-      throw new Error('Username contains symbols that are not allowed');
+    if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) {
+      throw new Error('Username contains invalid characters');
     }
 
-    this.value = trimmedValue;
+    this.value = trimmed;
   }
 
-  public getValue(): string {
+  getValue(): string {
     return this.value;
   }
 
-  public equals(otherUsername: Username): boolean {
-    return this.value === otherUsername.getValue();
+  equals(other: Username): boolean {
+    return this.value === other.getValue();
   }
 }

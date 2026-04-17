@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Role } from '../../../../domain/enums/role.enum';
 
 @Schema({ timestamps: true })
-export class User {
+export class UserDocument {
   @Prop({ type: String })
   _id!: string;
   @Prop({ required: true, unique: true, trim: true })
@@ -33,6 +33,9 @@ export class User {
   @Prop({ default: false })
   isEmailVerified!: boolean;
 
+  @Prop({ default: true })
+  isActive!: boolean;
+
   @Prop()
   emailVerificationToken?: string;
 
@@ -49,4 +52,4 @@ export class User {
   updatedAt?: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(UserDocument);

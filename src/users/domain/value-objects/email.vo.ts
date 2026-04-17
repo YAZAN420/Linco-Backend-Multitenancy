@@ -2,25 +2,24 @@ export class Email {
   private readonly value: string;
 
   constructor(value: string) {
-    const trimmedValue = value.trim().toLowerCase();
+    const trimmed = value.trim().toLowerCase();
 
-    if (!this.isValidEmail(trimmedValue)) {
+    if (!this.isValid(trimmed)) {
       throw new Error('Invalid email format');
     }
 
-    this.value = trimmedValue;
+    this.value = trimmed;
   }
 
-  private isValidEmail(email: string): boolean {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+  private isValid(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  public getValue(): string {
+  getValue(): string {
     return this.value;
   }
 
-  public equals(otherEmail: Email): boolean {
-    return this.value === otherEmail.getValue();
+  equals(other: Email): boolean {
+    return this.value === other.getValue();
   }
 }

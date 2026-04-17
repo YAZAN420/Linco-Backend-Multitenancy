@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { UserRepository } from 'src/users/application/ports/user.repository';
-import { InMemoryUserRepository } from './repositories/user.repository';
 import { UserFactory } from 'src/users/domain/factories/user.factory';
-import { UserMapper } from './mappers/user.mapper';
+import { UserMapper } from '../../shared/user.mapper';
+import { InMemoryUserRepository } from './repositories/in-memory-user.repository';
 
 @Module({
   providers: [

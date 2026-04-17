@@ -4,16 +4,16 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { UserRepository } from 'src/users/application/ports/user.repository';
-import { UserFactory } from 'src/users/domain/factories/user.factory';
-import { User } from 'src/users/domain/user';
-import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
-import { UpdateUserCommand } from './commands/update-user.command';
+import { UserRepository } from './ports/user.repository';
+import { UserFactory } from '../domain/factories/user.factory';
+import { User } from '../domain/user';
+import { CreateUserCommand } from './commands/create-user.command';
 import { HashingPort } from 'src/iam/application/ports/hashing.port';
 import { AuthorizationPort } from 'src/iam/application/ports/authorization.port';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { Action } from 'src/iam/domain/enums/action.enum';
 import { CachePort } from 'src/core/cache/cache.port';
+import { UpdateUserProfileCommand } from './commands/update-user-profile.command';
 
 @Injectable()
 export class UsersCommandService {
@@ -26,78 +26,56 @@ export class UsersCommandService {
   ) {}
 
   async create(command: CreateUserCommand): Promise<User> {
-    const emailExists = await this.userRepository.findByEmail(command.email);
-    if (emailExists) throw new ConflictException('Email already exists');
+    const [_, __, hashedPassword] = await Promise.all([
+      this.ensureEmailIsUnique(command.email),
+      this.ensureUsernameIsUnique(command.username),
+      this.hashService.hash(command.password),
+    ]);
 
-    const usernameExists = await this.userRepository.findByUsername(
-      command.username,
-    );
-    if (usernameExists) throw new ConflictException('Username already exists');
-
-    const hashedPassword = await this.hashService.hash(command.password);
-
-    const newUser = this.userFactory.createNew(
+    const user = this.userFactory.createNew(
       command.username,
       command.email,
       hashedPassword,
     );
 
-    await this.userRepository.save(newUser);
+    await this.userRepository.save(user);
+    this.invalidateUserListCache();
 
-    await this.cachePort.delete('GET:/users');
-
-    return newUser;
+    return user;
   }
 
-  async remove(id: string): Promise<{ message: string }> {
-    const user = await this.userRepository.findById(id);
-    if (!user) throw new NotFoundException('User not found');
+  async updateProfile(
+    activeUser: ActiveUserData,
+    command: UpdateUserProfileCommand,
+  ): Promise<User> {
+    this.assertPermission(activeUser, Action.Update);
+
+    const user = await this.findUserOrThrow(command.userId);
+
+    if (command.username) {
+      await this.ensureUsernameIsUnique(command.username, user.getId());
+      user.changeUsername(command.username);
+    }
+
+    await this.userRepository.save(user);
+    this.invalidateUserCache(user.getId(), activeUser.id);
+
+    return user;
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.findUserOrThrow(id);
     await this.userRepository.delete(id);
-    return { message: 'User deleted successfully' };
+    this.invalidateUserListCache();
   }
 
   async updateRefreshToken(
     id: string,
     refreshToken: string | null,
   ): Promise<void> {
-    const user = await this.userRepository.findById(id);
-    if (!user) throw new NotFoundException('User not found');
-
+    const user = await this.findUserOrThrow(id);
     user.updateRefreshToken(refreshToken);
     await this.userRepository.save(user);
-  }
-
-  async updateProfile(
-    activeUser: ActiveUserData,
-    command: UpdateUserCommand,
-  ): Promise<User> {
-    const user = await this.userRepository.findById(command.id);
-    if (!user) throw new NotFoundException('User not found');
-
-    const isAllowed = this.authPort.checkPermission(
-      activeUser,
-      Action.Update,
-      User,
-    );
-    if (!isAllowed) {
-      throw new ForbiddenException('You can only update your own profile!');
-    }
-    if (command.username) {
-      const existingUser = await this.userRepository.findByUsername(
-        command.username,
-      );
-      if (existingUser && existingUser.getId() !== user.getId()) {
-        throw new ConflictException('Username is already taken');
-      }
-      user.changeUsername(command.username);
-    }
-    await this.userRepository.save(user);
-
-    await this.cachePort.delete('GET:/users');
-    await this.cachePort.delete(`GET:/users/me:${activeUser.id}`);
-    await this.cachePort.delete(`GET:/users/${user.getId()}`);
-
-    return user;
   }
 
   async verifyUserEmail(token: string): Promise<void> {
@@ -110,5 +88,47 @@ export class UsersCommandService {
 
   async save(user: User): Promise<void> {
     await this.userRepository.save(user);
+  }
+
+  private async findUserOrThrow(id: string): Promise<User> {
+    const user = await this.userRepository.findById(id);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  private assertPermission(activeUser: ActiveUserData, action: Action): void {
+    const isAllowed = this.authPort.checkPermission(activeUser, action, User);
+    if (!isAllowed) {
+      throw new ForbiddenException(
+        'You do not have permission to perform this action',
+      );
+    }
+  }
+
+  private async ensureEmailIsUnique(email: string): Promise<void> {
+    const existing = await this.userRepository.findByEmail(email);
+    if (existing) throw new ConflictException('Email already exists');
+  }
+
+  private async ensureUsernameIsUnique(
+    username: string,
+    excludeUserId?: string,
+  ): Promise<void> {
+    const existing = await this.userRepository.findByUsername(username);
+    if (existing && existing.getId() !== excludeUserId) {
+      throw new ConflictException('Username is already taken');
+    }
+  }
+
+  private invalidateUserListCache(): void {
+    this.cachePort.deleteByPattern('GET:/users*').catch(() => {});
+  }
+
+  private invalidateUserCache(userId: string, activeUserId: string): void {
+    Promise.all([
+      this.cachePort.deleteByPattern('GET:/users*'),
+      this.cachePort.delete(`GET:/users/me:${activeUserId}`),
+      this.cachePort.delete(`GET:/users/${userId}`),
+    ]).catch(() => {});
   }
 }
