@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UnitOfWorkPort } from '../../application/ports/unit-of-work.port';
+import { UnitOfWorkPort } from './unit-of-work.port';
 
 @Injectable()
 export class InMemoryUnitOfWorkAdapter implements UnitOfWorkPort {

@@ -13,7 +13,7 @@ import { HashingPort } from 'src/iam/application/ports/hashing.port';
 import { AuthorizationPort } from 'src/iam/application/ports/authorization.port';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { Action } from 'src/iam/domain/enums/action.enum';
-import { CachePort } from 'src/common/ports/cache.port';
+import { CachePort } from 'src/core/cache/cache.port';
 
 @Injectable()
 export class UsersCommandService {

@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
-import { UnitOfWorkPort } from '../../application/ports/unit-of-work.port';
 import { MongooseUnitOfWorkAdapter } from './mongoose-uow.adapter';
 import { InMemoryUnitOfWorkAdapter } from './in-memory-uow.adapter';
+import { UnitOfWorkPort } from './unit-of-work.port';
 
 @Global()
 @Module({

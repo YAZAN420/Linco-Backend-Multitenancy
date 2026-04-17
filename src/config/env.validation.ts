@@ -9,38 +9,38 @@ enum Environment {
 
 class EnvironmentVariables {
   @IsEnum(Environment)
-  NODE_ENV: Environment;
+  NODE_ENV!: Environment;
 
   @IsNumber()
   @Min(0)
-  PORT: number;
+  PORT!: number;
 
   @IsString()
-  MONGO_URI: string;
+  MONGO_URI!: string;
 
   @IsString()
-  ACCESS_TOKEN_SECRET: string;
+  ACCESS_TOKEN_SECRET!: string;
 
   @IsString()
-  JWT_TOKEN_AUDIENCE: string;
+  JWT_TOKEN_AUDIENCE!: string;
 
   @IsString()
-  JWT_TOKEN_ISSUER: string;
+  JWT_TOKEN_ISSUER!: string;
 
   @IsNumber()
-  JWT_ACCESS_TOKEN_TTL: number;
+  JWT_ACCESS_TOKEN_TTL!: number;
 
   @IsString()
-  SMTP_HOST: string;
+  SMTP_HOST!: string;
 
   @IsNumber()
-  SMTP_PORT: number;
+  SMTP_PORT!: number;
 
   @IsString()
-  SMTP_USER: string;
+  SMTP_USER!: string;
 
   @IsString()
-  SMTP_PASS: string;
+  SMTP_PASS!: string;
 }
 
 export function validate(config: Record<string, unknown>) {

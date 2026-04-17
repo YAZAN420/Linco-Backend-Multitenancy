@@ -5,9 +5,6 @@ import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 
 import jwtConfig from 'src/config/jwt.config';
-import { MailModule } from 'src/shared/mail/mail.module';
-
-import { AuthenticationService } from './application/services/authentication.service';
 
 import { CaslModule } from './infrastructure/authorization/casl/casl.module';
 import { JwtStrategy } from './infrastructure/authentication/strategies/jwt.strategy';
@@ -23,6 +20,8 @@ import { BullModule } from '@nestjs/bullmq';
 import { MailProcessor } from './application/processors/mail.processor';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { MailModule } from 'src/core/mail/mail.module';
+import { AuthenticationService } from './application/services/authentication.service';
 @Global()
 @Module({
   imports: [

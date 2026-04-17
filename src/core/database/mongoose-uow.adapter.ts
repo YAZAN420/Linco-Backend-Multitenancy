@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { ClsService } from 'nestjs-cls';
-import { UnitOfWorkPort } from '../../application/ports/unit-of-work.port';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
+import { UnitOfWorkPort } from './unit-of-work.port';
 
 @Injectable()
 export class MongooseUnitOfWorkAdapter implements UnitOfWorkPort {

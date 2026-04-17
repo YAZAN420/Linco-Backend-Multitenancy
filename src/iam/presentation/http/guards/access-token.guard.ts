@@ -11,11 +11,13 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+
 @Injectable()
 export class AccessTokenGuard extends AuthGuard('jwt') {
   constructor(private readonly reflector: Reflector) {
     super();
   }
+
   getRequest(context: ExecutionContext): any {
     const type = context.getType<'http' | 'ws' | 'graphql'>();
     if (type === 'ws') {

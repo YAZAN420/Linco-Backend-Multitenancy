@@ -1,6 +1,6 @@
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { MailPort } from 'src/shared/mail/application/ports/mail.port';
+import { MailPort } from 'src/core/mail/mail.port';
 
 @Processor('mail-queue', { concurrency: 10 })
 export class MailProcessor extends WorkerHost {

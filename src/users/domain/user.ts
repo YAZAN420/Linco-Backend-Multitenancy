@@ -4,137 +4,155 @@ import { Username } from './value-objects/username.vo';
 
 export class User {
   constructor(
-    public id: string,
+    private readonly id: string,
     private username: Username,
     private email: Email,
     private role: Role,
     private passwordHash: string,
-    private createdAt: Date,
+    private readonly createdAt: Date,
     private updatedAt: Date,
     private isEmailVerified: boolean,
     private isTwoFactorAuthenticationEnabled: boolean,
-    private refreshToken?: string | null,
-    private twoFactorAuthenticationSecret?: string | null,
-    private emailVerificationToken?: string | null,
-    private passwordResetToken?: string | null,
-    private passwordResetExpires?: Date | null,
+    private refreshToken: string | null = null,
+    private twoFactorAuthenticationSecret: string | null = null,
+    private emailVerificationToken: string | null = null,
+    private passwordResetToken: string | null = null,
+    private passwordResetExpires: Date | null = null,
   ) {}
 
-  public getId(): string {
+  getId(): string {
     return this.id;
   }
-  public getUsernameValue(): string {
+
+  getUsernameValue(): string {
     return this.username.getValue();
   }
-  public getEmailValue(): string {
+
+  getEmailValue(): string {
     return this.email.getValue();
   }
-  public getRole(): Role {
+
+  getRole(): Role {
     return this.role;
   }
-  public getPasswordHash(): string {
+
+  getPasswordHash(): string {
     return this.passwordHash;
   }
-  public getIsTwoFactorAuthenticationEnabled(): boolean {
+
+  getIsTwoFactorEnabled(): boolean {
     return this.isTwoFactorAuthenticationEnabled;
   }
-  public getIsEmailVerified(): boolean {
+
+  getIsEmailVerified(): boolean {
     return this.isEmailVerified;
   }
-  public getRefreshToken(): string | null | undefined {
+
+  getRefreshToken(): string | null {
     return this.refreshToken;
   }
-  public getTwoFactorAuthenticationSecret(): string | null | undefined {
+
+  getTwoFactorSecret(): string | null {
     return this.twoFactorAuthenticationSecret;
   }
-  public getEmailVerificationToken(): string | null | undefined {
+
+  getEmailVerificationToken(): string | null {
     return this.emailVerificationToken;
   }
-  public getPasswordResetToken(): string | null | undefined {
+
+  getPasswordResetToken(): string | null {
     return this.passwordResetToken;
   }
-  public getPasswordResetExpires(): Date | null | undefined {
+
+  getPasswordResetExpires(): Date | null {
     return this.passwordResetExpires;
   }
-  public getCreatedAt(): Date {
+
+  getCreatedAt(): Date {
     return this.createdAt;
   }
-  public getUpdatedAt(): Date {
+
+  getUpdatedAt(): Date {
     return this.updatedAt;
   }
 
-  public updateRefreshToken(newToken: string | null): void {
+  changeUsername(newUsernameStr: string): void {
+    this.username = new Username(newUsernameStr);
+    this.touch();
+  }
+
+  changePassword(newPasswordHash: string): void {
+    this.passwordHash = newPasswordHash;
+    this.touch();
+  }
+
+  changeRole(newRole: Role): void {
+    this.role = newRole;
+    this.touch();
+  }
+
+  updateRefreshToken(newToken: string | null): void {
     this.refreshToken = newToken;
   }
 
-  public validateRefreshToken(tokenToValidate: string): boolean {
+  validateRefreshToken(tokenToValidate: string): boolean {
     return this.refreshToken === tokenToValidate;
   }
 
-  public verifyEmail(providedToken: string): void {
-    if (this.isEmailVerified) {
-      throw new Error('The email is preconfirmed');
-    }
+  setVerificationToken(token: string): void {
+    this.emailVerificationToken = token;
+  }
 
+  verifyEmail(providedToken: string): void {
+    if (this.isEmailVerified) {
+      throw new Error('Email is already verified');
+    }
     if (this.emailVerificationToken !== providedToken) {
       throw new Error('Invalid verification token');
     }
-
     this.isEmailVerified = true;
     this.emailVerificationToken = null;
+    this.touch();
   }
 
-  public enableTwoFactorAuth(secret: string): void {
+  enableTwoFactorAuth(secret: string): void {
     if (!this.isEmailVerified) {
-      throw new Error(
-        'Email must be confirmed first before enabling two-factor authentication',
-      );
+      throw new Error('Email must be verified before enabling 2FA');
     }
     this.isTwoFactorAuthenticationEnabled = true;
     this.twoFactorAuthenticationSecret = secret;
+    this.touch();
   }
 
-  public disableTwoFactorAuth(): void {
+  disableTwoFactorAuth(): void {
     this.isTwoFactorAuthenticationEnabled = false;
-    this.twoFactorAuthenticationSecret = undefined;
+    this.twoFactorAuthenticationSecret = null;
+    this.touch();
   }
 
-  public changePassword(newPasswordHash: string): void {
-    this.passwordHash = newPasswordHash;
+  setTwoFactorSecret(secret: string): void {
+    this.twoFactorAuthenticationSecret = secret;
   }
 
-  public changeRole(newRole: Role): void {
-    this.role = newRole;
-  }
-  public generatePasswordResetToken(token: string, expiresAt: Date): void {
+  generatePasswordResetToken(token: string, expiresAt: Date): void {
     this.passwordResetToken = token;
     this.passwordResetExpires = expiresAt;
   }
-  public resetPasswordWithToken(
-    newPasswordHash: string,
-    providedToken: string,
-  ): void {
+
+  resetPasswordWithToken(newPasswordHash: string, providedToken: string): void {
     if (this.passwordResetToken !== providedToken) {
       throw new Error('Invalid reset token');
     }
-
     if (!this.passwordResetExpires || this.passwordResetExpires < new Date()) {
       throw new Error('Reset token has expired');
     }
-
     this.passwordHash = newPasswordHash;
-    this.passwordResetToken = undefined;
-    this.passwordResetExpires = undefined;
-  }
-  public changeUsername(newUsernameStr: string): void {
-    const newUsernameVo = new Username(newUsernameStr);
-    this.username = newUsernameVo;
+    this.passwordResetToken = null;
+    this.passwordResetExpires = null;
+    this.touch();
   }
 
-  public setVerificationToken(emailVerificationToken: string): void {
-    this.emailVerificationToken = emailVerificationToken;
-  }
-  public setTwoFactorSecret(twoFactorAuthenticationSecret: string): void {
-    this.twoFactorAuthenticationSecret = twoFactorAuthenticationSecret;
+  private touch(): void {
+    this.updatedAt = new Date();
   }
 }

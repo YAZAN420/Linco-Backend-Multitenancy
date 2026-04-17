@@ -5,15 +5,15 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { Redis } from 'ioredis';
-import { CachePort } from '../ports/cache.port';
 import type { ConfigType } from '@nestjs/config';
 import redisConfig from 'src/config/redis.config';
+import { CachePort } from './cache.port';
 
 @Injectable()
 export class RedisCacheAdapter
   implements CachePort, OnModuleInit, OnModuleDestroy
 {
-  private redisClient: Redis;
+  private redisClient!: Redis;
 
   constructor(
     @Inject(redisConfig.KEY)

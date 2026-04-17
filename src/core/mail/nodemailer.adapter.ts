@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MailPort } from '../../application/ports/mail.port';
 import type { ConfigType } from '@nestjs/config';
 import mailConfig from 'src/config/mail.config';
 import * as nodemailer from 'nodemailer';
+import { MailPort } from './mail.port';
 
 @Injectable()
 export class NodemailerAdapter implements MailPort {

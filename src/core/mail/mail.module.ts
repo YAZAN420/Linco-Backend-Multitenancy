@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import mailConfig from 'src/config/mail.config';
+import { MailPort } from './mail.port';
+import { NodemailerAdapter } from './nodemailer.adapter';
 import { ConfigModule } from '@nestjs/config';
-import { MailPort } from './application/ports/mail.port';
-import { NodemailerAdapter } from './infrastructure/adapters/nodemailer.adapter';
 
 @Global()
 @Module({

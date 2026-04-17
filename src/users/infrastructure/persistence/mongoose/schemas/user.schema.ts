@@ -4,15 +4,15 @@ import { Role } from '../../../../domain/enums/role.enum';
 @Schema({ timestamps: true })
 export class User {
   @Prop({ type: String })
-  _id: string;
+  _id!: string;
   @Prop({ required: true, unique: true, trim: true })
-  username: string;
+  username!: string;
 
   @Prop({ required: true, unique: true, lowercase: true, trim: true })
-  email: string;
+  email!: string;
 
   @Prop({ required: true })
-  password: string;
+  password!: string;
 
   @Prop({ required: false })
   refreshToken?: string;
@@ -22,16 +22,16 @@ export class User {
     enum: Role,
     default: Role.Regular,
   })
-  role: Role;
+  role!: Role;
 
   @Prop({ required: false })
   twoFactorAuthenticationSecret?: string;
 
   @Prop({ default: false })
-  isTwoFactorAuthenticationEnabled: boolean;
+  isTwoFactorAuthenticationEnabled!: boolean;
 
   @Prop({ default: false })
-  isEmailVerified: boolean;
+  isEmailVerified!: boolean;
 
   @Prop()
   emailVerificationToken?: string;

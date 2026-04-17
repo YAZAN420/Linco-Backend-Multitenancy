@@ -1,14 +1,14 @@
 import { User } from 'src/users/domain/user';
 
 export class UserResponseDto {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-  isEmailVerified: boolean;
-  isTwoFactorAuthenticationEnabled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id!: string;
+  username!: string;
+  email!: string;
+  role!: string;
+  isEmailVerified!: boolean;
+  isTwoFactorAuthenticationEnabled!: boolean;
+  createdAt!: Date;
+  updatedAt!: Date;
 
   static fromEntity(user: User): UserResponseDto {
     const dto = new UserResponseDto();

@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CachePort } from 'src/common/ports/cache.port';
 import { Reflector } from '@nestjs/core';
 import { SkipCache } from '../decorators/skip-cache.decorator';
 import { CachePublic } from '../decorators/cache-public.decorator';
@@ -14,6 +13,7 @@ import { ClsService } from 'nestjs-cls';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
+import { CachePort } from 'src/core/cache/cache.port';
 
 @Injectable()
 export class HttpCacheInterceptor implements NestInterceptor {

@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { CachePort } from '../ports/cache.port';
 import { RedisCacheAdapter } from './redis-cache.adapter';
+import { CachePort } from './cache.port';
 
 @Global()
 @Module({

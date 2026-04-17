@@ -21,9 +21,9 @@ import { AuthorizationPort } from 'src/iam/application/ports/authorization.port'
 import { CheckPolicies } from 'src/iam/presentation/http/decorators/check-policies.decorator';
 import { User } from 'src/users/domain/user';
 import { Action } from 'src/iam/domain/enums/action.enum';
-import { CachePort } from 'src/common/ports/cache.port';
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
+import { CachePort } from 'src/core/cache/cache.port';
 
 @UseGuards(PoliciesGuard)
 @Controller('users')

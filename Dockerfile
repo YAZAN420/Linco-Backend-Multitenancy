@@ -1,15 +1,13 @@
 FROM node:22-alpine
 
+ARG APP_NAME
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci
+
+RUN npm install --verbose
 
 COPY . .
 
-RUN npm run build
-
-ENV PORT=3000
-EXPOSE 3000
-
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start:dev"]

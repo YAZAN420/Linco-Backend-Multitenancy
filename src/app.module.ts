@@ -2,18 +2,18 @@ import { UsersQueryService } from './users/application/users-query.service';
 import { Module, DynamicModule, OnApplicationBootstrap } from '@nestjs/common';
 import { CoreModule } from './core/core.module';
 import { IamModule } from './iam/iam.module';
-import { MailModule } from './shared/mail/mail.module';
 import { UsersModule } from './users/users.module';
 import { UsersInfrastructureModule } from './users/infrastructure/users-infrastructure.module';
 import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
-import { CacheModule } from './common/cache/cache.module';
-import { DatabaseModule } from './common/database/database.module';
-import { CachePort } from './common/ports/cache.port';
+import { CacheModule } from './core/cache/cache.module';
+import { DatabaseModule } from './core/database/database.module';
 import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
+import { CachePort } from './core/cache/cache.port';
+import { MailModule } from './core/mail/mail.module';
 @Module({
   imports: [
     IamModule,
