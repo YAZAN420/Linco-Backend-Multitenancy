@@ -20,10 +20,6 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import type { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { PoliciesGuard } from 'src/iam/presentation/http/guards/policies.guard';
-import { AuthorizationPort } from 'src/iam/application/ports/authorization.port';
-import { CheckPolicies } from 'src/iam/presentation/http/decorators/check-policies.decorator';
-import { User } from 'src/users/domain/user';
-import { Action } from 'src/iam/domain/enums/action.enum';
 import {
   CursorPageOptionsDto,
   PageOptionsDto,
@@ -59,7 +55,7 @@ export class UsersController {
     const users = await this.queryService.findAll(pageOptionsDto);
 
     return {
-      message: 'Products fetched successfully',
+      message: 'Users fetched successfully',
       data: users.data.map((user) => UserResponseDto.from(user)),
       meta: users.meta,
     };
@@ -71,17 +67,13 @@ export class UsersController {
     const result = await this.queryService.findAllCursor(options);
 
     return {
-      message: 'Products fetched successfully (Cursor)',
+      message: 'Users fetched successfully (Cursor)',
       data: result.data.map((user) => UserResponseDto.from(user)),
       meta: result.meta,
     };
   }
 
   @Get('me')
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Read, User),
-  ])
   async getMe(@ActiveUser() activeUser: ActiveUserData) {
     const user = await this.queryService.findById(
       new GetUserByIdQuery(activeUser.id),
