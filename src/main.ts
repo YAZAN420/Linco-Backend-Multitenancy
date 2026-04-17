@@ -9,13 +9,9 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 
 async function bootstrap() {
   try {
-    const dbDriver =
-      (process.env.DB_TYPE as 'mongoose' | 'in-memory') || 'mongoose';
+    const dbDriver = 'mongoose';
     const app = await NestFactory.create(
       AppModule.register({ driver: dbDriver }),
-      {
-        logger: ['log', 'error', 'warn', 'debug', 'verbose'],
-      },
     );
     app.useGlobalFilters(new GlobalExceptionFilter());
     app.useGlobalInterceptors(new ResponseInterceptor());
@@ -57,7 +53,6 @@ async function bootstrap() {
 
     await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
   } catch (error) {
-    console.error('❌ FATAL ERROR DURING BOOTSTRAP:');
     console.error(error);
     process.exit(1);
   }

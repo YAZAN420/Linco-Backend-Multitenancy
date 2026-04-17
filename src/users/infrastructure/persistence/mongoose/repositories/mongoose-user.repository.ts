@@ -6,6 +6,14 @@ import { UserRepository } from 'src/users/application/ports/user.repository';
 import { UserMapper } from '../../../shared/user.mapper';
 import { UserDocument } from '../schemas/user.schema';
 import { UserPersistenceData } from 'src/users/domain/user-persistence.interface';
+import {
+  CursorPageDto,
+  CursorPageMetaDto,
+  CursorPageOptionsDto,
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Injectable()
 export class MongooseUserRepository implements UserRepository {
@@ -15,11 +23,54 @@ export class MongooseUserRepository implements UserRepository {
     private readonly mapper: UserMapper,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    const docs = await this.userModel.find().lean().exec();
-    return docs.map((doc) =>
+  async findAll(options: PageOptionsDto): Promise<PageDto<User>> {
+    const docs = await this.userModel
+      .find()
+      .skip(options.skip)
+      .limit(options.take)
+      .lean()
+      .exec();
+    const usersDomain = docs.map((doc) =>
       this.mapper.toDomain(doc as unknown as UserPersistenceData),
     );
+    const itemCount = await this.userModel.countDocuments().exec();
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto: options,
+    });
+    return new PageDto(usersDomain, pageMetaDto);
+  }
+
+  async findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<User>> {
+    const { cursor, take } = options;
+
+    let query = {};
+    if (cursor) {
+      query = { _id: { $lt: cursor } };
+    }
+    const docs = await this.userModel
+      .find(query)
+      .sort({ _id: -1 })
+      .limit(take + 1)
+      .exec();
+
+    const hasNextPage = docs.length > take;
+
+    if (hasNextPage) {
+      docs.pop();
+    }
+
+    const endCursor =
+      docs.length > 0 ? docs[docs.length - 1]._id.toString() : null;
+
+    const usersDomain = docs.map((doc) =>
+      this.mapper.toDomain(doc as unknown as UserPersistenceData),
+    );
+    const meta = new CursorPageMetaDto(hasNextPage, endCursor);
+
+    return new CursorPageDto(usersDomain, meta);
   }
 
   async save(user: User): Promise<void> {

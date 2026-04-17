@@ -3,12 +3,61 @@ import { User } from 'src/users/domain/user';
 import { UserRepository } from 'src/users/application/ports/user.repository';
 import { UserMapper } from '../../../shared/user.mapper';
 import { InMemoryUserEntity } from '../entities/user.entity';
+import {
+  CursorPageDto,
+  CursorPageMetaDto,
+  CursorPageOptionsDto,
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Injectable()
 export class InMemoryUserRepository implements UserRepository {
   private readonly store = new Map<string, InMemoryUserEntity>();
 
   constructor(private readonly mapper: UserMapper) {}
+
+  findAll(options: PageOptionsDto): Promise<PageDto<User>> {
+    const entities = Array.from(this.store.values());
+    const domainUsers = entities.map((entity) => this.mapper.toDomain(entity));
+    const startIndex = options.skip;
+    const endIndex = startIndex + options.take;
+    const paginatedItems = domainUsers.slice(startIndex, endIndex);
+    const itemCount = domainUsers.length;
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto: options,
+    });
+    return Promise.resolve(new PageDto(paginatedItems, pageMetaDto));
+  }
+
+  async findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<User>> {
+    const { cursor, take } = options;
+
+    const entities = Array.from(this.store.values());
+    const domainUsers = entities.map((entity) => this.mapper.toDomain(entity));
+
+    domainUsers.sort((a, b) => b.getId().localeCompare(a.getId()));
+    let startIndex = 0;
+    if (cursor) {
+      const cursorIndex = domainUsers.findIndex((u) => u.getId() === cursor);
+      startIndex = cursorIndex >= 0 ? cursorIndex + 1 : 0;
+    }
+    const paginatedItems = domainUsers.slice(startIndex, startIndex + take + 1);
+    const hasNextPage = paginatedItems.length > take;
+    if (hasNextPage) {
+      paginatedItems.pop();
+    }
+    const endCursor =
+      paginatedItems.length > 0
+        ? paginatedItems[paginatedItems.length - 1].getId()
+        : null;
+    const meta = new CursorPageMetaDto(hasNextPage, endCursor);
+    return Promise.resolve(new CursorPageDto(paginatedItems, meta));
+  }
 
   async save(user: User): Promise<void> {
     const data = this.mapper.toPersistence(user);
@@ -19,12 +68,6 @@ export class InMemoryUserRepository implements UserRepository {
   async delete(id: string): Promise<void> {
     this.store.delete(id);
     return Promise.resolve();
-  }
-
-  async findAll(): Promise<User[]> {
-    return Promise.resolve(
-      Array.from(this.store.values()).map((e) => this.mapper.toDomain(e)),
-    );
   }
 
   async findById(id: string): Promise<User | null> {

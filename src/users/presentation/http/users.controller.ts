@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -23,6 +24,11 @@ import { AuthorizationPort } from 'src/iam/application/ports/authorization.port'
 import { CheckPolicies } from 'src/iam/presentation/http/decorators/check-policies.decorator';
 import { User } from 'src/users/domain/user';
 import { Action } from 'src/iam/domain/enums/action.enum';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
+import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 
 @UseGuards(PoliciesGuard)
 @Controller('users')
@@ -33,10 +39,6 @@ export class UsersController {
   ) {}
 
   @Post()
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Create, User),
-  ])
   async create(@Body() dto: CreateUserDto) {
     const command = new CreateUserCommand(
       dto.username,
@@ -52,16 +54,26 @@ export class UsersController {
   }
 
   @Get()
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Read, User),
-  ])
-  async findAll() {
-    const users = await this.queryService.findAll();
+  @CachePublic()
+  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
+    const users = await this.queryService.findAll(pageOptionsDto);
 
     return {
-      message: 'Users retrieved successfully',
-      data: UserResponseDto.fromMany(users),
+      message: 'Products fetched successfully',
+      data: users.data.map((user) => UserResponseDto.from(user)),
+      meta: users.meta,
+    };
+  }
+
+  @Get('cursor')
+  @CachePublic()
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+    const result = await this.queryService.findAllCursor(options);
+
+    return {
+      message: 'Products fetched successfully (Cursor)',
+      data: result.data.map((user) => UserResponseDto.from(user)),
+      meta: result.meta,
     };
   }
 
@@ -82,10 +94,6 @@ export class UsersController {
   }
 
   @Get(':id')
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Read, User),
-  ])
   async findOne(@Param('id') id: string) {
     const user = await this.queryService.findById(new GetUserByIdQuery(id));
 
@@ -96,10 +104,6 @@ export class UsersController {
   }
 
   @Patch(':id')
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Update, User),
-  ])
   async update(
     @ActiveUser() activeUser: ActiveUserData,
     @Param('id') id: string,
@@ -115,10 +119,6 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @CheckPolicies([
-    (authPort: AuthorizationPort, user: ActiveUserData) =>
-      authPort.checkPermission(user, Action.Delete, User),
-  ])
   async remove(@Param('id') id: string) {
     await this.commandService.remove(id);
 
