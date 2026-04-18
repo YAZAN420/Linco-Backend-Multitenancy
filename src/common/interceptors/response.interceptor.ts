@@ -5,30 +5,28 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-
-interface ControllerResponse<T> {
-  message?: string;
-  data: T;
-  meta?: Record<string, unknown>;
-}
-
-interface ApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  meta?: Record<string, unknown>;
-  timestamp: string;
-}
+import { ApiResponse } from '../interfaces/api-response.interface';
+import { ControllerResponse } from '../interfaces/controller-response.interface';
+import { Reflector } from '@nestjs/core';
+import { SkipResponseWrap } from '../decorators/skip-response-wrap.decorator';
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<
   ControllerResponse<T>,
-  ApiResponse<T>
+  ApiResponse<T> | ControllerResponse<T>
 > {
+  constructor(private readonly reflector: Reflector) {}
   intercept(
     context: ExecutionContext,
     next: CallHandler<ControllerResponse<T>>,
   ) {
+    const skip = this.reflector.getAllAndOverride<boolean>(SkipResponseWrap, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (skip) {
+      return next.handle();
+    }
     return next.handle().pipe(
       map((response): ApiResponse<T> => {
         const apiResponse: ApiResponse<T> = {
