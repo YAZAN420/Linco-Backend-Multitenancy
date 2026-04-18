@@ -103,7 +103,9 @@ export class AuthenticationController {
     @Res({ passthrough: true }) response: Response,
   ) {
     response.clearCookie('accessToken');
-    response.clearCookie('refreshToken', { path: '/authentication/refresh' });
+    response.clearCookie('refreshToken', {
+      path: '/authentication/refresh-tokens',
+    });
     return this.authService.signOut(user.id);
   }
 
