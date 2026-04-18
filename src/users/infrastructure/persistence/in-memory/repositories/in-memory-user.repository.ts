@@ -18,7 +18,7 @@ export class InMemoryUserRepository implements UserRepository {
 
   constructor(private readonly mapper: UserMapper) {}
 
-  findAll(options: PageOptionsDto): Promise<PageDto<User>> {
+  async findAll(options: PageOptionsDto): Promise<PageDto<User>> {
     const entities = Array.from(this.store.values());
     const domainUsers = entities.map((entity) => this.mapper.toDomain(entity));
     const startIndex = options.skip;

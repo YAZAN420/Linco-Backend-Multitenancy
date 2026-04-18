@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { RedisCacheAdapter } from './redis-cache.adapter';
 import { CachePort } from './cache.port';
+import { CacheBootstrapService } from './cache-bootstrap.service';
 
 @Global()
 @Module({
@@ -9,6 +10,7 @@ import { CachePort } from './cache.port';
       provide: CachePort,
       useClass: RedisCacheAdapter,
     },
+    CacheBootstrapService,
   ],
   exports: [CachePort],
 })

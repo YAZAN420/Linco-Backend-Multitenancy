@@ -10,7 +10,6 @@ export class UserMapper {
   toDomain(raw: UserPersistenceData): User {
     return this.userFactory.reconstitute(raw);
   }
-
   toPersistence(user: User): UserPersistenceData {
     return {
       _id: user.getId(),
