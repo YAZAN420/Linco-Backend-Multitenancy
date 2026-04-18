@@ -1,7 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { GlobalExceptionFilter } from 'src/common/filters/global-exception.filter';
 
 export function setupApp(app: INestApplication): void {
   app.use(helmet());
@@ -19,6 +18,4 @@ export function setupApp(app: INestApplication): void {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
-
-  app.useGlobalFilters(new GlobalExceptionFilter());
 }

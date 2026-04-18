@@ -1,8 +1,8 @@
-import { Logger } from '@nestjs/common';
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
 import { MailPort } from 'src/core/mail/mail.port';
+import { Logger } from 'nestjs-pino';
 
 interface MailJobData {
   email: string;
@@ -11,14 +11,15 @@ interface MailJobData {
 
 @Processor(IAM_CONSTANTS.MAIL_QUEUE, { concurrency: 10 })
 export class MailProcessor extends WorkerHost {
-  private readonly logger = new Logger(MailProcessor.name);
-
   private readonly handlers: Record<
     string,
     (data: MailJobData) => Promise<void>
   >;
 
-  constructor(private readonly mailPort: MailPort) {
+  constructor(
+    private readonly mailPort: MailPort,
+    private readonly logger: Logger,
+  ) {
     super();
     this.handlers = {
       [MAIL_JOBS.SEND_VERIFICATION_EMAIL]: (data) =>

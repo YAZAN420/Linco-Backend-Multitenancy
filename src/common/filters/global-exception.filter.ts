@@ -4,14 +4,13 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
-  Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { Logger } from 'nestjs-pino';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(GlobalExceptionFilter.name);
-
+  constructor(private readonly logger: Logger) {}
   catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
 
@@ -46,7 +45,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       }
     } else if (this.isMongoDuplicateKeyError(exception)) {
       httpStatus = HttpStatus.CONFLICT;
-      message = 'Sorry, this record already exists in the system.';
+      message = 'this record already exists in the system.';
       errorType = 'DuplicateKeyError';
     } else if (exception instanceof Error) {
       this.logger.error(

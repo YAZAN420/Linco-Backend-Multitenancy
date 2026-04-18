@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HashingPort } from '../ports/hashing.port';
 import { TokenService } from './token.service';
 import { UsersQueryService } from 'src/users/application/users-query.service';
@@ -11,16 +11,17 @@ import {
   Invalid2FACodeException,
 } from '../../domain/exceptions/index';
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class AuthenticationService {
-  private readonly logger = new Logger(AuthenticationService.name);
   private readonly otp = new OTP();
 
   constructor(
     private readonly hashingPort: HashingPort,
     private readonly tokenService: TokenService,
     private readonly usersQueryService: UsersQueryService,
+    private readonly logger: Logger,
   ) {}
 
   async signIn(user: User, tfaCode?: string): Promise<SignInResult> {

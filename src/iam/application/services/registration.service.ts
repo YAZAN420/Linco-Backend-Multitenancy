@@ -1,4 +1,4 @@
-import { Injectable, Logger, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
@@ -7,16 +7,16 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
 import { SignUpDto } from 'src/iam/presentation/http/dto/sign-up.dto';
 import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class RegistrationService {
-  private readonly logger = new Logger(RegistrationService.name);
-
   constructor(
     private readonly usersCommandService: UsersCommandService,
     private readonly usersQueryService: UsersQueryService,
     @InjectQueue(IAM_CONSTANTS.MAIL_QUEUE)
     private readonly mailQueue: Queue,
+    private readonly logger: Logger,
   ) {}
 
   async signUp(signUpDto: SignUpDto): Promise<{ message: string }> {

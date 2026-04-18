@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
@@ -8,17 +8,17 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import { GetUserByEmailQuery } from 'src/users/application/queries/get-user-by-email.query';
 import { InvalidResetTokenException } from '../../domain/exceptions';
 import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class PasswordManagementService {
-  private readonly logger = new Logger(PasswordManagementService.name);
-
   constructor(
     private readonly hashingPort: HashingPort,
     private readonly usersCommandService: UsersCommandService,
     private readonly usersQueryService: UsersQueryService,
     @InjectQueue(IAM_CONSTANTS.MAIL_QUEUE)
     private readonly mailQueue: Queue,
+    private readonly logger: Logger,
   ) {}
 
   async forgotPassword(email: string): Promise<{ message: string }> {

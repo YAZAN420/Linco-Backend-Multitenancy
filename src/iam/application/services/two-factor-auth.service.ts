@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { OTP } from 'otplib';
 import { toDataURL } from 'qrcode';
 import { UsersCommandService } from 'src/users/application/users-command.service';
@@ -9,15 +9,16 @@ import {
   Missing2FASecretException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class TwoFactorAuthService {
-  private readonly logger = new Logger(TwoFactorAuthService.name);
   private readonly otp = new OTP();
 
   constructor(
     private readonly usersCommandService: UsersCommandService,
     private readonly usersQueryService: UsersQueryService,
+    private readonly logger: Logger,
   ) {}
 
   async generateSecret(

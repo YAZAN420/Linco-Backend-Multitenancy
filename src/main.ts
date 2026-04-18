@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+import { Logger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
 import { setupApp } from './setup/app.setup';
@@ -18,7 +18,6 @@ async function bootstrap() {
 
     const logger = app.get(Logger);
     app.useLogger(logger);
-    app.useGlobalInterceptors(new LoggerErrorInterceptor());
 
     setupApp(app);
 

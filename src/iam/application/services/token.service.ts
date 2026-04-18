@@ -1,4 +1,4 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { TokenPort } from '../ports/token.port';
 import { HashingPort } from '../ports/hashing.port';
 import { UsersCommandService } from 'src/users/application/users-command.service';
@@ -7,16 +7,16 @@ import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.q
 import { RefreshTokenDto } from 'src/iam/presentation/http/dto/refresh-token.dto';
 import { User } from 'src/users/domain/user';
 import { TokenPair } from '../../domain/interfaces/token-pair.interface';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class TokenService {
-  private readonly logger = new Logger(TokenService.name);
-
   constructor(
     private readonly tokenPort: TokenPort,
     private readonly hashingPort: HashingPort,
     private readonly usersCommandService: UsersCommandService,
     private readonly usersQueryService: UsersQueryService,
+    private readonly logger: Logger,
   ) {}
 
   async generateTokens(user: User): Promise<TokenPair> {

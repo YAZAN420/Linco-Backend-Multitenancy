@@ -41,6 +41,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { TurnOn2FADto } from './dto/turn-on-2fa.dto';
+import { IsWeb } from './decorators/is-web.decorator';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -64,8 +65,8 @@ export class AuthenticationController {
     @Req() request: Request,
     @Body() dto: SignInDto,
     @Res({ passthrough: true }) response: Response,
+    @IsWeb() isWeb: boolean,
   ) {
-    const isWeb = request.headers['user-agent']?.includes('Mozilla');
     const result = await this.authService.signIn(
       request.user as User,
       dto.tfaCode,
@@ -77,7 +78,6 @@ export class AuthenticationController {
         result.tokens.accessToken,
         result.tokens.refreshToken,
       );
-
       return {
         message: 'User signed in successfully',
         data: {
@@ -85,7 +85,6 @@ export class AuthenticationController {
         },
       };
     }
-
     return {
       message: 'User signed in successfully',
       data: {
@@ -114,8 +113,8 @@ export class AuthenticationController {
     @Req() request: Request,
     @Body() dto: RefreshTokenDto,
     @Res({ passthrough: true }) response: Response,
+    @IsWeb() isWeb: boolean,
   ) {
-    const isWeb = request.headers['user-agent']?.includes('Mozilla');
     const cookies = request.cookies as Record<string, string>;
     const refreshToken: string | undefined = isWeb
       ? cookies?.refreshToken
