@@ -1,19 +1,27 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNumber, IsString, validateSync, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsString,
+  validateSync,
+  Min,
+  IsOptional,
+} from 'class-validator';
 
 enum Environment {
   Development = 'development',
   Production = 'production',
-  Test = 'test',
 }
 
 class EnvironmentVariables {
   @IsEnum(Environment)
-  NODE_ENV!: Environment;
+  @IsOptional()
+  NODE_ENV: Environment = Environment.Development;
 
   @IsNumber()
   @Min(0)
-  PORT!: number;
+  @IsOptional()
+  PORT: number = 3000;
 
   @IsString()
   MONGO_URI!: string;
@@ -53,7 +61,15 @@ export function validate(config: Record<string, unknown>) {
   });
 
   if (errors.length > 0) {
-    throw new Error(errors.toString());
+    const formattedErrors = errors
+      .map((error) => {
+        const constraints = Object.values(error.constraints || {}).join(', ');
+        return `❌ [${error.property}]: ${constraints}`;
+      })
+      .join('\n');
+    throw new Error(
+      `\n⚠️  Environment Variables Validation Failed:\n${formattedErrors}\n`,
+    );
   }
   return validatedConfig;
 }

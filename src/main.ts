@@ -1,60 +1,40 @@
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import cookieParser from 'cookie-parser';
-import helmet from 'helmet';
-import { ResponseInterceptor } from './common/interceptors/response.interceptor';
-import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { setupApp } from './setup/app.setup';
+import { setupSwagger } from './setup/swagger.setup';
 
 async function bootstrap() {
   try {
-    const dbDriver = 'mongoose';
+    const dbDriver =
+      (process.env.DB_DRIVER as 'mongoose' | 'in-memory') || 'mongoose';
+
     const app = await NestFactory.create(
       AppModule.register({ driver: dbDriver }),
-    );
-    app.useGlobalFilters(new GlobalExceptionFilter());
-    app.useGlobalInterceptors(new ResponseInterceptor());
-    app.use(helmet());
-
-    app.enableCors({
-      origin: true,
-      credentials: true,
-    });
-    app.useGlobalPipes(
-      new ValidationPipe({
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        transform: true,
-        transformOptions: {
-          enableImplicitConversion: true,
-        },
-      }),
+      { bufferLogs: true },
     );
 
-    app.use(cookieParser());
+    const logger = app.get(Logger);
+    app.useLogger(logger);
+    app.useGlobalInterceptors(new LoggerErrorInterceptor());
 
-    const config = new DocumentBuilder()
-      .setTitle('NestJS Course API')
-      .setDescription('The helper API description')
-      .setVersion('1.0')
-      .addBearerAuth(
-        {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        },
-        'access-token',
-      )
-      .build();
+    setupApp(app);
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
+    setupSwagger(app);
 
-    await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
+    const configService = app.get(ConfigService);
+    const port = configService.get<number>('PORT', 3000);
+
+    await app.listen(port, '0.0.0.0');
+
+    logger.log(`🚀 Application is running on: http://localhost:${port}`);
+    logger.log(`📚 Swagger documentation at: http://localhost:${port}/api`);
   } catch (error) {
-    console.error(error);
+    console.error('❌ Application failed to start', error);
     process.exit(1);
   }
 }
-bootstrap().catch(console.error);
+
+bootstrap().catch((err) => console.log(err));
