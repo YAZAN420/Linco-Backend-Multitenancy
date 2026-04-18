@@ -7,7 +7,16 @@ import { ActiveUserData } from '../../../domain/interfaces/active-user-data.inte
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
+import { Request } from 'express';
 
+type JwtRequest = Request & {
+  cookies?: {
+    accessToken?: string;
+  };
+  auth?: {
+    token?: string;
+  };
+};
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -15,10 +24,20 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
     private readonly cls: ClsService<AppClsStore>,
   ) {
+    const cookieExtractor = (req: JwtRequest): string | null =>
+      req.cookies?.accessToken ?? null;
+    const wsExtractor = (req: JwtRequest): string | null =>
+      req.auth?.token ?? null;
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        cookieExtractor,
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+        wsExtractor,
+      ]),
       ignoreExpiration: false,
       secretOrKey: jwtConfiguration.secret!,
+      issuer: jwtConfiguration.issuer,
+      audience: jwtConfiguration.audience,
     });
   }
 

@@ -36,17 +36,17 @@ export class TokenService {
 
   async refreshTokens(
     refreshTokenDto: RefreshTokenDto,
-  ): Promise<{ data: TokenPair }> {
+  ): Promise<{ tokens: TokenPair }> {
     try {
       const { id } = await this.tokenPort.verifyToken<{ id: string }>(
-        refreshTokenDto.refreshToken,
+        refreshTokenDto.refreshToken!,
       );
 
       const query = new GetUserByIdQuery(id);
       const user = await this.usersQueryService.findById(query);
 
       const isValid = await this.hashingPort.compare(
-        refreshTokenDto.refreshToken,
+        refreshTokenDto.refreshToken!,
         user.getRefreshToken() ?? '',
       );
 
@@ -56,7 +56,7 @@ export class TokenService {
 
       const tokens = await this.generateTokens(user);
 
-      return { data: tokens };
+      return { tokens: tokens };
     } catch (error) {
       this.logger.warn(`Failed to refresh tokens: ${error}`);
       throw new UnauthorizedException('Access Denied');

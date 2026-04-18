@@ -9,6 +9,7 @@ import {
   Inject,
   Query,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import type { Request, Response } from 'express';
@@ -64,31 +65,84 @@ export class AuthenticationController {
     @Body() dto: SignInDto,
     @Res({ passthrough: true }) response: Response,
   ) {
+    const isWeb = request.headers['user-agent']?.includes('Mozilla');
     const result = await this.authService.signIn(
       request.user as User,
       dto.tfaCode,
     );
 
-    this.setRefreshTokenCookie(response, result.tokens.refreshToken);
+    if (isWeb) {
+      this.setAuthCookies(
+        response,
+        result.tokens.accessToken,
+        result.tokens.refreshToken,
+      );
+
+      return {
+        message: 'User signed in successfully',
+        data: {
+          user: UserResponseDto.from(result.user),
+        },
+      };
+    }
 
     return {
       message: 'User signed in successfully',
       data: {
         user: UserResponseDto.from(result.user),
         accessToken: result.tokens.accessToken,
+        refreshToken: result.tokens.refreshToken,
       },
     };
   }
 
   @Post('sign-out')
   @HttpCode(HttpStatus.OK)
-  signOut(@ActiveUser() user: ActiveUserData) {
+  signOut(
+    @ActiveUser() user: ActiveUserData,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    response.clearCookie('accessToken');
+    response.clearCookie('refreshToken', { path: '/authentication/refresh' });
     return this.authService.signOut(user.id);
   }
 
   @AuthRefreshTokens()
-  refreshTokens(@Body() dto: RefreshTokenDto) {
-    return this.tokenService.refreshTokens(dto);
+  async refreshTokens(
+    @Req() request: Request,
+    @Body() dto: RefreshTokenDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const isWeb = request.headers['user-agent']?.includes('Mozilla');
+    const cookies = request.cookies as Record<string, string>;
+    const refreshToken: string | undefined = isWeb
+      ? cookies?.refreshToken
+      : dto.refreshToken;
+    if (!refreshToken) {
+      throw new UnauthorizedException('Refresh token is required');
+    }
+
+    const result = await this.tokenService.refreshTokens({ refreshToken });
+
+    if (isWeb) {
+      this.setAuthCookies(
+        response,
+        result.tokens.accessToken,
+        result.tokens.refreshToken,
+      );
+
+      return {
+        message: 'Tokens refreshed successfully',
+      };
+    }
+
+    return {
+      message: 'Tokens refreshed successfully',
+      data: {
+        accessToken: result.tokens.accessToken,
+        refreshToken: result.tokens.refreshToken,
+      },
+    };
   }
 
   @Post('2fa/generate')
@@ -124,15 +178,24 @@ export class AuthenticationController {
     return this.passwordService.resetPassword(dto.token, dto.password);
   }
 
-  private setRefreshTokenCookie(
+  private setAuthCookies(
     response: Response,
+    accessToken: string,
     refreshToken: string,
   ): void {
+    response.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: this.jwtConfiguration.cookieSecure,
+      sameSite: 'strict',
+      maxAge: this.jwtConfiguration.accessCookieMaxAge,
+    });
+
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: this.jwtConfiguration.cookieSecure,
       sameSite: 'strict',
-      maxAge: this.jwtConfiguration.cookieMaxAge,
+      maxAge: this.jwtConfiguration.refreshCookieMaxAge,
+      path: '/authentication/refresh-tokens',
     });
   }
 }
