@@ -15,7 +15,7 @@ export class NodemailerAdapter implements MailPort {
     this.transporter = nodemailer.createTransport({
       host: this.mailConfiguration.host,
       port: this.mailConfiguration.port,
-      secure: false,
+      secure: this.mailConfiguration.port === 465,
       auth: {
         user: this.mailConfiguration.user,
         pass: this.mailConfiguration.pass,
@@ -24,10 +24,13 @@ export class NodemailerAdapter implements MailPort {
   }
 
   async sendVerificationEmail(to: string, token: string) {
-    const verificationUrl = `http://localhost:3000/authentication/verify-email?token=${token}`;
+    const verificationUrl = this.buildAppUrl(
+      '/authentication/verify-email',
+      token,
+    );
 
     await this.transporter.sendMail({
-      from: '"Application Security" <no-reply@app.com>',
+      from: `"Application Security" <${this.mailConfiguration.fromAddress}>`,
       to,
       subject: 'Verify your email address',
       html: `
@@ -39,10 +42,10 @@ export class NodemailerAdapter implements MailPort {
   }
 
   async sendPasswordResetEmail(to: string, token: string) {
-    const resetUrl = `http://localhost:3000/authentication/reset-password?token=${token}`;
+    const resetUrl = this.buildAppUrl('/authentication/reset-password', token);
 
     await this.transporter.sendMail({
-      from: '"Application Security" <no-reply@app.com>',
+      from: `"Application Security" <${this.mailConfiguration.fromAddress}>`,
       to,
       subject: 'Password Reset Request',
       html: `
@@ -52,5 +55,11 @@ export class NodemailerAdapter implements MailPort {
         <p>If you did not request this, please ignore this email.</p>
       `,
     });
+  }
+
+  private buildAppUrl(pathname: string, token: string): string {
+    const url = new URL(pathname, this.mailConfiguration.appBaseUrl);
+    url.searchParams.set('token', token);
+    return url.toString();
   }
 }

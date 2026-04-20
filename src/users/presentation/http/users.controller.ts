@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,14 +18,14 @@ import { UsersCommandService } from 'src/users/application/users-command.service
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import type { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { PoliciesGuard } from 'src/iam/presentation/http/guards/policies.guard';
 import {
   CursorPageOptionsDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
+import { Role } from 'src/users/domain/enums/role.enum';
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
 
-@UseGuards(PoliciesGuard)
 @Controller('users')
 export class UsersController {
   constructor(
@@ -34,6 +33,7 @@ export class UsersController {
     private readonly queryService: UsersQueryService,
   ) {}
 
+  @Roles([Role.Admin])
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const command = new CreateUserCommand(
@@ -49,6 +49,7 @@ export class UsersController {
     };
   }
 
+  @Roles([Role.Admin])
   @Get()
   @CachePublic()
   async findAll(@Query() pageOptionsDto: PageOptionsDto) {
@@ -61,6 +62,7 @@ export class UsersController {
     };
   }
 
+  @Roles([Role.Admin])
   @Get('cursor')
   @CachePublic()
   async findWithCursor(@Query() options: CursorPageOptionsDto) {
@@ -85,6 +87,7 @@ export class UsersController {
     };
   }
 
+  @Roles([Role.Admin])
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.queryService.findById(new GetUserByIdQuery(id));
@@ -95,6 +98,7 @@ export class UsersController {
     };
   }
 
+  @Roles([Role.Admin])
   @Patch(':id')
   async update(
     @ActiveUser() activeUser: ActiveUserData,
@@ -110,9 +114,13 @@ export class UsersController {
     };
   }
 
+  @Roles([Role.Admin])
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.commandService.remove(id);
+  async remove(
+    @ActiveUser() activeUser: ActiveUserData,
+    @Param('id') id: string,
+  ) {
+    await this.commandService.remove(activeUser, id);
 
     return {
       message: 'User deleted successfully',

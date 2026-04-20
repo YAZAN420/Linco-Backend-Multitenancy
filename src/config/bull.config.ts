@@ -1,13 +1,15 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('bull', () => {
-  const password = process.env.REDIS_PASSWORD;
   return {
     connection: {
-      host: process.env.REDIS_HOST,
-      port: parseInt(process.env.REDIS_PORT!, 10) || 6379,
-      password: password,
-      tls: password ? { rejectUnauthorized: false } : undefined,
+      host: process.env.REDIS_HOST || 'localhost',
+      port: Number(process.env.REDIS_PORT ?? 6379),
+      password: process.env.REDIS_PASSWORD || undefined,
+      tls:
+        process.env.REDIS_TLS === 'true'
+          ? { rejectUnauthorized: true }
+          : undefined,
       maxRetriesPerRequest: null,
       enableReadyCheck: false,
       keepAlive: 30000,

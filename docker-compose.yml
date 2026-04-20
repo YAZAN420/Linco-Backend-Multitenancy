@@ -29,8 +29,8 @@ services:
       - db
     environment:
       - ME_CONFIG_MONGODB_URL=mongodb://db:27017/?replicaSet=rs0
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=root
+      - MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
 
   redis:
     image: redis

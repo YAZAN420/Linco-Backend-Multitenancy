@@ -5,4 +5,6 @@ export default registerAs('mail', () => ({
   port: Number(process.env.SMTP_PORT) || 587,
   user: process.env.SMTP_USER,
   pass: process.env.SMTP_PASS,
+  appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:3000',
+  fromAddress: process.env.MAIL_FROM || 'no-reply@app.com',
 }));

@@ -48,9 +48,8 @@ export class UsersCommandService {
     activeUser: ActiveUserData,
     command: UpdateUserProfileCommand,
   ): Promise<User> {
-    this.assertPermission(activeUser, Action.Update);
-
     const user = await this.findUserOrThrow(command.userId);
+    this.assertPermission(activeUser, Action.Update, user);
 
     if (command.username) {
       await this.ensureUsernameIsUnique(command.username, user.getId());
@@ -63,8 +62,9 @@ export class UsersCommandService {
     return user;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.findUserOrThrow(id);
+  async remove(activeUser: ActiveUserData, id: string): Promise<void> {
+    const user = await this.findUserOrThrow(id);
+    this.assertPermission(activeUser, Action.Delete, user);
     await this.userRepository.delete(id);
     this.invalidateUserListCache();
   }
@@ -96,8 +96,16 @@ export class UsersCommandService {
     return user;
   }
 
-  private assertPermission(activeUser: ActiveUserData, action: Action): void {
-    const isAllowed = this.authPort.checkPermission(activeUser, action, User);
+  private assertPermission(
+    activeUser: ActiveUserData,
+    action: Action,
+    subject: User,
+  ): void {
+    const isAllowed = this.authPort.checkPermission(
+      activeUser,
+      action,
+      subject,
+    );
     if (!isAllowed) {
       throw new ForbiddenException(
         'You do not have permission to perform this action',

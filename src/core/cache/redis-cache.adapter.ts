@@ -21,9 +21,19 @@ export class RedisCacheAdapter
   ) {}
 
   onModuleInit() {
+    const rejectUnauthorized = Boolean(
+      this.redisConfiguration.tlsRejectUnauthorized,
+    );
+
     this.redisClient = new Redis({
       host: this.redisConfiguration.host,
       port: this.redisConfiguration.port,
+      password: this.redisConfiguration.password,
+      tls: this.redisConfiguration.tlsEnabled
+        ? {
+            rejectUnauthorized,
+          }
+        : undefined,
     });
   }
 

@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CoreModule } from './core/core.module';
 import { IamModule } from './iam/iam.module';
 import { UsersModule } from './users/users.module';
@@ -8,6 +8,7 @@ import { ApplicationBootstrapOptions } from './common/interfaces/application-boo
 import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({})
 export class AppModule {
@@ -25,6 +26,7 @@ export class AppModule {
         { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
         { provide: APP_FILTER, useClass: GlobalExceptionFilter },
+        { provide: APP_GUARD, useClass: ThrottlerGuard },
       ],
     };
   }

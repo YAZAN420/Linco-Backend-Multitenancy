@@ -20,7 +20,7 @@ export class UserDocument {
   @Prop({
     type: String,
     enum: Role,
-    default: Role.Regular,
+    default: Role.User,
   })
   role!: Role;
 
