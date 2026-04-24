@@ -1,8 +1,8 @@
 import {
   applyDecorators,
-  Post,
   HttpCode,
   HttpStatus,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
@@ -15,7 +15,7 @@ export function AuthSignIn() {
     Post('sign-in'),
     HttpCode(HttpStatus.OK),
     UseGuards(LocalAuthGuard),
-    Throttle({ default: { limit: 5, ttl: 60000 } }),
+    Throttle({ default: { limit: 5, ttl: 60_000 } }),
   );
 }
 
@@ -36,5 +36,5 @@ export function AuthRefreshTokens() {
 }
 
 export function AuthTurnOn2FA() {
-  return applyDecorators(Post('2fa/turn-on'), HttpCode(HttpStatus.OK));
+  return applyDecorators(Post('turn-on'), HttpCode(HttpStatus.OK));
 }

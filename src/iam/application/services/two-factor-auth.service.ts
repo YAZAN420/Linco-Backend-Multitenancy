@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OTP } from 'otplib';
 import { toDataURL } from 'qrcode';
+import { Logger } from 'nestjs-pino';
 import { UsersCommandService } from 'src/users/application/users-command.service';
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
@@ -9,7 +10,7 @@ import {
   Missing2FASecretException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
-import { Logger } from 'nestjs-pino';
+import { MessageResponse } from '../interfaces/message-response.interface';
 
 @Injectable()
 export class TwoFactorAuthService {
@@ -23,14 +24,14 @@ export class TwoFactorAuthService {
 
   async generateSecret(
     activeUser: ActiveUserData,
-  ): Promise<{ data: { qrCode: string } }> {
+  ): Promise<{ qrCode: string }> {
     const query = new GetUserByIdQuery(activeUser.id);
     const user = await this.usersQueryService.findById(query);
 
     const secret = this.otp.generateSecret();
     const otpauthUrl = this.otp.generateURI({
       label: user.getEmailValue(),
-      issuer: 'NestJS Course API',
+      issuer: 'NestJS Server',
       secret,
     });
 
@@ -38,28 +39,22 @@ export class TwoFactorAuthService {
     await this.usersCommandService.save(user);
 
     const qrCode = await toDataURL(otpauthUrl);
-
     this.logger.log(`2FA secret generated for user: ${activeUser.id}`);
 
-    return { data: { qrCode } };
+    return { qrCode };
   }
 
-  async turnOn(userId: string, code: string): Promise<{ message: string }> {
+  async turnOn(userId: string, code: string): Promise<MessageResponse> {
     const query = new GetUserByIdQuery(userId);
     const user = await this.usersQueryService.findById(query);
 
     const secret = user.getTwoFactorAuthenticationSecret();
-
     if (!secret) {
       throw new Missing2FASecretException();
     }
 
-    const isCodeValid = await this.otp.verify({
-      token: code,
-      secret,
-    });
-
-    if (!isCodeValid) {
+    const { valid } = await this.otp.verify({ token: code, secret });
+    if (!valid) {
       throw new Invalid2FACodeException();
     }
 
@@ -68,8 +63,6 @@ export class TwoFactorAuthService {
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);
 
-    return {
-      message: 'Two-factor authentication successfully enabled',
-    };
+    return { message: 'Two-factor authentication successfully enabled' };
   }
 }

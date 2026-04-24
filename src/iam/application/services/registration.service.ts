@@ -1,27 +1,28 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import * as crypto from 'crypto';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
+import { Injectable } from '@nestjs/common';
+import { Logger } from 'nestjs-pino';
 import { UsersCommandService } from 'src/users/application/users-command.service';
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
 import { SignUpDto } from 'src/iam/presentation/http/dto/sign-up.dto';
-import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
-import { Logger } from 'nestjs-pino';
+import { CryptoPort } from '../ports/crypto.port';
+import { MailQueueService } from './mail-queue.service';
+import { MAIL_JOBS } from '../constants/mail.constants';
+import { InvalidVerificationTokenException } from '../../domain/exceptions';
+import { MessageResponse } from '../interfaces/message-response.interface';
 
 @Injectable()
 export class RegistrationService {
   constructor(
     private readonly usersCommandService: UsersCommandService,
     private readonly usersQueryService: UsersQueryService,
-    @InjectQueue(IAM_CONSTANTS.MAIL_QUEUE)
-    private readonly mailQueue: Queue,
+    private readonly cryptoPort: CryptoPort,
+    private readonly mailQueueService: MailQueueService,
     private readonly logger: Logger,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<{ message: string }> {
-    const verificationToken = this.generateSecureToken();
-    const hashedToken = this.hashToken(verificationToken);
+  async signUp(signUpDto: SignUpDto): Promise<MessageResponse> {
+    const verificationToken = this.cryptoPort.generateSecureToken();
+    const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
     const command = new CreateUserCommand(
       signUpDto.username,
@@ -30,11 +31,15 @@ export class RegistrationService {
     );
 
     const newUser = await this.usersCommandService.create(command);
-
     newUser.setVerificationToken(hashedToken);
     await this.usersCommandService.save(newUser);
 
-    await this.enqueueVerificationEmail(signUpDto.email, verificationToken);
+    await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
+      email: signUpDto.email,
+      token: verificationToken,
+    });
+
+    this.logger.log(`User registered: ${newUser.getId()}`);
 
     return {
       message:
@@ -42,45 +47,21 @@ export class RegistrationService {
     };
   }
 
-  async verifyEmail(token: string): Promise<{ message: string }> {
-    const hashedToken = this.hashToken(token);
+  async verifyEmail(token: string): Promise<MessageResponse> {
+    const hashedToken = this.cryptoPort.hashToken(token);
 
     const user =
       await this.usersQueryService.findByVerificationToken(hashedToken);
 
     if (!user) {
-      throw new BadRequestException('Invalid or expired verification token');
+      throw new InvalidVerificationTokenException();
     }
 
     user.verifyEmail(hashedToken);
     await this.usersCommandService.save(user);
 
+    this.logger.log(`Email verified for user: ${user.getId()}`);
+
     return { message: 'Email verified successfully.' };
-  }
-
-  private generateSecureToken(): string {
-    return crypto.randomBytes(IAM_CONSTANTS.TOKEN_BYTES).toString('hex');
-  }
-
-  private hashToken(token: string): string {
-    return crypto.createHash('sha256').update(token).digest('hex');
-  }
-
-  private async enqueueVerificationEmail(
-    email: string,
-    token: string,
-  ): Promise<void> {
-    await this.mailQueue.add(
-      MAIL_JOBS.SEND_VERIFICATION_EMAIL,
-      { email, token },
-      {
-        attempts: IAM_CONSTANTS.MAIL_RETRY_ATTEMPTS,
-        backoff: {
-          type: 'exponential',
-          delay: IAM_CONSTANTS.MAIL_RETRY_DELAY_MS,
-        },
-        removeOnComplete: true,
-      },
-    );
   }
 }

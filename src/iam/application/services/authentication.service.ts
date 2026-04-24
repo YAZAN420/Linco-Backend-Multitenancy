@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { OTP } from 'otplib';
 import { HashingPort } from '../ports/hashing.port';
 import { TokenService } from './token.service';
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { GetUserByEmailQuery } from 'src/users/application/queries/get-user-by-email.query';
 import { User } from 'src/users/domain/user';
-import { OTP } from 'otplib';
 import {
   EmailNotVerifiedException,
   TwoFactorRequiredException,
   Invalid2FACodeException,
-} from '../../domain/exceptions/index';
+} from '../../domain/exceptions';
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
-import { Logger } from 'nestjs-pino';
+import { MessageResponse } from '../interfaces/message-response.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -21,7 +21,6 @@ export class AuthenticationService {
     private readonly hashingPort: HashingPort,
     private readonly tokenService: TokenService,
     private readonly usersQueryService: UsersQueryService,
-    private readonly logger: Logger,
   ) {}
 
   async signIn(user: User, tfaCode?: string): Promise<SignInResult> {
@@ -34,7 +33,6 @@ export class AuthenticationService {
     }
 
     const tokens = await this.tokenService.generateTokens(user);
-
     return { user, tokens };
   }
 
@@ -51,14 +49,10 @@ export class AuthenticationService {
       user.getPasswordHash(),
     );
 
-    if (!isPasswordValid) {
-      return null;
-    }
-
-    return user;
+    return isPasswordValid ? user : null;
   }
 
-  async signOut(userId: string): Promise<{ message: string }> {
+  async signOut(userId: string): Promise<MessageResponse> {
     await this.tokenService.invalidateRefreshToken(userId);
     return { message: 'User signed out successfully' };
   }

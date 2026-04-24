@@ -1,11 +1,11 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
-import { MailPort } from 'src/core/mail/mail.port';
 import { Logger } from 'nestjs-pino';
-import { MailJobData } from 'src/iam/domain/interfaces/mail-job.interface';
+import { MailPort } from 'src/core/mail/mail.port';
+import { MAIL_CONSTANTS, MAIL_JOBS } from '../constants/mail.constants';
+import { MailJobData } from '../interfaces/mail-job-data.interface';
 
-@Processor(IAM_CONSTANTS.MAIL_QUEUE, { concurrency: 10 })
+@Processor(MAIL_CONSTANTS.QUEUE_NAME, { concurrency: 10 })
 export class MailProcessor extends WorkerHost {
   private readonly handlers: Record<
     string,

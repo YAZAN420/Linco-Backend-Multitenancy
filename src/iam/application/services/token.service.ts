@@ -1,13 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Logger } from 'nestjs-pino';
 import { TokenPort } from '../ports/token.port';
 import { HashingPort } from '../ports/hashing.port';
 import { UsersCommandService } from 'src/users/application/users-command.service';
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
-import { RefreshTokenDto } from 'src/iam/presentation/http/dto/refresh-token.dto';
 import { User } from 'src/users/domain/user';
 import { TokenPair } from '../../domain/interfaces/token-pair.interface';
-import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class TokenService {
@@ -34,36 +33,47 @@ export class TokenService {
     return tokenPair;
   }
 
-  async refreshTokens(
-    refreshTokenDto: RefreshTokenDto,
-  ): Promise<{ tokens: TokenPair }> {
-    try {
-      const { id } = await this.tokenPort.verifyToken<{ id: string }>(
-        refreshTokenDto.refreshToken!,
-      );
+  async refreshTokens(refreshTokenDto: {
+    refreshToken: string;
+  }): Promise<{ tokens: TokenPair }> {
+    const refreshToken = refreshTokenDto.refreshToken;
 
-      const query = new GetUserByIdQuery(id);
-      const user = await this.usersQueryService.findById(query);
+    const payload = await this.verifyRefreshToken(refreshToken);
+    const user = await this.getUserAndValidateToken(payload.id, refreshToken);
+    const tokens = await this.generateTokens(user);
 
-      const isValid = await this.hashingPort.compare(
-        refreshTokenDto.refreshToken!,
-        user.getRefreshToken() ?? '',
-      );
-
-      if (!isValid) {
-        throw new UnauthorizedException('Access Denied');
-      }
-
-      const tokens = await this.generateTokens(user);
-
-      return { tokens: tokens };
-    } catch (error) {
-      this.logger.warn(`Failed to refresh tokens: ${error}`);
-      throw new UnauthorizedException('Access Denied');
-    }
+    return { tokens };
   }
 
   async invalidateRefreshToken(userId: string): Promise<void> {
     await this.usersCommandService.updateRefreshToken(userId, null);
+  }
+
+  private async verifyRefreshToken(token: string): Promise<{ id: string }> {
+    try {
+      return await this.tokenPort.verifyToken<{ id: string }>(token);
+    } catch (error) {
+      this.logger.warn(`Invalid refresh token: ${error}`);
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+  }
+
+  private async getUserAndValidateToken(
+    userId: string,
+    token: string,
+  ): Promise<User> {
+    const query = new GetUserByIdQuery(userId);
+    const user = await this.usersQueryService.findById(query);
+
+    const isValid = await this.hashingPort.compare(
+      token,
+      user.getRefreshToken() ?? '',
+    );
+
+    if (!isValid) {
+      throw new UnauthorizedException('Access Denied');
+    }
+
+    return user;
   }
 }
