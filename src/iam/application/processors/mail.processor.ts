@@ -1,13 +1,9 @@
-import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { IAM_CONSTANTS, MAIL_JOBS } from '../../domain/constants/iam.constants';
 import { MailPort } from 'src/core/mail/mail.port';
 import { Logger } from 'nestjs-pino';
-
-interface MailJobData {
-  email: string;
-  token: string;
-}
+import { MailJobData } from 'src/iam/domain/interfaces/mail-job.interface';
 
 @Processor(IAM_CONSTANTS.MAIL_QUEUE, { concurrency: 10 })
 export class MailProcessor extends WorkerHost {
@@ -39,33 +35,5 @@ export class MailProcessor extends WorkerHost {
 
     await handler(job.data);
     this.logger.log(`${job.name} sent to ${job.data.email}`);
-  }
-
-  @OnWorkerEvent('active')
-  onActive(job: Job): void {
-    this.logger.log(
-      `Starting job ${job.id} [${job.name}] - Attempt ${job.attemptsMade + 1}`,
-    );
-  }
-
-  @OnWorkerEvent('completed')
-  onCompleted(job: Job): void {
-    this.logger.log(`Job ${job.id} [${job.name}] completed`);
-  }
-
-  @OnWorkerEvent('failed')
-  onFailed(job: Job, error: Error): void {
-    const isLastAttempt = job.attemptsMade >= (job.opts.attempts ?? 0);
-
-    if (isLastAttempt) {
-      this.logger.error(
-        `Job ${job.id} [${job.name}] permanently failed: ${error.message}`,
-        error.stack,
-      );
-    } else {
-      this.logger.warn(
-        `Job ${job.id} [${job.name}] failed (attempt ${job.attemptsMade}), will retry`,
-      );
-    }
   }
 }

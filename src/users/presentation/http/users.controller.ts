@@ -98,7 +98,6 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.Admin])
   @Patch(':id')
   async update(
     @ActiveUser() activeUser: ActiveUserData,

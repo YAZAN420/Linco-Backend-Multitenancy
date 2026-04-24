@@ -35,8 +35,6 @@ export class AuthenticationService {
 
     const tokens = await this.tokenService.generateTokens(user);
 
-    this.logger.log(`User ${user.getId()} signed in successfully`);
-
     return { user, tokens };
   }
 
@@ -62,9 +60,6 @@ export class AuthenticationService {
 
   async signOut(userId: string): Promise<{ message: string }> {
     await this.tokenService.invalidateRefreshToken(userId);
-
-    this.logger.log(`User ${userId} signed out successfully`);
-
     return { message: 'User signed out successfully' };
   }
 

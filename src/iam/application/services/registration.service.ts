@@ -36,8 +36,6 @@ export class RegistrationService {
 
     await this.enqueueVerificationEmail(signUpDto.email, verificationToken);
 
-    this.logger.log(`User registered successfully: ${signUpDto.email}`);
-
     return {
       message:
         'Registration successful. Please check your email to verify your account.',
@@ -56,8 +54,6 @@ export class RegistrationService {
 
     user.verifyEmail(hashedToken);
     await this.usersCommandService.save(user);
-
-    this.logger.log(`Email verified for user: ${user.getId()}`);
 
     return { message: 'Email verified successfully.' };
   }
