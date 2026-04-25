@@ -8,6 +8,7 @@ import {
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { User } from 'src/users/domain/user';
 import { UserResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
@@ -25,12 +26,15 @@ import {
   AuthSignUp,
 } from '../decorators/authentication.decorators';
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
+import type { SignInResult } from '../../../domain/interfaces/sign-in-result.interface';
 import { GoogleUserData } from '../../../domain/interfaces/google-user-data.interface';
 
 import { SignUpDto } from '../dto/sign-up.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
+import { GoogleMobileSignInDto } from '../dto/google-mobile-sign-in.dto';
 import { RegistrationService } from '../../../application/services/registration.service';
+import { Public } from '../decorators/public.decorator';
 import { AuthCookieService } from '../services/auth-cookie.service';
 
 @Controller('authentication')
@@ -101,6 +105,27 @@ export class AuthenticationController {
         data: { user: UserResponseDto.from(result.user) },
       };
     }
+
+    return {
+      message: 'User signed in successfully',
+      data: {
+        user: UserResponseDto.from(result.user),
+        accessToken: result.tokens.accessToken,
+        refreshToken: result.tokens.refreshToken,
+      },
+    };
+  }
+
+  @Public()
+  @Post('google/mobile')
+  @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  async googleMobileSignIn(@Body() dto: GoogleMobileSignInDto) {
+    const signInWithGoogleIdToken =
+      this.authService.signInWithGoogleIdToken.bind(this.authService) as (
+        idToken: string,
+      ) => Promise<SignInResult>;
+    const result = await signInWithGoogleIdToken(dto.idToken);
 
     return {
       message: 'User signed in successfully',

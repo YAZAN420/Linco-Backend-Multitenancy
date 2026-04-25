@@ -52,3 +52,12 @@ export function AuthGoogleCallback() {
     UseGuards(GoogleAuthGuard),
   );
 }
+
+export function AuthGoogleMobile() {
+  return applyDecorators(
+    Public(),
+    Post('google/mobile'),
+    HttpCode(HttpStatus.OK),
+    Throttle({ default: { limit: 10, ttl: 60_000 } }),
+  );
+}

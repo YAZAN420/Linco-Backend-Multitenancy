@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { randomBytes } from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
 import { OTP } from 'otplib';
 import { HashingPort } from '../ports/hashing.port';
 import { TokenService } from './token.service';
@@ -20,6 +21,7 @@ import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.inter
 @Injectable()
 export class AuthenticationService {
   private readonly otp = new OTP();
+  private readonly googleOAuthClient = new OAuth2Client();
 
   constructor(
     private readonly hashingPort: HashingPort,
@@ -89,6 +91,11 @@ export class AuthenticationService {
     return { user, tokens };
   }
 
+  async signInWithGoogleIdToken(idToken: string): Promise<SignInResult> {
+    const googleUser = await this.verifyGoogleIdToken(idToken);
+    return this.signInWithGoogle(googleUser);
+  }
+
   private async validate2FACode(user: User, tfaCode?: string): Promise<void> {
     if (!tfaCode) {
       throw new TwoFactorRequiredException();
@@ -104,31 +111,78 @@ export class AuthenticationService {
     }
   }
 
+  private async verifyGoogleIdToken(idToken: string): Promise<GoogleUserData> {
+    if (!idToken?.trim()) {
+      throw new UnauthorizedException('Google ID token is required');
+    }
+
+    const audience = process.env.GOOGLE_CLIENT_ID?.trim();
+    if (!audience) {
+      throw new UnauthorizedException('Google client ID is not configured');
+    }
+
+    try {
+      const ticket = await this.googleOAuthClient.verifyIdToken({
+        idToken,
+        audience,
+      });
+      const payload = ticket.getPayload();
+
+      const email = payload?.email?.trim().toLowerCase();
+      const emailVerified = payload?.email_verified === true;
+      const providerId = payload?.sub;
+
+      if (!email || !providerId || !emailVerified) {
+        throw new UnauthorizedException('Invalid Google ID token payload');
+      }
+
+      return {
+        email,
+        displayName:
+          payload?.name?.trim() ||
+          payload?.given_name?.trim() ||
+          email.split('@')[0],
+        providerId,
+      };
+    } catch {
+      throw new UnauthorizedException('Invalid Google ID token');
+    }
+  }
+
   private async generateUniqueUsername(
     displayName: string,
     email: string,
   ): Promise<string> {
-    const base =
+    const baseUsername =
       this.normalizeUsername(displayName) ||
       this.normalizeUsername(email.split('@')[0]) ||
       'user';
 
-    let username = base;
-    let counter = 1;
+    let counter = 0;
+    while (counter < 1000) {
+      const suffix = counter === 0 ? '' : String(counter);
+      const maxBaseLength = Math.max(3, 20 - suffix.length);
+      const username = `${baseUsername.slice(0, maxBaseLength)}${suffix}`;
 
-    while (await this.usersQueryService.findByUsername(username)) {
-      username = `${base}${counter}`;
-      counter++;
+      if (!(await this.usersQueryService.findByUsername(username))) {
+        return username;
+      }
+      counter += 1;
     }
 
-    return username;
+    return `user${Date.now().toString().slice(-8)}`;
   }
 
   private normalizeUsername(value: string): string {
-    return value
+    const normalized = value
       .trim()
       .toLowerCase()
-      .replace(/[^a-z0-9]/g, '')
-      .slice(0, 20);
+      .replace(/[^a-z0-9_]/g, '');
+
+    if (normalized.length < 3) {
+      return '';
+    }
+
+    return normalized.slice(0, 20);
   }
 }
