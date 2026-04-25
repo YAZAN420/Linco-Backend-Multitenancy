@@ -1,5 +1,6 @@
 import {
   applyDecorators,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -7,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Public } from './public.decorator';
 
 export function AuthSignIn() {
@@ -37,4 +39,16 @@ export function AuthRefreshTokens() {
 
 export function AuthTurnOn2FA() {
   return applyDecorators(Post('turn-on'), HttpCode(HttpStatus.OK));
+}
+
+export function AuthGoogle() {
+  return applyDecorators(Public(), Get('google'), UseGuards(GoogleAuthGuard));
+}
+
+export function AuthGoogleCallback() {
+  return applyDecorators(
+    Public(),
+    Get('google/callback'),
+    UseGuards(GoogleAuthGuard),
+  );
 }

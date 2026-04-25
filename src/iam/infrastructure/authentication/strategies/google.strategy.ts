@@ -1,0 +1,45 @@
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import type { ConfigType } from '@nestjs/config';
+import { Profile, Strategy } from 'passport-google-oauth20';
+import type { StrategyOptions } from 'passport-google-oauth20';
+import googleOAuthConfig from 'src/config/google-oauth.config';
+import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
+
+@Injectable()
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  constructor(
+    @Inject(googleOAuthConfig.KEY)
+    private readonly googleConfiguration: ConfigType<typeof googleOAuthConfig>,
+  ) {
+    const options: StrategyOptions = {
+      clientID: googleConfiguration.clientId!,
+      clientSecret: googleConfiguration.clientSecret!,
+      callbackURL: googleConfiguration.callbackUrl!,
+      scope: ['email', 'profile'],
+    };
+
+    super(options);
+  }
+
+  validate(
+    _accessToken: string,
+    _refreshToken: string,
+    profile: Profile,
+  ): GoogleUserData {
+    const email = profile.emails?.[0]?.value?.trim().toLowerCase();
+    if (!email) {
+      throw new UnauthorizedException(
+        'Google account does not provide a valid email',
+      );
+    }
+    const name =
+      profile.displayName?.trim() || profile.username || email.split('@')[0];
+
+    return {
+      email,
+      displayName: name,
+      providerId: profile.id,
+    };
+  }
+}

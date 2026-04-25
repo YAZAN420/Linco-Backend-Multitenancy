@@ -123,6 +123,12 @@ export class User {
     this.touch();
   }
 
+  markEmailVerified(): void {
+    this.isEmailVerified = true;
+    this.emailVerificationToken = null;
+    this.touch();
+  }
+
   enableTwoFactorAuth(secret: string): void {
     if (!this.isEmailVerified) {
       throw new Error('Email must be verified before enabling 2FA');

@@ -3,11 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 import jwtConfig from 'src/config/jwt.config';
+import googleOAuthConfig from 'src/config/google-oauth.config';
 
 import { IamApplicationModule } from '../application/application.module';
 
 import { JwtStrategy } from '../infrastructure/authentication/strategies/jwt.strategy';
 import { LocalStrategy } from '../infrastructure/authentication/strategies/local.strategy';
+import { GoogleStrategy } from '../infrastructure/authentication/strategies/google.strategy';
 
 import { AuthenticationController } from './http/controllers/authentication.controller';
 import { TwoFactorAuthController } from './http/controllers/two-factor-auth.controller';
@@ -21,6 +23,7 @@ import { AuthCookieService } from './http/services/auth-cookie.service';
 @Module({
   imports: [
     ConfigModule.forFeature(jwtConfig),
+    ConfigModule.forFeature(googleOAuthConfig),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     IamApplicationModule,
   ],
@@ -33,6 +36,7 @@ import { AuthCookieService } from './http/services/auth-cookie.service';
   providers: [
     JwtStrategy,
     LocalStrategy,
+    GoogleStrategy,
     AuthCookieService,
     { provide: APP_GUARD, useClass: AccessTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },

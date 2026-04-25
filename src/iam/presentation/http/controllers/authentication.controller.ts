@@ -18,11 +18,14 @@ import { TokenService } from '../../../application/services/token.service';
 import { ActiveUser } from '../decorators/active-user.decorator';
 import { IsWeb } from '../decorators/is-web.decorator';
 import {
+  AuthGoogle,
+  AuthGoogleCallback,
   AuthRefreshTokens,
   AuthSignIn,
   AuthSignUp,
 } from '../decorators/authentication.decorators';
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
+import { GoogleUserData } from '../../../domain/interfaces/google-user-data.interface';
 
 import { SignUpDto } from '../dto/sign-up.dto';
 import { SignInDto } from '../dto/sign-in.dto';
@@ -55,6 +58,41 @@ export class AuthenticationController {
       request.user as User,
       dto.tfaCode,
     );
+
+    if (isWeb) {
+      this.cookieService.setAuthCookies(response, result.tokens);
+      return {
+        message: 'User signed in successfully',
+        data: { user: UserResponseDto.from(result.user) },
+      };
+    }
+
+    return {
+      message: 'User signed in successfully',
+      data: {
+        user: UserResponseDto.from(result.user),
+        accessToken: result.tokens.accessToken,
+        refreshToken: result.tokens.refreshToken,
+      },
+    };
+  }
+
+  @AuthGoogle()
+  googleAuth(): void {}
+
+  @AuthGoogleCallback()
+  async googleCallback(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+    @IsWeb() isWeb: boolean,
+  ) {
+    const googleUser = request.user as GoogleUserData | undefined;
+
+    if (!googleUser?.email) {
+      throw new UnauthorizedException('Google authentication failed');
+    }
+
+    const result = await this.authService.signInWithGoogle(googleUser);
 
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens);
