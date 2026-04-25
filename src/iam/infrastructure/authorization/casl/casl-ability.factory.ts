@@ -10,8 +10,9 @@ import { User } from 'src/users/domain/user';
 import { Action } from '../../../domain/enums/action.enum';
 import { Role } from 'src/users/domain/enums/role.enum';
 import { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
+import { subjects } from './casl-subjects';
 
-type Subjects = InferSubjects<typeof User> | 'all';
+type Subjects = InferSubjects<(typeof subjects)[number]> | 'all';
 export type AppAbility = MongoAbility<[Action, Subjects]>;
 
 @Injectable()

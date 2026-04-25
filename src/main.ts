@@ -1,10 +1,13 @@
+import { Logger as NestLogger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from 'nestjs-pino';
+import { Logger as PinoLogger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
 import { setupApp } from './setup/app.setup';
 import { setupSwagger } from './setup/swagger.setup';
+
+const bootstrapLogger = new NestLogger('Bootstrap');
 
 async function bootstrap() {
   try {
@@ -16,7 +19,7 @@ async function bootstrap() {
       { bufferLogs: true },
     );
 
-    const logger = app.get(Logger);
+    const logger = app.get(PinoLogger);
     app.useLogger(logger);
 
     setupApp(app);
@@ -42,12 +45,14 @@ async function bootstrap() {
       logger.log(`📚 Swagger documentation at: http://localhost:${port}/api`);
     }
   } catch (error) {
-    console.error('❌ Application failed to start', error);
+    const trace = error instanceof Error ? error.stack : undefined;
+    bootstrapLogger.error('Application failed to start', trace);
     process.exit(1);
   }
 }
 
 bootstrap().catch((error: unknown) => {
-  console.error('❌ Unhandled bootstrap error', error);
+  const trace = error instanceof Error ? error.stack : undefined;
+  bootstrapLogger.error('Unhandled bootstrap error', trace);
   process.exit(1);
 });

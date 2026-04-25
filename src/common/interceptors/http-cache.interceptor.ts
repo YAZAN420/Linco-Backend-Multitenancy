@@ -7,6 +7,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Reflector } from '@nestjs/core';
+import { Request } from 'express';
 import { SkipCache } from '../decorators/skip-cache.decorator';
 import { CachePublic } from '../decorators/cache-public.decorator';
 import { ClsService } from 'nestjs-cls';
@@ -14,6 +15,7 @@ import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.inter
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
 import { CachePort } from 'src/core/cache/cache.port';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class HttpCacheInterceptor implements NestInterceptor {
@@ -21,12 +23,13 @@ export class HttpCacheInterceptor implements NestInterceptor {
     private readonly cachePort: CachePort,
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
+    private readonly logger: Logger,
   ) {}
 
   async intercept(
     context: ExecutionContext,
     next: CallHandler,
-  ): Promise<Observable<any>> {
+  ): Promise<Observable<unknown>> {
     const request = context.switchToHttp().getRequest<Request>();
 
     const skipCache = this.reflector.getAllAndOverride<boolean>(SkipCache, [
@@ -58,7 +61,8 @@ export class HttpCacheInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap((response) => {
         this.cachePort.set(cacheKey, response, 600).catch((err) => {
-          console.error('Redis Cache Set Error:', err);
+          const trace = err instanceof Error ? err.stack : undefined;
+          this.logger.error('Redis cache set failed', trace);
         });
       }),
     );
