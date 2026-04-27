@@ -11,7 +11,7 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { User } from 'src/users/domain/user';
-import { UserResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
+import { UserResponseMapper } from 'src/users/presentation/http/mappers/user-response.mapper';
 
 import { AuthenticationService } from '../../../application/services/authentication.service';
 import { TokenService } from '../../../application/services/token.service';
@@ -44,6 +44,7 @@ export class AuthenticationController {
     private readonly registrationService: RegistrationService,
     private readonly tokenService: TokenService,
     private readonly cookieService: AuthCookieService,
+    private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
   @AuthSignUp()
@@ -67,14 +68,14 @@ export class AuthenticationController {
       this.cookieService.setAuthCookies(response, result.tokens);
       return {
         message: 'User signed in successfully',
-        data: { user: UserResponseDto.from(result.user) },
+        data: { user: this.userResponseMapper.toResponse(result.user) },
       };
     }
 
     return {
       message: 'User signed in successfully',
       data: {
-        user: UserResponseDto.from(result.user),
+        user: this.userResponseMapper.toResponse(result.user),
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,
       },
@@ -102,14 +103,14 @@ export class AuthenticationController {
       this.cookieService.setAuthCookies(response, result.tokens);
       return {
         message: 'User signed in successfully',
-        data: { user: UserResponseDto.from(result.user) },
+        data: { user: this.userResponseMapper.toResponse(result.user) },
       };
     }
 
     return {
       message: 'User signed in successfully',
       data: {
-        user: UserResponseDto.from(result.user),
+        user: this.userResponseMapper.toResponse(result.user),
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,
       },
@@ -130,7 +131,7 @@ export class AuthenticationController {
     return {
       message: 'User signed in successfully',
       data: {
-        user: UserResponseDto.from(result.user),
+        user: this.userResponseMapper.toResponse(result.user),
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,
       },

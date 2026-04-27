@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { UserResponseDto } from './dto/user-response.dto';
 import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
 import { UpdateUserProfileCommand } from 'src/users/application/commands/update-user-profile.command';
 import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
@@ -25,12 +24,14 @@ import {
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 import { Role } from 'src/users/domain/enums/role.enum';
 import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { UserResponseMapper } from './mappers/user-response.mapper';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly commandService: UsersCommandService,
     private readonly queryService: UsersQueryService,
+    private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
   @Roles([Role.Admin])
@@ -45,7 +46,7 @@ export class UsersController {
 
     return {
       message: 'User created successfully',
-      data: UserResponseDto.from(user),
+      data: this.userResponseMapper.toResponse(user),
     };
   }
 
@@ -57,7 +58,7 @@ export class UsersController {
 
     return {
       message: 'Users fetched successfully',
-      data: users.data.map((user) => UserResponseDto.from(user)),
+      data: this.userResponseMapper.toResponseMany(users.data),
       meta: users.meta,
     };
   }
@@ -70,7 +71,7 @@ export class UsersController {
 
     return {
       message: 'Users fetched successfully (Cursor)',
-      data: result.data.map((user) => UserResponseDto.from(user)),
+      data: this.userResponseMapper.toResponseMany(result.data),
       meta: result.meta,
     };
   }
@@ -83,7 +84,7 @@ export class UsersController {
 
     return {
       message: 'User profile retrieved successfully',
-      data: UserResponseDto.from(user),
+      data: this.userResponseMapper.toResponse(user),
     };
   }
 
@@ -94,7 +95,7 @@ export class UsersController {
 
     return {
       message: 'User retrieved successfully',
-      data: UserResponseDto.from(user),
+      data: this.userResponseMapper.toResponse(user),
     };
   }
 
@@ -109,7 +110,7 @@ export class UsersController {
 
     return {
       message: 'User updated successfully',
-      data: UserResponseDto.from(user),
+      data: this.userResponseMapper.toResponse(user),
     };
   }
 

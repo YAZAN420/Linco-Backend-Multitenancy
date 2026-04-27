@@ -5,13 +5,24 @@ import { CaslModule } from 'src/iam/infrastructure/authorization/casl/casl.modul
 import { UserFactory } from './domain/factories/user.factory';
 import { UsersQueryService } from './application/users-query.service';
 import { UsersCommandService } from './application/users-command.service';
+import { UserResponseMapper } from './presentation/http/mappers/user-response.mapper';
 
 @Global()
 @Module({
   imports: [HashingModule, CaslModule],
   controllers: [UsersController],
-  providers: [UsersQueryService, UsersCommandService, UserFactory],
-  exports: [UsersQueryService, UsersCommandService, UserFactory],
+  providers: [
+    UsersQueryService,
+    UsersCommandService,
+    UserFactory,
+    UserResponseMapper,
+  ],
+  exports: [
+    UsersQueryService,
+    UsersCommandService,
+    UserFactory,
+    UserResponseMapper,
+  ],
 })
 export class UsersModule {
   static withInfrastructure(
