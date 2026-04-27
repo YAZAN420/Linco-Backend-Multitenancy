@@ -33,9 +33,6 @@ export class UserDocument {
   @Prop({ default: false })
   isEmailVerified!: boolean;
 
-  @Prop({ default: true })
-  isActive!: boolean;
-
   @Prop()
   emailVerificationToken?: string;
 

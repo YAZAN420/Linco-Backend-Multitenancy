@@ -93,6 +93,7 @@ export class User {
 
   updateRefreshToken(newToken: string | null): void {
     this.refreshToken = newToken;
+    this.touch();
   }
 
   validateRefreshToken(tokenToValidate: string): boolean {
@@ -101,6 +102,7 @@ export class User {
 
   setVerificationToken(token: string): void {
     this.emailVerificationToken = token;
+    this.touch();
   }
 
   verifyEmail(providedToken: string): void {
