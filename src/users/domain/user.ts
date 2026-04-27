@@ -145,11 +145,13 @@ export class User {
 
   setTwoFactorSecret(secret: string): void {
     this.twoFactorAuthenticationSecret = secret;
+    this.touch();
   }
 
   generatePasswordResetToken(token: string, expiresAt: Date): void {
     this.passwordResetToken = token;
     this.passwordResetExpires = expiresAt;
+    this.touch();
   }
 
   resetPasswordWithToken(newPasswordHash: string, providedToken: string): void {
