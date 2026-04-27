@@ -1,3 +1,5 @@
+import { InvalidEmailFormatException } from '../exceptions/invalid-email-format.exception';
+
 export class Email {
   private readonly value: string;
 
@@ -5,7 +7,7 @@ export class Email {
     const trimmed = value.trim().toLowerCase();
 
     if (!this.isValid(trimmed)) {
-      throw new Error('Invalid email format');
+      throw new InvalidEmailFormatException();
     }
 
     this.value = trimmed;

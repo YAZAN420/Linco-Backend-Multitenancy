@@ -1,6 +1,11 @@
 import { Role } from './enums/role.enum';
 import { Email } from './value-objects/email.vo';
 import { Username } from './value-objects/username.vo';
+import { EmailAlreadyVerifiedException } from './exceptions/email-already-verified.exception';
+import { EmailNotVerifiedFor2FAException } from './exceptions/email-not-verified-for-2fa.exception';
+import { InvalidResetTokenException } from './exceptions/invalid-reset-token.exception';
+import { InvalidVerificationTokenException } from './exceptions/invalid-verification-token.exception';
+import { ResetTokenExpiredException } from './exceptions/reset-token-expired.exception';
 
 export class User {
   constructor(
@@ -107,10 +112,10 @@ export class User {
 
   verifyEmail(providedToken: string): void {
     if (this.isEmailVerified) {
-      throw new Error('Email is already verified');
+      throw new EmailAlreadyVerifiedException();
     }
     if (this.emailVerificationToken !== providedToken) {
-      throw new Error('Invalid verification token');
+      throw new InvalidVerificationTokenException();
     }
     this.isEmailVerified = true;
     this.emailVerificationToken = null;
@@ -125,7 +130,7 @@ export class User {
 
   enableTwoFactorAuth(secret: string): void {
     if (!this.isEmailVerified) {
-      throw new Error('Email must be verified before enabling 2FA');
+      throw new EmailNotVerifiedFor2FAException();
     }
     this.isTwoFactorAuthenticationEnabled = true;
     this.twoFactorAuthenticationSecret = secret;
@@ -149,10 +154,10 @@ export class User {
 
   resetPasswordWithToken(newPasswordHash: string, providedToken: string): void {
     if (this.passwordResetToken !== providedToken) {
-      throw new Error('Invalid reset token');
+      throw new InvalidResetTokenException();
     }
     if (!this.passwordResetExpires || this.passwordResetExpires < new Date()) {
-      throw new Error('Reset token has expired');
+      throw new ResetTokenExpiredException();
     }
     this.passwordHash = newPasswordHash;
     this.passwordResetToken = null;

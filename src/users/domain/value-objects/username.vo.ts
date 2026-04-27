@@ -1,3 +1,6 @@
+import { InvalidUsernameCharactersException } from '../exceptions/invalid-username-characters.exception';
+import { InvalidUsernameLengthException } from '../exceptions/invalid-username-length.exception';
+
 export class Username {
   private readonly value: string;
 
@@ -5,11 +8,11 @@ export class Username {
     const trimmed = value.trim();
 
     if (trimmed.length < 3 || trimmed.length > 20) {
-      throw new Error('Username must be between 3 and 20 characters');
+      throw new InvalidUsernameLengthException();
     }
 
     if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) {
-      throw new Error('Username contains invalid characters');
+      throw new InvalidUsernameCharactersException();
     }
 
     this.value = trimmed;
