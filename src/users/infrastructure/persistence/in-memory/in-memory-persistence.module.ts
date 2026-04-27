@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { UserRepository } from 'src/users/application/ports/user.repository';
 import { UserFactory } from 'src/users/domain/factories/user.factory';
-import { UserMapper } from '../../shared/user.mapper';
 import { InMemoryUserRepository } from './repositories/in-memory-user.repository';
+import { InMemoryUserMapper } from './mappers/in-memory-user.mapper';
 
 @Module({
   providers: [
+    InMemoryUserMapper,
     UserFactory,
-    UserMapper,
     {
       provide: UserRepository,
       useClass: InMemoryUserRepository,

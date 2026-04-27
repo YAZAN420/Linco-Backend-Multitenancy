@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/users/domain/user';
 import { UserRepository } from 'src/users/application/ports/user.repository';
-import { UserMapper } from '../../../shared/user.mapper';
 import { InMemoryUserEntity } from '../entities/user.entity';
 import {
   CursorPageDto,
@@ -11,12 +10,13 @@ import {
   PageMetaDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
+import { InMemoryUserMapper } from '../mappers/in-memory-user.mapper';
 
 @Injectable()
 export class InMemoryUserRepository implements UserRepository {
   private readonly store = new Map<string, InMemoryUserEntity>();
 
-  constructor(private readonly mapper: UserMapper) {}
+  constructor(private readonly mapper: InMemoryUserMapper) {}
 
   async findAll(options: PageOptionsDto): Promise<PageDto<User>> {
     const entities = Array.from(this.store.values());

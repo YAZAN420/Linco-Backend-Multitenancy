@@ -3,8 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserDocument, UserSchema } from './schemas/user.schema';
 import { UserRepository } from 'src/users/application/ports/user.repository';
 import { MongooseUserRepository } from './repositories/mongoose-user.repository';
-import { UserMapper } from '../../shared/user.mapper';
 import { UserFactory } from 'src/users/domain/factories/user.factory';
+import { MongooseUserMapper } from './mappers/mongoose-user.mapper';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { UserFactory } from 'src/users/domain/factories/user.factory';
     ]),
   ],
   providers: [
-    UserMapper,
+    MongooseUserMapper,
     UserFactory,
     {
       provide: UserRepository,

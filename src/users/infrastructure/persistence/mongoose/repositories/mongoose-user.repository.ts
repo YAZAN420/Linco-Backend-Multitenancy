@@ -3,9 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/users/domain/user';
 import { UserRepository } from 'src/users/application/ports/user.repository';
-import { UserMapper } from '../../../shared/user.mapper';
 import { UserDocument } from '../schemas/user.schema';
-import { UserPersistenceData } from 'src/users/domain/user-persistence.interface';
 import {
   CursorPageDto,
   CursorPageMetaDto,
@@ -14,13 +12,14 @@ import {
   PageMetaDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
+import { MongooseUserMapper } from '../mappers/mongoose-user.mapper';
 
 @Injectable()
 export class MongooseUserRepository implements UserRepository {
   constructor(
     @InjectModel(UserDocument.name)
     private readonly userModel: Model<UserDocument>,
-    private readonly mapper: UserMapper,
+    private readonly mapper: MongooseUserMapper,
   ) {}
 
   async findAll(options: PageOptionsDto): Promise<PageDto<User>> {
@@ -30,9 +29,7 @@ export class MongooseUserRepository implements UserRepository {
       .limit(options.take)
       .lean()
       .exec();
-    const usersDomain = docs.map((doc) =>
-      this.mapper.toDomain(doc as unknown as UserPersistenceData),
-    );
+    const usersDomain = docs.map((doc) => this.mapper.toDomain(doc));
     const itemCount = await this.userModel.countDocuments().exec();
     const pageMetaDto = new PageMetaDto({
       itemCount,
@@ -65,9 +62,7 @@ export class MongooseUserRepository implements UserRepository {
     const endCursor =
       docs.length > 0 ? docs[docs.length - 1]._id.toString() : null;
 
-    const usersDomain = docs.map((doc) =>
-      this.mapper.toDomain(doc as unknown as UserPersistenceData),
-    );
+    const usersDomain = docs.map((doc) => this.mapper.toDomain(doc));
     const meta = new CursorPageMetaDto(hasNextPage, endCursor);
 
     return new CursorPageDto(usersDomain, meta);
@@ -109,6 +104,6 @@ export class MongooseUserRepository implements UserRepository {
   ): Promise<User | null> {
     const doc = await this.userModel.findOne(filter).lean().exec();
     if (!doc) return null;
-    return this.mapper.toDomain(doc as unknown as UserPersistenceData);
+    return this.mapper.toDomain(doc);
   }
 }
