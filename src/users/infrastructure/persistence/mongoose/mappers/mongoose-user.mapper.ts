@@ -40,6 +40,8 @@ export class MongooseUserMapper {
       emailVerificationToken: user.getEmailVerificationToken()!,
       passwordResetToken: user.getPasswordResetToken()!,
       passwordResetExpires: user.getPasswordResetExpires()!,
+      createdAt: user.getCreatedAt(),
+      updatedAt: user.getUpdatedAt(),
     };
   }
 }

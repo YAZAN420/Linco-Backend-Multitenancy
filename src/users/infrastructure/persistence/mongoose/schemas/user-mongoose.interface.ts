@@ -11,4 +11,6 @@ export interface UserMongoose {
   emailVerificationToken?: string;
   passwordResetToken?: string;
   passwordResetExpires?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
