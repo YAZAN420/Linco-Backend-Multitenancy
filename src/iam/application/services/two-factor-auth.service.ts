@@ -48,7 +48,7 @@ export class TwoFactorAuthService {
     const query = new GetUserByIdQuery(userId);
     const user = await this.usersQueryService.findById(query);
 
-    const secret = user.getTwoFactorAuthenticationSecret();
+    const secret = user.getTwoFactorSecret();
     if (!secret) {
       throw new Missing2FASecretException();
     }

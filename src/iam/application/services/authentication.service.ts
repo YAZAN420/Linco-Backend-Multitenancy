@@ -35,7 +35,7 @@ export class AuthenticationService {
       throw new EmailNotVerifiedException();
     }
 
-    if (user.getIsTwoFactorAuthenticationEnabled()) {
+    if (user.getIsTwoFactorEnabled()) {
       await this.validate2FACode(user, tfaCode);
     }
 
@@ -103,7 +103,7 @@ export class AuthenticationService {
 
     const { valid } = await this.otp.verify({
       token: tfaCode,
-      secret: user.getTwoFactorAuthenticationSecret()!,
+      secret: user.getTwoFactorSecret()!,
     });
 
     if (!valid) {

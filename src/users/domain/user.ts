@@ -76,14 +76,6 @@ export class User {
     return this.updatedAt;
   }
 
-  getIsTwoFactorAuthenticationEnabled(): boolean {
-    return this.isTwoFactorAuthenticationEnabled;
-  }
-
-  getTwoFactorAuthenticationSecret(): string | null {
-    return this.twoFactorAuthenticationSecret;
-  }
-
   changeUsername(newUsernameStr: string): void {
     this.username = new Username(newUsernameStr);
     this.touch();
