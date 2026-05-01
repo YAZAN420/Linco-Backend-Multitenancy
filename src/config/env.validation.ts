@@ -38,6 +38,9 @@ class EnvironmentVariables {
   @IsNumber()
   JWT_ACCESS_TOKEN_TTL!: number;
 
+  @IsNumber()
+  JWT_REFRESH_TOKEN_TTL!: number;
+
   @IsString()
   SMTP_HOST!: string;
 
