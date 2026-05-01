@@ -7,16 +7,7 @@ import { ActiveUserData } from '../../../domain/interfaces/active-user-data.inte
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
-import { Request } from 'express';
-
-type JwtRequest = Request & {
-  cookies?: {
-    accessToken?: string;
-  };
-  auth?: {
-    token?: string;
-  };
-};
+import type { JwtRequest } from './types/jwt-request.type';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
