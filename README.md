@@ -11,7 +11,16 @@ for MongoDB, Redis/BullMQ, mail, Swagger, and JWT-based auth.
 
 ## Environment
 
-Create a `.env` file in the repository root.
+Create a `.env` file in the repository root. You can start from
+`.env.example`.
+
+```
+# macOS/Linux
+cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
+```
 
 Required variables:
 
