@@ -9,9 +9,9 @@ import { ConfigType } from '@nestjs/config';
 @Global()
 @Module({})
 export class DatabaseModule {
-  static use(driver: 'mongoose' | 'in-memory') {
+  static use(driver: 'mongo' | 'memory') {
     const dbImports =
-      driver === 'mongoose'
+      driver === 'mongo'
         ? [
             MongooseModule.forRootAsync({
               useFactory: (dbConfig: ConfigType<typeof databaseConfig>) => ({
@@ -29,7 +29,7 @@ export class DatabaseModule {
         {
           provide: UnitOfWorkPort,
           useClass:
-            driver === 'in-memory'
+            driver === 'memory'
               ? InMemoryUnitOfWorkAdapter
               : MongooseUnitOfWorkAdapter,
         },

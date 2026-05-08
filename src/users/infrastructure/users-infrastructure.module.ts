@@ -4,9 +4,9 @@ import { InMemoryUserPersistenceModule } from './persistence/in-memory/in-memory
 
 @Module({})
 export class UsersInfrastructureModule {
-  static use(driver: 'mongoose' | 'in-memory') {
+  static use(driver: 'mongo' | 'memory') {
     const persistenceModule =
-      driver === 'mongoose'
+      driver === 'mongo'
         ? MongooseUserPersistenceModule
         : InMemoryUserPersistenceModule;
 
