@@ -1,23 +1,26 @@
 services:
-  db:
-    image: mongo
+  postgres:
+    image: postgres
     restart: always
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - '8081:8081'
-    depends_on:
-      - db
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://db:27017/
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: server_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - '5050:80'
+    depends_on:
+      - postgres
 
   redis:
     image: redis
@@ -28,5 +31,5 @@ services:
       - redis-data:/data
 
 volumes:
-  mongo-data:
   redis-data:
+  postgres-data:

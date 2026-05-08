@@ -11,13 +11,11 @@ const bootstrapLogger = new NestLogger('Bootstrap');
 
 async function bootstrap() {
   try {
-    const dbDriver = (process.env.DB_DRIVER as 'mongo' | 'memory') || 'mongo';
-    console.log(dbDriver);
+    const dbDriver = (process.env.DB_TYPE as 'mongo' | 'memory') || 'mongo';
     const app = await NestFactory.create(
       AppModule.register({ driver: dbDriver }),
       { bufferLogs: true },
     );
-    console.log('2 - after create');
 
     const logger = app.get(PinoLogger);
     app.useLogger(logger);
