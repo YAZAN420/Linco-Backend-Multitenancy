@@ -11,7 +11,7 @@ const bootstrapLogger = new NestLogger('Bootstrap');
 
 async function bootstrap() {
   try {
-    const dbDriver = (process.env.DB_TYPE as 'mongo' | 'memory') || 'mongo';
+    const dbDriver = (process.env.DB_TYPE as 'memory') || 'memory';
     const app = await NestFactory.create(
       AppModule.register({ driver: dbDriver }),
       { bufferLogs: true },

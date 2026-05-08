@@ -16,7 +16,7 @@ export class UserFactory {
       uuidv7(),
       username,
       email,
-      Role.User,
+      Role.USER,
       passwordHash,
       now,
       now,
