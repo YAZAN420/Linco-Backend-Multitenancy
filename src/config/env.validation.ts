@@ -24,9 +24,6 @@ class EnvironmentVariables {
   PORT: number = 3000;
 
   @IsString()
-  MONGO_URI!: string;
-
-  @IsString()
   ACCESS_TOKEN_SECRET!: string;
 
   @IsString()

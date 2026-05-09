@@ -4,11 +4,11 @@ import { CoreModule } from './core/core.module';
 import { IamModule } from './iam/iam.module';
 import { UsersModule } from './users/users.module';
 import { UsersInfrastructureModule } from './users/infrastructure/users-infrastructure.module';
-import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 
 @Module({})
 export class AppModule {

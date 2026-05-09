@@ -1,13 +1,14 @@
-import { Module } from '@nestjs/common';
-import { MongooseUserPersistenceModule } from './persistence/mongoose/mongoose-persistence.module';
+import { DynamicModule, Module } from '@nestjs/common';
 import { InMemoryUserPersistenceModule } from './persistence/in-memory/in-memory-persistence.module';
+import { PrismaPersistenceModule } from './persistence/prisma/prisma-persistence.module';
+import { DatabaseDriver } from 'src/core/database/database.module';
 
 @Module({})
 export class UsersInfrastructureModule {
-  static use(driver: 'mongo' | 'memory') {
+  static use(driver: DatabaseDriver): DynamicModule {
     const persistenceModule =
-      driver === 'mongo'
-        ? MongooseUserPersistenceModule
+      driver === 'prisma'
+        ? PrismaPersistenceModule
         : InMemoryUserPersistenceModule;
 
     return {

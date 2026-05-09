@@ -3,7 +3,6 @@ import {
   HealthCheck,
   HealthCheckService,
   MemoryHealthIndicator,
-  MongooseHealthIndicator,
 } from '@nestjs/terminus';
 import { SkipResponseWrap } from 'src/common/decorators/skip-response-wrap.decorator';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
@@ -15,7 +14,6 @@ export class HealthController {
   constructor(
     private readonly health: HealthCheckService,
     private readonly memory: MemoryHealthIndicator,
-    private readonly mongoose: MongooseHealthIndicator,
   ) {}
   @Get('liveness')
   @HealthCheck()
@@ -28,7 +26,5 @@ export class HealthController {
 
   @Get('readiness')
   @HealthCheck()
-  checkReadiness() {
-    return this.health.check([() => this.mongoose.pingCheck('database')]);
-  }
+  checkReadiness() {}
 }

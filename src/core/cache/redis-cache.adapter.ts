@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Redis } from 'ioredis';
 import type { ConfigType } from '@nestjs/config';
-import redisConfig from 'src/config/redis.config';
 import { CachePort } from './cache.port';
+import redisConfig from '../../config/redis.config';
 
 @Injectable()
 export class RedisCacheAdapter

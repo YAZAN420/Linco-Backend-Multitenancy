@@ -13,7 +13,7 @@ export class User {
     private username: Username,
     private email: Email,
     private role: Role,
-    private passwordHash: string,
+    private password: string,
     private readonly createdAt: Date,
     private updatedAt: Date,
     private isEmailVerified: boolean,
@@ -41,8 +41,8 @@ export class User {
     return this.role;
   }
 
-  getPasswordHash(): string {
-    return this.passwordHash;
+  getPassword(): string {
+    return this.password;
   }
 
   getIsTwoFactorEnabled(): boolean {
@@ -86,8 +86,8 @@ export class User {
     this.touch();
   }
 
-  changePassword(newPasswordHash: string): void {
-    this.passwordHash = newPasswordHash;
+  changePassword(newPassword: string): void {
+    this.password = newPassword;
     this.touch();
   }
 
@@ -154,14 +154,14 @@ export class User {
     this.touch();
   }
 
-  resetPasswordWithToken(newPasswordHash: string, providedToken: string): void {
+  resetPasswordWithToken(newPassword: string, providedToken: string): void {
     if (this.passwordResetToken !== providedToken) {
       throw new InvalidResetTokenException();
     }
     if (!this.passwordResetExpires || this.passwordResetExpires < new Date()) {
       throw new ResetTokenExpiredException();
     }
-    this.passwordHash = newPasswordHash;
+    this.password = newPassword;
     this.passwordResetToken = null;
     this.passwordResetExpires = null;
     this.touch();

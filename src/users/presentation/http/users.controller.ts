@@ -34,7 +34,7 @@ export class UsersController {
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
-  @Roles([Role.Admin])
+  @Roles([Role.ADMIN])
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const command = new CreateUserCommand(
@@ -50,7 +50,7 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.Admin])
+  @Roles([Role.ADMIN])
   @Get()
   @CachePublic()
   async findAll(@Query() pageOptionsDto: PageOptionsDto) {
@@ -63,7 +63,7 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.Admin])
+  @Roles([Role.ADMIN])
   @Get('cursor')
   @CachePublic()
   async findWithCursor(@Query() options: CursorPageOptionsDto) {
@@ -88,7 +88,7 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.Admin])
+  @Roles([Role.ADMIN])
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.queryService.findById(new GetUserByIdQuery(id));
@@ -114,7 +114,7 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.Admin])
+  @Roles([Role.ADMIN])
   @Delete(':id')
   async remove(
     @ActiveUser() activeUser: ActiveUserData,

@@ -1,4 +1,3 @@
 export const CLS_KEYS = {
   USER: 'CURRENT_USER',
-  MONGO_SESSION: 'MONGO_TRANSACTION_SESSION',
 } as const;

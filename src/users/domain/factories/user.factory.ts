@@ -7,7 +7,7 @@ import { v7 as uuidv7 } from 'uuid';
 
 @Injectable()
 export class UserFactory {
-  createNew(usernameStr: string, emailStr: string, passwordHash: string): User {
+  createNew(usernameStr: string, emailStr: string, password: string): User {
     const email = new Email(emailStr);
     const username = new Username(usernameStr);
     const now = new Date();
@@ -17,7 +17,7 @@ export class UserFactory {
       username,
       email,
       Role.USER,
-      passwordHash,
+      password,
       now,
       now,
       false,

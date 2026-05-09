@@ -1,36 +1,40 @@
+import { Injectable } from '@nestjs/common';
+import {
+  User as PrismaUser,
+  Role as PrismaRole,
+} from 'src/generated/prisma/client';
 import { User } from 'src/users/domain/user';
-import { InMemoryUserEntity } from '../entities/user.entity';
 import { Username } from 'src/users/domain/value-objects/username.vo';
 import { Email } from 'src/users/domain/value-objects/email.vo';
-import { Injectable } from '@nestjs/common';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
-export class InMemoryUserMapper {
-  toDomain(entity: InMemoryUserEntity): User {
+export class PrismaUserMapper {
+  toDomain(raw: PrismaUser): User {
     return new User(
-      entity.id,
-      new Username(entity.username),
-      new Email(entity.email),
-      entity.role,
-      entity.password,
-      entity.createdAt,
-      entity.updatedAt,
-      entity.isEmailVerified,
-      entity.isTwoFactorAuthenticationEnabled,
-      entity.refreshToken,
-      entity.twoFactorAuthenticationSecret,
-      entity.emailVerificationToken,
-      entity.passwordResetToken,
-      entity.passwordResetExpires,
+      raw.id,
+      new Username(raw.username),
+      new Email(raw.email),
+      raw.role as Role,
+      raw.password,
+      raw.createdAt,
+      raw.updatedAt,
+      raw.isEmailVerified,
+      raw.isTwoFactorAuthenticationEnabled,
+      raw.refreshToken,
+      raw.twoFactorAuthenticationSecret,
+      raw.emailVerificationToken,
+      raw.passwordResetToken,
+      raw.passwordResetExpires,
     );
   }
 
-  toPersistence(user: User): InMemoryUserEntity {
+  toPersistence(user: User): PrismaUser {
     return {
       id: user.getId(),
       username: user.getUsernameValue(),
       email: user.getEmailValue(),
-      role: user.getRole(),
+      role: user.getRole() as unknown as PrismaRole,
       password: user.getPassword(),
       isEmailVerified: user.getIsEmailVerified(),
       isTwoFactorAuthenticationEnabled: user.getIsTwoFactorEnabled(),

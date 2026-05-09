@@ -53,7 +53,7 @@ export class AuthenticationService {
 
     const isPasswordValid = await this.hashingPort.compare(
       password,
-      user.getPasswordHash(),
+      user.getPassword(),
     );
 
     return isPasswordValid ? user : null;

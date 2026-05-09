@@ -43,10 +43,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       } else {
         message = exception.message;
       }
-    } else if (this.isMongoDuplicateKeyError(exception)) {
-      httpStatus = HttpStatus.CONFLICT;
-      message = 'this record already exists in the system.';
-      errorType = 'DuplicateKeyError';
     } else if (exception instanceof Error) {
       this.logger.error(
         `[${method}] ${url} - ${exception.message}`,
@@ -62,18 +58,5 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: url,
     });
-  }
-
-  private isMongoDuplicateKeyError(
-    error: unknown,
-  ): error is { name: 'MongoServerError'; code: number } {
-    return (
-      typeof error === 'object' &&
-      error !== null &&
-      'name' in error &&
-      (error as Record<string, unknown>).name === 'MongoServerError' &&
-      'code' in error &&
-      (error as Record<string, unknown>).code === 11000
-    );
   }
 }
