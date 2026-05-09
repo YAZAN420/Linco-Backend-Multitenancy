@@ -8,7 +8,6 @@ import { AppConfigModule } from './config/app-config.module';
 import { RateLimiterModule } from './rate-limiter/rate-limiter.module';
 import { ContextModule } from './context/context.module';
 import { QueueModule } from './queue/queue.module';
-import { HealthModule } from './health/health.module';
 
 @Global()
 @Module({})
@@ -21,7 +20,6 @@ export class CoreModule {
         AppConfigModule,
         RateLimiterModule,
         ContextModule,
-        HealthModule,
         CacheModule,
         MailModule,
         LoggerModule,
