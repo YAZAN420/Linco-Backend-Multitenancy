@@ -1,43 +1,33 @@
-import {
-  AbilityBuilder,
-  ExtractSubjectType,
-  InferSubjects,
-  MongoAbility,
-  createMongoAbility,
-} from '@casl/ability';
+import { AbilityBuilder, PureAbility } from '@casl/ability';
+import { createPrismaAbility, PrismaQuery, Subjects } from '@casl/prisma';
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/domain/user';
-import { Action } from '../../../domain/enums/action.enum';
-import { Role } from 'src/users/domain/enums/role.enum';
-import { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
-import { subjects } from './casl-subjects';
 
-type Subjects = InferSubjects<(typeof subjects)[number]> | 'all';
-export type AppAbility = MongoAbility<[Action, Subjects]>;
+import { Prisma, User } from 'src/generated/prisma/client';
+import { Action } from '../../../domain/enums/action.enum';
+import { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
+import { Role } from 'src/users/domain/enums/role.enum';
+
+export type AppSubjects =
+  | Subjects<{
+      User: User;
+    }>
+  | 'all';
+
+export type AppAbility = PureAbility<[Action, AppSubjects], PrismaQuery>;
 
 @Injectable()
 export class CaslAbilityFactory {
   createForUser(user: ActiveUserData) {
-    const builder = new AbilityBuilder<AppAbility>(createMongoAbility);
+    const builder = new AbilityBuilder<AppAbility>(createPrismaAbility);
+    const { can } = builder;
 
     if (user.role === Role.ADMIN) {
-      builder.can(Action.Manage, 'all');
+      can(Action.Manage, 'all');
     } else {
-      this.applyUserPolicies(user, builder);
+      can(Action.Read, Prisma.ModelName.User, { id: user.id });
+      can(Action.Update, Prisma.ModelName.User, { id: user.id });
     }
 
-    return builder.build({
-      detectSubjectType: (item) =>
-        item.constructor as ExtractSubjectType<Subjects>,
-    });
-  }
-
-  private applyUserPolicies(
-    user: ActiveUserData,
-    builder: AbilityBuilder<AppAbility>,
-  ) {
-    const { can } = builder;
-    can(Action.Read, User, { id: user.id });
-    can(Action.Update, User, { id: user.id });
+    return builder.build();
   }
 }
