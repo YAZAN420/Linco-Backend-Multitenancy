@@ -1,12 +1,14 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
@@ -18,13 +20,7 @@ import { TokenService } from '../../../application/services/token.service';
 
 import { ActiveUser } from '../decorators/active-user.decorator';
 import { IsWeb } from '../decorators/is-web.decorator';
-import {
-  AuthGoogle,
-  AuthGoogleCallback,
-  AuthRefreshTokens,
-  AuthSignIn,
-  AuthSignUp,
-} from '../decorators/authentication.decorators';
+
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
 import type { SignInResult } from '../../../domain/interfaces/sign-in-result.interface';
 import { GoogleUserData } from '../../../domain/interfaces/google-user-data.interface';
@@ -36,6 +32,8 @@ import { GoogleMobileSignInDto } from '../dto/google-mobile-sign-in.dto';
 import { RegistrationService } from '../../../application/services/registration.service';
 import { Public } from '../decorators/public.decorator';
 import { AuthCookieService } from '../services/auth-cookie.service';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { GoogleAuthGuard } from '../guards/google-auth.guard';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -47,7 +45,9 @@ export class AuthenticationController {
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
-  @AuthSignUp()
+  @Public()
+  @Post('sign-up')
+  @HttpCode(HttpStatus.CREATED)
   async signUp(@Body() dto: SignUpDto) {
     await this.registrationService.signUp(dto);
     return {
@@ -56,7 +56,10 @@ export class AuthenticationController {
     };
   }
 
-  @AuthSignIn()
+  @Public()
+  @Post('sign-in')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
   async signIn(
     @Req() request: Request,
     @Body() dto: SignInDto,
@@ -86,10 +89,14 @@ export class AuthenticationController {
     };
   }
 
-  @AuthGoogle()
+  @Public()
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
   googleAuth(): void {}
 
-  @AuthGoogleCallback()
+  @Public()
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
   async googleCallback(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
@@ -153,7 +160,9 @@ export class AuthenticationController {
     return { message: 'User signed out successfully' };
   }
 
-  @AuthRefreshTokens()
+  @Public()
+  @Post('refresh-tokens')
+  @HttpCode(HttpStatus.OK)
   async refreshTokens(
     @Req() request: Request,
     @Body() dto: RefreshTokenDto,

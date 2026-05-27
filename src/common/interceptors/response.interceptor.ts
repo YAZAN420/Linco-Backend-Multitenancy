@@ -29,15 +29,39 @@ export class ResponseInterceptor<T> implements NestInterceptor<
     }
     return next.handle().pipe(
       map((response): ApiResponse<T> => {
+        if (response === null || response === undefined) {
+          return {
+            success: true,
+            message: 'Request successful',
+            data: response as T,
+            timestamp: new Date().toISOString(),
+          };
+        }
+
+        if (typeof response !== 'object') {
+          return {
+            success: true,
+            message: 'Request successful',
+            data: response as T,
+            timestamp: new Date().toISOString(),
+          };
+        }
+
+        const typedResponse = response;
+        const data =
+          'data' in typedResponse
+            ? typedResponse.data
+            : (response as unknown as T);
+
         const apiResponse: ApiResponse<T> = {
           success: true,
-          message: response.message ?? 'Request successful',
-          data: response.data,
+          message: typedResponse.message ?? 'Request successful',
+          data,
           timestamp: new Date().toISOString(),
         };
 
-        if (response.meta) {
-          apiResponse.meta = response.meta;
+        if ('meta' in typedResponse && typedResponse.meta) {
+          apiResponse.meta = typedResponse.meta;
         }
 
         return apiResponse;
