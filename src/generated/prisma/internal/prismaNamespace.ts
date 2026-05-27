@@ -1951,7 +1951,7 @@ export const LessonScalarFieldEnum = {
   videoPath: 'videoPath',
   subtitlePath: 'subtitlePath',
   index: 'index',
-  setionId: 'setionId'
+  sectionId: 'sectionId'
 } as const
 
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]

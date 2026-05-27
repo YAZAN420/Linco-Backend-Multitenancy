@@ -167,6 +167,7 @@ export type MarksWhereInput = {
   userId?: Prisma.StringFilter<"Marks"> | string
   questionId?: Prisma.StringFilter<"Marks"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }
 
 export type MarksOrderByWithRelationInput = {
@@ -174,6 +175,7 @@ export type MarksOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  question?: Prisma.QuestionOrderByWithRelationInput
 }
 
 export type MarksWhereUniqueInput = Prisma.AtLeast<{
@@ -184,6 +186,7 @@ export type MarksWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Marks"> | string
   questionId?: Prisma.StringFilter<"Marks"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }, "id">
 
 export type MarksOrderByWithAggregationInput = {
@@ -206,8 +209,8 @@ export type MarksScalarWhereWithAggregatesInput = {
 
 export type MarksCreateInput = {
   id?: string
-  questionId: string
   user: Prisma.UserCreateNestedOneWithoutMarksInput
+  question: Prisma.QuestionCreateNestedOneWithoutMarksInput
 }
 
 export type MarksUncheckedCreateInput = {
@@ -218,8 +221,8 @@ export type MarksUncheckedCreateInput = {
 
 export type MarksUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutMarksNestedInput
+  question?: Prisma.QuestionUpdateOneRequiredWithoutMarksNestedInput
 }
 
 export type MarksUncheckedUpdateInput = {
@@ -236,7 +239,6 @@ export type MarksCreateManyInput = {
 
 export type MarksUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MarksUncheckedUpdateManyInput = {
@@ -315,9 +317,51 @@ export type MarksUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.MarksScalarWhereInput | Prisma.MarksScalarWhereInput[]
 }
 
+export type MarksCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput> | Prisma.MarksCreateWithoutQuestionInput[] | Prisma.MarksUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.MarksCreateOrConnectWithoutQuestionInput | Prisma.MarksCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.MarksCreateManyQuestionInputEnvelope
+  connect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+}
+
+export type MarksUncheckedCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput> | Prisma.MarksCreateWithoutQuestionInput[] | Prisma.MarksUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.MarksCreateOrConnectWithoutQuestionInput | Prisma.MarksCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.MarksCreateManyQuestionInputEnvelope
+  connect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+}
+
+export type MarksUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput> | Prisma.MarksCreateWithoutQuestionInput[] | Prisma.MarksUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.MarksCreateOrConnectWithoutQuestionInput | Prisma.MarksCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.MarksUpsertWithWhereUniqueWithoutQuestionInput | Prisma.MarksUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.MarksCreateManyQuestionInputEnvelope
+  set?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  disconnect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  delete?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  connect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  update?: Prisma.MarksUpdateWithWhereUniqueWithoutQuestionInput | Prisma.MarksUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.MarksUpdateManyWithWhereWithoutQuestionInput | Prisma.MarksUpdateManyWithWhereWithoutQuestionInput[]
+  deleteMany?: Prisma.MarksScalarWhereInput | Prisma.MarksScalarWhereInput[]
+}
+
+export type MarksUncheckedUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput> | Prisma.MarksCreateWithoutQuestionInput[] | Prisma.MarksUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.MarksCreateOrConnectWithoutQuestionInput | Prisma.MarksCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.MarksUpsertWithWhereUniqueWithoutQuestionInput | Prisma.MarksUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.MarksCreateManyQuestionInputEnvelope
+  set?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  disconnect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  delete?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  connect?: Prisma.MarksWhereUniqueInput | Prisma.MarksWhereUniqueInput[]
+  update?: Prisma.MarksUpdateWithWhereUniqueWithoutQuestionInput | Prisma.MarksUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.MarksUpdateManyWithWhereWithoutQuestionInput | Prisma.MarksUpdateManyWithWhereWithoutQuestionInput[]
+  deleteMany?: Prisma.MarksScalarWhereInput | Prisma.MarksScalarWhereInput[]
+}
+
 export type MarksCreateWithoutUserInput = {
   id?: string
-  questionId: string
+  question: Prisma.QuestionCreateNestedOneWithoutMarksInput
 }
 
 export type MarksUncheckedCreateWithoutUserInput = {
@@ -360,6 +404,42 @@ export type MarksScalarWhereInput = {
   questionId?: Prisma.StringFilter<"Marks"> | string
 }
 
+export type MarksCreateWithoutQuestionInput = {
+  id?: string
+  user: Prisma.UserCreateNestedOneWithoutMarksInput
+}
+
+export type MarksUncheckedCreateWithoutQuestionInput = {
+  id?: string
+  userId: string
+}
+
+export type MarksCreateOrConnectWithoutQuestionInput = {
+  where: Prisma.MarksWhereUniqueInput
+  create: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput>
+}
+
+export type MarksCreateManyQuestionInputEnvelope = {
+  data: Prisma.MarksCreateManyQuestionInput | Prisma.MarksCreateManyQuestionInput[]
+  skipDuplicates?: boolean
+}
+
+export type MarksUpsertWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.MarksWhereUniqueInput
+  update: Prisma.XOR<Prisma.MarksUpdateWithoutQuestionInput, Prisma.MarksUncheckedUpdateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.MarksCreateWithoutQuestionInput, Prisma.MarksUncheckedCreateWithoutQuestionInput>
+}
+
+export type MarksUpdateWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.MarksWhereUniqueInput
+  data: Prisma.XOR<Prisma.MarksUpdateWithoutQuestionInput, Prisma.MarksUncheckedUpdateWithoutQuestionInput>
+}
+
+export type MarksUpdateManyWithWhereWithoutQuestionInput = {
+  where: Prisma.MarksScalarWhereInput
+  data: Prisma.XOR<Prisma.MarksUpdateManyMutationInput, Prisma.MarksUncheckedUpdateManyWithoutQuestionInput>
+}
+
 export type MarksCreateManyUserInput = {
   id?: string
   questionId: string
@@ -367,7 +447,7 @@ export type MarksCreateManyUserInput = {
 
 export type MarksUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.QuestionUpdateOneRequiredWithoutMarksNestedInput
 }
 
 export type MarksUncheckedUpdateWithoutUserInput = {
@@ -380,6 +460,26 @@ export type MarksUncheckedUpdateManyWithoutUserInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
+export type MarksCreateManyQuestionInput = {
+  id?: string
+  userId: string
+}
+
+export type MarksUpdateWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMarksNestedInput
+}
+
+export type MarksUncheckedUpdateWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type MarksUncheckedUpdateManyWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 
 
 export type MarksSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -387,6 +487,7 @@ export type MarksSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   userId?: boolean
   questionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["marks"]>
 
 export type MarksSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -394,6 +495,7 @@ export type MarksSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   userId?: boolean
   questionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["marks"]>
 
 export type MarksSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -401,6 +503,7 @@ export type MarksSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   userId?: boolean
   questionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["marks"]>
 
 export type MarksSelectScalar = {
@@ -412,18 +515,22 @@ export type MarksSelectScalar = {
 export type MarksOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "questionId", ExtArgs["result"]["marks"]>
 export type MarksInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }
 export type MarksIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }
 export type MarksIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }
 
 export type $MarksPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Marks"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    question: Prisma.$QuestionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -824,6 +931,7 @@ readonly fields: MarksFieldRefs;
 export interface Prisma__MarksClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  question<T extends Prisma.QuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

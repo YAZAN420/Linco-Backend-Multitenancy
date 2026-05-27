@@ -151,7 +151,7 @@ export type CommentGroupByOutputType = {
   id: string
   userId: string
   content: string
-  parentId: string
+  parentId: string | null
   lessonId: string
   _count: CommentCountAggregateOutputType | null
   _min: CommentMinAggregateOutputType | null
@@ -180,7 +180,7 @@ export type CommentWhereInput = {
   id?: Prisma.StringFilter<"Comment"> | string
   userId?: Prisma.StringFilter<"Comment"> | string
   content?: Prisma.StringFilter<"Comment"> | string
-  parentId?: Prisma.StringFilter<"Comment"> | string
+  parentId?: Prisma.StringNullableFilter<"Comment"> | string | null
   lessonId?: Prisma.StringFilter<"Comment"> | string
   lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   parent?: Prisma.XOR<Prisma.CommentNullableScalarRelationFilter, Prisma.CommentWhereInput> | null
@@ -191,7 +191,7 @@ export type CommentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  parentId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonId?: Prisma.SortOrder
   lesson?: Prisma.LessonOrderByWithRelationInput
   parent?: Prisma.CommentOrderByWithRelationInput
@@ -205,7 +205,7 @@ export type CommentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CommentWhereInput | Prisma.CommentWhereInput[]
   userId?: Prisma.StringFilter<"Comment"> | string
   content?: Prisma.StringFilter<"Comment"> | string
-  parentId?: Prisma.StringFilter<"Comment"> | string
+  parentId?: Prisma.StringNullableFilter<"Comment"> | string | null
   lessonId?: Prisma.StringFilter<"Comment"> | string
   lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
   parent?: Prisma.XOR<Prisma.CommentNullableScalarRelationFilter, Prisma.CommentWhereInput> | null
@@ -216,7 +216,7 @@ export type CommentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  parentId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   lessonId?: Prisma.SortOrder
   _count?: Prisma.CommentCountOrderByAggregateInput
   _max?: Prisma.CommentMaxOrderByAggregateInput
@@ -230,7 +230,7 @@ export type CommentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Comment"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Comment"> | string
   content?: Prisma.StringWithAggregatesFilter<"Comment"> | string
-  parentId?: Prisma.StringWithAggregatesFilter<"Comment"> | string
+  parentId?: Prisma.StringNullableWithAggregatesFilter<"Comment"> | string | null
   lessonId?: Prisma.StringWithAggregatesFilter<"Comment"> | string
 }
 
@@ -247,7 +247,7 @@ export type CommentUncheckedCreateInput = {
   id?: string
   userId: string
   content: string
-  parentId: string
+  parentId?: string | null
   lessonId: string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentInput
 }
@@ -265,7 +265,7 @@ export type CommentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  parentId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessonId?: Prisma.StringFieldUpdateOperationsInput | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentNestedInput
 }
@@ -274,7 +274,7 @@ export type CommentCreateManyInput = {
   id?: string
   userId: string
   content: string
-  parentId: string
+  parentId?: string | null
   lessonId: string
 }
 
@@ -288,7 +288,7 @@ export type CommentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  parentId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessonId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -443,7 +443,7 @@ export type CommentUncheckedCreateWithoutLessonInput = {
   id?: string
   userId: string
   content: string
-  parentId: string
+  parentId?: string | null
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -480,7 +480,7 @@ export type CommentScalarWhereInput = {
   id?: Prisma.StringFilter<"Comment"> | string
   userId?: Prisma.StringFilter<"Comment"> | string
   content?: Prisma.StringFilter<"Comment"> | string
-  parentId?: Prisma.StringFilter<"Comment"> | string
+  parentId?: Prisma.StringNullableFilter<"Comment"> | string | null
   lessonId?: Prisma.StringFilter<"Comment"> | string
 }
 
@@ -496,7 +496,7 @@ export type CommentUncheckedCreateWithoutRepliesInput = {
   id?: string
   userId: string
   content: string
-  parentId: string
+  parentId?: string | null
   lessonId: string
 }
 
@@ -554,7 +554,7 @@ export type CommentUncheckedUpdateWithoutRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  parentId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lessonId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -578,7 +578,7 @@ export type CommentCreateManyLessonInput = {
   id?: string
   userId: string
   content: string
-  parentId: string
+  parentId?: string | null
 }
 
 export type CommentUpdateWithoutLessonInput = {
@@ -593,7 +593,7 @@ export type CommentUncheckedUpdateWithoutLessonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  parentId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -601,7 +601,7 @@ export type CommentUncheckedUpdateManyWithoutLessonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  parentId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CommentCreateManyParentInput = {
@@ -732,7 +732,7 @@ export type $CommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     userId: string
     content: string
-    parentId: string
+    parentId: string | null
     lessonId: string
   }, ExtArgs["result"]["comment"]>
   composites: {}

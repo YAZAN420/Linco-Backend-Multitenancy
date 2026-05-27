@@ -43,7 +43,7 @@ export type LessonMinAggregateOutputType = {
   videoPath: string | null
   subtitlePath: string | null
   index: number | null
-  setionId: string | null
+  sectionId: string | null
 }
 
 export type LessonMaxAggregateOutputType = {
@@ -53,7 +53,7 @@ export type LessonMaxAggregateOutputType = {
   videoPath: string | null
   subtitlePath: string | null
   index: number | null
-  setionId: string | null
+  sectionId: string | null
 }
 
 export type LessonCountAggregateOutputType = {
@@ -63,7 +63,7 @@ export type LessonCountAggregateOutputType = {
   videoPath: number
   subtitlePath: number
   index: number
-  setionId: number
+  sectionId: number
   _all: number
 }
 
@@ -85,7 +85,7 @@ export type LessonMinAggregateInputType = {
   videoPath?: true
   subtitlePath?: true
   index?: true
-  setionId?: true
+  sectionId?: true
 }
 
 export type LessonMaxAggregateInputType = {
@@ -95,7 +95,7 @@ export type LessonMaxAggregateInputType = {
   videoPath?: true
   subtitlePath?: true
   index?: true
-  setionId?: true
+  sectionId?: true
 }
 
 export type LessonCountAggregateInputType = {
@@ -105,7 +105,7 @@ export type LessonCountAggregateInputType = {
   videoPath?: true
   subtitlePath?: true
   index?: true
-  setionId?: true
+  sectionId?: true
   _all?: true
 }
 
@@ -202,7 +202,7 @@ export type LessonGroupByOutputType = {
   videoPath: string
   subtitlePath: string
   index: number
-  setionId: string
+  sectionId: string
   _count: LessonCountAggregateOutputType | null
   _avg: LessonAvgAggregateOutputType | null
   _sum: LessonSumAggregateOutputType | null
@@ -235,7 +235,7 @@ export type LessonWhereInput = {
   videoPath?: Prisma.StringFilter<"Lesson"> | string
   subtitlePath?: Prisma.StringFilter<"Lesson"> | string
   index?: Prisma.IntFilter<"Lesson"> | number
-  setionId?: Prisma.StringFilter<"Lesson"> | string
+  sectionId?: Prisma.StringFilter<"Lesson"> | string
   comments?: Prisma.CommentListRelationFilter
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   attachments?: Prisma.AttachmentListRelationFilter
@@ -248,7 +248,7 @@ export type LessonOrderByWithRelationInput = {
   videoPath?: Prisma.SortOrder
   subtitlePath?: Prisma.SortOrder
   index?: Prisma.SortOrder
-  setionId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
   comments?: Prisma.CommentOrderByRelationAggregateInput
   section?: Prisma.SectionOrderByWithRelationInput
   attachments?: Prisma.AttachmentOrderByRelationAggregateInput
@@ -264,7 +264,7 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   videoPath?: Prisma.StringFilter<"Lesson"> | string
   subtitlePath?: Prisma.StringFilter<"Lesson"> | string
   index?: Prisma.IntFilter<"Lesson"> | number
-  setionId?: Prisma.StringFilter<"Lesson"> | string
+  sectionId?: Prisma.StringFilter<"Lesson"> | string
   comments?: Prisma.CommentListRelationFilter
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   attachments?: Prisma.AttachmentListRelationFilter
@@ -277,7 +277,7 @@ export type LessonOrderByWithAggregationInput = {
   videoPath?: Prisma.SortOrder
   subtitlePath?: Prisma.SortOrder
   index?: Prisma.SortOrder
-  setionId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
   _count?: Prisma.LessonCountOrderByAggregateInput
   _avg?: Prisma.LessonAvgOrderByAggregateInput
   _max?: Prisma.LessonMaxOrderByAggregateInput
@@ -295,7 +295,7 @@ export type LessonScalarWhereWithAggregatesInput = {
   videoPath?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
   subtitlePath?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
   index?: Prisma.IntWithAggregatesFilter<"Lesson"> | number
-  setionId?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
+  sectionId?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
 }
 
 export type LessonCreateInput = {
@@ -317,7 +317,7 @@ export type LessonUncheckedCreateInput = {
   videoPath: string
   subtitlePath: string
   index: number
-  setionId: string
+  sectionId: string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutLessonInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
 }
@@ -341,7 +341,7 @@ export type LessonUncheckedUpdateInput = {
   videoPath?: Prisma.StringFieldUpdateOperationsInput | string
   subtitlePath?: Prisma.StringFieldUpdateOperationsInput | string
   index?: Prisma.IntFieldUpdateOperationsInput | number
-  setionId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutLessonNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
 }
@@ -353,7 +353,7 @@ export type LessonCreateManyInput = {
   videoPath: string
   subtitlePath: string
   index: number
-  setionId: string
+  sectionId: string
 }
 
 export type LessonUpdateManyMutationInput = {
@@ -372,7 +372,7 @@ export type LessonUncheckedUpdateManyInput = {
   videoPath?: Prisma.StringFieldUpdateOperationsInput | string
   subtitlePath?: Prisma.StringFieldUpdateOperationsInput | string
   index?: Prisma.IntFieldUpdateOperationsInput | number
-  setionId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LessonListRelationFilter = {
@@ -397,7 +397,7 @@ export type LessonCountOrderByAggregateInput = {
   videoPath?: Prisma.SortOrder
   subtitlePath?: Prisma.SortOrder
   index?: Prisma.SortOrder
-  setionId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
 }
 
 export type LessonAvgOrderByAggregateInput = {
@@ -412,7 +412,7 @@ export type LessonMaxOrderByAggregateInput = {
   videoPath?: Prisma.SortOrder
   subtitlePath?: Prisma.SortOrder
   index?: Prisma.SortOrder
-  setionId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
 }
 
 export type LessonMinOrderByAggregateInput = {
@@ -422,7 +422,7 @@ export type LessonMinOrderByAggregateInput = {
   videoPath?: Prisma.SortOrder
   subtitlePath?: Prisma.SortOrder
   index?: Prisma.SortOrder
-  setionId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
 }
 
 export type LessonSumOrderByAggregateInput = {
@@ -558,7 +558,7 @@ export type LessonScalarWhereInput = {
   videoPath?: Prisma.StringFilter<"Lesson"> | string
   subtitlePath?: Prisma.StringFilter<"Lesson"> | string
   index?: Prisma.IntFilter<"Lesson"> | number
-  setionId?: Prisma.StringFilter<"Lesson"> | string
+  sectionId?: Prisma.StringFilter<"Lesson"> | string
 }
 
 export type LessonCreateWithoutAttachmentsInput = {
@@ -579,7 +579,7 @@ export type LessonUncheckedCreateWithoutAttachmentsInput = {
   videoPath: string
   subtitlePath: string
   index: number
-  setionId: string
+  sectionId: string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutLessonInput
 }
 
@@ -617,7 +617,7 @@ export type LessonUncheckedUpdateWithoutAttachmentsInput = {
   videoPath?: Prisma.StringFieldUpdateOperationsInput | string
   subtitlePath?: Prisma.StringFieldUpdateOperationsInput | string
   index?: Prisma.IntFieldUpdateOperationsInput | number
-  setionId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutLessonNestedInput
 }
 
@@ -639,7 +639,7 @@ export type LessonUncheckedCreateWithoutCommentsInput = {
   videoPath: string
   subtitlePath: string
   index: number
-  setionId: string
+  sectionId: string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
 }
 
@@ -677,7 +677,7 @@ export type LessonUncheckedUpdateWithoutCommentsInput = {
   videoPath?: Prisma.StringFieldUpdateOperationsInput | string
   subtitlePath?: Prisma.StringFieldUpdateOperationsInput | string
   index?: Prisma.IntFieldUpdateOperationsInput | number
-  setionId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
 }
 
@@ -768,7 +768,7 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   videoPath?: boolean
   subtitlePath?: boolean
   index?: boolean
-  setionId?: boolean
+  sectionId?: boolean
   comments?: boolean | Prisma.Lesson$commentsArgs<ExtArgs>
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
@@ -782,7 +782,7 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   videoPath?: boolean
   subtitlePath?: boolean
   index?: boolean
-  setionId?: boolean
+  sectionId?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
@@ -793,7 +793,7 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   videoPath?: boolean
   subtitlePath?: boolean
   index?: boolean
-  setionId?: boolean
+  sectionId?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
@@ -804,10 +804,10 @@ export type LessonSelectScalar = {
   videoPath?: boolean
   subtitlePath?: boolean
   index?: boolean
-  setionId?: boolean
+  sectionId?: boolean
 }
 
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "time" | "videoPath" | "subtitlePath" | "index" | "setionId", ExtArgs["result"]["lesson"]>
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "time" | "videoPath" | "subtitlePath" | "index" | "sectionId", ExtArgs["result"]["lesson"]>
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comments?: boolean | Prisma.Lesson$commentsArgs<ExtArgs>
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -835,7 +835,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     videoPath: string
     subtitlePath: string
     index: number
-    setionId: string
+    sectionId: string
   }, ExtArgs["result"]["lesson"]>
   composites: {}
 }
@@ -1268,7 +1268,7 @@ export interface LessonFieldRefs {
   readonly videoPath: Prisma.FieldRef<"Lesson", 'String'>
   readonly subtitlePath: Prisma.FieldRef<"Lesson", 'String'>
   readonly index: Prisma.FieldRef<"Lesson", 'Int'>
-  readonly setionId: Prisma.FieldRef<"Lesson", 'String'>
+  readonly sectionId: Prisma.FieldRef<"Lesson", 'String'>
 }
     
 
