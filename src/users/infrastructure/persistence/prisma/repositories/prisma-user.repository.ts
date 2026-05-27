@@ -24,6 +24,7 @@ export class PrismaUserRepository implements UserRepository {
       this.prisma.user.findMany({
         skip: options.skip,
         take: options.take,
+        orderBy: { createdAt: 'desc' },
       }),
       this.prisma.user.count(),
     ]);
@@ -58,7 +59,7 @@ export class PrismaUserRepository implements UserRepository {
   async save(user: User): Promise<void> {
     const data = this.mapper.toPersistence(user);
     await this.prisma.user.upsert({
-      where: { id: user.getId() },
+      where: { id: user.id },
       update: data,
       create: data,
     });
@@ -75,11 +76,6 @@ export class PrismaUserRepository implements UserRepository {
 
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { email } });
-    return user ? this.mapper.toDomain(user) : null;
-  }
-
-  async findByUsername(username: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { username } });
     return user ? this.mapper.toDomain(user) : null;
   }
 

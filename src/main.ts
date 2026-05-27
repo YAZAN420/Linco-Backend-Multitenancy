@@ -6,17 +6,14 @@ import { Logger as PinoLogger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 import { setupApp } from './setup/app.setup';
 import { setupSwagger } from './setup/swagger.setup';
-import { DatabaseDriver } from './core/database/database.module';
 
 const bootstrapLogger = new NestLogger('Bootstrap');
 
 async function bootstrap() {
   try {
-    const dbDriver = (process.env.DB_DRIVER as DatabaseDriver) || 'memory';
-    const app = await NestFactory.create(
-      AppModule.register({ driver: dbDriver }),
-      { bufferLogs: true },
-    );
+    const app = await NestFactory.create(AppModule.register(), {
+      bufferLogs: true,
+    });
 
     const logger = app.get(PinoLogger);
     app.useLogger(logger);

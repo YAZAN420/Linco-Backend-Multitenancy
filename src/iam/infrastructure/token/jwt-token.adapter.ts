@@ -42,11 +42,11 @@ export class JwtTokenAdapter implements TokenPort {
   async generateTokenPair(user: User): Promise<TokenPair> {
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<ActiveUserData>>(
-        user.getId(),
+        user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.getEmailValue(), role: user.getRole() },
+        { email: user.email, role: user.role },
       ),
-      this.signToken(user.getId(), this.jwtConfiguration.refreshTokenTtl),
+      this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl),
     ]);
 
     return { accessToken, refreshToken };

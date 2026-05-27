@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
@@ -5,15 +6,30 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  IsEnum,
 } from 'class-validator';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  firstName!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName!: string;
 
   @IsEmail()
+  @IsNotEmpty()
   email!: string;
+
+  @Type(() => Date)
+  @IsNotEmpty()
+  birthDate!: Date;
+
+  @IsString()
+  @IsNotEmpty()
+  imagePath!: string;
 
   @IsString()
   @MinLength(8)
@@ -23,4 +39,8 @@ export class CreateUserDto {
       'Password must contain uppercase, lowercase, number, and special character',
   })
   password!: string;
+
+  @IsNotEmpty()
+  @IsEnum(Role)
+  role!: Role;
 }

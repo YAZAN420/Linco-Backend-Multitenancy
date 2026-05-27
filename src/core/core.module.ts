@@ -1,6 +1,6 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
 import { CacheModule } from './cache/cache.module';
-import { ApplicationBootstrapOptions } from 'src/common/interfaces/application-bootstrap-options.interface';
+
 import { DatabaseModule } from './database/database.module';
 import { MailModule } from './mail/mail.module';
 import { LoggerModule } from './logger/logger.module';
@@ -12,11 +12,11 @@ import { QueueModule } from './queue/queue.module';
 @Global()
 @Module({})
 export class CoreModule {
-  static forRoot(options: ApplicationBootstrapOptions): DynamicModule {
+  static forRoot(): DynamicModule {
     return {
       module: CoreModule,
       imports: [
-        DatabaseModule.use(options.driver),
+        DatabaseModule.use(),
         AppConfigModule,
         RateLimiterModule,
         ContextModule,

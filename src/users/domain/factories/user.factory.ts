@@ -1,27 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { Role } from '../enums/role.enum';
 import { Email } from '../value-objects/email.vo';
-import { Username } from '../value-objects/username.vo';
 import { User } from '../user';
+import { UserSecurity } from '../user-security';
 import { v7 as uuidv7 } from 'uuid';
 
 @Injectable()
 export class UserFactory {
-  createNew(usernameStr: string, emailStr: string, password: string): User {
+  createNew(
+    firstName: string,
+    lastName: string,
+    emailStr: string,
+    passwordStr: string,
+    birthDate: Date,
+    imagePath: string,
+  ): User {
     const email = new Email(emailStr);
-    const username = new Username(usernameStr);
     const now = new Date();
 
-    return new User(
-      uuidv7(),
-      username,
+    const security = new UserSecurity({
+      password: passwordStr,
+      isEmailVerified: false,
+      isTwoFactorAuthenticationEnabled: false,
+      refreshToken: null,
+      twoFactorAuthenticationSecret: null,
+      emailVerificationToken: null,
+      passwordResetToken: null,
+      passwordResetExpires: null,
+    });
+
+    return new User(uuidv7(), {
+      firstName,
+      lastName,
       email,
-      Role.USER,
-      password,
-      now,
-      now,
-      false,
-      false,
-    );
+      birthDate,
+      imagePath,
+      role: Role.USER,
+      security,
+      createdAt: now,
+      updatedAt: now,
+    });
   }
 }

@@ -4,6 +4,7 @@ import { UserRepository } from './ports/user.repository';
 import { GetUserByIdQuery } from './queries/get-user-by-id.query';
 import { GetUserByEmailQuery } from './queries/get-user-by-email.query';
 import {
+  CursorPageDto,
   CursorPageOptionsDto,
   PageDto,
   PageOptionsDto,
@@ -23,16 +24,14 @@ export class UsersQueryService {
     return this.userRepository.findAll(pageOptionsDto);
   }
 
-  async findAllCursor(options: CursorPageOptionsDto) {
+  async findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<User>> {
     return this.userRepository.findAllCursor(options);
   }
 
   async findByEmail(query: GetUserByEmailQuery): Promise<User | null> {
     return this.userRepository.findByEmail(query.email);
-  }
-
-  async findByUsername(username: string): Promise<User | null> {
-    return this.userRepository.findByUsername(username);
   }
 
   async findByVerificationToken(token: string): Promise<User | null> {

@@ -22,8 +22,6 @@ import {
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
-import { Role } from 'src/users/domain/enums/role.enum';
-import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
 
 @Controller('users')
@@ -34,13 +32,16 @@ export class UsersController {
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
-  @Roles([Role.ADMIN])
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const command = new CreateUserCommand(
-      dto.username,
+      dto.firstName,
+      dto.lastName,
       dto.email,
       dto.password,
+      new Date(dto.birthDate),
+      dto.imagePath,
+      dto.role,
     );
     const user = await this.commandService.create(command);
 
@@ -50,7 +51,6 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.ADMIN])
   @Get()
   @CachePublic()
   async findAll(@Query() pageOptionsDto: PageOptionsDto) {
@@ -63,7 +63,6 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.ADMIN])
   @Get('cursor')
   @CachePublic()
   async findWithCursor(@Query() options: CursorPageOptionsDto) {
@@ -88,7 +87,6 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.ADMIN])
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.queryService.findById(new GetUserByIdQuery(id));
@@ -105,7 +103,13 @@ export class UsersController {
     @Param('id') id: string,
     @Body() dto: UpdateProfileDto,
   ) {
-    const command = new UpdateUserProfileCommand(id, dto.username);
+    const command = new UpdateUserProfileCommand(
+      id,
+      dto.firstName,
+      dto.lastName,
+      dto.birthDate ? new Date(dto.birthDate) : undefined,
+      dto.imagePath,
+    );
     const user = await this.commandService.updateProfile(activeUser, command);
 
     return {
@@ -114,7 +118,6 @@ export class UsersController {
     };
   }
 
-  @Roles([Role.ADMIN])
   @Delete(':id')
   async remove(
     @ActiveUser() activeUser: ActiveUserData,

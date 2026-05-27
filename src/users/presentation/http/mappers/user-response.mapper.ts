@@ -6,14 +6,17 @@ import { UserResponseDto } from '../dto/user-response.dto';
 export class UserResponseMapper {
   toResponse(user: User): UserResponseDto {
     return {
-      id: user.getId(),
-      username: user.getUsernameValue(),
-      email: user.getEmailValue(),
-      role: user.getRole(),
-      isEmailVerified: user.getIsEmailVerified(),
-      isTwoFactorEnabled: user.getIsTwoFactorEnabled(),
-      createdAt: user.getCreatedAt(),
-      updatedAt: user.getUpdatedAt(),
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      birthDate: user.birthDate,
+      imagePath: user.imagePath,
+      role: user.role,
+      isEmailVerified: user.security.isEmailVerified,
+      isTwoFactorEnabled: user.security.isTwoFactorEnabled,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 

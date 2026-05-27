@@ -26,7 +26,7 @@ export class TokenService {
     );
 
     await this.usersCommandService.updateRefreshToken(
-      user.getId(),
+      user.id,
       hashedRefreshToken,
     );
 
@@ -67,7 +67,7 @@ export class TokenService {
 
     const isValid = await this.hashingPort.compare(
       token,
-      user.getRefreshToken() ?? '',
+      user.security.refreshToken ?? '',
     );
 
     if (!isValid) {

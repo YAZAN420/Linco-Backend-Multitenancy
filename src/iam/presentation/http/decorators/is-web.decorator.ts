@@ -6,9 +6,10 @@ export const IsWeb = createParamDecorator(
     const request = ctx.switchToHttp().getRequest<Request>();
 
     const clientType = request.headers['x-client-type'];
-    if (clientType) {
-      return clientType === 'web';
+
+    if (clientType && typeof clientType === 'string') {
+      return clientType.toLowerCase() === 'web';
     }
-    return request.headers['user-agent']?.includes('Mozilla') ?? false;
+    return false;
   },
 );

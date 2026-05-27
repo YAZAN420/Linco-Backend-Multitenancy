@@ -33,12 +33,21 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         'Google account does not provide a valid email',
       );
     }
-    const name =
-      profile.displayName?.trim() || profile.username || email.split('@')[0];
+
+    const firstName =
+      profile.name?.givenName?.trim() ||
+      profile.displayName?.trim() ||
+      email.split('@')[0];
+
+    const lastName = profile.name?.familyName?.trim() || '';
+
+    const imagePath = profile.photos?.[0]?.value?.trim() ?? '';
 
     return {
       email,
-      displayName: name,
+      firstName,
+      lastName,
+      imagePath,
       providerId: profile.id,
     };
   }

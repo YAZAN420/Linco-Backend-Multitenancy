@@ -15,3 +15,17 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const AttachmentType = {
+  PDF: 'PDF'
+} as const
+
+export type AttachmentType = (typeof AttachmentType)[keyof typeof AttachmentType]
+
+
+export const FeatureType = {
+  FIGMA: 'FIGMA'
+} as const
+
+export type FeatureType = (typeof FeatureType)[keyof typeof FeatureType]

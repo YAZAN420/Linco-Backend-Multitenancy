@@ -33,18 +33,16 @@ export class PasswordManagementService {
         Date.now() + IAM_CONSTANTS.RESET_TOKEN_EXPIRY_MS,
       );
 
-      user.generatePasswordResetToken(hashedToken, resetExpires);
+      user.security.generatePasswordResetToken(hashedToken, resetExpires);
       await this.usersCommandService.save(user);
 
       await this.mailQueueService.enqueue(
         MAIL_JOBS.SEND_PASSWORD_RESET_EMAIL,
-        { email: user.getEmailValue(), token: resetToken },
+        { email: user.email, token: resetToken },
         { priority: 1 },
       );
 
-      this.logger.log(
-        `Password reset token generated for user: ${user.getId()}`,
-      );
+      this.logger.log(`Password reset token generated for user: ${user.id}`);
     } else {
       this.logger.warn(
         `Password reset requested for non-existent email: ${email}`,
@@ -69,10 +67,10 @@ export class PasswordManagementService {
     }
 
     const hashedPassword = await this.hashingPort.hash(newPassword);
-    user.resetPasswordWithToken(hashedPassword, hashedToken);
+    user.security.resetPasswordWithToken(hashedPassword, hashedToken);
     await this.usersCommandService.save(user);
 
-    this.logger.log(`Password reset successfully for user: ${user.getId()}`);
+    this.logger.log(`Password reset successfully for user: ${user.id}`);
 
     return { message: 'Password has been reset successfully.' };
   }

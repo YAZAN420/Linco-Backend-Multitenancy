@@ -8,19 +8,16 @@ import { HttpCacheInterceptor } from './common/interceptors/http-cache.intercept
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { ThrottlerGuard } from '@nestjs/throttler';
-import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 
 @Module({})
 export class AppModule {
-  static register(options: ApplicationBootstrapOptions): DynamicModule {
+  static register(): DynamicModule {
     return {
       module: AppModule,
       imports: [
         IamModule,
-        CoreModule.forRoot(options),
-        UsersModule.withInfrastructure(
-          UsersInfrastructureModule.use(options.driver),
-        ),
+        CoreModule.forRoot(),
+        UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

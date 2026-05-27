@@ -1,6 +1,5 @@
 import {
   ConflictException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -9,9 +8,7 @@ import { UserFactory } from '../domain/factories/user.factory';
 import { User } from '../domain/user';
 import { CreateUserCommand } from './commands/create-user.command';
 import { HashingPort } from 'src/iam/application/ports/hashing.port';
-import { AuthorizationPort } from 'src/iam/application/ports/authorization.port';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
-import { Action } from 'src/iam/domain/enums/action.enum';
 import { CachePort } from 'src/core/cache/cache.port';
 import { UpdateUserProfileCommand } from './commands/update-user-profile.command';
 
@@ -21,21 +18,20 @@ export class UsersCommandService {
     private readonly hashService: HashingPort,
     private readonly userRepository: UserRepository,
     private readonly userFactory: UserFactory,
-    private readonly authPort: AuthorizationPort,
     private readonly cachePort: CachePort,
   ) {}
 
   async create(command: CreateUserCommand): Promise<User> {
-    const [_, __, hashedPassword] = await Promise.all([
-      this.ensureEmailIsUnique(command.email),
-      this.ensureUsernameIsUnique(command.username),
-      this.hashService.hash(command.password),
-    ]);
+    await this.ensureEmailIsUnique(command.email);
+    const hashedPassword = await this.hashService.hash(command.password);
 
     const user = this.userFactory.createNew(
-      command.username,
+      command.firstName,
+      command.lastName,
       command.email,
       hashedPassword,
+      command.birthDate,
+      command.imagePath,
     );
 
     await this.userRepository.save(user);
@@ -49,22 +45,23 @@ export class UsersCommandService {
     command: UpdateUserProfileCommand,
   ): Promise<User> {
     const user = await this.findUserOrThrow(command.userId);
-    this.assertPermission(activeUser, Action.Update, user);
 
-    if (command.username) {
-      await this.ensureUsernameIsUnique(command.username, user.getId());
-      user.changeUsername(command.username);
-    }
+    if (command.firstName !== undefined)
+      user.changeFirstName(command.firstName);
+    if (command.lastName !== undefined) user.changeLastName(command.lastName);
+    if (command.birthDate !== undefined)
+      user.changeBirthDate(command.birthDate);
+    if (command.imagePath !== undefined)
+      user.changeImagePath(command.imagePath ?? '');
 
     await this.userRepository.save(user);
-    this.invalidateUserCache(user.getId(), activeUser.id);
+    this.invalidateUserCache(user.id, activeUser.id);
 
     return user;
   }
 
   async remove(activeUser: ActiveUserData, id: string): Promise<void> {
-    const user = await this.findUserOrThrow(id);
-    this.assertPermission(activeUser, Action.Delete, user);
+    await this.findUserOrThrow(id);
     await this.userRepository.delete(id);
     this.invalidateUserListCache();
   }
@@ -74,7 +71,7 @@ export class UsersCommandService {
     refreshToken: string | null,
   ): Promise<void> {
     const user = await this.findUserOrThrow(id);
-    user.updateRefreshToken(refreshToken);
+    user.security.updateRefreshToken(refreshToken);
     await this.userRepository.save(user);
   }
 
@@ -82,7 +79,7 @@ export class UsersCommandService {
     const user = await this.userRepository.findByVerificationToken(token);
     if (!user) throw new NotFoundException('Invalid verification token');
 
-    user.verifyEmail(token);
+    user.security.verifyEmail(token);
     await this.userRepository.save(user);
   }
 
@@ -96,36 +93,9 @@ export class UsersCommandService {
     return user;
   }
 
-  private assertPermission(
-    activeUser: ActiveUserData,
-    action: Action,
-    subject: User,
-  ): void {
-    const isAllowed = this.authPort.checkPermission(
-      activeUser,
-      action,
-      subject,
-    );
-    if (!isAllowed) {
-      throw new ForbiddenException(
-        'You do not have permission to perform this action',
-      );
-    }
-  }
-
   private async ensureEmailIsUnique(email: string): Promise<void> {
     const existing = await this.userRepository.findByEmail(email);
     if (existing) throw new ConflictException('Email already exists');
-  }
-
-  private async ensureUsernameIsUnique(
-    username: string,
-    excludeUserId?: string,
-  ): Promise<void> {
-    const existing = await this.userRepository.findByUsername(username);
-    if (existing && existing.getId() !== excludeUserId) {
-      throw new ConflictException('Username is already taken');
-    }
   }
 
   private invalidateUserListCache(): void {

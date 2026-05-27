@@ -30,12 +30,12 @@ export class TwoFactorAuthService {
 
     const secret = this.otp.generateSecret();
     const otpauthUrl = this.otp.generateURI({
-      label: user.getEmailValue(),
+      label: user.email,
       issuer: 'NestJS Server',
       secret,
     });
 
-    user.setTwoFactorSecret(secret);
+    user.security.setTwoFactorSecret(secret);
     await this.usersCommandService.save(user);
 
     const qrCode = await toDataURL(otpauthUrl);
@@ -48,7 +48,11 @@ export class TwoFactorAuthService {
     const query = new GetUserByIdQuery(userId);
     const user = await this.usersQueryService.findById(query);
 
-    const secret = user.getTwoFactorSecret();
+    if (user.security.isTwoFactorEnabled) {
+      return { message: 'Two-factor authentication is already enabled' };
+    }
+
+    const secret = user.security.twoFactorSecret;
     if (!secret) {
       throw new Missing2FASecretException();
     }
@@ -58,7 +62,7 @@ export class TwoFactorAuthService {
       throw new Invalid2FACodeException();
     }
 
-    user.enableTwoFactorAuth(secret);
+    user.security.enableTwoFactorAuth(secret);
     await this.usersCommandService.save(user);
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);

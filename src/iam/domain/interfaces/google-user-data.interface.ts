@@ -1,5 +1,7 @@
 export interface GoogleUserData {
   email: string;
-  displayName: string;
+  firstName: string;
+  lastName: string;
+  imagePath: string;
   providerId: string;
 }

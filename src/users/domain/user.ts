@@ -1,173 +1,91 @@
 import { Role } from './enums/role.enum';
 import { Email } from './value-objects/email.vo';
-import { Username } from './value-objects/username.vo';
-import { EmailAlreadyVerifiedException } from './exceptions/email-already-verified.exception';
-import { EmailNotVerifiedFor2FAException } from './exceptions/email-not-verified-for-2fa.exception';
-import { InvalidResetTokenException } from './exceptions/invalid-reset-token.exception';
-import { InvalidVerificationTokenException } from './exceptions/invalid-verification-token.exception';
-import { ResetTokenExpiredException } from './exceptions/reset-token-expired.exception';
+import { UserSecurity } from './user-security';
+
+export interface UserProps {
+  firstName: string;
+  lastName: string;
+  email: Email;
+  birthDate: Date;
+  imagePath: string;
+  role: Role;
+  security: UserSecurity;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export class User {
   constructor(
     public readonly id: string,
-    private username: Username,
-    private email: Email,
-    private role: Role,
-    private password: string,
-    private readonly createdAt: Date,
-    private updatedAt: Date,
-    private isEmailVerified: boolean,
-    private isTwoFactorAuthenticationEnabled: boolean,
-    private refreshToken: string | null = null,
-    private twoFactorAuthenticationSecret: string | null = null,
-    private emailVerificationToken: string | null = null,
-    private passwordResetToken: string | null = null,
-    private passwordResetExpires: Date | null = null,
+    private readonly props: UserProps,
   ) {}
 
-  getId(): string {
-    return this.id;
+  get firstName(): string {
+    return this.props.firstName;
   }
 
-  getUsernameValue(): string {
-    return this.username.getValue();
+  get lastName(): string {
+    return this.props.lastName;
   }
 
-  getEmailValue(): string {
-    return this.email.getValue();
+  get email(): string {
+    return this.props.email.getValue();
   }
 
-  getRole(): Role {
-    return this.role;
+  get emailVO(): Email {
+    return this.props.email;
   }
 
-  getPassword(): string {
-    return this.password;
+  get birthDate(): Date {
+    return this.props.birthDate;
   }
 
-  getIsTwoFactorEnabled(): boolean {
-    return this.isTwoFactorAuthenticationEnabled;
+  get imagePath(): string {
+    return this.props.imagePath;
   }
 
-  getIsEmailVerified(): boolean {
-    return this.isEmailVerified;
+  get role(): Role {
+    return this.props.role;
   }
 
-  getRefreshToken(): string | null {
-    return this.refreshToken;
+  get security(): UserSecurity {
+    return this.props.security;
   }
 
-  getTwoFactorSecret(): string | null {
-    return this.twoFactorAuthenticationSecret;
+  get createdAt(): Date {
+    return this.props.createdAt;
   }
 
-  getEmailVerificationToken(): string | null {
-    return this.emailVerificationToken;
+  get updatedAt(): Date {
+    return this.props.updatedAt;
   }
 
-  getPasswordResetToken(): string | null {
-    return this.passwordResetToken;
-  }
-
-  getPasswordResetExpires(): Date | null {
-    return this.passwordResetExpires;
-  }
-
-  getCreatedAt(): Date {
-    return this.createdAt;
-  }
-
-  getUpdatedAt(): Date {
-    return this.updatedAt;
-  }
-
-  changeUsername(newUsernameStr: string): void {
-    this.username = new Username(newUsernameStr);
+  changeFirstName(newFirstName: string): void {
+    this.props.firstName = newFirstName;
     this.touch();
   }
 
-  changePassword(newPassword: string): void {
-    this.password = newPassword;
+  changeLastName(newLastName: string): void {
+    this.props.lastName = newLastName;
     this.touch();
   }
 
   changeRole(newRole: Role): void {
-    this.role = newRole;
+    this.props.role = newRole;
     this.touch();
   }
 
-  updateRefreshToken(newToken: string | null): void {
-    this.refreshToken = newToken;
+  changeImagePath(newImagePath: string): void {
+    this.props.imagePath = newImagePath;
     this.touch();
   }
 
-  validateRefreshToken(tokenToValidate: string): boolean {
-    return this.refreshToken === tokenToValidate;
-  }
-
-  setVerificationToken(token: string): void {
-    this.emailVerificationToken = token;
-    this.touch();
-  }
-
-  verifyEmail(providedToken: string): void {
-    if (this.isEmailVerified) {
-      throw new EmailAlreadyVerifiedException();
-    }
-    if (this.emailVerificationToken !== providedToken) {
-      throw new InvalidVerificationTokenException();
-    }
-    this.isEmailVerified = true;
-    this.emailVerificationToken = null;
-    this.touch();
-  }
-
-  markEmailVerified(): void {
-    this.isEmailVerified = true;
-    this.emailVerificationToken = null;
-    this.touch();
-  }
-
-  enableTwoFactorAuth(secret: string): void {
-    if (!this.isEmailVerified) {
-      throw new EmailNotVerifiedFor2FAException();
-    }
-    this.isTwoFactorAuthenticationEnabled = true;
-    this.twoFactorAuthenticationSecret = secret;
-    this.touch();
-  }
-
-  disableTwoFactorAuth(): void {
-    this.isTwoFactorAuthenticationEnabled = false;
-    this.twoFactorAuthenticationSecret = null;
-    this.touch();
-  }
-
-  setTwoFactorSecret(secret: string): void {
-    this.twoFactorAuthenticationSecret = secret;
-    this.touch();
-  }
-
-  generatePasswordResetToken(token: string, expiresAt: Date): void {
-    this.passwordResetToken = token;
-    this.passwordResetExpires = expiresAt;
-    this.touch();
-  }
-
-  resetPasswordWithToken(newPassword: string, providedToken: string): void {
-    if (this.passwordResetToken !== providedToken) {
-      throw new InvalidResetTokenException();
-    }
-    if (!this.passwordResetExpires || this.passwordResetExpires < new Date()) {
-      throw new ResetTokenExpiredException();
-    }
-    this.password = newPassword;
-    this.passwordResetToken = null;
-    this.passwordResetExpires = null;
+  changeBirthDate(newBirthDate: Date): void {
+    this.props.birthDate = newBirthDate;
     this.touch();
   }
 
   private touch(): void {
-    this.updatedAt = new Date();
+    this.props.updatedAt = new Date();
   }
 }

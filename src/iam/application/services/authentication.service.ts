@@ -17,6 +17,9 @@ import {
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
 import { MessageResponse } from '../interfaces/message-response.interface';
 import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
+import { Role } from 'src/users/domain/enums/role.enum';
+
+const GOOGLE_DEFAULT_BIRTH_DATE = new Date('2000-01-01');
 
 @Injectable()
 export class AuthenticationService {
@@ -31,11 +34,11 @@ export class AuthenticationService {
   ) {}
 
   async signIn(user: User, tfaCode?: string): Promise<SignInResult> {
-    if (!user.getIsEmailVerified()) {
+    if (!user.security.isEmailVerified) {
       throw new EmailNotVerifiedException();
     }
 
-    if (user.getIsTwoFactorEnabled()) {
+    if (user.security.isTwoFactorEnabled) {
       await this.validate2FACode(user, tfaCode);
     }
 
@@ -44,16 +47,15 @@ export class AuthenticationService {
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const query = new GetUserByEmailQuery(email);
-    const user = await this.usersQueryService.findByEmail(query);
+    const user = await this.usersQueryService.findByEmail(
+      new GetUserByEmailQuery(email),
+    );
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
     const isPasswordValid = await this.hashingPort.compare(
       password,
-      user.getPassword(),
+      user.security.password,
     );
 
     return isPasswordValid ? user : null;
@@ -66,24 +68,29 @@ export class AuthenticationService {
 
   async signInWithGoogle(googleUser: GoogleUserData): Promise<SignInResult> {
     const email = googleUser.email.trim().toLowerCase();
+
     let user = await this.usersQueryService.findByEmail(
       new GetUserByEmailQuery(email),
     );
 
     if (!user) {
-      const username = await this.generateUniqueUsername(
-        googleUser.displayName,
-        email,
-      );
       const randomPassword = randomBytes(32).toString('hex');
 
       user = await this.usersCommandService.create(
-        new CreateUserCommand(username, email, randomPassword),
+        new CreateUserCommand(
+          googleUser.firstName,
+          googleUser.lastName,
+          email,
+          randomPassword,
+          GOOGLE_DEFAULT_BIRTH_DATE,
+          googleUser.imagePath,
+          Role.USER,
+        ),
       );
     }
 
-    if (!user.getIsEmailVerified()) {
-      user.markEmailVerified();
+    if (!user.security.isEmailVerified) {
+      user.security.markEmailVerified();
       await this.usersCommandService.save(user);
     }
 
@@ -103,7 +110,7 @@ export class AuthenticationService {
 
     const { valid } = await this.otp.verify({
       token: tfaCode,
-      secret: user.getTwoFactorSecret()!,
+      secret: user.security.twoFactorSecret!,
     });
 
     if (!valid) {
@@ -136,53 +143,21 @@ export class AuthenticationService {
         throw new UnauthorizedException('Invalid Google ID token payload');
       }
 
+      const firstName = payload.given_name?.trim() || email.split('@')[0];
+
+      const lastName = payload.family_name?.trim() || '';
+
+      const imagePath = payload.picture?.trim() ?? '';
+
       return {
         email,
-        displayName:
-          payload?.name?.trim() ||
-          payload?.given_name?.trim() ||
-          email.split('@')[0],
+        firstName,
+        lastName,
+        imagePath,
         providerId,
       };
     } catch {
       throw new UnauthorizedException('Invalid Google ID token');
     }
-  }
-
-  private async generateUniqueUsername(
-    displayName: string,
-    email: string,
-  ): Promise<string> {
-    const baseUsername =
-      this.normalizeUsername(displayName) ||
-      this.normalizeUsername(email.split('@')[0]) ||
-      'user';
-
-    let counter = 0;
-    while (counter < 1000) {
-      const suffix = counter === 0 ? '' : String(counter);
-      const maxBaseLength = Math.max(3, 20 - suffix.length);
-      const username = `${baseUsername.slice(0, maxBaseLength)}${suffix}`;
-
-      if (!(await this.usersQueryService.findByUsername(username))) {
-        return username;
-      }
-      counter += 1;
-    }
-
-    return `user${Date.now().toString().slice(-8)}`;
-  }
-
-  private normalizeUsername(value: string): string {
-    const normalized = value
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9_]/g, '');
-
-    if (normalized.length < 3) {
-      return '';
-    }
-
-    return normalized.slice(0, 20);
   }
 }

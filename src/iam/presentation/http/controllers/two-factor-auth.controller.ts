@@ -10,12 +10,18 @@ export class TwoFactorAuthController {
   constructor(private readonly twoFactorService: TwoFactorAuthService) {}
 
   @Post('generate')
-  generateQrCode(@ActiveUser() user: ActiveUserData) {
-    return { data: this.twoFactorService.generateSecret(user) };
+  async asyncgenerateQrCode(@ActiveUser() user: ActiveUserData) {
+    return {
+      message: 'qrcode generated successfully',
+      data: await this.twoFactorService.generateSecret(user),
+    };
   }
 
   @AuthTurnOn2FA()
-  turnOn(@ActiveUser() user: ActiveUserData, @Body() dto: TurnOn2FADto) {
-    return this.twoFactorService.turnOn(user.id, dto.tfaCode);
+  async turnOn(@ActiveUser() user: ActiveUserData, @Body() dto: TurnOn2FADto) {
+    const response = await this.twoFactorService.turnOn(user.id, dto.tfaCode);
+    return {
+      message: response.message,
+    };
   }
 }

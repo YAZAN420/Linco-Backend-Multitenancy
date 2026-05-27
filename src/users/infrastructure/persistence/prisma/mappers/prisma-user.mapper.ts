@@ -1,50 +1,60 @@
 import { Injectable } from '@nestjs/common';
-import {
-  User as PrismaUser,
-  Role as PrismaRole,
-} from 'src/generated/prisma/client';
+import { User as PrismaUser } from 'src/generated/prisma/client';
 import { User } from 'src/users/domain/user';
-import { Username } from 'src/users/domain/value-objects/username.vo';
+import { UserSecurity } from 'src/users/domain/user-security';
 import { Email } from 'src/users/domain/value-objects/email.vo';
 import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
 export class PrismaUserMapper {
   toDomain(raw: PrismaUser): User {
-    return new User(
-      raw.id,
-      new Username(raw.username),
-      new Email(raw.email),
-      raw.role as Role,
-      raw.password,
-      raw.createdAt,
-      raw.updatedAt,
-      raw.isEmailVerified,
-      raw.isTwoFactorAuthenticationEnabled,
-      raw.refreshToken,
-      raw.twoFactorAuthenticationSecret,
-      raw.emailVerificationToken,
-      raw.passwordResetToken,
-      raw.passwordResetExpires,
-    );
+    const security = new UserSecurity({
+      password: raw.password,
+      isEmailVerified: raw.isEmailVerified,
+      isTwoFactorAuthenticationEnabled: raw.isTwoFactorAuthenticationEnabled,
+      refreshToken: raw.refreshToken,
+      twoFactorAuthenticationSecret: raw.twoFactorAuthenticationSecret,
+      emailVerificationToken: raw.emailVerificationToken,
+      passwordResetToken: raw.passwordResetToken,
+      passwordResetExpires: raw.passwordResetExpires,
+    });
+
+    return new User(raw.id, {
+      firstName: raw.firstName,
+      lastName: raw.lastName,
+      email: new Email(raw.email),
+      birthDate: raw.birthDate,
+      imagePath: raw.imagePath,
+      role: raw.role as unknown as Role,
+      security,
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    });
   }
 
   toPersistence(user: User): PrismaUser {
+    const securityProps = user.security.propsData;
+
     return {
-      id: user.getId(),
-      username: user.getUsernameValue(),
-      email: user.getEmailValue(),
-      role: user.getRole() as unknown as PrismaRole,
-      password: user.getPassword(),
-      isEmailVerified: user.getIsEmailVerified(),
-      isTwoFactorAuthenticationEnabled: user.getIsTwoFactorEnabled(),
-      refreshToken: user.getRefreshToken(),
-      twoFactorAuthenticationSecret: user.getTwoFactorSecret(),
-      emailVerificationToken: user.getEmailVerificationToken(),
-      passwordResetToken: user.getPasswordResetToken(),
-      passwordResetExpires: user.getPasswordResetExpires(),
-      createdAt: user.getCreatedAt(),
-      updatedAt: user.getUpdatedAt(),
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      birthDate: user.birthDate,
+      imagePath: user.imagePath,
+      password: securityProps.password,
+      isEmailVerified: securityProps.isEmailVerified,
+      isTwoFactorAuthenticationEnabled:
+        securityProps.isTwoFactorAuthenticationEnabled,
+      refreshToken: securityProps.refreshToken,
+      twoFactorAuthenticationSecret:
+        securityProps.twoFactorAuthenticationSecret,
+      emailVerificationToken: securityProps.emailVerificationToken,
+      passwordResetToken: securityProps.passwordResetToken,
+      passwordResetExpires: securityProps.passwordResetExpires,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 }

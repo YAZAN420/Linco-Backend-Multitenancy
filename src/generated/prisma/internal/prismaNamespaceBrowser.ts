@@ -51,7 +51,25 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Question: 'Question',
+  Course: 'Course',
+  Tag: 'Tag',
+  Section: 'Section',
+  Attachment: 'Attachment',
+  Lesson: 'Lesson',
+  FAQ: 'FAQ',
+  Marks: 'Marks',
+  Comment: 'Comment',
+  Field: 'Field',
+  Permission: 'Permission',
+  FieldPermission: 'FieldPermission',
+  Message: 'Message',
+  Group: 'Group',
+  Feature: 'Feature',
+  Certification: 'Certification',
+  Report: 'Report',
+  Demo: 'Demo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,9 +90,12 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  username: 'username',
+  firstName: 'firstName',
+  lastName: 'lastName',
   email: 'email',
   password: 'password',
+  birthDate: 'birthDate',
+  imagePath: 'imagePath',
   refreshToken: 'refreshToken',
   role: 'role',
   twoFactorAuthenticationSecret: 'twoFactorAuthenticationSecret',
@@ -88,6 +109,182 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const QuestionScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  choice1: 'choice1',
+  choice2: 'choice2',
+  choice3: 'choice3',
+  choice4: 'choice4',
+  correctId: 'correctId',
+  note: 'note',
+  sectionId: 'sectionId',
+  mark: 'mark'
+} as const
+
+export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
+
+
+export const CourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  fieldId: 'fieldId'
+} as const
+
+export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const SectionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  numOfQuestions: 'numOfQuestions',
+  courseId: 'courseId'
+} as const
+
+export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  path: 'path',
+  name: 'name',
+  lessonId: 'lessonId'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
+
+
+export const LessonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  time: 'time',
+  videoPath: 'videoPath',
+  subtitlePath: 'subtitlePath',
+  index: 'index',
+  setionId: 'setionId'
+} as const
+
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const FAQScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  courseId: 'courseId'
+} as const
+
+export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
+
+
+export const MarksScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  questionId: 'questionId'
+} as const
+
+export type MarksScalarFieldEnum = (typeof MarksScalarFieldEnum)[keyof typeof MarksScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  content: 'content',
+  parentId: 'parentId',
+  lessonId: 'lessonId'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const FieldScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  managerId: 'managerId'
+} as const
+
+export type FieldScalarFieldEnum = (typeof FieldScalarFieldEnum)[keyof typeof FieldScalarFieldEnum]
+
+
+export const PermissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+export const FieldPermissionScalarFieldEnum = {
+  id: 'id',
+  permissionId: 'permissionId',
+  userId: 'userId',
+  fieldId: 'fieldId'
+} as const
+
+export type FieldPermissionScalarFieldEnum = (typeof FieldPermissionScalarFieldEnum)[keyof typeof FieldPermissionScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  content: 'content',
+  groupId: 'groupId'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const GroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
+
+
+export const FeatureScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  demoId: 'demoId'
+} as const
+
+export type FeatureScalarFieldEnum = (typeof FeatureScalarFieldEnum)[keyof typeof FeatureScalarFieldEnum]
+
+
+export const CertificationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  demoId: 'demoId'
+} as const
+
+export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
+
+
+export const ReportScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
+
+
+export const DemoScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  ownerId: 'ownerId'
+} as const
+
+export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof DemoScalarFieldEnum]
 
 
 export const SortOrder = {
