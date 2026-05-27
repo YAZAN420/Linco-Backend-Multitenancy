@@ -10,7 +10,6 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { User } from 'src/users/domain/user';
 import { UserResponseMapper } from 'src/users/presentation/http/mappers/user-response.mapper';
@@ -22,7 +21,6 @@ import { ActiveUser } from '../decorators/active-user.decorator';
 import { IsWeb } from '../decorators/is-web.decorator';
 
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
-import type { SignInResult } from '../../../domain/interfaces/sign-in-result.interface';
 import { GoogleUserData } from '../../../domain/interfaces/google-user-data.interface';
 
 import { SignUpDto } from '../dto/sign-up.dto';
@@ -97,11 +95,7 @@ export class AuthenticationController {
   @Public()
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleCallback(
-    @Req() request: Request,
-    @Res({ passthrough: true }) response: Response,
-    @IsWeb() isWeb: boolean,
-  ) {
+  async googleCallback(@Req() request: Request, @Res() response: Response) {
     const googleUser = request.user as GoogleUserData | undefined;
 
     if (!googleUser?.email) {
@@ -110,34 +104,16 @@ export class AuthenticationController {
 
     const result = await this.authService.signInWithGoogle(googleUser);
 
-    if (isWeb) {
-      this.cookieService.setAuthCookies(response, result.tokens);
-      return {
-        message: 'User signed in successfully',
-        data: { user: this.userResponseMapper.toResponse(result.user) },
-      };
-    }
+    this.cookieService.setAuthCookies(response, result.tokens);
 
-    return {
-      message: 'User signed in successfully',
-      data: {
-        user: this.userResponseMapper.toResponse(result.user),
-        accessToken: result.tokens.accessToken,
-        refreshToken: result.tokens.refreshToken,
-      },
-    };
+    return response.redirect('http://localhost:3000/api');
   }
 
   @Public()
   @Post('google/mobile')
   @HttpCode(HttpStatus.OK)
-  @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async googleMobileSignIn(@Body() dto: GoogleMobileSignInDto) {
-    const signInWithGoogleIdToken =
-      this.authService.signInWithGoogleIdToken.bind(this.authService) as (
-        idToken: string,
-      ) => Promise<SignInResult>;
-    const result = await signInWithGoogleIdToken(dto.idToken);
+    const result = await this.authService.signInWithGoogleIdToken(dto.idToken);
 
     return {
       message: 'User signed in successfully',
