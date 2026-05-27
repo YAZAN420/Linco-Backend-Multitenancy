@@ -51,7 +51,7 @@ export class TokenService {
 
   private async verifyRefreshToken(token: string): Promise<{ id: string }> {
     try {
-      return await this.tokenPort.verifyToken<{ id: string }>(token);
+      return await this.tokenPort.verifyRefreshToken<{ id: string }>(token);
     } catch (error) {
       this.logger.warn(`Invalid refresh token: ${error}`);
       throw new UnauthorizedException('Invalid refresh token');

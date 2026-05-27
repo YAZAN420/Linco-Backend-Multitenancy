@@ -39,14 +39,33 @@ export class JwtTokenAdapter implements TokenPort {
     });
   }
 
+  async verifyRefreshToken<T extends object>(token: string): Promise<T> {
+    return this.jwtService.verifyAsync<T>(token, {
+      secret: this.jwtConfiguration.refreshSecret,
+      audience: this.jwtConfiguration.audience,
+      issuer: this.jwtConfiguration.issuer,
+    });
+  }
+
   async generateTokenPair(user: User): Promise<TokenPair> {
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<ActiveUserData>>(
         user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.email, role: user.role },
+        {
+          email: user.email,
+          role: user.role,
+        },
       ),
-      this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl),
+      this.jwtService.signAsync(
+        { id: user.id },
+        {
+          secret: this.jwtConfiguration.refreshSecret,
+          audience: this.jwtConfiguration.audience,
+          issuer: this.jwtConfiguration.issuer,
+          expiresIn: this.jwtConfiguration.refreshTokenTtl,
+        },
+      ),
     ]);
 
     return { accessToken, refreshToken };

@@ -10,5 +10,6 @@ export abstract class TokenPort {
     payload?: T,
   ): Promise<string>;
   abstract verifyToken<T extends object>(token: string): Promise<T>;
+  abstract verifyRefreshToken<T extends object>(token: string): Promise<T>;
   abstract generateTokenPair(user: User): Promise<TokenPair>;
 }

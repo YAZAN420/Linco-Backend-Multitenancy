@@ -112,10 +112,10 @@ model Lesson{
   videoPath String
   subtitlePath String
   index Int
-  setionId String
+  sectionId String
 
   comments Comment[]
-  section Section @relation(fields: [setionId], references: [id])
+  section Section @relation(fields: [sectionId], references: [id])
   attachments Attachment[]
 }
 
