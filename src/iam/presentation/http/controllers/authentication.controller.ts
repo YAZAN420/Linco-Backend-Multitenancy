@@ -48,8 +48,12 @@ export class AuthenticationController {
   ) {}
 
   @AuthSignUp()
-  signUp(@Body() dto: SignUpDto) {
-    return this.registrationService.signUp(dto);
+  async signUp(@Body() dto: SignUpDto) {
+    await this.registrationService.signUp(dto);
+    return {
+      message:
+        'Registration successful. Please check your email to verify your account.',
+    };
   }
 
   @AuthSignIn()
@@ -140,12 +144,13 @@ export class AuthenticationController {
 
   @Post('sign-out')
   @HttpCode(HttpStatus.OK)
-  signOut(
+  async signOut(
     @ActiveUser() user: ActiveUserData,
     @Res({ passthrough: true }) response: Response,
   ) {
     this.cookieService.clearAuthCookies(response);
-    return this.authService.signOut(user.id);
+    await this.authService.signOut(user.id);
+    return { message: 'User signed out successfully' };
   }
 
   @AuthRefreshTokens()

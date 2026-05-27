@@ -9,7 +9,8 @@ export class EmailVerificationController {
 
   @Public()
   @Get('verify-email')
-  verifyEmail(@Query() dto: VerifyEmailDto) {
-    return this.registrationService.verifyEmail(dto.token);
+  async verifyEmail(@Query() dto: VerifyEmailDto) {
+    await this.registrationService.verifyEmail(dto.token);
+    return { message: 'Email verified successfully.' };
   }
 }

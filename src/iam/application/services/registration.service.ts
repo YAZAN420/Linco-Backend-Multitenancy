@@ -8,7 +8,6 @@ import { CryptoPort } from '../ports/crypto.port';
 import { MailQueueService } from './mail-queue.service';
 import { MAIL_JOBS } from '../constants/mail.constants';
 import { InvalidVerificationTokenException } from '../../domain/exceptions';
-import { MessageResponse } from '../interfaces/message-response.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
@@ -21,7 +20,7 @@ export class RegistrationService {
     private readonly logger: Logger,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<MessageResponse> {
+  async signUp(signUpDto: SignUpDto) {
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
@@ -45,14 +44,9 @@ export class RegistrationService {
     });
 
     this.logger.log(`User registered: ${newUser.id}`);
-
-    return {
-      message:
-        'Registration successful. Please check your email to verify your account.',
-    };
   }
 
-  async verifyEmail(token: string): Promise<MessageResponse> {
+  async verifyEmail(token: string) {
     const hashedToken = this.cryptoPort.hashToken(token);
 
     const user =
@@ -66,7 +60,5 @@ export class RegistrationService {
     await this.usersCommandService.save(user);
 
     this.logger.log(`Email verified for user: ${user.id}`);
-
-    return { message: 'Email verified successfully.' };
   }
 }

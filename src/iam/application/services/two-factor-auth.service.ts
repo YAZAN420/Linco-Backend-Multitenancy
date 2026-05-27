@@ -10,7 +10,6 @@ import {
   Missing2FASecretException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
-import { MessageResponse } from '../interfaces/message-response.interface';
 
 @Injectable()
 export class TwoFactorAuthService {
@@ -44,12 +43,12 @@ export class TwoFactorAuthService {
     return { qrCode };
   }
 
-  async turnOn(userId: string, code: string): Promise<MessageResponse> {
+  async turnOn(userId: string, code: string) {
     const query = new GetUserByIdQuery(userId);
     const user = await this.usersQueryService.findById(query);
 
     if (user.security.isTwoFactorEnabled) {
-      return { message: 'Two-factor authentication is already enabled' };
+      throw new Error('Two-factor authentication is already enabled.');
     }
 
     const secret = user.security.twoFactorSecret;
@@ -66,7 +65,5 @@ export class TwoFactorAuthService {
     await this.usersCommandService.save(user);
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);
-
-    return { message: 'Two-factor authentication successfully enabled' };
   }
 }

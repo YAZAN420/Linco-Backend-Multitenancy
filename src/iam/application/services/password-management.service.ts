@@ -9,7 +9,6 @@ import { MailQueueService } from './mail-queue.service';
 import { MAIL_JOBS } from '../constants/mail.constants';
 import { IAM_CONSTANTS } from '../../domain/constants/iam.constants';
 import { InvalidResetTokenException } from '../../domain/exceptions';
-import { MessageResponse } from '../interfaces/message-response.interface';
 
 @Injectable()
 export class PasswordManagementService {
@@ -22,7 +21,7 @@ export class PasswordManagementService {
     private readonly logger: Logger,
   ) {}
 
-  async forgotPassword(email: string): Promise<MessageResponse> {
+  async forgotPassword(email: string) {
     const query = new GetUserByEmailQuery(email);
     const user = await this.usersQueryService.findByEmail(query);
 
@@ -48,17 +47,9 @@ export class PasswordManagementService {
         `Password reset requested for non-existent email: ${email}`,
       );
     }
-
-    return {
-      message:
-        'If an account with that email exists, a password reset link has been sent.',
-    };
   }
 
-  async resetPassword(
-    token: string,
-    newPassword: string,
-  ): Promise<MessageResponse> {
+  async resetPassword(token: string, newPassword: string) {
     const hashedToken = this.cryptoPort.hashToken(token);
     const user = await this.usersQueryService.findByResetToken(hashedToken);
 
@@ -71,7 +62,5 @@ export class PasswordManagementService {
     await this.usersCommandService.save(user);
 
     this.logger.log(`Password reset successfully for user: ${user.id}`);
-
-    return { message: 'Password has been reset successfully.' };
   }
 }

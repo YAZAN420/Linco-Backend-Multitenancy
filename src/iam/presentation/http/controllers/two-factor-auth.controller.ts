@@ -11,17 +11,18 @@ export class TwoFactorAuthController {
 
   @Post('generate')
   async asyncgenerateQrCode(@ActiveUser() user: ActiveUserData) {
+    const secret = await this.twoFactorService.generateSecret(user);
     return {
       message: 'qrcode generated successfully',
-      data: await this.twoFactorService.generateSecret(user),
+      data: secret,
     };
   }
 
   @AuthTurnOn2FA()
   async turnOn(@ActiveUser() user: ActiveUserData, @Body() dto: TurnOn2FADto) {
-    const response = await this.twoFactorService.turnOn(user.id, dto.tfaCode);
+    await this.twoFactorService.turnOn(user.id, dto.tfaCode);
     return {
-      message: response.message,
+      message: 'Two-factor authentication successfully enabled',
     };
   }
 }

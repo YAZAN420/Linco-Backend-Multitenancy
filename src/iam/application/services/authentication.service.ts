@@ -15,7 +15,6 @@ import {
   Invalid2FACodeException,
 } from '../../domain/exceptions';
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
-import { MessageResponse } from '../interfaces/message-response.interface';
 import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
 
@@ -61,9 +60,8 @@ export class AuthenticationService {
     return isPasswordValid ? user : null;
   }
 
-  async signOut(userId: string): Promise<MessageResponse> {
+  async signOut(userId: string) {
     await this.tokenService.invalidateRefreshToken(userId);
-    return { message: 'User signed out successfully' };
   }
 
   async signInWithGoogle(googleUser: GoogleUserData): Promise<SignInResult> {
