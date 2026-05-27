@@ -27,6 +27,9 @@ class EnvironmentVariables {
   ACCESS_TOKEN_SECRET!: string;
 
   @IsString()
+  REFRESH_TOKEN_SECRET!: string;
+
+  @IsString()
   JWT_TOKEN_AUDIENCE!: string;
 
   @IsString()
