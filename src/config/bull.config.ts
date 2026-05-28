@@ -8,7 +8,10 @@ export default registerAs('bull', () => {
       password: process.env.REDIS_PASSWORD || undefined,
       tls:
         process.env.REDIS_TLS === 'true'
-          ? { rejectUnauthorized: true }
+          ? {
+              rejectUnauthorized:
+                process.env.REDIS_TLS_REJECT_UNAUTHORIZED !== 'false',
+            }
           : undefined,
       maxRetriesPerRequest: null,
       enableReadyCheck: false,

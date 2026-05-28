@@ -1,4 +1,4 @@
-import { plainToInstance } from 'class-transformer';
+import { plainToInstance, Transform } from 'class-transformer';
 import {
   IsEnum,
   IsNumber,
@@ -6,6 +6,7 @@ import {
   validateSync,
   Min,
   IsOptional,
+  IsBoolean,
 } from 'class-validator';
 
 enum Environment {
@@ -61,6 +62,34 @@ class EnvironmentVariables {
 
   @IsString()
   GOOGLE_CALLBACK_URL!: string;
+
+  @IsString()
+  @IsOptional()
+  REDIS_HOST: string = 'localhost';
+
+  @IsNumber()
+  @IsOptional()
+  REDIS_PORT: number = 6379;
+
+  @IsString()
+  @IsOptional()
+  REDIS_PASSWORD?: string;
+
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+  })
+  @IsBoolean()
+  @IsOptional()
+  REDIS_TLS: boolean = false;
+
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+  })
+  @IsBoolean()
+  @IsOptional()
+  REDIS_TLS_REJECT_UNAUTHORIZED: boolean = true;
 }
 
 export function validate(config: Record<string, unknown>) {
