@@ -1,4 +1,4 @@
-export function buildWhere<T extends Record<string, any>, U>(
+export function buildWhere<T extends object, U>(
   filters: T,
   searchColumns?: string[],
 ): U {
@@ -13,14 +13,19 @@ export function buildWhere<T extends Record<string, any>, U>(
     'order',
     'orderBy',
   ];
-  const result: Record<string, any> = {};
 
-  for (const [key, value] of Object.entries(filters)) {
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(filters) as [string, unknown][]) {
     if (value === undefined || nonFilterKeys.includes(key)) continue;
 
-    if (key === 'search' && searchColumns?.length) {
+    if (
+      key === 'search' &&
+      searchColumns?.length &&
+      typeof value === 'string'
+    ) {
       result.OR = searchColumns.map((col) => ({
-        [col]: { contains: value, mode: 'insensitive' },
+        [col]: { contains: value, mode: 'insensitive' as const },
       }));
       continue;
     }
