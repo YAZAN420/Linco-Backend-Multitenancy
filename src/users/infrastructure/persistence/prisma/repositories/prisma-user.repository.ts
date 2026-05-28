@@ -14,6 +14,8 @@ import { FindUsersCursorDto } from 'src/users/presentation/http/dto/filters/find
 import { buildWhere } from 'src/common/utils/prisma.util';
 import { Prisma } from 'src/generated/prisma/browser';
 
+const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
+
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(
@@ -22,11 +24,10 @@ export class PrismaUserRepository implements UserRepository {
   ) {}
 
   async findAll(options: FindUsersDto): Promise<PageDto<User>> {
-    const where = buildWhere<FindUsersDto, Prisma.UserWhereInput>(options, [
-      'firstName',
-      'lastName',
-      'email',
-    ]);
+    const where = buildWhere<FindUsersDto, Prisma.UserWhereInput>(
+      options,
+      USER_SEARCH_COLUMNS,
+    );
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip: options.skip,
@@ -48,7 +49,7 @@ export class PrismaUserRepository implements UserRepository {
   ): Promise<CursorPageDto<User>> {
     const where = buildWhere<FindUsersCursorDto, Prisma.UserWhereInput>(
       options,
-      ['firstName', 'lastName', 'email'],
+      USER_SEARCH_COLUMNS,
     );
     const { cursor, take } = options;
     const items = await this.prisma.user.findMany({
