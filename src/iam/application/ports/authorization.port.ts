@@ -1,13 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { Action } from 'src/iam/domain/enums/action.enum';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
-import { AppAbility } from 'src/iam/infrastructure/authorization/casl/casl-ability.factory';
+import { Prisma } from 'src/generated/prisma/client';
+import { Action } from '../../domain/enums/action.enum';
+import { ActiveUserData } from '../../domain/interfaces/active-user-data.interface';
 
-@Injectable()
 export abstract class AuthorizationPort {
   abstract checkPermission(
     user: ActiveUserData,
     action: Action,
-    subject: Parameters<AppAbility['can']>[1],
+    subjectType: Prisma.ModelName,
+    subjectInstance?: Record<string, unknown>,
   ): boolean;
+
+  abstract buildQuery<M extends Prisma.ModelName>(
+    user: ActiveUserData,
+    action: Action,
+    modelName: M,
+  ): Record<string, unknown>;
 }

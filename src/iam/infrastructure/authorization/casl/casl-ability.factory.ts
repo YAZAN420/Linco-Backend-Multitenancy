@@ -1,7 +1,6 @@
 import { AbilityBuilder, PureAbility } from '@casl/ability';
 import { createPrismaAbility, PrismaQuery, Subjects } from '@casl/prisma';
 import { Injectable } from '@nestjs/common';
-
 import { Prisma, User } from 'src/generated/prisma/client';
 import { Action } from '../../../domain/enums/action.enum';
 import { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
@@ -11,15 +10,15 @@ export type AppSubjects =
   | Subjects<{
       User: User;
     }>
+  | Prisma.ModelName
   | 'all';
 
 export type AppAbility = PureAbility<[Action, AppSubjects], PrismaQuery>;
 
 @Injectable()
 export class CaslAbilityFactory {
-  createForUser(user: ActiveUserData) {
-    const builder = new AbilityBuilder<AppAbility>(createPrismaAbility);
-    const { can } = builder;
+  createForUser(user: ActiveUserData): AppAbility {
+    const { can, build } = new AbilityBuilder<AppAbility>(createPrismaAbility);
 
     if (user.role === Role.ADMIN) {
       can(Action.Manage, 'all');
@@ -28,6 +27,6 @@ export class CaslAbilityFactory {
       can(Action.Update, Prisma.ModelName.User, { id: user.id });
     }
 
-    return builder.build();
+    return build();
   }
 }

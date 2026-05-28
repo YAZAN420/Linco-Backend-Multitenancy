@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateUserDto } from './dto/update-profile.dto';
 import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
 import { UpdateUserProfileCommand } from 'src/users/application/commands/update-user-profile.command';
 import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
@@ -101,7 +101,7 @@ export class UsersController {
   async update(
     @ActiveUser() activeUser: ActiveUserData,
     @Param('id') id: string,
-    @Body() dto: UpdateProfileDto,
+    @Body() dto: UpdateUserDto,
   ) {
     const command = new UpdateUserProfileCommand(
       id,
@@ -110,7 +110,7 @@ export class UsersController {
       dto.birthDate ? new Date(dto.birthDate) : undefined,
       dto.imagePath,
     );
-    const user = await this.commandService.updateProfile(activeUser, command);
+    const user = await this.commandService.update(activeUser, command);
 
     return {
       message: 'User updated successfully',

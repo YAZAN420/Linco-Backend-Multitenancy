@@ -40,7 +40,7 @@ export class UsersCommandService {
     return user;
   }
 
-  async updateProfile(
+  async update(
     activeUser: ActiveUserData,
     command: UpdateUserProfileCommand,
   ): Promise<User> {
