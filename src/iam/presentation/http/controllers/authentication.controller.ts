@@ -10,6 +10,7 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { User } from 'src/users/domain/user';
 import { UserResponseMapper } from 'src/users/presentation/http/mappers/user-response.mapper';
@@ -46,6 +47,7 @@ export class AuthenticationController {
   @Public()
   @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signUp(@Body() dto: SignUpDto) {
     await this.registrationService.signUp(dto);
     return {
@@ -58,6 +60,7 @@ export class AuthenticationController {
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signIn(
     @Req() request: Request,
     @Body() dto: SignInDto,
@@ -112,6 +115,7 @@ export class AuthenticationController {
   @Public()
   @Post('google/mobile')
   @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async googleMobileSignIn(@Body() dto: GoogleMobileSignInDto) {
     const result = await this.authService.signInWithGoogleIdToken(dto.idToken);
 
@@ -139,6 +143,7 @@ export class AuthenticationController {
   @Public()
   @Post('refresh-tokens')
   @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async refreshTokens(
     @Req() request: Request,
     @Body() dto: RefreshTokenDto,
