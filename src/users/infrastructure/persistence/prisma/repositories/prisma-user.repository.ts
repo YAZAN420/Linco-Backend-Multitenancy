@@ -5,12 +5,14 @@ import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
 import {
   CursorPageDto,
   CursorPageMetaDto,
-  CursorPageOptionsDto,
   PageDto,
   PageMetaDto,
-  PageOptionsDto,
 } from 'src/common/dtos/pagination';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { FindUsersDto } from 'src/users/presentation/http/dto/filters/find-users.dto';
+import { FindUsersCursorDto } from 'src/users/presentation/http/dto/filters/find-users-cursor.dto';
+import { buildWhere } from 'src/common/utils/prisma.util';
+import { Prisma } from 'src/generated/prisma/browser';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -19,11 +21,17 @@ export class PrismaUserRepository implements UserRepository {
     private readonly mapper: PrismaUserMapper,
   ) {}
 
-  async findAll(options: PageOptionsDto): Promise<PageDto<User>> {
+  async findAll(options: FindUsersDto): Promise<PageDto<User>> {
+    const where = buildWhere<FindUsersDto, Prisma.UserWhereInput>(options, [
+      'firstName',
+      'lastName',
+      'email',
+    ]);
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip: options.skip,
         take: options.take,
+        where,
         orderBy: { createdAt: 'desc' },
       }),
       this.prisma.user.count(),
@@ -36,13 +44,18 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async findAllCursor(
-    options: CursorPageOptionsDto,
+    options: FindUsersCursorDto,
   ): Promise<CursorPageDto<User>> {
+    const where = buildWhere<FindUsersCursorDto, Prisma.UserWhereInput>(
+      options,
+      ['firstName', 'lastName', 'email'],
+    );
     const { cursor, take } = options;
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
+      where,
       orderBy: { id: 'desc' },
     });
 

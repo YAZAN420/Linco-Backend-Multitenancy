@@ -17,12 +17,10 @@ import { UsersCommandService } from 'src/users/application/users-command.service
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import type { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
+import { FindUsersDto } from './dto/filters/find-users.dto';
+import { FindUsersCursorDto } from './dto/filters/find-users-cursor.dto';
 
 @Controller('users')
 export class UsersController {
@@ -53,7 +51,7 @@ export class UsersController {
 
   @Get()
   @CachePublic()
-  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
+  async findAll(@Query() pageOptionsDto: FindUsersDto) {
     const users = await this.queryService.findAll(pageOptionsDto);
 
     return {
@@ -65,7 +63,7 @@ export class UsersController {
 
   @Get('cursor')
   @CachePublic()
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+  async findWithCursor(@Query() options: FindUsersCursorDto) {
     const result = await this.queryService.findAllCursor(options);
 
     return {

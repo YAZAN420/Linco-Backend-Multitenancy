@@ -3,12 +3,9 @@ import { User } from '../domain/user';
 import { UserRepository } from './ports/user.repository';
 import { GetUserByIdQuery } from './queries/get-user-by-id.query';
 import { GetUserByEmailQuery } from './queries/get-user-by-email.query';
-import {
-  CursorPageDto,
-  CursorPageOptionsDto,
-  PageDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
+import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
+import { FindUsersDto } from '../presentation/http/dto/filters/find-users.dto';
+import { FindUsersCursorDto } from '../presentation/http/dto/filters/find-users-cursor.dto';
 
 @Injectable()
 export class UsersQueryService {
@@ -20,12 +17,12 @@ export class UsersQueryService {
     return user;
   }
 
-  async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<User>> {
+  async findAll(pageOptionsDto: FindUsersDto): Promise<PageDto<User>> {
     return this.userRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
-    options: CursorPageOptionsDto,
+    options: FindUsersCursorDto,
   ): Promise<CursorPageDto<User>> {
     return this.userRepository.findAllCursor(options);
   }

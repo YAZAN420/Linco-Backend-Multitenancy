@@ -6,7 +6,7 @@ import { Logger as PinoLogger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 import { setupApp } from './setup/app.setup';
 import { setupSwagger } from './setup/swagger.setup';
-
+import type { Express } from 'express';
 const bootstrapLogger = new NestLogger('Bootstrap');
 
 async function bootstrap() {
@@ -17,7 +17,8 @@ async function bootstrap() {
 
     const logger = app.get(PinoLogger);
     app.useLogger(logger);
-
+    const instance = app.getHttpAdapter().getInstance() as Express;
+    instance.set('query parser', 'extended');
     setupApp(app);
 
     const configService = app.get(ConfigService);
