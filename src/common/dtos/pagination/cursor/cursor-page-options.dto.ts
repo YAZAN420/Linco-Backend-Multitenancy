@@ -1,5 +1,13 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsInt,
+  IsObject,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
+import { OrderByInput } from '../../order-by.dto';
 
 export class CursorPageOptionsDto {
   @IsString()
@@ -12,4 +20,8 @@ export class CursorPageOptionsDto {
   @Max(50)
   @IsOptional()
   readonly take: number = 10;
+
+  @IsOptional()
+  @IsObject()
+  orderBy?: OrderByInput;
 }

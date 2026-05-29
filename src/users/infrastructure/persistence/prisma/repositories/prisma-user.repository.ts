@@ -53,13 +53,14 @@ export class PrismaUserRepository implements UserRepository {
       options,
       USER_SEARCH_COLUMNS,
     );
+    const orderBy = buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS);
     const { cursor, take } = options;
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where,
-      orderBy: { id: 'desc' },
+      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
     const hasNextPage = items.length > take;
