@@ -44,4 +44,3 @@ export class CreateUserDto {
   @IsEnum(Role)
   role!: Role;
 }
-export type CreateUserInput = CreateUserDto;
