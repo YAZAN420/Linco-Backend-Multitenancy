@@ -2,30 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { OTP } from 'otplib';
 import { toDataURL } from 'qrcode';
 import { Logger } from 'nestjs-pino';
-import { UsersCommandService } from 'src/users/application/users-command.service';
-import { UsersQueryService } from 'src/users/application/users-query.service';
-import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
 import { ActiveUserData } from '../../domain/interfaces/active-user-data.interface';
 import {
   Missing2FASecretException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
+import { UsersService } from 'src/users/application/users.service';
 
 @Injectable()
 export class TwoFactorAuthService {
   private readonly otp = new OTP();
 
   constructor(
-    private readonly usersCommandService: UsersCommandService,
-    private readonly usersQueryService: UsersQueryService,
+    private readonly usersService: UsersService,
     private readonly logger: Logger,
   ) {}
 
   async generateSecret(
     activeUser: ActiveUserData,
   ): Promise<{ qrCode: string }> {
-    const query = new GetUserByIdQuery(activeUser.id);
-    const user = await this.usersQueryService.findById(query);
+    const user = await this.usersService.findById(activeUser.id);
 
     const secret = this.otp.generateSecret();
     const otpauthUrl = this.otp.generateURI({
@@ -35,7 +31,7 @@ export class TwoFactorAuthService {
     });
 
     user.security.setTwoFactorSecret(secret);
-    await this.usersCommandService.save(user);
+    await this.usersService.save(user);
 
     const qrCode = await toDataURL(otpauthUrl);
     this.logger.log(`2FA secret generated for user: ${activeUser.id}`);
@@ -44,8 +40,7 @@ export class TwoFactorAuthService {
   }
 
   async turnOn(userId: string, code: string) {
-    const query = new GetUserByIdQuery(userId);
-    const user = await this.usersQueryService.findById(query);
+    const user = await this.usersService.findById(userId);
 
     if (user.security.isTwoFactorEnabled) {
       throw new Error('Two-factor authentication is already enabled.');
@@ -62,7 +57,7 @@ export class TwoFactorAuthService {
     }
 
     user.security.enableTwoFactorAuth(secret);
-    await this.usersCommandService.save(user);
+    await this.usersService.save(user);
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);
   }

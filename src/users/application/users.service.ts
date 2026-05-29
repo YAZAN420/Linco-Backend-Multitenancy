@@ -6,14 +6,17 @@ import {
 import { UserRepository } from './ports/user.repository';
 import { UserFactory } from '../domain/factories/user.factory';
 import { User } from '../domain/user';
-import { CreateUserCommand } from './commands/create-user.command';
 import { HashingPort } from 'src/iam/application/ports/hashing.port';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { CachePort } from 'src/core/cache/cache.port';
-import { UpdateUserProfileCommand } from './commands/update-user-profile.command';
+import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
+import { FindUsersDto } from '../presentation/http/dto/filters/find-users.dto';
+import { FindUsersCursorDto } from '../presentation/http/dto/filters/find-users-cursor.dto';
+import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
+import { CreateUserDto } from '../presentation/http/dto/create-user.dto';
+import { UpdateUserDto } from '../presentation/http/dto/update-user.dto';
 
 @Injectable()
-export class UsersCommandService {
+export class UsersService {
   constructor(
     private readonly hashService: HashingPort,
     private readonly userRepository: UserRepository,
@@ -21,17 +24,17 @@ export class UsersCommandService {
     private readonly cachePort: CachePort,
   ) {}
 
-  async create(command: CreateUserCommand): Promise<User> {
-    await this.ensureEmailIsUnique(command.email);
-    const hashedPassword = await this.hashService.hash(command.password);
+  async create(dto: CreateUserDto): Promise<User> {
+    await this.ensureEmailIsUnique(dto.email);
+    const hashedPassword = await this.hashService.hash(dto.password);
 
     const user = this.userFactory.createNew(
-      command.firstName,
-      command.lastName,
-      command.email,
+      dto.firstName,
+      dto.lastName,
+      dto.email,
       hashedPassword,
-      command.birthDate,
-      command.imagePath,
+      dto.birthDate,
+      dto.imagePath,
     );
 
     await this.userRepository.save(user);
@@ -40,27 +43,21 @@ export class UsersCommandService {
     return user;
   }
 
-  async update(
-    activeUser: ActiveUserData,
-    command: UpdateUserProfileCommand,
-  ): Promise<User> {
-    const user = await this.findUserOrThrow(command.userId);
+  async update(id: string, dto: UpdateUserDto): Promise<User> {
+    const user = await this.findUserOrThrow(id);
 
-    if (command.firstName !== undefined)
-      user.changeFirstName(command.firstName);
-    if (command.lastName !== undefined) user.changeLastName(command.lastName);
-    if (command.birthDate !== undefined)
-      user.changeBirthDate(command.birthDate);
-    if (command.imagePath !== undefined)
-      user.changeImagePath(command.imagePath ?? '');
+    if (dto.firstName !== undefined) user.changeFirstName(dto.firstName);
+    if (dto.lastName !== undefined) user.changeLastName(dto.lastName);
+    if (dto.birthDate !== undefined) user.changeBirthDate(dto.birthDate);
+    if (dto.imagePath !== undefined) user.changeImagePath(dto.imagePath ?? '');
 
     await this.userRepository.save(user);
-    this.invalidateUserCache(user.id, activeUser.id);
+    this.invalidateUserCache(user.id, id);
 
     return user;
   }
 
-  async remove(activeUser: ActiveUserData, id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.findUserOrThrow(id);
     await this.userRepository.delete(id);
     this.invalidateUserListCache();
@@ -108,5 +105,33 @@ export class UsersCommandService {
       this.cachePort.delete(`GET:/users/me:${activeUserId}`),
       this.cachePort.delete(`GET:/users/${userId}`),
     ]).catch(() => {});
+  }
+
+  async findById(id: string): Promise<User> {
+    const user = await this.userRepository.findById(id);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async findAll(pageOptionsDto: FindUsersDto): Promise<PageDto<User>> {
+    return this.userRepository.findAll(pageOptionsDto);
+  }
+
+  async findAllCursor(
+    options: FindUsersCursorDto,
+  ): Promise<CursorPageDto<User>> {
+    return this.userRepository.findAllCursor(options);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findByEmail(email);
+  }
+
+  async findByVerificationToken(token: string): Promise<User | null> {
+    return this.userRepository.findByVerificationToken(token);
+  }
+
+  async findByResetToken(token: string): Promise<User | null> {
+    return this.userRepository.findByResetToken(token);
   }
 }

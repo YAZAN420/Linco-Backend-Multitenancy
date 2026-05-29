@@ -4,10 +4,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { OTP } from 'otplib';
 import { HashingPort } from '../ports/hashing.port';
 import { TokenService } from './token.service';
-import { UsersQueryService } from 'src/users/application/users-query.service';
-import { GetUserByEmailQuery } from 'src/users/application/queries/get-user-by-email.query';
-import { UsersCommandService } from 'src/users/application/users-command.service';
-import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
+
 import { User } from 'src/users/domain/user';
 import {
   EmailNotVerifiedException,
@@ -17,6 +14,7 @@ import {
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
 import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
+import { UsersService } from 'src/users/application/users.service';
 
 const GOOGLE_DEFAULT_BIRTH_DATE = new Date('2000-01-01');
 
@@ -28,8 +26,7 @@ export class AuthenticationService {
   constructor(
     private readonly hashingPort: HashingPort,
     private readonly tokenService: TokenService,
-    private readonly usersQueryService: UsersQueryService,
-    private readonly usersCommandService: UsersCommandService,
+    private readonly usersService: UsersService,
   ) {}
 
   async signIn(user: User, tfaCode?: string): Promise<SignInResult> {
@@ -46,9 +43,7 @@ export class AuthenticationService {
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const user = await this.usersQueryService.findByEmail(
-      new GetUserByEmailQuery(email),
-    );
+    const user = await this.usersService.findByEmail(email);
 
     if (!user) return null;
 
@@ -67,29 +62,25 @@ export class AuthenticationService {
   async signInWithGoogle(googleUser: GoogleUserData): Promise<SignInResult> {
     const email = googleUser.email.trim().toLowerCase();
 
-    let user = await this.usersQueryService.findByEmail(
-      new GetUserByEmailQuery(email),
-    );
+    let user = await this.usersService.findByEmail(email);
 
     if (!user) {
       const randomPassword = randomBytes(32).toString('hex');
 
-      user = await this.usersCommandService.create(
-        new CreateUserCommand(
-          googleUser.firstName,
-          googleUser.lastName,
-          email,
-          randomPassword,
-          GOOGLE_DEFAULT_BIRTH_DATE,
-          googleUser.imagePath,
-          Role.USER,
-        ),
-      );
+      user = await this.usersService.create({
+        firstName: googleUser.firstName,
+        lastName: googleUser.lastName,
+        email: googleUser.email,
+        password: randomPassword,
+        birthDate: GOOGLE_DEFAULT_BIRTH_DATE,
+        imagePath: googleUser.imagePath,
+        role: Role.USER,
+      });
     }
 
     if (!user.security.isEmailVerified) {
       user.security.markEmailVerified();
-      await this.usersCommandService.save(user);
+      await this.usersService.save(user);
     }
 
     const tokens = await this.tokenService.generateTokens(user);

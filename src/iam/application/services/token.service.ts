@@ -2,19 +2,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { TokenPort } from '../ports/token.port';
 import { HashingPort } from '../ports/hashing.port';
-import { UsersCommandService } from 'src/users/application/users-command.service';
-import { UsersQueryService } from 'src/users/application/users-query.service';
-import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
+
 import { User } from 'src/users/domain/user';
 import { TokenPair } from '../../domain/interfaces/token-pair.interface';
+import { UsersService } from 'src/users/application/users.service';
 
 @Injectable()
 export class TokenService {
   constructor(
     private readonly tokenPort: TokenPort,
     private readonly hashingPort: HashingPort,
-    private readonly usersCommandService: UsersCommandService,
-    private readonly usersQueryService: UsersQueryService,
+    private readonly usersService: UsersService,
     private readonly logger: Logger,
   ) {}
 
@@ -25,10 +23,7 @@ export class TokenService {
       tokenPair.refreshToken,
     );
 
-    await this.usersCommandService.updateRefreshToken(
-      user.id,
-      hashedRefreshToken,
-    );
+    await this.usersService.updateRefreshToken(user.id, hashedRefreshToken);
 
     return tokenPair;
   }
@@ -46,7 +41,7 @@ export class TokenService {
   }
 
   async invalidateRefreshToken(userId: string): Promise<void> {
-    await this.usersCommandService.updateRefreshToken(userId, null);
+    await this.usersService.updateRefreshToken(userId, null);
   }
 
   private async verifyRefreshToken(token: string): Promise<{ id: string }> {
@@ -62,8 +57,7 @@ export class TokenService {
     userId: string,
     token: string,
   ): Promise<User> {
-    const query = new GetUserByIdQuery(userId);
-    const user = await this.usersQueryService.findById(query);
+    const user = await this.usersService.findById(userId);
 
     const isValid = await this.hashingPort.compare(
       token,

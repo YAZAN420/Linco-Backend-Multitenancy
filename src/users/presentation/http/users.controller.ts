@@ -9,39 +9,26 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-profile.dto';
-import { CreateUserCommand } from 'src/users/application/commands/create-user.command';
-import { UpdateUserProfileCommand } from 'src/users/application/commands/update-user-profile.command';
-import { GetUserByIdQuery } from 'src/users/application/queries/get-user-by-id.query';
-import { UsersCommandService } from 'src/users/application/users-command.service';
-import { UsersQueryService } from 'src/users/application/users-query.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+
 import type { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { FindUsersDto } from './dto/filters/find-users.dto';
 import { FindUsersCursorDto } from './dto/filters/find-users-cursor.dto';
+import { UsersService } from 'src/users/application/users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly commandService: UsersCommandService,
-    private readonly queryService: UsersQueryService,
+    private readonly userService: UsersService,
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
   @Post()
   async create(@Body() dto: CreateUserDto) {
-    const command = new CreateUserCommand(
-      dto.firstName,
-      dto.lastName,
-      dto.email,
-      dto.password,
-      new Date(dto.birthDate),
-      dto.imagePath,
-      dto.role,
-    );
-    const user = await this.commandService.create(command);
+    const user = await this.userService.create(dto);
 
     return {
       message: 'User created successfully',
@@ -52,7 +39,7 @@ export class UsersController {
   @Get()
   @CachePublic()
   async findAll(@Query() pageOptionsDto: FindUsersDto) {
-    const users = await this.queryService.findAll(pageOptionsDto);
+    const users = await this.userService.findAll(pageOptionsDto);
     return {
       message: 'Users fetched successfully',
       data: this.userResponseMapper.toResponseMany(users.data),
@@ -63,7 +50,7 @@ export class UsersController {
   @Get('cursor')
   @CachePublic()
   async findWithCursor(@Query() options: FindUsersCursorDto) {
-    const result = await this.queryService.findAllCursor(options);
+    const result = await this.userService.findAllCursor(options);
 
     return {
       message: 'Users fetched successfully (Cursor)',
@@ -74,9 +61,7 @@ export class UsersController {
 
   @Get('me')
   async getMe(@ActiveUser() activeUser: ActiveUserData) {
-    const user = await this.queryService.findById(
-      new GetUserByIdQuery(activeUser.id),
-    );
+    const user = await this.userService.findById(activeUser.id);
 
     return {
       message: 'User profile retrieved successfully',
@@ -86,7 +71,7 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const user = await this.queryService.findById(new GetUserByIdQuery(id));
+    const user = await this.userService.findById(id);
 
     return {
       message: 'User retrieved successfully',
@@ -95,19 +80,8 @@ export class UsersController {
   }
 
   @Patch(':id')
-  async update(
-    @ActiveUser() activeUser: ActiveUserData,
-    @Param('id') id: string,
-    @Body() dto: UpdateUserDto,
-  ) {
-    const command = new UpdateUserProfileCommand(
-      id,
-      dto.firstName,
-      dto.lastName,
-      dto.birthDate ? new Date(dto.birthDate) : undefined,
-      dto.imagePath,
-    );
-    const user = await this.commandService.update(activeUser, command);
+  async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    const user = await this.userService.update(id, dto);
 
     return {
       message: 'User updated successfully',
@@ -116,11 +90,8 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(
-    @ActiveUser() activeUser: ActiveUserData,
-    @Param('id') id: string,
-  ) {
-    await this.commandService.remove(activeUser, id);
+  async remove(@Param('id') id: string) {
+    await this.userService.remove(id);
 
     return {
       message: 'User deleted successfully',
