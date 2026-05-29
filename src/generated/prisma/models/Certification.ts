@@ -28,18 +28,24 @@ export type CertificationMinAggregateOutputType = {
   id: string | null
   name: string | null
   demoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type CertificationMaxAggregateOutputType = {
   id: string | null
   name: string | null
   demoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type CertificationCountAggregateOutputType = {
   id: number
   name: number
   demoId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -48,18 +54,24 @@ export type CertificationMinAggregateInputType = {
   id?: true
   name?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type CertificationMaxAggregateInputType = {
   id?: true
   name?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type CertificationCountAggregateInputType = {
   id?: true
   name?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -139,6 +151,8 @@ export type CertificationGroupByOutputType = {
   id: string
   name: string
   demoId: string
+  createdAt: Date
+  updatedAt: Date
   _count: CertificationCountAggregateOutputType | null
   _min: CertificationMinAggregateOutputType | null
   _max: CertificationMaxAggregateOutputType | null
@@ -166,6 +180,8 @@ export type CertificationWhereInput = {
   id?: Prisma.StringFilter<"Certification"> | string
   name?: Prisma.StringFilter<"Certification"> | string
   demoId?: Prisma.StringFilter<"Certification"> | string
+  createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }
 
@@ -173,6 +189,8 @@ export type CertificationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   demo?: Prisma.DemoOrderByWithRelationInput
 }
 
@@ -183,6 +201,8 @@ export type CertificationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CertificationWhereInput | Prisma.CertificationWhereInput[]
   name?: Prisma.StringFilter<"Certification"> | string
   demoId?: Prisma.StringFilter<"Certification"> | string
+  createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }, "id">
 
@@ -190,6 +210,8 @@ export type CertificationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.CertificationCountOrderByAggregateInput
   _max?: Prisma.CertificationMaxOrderByAggregateInput
   _min?: Prisma.CertificationMinOrderByAggregateInput
@@ -202,11 +224,15 @@ export type CertificationScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Certification"> | string
   name?: Prisma.StringWithAggregatesFilter<"Certification"> | string
   demoId?: Prisma.StringWithAggregatesFilter<"Certification"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Certification"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Certification"> | Date | string
 }
 
 export type CertificationCreateInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutCertificationsInput
 }
 
@@ -214,11 +240,15 @@ export type CertificationUncheckedCreateInput = {
   id?: string
   name: string
   demoId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CertificationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutCertificationsNestedInput
 }
 
@@ -226,41 +256,55 @@ export type CertificationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CertificationCreateManyInput = {
   id?: string
   name: string
   demoId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CertificationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CertificationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CertificationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CertificationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CertificationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CertificationListRelationFilter = {
@@ -318,11 +362,15 @@ export type CertificationUncheckedUpdateManyWithoutDemoNestedInput = {
 export type CertificationCreateWithoutDemoInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CertificationUncheckedCreateWithoutDemoInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CertificationCreateOrConnectWithoutDemoInput = {
@@ -358,26 +406,36 @@ export type CertificationScalarWhereInput = {
   id?: Prisma.StringFilter<"Certification"> | string
   name?: Prisma.StringFilter<"Certification"> | string
   demoId?: Prisma.StringFilter<"Certification"> | string
+  createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
 }
 
 export type CertificationCreateManyDemoInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CertificationUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CertificationUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CertificationUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -386,6 +444,8 @@ export type CertificationSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   name?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["certification"]>
 
@@ -393,6 +453,8 @@ export type CertificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   name?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["certification"]>
 
@@ -400,6 +462,8 @@ export type CertificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   name?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["certification"]>
 
@@ -407,9 +471,11 @@ export type CertificationSelectScalar = {
   id?: boolean
   name?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type CertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "demoId", ExtArgs["result"]["certification"]>
+export type CertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["certification"]>
 export type CertificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }
@@ -429,6 +495,8 @@ export type $CertificationPayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     name: string
     demoId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["certification"]>
   composites: {}
 }
@@ -856,6 +924,8 @@ export interface CertificationFieldRefs {
   readonly id: Prisma.FieldRef<"Certification", 'String'>
   readonly name: Prisma.FieldRef<"Certification", 'String'>
   readonly demoId: Prisma.FieldRef<"Certification", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Certification", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Certification", 'DateTime'>
 }
     
 

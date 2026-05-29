@@ -29,6 +29,8 @@ export type FieldPermissionMinAggregateOutputType = {
   permissionId: string | null
   userId: string | null
   fieldId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FieldPermissionMaxAggregateOutputType = {
@@ -36,6 +38,8 @@ export type FieldPermissionMaxAggregateOutputType = {
   permissionId: string | null
   userId: string | null
   fieldId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FieldPermissionCountAggregateOutputType = {
@@ -43,6 +47,8 @@ export type FieldPermissionCountAggregateOutputType = {
   permissionId: number
   userId: number
   fieldId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -52,6 +58,8 @@ export type FieldPermissionMinAggregateInputType = {
   permissionId?: true
   userId?: true
   fieldId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FieldPermissionMaxAggregateInputType = {
@@ -59,6 +67,8 @@ export type FieldPermissionMaxAggregateInputType = {
   permissionId?: true
   userId?: true
   fieldId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FieldPermissionCountAggregateInputType = {
@@ -66,6 +76,8 @@ export type FieldPermissionCountAggregateInputType = {
   permissionId?: true
   userId?: true
   fieldId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -146,6 +158,8 @@ export type FieldPermissionGroupByOutputType = {
   permissionId: string
   userId: string
   fieldId: string
+  createdAt: Date
+  updatedAt: Date
   _count: FieldPermissionCountAggregateOutputType | null
   _min: FieldPermissionMinAggregateOutputType | null
   _max: FieldPermissionMaxAggregateOutputType | null
@@ -174,6 +188,8 @@ export type FieldPermissionWhereInput = {
   permissionId?: Prisma.StringFilter<"FieldPermission"> | string
   userId?: Prisma.StringFilter<"FieldPermission"> | string
   fieldId?: Prisma.StringFilter<"FieldPermission"> | string
+  createdAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
   field?: Prisma.XOR<Prisma.FieldScalarRelationFilter, Prisma.FieldWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   permission?: Prisma.XOR<Prisma.PermissionScalarRelationFilter, Prisma.PermissionWhereInput>
@@ -184,6 +200,8 @@ export type FieldPermissionOrderByWithRelationInput = {
   permissionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fieldId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   field?: Prisma.FieldOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   permission?: Prisma.PermissionOrderByWithRelationInput
@@ -197,6 +215,8 @@ export type FieldPermissionWhereUniqueInput = Prisma.AtLeast<{
   permissionId?: Prisma.StringFilter<"FieldPermission"> | string
   userId?: Prisma.StringFilter<"FieldPermission"> | string
   fieldId?: Prisma.StringFilter<"FieldPermission"> | string
+  createdAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
   field?: Prisma.XOR<Prisma.FieldScalarRelationFilter, Prisma.FieldWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   permission?: Prisma.XOR<Prisma.PermissionScalarRelationFilter, Prisma.PermissionWhereInput>
@@ -207,6 +227,8 @@ export type FieldPermissionOrderByWithAggregationInput = {
   permissionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fieldId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.FieldPermissionCountOrderByAggregateInput
   _max?: Prisma.FieldPermissionMaxOrderByAggregateInput
   _min?: Prisma.FieldPermissionMinOrderByAggregateInput
@@ -220,10 +242,14 @@ export type FieldPermissionScalarWhereWithAggregatesInput = {
   permissionId?: Prisma.StringWithAggregatesFilter<"FieldPermission"> | string
   userId?: Prisma.StringWithAggregatesFilter<"FieldPermission"> | string
   fieldId?: Prisma.StringWithAggregatesFilter<"FieldPermission"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"FieldPermission"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FieldPermission"> | Date | string
 }
 
 export type FieldPermissionCreateInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   field: Prisma.FieldCreateNestedOneWithoutUserPermissionsInput
   user: Prisma.UserCreateNestedOneWithoutFieldPermissionsInput
   permission: Prisma.PermissionCreateNestedOneWithoutFieldPermissionsInput
@@ -234,10 +260,14 @@ export type FieldPermissionUncheckedCreateInput = {
   permissionId: string
   userId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   field?: Prisma.FieldUpdateOneRequiredWithoutUserPermissionsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutFieldPermissionsNestedInput
   permission?: Prisma.PermissionUpdateOneRequiredWithoutFieldPermissionsNestedInput
@@ -248,6 +278,8 @@ export type FieldPermissionUncheckedUpdateInput = {
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionCreateManyInput = {
@@ -255,10 +287,14 @@ export type FieldPermissionCreateManyInput = {
   permissionId: string
   userId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionUncheckedUpdateManyInput = {
@@ -266,6 +302,8 @@ export type FieldPermissionUncheckedUpdateManyInput = {
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionListRelationFilter = {
@@ -283,6 +321,8 @@ export type FieldPermissionCountOrderByAggregateInput = {
   permissionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fieldId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldPermissionMaxOrderByAggregateInput = {
@@ -290,6 +330,8 @@ export type FieldPermissionMaxOrderByAggregateInput = {
   permissionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fieldId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldPermissionMinOrderByAggregateInput = {
@@ -297,6 +339,8 @@ export type FieldPermissionMinOrderByAggregateInput = {
   permissionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fieldId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldPermissionCreateNestedManyWithoutUserInput = {
@@ -427,6 +471,8 @@ export type FieldPermissionUncheckedUpdateManyWithoutPermissionNestedInput = {
 
 export type FieldPermissionCreateWithoutUserInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   field: Prisma.FieldCreateNestedOneWithoutUserPermissionsInput
   permission: Prisma.PermissionCreateNestedOneWithoutFieldPermissionsInput
 }
@@ -435,6 +481,8 @@ export type FieldPermissionUncheckedCreateWithoutUserInput = {
   id?: string
   permissionId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionCreateOrConnectWithoutUserInput = {
@@ -471,10 +519,14 @@ export type FieldPermissionScalarWhereInput = {
   permissionId?: Prisma.StringFilter<"FieldPermission"> | string
   userId?: Prisma.StringFilter<"FieldPermission"> | string
   fieldId?: Prisma.StringFilter<"FieldPermission"> | string
+  createdAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FieldPermission"> | Date | string
 }
 
 export type FieldPermissionCreateWithoutFieldInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutFieldPermissionsInput
   permission: Prisma.PermissionCreateNestedOneWithoutFieldPermissionsInput
 }
@@ -483,6 +535,8 @@ export type FieldPermissionUncheckedCreateWithoutFieldInput = {
   id?: string
   permissionId: string
   userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionCreateOrConnectWithoutFieldInput = {
@@ -513,6 +567,8 @@ export type FieldPermissionUpdateManyWithWhereWithoutFieldInput = {
 
 export type FieldPermissionCreateWithoutPermissionInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   field: Prisma.FieldCreateNestedOneWithoutUserPermissionsInput
   user: Prisma.UserCreateNestedOneWithoutFieldPermissionsInput
 }
@@ -521,6 +577,8 @@ export type FieldPermissionUncheckedCreateWithoutPermissionInput = {
   id?: string
   userId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionCreateOrConnectWithoutPermissionInput = {
@@ -553,10 +611,14 @@ export type FieldPermissionCreateManyUserInput = {
   id?: string
   permissionId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   field?: Prisma.FieldUpdateOneRequiredWithoutUserPermissionsNestedInput
   permission?: Prisma.PermissionUpdateOneRequiredWithoutFieldPermissionsNestedInput
 }
@@ -565,22 +627,30 @@ export type FieldPermissionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionCreateManyFieldInput = {
   id?: string
   permissionId: string
   userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionUpdateWithoutFieldInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutFieldPermissionsNestedInput
   permission?: Prisma.PermissionUpdateOneRequiredWithoutFieldPermissionsNestedInput
 }
@@ -589,22 +659,30 @@ export type FieldPermissionUncheckedUpdateWithoutFieldInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionUncheckedUpdateManyWithoutFieldInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   permissionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionCreateManyPermissionInput = {
   id?: string
   userId: string
   fieldId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldPermissionUpdateWithoutPermissionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   field?: Prisma.FieldUpdateOneRequiredWithoutUserPermissionsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutFieldPermissionsNestedInput
 }
@@ -613,12 +691,16 @@ export type FieldPermissionUncheckedUpdateWithoutPermissionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldPermissionUncheckedUpdateManyWithoutPermissionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   fieldId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -628,6 +710,8 @@ export type FieldPermissionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   permissionId?: boolean
   userId?: boolean
   fieldId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   field?: boolean | Prisma.FieldDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   permission?: boolean | Prisma.PermissionDefaultArgs<ExtArgs>
@@ -638,6 +722,8 @@ export type FieldPermissionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   permissionId?: boolean
   userId?: boolean
   fieldId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   field?: boolean | Prisma.FieldDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   permission?: boolean | Prisma.PermissionDefaultArgs<ExtArgs>
@@ -648,6 +734,8 @@ export type FieldPermissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   permissionId?: boolean
   userId?: boolean
   fieldId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   field?: boolean | Prisma.FieldDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   permission?: boolean | Prisma.PermissionDefaultArgs<ExtArgs>
@@ -658,9 +746,11 @@ export type FieldPermissionSelectScalar = {
   permissionId?: boolean
   userId?: boolean
   fieldId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type FieldPermissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "permissionId" | "userId" | "fieldId", ExtArgs["result"]["fieldPermission"]>
+export type FieldPermissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "permissionId" | "userId" | "fieldId" | "createdAt" | "updatedAt", ExtArgs["result"]["fieldPermission"]>
 export type FieldPermissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   field?: boolean | Prisma.FieldDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -689,6 +779,8 @@ export type $FieldPermissionPayload<ExtArgs extends runtime.Types.Extensions.Int
     permissionId: string
     userId: string
     fieldId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["fieldPermission"]>
   composites: {}
 }
@@ -1119,6 +1211,8 @@ export interface FieldPermissionFieldRefs {
   readonly permissionId: Prisma.FieldRef<"FieldPermission", 'String'>
   readonly userId: Prisma.FieldRef<"FieldPermission", 'String'>
   readonly fieldId: Prisma.FieldRef<"FieldPermission", 'String'>
+  readonly createdAt: Prisma.FieldRef<"FieldPermission", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"FieldPermission", 'DateTime'>
 }
     
 

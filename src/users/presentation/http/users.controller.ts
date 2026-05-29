@@ -53,7 +53,6 @@ export class UsersController {
   @CachePublic()
   async findAll(@Query() pageOptionsDto: FindUsersDto) {
     const users = await this.queryService.findAll(pageOptionsDto);
-
     return {
       message: 'Users fetched successfully',
       data: this.userResponseMapper.toResponseMany(users.data),

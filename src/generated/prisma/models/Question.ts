@@ -47,6 +47,8 @@ export type QuestionMinAggregateOutputType = {
   note: string | null
   sectionId: string | null
   mark: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionMaxAggregateOutputType = {
@@ -60,6 +62,8 @@ export type QuestionMaxAggregateOutputType = {
   note: string | null
   sectionId: string | null
   mark: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionCountAggregateOutputType = {
@@ -73,6 +77,8 @@ export type QuestionCountAggregateOutputType = {
   note: number
   sectionId: number
   mark: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -98,6 +104,8 @@ export type QuestionMinAggregateInputType = {
   note?: true
   sectionId?: true
   mark?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionMaxAggregateInputType = {
@@ -111,6 +119,8 @@ export type QuestionMaxAggregateInputType = {
   note?: true
   sectionId?: true
   mark?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionCountAggregateInputType = {
@@ -124,6 +134,8 @@ export type QuestionCountAggregateInputType = {
   note?: true
   sectionId?: true
   mark?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -224,6 +236,8 @@ export type QuestionGroupByOutputType = {
   note: string
   sectionId: string
   mark: number
+  createdAt: Date
+  updatedAt: Date
   _count: QuestionCountAggregateOutputType | null
   _avg: QuestionAvgAggregateOutputType | null
   _sum: QuestionSumAggregateOutputType | null
@@ -260,6 +274,8 @@ export type QuestionWhereInput = {
   note?: Prisma.StringFilter<"Question"> | string
   sectionId?: Prisma.StringFilter<"Question"> | string
   mark?: Prisma.IntFilter<"Question"> | number
+  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   marks?: Prisma.MarksListRelationFilter
 }
@@ -275,6 +291,8 @@ export type QuestionOrderByWithRelationInput = {
   note?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   mark?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
   marks?: Prisma.MarksOrderByRelationAggregateInput
 }
@@ -293,6 +311,8 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   note?: Prisma.StringFilter<"Question"> | string
   sectionId?: Prisma.StringFilter<"Question"> | string
   mark?: Prisma.IntFilter<"Question"> | number
+  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   marks?: Prisma.MarksListRelationFilter
 }, "id">
@@ -308,6 +328,8 @@ export type QuestionOrderByWithAggregationInput = {
   note?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   mark?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionCountOrderByAggregateInput
   _avg?: Prisma.QuestionAvgOrderByAggregateInput
   _max?: Prisma.QuestionMaxOrderByAggregateInput
@@ -329,6 +351,8 @@ export type QuestionScalarWhereWithAggregatesInput = {
   note?: Prisma.StringWithAggregatesFilter<"Question"> | string
   sectionId?: Prisma.StringWithAggregatesFilter<"Question"> | string
   mark?: Prisma.IntWithAggregatesFilter<"Question"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
 }
 
 export type QuestionCreateInput = {
@@ -341,6 +365,8 @@ export type QuestionCreateInput = {
   correctId: number
   note: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsInput
   marks?: Prisma.MarksCreateNestedManyWithoutQuestionInput
 }
@@ -356,6 +382,8 @@ export type QuestionUncheckedCreateInput = {
   note: string
   sectionId: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutQuestionInput
 }
 
@@ -369,6 +397,8 @@ export type QuestionUpdateInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsNestedInput
   marks?: Prisma.MarksUpdateManyWithoutQuestionNestedInput
 }
@@ -384,6 +414,8 @@ export type QuestionUncheckedUpdateInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
@@ -398,6 +430,8 @@ export type QuestionCreateManyInput = {
   note: string
   sectionId: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionUpdateManyMutationInput = {
@@ -410,6 +444,8 @@ export type QuestionUpdateManyMutationInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionUncheckedUpdateManyInput = {
@@ -423,6 +459,8 @@ export type QuestionUncheckedUpdateManyInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionCountOrderByAggregateInput = {
@@ -436,6 +474,8 @@ export type QuestionCountOrderByAggregateInput = {
   note?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   mark?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionAvgOrderByAggregateInput = {
@@ -454,6 +494,8 @@ export type QuestionMaxOrderByAggregateInput = {
   note?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   mark?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionMinOrderByAggregateInput = {
@@ -467,6 +509,8 @@ export type QuestionMinOrderByAggregateInput = {
   note?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   mark?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionSumOrderByAggregateInput = {
@@ -563,6 +607,8 @@ export type QuestionCreateWithoutSectionInput = {
   correctId: number
   note: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   marks?: Prisma.MarksCreateNestedManyWithoutQuestionInput
 }
 
@@ -576,6 +622,8 @@ export type QuestionUncheckedCreateWithoutSectionInput = {
   correctId: number
   note: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutQuestionInput
 }
 
@@ -619,6 +667,8 @@ export type QuestionScalarWhereInput = {
   note?: Prisma.StringFilter<"Question"> | string
   sectionId?: Prisma.StringFilter<"Question"> | string
   mark?: Prisma.IntFilter<"Question"> | number
+  createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
 }
 
 export type QuestionCreateWithoutMarksInput = {
@@ -631,6 +681,8 @@ export type QuestionCreateWithoutMarksInput = {
   correctId: number
   note: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsInput
 }
 
@@ -645,6 +697,8 @@ export type QuestionUncheckedCreateWithoutMarksInput = {
   note: string
   sectionId: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionCreateOrConnectWithoutMarksInput = {
@@ -673,6 +727,8 @@ export type QuestionUpdateWithoutMarksInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsNestedInput
 }
 
@@ -687,6 +743,8 @@ export type QuestionUncheckedUpdateWithoutMarksInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionCreateManySectionInput = {
@@ -699,6 +757,8 @@ export type QuestionCreateManySectionInput = {
   correctId: number
   note: string
   mark: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionUpdateWithoutSectionInput = {
@@ -711,6 +771,8 @@ export type QuestionUpdateWithoutSectionInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUpdateManyWithoutQuestionNestedInput
 }
 
@@ -724,6 +786,8 @@ export type QuestionUncheckedUpdateWithoutSectionInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
@@ -737,6 +801,8 @@ export type QuestionUncheckedUpdateManyWithoutSectionInput = {
   correctId?: Prisma.IntFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
   mark?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -781,6 +847,8 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   note?: boolean
   sectionId?: boolean
   mark?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   marks?: boolean | Prisma.Question$marksArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
@@ -797,6 +865,8 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   note?: boolean
   sectionId?: boolean
   mark?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
@@ -811,6 +881,8 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   note?: boolean
   sectionId?: boolean
   mark?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
@@ -825,9 +897,11 @@ export type QuestionSelectScalar = {
   note?: boolean
   sectionId?: boolean
   mark?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "choice1" | "choice2" | "choice3" | "choice4" | "correctId" | "note" | "sectionId" | "mark", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "choice1" | "choice2" | "choice3" | "choice4" | "correctId" | "note" | "sectionId" | "mark" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   marks?: boolean | Prisma.Question$marksArgs<ExtArgs>
@@ -857,6 +931,8 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     note: string
     sectionId: string
     mark: number
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["question"]>
   composites: {}
 }
@@ -1292,6 +1368,8 @@ export interface QuestionFieldRefs {
   readonly note: Prisma.FieldRef<"Question", 'String'>
   readonly sectionId: Prisma.FieldRef<"Question", 'String'>
   readonly mark: Prisma.FieldRef<"Question", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Question", 'DateTime'>
 }
     
 

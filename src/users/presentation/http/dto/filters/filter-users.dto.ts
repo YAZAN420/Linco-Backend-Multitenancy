@@ -10,7 +10,7 @@ import { Transform, Type } from 'class-transformer';
 import { DateFilterDto } from 'src/common/dtos/date-filter.dto';
 import { Role } from 'src/users/domain/enums/role.enum';
 
-export class FilterUserDto {
+export class FilterUsersDto {
   @IsOptional()
   @IsString()
   @MaxLength(100)

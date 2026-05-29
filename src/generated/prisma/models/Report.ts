@@ -26,28 +26,40 @@ export type AggregateReport = {
 
 export type ReportMinAggregateOutputType = {
   id: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReportMaxAggregateOutputType = {
   id: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReportCountAggregateOutputType = {
   id: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type ReportMinAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ReportMaxAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ReportCountAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -125,6 +137,8 @@ export type ReportGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ReportGroupByOutputType = {
   id: string
+  createdAt: Date
+  updatedAt: Date
   _count: ReportCountAggregateOutputType | null
   _min: ReportMinAggregateOutputType | null
   _max: ReportMaxAggregateOutputType | null
@@ -150,10 +164,14 @@ export type ReportWhereInput = {
   OR?: Prisma.ReportWhereInput[]
   NOT?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
   id?: Prisma.StringFilter<"Report"> | string
+  createdAt?: Prisma.DateTimeFilter<"Report"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Report"> | Date | string
 }
 
 export type ReportOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReportWhereUniqueInput = Prisma.AtLeast<{
@@ -161,10 +179,14 @@ export type ReportWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
   OR?: Prisma.ReportWhereInput[]
   NOT?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
+  createdAt?: Prisma.DateTimeFilter<"Report"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Report"> | Date | string
 }, "id">
 
 export type ReportOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReportCountOrderByAggregateInput
   _max?: Prisma.ReportMaxOrderByAggregateInput
   _min?: Prisma.ReportMinOrderByAggregateInput
@@ -175,73 +197,105 @@ export type ReportScalarWhereWithAggregatesInput = {
   OR?: Prisma.ReportScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReportScalarWhereWithAggregatesInput | Prisma.ReportScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Report"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Report"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Report"> | Date | string
 }
 
 export type ReportCreateInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReportUncheckedCreateInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReportUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportCreateManyInput = {
   id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReportUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReportMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReportMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 
 
 export type ReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["report"]>
 
 export type ReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["report"]>
 
 export type ReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["report"]>
 
 export type ReportSelectScalar = {
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id", ExtArgs["result"]["report"]>
+export type ReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt", ExtArgs["result"]["report"]>
 
 export type $ReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Report"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["report"]>
   composites: {}
 }
@@ -666,6 +720,8 @@ export interface Prisma__ReportClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ReportFieldRefs {
   readonly id: Prisma.FieldRef<"Report", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Report", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Report", 'DateTime'>
 }
     
 
@@ -865,7 +921,7 @@ export type ReportCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   /**
    * The data needed to create a Report.
    */
-  data?: Prisma.XOR<Prisma.ReportCreateInput, Prisma.ReportUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.ReportCreateInput, Prisma.ReportUncheckedCreateInput>
 }
 
 /**

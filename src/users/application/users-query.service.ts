@@ -4,9 +4,9 @@ import { UserRepository } from './ports/user.repository';
 import { GetUserByIdQuery } from './queries/get-user-by-id.query';
 import { GetUserByEmailQuery } from './queries/get-user-by-email.query';
 import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
-import { FindUsersDto } from '../presentation/http/dto/filters/find-users.dto';
-import { FindUsersCursorDto } from '../presentation/http/dto/filters/find-users-cursor.dto';
 
+import { FindUsersCursorDto } from 'src/users/presentation/http/dto/filters/find-users-cursor.dto';
+import { FindUsersDto } from 'src/users/presentation/http/dto/filters/find-users.dto';
 @Injectable()
 export class UsersQueryService {
   constructor(private readonly userRepository: UserRepository) {}

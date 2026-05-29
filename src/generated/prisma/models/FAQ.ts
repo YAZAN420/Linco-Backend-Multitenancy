@@ -29,6 +29,8 @@ export type FAQMinAggregateOutputType = {
   question: string | null
   answer: string | null
   courseId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FAQMaxAggregateOutputType = {
@@ -36,6 +38,8 @@ export type FAQMaxAggregateOutputType = {
   question: string | null
   answer: string | null
   courseId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FAQCountAggregateOutputType = {
@@ -43,6 +47,8 @@ export type FAQCountAggregateOutputType = {
   question: number
   answer: number
   courseId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -52,6 +58,8 @@ export type FAQMinAggregateInputType = {
   question?: true
   answer?: true
   courseId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FAQMaxAggregateInputType = {
@@ -59,6 +67,8 @@ export type FAQMaxAggregateInputType = {
   question?: true
   answer?: true
   courseId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FAQCountAggregateInputType = {
@@ -66,6 +76,8 @@ export type FAQCountAggregateInputType = {
   question?: true
   answer?: true
   courseId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -146,6 +158,8 @@ export type FAQGroupByOutputType = {
   question: string
   answer: string
   courseId: string
+  createdAt: Date
+  updatedAt: Date
   _count: FAQCountAggregateOutputType | null
   _min: FAQMinAggregateOutputType | null
   _max: FAQMaxAggregateOutputType | null
@@ -174,6 +188,8 @@ export type FAQWhereInput = {
   question?: Prisma.StringFilter<"FAQ"> | string
   answer?: Prisma.StringFilter<"FAQ"> | string
   courseId?: Prisma.StringFilter<"FAQ"> | string
+  createdAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }
 
@@ -182,6 +198,8 @@ export type FAQOrderByWithRelationInput = {
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
 }
 
@@ -193,6 +211,8 @@ export type FAQWhereUniqueInput = Prisma.AtLeast<{
   question?: Prisma.StringFilter<"FAQ"> | string
   answer?: Prisma.StringFilter<"FAQ"> | string
   courseId?: Prisma.StringFilter<"FAQ"> | string
+  createdAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }, "id">
 
@@ -201,6 +221,8 @@ export type FAQOrderByWithAggregationInput = {
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.FAQCountOrderByAggregateInput
   _max?: Prisma.FAQMaxOrderByAggregateInput
   _min?: Prisma.FAQMinOrderByAggregateInput
@@ -214,12 +236,16 @@ export type FAQScalarWhereWithAggregatesInput = {
   question?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
   answer?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
   courseId?: Prisma.StringWithAggregatesFilter<"FAQ"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"FAQ"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FAQ"> | Date | string
 }
 
 export type FAQCreateInput = {
   id?: string
   question: string
   answer: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFaqsInput
 }
 
@@ -228,12 +254,16 @@ export type FAQUncheckedCreateInput = {
   question: string
   answer: string
   courseId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FAQUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFaqsNestedInput
 }
 
@@ -242,6 +272,8 @@ export type FAQUncheckedUpdateInput = {
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FAQCreateManyInput = {
@@ -249,12 +281,16 @@ export type FAQCreateManyInput = {
   question: string
   answer: string
   courseId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FAQUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FAQUncheckedUpdateManyInput = {
@@ -262,6 +298,8 @@ export type FAQUncheckedUpdateManyInput = {
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FAQListRelationFilter = {
@@ -279,6 +317,8 @@ export type FAQCountOrderByAggregateInput = {
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FAQMaxOrderByAggregateInput = {
@@ -286,6 +326,8 @@ export type FAQMaxOrderByAggregateInput = {
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FAQMinOrderByAggregateInput = {
@@ -293,6 +335,8 @@ export type FAQMinOrderByAggregateInput = {
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FAQCreateNestedManyWithoutCourseInput = {
@@ -341,12 +385,16 @@ export type FAQCreateWithoutCourseInput = {
   id?: string
   question: string
   answer: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FAQUncheckedCreateWithoutCourseInput = {
   id?: string
   question: string
   answer: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FAQCreateOrConnectWithoutCourseInput = {
@@ -383,30 +431,40 @@ export type FAQScalarWhereInput = {
   question?: Prisma.StringFilter<"FAQ"> | string
   answer?: Prisma.StringFilter<"FAQ"> | string
   courseId?: Prisma.StringFilter<"FAQ"> | string
+  createdAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FAQ"> | Date | string
 }
 
 export type FAQCreateManyCourseInput = {
   id?: string
   question: string
   answer: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FAQUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FAQUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FAQUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -416,6 +474,8 @@ export type FAQSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   question?: boolean
   answer?: boolean
   courseId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQ"]>
 
@@ -424,6 +484,8 @@ export type FAQSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   question?: boolean
   answer?: boolean
   courseId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQ"]>
 
@@ -432,6 +494,8 @@ export type FAQSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   question?: boolean
   answer?: boolean
   courseId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fAQ"]>
 
@@ -440,9 +504,11 @@ export type FAQSelectScalar = {
   question?: boolean
   answer?: boolean
   courseId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "courseId", ExtArgs["result"]["fAQ"]>
+export type FAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["fAQ"]>
 export type FAQInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
@@ -463,6 +529,8 @@ export type $FAQPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     question: string
     answer: string
     courseId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["fAQ"]>
   composites: {}
 }
@@ -891,6 +959,8 @@ export interface FAQFieldRefs {
   readonly question: Prisma.FieldRef<"FAQ", 'String'>
   readonly answer: Prisma.FieldRef<"FAQ", 'String'>
   readonly courseId: Prisma.FieldRef<"FAQ", 'String'>
+  readonly createdAt: Prisma.FieldRef<"FAQ", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"FAQ", 'DateTime'>
 }
     
 

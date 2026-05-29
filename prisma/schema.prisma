@@ -64,6 +64,9 @@ model Question{
   sectionId String
   mark Int
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   section Section @relation(fields: [sectionId], references: [id])
   marks Marks[]
 }
@@ -72,6 +75,9 @@ model Course {
   id String @id @default(uuid())
   name String
   fieldId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   field Field @relation(fields: [fieldId], references: [id]) 
   sections Section[]
@@ -82,6 +88,10 @@ model Course {
 model Tag{
   id String @id @default(uuid())
   name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   courses Course[]
 }
 
@@ -90,6 +100,9 @@ model Section{
   name String
   numOfQuestions Int
   courseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   course Course @relation(fields: [courseId], references: [id])
   lessons Lesson[]
@@ -103,6 +116,9 @@ model Attachment {
   name String
   lessonId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   lesson Lesson @relation(fields: [lessonId], references: [id])
 }
 
@@ -115,6 +131,9 @@ model Lesson{
   index Int
   sectionId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   comments Comment[]
   section Section @relation(fields: [sectionId], references: [id])
   attachments Attachment[]
@@ -126,6 +145,9 @@ model FAQ {
   answer String
   courseId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   course Course @relation(fields: [courseId], references: [id])
 }
 
@@ -133,6 +155,9 @@ model Marks {
   id String @id @default(uuid())
   userId String
   questionId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
   question Question @relation(fields: [questionId], references: [id])
@@ -145,6 +170,9 @@ model Comment{
   parentId String?
   lessonId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   lesson Lesson @relation(fields: [lessonId], references: [id])
   parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
   replies   Comment[] @relation("CommentReplies")
@@ -155,6 +183,9 @@ model Field {
   name String
   managerId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   courses Course[]
   manager User @relation(fields: [managerId], references: [id])
   userPermissions FieldPermission[]
@@ -164,6 +195,9 @@ model Permission{
   id String @id @default(uuid())
   name String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   fieldPermissions FieldPermission[]
 }
 
@@ -172,6 +206,9 @@ model FieldPermission{
   permissionId String
   userId String
   fieldId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   field Field @relation(fields: [fieldId], references: [id])
   user User @relation(fields: [userId], references: [id])
@@ -184,6 +221,9 @@ model Message{
   content String
   groupId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   sender User @relation(fields: [senderId], references: [id])
   group Group @relation(fields: [groupId], references: [id])
 }
@@ -191,6 +231,9 @@ model Message{
 model Group{
   id String @id @default(uuid())
   name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   messages Message[]
 }
@@ -200,6 +243,9 @@ model Feature{
   type FeatureType
   demoId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   demo Demo @relation(fields: [demoId], references: [id])
 }
 
@@ -208,11 +254,17 @@ model Certification{
   name String
   demoId String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   demo Demo @relation(fields: [demoId], references: [id])
 }
 
 model Report{
   id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   // ------------- ناقص
 }
 
@@ -220,6 +272,9 @@ model Demo{
   id String @id @default(uuid())
   name String
   ownerId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   features Feature[]
   owner User @relation(fields: [ownerId], references: [id])

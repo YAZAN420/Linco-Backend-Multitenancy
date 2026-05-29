@@ -30,6 +30,8 @@ export type AttachmentMinAggregateOutputType = {
   path: string | null
   name: string | null
   lessonId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttachmentMaxAggregateOutputType = {
@@ -38,6 +40,8 @@ export type AttachmentMaxAggregateOutputType = {
   path: string | null
   name: string | null
   lessonId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttachmentCountAggregateOutputType = {
@@ -46,6 +50,8 @@ export type AttachmentCountAggregateOutputType = {
   path: number
   name: number
   lessonId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +62,8 @@ export type AttachmentMinAggregateInputType = {
   path?: true
   name?: true
   lessonId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AttachmentMaxAggregateInputType = {
@@ -64,6 +72,8 @@ export type AttachmentMaxAggregateInputType = {
   path?: true
   name?: true
   lessonId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AttachmentCountAggregateInputType = {
@@ -72,6 +82,8 @@ export type AttachmentCountAggregateInputType = {
   path?: true
   name?: true
   lessonId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -153,6 +165,8 @@ export type AttachmentGroupByOutputType = {
   path: string
   name: string
   lessonId: string
+  createdAt: Date
+  updatedAt: Date
   _count: AttachmentCountAggregateOutputType | null
   _min: AttachmentMinAggregateOutputType | null
   _max: AttachmentMaxAggregateOutputType | null
@@ -182,6 +196,8 @@ export type AttachmentWhereInput = {
   path?: Prisma.StringFilter<"Attachment"> | string
   name?: Prisma.StringFilter<"Attachment"> | string
   lessonId?: Prisma.StringFilter<"Attachment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
   lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
 }
 
@@ -191,6 +207,8 @@ export type AttachmentOrderByWithRelationInput = {
   path?: Prisma.SortOrder
   name?: Prisma.SortOrder
   lessonId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   lesson?: Prisma.LessonOrderByWithRelationInput
 }
 
@@ -203,6 +221,8 @@ export type AttachmentWhereUniqueInput = Prisma.AtLeast<{
   path?: Prisma.StringFilter<"Attachment"> | string
   name?: Prisma.StringFilter<"Attachment"> | string
   lessonId?: Prisma.StringFilter<"Attachment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
   lesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
 }, "id">
 
@@ -212,6 +232,8 @@ export type AttachmentOrderByWithAggregationInput = {
   path?: Prisma.SortOrder
   name?: Prisma.SortOrder
   lessonId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AttachmentCountOrderByAggregateInput
   _max?: Prisma.AttachmentMaxOrderByAggregateInput
   _min?: Prisma.AttachmentMinOrderByAggregateInput
@@ -226,6 +248,8 @@ export type AttachmentScalarWhereWithAggregatesInput = {
   path?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   name?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   lessonId?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Attachment"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Attachment"> | Date | string
 }
 
 export type AttachmentCreateInput = {
@@ -233,6 +257,8 @@ export type AttachmentCreateInput = {
   type: $Enums.AttachmentType
   path: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   lesson: Prisma.LessonCreateNestedOneWithoutAttachmentsInput
 }
 
@@ -242,6 +268,8 @@ export type AttachmentUncheckedCreateInput = {
   path: string
   name: string
   lessonId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttachmentUpdateInput = {
@@ -249,6 +277,8 @@ export type AttachmentUpdateInput = {
   type?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lesson?: Prisma.LessonUpdateOneRequiredWithoutAttachmentsNestedInput
 }
 
@@ -258,6 +288,8 @@ export type AttachmentUncheckedUpdateInput = {
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   lessonId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttachmentCreateManyInput = {
@@ -266,6 +298,8 @@ export type AttachmentCreateManyInput = {
   path: string
   name: string
   lessonId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttachmentUpdateManyMutationInput = {
@@ -273,6 +307,8 @@ export type AttachmentUpdateManyMutationInput = {
   type?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttachmentUncheckedUpdateManyInput = {
@@ -281,6 +317,8 @@ export type AttachmentUncheckedUpdateManyInput = {
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   lessonId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttachmentCountOrderByAggregateInput = {
@@ -289,6 +327,8 @@ export type AttachmentCountOrderByAggregateInput = {
   path?: Prisma.SortOrder
   name?: Prisma.SortOrder
   lessonId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttachmentMaxOrderByAggregateInput = {
@@ -297,6 +337,8 @@ export type AttachmentMaxOrderByAggregateInput = {
   path?: Prisma.SortOrder
   name?: Prisma.SortOrder
   lessonId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttachmentMinOrderByAggregateInput = {
@@ -305,6 +347,8 @@ export type AttachmentMinOrderByAggregateInput = {
   path?: Prisma.SortOrder
   name?: Prisma.SortOrder
   lessonId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttachmentListRelationFilter = {
@@ -368,6 +412,8 @@ export type AttachmentCreateWithoutLessonInput = {
   type: $Enums.AttachmentType
   path: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttachmentUncheckedCreateWithoutLessonInput = {
@@ -375,6 +421,8 @@ export type AttachmentUncheckedCreateWithoutLessonInput = {
   type: $Enums.AttachmentType
   path: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttachmentCreateOrConnectWithoutLessonInput = {
@@ -412,6 +460,8 @@ export type AttachmentScalarWhereInput = {
   path?: Prisma.StringFilter<"Attachment"> | string
   name?: Prisma.StringFilter<"Attachment"> | string
   lessonId?: Prisma.StringFilter<"Attachment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
 }
 
 export type AttachmentCreateManyLessonInput = {
@@ -419,6 +469,8 @@ export type AttachmentCreateManyLessonInput = {
   type: $Enums.AttachmentType
   path: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttachmentUpdateWithoutLessonInput = {
@@ -426,6 +478,8 @@ export type AttachmentUpdateWithoutLessonInput = {
   type?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttachmentUncheckedUpdateWithoutLessonInput = {
@@ -433,6 +487,8 @@ export type AttachmentUncheckedUpdateWithoutLessonInput = {
   type?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttachmentUncheckedUpdateManyWithoutLessonInput = {
@@ -440,6 +496,8 @@ export type AttachmentUncheckedUpdateManyWithoutLessonInput = {
   type?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   path?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -450,6 +508,8 @@ export type AttachmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   path?: boolean
   name?: boolean
   lessonId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
@@ -459,6 +519,8 @@ export type AttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   path?: boolean
   name?: boolean
   lessonId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
@@ -468,6 +530,8 @@ export type AttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   path?: boolean
   name?: boolean
   lessonId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
@@ -477,9 +541,11 @@ export type AttachmentSelectScalar = {
   path?: boolean
   name?: boolean
   lessonId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "path" | "name" | "lessonId", ExtArgs["result"]["attachment"]>
+export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "path" | "name" | "lessonId" | "createdAt" | "updatedAt", ExtArgs["result"]["attachment"]>
 export type AttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }
@@ -501,6 +567,8 @@ export type $AttachmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     path: string
     name: string
     lessonId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["attachment"]>
   composites: {}
 }
@@ -930,6 +998,8 @@ export interface AttachmentFieldRefs {
   readonly path: Prisma.FieldRef<"Attachment", 'String'>
   readonly name: Prisma.FieldRef<"Attachment", 'String'>
   readonly lessonId: Prisma.FieldRef<"Attachment", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Attachment", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Attachment", 'DateTime'>
 }
     
 

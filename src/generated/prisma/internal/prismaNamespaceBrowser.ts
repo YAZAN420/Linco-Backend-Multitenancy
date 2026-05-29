@@ -121,7 +121,9 @@ export const QuestionScalarFieldEnum = {
   correctId: 'correctId',
   note: 'note',
   sectionId: 'sectionId',
-  mark: 'mark'
+  mark: 'mark',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
@@ -130,7 +132,9 @@ export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typ
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  fieldId: 'fieldId'
+  fieldId: 'fieldId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -138,7 +142,9 @@ export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof 
 
 export const TagScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
@@ -148,7 +154,9 @@ export const SectionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   numOfQuestions: 'numOfQuestions',
-  courseId: 'courseId'
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -159,7 +167,9 @@ export const AttachmentScalarFieldEnum = {
   type: 'type',
   path: 'path',
   name: 'name',
-  lessonId: 'lessonId'
+  lessonId: 'lessonId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
@@ -172,7 +182,9 @@ export const LessonScalarFieldEnum = {
   videoPath: 'videoPath',
   subtitlePath: 'subtitlePath',
   index: 'index',
-  sectionId: 'sectionId'
+  sectionId: 'sectionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
@@ -182,7 +194,9 @@ export const FAQScalarFieldEnum = {
   id: 'id',
   question: 'question',
   answer: 'answer',
-  courseId: 'courseId'
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
@@ -191,7 +205,9 @@ export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQSca
 export const MarksScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  questionId: 'questionId'
+  questionId: 'questionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MarksScalarFieldEnum = (typeof MarksScalarFieldEnum)[keyof typeof MarksScalarFieldEnum]
@@ -202,7 +218,9 @@ export const CommentScalarFieldEnum = {
   userId: 'userId',
   content: 'content',
   parentId: 'parentId',
-  lessonId: 'lessonId'
+  lessonId: 'lessonId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
@@ -211,7 +229,9 @@ export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeo
 export const FieldScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  managerId: 'managerId'
+  managerId: 'managerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type FieldScalarFieldEnum = (typeof FieldScalarFieldEnum)[keyof typeof FieldScalarFieldEnum]
@@ -219,7 +239,9 @@ export type FieldScalarFieldEnum = (typeof FieldScalarFieldEnum)[keyof typeof Fi
 
 export const PermissionScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
@@ -229,7 +251,9 @@ export const FieldPermissionScalarFieldEnum = {
   id: 'id',
   permissionId: 'permissionId',
   userId: 'userId',
-  fieldId: 'fieldId'
+  fieldId: 'fieldId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type FieldPermissionScalarFieldEnum = (typeof FieldPermissionScalarFieldEnum)[keyof typeof FieldPermissionScalarFieldEnum]
@@ -239,7 +263,9 @@ export const MessageScalarFieldEnum = {
   id: 'id',
   senderId: 'senderId',
   content: 'content',
-  groupId: 'groupId'
+  groupId: 'groupId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -247,7 +273,9 @@ export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeo
 
 export const GroupScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
@@ -256,7 +284,9 @@ export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof Gr
 export const FeatureScalarFieldEnum = {
   id: 'id',
   type: 'type',
-  demoId: 'demoId'
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type FeatureScalarFieldEnum = (typeof FeatureScalarFieldEnum)[keyof typeof FeatureScalarFieldEnum]
@@ -265,14 +295,18 @@ export type FeatureScalarFieldEnum = (typeof FeatureScalarFieldEnum)[keyof typeo
 export const CertificationScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  demoId: 'demoId'
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
 
 
 export const ReportScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
@@ -281,7 +315,9 @@ export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof 
 export const DemoScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  ownerId: 'ownerId'
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof DemoScalarFieldEnum]

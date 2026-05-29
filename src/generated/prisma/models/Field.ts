@@ -28,18 +28,24 @@ export type FieldMinAggregateOutputType = {
   id: string | null
   name: string | null
   managerId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FieldMaxAggregateOutputType = {
   id: string | null
   name: string | null
   managerId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FieldCountAggregateOutputType = {
   id: number
   name: number
   managerId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -48,18 +54,24 @@ export type FieldMinAggregateInputType = {
   id?: true
   name?: true
   managerId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FieldMaxAggregateInputType = {
   id?: true
   name?: true
   managerId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FieldCountAggregateInputType = {
   id?: true
   name?: true
   managerId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -139,6 +151,8 @@ export type FieldGroupByOutputType = {
   id: string
   name: string
   managerId: string
+  createdAt: Date
+  updatedAt: Date
   _count: FieldCountAggregateOutputType | null
   _min: FieldMinAggregateOutputType | null
   _max: FieldMaxAggregateOutputType | null
@@ -166,6 +180,8 @@ export type FieldWhereInput = {
   id?: Prisma.StringFilter<"Field"> | string
   name?: Prisma.StringFilter<"Field"> | string
   managerId?: Prisma.StringFilter<"Field"> | string
+  createdAt?: Prisma.DateTimeFilter<"Field"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Field"> | Date | string
   courses?: Prisma.CourseListRelationFilter
   manager?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   userPermissions?: Prisma.FieldPermissionListRelationFilter
@@ -175,6 +191,8 @@ export type FieldOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   courses?: Prisma.CourseOrderByRelationAggregateInput
   manager?: Prisma.UserOrderByWithRelationInput
   userPermissions?: Prisma.FieldPermissionOrderByRelationAggregateInput
@@ -187,6 +205,8 @@ export type FieldWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FieldWhereInput | Prisma.FieldWhereInput[]
   name?: Prisma.StringFilter<"Field"> | string
   managerId?: Prisma.StringFilter<"Field"> | string
+  createdAt?: Prisma.DateTimeFilter<"Field"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Field"> | Date | string
   courses?: Prisma.CourseListRelationFilter
   manager?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   userPermissions?: Prisma.FieldPermissionListRelationFilter
@@ -196,6 +216,8 @@ export type FieldOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.FieldCountOrderByAggregateInput
   _max?: Prisma.FieldMaxOrderByAggregateInput
   _min?: Prisma.FieldMinOrderByAggregateInput
@@ -208,11 +230,15 @@ export type FieldScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Field"> | string
   name?: Prisma.StringWithAggregatesFilter<"Field"> | string
   managerId?: Prisma.StringWithAggregatesFilter<"Field"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Field"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Field"> | Date | string
 }
 
 export type FieldCreateInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutFieldInput
   manager: Prisma.UserCreateNestedOneWithoutManagedFieldsInput
   userPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutFieldInput
@@ -222,6 +248,8 @@ export type FieldUncheckedCreateInput = {
   id?: string
   name: string
   managerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutFieldInput
   userPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutFieldInput
 }
@@ -229,6 +257,8 @@ export type FieldUncheckedCreateInput = {
 export type FieldUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutFieldNestedInput
   manager?: Prisma.UserUpdateOneRequiredWithoutManagedFieldsNestedInput
   userPermissions?: Prisma.FieldPermissionUpdateManyWithoutFieldNestedInput
@@ -238,6 +268,8 @@ export type FieldUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutFieldNestedInput
   userPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutFieldNestedInput
 }
@@ -246,17 +278,23 @@ export type FieldCreateManyInput = {
   id?: string
   name: string
   managerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FieldListRelationFilter = {
@@ -278,18 +316,24 @@ export type FieldCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FieldCreateNestedManyWithoutManagerInput = {
@@ -365,6 +409,8 @@ export type FieldUpdateOneRequiredWithoutUserPermissionsNestedInput = {
 export type FieldCreateWithoutManagerInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutFieldInput
   userPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutFieldInput
 }
@@ -372,6 +418,8 @@ export type FieldCreateWithoutManagerInput = {
 export type FieldUncheckedCreateWithoutManagerInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutFieldInput
   userPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutFieldInput
 }
@@ -409,11 +457,15 @@ export type FieldScalarWhereInput = {
   id?: Prisma.StringFilter<"Field"> | string
   name?: Prisma.StringFilter<"Field"> | string
   managerId?: Prisma.StringFilter<"Field"> | string
+  createdAt?: Prisma.DateTimeFilter<"Field"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Field"> | Date | string
 }
 
 export type FieldCreateWithoutCoursesInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   manager: Prisma.UserCreateNestedOneWithoutManagedFieldsInput
   userPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutFieldInput
 }
@@ -422,6 +474,8 @@ export type FieldUncheckedCreateWithoutCoursesInput = {
   id?: string
   name: string
   managerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   userPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutFieldInput
 }
 
@@ -444,6 +498,8 @@ export type FieldUpdateToOneWithWhereWithoutCoursesInput = {
 export type FieldUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.UserUpdateOneRequiredWithoutManagedFieldsNestedInput
   userPermissions?: Prisma.FieldPermissionUpdateManyWithoutFieldNestedInput
 }
@@ -452,12 +508,16 @@ export type FieldUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutFieldNestedInput
 }
 
 export type FieldCreateWithoutUserPermissionsInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutFieldInput
   manager: Prisma.UserCreateNestedOneWithoutManagedFieldsInput
 }
@@ -466,6 +526,8 @@ export type FieldUncheckedCreateWithoutUserPermissionsInput = {
   id?: string
   name: string
   managerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutFieldInput
 }
 
@@ -488,6 +550,8 @@ export type FieldUpdateToOneWithWhereWithoutUserPermissionsInput = {
 export type FieldUpdateWithoutUserPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutFieldNestedInput
   manager?: Prisma.UserUpdateOneRequiredWithoutManagedFieldsNestedInput
 }
@@ -496,17 +560,23 @@ export type FieldUncheckedUpdateWithoutUserPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutFieldNestedInput
 }
 
 export type FieldCreateManyManagerInput = {
   id?: string
   name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FieldUpdateWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutFieldNestedInput
   userPermissions?: Prisma.FieldPermissionUpdateManyWithoutFieldNestedInput
 }
@@ -514,6 +584,8 @@ export type FieldUpdateWithoutManagerInput = {
 export type FieldUncheckedUpdateWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutFieldNestedInput
   userPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutFieldNestedInput
 }
@@ -521,6 +593,8 @@ export type FieldUncheckedUpdateWithoutManagerInput = {
 export type FieldUncheckedUpdateManyWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -567,6 +641,8 @@ export type FieldSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   managerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   courses?: boolean | Prisma.Field$coursesArgs<ExtArgs>
   manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   userPermissions?: boolean | Prisma.Field$userPermissionsArgs<ExtArgs>
@@ -577,6 +653,8 @@ export type FieldSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   managerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["field"]>
 
@@ -584,6 +662,8 @@ export type FieldSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   managerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["field"]>
 
@@ -591,9 +671,11 @@ export type FieldSelectScalar = {
   id?: boolean
   name?: boolean
   managerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type FieldOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "managerId", ExtArgs["result"]["field"]>
+export type FieldOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "managerId" | "createdAt" | "updatedAt", ExtArgs["result"]["field"]>
 export type FieldInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | Prisma.Field$coursesArgs<ExtArgs>
   manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -618,6 +700,8 @@ export type $FieldPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     name: string
     managerId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["field"]>
   composites: {}
 }
@@ -1047,6 +1131,8 @@ export interface FieldFieldRefs {
   readonly id: Prisma.FieldRef<"Field", 'String'>
   readonly name: Prisma.FieldRef<"Field", 'String'>
   readonly managerId: Prisma.FieldRef<"Field", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Field", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Field", 'DateTime'>
 }
     
 

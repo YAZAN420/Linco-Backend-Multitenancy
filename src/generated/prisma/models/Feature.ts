@@ -28,18 +28,24 @@ export type FeatureMinAggregateOutputType = {
   id: string | null
   type: $Enums.FeatureType | null
   demoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FeatureMaxAggregateOutputType = {
   id: string | null
   type: $Enums.FeatureType | null
   demoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FeatureCountAggregateOutputType = {
   id: number
   type: number
   demoId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -48,18 +54,24 @@ export type FeatureMinAggregateInputType = {
   id?: true
   type?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FeatureMaxAggregateInputType = {
   id?: true
   type?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type FeatureCountAggregateInputType = {
   id?: true
   type?: true
   demoId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -139,6 +151,8 @@ export type FeatureGroupByOutputType = {
   id: string
   type: $Enums.FeatureType
   demoId: string
+  createdAt: Date
+  updatedAt: Date
   _count: FeatureCountAggregateOutputType | null
   _min: FeatureMinAggregateOutputType | null
   _max: FeatureMaxAggregateOutputType | null
@@ -166,6 +180,8 @@ export type FeatureWhereInput = {
   id?: Prisma.StringFilter<"Feature"> | string
   type?: Prisma.EnumFeatureTypeFilter<"Feature"> | $Enums.FeatureType
   demoId?: Prisma.StringFilter<"Feature"> | string
+  createdAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }
 
@@ -173,6 +189,8 @@ export type FeatureOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   demo?: Prisma.DemoOrderByWithRelationInput
 }
 
@@ -183,6 +201,8 @@ export type FeatureWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FeatureWhereInput | Prisma.FeatureWhereInput[]
   type?: Prisma.EnumFeatureTypeFilter<"Feature"> | $Enums.FeatureType
   demoId?: Prisma.StringFilter<"Feature"> | string
+  createdAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }, "id">
 
@@ -190,6 +210,8 @@ export type FeatureOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.FeatureCountOrderByAggregateInput
   _max?: Prisma.FeatureMaxOrderByAggregateInput
   _min?: Prisma.FeatureMinOrderByAggregateInput
@@ -202,11 +224,15 @@ export type FeatureScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Feature"> | string
   type?: Prisma.EnumFeatureTypeWithAggregatesFilter<"Feature"> | $Enums.FeatureType
   demoId?: Prisma.StringWithAggregatesFilter<"Feature"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Feature"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Feature"> | Date | string
 }
 
 export type FeatureCreateInput = {
   id?: string
   type: $Enums.FeatureType
+  createdAt?: Date | string
+  updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutFeaturesInput
 }
 
@@ -214,11 +240,15 @@ export type FeatureUncheckedCreateInput = {
   id?: string
   type: $Enums.FeatureType
   demoId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FeatureUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutFeaturesNestedInput
 }
 
@@ -226,41 +256,55 @@ export type FeatureUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FeatureCreateManyInput = {
   id?: string
   type: $Enums.FeatureType
   demoId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FeatureUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FeatureUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FeatureCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FeatureMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FeatureMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FeatureListRelationFilter = {
@@ -322,11 +366,15 @@ export type FeatureUncheckedUpdateManyWithoutDemoNestedInput = {
 export type FeatureCreateWithoutDemoInput = {
   id?: string
   type: $Enums.FeatureType
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FeatureUncheckedCreateWithoutDemoInput = {
   id?: string
   type: $Enums.FeatureType
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FeatureCreateOrConnectWithoutDemoInput = {
@@ -362,26 +410,36 @@ export type FeatureScalarWhereInput = {
   id?: Prisma.StringFilter<"Feature"> | string
   type?: Prisma.EnumFeatureTypeFilter<"Feature"> | $Enums.FeatureType
   demoId?: Prisma.StringFilter<"Feature"> | string
+  createdAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
 }
 
 export type FeatureCreateManyDemoInput = {
   id?: string
   type: $Enums.FeatureType
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type FeatureUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FeatureUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FeatureUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeatureTypeFieldUpdateOperationsInput | $Enums.FeatureType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -390,6 +448,8 @@ export type FeatureSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   type?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feature"]>
 
@@ -397,6 +457,8 @@ export type FeatureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   type?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feature"]>
 
@@ -404,6 +466,8 @@ export type FeatureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   type?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feature"]>
 
@@ -411,9 +475,11 @@ export type FeatureSelectScalar = {
   id?: boolean
   type?: boolean
   demoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type FeatureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "demoId", ExtArgs["result"]["feature"]>
+export type FeatureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["feature"]>
 export type FeatureInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }
@@ -433,6 +499,8 @@ export type $FeaturePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     type: $Enums.FeatureType
     demoId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["feature"]>
   composites: {}
 }
@@ -860,6 +928,8 @@ export interface FeatureFieldRefs {
   readonly id: Prisma.FieldRef<"Feature", 'String'>
   readonly type: Prisma.FieldRef<"Feature", 'FeatureType'>
   readonly demoId: Prisma.FieldRef<"Feature", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Feature", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Feature", 'DateTime'>
 }
     
 
