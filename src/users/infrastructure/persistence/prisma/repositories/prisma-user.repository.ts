@@ -11,10 +11,11 @@ import {
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { FindUsersDto } from 'src/users/presentation/http/dto/filters/find-users.dto';
 import { FindUsersCursorDto } from 'src/users/presentation/http/dto/filters/find-users-cursor.dto';
-import { buildWhere } from 'src/common/utils/prisma.util';
+import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { Prisma } from 'src/generated/prisma/browser';
 
 const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
+const USER_ORDERABLE_FIELDS = ['createdAt', 'firstName', 'lastName', 'email'];
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -28,14 +29,15 @@ export class PrismaUserRepository implements UserRepository {
       options,
       USER_SEARCH_COLUMNS,
     );
+    const orderBy = buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS);
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip: options.skip,
         take: options.take,
         where,
-        orderBy: { createdAt: 'desc' },
+        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
-      this.prisma.user.count(),
+      this.prisma.user.count({ where }),
     ]);
 
     const domainUsers = items.map((item) => this.mapper.toDomain(item));

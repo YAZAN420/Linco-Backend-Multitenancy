@@ -35,3 +35,16 @@ export function buildWhere<T extends object, U>(
 
   return result as U;
 }
+
+export function buildOrderBy<T extends Record<string, unknown>>(
+  orderBy: T | undefined,
+  allowedFields: string[],
+): Record<string, 'asc' | 'desc'>[] {
+  if (!orderBy) return [];
+
+  return Object.entries(orderBy)
+    .filter(([field, dir]) => allowedFields.includes(field) && dir)
+    .map(([field, dir]) => ({
+      [field]: String(dir).toLowerCase() as 'asc' | 'desc',
+    }));
+}

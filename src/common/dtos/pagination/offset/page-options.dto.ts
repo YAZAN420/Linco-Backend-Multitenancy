@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsObject, IsOptional, Max, Min } from 'class-validator';
+import { OrderByInput } from '../../order-by.dto';
 
 export enum Order {
   ASC = 'ASC',
@@ -23,6 +24,10 @@ export class PageOptionsDto {
   @Max(50)
   @IsOptional()
   readonly take: number = 10;
+
+  @IsOptional()
+  @IsObject()
+  orderBy?: OrderByInput;
 
   get skip(): number {
     return (this.page - 1) * this.take;
