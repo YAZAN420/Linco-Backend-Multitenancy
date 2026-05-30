@@ -9,8 +9,9 @@ import {
 import { Transform, Type } from 'class-transformer';
 import { DateFilterDto } from 'src/common/dtos/date-filter.dto';
 import { Role } from 'src/users/domain/enums/role.enum';
+import { UserFilter } from 'src/users/application/interfaces/user-filter.interface';
 
-export class FilterUsersDto {
+export class FilterUsersDto implements UserFilter {
   @IsOptional()
   @IsString()
   @MaxLength(100)

@@ -9,10 +9,12 @@ import {
   PageMetaDto,
 } from 'src/common/dtos/pagination';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { FindUsersDto } from 'src/users/presentation/http/dto/filters/find-users.dto';
-import { FindUsersCursorDto } from 'src/users/presentation/http/dto/filters/find-users-cursor.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { Prisma } from 'src/generated/prisma/browser';
+import {
+  FindUsersCursorQuery,
+  FindUsersQuery,
+} from 'src/users/application/interfaces/find-users.query';
 
 const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
 const USER_ORDERABLE_FIELDS = ['createdAt', 'firstName', 'lastName', 'email'];
@@ -24,15 +26,16 @@ export class PrismaUserRepository implements UserRepository {
     private readonly mapper: PrismaUserMapper,
   ) {}
 
-  async findAll(options: FindUsersDto): Promise<PageDto<User>> {
-    const where = buildWhere<FindUsersDto, Prisma.UserWhereInput>(
+  async findAll(options: FindUsersQuery): Promise<PageDto<User>> {
+    const where = buildWhere<FindUsersQuery, Prisma.UserWhereInput>(
       options,
       USER_SEARCH_COLUMNS,
     );
     const orderBy = buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS);
+    const skip = (options.page - 1) * options.take;
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
-        skip: options.skip,
+        skip: skip,
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
@@ -47,9 +50,9 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async findAllCursor(
-    options: FindUsersCursorDto,
+    options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
-    const where = buildWhere<FindUsersCursorDto, Prisma.UserWhereInput>(
+    const where = buildWhere<FindUsersCursorQuery, Prisma.UserWhereInput>(
       options,
       USER_SEARCH_COLUMNS,
     );

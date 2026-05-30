@@ -13,7 +13,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 import type { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { FindUsersDto } from './dto/filters/find-users.dto';
 import { FindUsersCursorDto } from './dto/filters/find-users-cursor.dto';
@@ -37,9 +36,9 @@ export class UsersController {
   }
 
   @Get()
-  @CachePublic()
   async findAll(@Query() pageOptionsDto: FindUsersDto) {
     const users = await this.userService.findAll(pageOptionsDto);
+    console.log(users);
     return {
       message: 'Users fetched successfully',
       data: this.userResponseMapper.toResponseMany(users.data),
@@ -48,7 +47,6 @@ export class UsersController {
   }
 
   @Get('cursor')
-  @CachePublic()
   async findWithCursor(@Query() options: FindUsersCursorDto) {
     const result = await this.userService.findAllCursor(options);
 

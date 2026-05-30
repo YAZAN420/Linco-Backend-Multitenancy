@@ -1,7 +1,8 @@
 import { IsOptional, IsDate } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { DateFilter } from '../interfaces/date-filter.interface';
 
-export class DateFilterDto {
+export class DateFilterDto implements DateFilter {
   @IsOptional()
   @IsDate()
   @Transform(({ value }: { value: unknown }) =>

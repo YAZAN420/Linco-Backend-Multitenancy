@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsObject, IsOptional, Max, Min } from 'class-validator';
+import { IsInt, IsOptional, Max, Min, ValidateNested } from 'class-validator';
 import { OrderByInput } from '../../order-by.dto';
 
 export class PageOptionsDto {
@@ -17,10 +17,7 @@ export class PageOptionsDto {
   readonly take: number = 10;
 
   @IsOptional()
-  @IsObject()
+  @ValidateNested()
+  @Type(() => OrderByInput)
   orderBy?: OrderByInput;
-
-  get skip(): number {
-    return (this.page - 1) * this.take;
-  }
 }

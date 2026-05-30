@@ -1,7 +1,24 @@
-export enum SortOrder {
-  ASC = 'ASC',
-  asc = 'asc',
-  DESC = 'DESC',
-  desc = 'desc',
+import { IsEnum, IsOptional } from 'class-validator';
+
+export enum SortDirection {
+  ASC = 'asc',
+  DESC = 'desc',
 }
-export type OrderByInput = Record<string, SortOrder>;
+
+export class OrderByInput {
+  @IsOptional()
+  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  createdAt?: SortDirection;
+
+  @IsOptional()
+  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  firstName?: SortDirection;
+
+  @IsOptional()
+  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  lastName?: SortDirection;
+
+  @IsOptional()
+  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  email?: SortDirection;
+}

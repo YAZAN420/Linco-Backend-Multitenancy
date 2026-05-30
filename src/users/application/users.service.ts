@@ -8,11 +8,14 @@ import { UserFactory } from '../domain/factories/user.factory';
 import { User } from '../domain/user';
 import { HashingPort } from 'src/iam/application/ports/hashing.port';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { FindUsersDto } from '../presentation/http/dto/filters/find-users.dto';
-import { FindUsersCursorDto } from '../presentation/http/dto/filters/find-users-cursor.dto';
+
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
+import {
+  FindUsersCursorQuery,
+  FindUsersQuery,
+} from './interfaces/find-users.query';
 
 @Injectable()
 export class UsersService {
@@ -97,12 +100,12 @@ export class UsersService {
     return user;
   }
 
-  async findAll(pageOptionsDto: FindUsersDto): Promise<PageDto<User>> {
+  async findAll(pageOptionsDto: FindUsersQuery): Promise<PageDto<User>> {
     return this.userRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
-    options: FindUsersCursorDto,
+    options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
     return this.userRepository.findAllCursor(options);
   }
