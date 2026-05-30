@@ -11,8 +11,8 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { FindUsersDto } from '../presentation/http/dto/filters/find-users.dto';
 import { FindUsersCursorDto } from '../presentation/http/dto/filters/find-users-cursor.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { CreateUserDto } from '../presentation/http/dto/create-user.dto';
-import { UpdateUserDto } from '../presentation/http/dto/update-user.dto';
+import { CreateUserInput } from './interfaces/create-user-input.interface';
+import { UpdateUserInput } from './interfaces/update-user-input.interface';
 
 @Injectable()
 export class UsersService {
@@ -22,17 +22,17 @@ export class UsersService {
     private readonly userFactory: UserFactory,
   ) {}
 
-  async create(dto: CreateUserDto): Promise<User> {
-    await this.ensureEmailIsUnique(dto.email);
-    const hashedPassword = await this.hashService.hash(dto.password);
+  async create(input: CreateUserInput): Promise<User> {
+    await this.ensureEmailIsUnique(input.email);
+    const hashedPassword = await this.hashService.hash(input.password);
 
     const user = this.userFactory.createNew(
-      dto.firstName,
-      dto.lastName,
-      dto.email,
+      input.firstName,
+      input.lastName,
+      input.email,
       hashedPassword,
-      dto.birthDate,
-      dto.imagePath,
+      input.birthDate,
+      input.imagePath,
     );
 
     await this.userRepository.save(user);
@@ -40,13 +40,14 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, dto: UpdateUserDto): Promise<User> {
+  async update(id: string, input: UpdateUserInput): Promise<User> {
     const user = await this.findUserOrThrow(id);
 
-    if (dto.firstName !== undefined) user.changeFirstName(dto.firstName);
-    if (dto.lastName !== undefined) user.changeLastName(dto.lastName);
-    if (dto.birthDate !== undefined) user.changeBirthDate(dto.birthDate);
-    if (dto.imagePath !== undefined) user.changeImagePath(dto.imagePath ?? '');
+    if (input.firstName !== undefined) user.changeFirstName(input.firstName);
+    if (input.lastName !== undefined) user.changeLastName(input.lastName);
+    if (input.birthDate !== undefined) user.changeBirthDate(input.birthDate);
+    if (input.imagePath !== undefined)
+      user.changeImagePath(input.imagePath ?? '');
 
     await this.userRepository.save(user);
 

@@ -8,9 +8,10 @@ import {
   MinLength,
   IsEnum,
 } from 'class-validator';
+import { CreateUserInput } from 'src/users/application/interfaces/create-user-input.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
 
-export class CreateUserDto {
+export class CreateUserDto implements CreateUserInput {
   @IsString()
   @IsNotEmpty()
   firstName!: string;
