@@ -1,17 +1,8 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsInt, IsObject, IsOptional, Max, Min } from 'class-validator';
+import { IsInt, IsObject, IsOptional, Max, Min } from 'class-validator';
 import { OrderByInput } from '../../order-by.dto';
 
-export enum Order {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
-
 export class PageOptionsDto {
-  @IsEnum(Order)
-  @IsOptional()
-  readonly order?: Order = Order.ASC;
-
   @Type(() => Number)
   @IsInt()
   @Min(1)
