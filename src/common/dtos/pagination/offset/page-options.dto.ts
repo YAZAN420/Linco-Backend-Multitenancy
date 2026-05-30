@@ -1,5 +1,13 @@
-import { Type } from 'class-transformer';
-import { IsInt, IsOptional, Max, Min, ValidateNested } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  IsArray,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 import { OrderByInput } from '../../order-by.dto';
 
 export class PageOptionsDto {
@@ -20,4 +28,15 @@ export class PageOptionsDto {
   @ValidateNested()
   @Type(() => OrderByInput)
   orderBy?: OrderByInput;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  @Transform(({ value }: { value: unknown }): string[] | undefined => {
+    if (typeof value === 'string') {
+      return value.split(',').map((v) => v.trim());
+    }
+    return undefined;
+  })
+  readonly with?: string[];
 }
