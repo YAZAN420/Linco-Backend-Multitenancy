@@ -16,7 +16,7 @@ import {
   FindUsersCursorQuery,
   FindUsersQuery,
 } from 'src/users/application/interfaces/find-users.query';
-import { UserQueryRepository } from 'src/users/application/ports/user-query.repository.interface';
+import { UserQueryRepository } from 'src/users/application/ports/user-query.repository';
 
 const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
 const USER_ORDERABLE_FIELDS = ['createdAt', 'firstName', 'lastName', 'email'];

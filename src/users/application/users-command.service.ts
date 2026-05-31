@@ -38,7 +38,7 @@ export class UsersCommandService {
   }
 
   async update(id: string, input: UpdateUserInput): Promise<User> {
-    const user = await this.findUserOrThrow(id);
+    const user = await this.findById(id);
 
     if (input.firstName !== undefined) user.changeFirstName(input.firstName);
     if (input.lastName !== undefined) user.changeLastName(input.lastName);
@@ -52,7 +52,7 @@ export class UsersCommandService {
   }
 
   async remove(id: string): Promise<void> {
-    await this.findUserOrThrow(id);
+    await this.findById(id);
     await this.userCommandRepository.delete(id);
   }
 
@@ -60,7 +60,7 @@ export class UsersCommandService {
     id: string,
     refreshToken: string | null,
   ): Promise<void> {
-    const user = await this.findUserOrThrow(id);
+    const user = await this.findById(id);
     user.security.updateRefreshToken(refreshToken);
     await this.userCommandRepository.save(user);
   }
@@ -76,12 +76,6 @@ export class UsersCommandService {
 
   async save(user: User): Promise<void> {
     await this.userCommandRepository.save(user);
-  }
-
-  private async findUserOrThrow(id: string): Promise<User> {
-    const user = await this.userCommandRepository.findById(id);
-    if (!user) throw new NotFoundException('User not found');
-    return user;
   }
 
   private async ensureEmailIsUnique(email: string): Promise<void> {
