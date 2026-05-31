@@ -5,7 +5,7 @@ import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 
 @Injectable()
-export class PrismaUserRepository implements UserCommandRepository {
+export class PrismaUserCommandRepository implements UserCommandRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaUserMapper,

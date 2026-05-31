@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserCommandRepository } from 'src/users/application/ports/user-command.repository';
-import { PrismaUserRepository } from './repositories/prisma-user.repository';
+import { PrismaUserCommandRepository } from './repositories/prisma-user-command.repository';
 import { PrismaUserMapper } from './mappers/prisma-user.mapper';
 import { UserQueryRepository } from 'src/users/application/ports/user-query.repository.interface';
 import { PrismaUserQueryRepository } from './repositories/prisma-user-query.repository';
@@ -10,7 +10,7 @@ import { PrismaUserQueryRepository } from './repositories/prisma-user-query.repo
     PrismaUserMapper,
     {
       provide: UserCommandRepository,
-      useClass: PrismaUserRepository,
+      useClass: PrismaUserCommandRepository,
     },
     {
       provide: UserQueryRepository,
