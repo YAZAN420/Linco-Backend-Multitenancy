@@ -21,9 +21,9 @@ export class UserFactory {
     const security = new UserSecurity({
       password: passwordStr,
       isEmailVerified: false,
-      isTwoFactorAuthenticationEnabled: false,
+      isTwoFactorEnabled: false,
       refreshToken: null,
-      twoFactorAuthenticationSecret: null,
+      twoFactorSecret: null,
       emailVerificationToken: null,
       passwordResetToken: null,
       passwordResetExpires: null,

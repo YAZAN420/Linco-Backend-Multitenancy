@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/domain/user';
 import { UserResponseDto } from '../dto/user-response.dto';
+import { User as PrismaUser } from 'src/generated/prisma/browser';
+import { User as DomainUser } from 'src/users/domain/user';
 
 @Injectable()
 export class UserResponseMapper {
-  toResponse(user: User): UserResponseDto {
-    return {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      birthDate: user.birthDate,
-      imagePath: user.imagePath,
-      role: user.role,
-      isEmailVerified: user.security.isEmailVerified,
-      isTwoFactorEnabled: user.security.isTwoFactorEnabled,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+  toResponseFromPrisma(user: PrismaUser): UserResponseDto {
+    return new UserResponseDto(
+      user.id,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.birthDate,
+      user.imagePath,
+      user.role as unknown as DomainUser['role'],
+      user.isEmailVerified,
+      user.isTwoFactorEnabled,
+      user.createdAt,
+      user.updatedAt,
+    );
   }
 
-  toResponseMany(users: User[]): UserResponseDto[] {
-    return users.map((user) => this.toResponse(user));
+  toResponseFromDomain(user: DomainUser): UserResponseDto {
+    return new UserResponseDto(
+      user.id,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.birthDate,
+      user.imagePath,
+      user.role,
+      user.security.isEmailVerified,
+      user.security.isTwoFactorEnabled,
+      user.createdAt,
+      user.updatedAt,
+    );
+  }
+
+  toResponseManyFromPrisma(users: PrismaUser[]): UserResponseDto[] {
+    return users.map((user) => this.toResponseFromPrisma(user));
   }
 }

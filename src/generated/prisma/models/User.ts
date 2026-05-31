@@ -34,8 +34,8 @@ export type UserMinAggregateOutputType = {
   imagePath: string | null
   refreshToken: string | null
   role: $Enums.Role | null
-  twoFactorAuthenticationSecret: string | null
-  isTwoFactorAuthenticationEnabled: boolean | null
+  twoFactorSecret: string | null
+  isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
   emailVerificationToken: string | null
   passwordResetToken: string | null
@@ -54,8 +54,8 @@ export type UserMaxAggregateOutputType = {
   imagePath: string | null
   refreshToken: string | null
   role: $Enums.Role | null
-  twoFactorAuthenticationSecret: string | null
-  isTwoFactorAuthenticationEnabled: boolean | null
+  twoFactorSecret: string | null
+  isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
   emailVerificationToken: string | null
   passwordResetToken: string | null
@@ -74,8 +74,8 @@ export type UserCountAggregateOutputType = {
   imagePath: number
   refreshToken: number
   role: number
-  twoFactorAuthenticationSecret: number
-  isTwoFactorAuthenticationEnabled: number
+  twoFactorSecret: number
+  isTwoFactorEnabled: number
   isEmailVerified: number
   emailVerificationToken: number
   passwordResetToken: number
@@ -96,8 +96,8 @@ export type UserMinAggregateInputType = {
   imagePath?: true
   refreshToken?: true
   role?: true
-  twoFactorAuthenticationSecret?: true
-  isTwoFactorAuthenticationEnabled?: true
+  twoFactorSecret?: true
+  isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
   passwordResetToken?: true
@@ -116,8 +116,8 @@ export type UserMaxAggregateInputType = {
   imagePath?: true
   refreshToken?: true
   role?: true
-  twoFactorAuthenticationSecret?: true
-  isTwoFactorAuthenticationEnabled?: true
+  twoFactorSecret?: true
+  isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
   passwordResetToken?: true
@@ -136,8 +136,8 @@ export type UserCountAggregateInputType = {
   imagePath?: true
   refreshToken?: true
   role?: true
-  twoFactorAuthenticationSecret?: true
-  isTwoFactorAuthenticationEnabled?: true
+  twoFactorSecret?: true
+  isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
   passwordResetToken?: true
@@ -229,8 +229,8 @@ export type UserGroupByOutputType = {
   imagePath: string
   refreshToken: string | null
   role: $Enums.Role
-  twoFactorAuthenticationSecret: string | null
-  isTwoFactorAuthenticationEnabled: boolean
+  twoFactorSecret: string | null
+  isTwoFactorEnabled: boolean
   isEmailVerified: boolean
   emailVerificationToken: string | null
   passwordResetToken: string | null
@@ -270,8 +270,8 @@ export type UserWhereInput = {
   imagePath?: Prisma.StringFilter<"User"> | string
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.StringNullableFilter<"User"> | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFilter<"User"> | boolean
+  twoFactorSecret?: Prisma.StringNullableFilter<"User"> | string | null
+  isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -295,8 +295,8 @@ export type UserOrderByWithRelationInput = {
   imagePath?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  twoFactorAuthenticationSecret?: Prisma.SortOrderInput | Prisma.SortOrder
-  isTwoFactorAuthenticationEnabled?: Prisma.SortOrder
+  twoFactorSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -323,8 +323,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   imagePath?: Prisma.StringFilter<"User"> | string
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.StringNullableFilter<"User"> | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFilter<"User"> | boolean
+  twoFactorSecret?: Prisma.StringNullableFilter<"User"> | string | null
+  isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -348,8 +348,8 @@ export type UserOrderByWithAggregationInput = {
   imagePath?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  twoFactorAuthenticationSecret?: Prisma.SortOrderInput | Prisma.SortOrder
-  isTwoFactorAuthenticationEnabled?: Prisma.SortOrder
+  twoFactorSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -374,8 +374,8 @@ export type UserScalarWhereWithAggregatesInput = {
   imagePath?: Prisma.StringWithAggregatesFilter<"User"> | string
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  twoFactorSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  isTwoFactorEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordResetToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -394,8 +394,8 @@ export type UserCreateInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -419,8 +419,8 @@ export type UserUncheckedCreateInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -444,8 +444,8 @@ export type UserUpdateInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -469,8 +469,8 @@ export type UserUncheckedUpdateInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -494,8 +494,8 @@ export type UserCreateManyInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -514,8 +514,8 @@ export type UserUpdateManyMutationInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -534,8 +534,8 @@ export type UserUncheckedUpdateManyInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -554,8 +554,8 @@ export type UserCountOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  twoFactorAuthenticationSecret?: Prisma.SortOrder
-  isTwoFactorAuthenticationEnabled?: Prisma.SortOrder
+  twoFactorSecret?: Prisma.SortOrder
+  isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
@@ -574,8 +574,8 @@ export type UserMaxOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  twoFactorAuthenticationSecret?: Prisma.SortOrder
-  isTwoFactorAuthenticationEnabled?: Prisma.SortOrder
+  twoFactorSecret?: Prisma.SortOrder
+  isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
@@ -594,8 +594,8 @@ export type UserMinOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  twoFactorAuthenticationSecret?: Prisma.SortOrder
-  isTwoFactorAuthenticationEnabled?: Prisma.SortOrder
+  twoFactorSecret?: Prisma.SortOrder
+  isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
@@ -713,8 +713,8 @@ export type UserCreateWithoutMarksInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -737,8 +737,8 @@ export type UserUncheckedCreateWithoutMarksInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -777,8 +777,8 @@ export type UserUpdateWithoutMarksInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -801,8 +801,8 @@ export type UserUncheckedUpdateWithoutMarksInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -825,8 +825,8 @@ export type UserCreateWithoutManagedFieldsInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -849,8 +849,8 @@ export type UserUncheckedCreateWithoutManagedFieldsInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -889,8 +889,8 @@ export type UserUpdateWithoutManagedFieldsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -913,8 +913,8 @@ export type UserUncheckedUpdateWithoutManagedFieldsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -937,8 +937,8 @@ export type UserCreateWithoutFieldPermissionsInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -961,8 +961,8 @@ export type UserUncheckedCreateWithoutFieldPermissionsInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -1001,8 +1001,8 @@ export type UserUpdateWithoutFieldPermissionsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1025,8 +1025,8 @@ export type UserUncheckedUpdateWithoutFieldPermissionsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1049,8 +1049,8 @@ export type UserCreateWithoutMessagesInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -1073,8 +1073,8 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -1113,8 +1113,8 @@ export type UserUpdateWithoutMessagesInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1137,8 +1137,8 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1161,8 +1161,8 @@ export type UserCreateWithoutOwnedDemoInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -1185,8 +1185,8 @@ export type UserUncheckedCreateWithoutOwnedDemoInput = {
   imagePath: string
   refreshToken?: string | null
   role?: $Enums.Role
-  twoFactorAuthenticationSecret?: string | null
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
   passwordResetToken?: string | null
@@ -1225,8 +1225,8 @@ export type UserUpdateWithoutOwnedDemoInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1249,8 +1249,8 @@ export type UserUncheckedUpdateWithoutOwnedDemoInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorAuthenticationSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorAuthenticationEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1340,8 +1340,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   imagePath?: boolean
   refreshToken?: boolean
   role?: boolean
-  twoFactorAuthenticationSecret?: boolean
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: boolean
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
   passwordResetToken?: boolean
@@ -1366,8 +1366,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   imagePath?: boolean
   refreshToken?: boolean
   role?: boolean
-  twoFactorAuthenticationSecret?: boolean
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: boolean
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
   passwordResetToken?: boolean
@@ -1386,8 +1386,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   imagePath?: boolean
   refreshToken?: boolean
   role?: boolean
-  twoFactorAuthenticationSecret?: boolean
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: boolean
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
   passwordResetToken?: boolean
@@ -1406,8 +1406,8 @@ export type UserSelectScalar = {
   imagePath?: boolean
   refreshToken?: boolean
   role?: boolean
-  twoFactorAuthenticationSecret?: boolean
-  isTwoFactorAuthenticationEnabled?: boolean
+  twoFactorSecret?: boolean
+  isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
   passwordResetToken?: boolean
@@ -1416,7 +1416,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorAuthenticationSecret" | "isTwoFactorAuthenticationEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   marks?: boolean | Prisma.User$marksArgs<ExtArgs>
   managedFields?: boolean | Prisma.User$managedFieldsArgs<ExtArgs>
@@ -1447,8 +1447,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     imagePath: string
     refreshToken: string | null
     role: $Enums.Role
-    twoFactorAuthenticationSecret: string | null
-    isTwoFactorAuthenticationEnabled: boolean
+    twoFactorSecret: string | null
+    isTwoFactorEnabled: boolean
     isEmailVerified: boolean
     emailVerificationToken: string | null
     passwordResetToken: string | null
@@ -1892,8 +1892,8 @@ export interface UserFieldRefs {
   readonly imagePath: Prisma.FieldRef<"User", 'String'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
-  readonly twoFactorAuthenticationSecret: Prisma.FieldRef<"User", 'String'>
-  readonly isTwoFactorAuthenticationEnabled: Prisma.FieldRef<"User", 'Boolean'>
+  readonly twoFactorSecret: Prisma.FieldRef<"User", 'String'>
+  readonly isTwoFactorEnabled: Prisma.FieldRef<"User", 'Boolean'>
   readonly isEmailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly emailVerificationToken: Prisma.FieldRef<"User", 'String'>
   readonly passwordResetToken: Prisma.FieldRef<"User", 'String'>

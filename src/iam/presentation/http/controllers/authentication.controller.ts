@@ -76,14 +76,16 @@ export class AuthenticationController {
       this.cookieService.setAuthCookies(response, result.tokens);
       return {
         message: 'User signed in successfully',
-        data: { user: this.userResponseMapper.toResponse(result.user) },
+        data: {
+          user: this.userResponseMapper.toResponseFromDomain(result.user),
+        },
       };
     }
 
     return {
       message: 'User signed in successfully',
       data: {
-        user: this.userResponseMapper.toResponse(result.user),
+        user: this.userResponseMapper.toResponseFromDomain(result.user),
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,
       },
@@ -122,7 +124,7 @@ export class AuthenticationController {
     return {
       message: 'User signed in successfully',
       data: {
-        user: this.userResponseMapper.toResponse(result.user),
+        user: this.userResponseMapper.toResponseFromDomain(result.user),
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,
       },

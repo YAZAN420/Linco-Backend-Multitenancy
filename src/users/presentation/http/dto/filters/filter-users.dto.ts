@@ -1,10 +1,10 @@
 import {
   IsOptional,
-  IsEnum,
   IsBoolean,
   IsString,
   ValidateNested,
   MaxLength,
+  IsEnum,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { DateFilterDto } from 'src/common/dtos/date-filter.dto';

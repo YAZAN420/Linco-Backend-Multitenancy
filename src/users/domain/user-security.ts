@@ -8,9 +8,9 @@ import { ResetTokenExpiredException } from './exceptions/reset-token-expired.exc
 export interface UserSecurityProps {
   password: string;
   isEmailVerified: boolean;
-  isTwoFactorAuthenticationEnabled: boolean;
+  isTwoFactorEnabled: boolean;
   refreshToken: string | null;
-  twoFactorAuthenticationSecret: string | null;
+  twoFactorSecret: string | null;
   emailVerificationToken: string | null;
   passwordResetToken: string | null;
   passwordResetExpires: Date | null;
@@ -19,12 +19,10 @@ export interface UserSecurityProps {
 export class UserSecurity {
   constructor(private readonly _props: UserSecurityProps) {}
 
-  // 🔥 تم تحويلها لـ Getter لتجلب كل الخصائص ككائن واحد نظيف (تُستخدم في الـ Mapper مثلاً)
   get propsData(): UserSecurityProps {
     return this._props;
   }
 
-  // 🔥 تحويل دوال الجلب إلى Getters (خصائص مباشرة بدون أقواس)
   get password(): string {
     return this._props.password;
   }
@@ -34,7 +32,7 @@ export class UserSecurity {
   }
 
   get isTwoFactorEnabled(): boolean {
-    return this._props.isTwoFactorAuthenticationEnabled;
+    return this._props.isTwoFactorEnabled;
   }
 
   get refreshToken(): string | null {
@@ -42,7 +40,7 @@ export class UserSecurity {
   }
 
   get twoFactorSecret(): string | null {
-    return this._props.twoFactorAuthenticationSecret;
+    return this._props.twoFactorSecret;
   }
 
   get emailVerificationToken(): string | null {
@@ -57,7 +55,6 @@ export class UserSecurity {
     return this._props.passwordResetExpires;
   }
 
-  // 🛠️ دالات التعديل والإجراءات (Domain Actions) تبقى دالات عادية بـ () لأنها تغير حالة الدومين
   changePassword(newPassword: string): void {
     this._props.password = newPassword;
   }
@@ -90,17 +87,17 @@ export class UserSecurity {
     if (!this._props.isEmailVerified) {
       throw new EmailNotVerifiedFor2FAException();
     }
-    this._props.isTwoFactorAuthenticationEnabled = true;
-    this._props.twoFactorAuthenticationSecret = secret;
+    this._props.isTwoFactorEnabled = true;
+    this._props.twoFactorSecret = secret;
   }
 
   disableTwoFactorAuth(): void {
-    this._props.isTwoFactorAuthenticationEnabled = false;
-    this._props.twoFactorAuthenticationSecret = null;
+    this._props.isTwoFactorEnabled = false;
+    this._props.twoFactorSecret = null;
   }
 
   setTwoFactorSecret(secret: string): void {
-    this._props.twoFactorAuthenticationSecret = secret;
+    this._props.twoFactorSecret = secret;
   }
 
   generatePasswordResetToken(token: string, expiresAt: Date): void {

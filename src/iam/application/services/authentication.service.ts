@@ -14,7 +14,7 @@ import {
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
 import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
-import { UsersService } from 'src/users/application/users.service';
+import { UsersCommandService } from 'src/users/application/users-command.service';
 
 const GOOGLE_DEFAULT_BIRTH_DATE = new Date('2000-01-01');
 
@@ -26,7 +26,7 @@ export class AuthenticationService {
   constructor(
     private readonly hashingPort: HashingPort,
     private readonly tokenService: TokenService,
-    private readonly usersService: UsersService,
+    private readonly usersCommandService: UsersCommandService,
   ) {}
 
   async signIn(user: User, tfaCode?: string): Promise<SignInResult> {
@@ -43,7 +43,7 @@ export class AuthenticationService {
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.usersCommandService.findByEmail(email);
 
     if (!user) return null;
 
@@ -62,12 +62,12 @@ export class AuthenticationService {
   async signInWithGoogle(googleUser: GoogleUserData): Promise<SignInResult> {
     const email = googleUser.email.trim().toLowerCase();
 
-    let user = await this.usersService.findByEmail(email);
+    let user = await this.usersCommandService.findByEmail(email);
 
     if (!user) {
       const randomPassword = randomBytes(32).toString('hex');
 
-      user = await this.usersService.create({
+      user = await this.usersCommandService.create({
         firstName: googleUser.firstName,
         lastName: googleUser.lastName,
         email: googleUser.email,
@@ -80,7 +80,7 @@ export class AuthenticationService {
 
     if (!user.security.isEmailVerified) {
       user.security.markEmailVerified();
-      await this.usersService.save(user);
+      await this.usersCommandService.save(user);
     }
 
     const tokens = await this.tokenService.generateTokens(user);

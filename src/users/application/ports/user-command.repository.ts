@@ -1,15 +1,6 @@
-import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
 import { User } from 'src/users/domain/user';
-import {
-  FindUsersCursorQuery,
-  FindUsersQuery,
-} from '../interfaces/find-users.query';
 
-export abstract class UserRepository {
-  abstract findAll(options: FindUsersQuery): Promise<PageDto<User>>;
-  abstract findAllCursor(
-    options: FindUsersCursorQuery,
-  ): Promise<CursorPageDto<User>>;
+export abstract class UserCommandRepository {
   abstract save(user: User): Promise<void>;
   abstract delete(id: string): Promise<void>;
   abstract findById(id: string): Promise<User | null>;

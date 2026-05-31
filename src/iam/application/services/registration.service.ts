@@ -6,12 +6,12 @@ import { MailQueueService } from './mail-queue.service';
 import { MAIL_JOBS } from '../constants/mail.constants';
 import { InvalidVerificationTokenException } from '../../domain/exceptions';
 import { Role } from 'src/users/domain/enums/role.enum';
-import { UsersService } from 'src/users/application/users.service';
+import { UsersCommandService } from 'src/users/application/users-command.service';
 
 @Injectable()
 export class RegistrationService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersCommandService: UsersCommandService,
     private readonly cryptoPort: CryptoPort,
     private readonly mailQueueService: MailQueueService,
     private readonly logger: Logger,
@@ -21,7 +21,7 @@ export class RegistrationService {
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
-    const newUser = await this.usersService.create({
+    const newUser = await this.usersCommandService.create({
       firstName: signUpDto.firstName,
       lastName: signUpDto.lastName,
       email: signUpDto.email,
@@ -31,7 +31,7 @@ export class RegistrationService {
       role: Role.USER,
     });
     newUser.security.setVerificationToken(hashedToken);
-    await this.usersService.save(newUser);
+    await this.usersCommandService.save(newUser);
 
     await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
       email: signUpDto.email,
@@ -44,14 +44,15 @@ export class RegistrationService {
   async verifyEmail(token: string) {
     const hashedToken = this.cryptoPort.hashToken(token);
 
-    const user = await this.usersService.findByVerificationToken(hashedToken);
+    const user =
+      await this.usersCommandService.findByVerificationToken(hashedToken);
 
     if (!user) {
       throw new InvalidVerificationTokenException();
     }
 
     user.security.verifyEmail(hashedToken);
-    await this.usersService.save(user);
+    await this.usersCommandService.save(user);
 
     this.logger.log(`Email verified for user: ${user.id}`);
   }

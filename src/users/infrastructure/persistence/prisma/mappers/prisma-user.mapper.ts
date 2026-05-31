@@ -11,9 +11,9 @@ export class PrismaUserMapper {
     const security = new UserSecurity({
       password: raw.password,
       isEmailVerified: raw.isEmailVerified,
-      isTwoFactorAuthenticationEnabled: raw.isTwoFactorAuthenticationEnabled,
+      isTwoFactorEnabled: raw.isTwoFactorEnabled,
       refreshToken: raw.refreshToken,
-      twoFactorAuthenticationSecret: raw.twoFactorAuthenticationSecret,
+      twoFactorSecret: raw.twoFactorSecret,
       emailVerificationToken: raw.emailVerificationToken,
       passwordResetToken: raw.passwordResetToken,
       passwordResetExpires: raw.passwordResetExpires,
@@ -45,11 +45,9 @@ export class PrismaUserMapper {
       imagePath: user.imagePath,
       password: securityProps.password,
       isEmailVerified: securityProps.isEmailVerified,
-      isTwoFactorAuthenticationEnabled:
-        securityProps.isTwoFactorAuthenticationEnabled,
+      isTwoFactorEnabled: securityProps.isTwoFactorEnabled,
       refreshToken: securityProps.refreshToken,
-      twoFactorAuthenticationSecret:
-        securityProps.twoFactorAuthenticationSecret,
+      twoFactorSecret: securityProps.twoFactorSecret,
       emailVerificationToken: securityProps.emailVerificationToken,
       passwordResetToken: securityProps.passwordResetToken,
       passwordResetExpires: securityProps.passwordResetExpires,

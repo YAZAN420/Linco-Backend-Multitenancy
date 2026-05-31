@@ -5,14 +5,14 @@ import { HashingPort } from '../ports/hashing.port';
 
 import { User } from 'src/users/domain/user';
 import { TokenPair } from '../../domain/interfaces/token-pair.interface';
-import { UsersService } from 'src/users/application/users.service';
+import { UsersCommandService } from 'src/users/application/users-command.service';
 
 @Injectable()
 export class TokenService {
   constructor(
     private readonly tokenPort: TokenPort,
     private readonly hashingPort: HashingPort,
-    private readonly usersService: UsersService,
+    private readonly usersCommandService: UsersCommandService,
     private readonly logger: Logger,
   ) {}
 
@@ -23,7 +23,10 @@ export class TokenService {
       tokenPair.refreshToken,
     );
 
-    await this.usersService.updateRefreshToken(user.id, hashedRefreshToken);
+    await this.usersCommandService.updateRefreshToken(
+      user.id,
+      hashedRefreshToken,
+    );
 
     return tokenPair;
   }
@@ -41,7 +44,7 @@ export class TokenService {
   }
 
   async invalidateRefreshToken(userId: string): Promise<void> {
-    await this.usersService.updateRefreshToken(userId, null);
+    await this.usersCommandService.updateRefreshToken(userId, null);
   }
 
   private async verifyRefreshToken(token: string): Promise<{ id: string }> {
@@ -57,7 +60,7 @@ export class TokenService {
     userId: string,
     token: string,
   ): Promise<User> {
-    const user = await this.usersService.findById(userId);
+    const user = await this.usersCommandService.findById(userId);
 
     const isValid = await this.hashingPort.compare(
       token,

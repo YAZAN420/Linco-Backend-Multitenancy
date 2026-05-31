@@ -7,21 +7,21 @@ import {
   Missing2FASecretException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
-import { UsersService } from 'src/users/application/users.service';
+import { UsersCommandService } from 'src/users/application/users-command.service';
 
 @Injectable()
 export class TwoFactorAuthService {
   private readonly otp = new OTP();
 
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersCommandService: UsersCommandService,
     private readonly logger: Logger,
   ) {}
 
   async generateSecret(
     activeUser: ActiveUserData,
   ): Promise<{ qrCode: string }> {
-    const user = await this.usersService.findById(activeUser.id);
+    const user = await this.usersCommandService.findById(activeUser.id);
 
     const secret = this.otp.generateSecret();
     const otpauthUrl = this.otp.generateURI({
@@ -31,7 +31,7 @@ export class TwoFactorAuthService {
     });
 
     user.security.setTwoFactorSecret(secret);
-    await this.usersService.save(user);
+    await this.usersCommandService.save(user);
 
     const qrCode = await toDataURL(otpauthUrl);
     this.logger.log(`2FA secret generated for user: ${activeUser.id}`);
@@ -40,7 +40,7 @@ export class TwoFactorAuthService {
   }
 
   async turnOn(userId: string, code: string) {
-    const user = await this.usersService.findById(userId);
+    const user = await this.usersCommandService.findById(userId);
 
     if (user.security.isTwoFactorEnabled) {
       throw new Error('Two-factor authentication is already enabled.');
@@ -57,7 +57,7 @@ export class TwoFactorAuthService {
     }
 
     user.security.enableTwoFactorAuth(secret);
-    await this.usersService.save(user);
+    await this.usersCommandService.save(user);
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);
   }

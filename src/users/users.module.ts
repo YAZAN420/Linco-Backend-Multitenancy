@@ -1,17 +1,29 @@
 import { DynamicModule, Global, Module, Type } from '@nestjs/common';
-import { UsersController } from './presentation/http/users.controller';
+import { UsersCommandController } from './presentation/http/users-command.controller';
 import { HashingModule } from 'src/iam/infrastructure/hashing/hashing.module';
 import { UserFactory } from './domain/factories/user.factory';
 import { UserResponseMapper } from './presentation/http/mappers/user-response.mapper';
 import { CaslModule } from 'src/iam/infrastructure/authorization/casl/casl.module';
-import { UsersService } from './application/users.service';
+import { UsersCommandService } from './application/users-command.service';
+import { UsersQueryService } from './application/users-query.service';
+import { UsersQueryController } from './presentation/http/users-query.controller';
 
 @Global()
 @Module({
   imports: [HashingModule, CaslModule],
-  controllers: [UsersController],
-  providers: [UsersService, UserFactory, UserResponseMapper],
-  exports: [UsersService, UserFactory, UserResponseMapper],
+  controllers: [UsersCommandController, UsersQueryController],
+  providers: [
+    UsersCommandService,
+    UsersQueryService,
+    UserFactory,
+    UserResponseMapper,
+  ],
+  exports: [
+    UsersCommandService,
+    UsersQueryService,
+    UserFactory,
+    UserResponseMapper,
+  ],
 })
 export class UsersModule {
   static withInfrastructure(

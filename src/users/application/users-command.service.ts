@@ -3,25 +3,19 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { UserRepository } from './ports/user.repository';
+import { UserCommandRepository } from './ports/user-command.repository';
 import { UserFactory } from '../domain/factories/user.factory';
 import { User } from '../domain/user';
 import { HashingPort } from 'src/iam/application/ports/hashing.port';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
-import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
-import {
-  FindUsersCursorQuery,
-  FindUsersQuery,
-} from './interfaces/find-users.query';
 
 @Injectable()
-export class UsersService {
+export class UsersCommandService {
   constructor(
     private readonly hashService: HashingPort,
-    private readonly userRepository: UserRepository,
+    private readonly userCommandRepository: UserCommandRepository,
     private readonly userFactory: UserFactory,
   ) {}
 
@@ -38,7 +32,7 @@ export class UsersService {
       input.imagePath,
     );
 
-    await this.userRepository.save(user);
+    await this.userCommandRepository.save(user);
 
     return user;
   }
@@ -52,14 +46,14 @@ export class UsersService {
     if (input.imagePath !== undefined)
       user.changeImagePath(input.imagePath ?? '');
 
-    await this.userRepository.save(user);
+    await this.userCommandRepository.save(user);
 
     return user;
   }
 
   async remove(id: string): Promise<void> {
     await this.findUserOrThrow(id);
-    await this.userRepository.delete(id);
+    await this.userCommandRepository.delete(id);
   }
 
   async updateRefreshToken(
@@ -68,57 +62,48 @@ export class UsersService {
   ): Promise<void> {
     const user = await this.findUserOrThrow(id);
     user.security.updateRefreshToken(refreshToken);
-    await this.userRepository.save(user);
+    await this.userCommandRepository.save(user);
   }
 
   async verifyUserEmail(token: string): Promise<void> {
-    const user = await this.userRepository.findByVerificationToken(token);
+    const user =
+      await this.userCommandRepository.findByVerificationToken(token);
     if (!user) throw new NotFoundException('Invalid verification token');
 
     user.security.verifyEmail(token);
-    await this.userRepository.save(user);
+    await this.userCommandRepository.save(user);
   }
 
   async save(user: User): Promise<void> {
-    await this.userRepository.save(user);
+    await this.userCommandRepository.save(user);
   }
 
   private async findUserOrThrow(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
+    const user = await this.userCommandRepository.findById(id);
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
   private async ensureEmailIsUnique(email: string): Promise<void> {
-    const existing = await this.userRepository.findByEmail(email);
+    const existing = await this.userCommandRepository.findByEmail(email);
     if (existing) throw new ConflictException('Email already exists');
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
+    const user = await this.userCommandRepository.findById(id);
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
-  async findAll(pageOptionsDto: FindUsersQuery): Promise<PageDto<User>> {
-    return this.userRepository.findAll(pageOptionsDto);
-  }
-
-  async findAllCursor(
-    options: FindUsersCursorQuery,
-  ): Promise<CursorPageDto<User>> {
-    return this.userRepository.findAllCursor(options);
-  }
-
   async findByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findByEmail(email);
+    return this.userCommandRepository.findByEmail(email);
   }
 
   async findByVerificationToken(token: string): Promise<User | null> {
-    return this.userRepository.findByVerificationToken(token);
+    return this.userCommandRepository.findByVerificationToken(token);
   }
 
   async findByResetToken(token: string): Promise<User | null> {
-    return this.userRepository.findByResetToken(token);
+    return this.userCommandRepository.findByResetToken(token);
   }
 }
