@@ -10,38 +10,44 @@ import {
   buildWhere,
 } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/browser';
-import { User } from 'src/generated/prisma/browser';
+import { Prisma, User } from 'src/generated/prisma/browser';
 import { UserInclude } from 'src/generated/prisma/internal/prismaNamespaceBrowser';
 import {
   FindUsersCursorQuery,
   FindUsersQuery,
 } from 'src/users/application/interfaces/find-users.query';
-
 import { UserQueryRepository } from 'src/users/application/ports/user-query.repository.interface';
+
 const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
 const USER_ORDERABLE_FIELDS = ['createdAt', 'firstName', 'lastName', 'email'];
 type UserRelation = keyof Prisma.UserInclude;
+
 @Injectable()
 export class PrismaUserQueryRepository implements UserQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly allowedRealtions: UserRelation[] = [];
+  private readonly allowedRelations: UserRelation[] = [];
+
+  private buildPrismaArgs<T extends FindUsersQuery | FindUsersCursorQuery>(
+    options: T,
+  ) {
+    return {
+      where: buildWhere<T, Prisma.UserWhereInput>(options, USER_SEARCH_COLUMNS),
+      orderBy: buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS),
+      include: buildNestedInclude<UserInclude>(
+        options.with,
+        this.allowedRelations,
+      ),
+    };
+  }
 
   async findAll(options: FindUsersQuery): Promise<PageDto<User>> {
-    const where = buildWhere<FindUsersQuery, Prisma.UserWhereInput>(
-      options,
-      USER_SEARCH_COLUMNS,
-    );
-    const orderBy = buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS);
-    const include = buildNestedInclude<UserInclude>(
-      options.with,
-      this.allowedRealtions,
-    );
+    const { where, orderBy, include } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
+
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
-        skip: skip,
+        skip,
         take: options.take,
         where,
         include,
@@ -50,24 +56,18 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
       this.prisma.user.count({ where }),
     ]);
 
-    const pageMetaDto = new PageMetaDto({ itemCount, pageOptionsDto: options });
-
-    return new PageDto(items, pageMetaDto);
+    return new PageDto(
+      items,
+      new PageMetaDto({ itemCount, pageOptionsDto: options }),
+    );
   }
 
   async findAllCursor(
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
-    const where = buildWhere<FindUsersCursorQuery, Prisma.UserWhereInput>(
-      options,
-      USER_SEARCH_COLUMNS,
-    );
-    const orderBy = buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS);
-    const include = buildNestedInclude<UserInclude>(
-      options.with,
-      this.allowedRealtions,
-    );
+    const { where, orderBy, include } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
+
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
@@ -81,20 +81,22 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     if (hasNextPage) items.pop();
 
     const endCursor = items.length > 0 ? items[items.length - 1].id : null;
-    const meta = new CursorPageMetaDto(hasNextPage, endCursor);
 
-    return new CursorPageDto(items, meta);
+    return new CursorPageDto(
+      items,
+      new CursorPageMetaDto(hasNextPage, endCursor),
+    );
   }
 
   async findById(id: string, options?: WithRealtionsDto): Promise<User | null> {
     const include = buildNestedInclude<UserInclude>(
       options?.with,
-      this.allowedRealtions,
+      this.allowedRelations,
     );
-    const user = await this.prisma.user.findUnique({
+
+    return this.prisma.user.findUnique({
       where: { id },
       include,
     });
-    return user;
   }
 }
