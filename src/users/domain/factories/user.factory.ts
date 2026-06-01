@@ -39,6 +39,7 @@ export class UserFactory {
       security,
       createdAt: now,
       updatedAt: now,
+      deletedAt: null,
     });
   }
 }

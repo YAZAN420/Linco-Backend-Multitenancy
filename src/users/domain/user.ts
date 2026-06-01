@@ -49,6 +49,17 @@ export class User {
     return this.props.updatedAt;
   }
 
+  get deletedAt(): Date | null {
+    return this.props.deletedAt;
+  }
+
+  delete(): void {
+    if (this.deletedAt) {
+      throw new Error('User is already deleted');
+    }
+    this.props.deletedAt = new Date();
+  }
+
   changeFirstName(newFirstName: string): void {
     this.props.firstName = newFirstName;
     this.touch();

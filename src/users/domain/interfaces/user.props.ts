@@ -12,4 +12,5 @@ export interface UserProps {
   security: UserSecurity;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt: Date | null;
 }

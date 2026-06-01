@@ -42,6 +42,7 @@ export type UserMinAggregateOutputType = {
   passwordResetExpires: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type UserMaxAggregateOutputType = {
   passwordResetExpires: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -82,6 +84,7 @@ export type UserCountAggregateOutputType = {
   passwordResetExpires: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -104,6 +107,7 @@ export type UserMinAggregateInputType = {
   passwordResetExpires?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -124,6 +128,7 @@ export type UserMaxAggregateInputType = {
   passwordResetExpires?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -144,6 +149,7 @@ export type UserCountAggregateInputType = {
   passwordResetExpires?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -237,6 +243,7 @@ export type UserGroupByOutputType = {
   passwordResetExpires: Date | null
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -278,6 +285,7 @@ export type UserWhereInput = {
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   marks?: Prisma.MarksListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   messages?: Prisma.MessageListRelationFilter
@@ -303,6 +311,7 @@ export type UserOrderByWithRelationInput = {
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   marks?: Prisma.MarksOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
@@ -331,6 +340,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   marks?: Prisma.MarksListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   messages?: Prisma.MessageListRelationFilter
@@ -356,6 +366,7 @@ export type UserOrderByWithAggregationInput = {
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -382,6 +393,7 @@ export type UserScalarWhereWithAggregatesInput = {
   passwordResetExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -402,6 +414,7 @@ export type UserCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -427,6 +440,7 @@ export type UserUncheckedCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -452,6 +466,7 @@ export type UserUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -477,6 +492,7 @@ export type UserUncheckedUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -502,6 +518,7 @@ export type UserCreateManyInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -522,6 +539,7 @@ export type UserUpdateManyMutationInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -542,6 +560,7 @@ export type UserUncheckedUpdateManyInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -562,6 +581,7 @@ export type UserCountOrderByAggregateInput = {
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -582,6 +602,7 @@ export type UserMaxOrderByAggregateInput = {
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -602,6 +623,7 @@ export type UserMinOrderByAggregateInput = {
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -721,6 +743,7 @@ export type UserCreateWithoutMarksInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
@@ -745,6 +768,7 @@ export type UserUncheckedCreateWithoutMarksInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
@@ -785,6 +809,7 @@ export type UserUpdateWithoutMarksInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
@@ -809,6 +834,7 @@ export type UserUncheckedUpdateWithoutMarksInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
@@ -833,6 +859,7 @@ export type UserCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
@@ -857,6 +884,7 @@ export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
@@ -897,6 +925,7 @@ export type UserUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
@@ -921,6 +950,7 @@ export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
@@ -945,6 +975,7 @@ export type UserCreateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -969,6 +1000,7 @@ export type UserUncheckedCreateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1009,6 +1041,7 @@ export type UserUpdateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -1033,6 +1066,7 @@ export type UserUncheckedUpdateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1057,6 +1091,7 @@ export type UserCreateWithoutMessagesInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
@@ -1081,6 +1116,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
@@ -1121,6 +1157,7 @@ export type UserUpdateWithoutMessagesInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
@@ -1145,6 +1182,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1169,6 +1207,7 @@ export type UserCreateWithoutOwnedDemoInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -1193,6 +1232,7 @@ export type UserUncheckedCreateWithoutOwnedDemoInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1233,6 +1273,7 @@ export type UserUpdateWithoutOwnedDemoInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -1257,6 +1298,7 @@ export type UserUncheckedUpdateWithoutOwnedDemoInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1348,6 +1390,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   marks?: boolean | Prisma.User$marksArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
@@ -1374,6 +1417,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1394,6 +1438,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1414,9 +1459,10 @@ export type UserSelectScalar = {
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   marks?: boolean | Prisma.User$marksArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
@@ -1455,6 +1501,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     passwordResetExpires: Date | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1900,6 +1947,7 @@ export interface UserFieldRefs {
   readonly passwordResetExpires: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
