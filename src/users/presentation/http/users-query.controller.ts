@@ -7,7 +7,6 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Controller('users')
 export class UsersQueryController {
@@ -48,11 +47,8 @@ export class UsersQueryController {
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-    @Query() withRelations?: WithRealtionsDto,
-  ) {
-    const user = await this.userQueryService.findById(id, withRelations);
+  async findOne(@Param('id') id: string) {
+    const user = await this.userQueryService.findById(id);
 
     return {
       message: 'User retrieved successfully',

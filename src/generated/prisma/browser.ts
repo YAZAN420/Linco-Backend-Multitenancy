@@ -68,20 +68,20 @@ export type Marks = Prisma.MarksModel
  */
 export type Comment = Prisma.CommentModel
 /**
- * Model Field
+ * Model Department
  * 
  */
-export type Field = Prisma.FieldModel
+export type Department = Prisma.DepartmentModel
 /**
  * Model Permission
  * 
  */
 export type Permission = Prisma.PermissionModel
 /**
- * Model FieldPermission
+ * Model DepartmentPermission
  * 
  */
-export type FieldPermission = Prisma.FieldPermissionModel
+export type DepartmentPermission = Prisma.DepartmentPermissionModel
 /**
  * Model Message
  * 

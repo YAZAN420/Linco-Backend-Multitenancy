@@ -394,9 +394,9 @@ export const ModelName = {
   FAQ: 'FAQ',
   Marks: 'Marks',
   Comment: 'Comment',
-  Field: 'Field',
+  Department: 'Department',
   Permission: 'Permission',
-  FieldPermission: 'FieldPermission',
+  DepartmentPermission: 'DepartmentPermission',
   Message: 'Message',
   Group: 'Group',
   Feature: 'Feature',
@@ -418,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "question" | "course" | "tag" | "section" | "attachment" | "lesson" | "fAQ" | "marks" | "comment" | "field" | "permission" | "fieldPermission" | "message" | "group" | "feature" | "certification" | "report" | "demo"
+    modelProps: "user" | "question" | "course" | "tag" | "section" | "attachment" | "lesson" | "fAQ" | "marks" | "comment" | "department" | "permission" | "departmentPermission" | "message" | "group" | "feature" | "certification" | "report" | "demo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1162,77 +1162,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Field: {
-      payload: Prisma.$FieldPayload<ExtArgs>
-      fields: Prisma.FieldFieldRefs
+    Department: {
+      payload: Prisma.$DepartmentPayload<ExtArgs>
+      fields: Prisma.DepartmentFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.FieldFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload> | null
+          args: Prisma.DepartmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.FieldFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         findFirst: {
-          args: Prisma.FieldFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload> | null
+          args: Prisma.DepartmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.FieldFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         findMany: {
-          args: Prisma.FieldFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>[]
+          args: Prisma.DepartmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
         }
         create: {
-          args: Prisma.FieldCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         createMany: {
-          args: Prisma.FieldCreateManyArgs<ExtArgs>
+          args: Prisma.DepartmentCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.FieldCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>[]
+          args: Prisma.DepartmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
         }
         delete: {
-          args: Prisma.FieldDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         update: {
-          args: Prisma.FieldUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         deleteMany: {
-          args: Prisma.FieldDeleteManyArgs<ExtArgs>
+          args: Prisma.DepartmentDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.FieldUpdateManyArgs<ExtArgs>
+          args: Prisma.DepartmentUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.FieldUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>[]
+          args: Prisma.DepartmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
         }
         upsert: {
-          args: Prisma.FieldUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPayload>
+          args: Prisma.DepartmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPayload>
         }
         aggregate: {
-          args: Prisma.FieldAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateField>
+          args: Prisma.DepartmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartment>
         }
         groupBy: {
-          args: Prisma.FieldGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FieldGroupByOutputType>[]
+          args: Prisma.DepartmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentGroupByOutputType>[]
         }
         count: {
-          args: Prisma.FieldCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FieldCountAggregateOutputType> | number
+          args: Prisma.DepartmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentCountAggregateOutputType> | number
         }
       }
     }
@@ -1310,77 +1310,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    FieldPermission: {
-      payload: Prisma.$FieldPermissionPayload<ExtArgs>
-      fields: Prisma.FieldPermissionFieldRefs
+    DepartmentPermission: {
+      payload: Prisma.$DepartmentPermissionPayload<ExtArgs>
+      fields: Prisma.DepartmentPermissionFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.FieldPermissionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload> | null
+          args: Prisma.DepartmentPermissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.FieldPermissionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         findFirst: {
-          args: Prisma.FieldPermissionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload> | null
+          args: Prisma.DepartmentPermissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.FieldPermissionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         findMany: {
-          args: Prisma.FieldPermissionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>[]
+          args: Prisma.DepartmentPermissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>[]
         }
         create: {
-          args: Prisma.FieldPermissionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         createMany: {
-          args: Prisma.FieldPermissionCreateManyArgs<ExtArgs>
+          args: Prisma.DepartmentPermissionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.FieldPermissionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>[]
+          args: Prisma.DepartmentPermissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>[]
         }
         delete: {
-          args: Prisma.FieldPermissionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         update: {
-          args: Prisma.FieldPermissionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         deleteMany: {
-          args: Prisma.FieldPermissionDeleteManyArgs<ExtArgs>
+          args: Prisma.DepartmentPermissionDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.FieldPermissionUpdateManyArgs<ExtArgs>
+          args: Prisma.DepartmentPermissionUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.FieldPermissionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>[]
+          args: Prisma.DepartmentPermissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>[]
         }
         upsert: {
-          args: Prisma.FieldPermissionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldPermissionPayload>
+          args: Prisma.DepartmentPermissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPermissionPayload>
         }
         aggregate: {
-          args: Prisma.FieldPermissionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldPermission>
+          args: Prisma.DepartmentPermissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartmentPermission>
         }
         groupBy: {
-          args: Prisma.FieldPermissionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FieldPermissionGroupByOutputType>[]
+          args: Prisma.DepartmentPermissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentPermissionGroupByOutputType>[]
         }
         count: {
-          args: Prisma.FieldPermissionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FieldPermissionCountAggregateOutputType> | number
+          args: Prisma.DepartmentPermissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentPermissionCountAggregateOutputType> | number
         }
       }
     }
@@ -1911,7 +1911,7 @@ export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typ
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  fieldId: 'fieldId',
+  departmentId: 'departmentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2005,15 +2005,16 @@ export const CommentScalarFieldEnum = {
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
-export const FieldScalarFieldEnum = {
+export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   managerId: 'managerId',
+  demoId: 'demoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FieldScalarFieldEnum = (typeof FieldScalarFieldEnum)[keyof typeof FieldScalarFieldEnum]
+export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
 
 
 export const PermissionScalarFieldEnum = {
@@ -2026,16 +2027,16 @@ export const PermissionScalarFieldEnum = {
 export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
 
 
-export const FieldPermissionScalarFieldEnum = {
+export const DepartmentPermissionScalarFieldEnum = {
   id: 'id',
   permissionId: 'permissionId',
   userId: 'userId',
-  fieldId: 'fieldId',
+  departmentId: 'departmentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FieldPermissionScalarFieldEnum = (typeof FieldPermissionScalarFieldEnum)[keyof typeof FieldPermissionScalarFieldEnum]
+export type DepartmentPermissionScalarFieldEnum = (typeof DepartmentPermissionScalarFieldEnum)[keyof typeof DepartmentPermissionScalarFieldEnum]
 
 
 export const MessageScalarFieldEnum = {
@@ -2096,7 +2097,8 @@ export const DemoScalarFieldEnum = {
   name: 'name',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof DemoScalarFieldEnum]
@@ -2356,9 +2358,9 @@ export type GlobalOmitConfig = {
   fAQ?: Prisma.FAQOmit
   marks?: Prisma.MarksOmit
   comment?: Prisma.CommentOmit
-  field?: Prisma.FieldOmit
+  department?: Prisma.DepartmentOmit
   permission?: Prisma.PermissionOmit
-  fieldPermission?: Prisma.FieldPermissionOmit
+  departmentPermission?: Prisma.DepartmentPermissionOmit
   message?: Prisma.MessageOmit
   group?: Prisma.GroupOmit
   feature?: Prisma.FeatureOmit

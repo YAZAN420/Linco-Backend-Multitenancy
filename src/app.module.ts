@@ -8,6 +8,8 @@ import { HttpCacheInterceptor } from './common/interceptors/http-cache.intercept
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { DemosModule } from './demos/demos.module';
+import { DemosInfrastructureModule } from './demos/infrastructure/demos-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -18,6 +20,7 @@ export class AppModule {
         IamModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
+        DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

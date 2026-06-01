@@ -46,10 +46,10 @@ model User {
   updatedAt DateTime @updatedAt
 
   marks Marks[]
-  managedFields Field[]
+  managedDepartments Department[]
   messages Message[]
   ownedDemo Demo[]
-  fieldPermissions FieldPermission[]
+  departmentPermissions DepartmentPermission[]
 }
 
 model Question{
@@ -74,12 +74,12 @@ model Question{
 model Course {
   id String @id @default(uuid())
   name String
-  fieldId String
+  departmentId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  field Field @relation(fields: [fieldId], references: [id]) 
+  department Department @relation(fields: [departmentId], references: [id]) 
   sections Section[]
   faqs FAQ[]
   tags Tag[]
@@ -178,17 +178,19 @@ model Comment{
   replies   Comment[] @relation("CommentReplies")
 }
 
-model Field {
+model Department {
   id String @id @default(uuid())
   name String
   managerId String
+  demoId      String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   courses Course[]
   manager User @relation(fields: [managerId], references: [id])
-  userPermissions FieldPermission[]
+  demo    Demo     @relation(fields: [demoId], references: [id])
+  userPermissions DepartmentPermission[]
 }
 
 model Permission{
@@ -198,19 +200,19 @@ model Permission{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  fieldPermissions FieldPermission[]
+  departmentPermissions DepartmentPermission[]
 }
 
-model FieldPermission{
+model DepartmentPermission{
   id String @id @default(uuid())
   permissionId String
   userId String
-  fieldId String
+  departmentId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  field Field @relation(fields: [fieldId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
   user User @relation(fields: [userId], references: [id])
   permission Permission @relation(fields: [permissionId], references: [id])
 }
@@ -275,7 +277,9 @@ model Demo{
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  deletedAt DateTime?
+  
+  departments    Department[]
   features Feature[]
   owner User @relation(fields: [ownerId], references: [id])
   Certifications Certification[]

@@ -1,18 +1,7 @@
 import { Role } from './enums/role.enum';
 import { Email } from './value-objects/email.vo';
 import { UserSecurity } from './user-security';
-
-export interface UserProps {
-  firstName: string;
-  lastName: string;
-  email: Email;
-  birthDate: Date;
-  imagePath: string;
-  role: Role;
-  security: UserSecurity;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { UserProps } from './interfaces/user.props';
 
 export class User {
   constructor(

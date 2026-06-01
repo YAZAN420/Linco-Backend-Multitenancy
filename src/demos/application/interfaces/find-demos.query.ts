@@ -1,0 +1,14 @@
+import { DemoFilter } from './demo-filter.interface';
+
+export interface FindDemosQuery extends DemoFilter {
+  page: number;
+  take: number;
+  orderBy?: any;
+  with?: string[];
+}
+
+export interface FindDemosCursorQuery extends DemoFilter {
+  cursor?: string;
+  take: number;
+  orderBy?: any;
+}

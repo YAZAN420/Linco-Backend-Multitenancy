@@ -9,7 +9,6 @@ import {
 } from './interfaces/find-users.query';
 import { User } from 'src/generated/prisma/client';
 import { UserQueryRepository } from './ports/user-query.repository';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Injectable()
 export class UsersQueryService {
@@ -25,8 +24,8 @@ export class UsersQueryService {
     return this.userQueryRepository.findAllCursor(options);
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<User> {
-    const user = await this.userQueryRepository.findById(id, options);
+  async findById(id: string): Promise<User> {
+    const user = await this.userQueryRepository.findById(id);
     if (!user) throw new NotFoundException('User not found');
     return user;
   }

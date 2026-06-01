@@ -61,9 +61,9 @@ export const ModelName = {
   FAQ: 'FAQ',
   Marks: 'Marks',
   Comment: 'Comment',
-  Field: 'Field',
+  Department: 'Department',
   Permission: 'Permission',
-  FieldPermission: 'FieldPermission',
+  DepartmentPermission: 'DepartmentPermission',
   Message: 'Message',
   Group: 'Group',
   Feature: 'Feature',
@@ -132,7 +132,7 @@ export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typ
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  fieldId: 'fieldId',
+  departmentId: 'departmentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -226,15 +226,16 @@ export const CommentScalarFieldEnum = {
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
-export const FieldScalarFieldEnum = {
+export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   managerId: 'managerId',
+  demoId: 'demoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FieldScalarFieldEnum = (typeof FieldScalarFieldEnum)[keyof typeof FieldScalarFieldEnum]
+export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
 
 
 export const PermissionScalarFieldEnum = {
@@ -247,16 +248,16 @@ export const PermissionScalarFieldEnum = {
 export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
 
 
-export const FieldPermissionScalarFieldEnum = {
+export const DepartmentPermissionScalarFieldEnum = {
   id: 'id',
   permissionId: 'permissionId',
   userId: 'userId',
-  fieldId: 'fieldId',
+  departmentId: 'departmentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FieldPermissionScalarFieldEnum = (typeof FieldPermissionScalarFieldEnum)[keyof typeof FieldPermissionScalarFieldEnum]
+export type DepartmentPermissionScalarFieldEnum = (typeof DepartmentPermissionScalarFieldEnum)[keyof typeof DepartmentPermissionScalarFieldEnum]
 
 
 export const MessageScalarFieldEnum = {
@@ -317,7 +318,8 @@ export const DemoScalarFieldEnum = {
   name: 'name',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof DemoScalarFieldEnum]

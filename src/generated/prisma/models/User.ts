@@ -279,10 +279,10 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   marks?: Prisma.MarksListRelationFilter
-  managedFields?: Prisma.FieldListRelationFilter
+  managedDepartments?: Prisma.DepartmentListRelationFilter
   messages?: Prisma.MessageListRelationFilter
   ownedDemo?: Prisma.DemoListRelationFilter
-  fieldPermissions?: Prisma.FieldPermissionListRelationFilter
+  departmentPermissions?: Prisma.DepartmentPermissionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -304,10 +304,10 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   marks?: Prisma.MarksOrderByRelationAggregateInput
-  managedFields?: Prisma.FieldOrderByRelationAggregateInput
+  managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
   ownedDemo?: Prisma.DemoOrderByRelationAggregateInput
-  fieldPermissions?: Prisma.FieldPermissionOrderByRelationAggregateInput
+  departmentPermissions?: Prisma.DepartmentPermissionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -332,10 +332,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   marks?: Prisma.MarksListRelationFilter
-  managedFields?: Prisma.FieldListRelationFilter
+  managedDepartments?: Prisma.DepartmentListRelationFilter
   messages?: Prisma.MessageListRelationFilter
   ownedDemo?: Prisma.DemoListRelationFilter
-  fieldPermissions?: Prisma.FieldPermissionListRelationFilter
+  departmentPermissions?: Prisma.DepartmentPermissionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -403,10 +403,10 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -428,10 +428,10 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldUncheckedCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -453,10 +453,10 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -478,10 +478,10 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUncheckedUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -647,32 +647,32 @@ export type UserUpdateOneRequiredWithoutMarksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMarksInput, Prisma.UserUpdateWithoutMarksInput>, Prisma.UserUncheckedUpdateWithoutMarksInput>
 }
 
-export type UserCreateNestedOneWithoutManagedFieldsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedFieldsInput, Prisma.UserUncheckedCreateWithoutManagedFieldsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedFieldsInput
+export type UserCreateNestedOneWithoutManagedDepartmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedDepartmentsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutManagedFieldsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedFieldsInput, Prisma.UserUncheckedCreateWithoutManagedFieldsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedFieldsInput
-  upsert?: Prisma.UserUpsertWithoutManagedFieldsInput
+export type UserUpdateOneRequiredWithoutManagedDepartmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedDepartmentsInput
+  upsert?: Prisma.UserUpsertWithoutManagedDepartmentsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManagedFieldsInput, Prisma.UserUpdateWithoutManagedFieldsInput>, Prisma.UserUncheckedUpdateWithoutManagedFieldsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManagedDepartmentsInput, Prisma.UserUpdateWithoutManagedDepartmentsInput>, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
 }
 
-export type UserCreateNestedOneWithoutFieldPermissionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFieldPermissionsInput, Prisma.UserUncheckedCreateWithoutFieldPermissionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFieldPermissionsInput
+export type UserCreateNestedOneWithoutDepartmentPermissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentPermissionsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutFieldPermissionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFieldPermissionsInput, Prisma.UserUncheckedCreateWithoutFieldPermissionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFieldPermissionsInput
-  upsert?: Prisma.UserUpsertWithoutFieldPermissionsInput
+export type UserUpdateOneRequiredWithoutDepartmentPermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentPermissionsInput
+  upsert?: Prisma.UserUpsertWithoutDepartmentPermissionsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFieldPermissionsInput, Prisma.UserUpdateWithoutFieldPermissionsInput>, Prisma.UserUncheckedUpdateWithoutFieldPermissionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDepartmentPermissionsInput, Prisma.UserUpdateWithoutDepartmentPermissionsInput>, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
 }
 
 export type UserCreateNestedOneWithoutMessagesInput = {
@@ -721,10 +721,10 @@ export type UserCreateWithoutMarksInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedFields?: Prisma.FieldCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMarksInput = {
@@ -745,10 +745,10 @@ export type UserUncheckedCreateWithoutMarksInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedFields?: Prisma.FieldUncheckedCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMarksInput = {
@@ -785,10 +785,10 @@ export type UserUpdateWithoutMarksInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedFields?: Prisma.FieldUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMarksInput = {
@@ -809,13 +809,13 @@ export type UserUncheckedUpdateWithoutMarksInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedFields?: Prisma.FieldUncheckedUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutManagedFieldsInput = {
+export type UserCreateWithoutManagedDepartmentsInput = {
   id?: string
   firstName: string
   lastName: string
@@ -836,10 +836,10 @@ export type UserCreateWithoutManagedFieldsInput = {
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutManagedFieldsInput = {
+export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
   id?: string
   firstName: string
   lastName: string
@@ -860,26 +860,26 @@ export type UserUncheckedCreateWithoutManagedFieldsInput = {
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutManagedFieldsInput = {
+export type UserCreateOrConnectWithoutManagedDepartmentsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutManagedFieldsInput, Prisma.UserUncheckedCreateWithoutManagedFieldsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
 }
 
-export type UserUpsertWithoutManagedFieldsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutManagedFieldsInput, Prisma.UserUncheckedUpdateWithoutManagedFieldsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutManagedFieldsInput, Prisma.UserUncheckedCreateWithoutManagedFieldsInput>
+export type UserUpsertWithoutManagedDepartmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutManagedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutManagedFieldsInput = {
+export type UserUpdateToOneWithWhereWithoutManagedDepartmentsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutManagedFieldsInput, Prisma.UserUncheckedUpdateWithoutManagedFieldsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutManagedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
 }
 
-export type UserUpdateWithoutManagedFieldsInput = {
+export type UserUpdateWithoutManagedDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -900,10 +900,10 @@ export type UserUpdateWithoutManagedFieldsInput = {
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutManagedFieldsInput = {
+export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -924,10 +924,10 @@ export type UserUncheckedUpdateWithoutManagedFieldsInput = {
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutFieldPermissionsInput = {
+export type UserCreateWithoutDepartmentPermissionsInput = {
   id?: string
   firstName: string
   lastName: string
@@ -946,12 +946,12 @@ export type UserCreateWithoutFieldPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
 
-export type UserUncheckedCreateWithoutFieldPermissionsInput = {
+export type UserUncheckedCreateWithoutDepartmentPermissionsInput = {
   id?: string
   firstName: string
   lastName: string
@@ -970,28 +970,28 @@ export type UserUncheckedCreateWithoutFieldPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldUncheckedCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
 
-export type UserCreateOrConnectWithoutFieldPermissionsInput = {
+export type UserCreateOrConnectWithoutDepartmentPermissionsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFieldPermissionsInput, Prisma.UserUncheckedCreateWithoutFieldPermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
 }
 
-export type UserUpsertWithoutFieldPermissionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFieldPermissionsInput, Prisma.UserUncheckedUpdateWithoutFieldPermissionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFieldPermissionsInput, Prisma.UserUncheckedCreateWithoutFieldPermissionsInput>
+export type UserUpsertWithoutDepartmentPermissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutFieldPermissionsInput = {
+export type UserUpdateToOneWithWhereWithoutDepartmentPermissionsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFieldPermissionsInput, Prisma.UserUncheckedUpdateWithoutFieldPermissionsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
 }
 
-export type UserUpdateWithoutFieldPermissionsInput = {
+export type UserUpdateWithoutDepartmentPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1010,12 +1010,12 @@ export type UserUpdateWithoutFieldPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutFieldPermissionsInput = {
+export type UserUncheckedUpdateWithoutDepartmentPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1034,7 +1034,7 @@ export type UserUncheckedUpdateWithoutFieldPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUncheckedUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -1058,9 +1058,9 @@ export type UserCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -1082,9 +1082,9 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldUncheckedCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -1122,9 +1122,9 @@ export type UserUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -1146,9 +1146,9 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUncheckedUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedDemoInput = {
@@ -1170,9 +1170,9 @@ export type UserCreateWithoutOwnedDemoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  fieldPermissions?: Prisma.FieldPermissionCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDemoInput = {
@@ -1194,9 +1194,9 @@ export type UserUncheckedCreateWithoutOwnedDemoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedFields?: Prisma.FieldUncheckedCreateNestedManyWithoutManagerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedCreateNestedManyWithoutUserInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDemoInput = {
@@ -1234,9 +1234,9 @@ export type UserUpdateWithoutOwnedDemoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDemoInput = {
@@ -1258,9 +1258,9 @@ export type UserUncheckedUpdateWithoutOwnedDemoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedFields?: Prisma.FieldUncheckedUpdateManyWithoutManagerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  fieldPermissions?: Prisma.FieldPermissionUncheckedUpdateManyWithoutUserNestedInput
+  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1270,18 +1270,18 @@ export type UserUncheckedUpdateWithoutOwnedDemoInput = {
 
 export type UserCountOutputType = {
   marks: number
-  managedFields: number
+  managedDepartments: number
   messages: number
   ownedDemo: number
-  fieldPermissions: number
+  departmentPermissions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   marks?: boolean | UserCountOutputTypeCountMarksArgs
-  managedFields?: boolean | UserCountOutputTypeCountManagedFieldsArgs
+  managedDepartments?: boolean | UserCountOutputTypeCountManagedDepartmentsArgs
   messages?: boolean | UserCountOutputTypeCountMessagesArgs
   ownedDemo?: boolean | UserCountOutputTypeCountOwnedDemoArgs
-  fieldPermissions?: boolean | UserCountOutputTypeCountFieldPermissionsArgs
+  departmentPermissions?: boolean | UserCountOutputTypeCountDepartmentPermissionsArgs
 }
 
 /**
@@ -1304,8 +1304,8 @@ export type UserCountOutputTypeCountMarksArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountManagedFieldsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FieldWhereInput
+export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DepartmentWhereInput
 }
 
 /**
@@ -1325,8 +1325,8 @@ export type UserCountOutputTypeCountOwnedDemoArgs<ExtArgs extends runtime.Types.
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountFieldPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FieldPermissionWhereInput
+export type UserCountOutputTypeCountDepartmentPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DepartmentPermissionWhereInput
 }
 
 
@@ -1349,10 +1349,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   marks?: boolean | Prisma.User$marksArgs<ExtArgs>
-  managedFields?: boolean | Prisma.User$managedFieldsArgs<ExtArgs>
+  managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   ownedDemo?: boolean | Prisma.User$ownedDemoArgs<ExtArgs>
-  fieldPermissions?: boolean | Prisma.User$fieldPermissionsArgs<ExtArgs>
+  departmentPermissions?: boolean | Prisma.User$departmentPermissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1419,10 +1419,10 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   marks?: boolean | Prisma.User$marksArgs<ExtArgs>
-  managedFields?: boolean | Prisma.User$managedFieldsArgs<ExtArgs>
+  managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   ownedDemo?: boolean | Prisma.User$ownedDemoArgs<ExtArgs>
-  fieldPermissions?: boolean | Prisma.User$fieldPermissionsArgs<ExtArgs>
+  departmentPermissions?: boolean | Prisma.User$departmentPermissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1432,10 +1432,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     marks: Prisma.$MarksPayload<ExtArgs>[]
-    managedFields: Prisma.$FieldPayload<ExtArgs>[]
+    managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     messages: Prisma.$MessagePayload<ExtArgs>[]
     ownedDemo: Prisma.$DemoPayload<ExtArgs>[]
-    fieldPermissions: Prisma.$FieldPermissionPayload<ExtArgs>[]
+    departmentPermissions: Prisma.$DepartmentPermissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1850,10 +1850,10 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   marks<T extends Prisma.User$marksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$marksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  managedFields<T extends Prisma.User$managedFieldsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedFieldsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  managedDepartments<T extends Prisma.User$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedDemo<T extends Prisma.User$ownedDemoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  fieldPermissions<T extends Prisma.User$fieldPermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  departmentPermissions<T extends Prisma.User$departmentPermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$departmentPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2317,27 +2317,27 @@ export type User$marksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 }
 
 /**
- * User.managedFields
+ * User.managedDepartments
  */
-export type User$managedFieldsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Field
+   * Select specific fields to fetch from the Department
    */
-  select?: Prisma.FieldSelect<ExtArgs> | null
+  select?: Prisma.DepartmentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Field
+   * Omit specific fields from the Department
    */
-  omit?: Prisma.FieldOmit<ExtArgs> | null
+  omit?: Prisma.DepartmentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FieldInclude<ExtArgs> | null
-  where?: Prisma.FieldWhereInput
-  orderBy?: Prisma.FieldOrderByWithRelationInput | Prisma.FieldOrderByWithRelationInput[]
-  cursor?: Prisma.FieldWhereUniqueInput
+  include?: Prisma.DepartmentInclude<ExtArgs> | null
+  where?: Prisma.DepartmentWhereInput
+  orderBy?: Prisma.DepartmentOrderByWithRelationInput | Prisma.DepartmentOrderByWithRelationInput[]
+  cursor?: Prisma.DepartmentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FieldScalarFieldEnum | Prisma.FieldScalarFieldEnum[]
+  distinct?: Prisma.DepartmentScalarFieldEnum | Prisma.DepartmentScalarFieldEnum[]
 }
 
 /**
@@ -2389,27 +2389,27 @@ export type User$ownedDemoArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.fieldPermissions
+ * User.departmentPermissions
  */
-export type User$fieldPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$departmentPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the FieldPermission
+   * Select specific fields to fetch from the DepartmentPermission
    */
-  select?: Prisma.FieldPermissionSelect<ExtArgs> | null
+  select?: Prisma.DepartmentPermissionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the FieldPermission
+   * Omit specific fields from the DepartmentPermission
    */
-  omit?: Prisma.FieldPermissionOmit<ExtArgs> | null
+  omit?: Prisma.DepartmentPermissionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FieldPermissionInclude<ExtArgs> | null
-  where?: Prisma.FieldPermissionWhereInput
-  orderBy?: Prisma.FieldPermissionOrderByWithRelationInput | Prisma.FieldPermissionOrderByWithRelationInput[]
-  cursor?: Prisma.FieldPermissionWhereUniqueInput
+  include?: Prisma.DepartmentPermissionInclude<ExtArgs> | null
+  where?: Prisma.DepartmentPermissionWhereInput
+  orderBy?: Prisma.DepartmentPermissionOrderByWithRelationInput | Prisma.DepartmentPermissionOrderByWithRelationInput[]
+  cursor?: Prisma.DepartmentPermissionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FieldPermissionScalarFieldEnum | Prisma.FieldPermissionScalarFieldEnum[]
+  distinct?: Prisma.DepartmentPermissionScalarFieldEnum | Prisma.DepartmentPermissionScalarFieldEnum[]
 }
 
 /**
