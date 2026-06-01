@@ -20,8 +20,10 @@ export class DemosCommandService {
   }
 
   async update(id: string, input: UpdateDemoInput): Promise<Demo> {
-    console.log(input);
     const demo = await this.findById(id);
+    demo.update({
+      name: input.name,
+    });
     await this.demoCommandRepository.save(demo);
     return demo;
   }

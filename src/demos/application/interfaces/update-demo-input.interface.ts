@@ -1,1 +1,3 @@
-export interface UpdateDemoInput {}
+export interface UpdateDemoInput {
+  name?: string;
+}

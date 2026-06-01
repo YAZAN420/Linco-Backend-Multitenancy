@@ -1,5 +1,6 @@
 import { Department } from './department';
 import { DemoProps } from './interfaces/demo.props';
+import { UpdateDemoPayload } from './interfaces/update-demo-payload.interface';
 
 export class Demo {
   constructor(
@@ -38,12 +39,20 @@ export class Demo {
     this.props.deletedAt = new Date();
   }
 
-  rename(newName: string): void {
-    if (!newName || newName.trim().length === 0) {
-      throw new Error('Demo name cannot be empty');
+  update(data: UpdateDemoPayload) {
+    let isModified = false;
+
+    if (data.name !== undefined && data.name !== this.props.name) {
+      if (data.name.trim().length === 0) {
+        throw new Error('Demo name cannot be empty');
+      }
+      this.props.name = data.name;
+      isModified = true;
     }
-    this.props.name = newName.trim();
-    this.props.updatedAt = new Date();
+
+    if (isModified) {
+      this.props.updatedAt = new Date();
+    }
   }
 
   addDepartment(department: Department): void {

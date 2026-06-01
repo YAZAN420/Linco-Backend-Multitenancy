@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateDemoDto } from './dto/create-demo.dto';
-import { UpdateDemoDto } from './dto/update-demo.dto';
+import { UpdateDemoDto } from './mappers/update-demo.dto';
 
 import { DemoResponseMapper } from './mappers/demo-response.mapper';
 import { DemosCommandService } from 'src/demos/application/demos-command.service';
@@ -29,7 +29,7 @@ export class DemosCommandController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateDemoDto) {
-    const demo = await this.demoCommandService.update(id, dto);
+    const demo = await this.demoCommandService.update(id, { name: dto.name });
 
     return {
       message: 'Demo updated successfully',
