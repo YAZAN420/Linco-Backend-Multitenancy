@@ -1,4 +1,5 @@
 import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
+import { DomainValidationException } from './exceptions/validation.exception';
 import { DepartmentProps } from './interfaces/department.props';
 
 export class Department {
@@ -31,6 +32,9 @@ export class Department {
     let isModified = false;
 
     if (data.name !== undefined && data.name !== this.props.name) {
+      if (data.name.trim().length === 0) {
+        throw new DomainValidationException('Department name cannot be empty');
+      }
       this.props.name = data.name;
       isModified = true;
     }

@@ -1,6 +1,9 @@
 import { UpdateDemoInput } from '../application/interfaces/update-demo-input.interface';
 import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { Department } from './department';
+import { DomainConflictException } from './exceptions/conflict.exception';
+import { DomainNotFoundException } from './exceptions/not-found.exception';
+import { DomainValidationException } from './exceptions/validation.exception';
 import { DemoProps } from './interfaces/demo.props';
 
 export class Demo {
@@ -29,12 +32,12 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
-  update(data: UpdateDemoInput) {
+  update(data: UpdateDemoInput): void {
     let isModified = false;
 
     if (data.name !== undefined && data.name !== this.props.name) {
       if (data.name.trim().length === 0) {
-        throw new Error('Demo name cannot be empty');
+        throw new DomainValidationException('Demo name cannot be empty');
       }
       this.props.name = data.name;
       isModified = true;
@@ -47,23 +50,27 @@ export class Demo {
 
   addDepartment(department: Department): void {
     if (!department) {
-      throw new Error('Department cannot be null or undefined');
+      throw new DomainValidationException(
+        'Department cannot be null or undefined',
+      );
     }
+
     const exists = this.departments.some(
       (d) => d.name.toLowerCase() === department.name.toLowerCase(),
     );
     if (exists) {
-      throw new Error(`Department "${department.name}" already exists`);
+      throw new DomainConflictException(
+        `Department "${department.name}" already exists`,
+      );
     }
+
     this.props.departments = [...this.props.departments, department];
     this.props.updatedAt = new Date();
   }
 
   removeDepartment(departmentId: string): void {
-    const exists = this.hasDepartment(departmentId);
-
-    if (!exists) {
-      throw new Error('Department not found in this demo');
+    if (!this.hasDepartment(departmentId)) {
+      throw new DomainNotFoundException('Department not found in this demo');
     }
 
     this.props.departments = this.departments.filter(
@@ -75,12 +82,12 @@ export class Demo {
   updateDepartment(departmentId: string, data: UpdateDepartmentInput): void {
     const department = this.departments.find((d) => d.id === departmentId);
     if (!department) {
-      throw new Error('Department not found in this demo');
+      throw new DomainNotFoundException('Department not found in this demo');
     }
 
     if (data.name !== undefined) {
       if (data.name.trim().length === 0) {
-        throw new Error('Department name cannot be empty');
+        throw new DomainValidationException('Department name cannot be empty');
       }
 
       const isNameChanged =
@@ -92,7 +99,7 @@ export class Demo {
             d.name.toLowerCase() === data.name.toLowerCase(),
         );
         if (nameExists) {
-          throw new Error(
+          throw new DomainConflictException(
             `Department "${data.name}" already exists in this demo`,
           );
         }
@@ -100,7 +107,6 @@ export class Demo {
     }
 
     department.update(data);
-
     this.props.updatedAt = new Date();
   }
 
