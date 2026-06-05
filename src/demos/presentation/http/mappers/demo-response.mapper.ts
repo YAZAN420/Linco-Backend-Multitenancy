@@ -21,11 +21,6 @@ export class DemoResponseMapper {
       demo.name,
       demo.createdAt,
       demo.updatedAt,
-      demo.departments
-        ? demo.departments.map((dept) =>
-            this.departmentMapper.toResponseFromPrisma(dept),
-          )
-        : undefined,
     );
   }
 
@@ -35,11 +30,6 @@ export class DemoResponseMapper {
       demo.name,
       demo.createdAt,
       demo.updatedAt,
-      demo.departments && demo.departments.length > 0
-        ? demo.departments.map((dept) =>
-            this.departmentMapper.toResponseFromDomain(dept),
-          )
-        : undefined,
     );
   }
 

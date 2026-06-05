@@ -27,13 +27,15 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
         create: demoData,
       });
 
-      for (const dept of departmentsData) {
-        await tx.department.upsert({
-          where: { id: dept.id },
-          update: dept,
-          create: dept,
-        });
-      }
+      await Promise.all(
+        departmentsData.map((dept) =>
+          tx.department.upsert({
+            where: { id: dept.id },
+            update: dept,
+            create: dept,
+          }),
+        ),
+      );
 
       const currentDeptIds = departmentsData.map((d) => d.id);
       await tx.department.deleteMany({

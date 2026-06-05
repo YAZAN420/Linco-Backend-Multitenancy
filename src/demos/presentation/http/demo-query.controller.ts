@@ -23,7 +23,7 @@ export class DemosQueryController {
     @ActiveUser() user: ActiveUserData,
     @Query() options: FindDemosCursorDto,
   ) {
-    const demos = await this.demoQueryService.findAllForMe(options, user);
+    const demos = await this.demoQueryService.findAllForMe(options, user.id);
 
     return {
       message: 'Demos fetched successfully ',

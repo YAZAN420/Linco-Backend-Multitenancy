@@ -9,7 +9,6 @@ import {
 } from './interfaces/find-demos.query';
 import { Demo, Department } from 'src/generated/prisma/client';
 import { DemoQueryRepository } from './ports/demo-query.repository';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @Injectable()
 export class DemosQueryService {
@@ -21,9 +20,9 @@ export class DemosQueryService {
 
   async findAllForMe(
     options: FindDemosCursorQuery,
-    user: ActiveUserData,
+    id: string,
   ): Promise<CursorPageDto<Demo>> {
-    return this.demoQueryRepository.findAllForMe(options, user.id);
+    return this.demoQueryRepository.findAllForMe(options, id);
   }
 
   async findById(id: string): Promise<Demo> {

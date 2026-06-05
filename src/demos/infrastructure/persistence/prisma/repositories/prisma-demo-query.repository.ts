@@ -81,11 +81,6 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   async findById(id: string): Promise<Demo | null> {
     return this.prisma.demo.findFirst({
       where: { id },
-      include: {
-        departments: {
-          take: 15,
-        },
-      },
     });
   }
 
@@ -102,6 +97,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       where: {
         demoId,
       },
+      orderBy: [{ id: 'desc' }],
     });
 
     const hasNextPage = items.length > take;
