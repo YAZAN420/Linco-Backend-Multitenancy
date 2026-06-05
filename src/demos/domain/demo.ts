@@ -28,17 +28,6 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
-  get deletedAt(): Date | null {
-    return this.props.deletedAt;
-  }
-
-  delete(): void {
-    if (this.deletedAt) {
-      throw new Error('Demo is already deleted');
-    }
-    this.props.deletedAt = new Date();
-  }
-
   update(data: UpdateDemoPayload) {
     let isModified = false;
 

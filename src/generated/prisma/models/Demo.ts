@@ -30,7 +30,6 @@ export type DemoMinAggregateOutputType = {
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  deletedAt: Date | null
 }
 
 export type DemoMaxAggregateOutputType = {
@@ -39,7 +38,6 @@ export type DemoMaxAggregateOutputType = {
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  deletedAt: Date | null
 }
 
 export type DemoCountAggregateOutputType = {
@@ -48,7 +46,6 @@ export type DemoCountAggregateOutputType = {
   ownerId: number
   createdAt: number
   updatedAt: number
-  deletedAt: number
   _all: number
 }
 
@@ -59,7 +56,6 @@ export type DemoMinAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
-  deletedAt?: true
 }
 
 export type DemoMaxAggregateInputType = {
@@ -68,7 +64,6 @@ export type DemoMaxAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
-  deletedAt?: true
 }
 
 export type DemoCountAggregateInputType = {
@@ -77,7 +72,6 @@ export type DemoCountAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
-  deletedAt?: true
   _all?: true
 }
 
@@ -159,7 +153,6 @@ export type DemoGroupByOutputType = {
   ownerId: string
   createdAt: Date
   updatedAt: Date
-  deletedAt: Date | null
   _count: DemoCountAggregateOutputType | null
   _min: DemoMinAggregateOutputType | null
   _max: DemoMaxAggregateOutputType | null
@@ -189,7 +182,6 @@ export type DemoWhereInput = {
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
   departments?: Prisma.DepartmentListRelationFilter
   features?: Prisma.FeatureListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -202,7 +194,6 @@ export type DemoOrderByWithRelationInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
   features?: Prisma.FeatureOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
@@ -218,7 +209,6 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
   departments?: Prisma.DepartmentListRelationFilter
   features?: Prisma.FeatureListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -231,7 +221,6 @@ export type DemoOrderByWithAggregationInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DemoCountOrderByAggregateInput
   _max?: Prisma.DemoMaxOrderByAggregateInput
   _min?: Prisma.DemoMinOrderByAggregateInput
@@ -246,7 +235,6 @@ export type DemoScalarWhereWithAggregatesInput = {
   ownerId?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Demo"> | Date | string | null
 }
 
 export type DemoCreateInput = {
@@ -254,7 +242,6 @@ export type DemoCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
@@ -267,7 +254,6 @@ export type DemoUncheckedCreateInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
   Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
@@ -278,7 +264,6 @@ export type DemoUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
@@ -291,7 +276,6 @@ export type DemoUncheckedUpdateInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
   Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
@@ -303,7 +287,6 @@ export type DemoCreateManyInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
 }
 
 export type DemoUpdateManyMutationInput = {
@@ -311,7 +294,6 @@ export type DemoUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DemoUncheckedUpdateManyInput = {
@@ -320,7 +302,6 @@ export type DemoUncheckedUpdateManyInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DemoListRelationFilter = {
@@ -344,7 +325,6 @@ export type DemoCountOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
 }
 
 export type DemoMaxOrderByAggregateInput = {
@@ -353,7 +333,6 @@ export type DemoMaxOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
 }
 
 export type DemoMinOrderByAggregateInput = {
@@ -362,7 +341,6 @@ export type DemoMinOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
 }
 
 export type DemoCreateNestedManyWithoutOwnerInput = {
@@ -454,7 +432,6 @@ export type DemoCreateWithoutOwnerInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
   Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
@@ -465,7 +442,6 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
   Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
@@ -506,7 +482,6 @@ export type DemoScalarWhereInput = {
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
 }
 
 export type DemoCreateWithoutDepartmentsInput = {
@@ -514,7 +489,6 @@ export type DemoCreateWithoutDepartmentsInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
   Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
@@ -526,7 +500,6 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
   Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -552,7 +525,6 @@ export type DemoUpdateWithoutDepartmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
   Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
@@ -564,7 +536,6 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
   Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -574,7 +545,6 @@ export type DemoCreateWithoutFeaturesInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
   Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
@@ -586,7 +556,6 @@ export type DemoUncheckedCreateWithoutFeaturesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -612,7 +581,6 @@ export type DemoUpdateWithoutFeaturesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
   Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
@@ -624,7 +592,6 @@ export type DemoUncheckedUpdateWithoutFeaturesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -634,7 +601,6 @@ export type DemoCreateWithoutCertificationsInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
@@ -646,7 +612,6 @@ export type DemoUncheckedCreateWithoutCertificationsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -672,7 +637,6 @@ export type DemoUpdateWithoutCertificationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
@@ -684,7 +648,6 @@ export type DemoUncheckedUpdateWithoutCertificationsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -694,7 +657,6 @@ export type DemoCreateManyOwnerInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deletedAt?: Date | string | null
 }
 
 export type DemoUpdateWithoutOwnerInput = {
@@ -702,7 +664,6 @@ export type DemoUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
   Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
@@ -713,7 +674,6 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
   Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
@@ -724,7 +684,6 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -782,7 +741,6 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  deletedAt?: boolean
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   features?: boolean | Prisma.Demo$featuresArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -796,7 +754,6 @@ export type DemoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  deletedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demo"]>
 
@@ -806,7 +763,6 @@ export type DemoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  deletedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demo"]>
 
@@ -816,10 +772,9 @@ export type DemoSelectScalar = {
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  deletedAt?: boolean
 }
 
-export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["demo"]>
+export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   features?: boolean | Prisma.Demo$featuresArgs<ExtArgs>
@@ -848,7 +803,6 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     ownerId: string
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date | null
   }, ExtArgs["result"]["demo"]>
   composites: {}
 }
@@ -1281,7 +1235,6 @@ export interface DemoFieldRefs {
   readonly ownerId: Prisma.FieldRef<"Demo", 'String'>
   readonly createdAt: Prisma.FieldRef<"Demo", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Demo", 'DateTime'>
-  readonly deletedAt: Prisma.FieldRef<"Demo", 'DateTime'>
 }
     
 

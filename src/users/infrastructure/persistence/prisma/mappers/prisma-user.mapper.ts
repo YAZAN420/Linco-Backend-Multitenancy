@@ -29,7 +29,6 @@ export class PrismaUserMapper {
       security,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      deletedAt: raw.deletedAt,
     });
   }
 
@@ -54,7 +53,6 @@ export class PrismaUserMapper {
       passwordResetExpires: securityProps.passwordResetExpires,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
-      deletedAt: user.deletedAt,
     };
   }
 }

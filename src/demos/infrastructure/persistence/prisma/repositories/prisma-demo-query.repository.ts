@@ -61,7 +61,6 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       cursor: cursor ? { id: cursor } : undefined,
       where: {
         ...where,
-        deletedAt: null,
         ownerId,
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
@@ -80,7 +79,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
   async findById(id: string): Promise<Demo | null> {
     return this.prisma.demo.findFirst({
-      where: { id, deletedAt: null },
+      where: { id },
     });
   }
 }

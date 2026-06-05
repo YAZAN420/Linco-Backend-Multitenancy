@@ -52,9 +52,8 @@ export class UsersCommandService {
   }
 
   async remove(id: string): Promise<void> {
-    const user = await this.findById(id);
-    user.delete();
-    await this.userCommandRepository.save(user);
+    await this.findById(id);
+    await this.userCommandRepository.delete(id);
   }
 
   async updateRefreshToken(

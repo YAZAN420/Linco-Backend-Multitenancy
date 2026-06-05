@@ -20,9 +20,13 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
     });
   }
 
+  async delete(id: string): Promise<void> {
+    await this.prisma.demo.delete({ where: { id } });
+  }
+
   async findById(id: string): Promise<Demo | null> {
     const demo = await this.prisma.demo.findUnique({
-      where: { id, deletedAt: null },
+      where: { id },
       include: { departments: true },
     });
     return demo ? this.mapper.toDomain(demo) : null;

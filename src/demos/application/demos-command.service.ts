@@ -29,9 +29,8 @@ export class DemosCommandService {
   }
 
   async remove(id: string): Promise<void> {
-    const demo = await this.findById(id);
-    demo.delete();
-    await this.demoCommandRepository.save(demo);
+    await this.findById(id);
+    await this.demoCommandRepository.delete(id);
   }
 
   async save(demo: Demo): Promise<void> {

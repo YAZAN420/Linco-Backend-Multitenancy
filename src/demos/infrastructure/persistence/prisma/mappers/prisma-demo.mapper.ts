@@ -20,7 +20,6 @@ export class PrismaDemoMapper {
       departments: raw.departments
         ? raw.departments.map((dept) => this.departmentMapper.toDomain(dept))
         : [],
-      deletedAt: raw.deletedAt,
     });
   }
 
@@ -31,7 +30,6 @@ export class PrismaDemoMapper {
       updatedAt: demo.updatedAt,
       name: demo.name,
       ownerId: demo.ownerId,
-      deletedAt: demo.deletedAt,
     };
   }
 }

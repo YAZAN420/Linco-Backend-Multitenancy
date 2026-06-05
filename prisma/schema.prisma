@@ -44,7 +44,6 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  deletedAt DateTime?
 
   marks Marks[]
   managedDepartments Department[]
@@ -278,7 +277,6 @@ model Demo{
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  deletedAt DateTime?
   
   departments    Department[]
   features Feature[]

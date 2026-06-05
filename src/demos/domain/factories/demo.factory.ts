@@ -13,7 +13,6 @@ export class DemoFactory {
       departments: [],
       createdAt: now,
       updatedAt: now,
-      deletedAt: null,
     });
   }
 
@@ -24,7 +23,6 @@ export class DemoFactory {
       ownerId: string;
       createdAt: Date;
       updatedAt: Date;
-      deletedAt: Date | null;
     },
   ): Demo {
     return new Demo(id, { ...props, departments: [] });

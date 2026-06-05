@@ -75,7 +75,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
 
   async findById(id: string): Promise<User | null> {
     return this.prisma.user.findUnique({
-      where: { id, deletedAt: null },
+      where: { id },
     });
   }
 }

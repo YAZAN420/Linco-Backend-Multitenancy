@@ -6,5 +6,4 @@ export interface DemoProps {
   departments: Department[];
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
 }
