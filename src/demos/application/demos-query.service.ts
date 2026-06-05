@@ -32,6 +32,13 @@ export class DemosQueryService {
     return demo;
   }
 
+  async findDepartments(
+    options: FindDemosCursorQuery,
+    demoId: string,
+  ): Promise<CursorPageDto<Department>> {
+    return await this.demoQueryRepository.findDepartments(options, demoId);
+  }
+
   async findDepartmentById(
     demoId: string,
     deptId: string,

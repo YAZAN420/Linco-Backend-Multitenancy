@@ -12,3 +12,8 @@ export interface FindDemosCursorQuery extends DemoFilter {
   take: number;
   orderBy?: any;
 }
+
+export interface FindDepartmentCursorQuery {
+  cursor?: string;
+  take: number;
+}

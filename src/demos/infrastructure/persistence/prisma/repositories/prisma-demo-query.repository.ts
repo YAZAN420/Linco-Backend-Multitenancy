@@ -9,6 +9,7 @@ import { Prisma, Demo, Department } from 'src/generated/prisma/client';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
+  FindDepartmentCursorQuery,
 } from 'src/demos/application/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
 
@@ -86,6 +87,32 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         },
       },
     });
+  }
+
+  async findDepartments(
+    options: FindDepartmentCursorQuery,
+    demoId: string,
+  ): Promise<CursorPageDto<Department>> {
+    const { cursor, take } = options;
+
+    const items = await this.prisma.department.findMany({
+      take: take + 1,
+      skip: cursor ? 1 : 0,
+      cursor: cursor ? { id: cursor } : undefined,
+      where: {
+        demoId,
+      },
+    });
+
+    const hasNextPage = items.length > take;
+    if (hasNextPage) items.pop();
+
+    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+
+    return new CursorPageDto(
+      items,
+      new CursorPageMetaDto(hasNextPage, endCursor),
+    );
   }
 
   async findDepartmentById(

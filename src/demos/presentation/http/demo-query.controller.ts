@@ -8,6 +8,7 @@ import { DemoResponseMapper } from './mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { DepartmentResponseMapper } from './mappers/department-response.mapper';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
 
 @Controller('demos')
 export class DemosQueryController {
@@ -34,10 +35,28 @@ export class DemosQueryController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const demo = await this.demoQueryService.findById(id);
-    console.log(demo);
     return {
       message: 'Demo retrieved successfully',
       data: this.demoResponseMapper.toResponseFromPrisma(demo),
+    };
+  }
+
+  @Get(':id/departments')
+  async findDepartments(
+    @Query() options: CursorPageOptionsDto,
+    @Param('id') id: string,
+  ) {
+    const departments = await this.demoQueryService.findDepartments(
+      options,
+      id,
+    );
+
+    return {
+      message: 'Departments fetched successfully',
+      data: this.departmentResponseMapper.toResponseManyFromPrisma(
+        departments.data,
+      ),
+      meta: departments.meta,
     };
   }
 
