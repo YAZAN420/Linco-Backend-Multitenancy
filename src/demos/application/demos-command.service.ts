@@ -5,8 +5,6 @@ import { Demo } from '../domain/demo';
 
 import { CreateDemoInput } from './interfaces/create-demo-input.interface';
 import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
-import { CreateDepartmentInput } from './interfaces/create-department-input.interface';
-import { UpdateDepartmentInput } from './interfaces/update-department-input.interface';
 import { DepartmentFactory } from '../domain/factories/department.factory';
 
 @Injectable()
@@ -45,40 +43,5 @@ export class DemosCommandService {
     const demo = await this.demoCommandRepository.findById(id);
     if (!demo) throw new NotFoundException('demo not found');
     return demo;
-  }
-
-  async addDepartment(
-    demoId: string,
-    input: CreateDepartmentInput,
-  ): Promise<void> {
-    const demo = await this.findById(demoId);
-
-    const newDepartment = this.departmentFactory.createNew(demoId, input);
-
-    demo.addDepartment(newDepartment);
-    await this.demoCommandRepository.save(demo);
-  }
-
-  async updateDepartment(
-    demoId: string,
-    departmentId: string,
-    input: UpdateDepartmentInput,
-  ): Promise<void> {
-    const demo = await this.findById(demoId);
-
-    demo.updateDepartment(departmentId, {
-      name: input.name,
-      managerId: input.managerId,
-    });
-
-    await this.demoCommandRepository.save(demo);
-  }
-
-  async removeDepartment(demoId: string, departmentId: string): Promise<void> {
-    const demo = await this.findById(demoId);
-
-    demo.removeDepartment(departmentId);
-
-    await this.demoCommandRepository.save(demo);
   }
 }

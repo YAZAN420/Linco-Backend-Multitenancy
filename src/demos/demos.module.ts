@@ -8,6 +8,10 @@ import { DemoResponseMapper } from './presentation/http/mappers/demo-response.ma
 import { AdminDemosQueryController } from './presentation/http/admin-demo-query.controller';
 import { DepartmentFactory } from './domain/factories/department.factory';
 import { DepartmentResponseMapper } from './presentation/http/mappers/department-response.mapper';
+import { DepartmentsCommandController } from './presentation/http/departments-command.controller';
+import { DepartmentsCommandService } from './application/departments-command.service';
+import { DepartmentsQueryController } from './presentation/http/departments-query.controller';
+import { DepartmentsQueryService } from './application/departments-query.service';
 
 @Module({
   imports: [],
@@ -15,10 +19,14 @@ import { DepartmentResponseMapper } from './presentation/http/mappers/department
     DemosCommandController,
     DemosQueryController,
     AdminDemosQueryController,
+    DepartmentsCommandController,
+    DepartmentsQueryController,
   ],
   providers: [
     DemosCommandService,
     DemosQueryService,
+    DepartmentsCommandService,
+    DepartmentsQueryService,
     DemoFactory,
     DepartmentFactory,
     DemoResponseMapper,
@@ -27,6 +35,8 @@ import { DepartmentResponseMapper } from './presentation/http/mappers/department
   exports: [
     DemosCommandService,
     DemosQueryService,
+    DepartmentsCommandService,
+    DepartmentsQueryService,
     DemoFactory,
     DepartmentFactory,
     DemoResponseMapper,
