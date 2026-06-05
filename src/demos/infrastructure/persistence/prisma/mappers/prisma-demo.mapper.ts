@@ -26,10 +26,10 @@ export class PrismaDemoMapper {
   toPersistence(demo: Demo): PrismaDemo {
     return {
       id: demo.id,
-      createdAt: demo.createdAt,
-      updatedAt: demo.updatedAt,
       name: demo.name,
       ownerId: demo.ownerId,
+      createdAt: demo.createdAt,
+      updatedAt: demo.updatedAt,
     };
   }
 }

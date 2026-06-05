@@ -283,7 +283,7 @@ export type SectionScalarWhereWithAggregatesInput = {
 }
 
 export type SectionCreateInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string
@@ -294,7 +294,7 @@ export type SectionCreateInput = {
 }
 
 export type SectionUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   courseId: string
@@ -327,7 +327,7 @@ export type SectionUncheckedUpdateInput = {
 }
 
 export type SectionCreateManyInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   courseId: string
@@ -473,7 +473,7 @@ export type SectionUpdateOneRequiredWithoutLessonsNestedInput = {
 }
 
 export type SectionCreateWithoutQuestionsInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string
@@ -483,7 +483,7 @@ export type SectionCreateWithoutQuestionsInput = {
 }
 
 export type SectionUncheckedCreateWithoutQuestionsInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   courseId: string
@@ -529,7 +529,7 @@ export type SectionUncheckedUpdateWithoutQuestionsInput = {
 }
 
 export type SectionCreateWithoutCourseInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string
@@ -539,7 +539,7 @@ export type SectionCreateWithoutCourseInput = {
 }
 
 export type SectionUncheckedCreateWithoutCourseInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string
@@ -587,7 +587,7 @@ export type SectionScalarWhereInput = {
 }
 
 export type SectionCreateWithoutLessonsInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string
@@ -597,7 +597,7 @@ export type SectionCreateWithoutLessonsInput = {
 }
 
 export type SectionUncheckedCreateWithoutLessonsInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   courseId: string
@@ -643,7 +643,7 @@ export type SectionUncheckedUpdateWithoutLessonsInput = {
 }
 
 export type SectionCreateManyCourseInput = {
-  id?: string
+  id: string
   name: string
   numOfQuestions: number
   createdAt?: Date | string

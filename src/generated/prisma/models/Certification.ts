@@ -229,7 +229,7 @@ export type CertificationScalarWhereWithAggregatesInput = {
 }
 
 export type CertificationCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -237,7 +237,7 @@ export type CertificationCreateInput = {
 }
 
 export type CertificationUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   demoId: string
   createdAt?: Date | string
@@ -261,7 +261,7 @@ export type CertificationUncheckedUpdateInput = {
 }
 
 export type CertificationCreateManyInput = {
-  id?: string
+  id: string
   name: string
   demoId: string
   createdAt?: Date | string
@@ -360,14 +360,14 @@ export type CertificationUncheckedUpdateManyWithoutDemoNestedInput = {
 }
 
 export type CertificationCreateWithoutDemoInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type CertificationUncheckedCreateWithoutDemoInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -411,7 +411,7 @@ export type CertificationScalarWhereInput = {
 }
 
 export type CertificationCreateManyDemoInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string

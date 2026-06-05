@@ -253,7 +253,7 @@ export type AttachmentScalarWhereWithAggregatesInput = {
 }
 
 export type AttachmentCreateInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string
@@ -263,7 +263,7 @@ export type AttachmentCreateInput = {
 }
 
 export type AttachmentUncheckedCreateInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string
@@ -293,7 +293,7 @@ export type AttachmentUncheckedUpdateInput = {
 }
 
 export type AttachmentCreateManyInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string
@@ -408,7 +408,7 @@ export type AttachmentUncheckedUpdateManyWithoutLessonNestedInput = {
 }
 
 export type AttachmentCreateWithoutLessonInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string
@@ -417,7 +417,7 @@ export type AttachmentCreateWithoutLessonInput = {
 }
 
 export type AttachmentUncheckedCreateWithoutLessonInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string
@@ -465,7 +465,7 @@ export type AttachmentScalarWhereInput = {
 }
 
 export type AttachmentCreateManyLessonInput = {
-  id?: string
+  id: string
   type: $Enums.AttachmentType
   path: string
   name: string

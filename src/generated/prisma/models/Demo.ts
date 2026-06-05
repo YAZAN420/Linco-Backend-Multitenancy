@@ -238,7 +238,7 @@ export type DemoScalarWhereWithAggregatesInput = {
 }
 
 export type DemoCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -249,7 +249,7 @@ export type DemoCreateInput = {
 }
 
 export type DemoUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   ownerId: string
   createdAt?: Date | string
@@ -282,7 +282,7 @@ export type DemoUncheckedUpdateInput = {
 }
 
 export type DemoCreateManyInput = {
-  id?: string
+  id: string
   name: string
   ownerId: string
   createdAt?: Date | string
@@ -428,7 +428,7 @@ export type DemoUpdateOneRequiredWithoutCertificationsNestedInput = {
 }
 
 export type DemoCreateWithoutOwnerInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -438,7 +438,7 @@ export type DemoCreateWithoutOwnerInput = {
 }
 
 export type DemoUncheckedCreateWithoutOwnerInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -485,7 +485,7 @@ export type DemoScalarWhereInput = {
 }
 
 export type DemoCreateWithoutDepartmentsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -495,7 +495,7 @@ export type DemoCreateWithoutDepartmentsInput = {
 }
 
 export type DemoUncheckedCreateWithoutDepartmentsInput = {
-  id?: string
+  id: string
   name: string
   ownerId: string
   createdAt?: Date | string
@@ -541,7 +541,7 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
 }
 
 export type DemoCreateWithoutFeaturesInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -551,7 +551,7 @@ export type DemoCreateWithoutFeaturesInput = {
 }
 
 export type DemoUncheckedCreateWithoutFeaturesInput = {
-  id?: string
+  id: string
   name: string
   ownerId: string
   createdAt?: Date | string
@@ -597,7 +597,7 @@ export type DemoUncheckedUpdateWithoutFeaturesInput = {
 }
 
 export type DemoCreateWithoutCertificationsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -607,7 +607,7 @@ export type DemoCreateWithoutCertificationsInput = {
 }
 
 export type DemoUncheckedCreateWithoutCertificationsInput = {
-  id?: string
+  id: string
   name: string
   ownerId: string
   createdAt?: Date | string
@@ -653,7 +653,7 @@ export type DemoUncheckedUpdateWithoutCertificationsInput = {
 }
 
 export type DemoCreateManyOwnerInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string

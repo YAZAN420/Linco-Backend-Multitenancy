@@ -241,7 +241,7 @@ export type FAQScalarWhereWithAggregatesInput = {
 }
 
 export type FAQCreateInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   createdAt?: Date | string
@@ -250,7 +250,7 @@ export type FAQCreateInput = {
 }
 
 export type FAQUncheckedCreateInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   courseId: string
@@ -277,7 +277,7 @@ export type FAQUncheckedUpdateInput = {
 }
 
 export type FAQCreateManyInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   courseId: string
@@ -382,7 +382,7 @@ export type FAQUncheckedUpdateManyWithoutCourseNestedInput = {
 }
 
 export type FAQCreateWithoutCourseInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   createdAt?: Date | string
@@ -390,7 +390,7 @@ export type FAQCreateWithoutCourseInput = {
 }
 
 export type FAQUncheckedCreateWithoutCourseInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   createdAt?: Date | string
@@ -436,7 +436,7 @@ export type FAQScalarWhereInput = {
 }
 
 export type FAQCreateManyCourseInput = {
-  id?: string
+  id: string
   question: string
   answer: string
   createdAt?: Date | string

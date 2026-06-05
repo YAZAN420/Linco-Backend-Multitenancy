@@ -21,7 +21,7 @@ enum FeatureType {
 }
 
 model User {
-  id String @id @default(uuid())
+  id String @id 
   firstName String
   lastName String
   email String @unique
@@ -53,7 +53,7 @@ model User {
 }
 
 model Question{
-  id String @id @default(uuid())
+  id String @id 
   question String
   choice1 String
   choice2 String
@@ -72,7 +72,7 @@ model Question{
 }
 
 model Course {
-  id String @id @default(uuid())
+  id String @id 
   name String
   departmentId String
 
@@ -86,7 +86,7 @@ model Course {
 }
 
 model Tag{
-  id String @id @default(uuid())
+  id String @id 
   name String
 
   createdAt DateTime @default(now())
@@ -96,7 +96,7 @@ model Tag{
 }
 
 model Section{
-  id String @id @default(uuid())
+  id String @id 
   name String
   numOfQuestions Int
   courseId String
@@ -110,7 +110,7 @@ model Section{
 }
 
 model Attachment {
-  id String @id @default(uuid())
+  id String @id 
   type AttachmentType
   path String
   name String
@@ -123,7 +123,7 @@ model Attachment {
 }
 
 model Lesson{
-  id String @id @default(uuid())
+  id String @id 
   name String
   time Int
   videoPath String
@@ -140,7 +140,7 @@ model Lesson{
 }
 
 model FAQ {
-  id String @id @default(uuid())
+  id String @id 
   question String 
   answer String
   courseId String
@@ -152,7 +152,7 @@ model FAQ {
 }
 
 model Marks {
-  id String @id @default(uuid())
+  id String @id 
   userId String
   questionId String
 
@@ -164,7 +164,7 @@ model Marks {
 }
 
 model Comment{
-  id String @id @default(uuid())
+  id String @id 
   userId String 
   content String
   parentId String?
@@ -179,7 +179,7 @@ model Comment{
 }
 
 model Department {
-  id String @id @default(uuid())
+  id String @id 
   name String
   managerId String
   demoId      String
@@ -189,12 +189,12 @@ model Department {
 
   courses Course[]
   manager User @relation(fields: [managerId], references: [id])
-  demo    Demo     @relation(fields: [demoId], references: [id])
+  demo    Demo     @relation(fields: [demoId], references: [id],onDelete: Cascade)
   userPermissions DepartmentPermission[]
 }
 
 model Permission{
-  id String @id @default(uuid())
+  id String @id 
   name String
 
   createdAt DateTime @default(now())
@@ -204,7 +204,7 @@ model Permission{
 }
 
 model DepartmentPermission{
-  id String @id @default(uuid())
+  id String @id 
   permissionId String
   userId String
   departmentId String
@@ -218,7 +218,7 @@ model DepartmentPermission{
 }
 
 model Message{
-  id String @id @default(uuid())
+  id String @id 
   senderId String
   content String
   groupId String
@@ -231,7 +231,7 @@ model Message{
 }
 
 model Group{
-  id String @id @default(uuid())
+  id String @id 
   name String
 
   createdAt DateTime @default(now())
@@ -241,7 +241,7 @@ model Group{
 }
 
 model Feature{
-  id String @id @default(uuid())
+  id String @id 
   type FeatureType
   demoId String
 
@@ -252,7 +252,7 @@ model Feature{
 }
 
 model Certification{
-  id String @id @default(uuid())
+  id String @id 
   name String
   demoId String
 
@@ -263,7 +263,7 @@ model Certification{
 }
 
 model Report{
-  id String @id @default(uuid())
+  id String @id 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -271,7 +271,7 @@ model Report{
 }
 
 model Demo{
-  id String @id @default(uuid())
+  id String @id 
   name String
   ownerId String
 

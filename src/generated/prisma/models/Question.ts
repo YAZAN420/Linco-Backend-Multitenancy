@@ -356,7 +356,7 @@ export type QuestionScalarWhereWithAggregatesInput = {
 }
 
 export type QuestionCreateInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -372,7 +372,7 @@ export type QuestionCreateInput = {
 }
 
 export type QuestionUncheckedCreateInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -420,7 +420,7 @@ export type QuestionUncheckedUpdateInput = {
 }
 
 export type QuestionCreateManyInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -598,7 +598,7 @@ export type QuestionUpdateOneRequiredWithoutMarksNestedInput = {
 }
 
 export type QuestionCreateWithoutSectionInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -613,7 +613,7 @@ export type QuestionCreateWithoutSectionInput = {
 }
 
 export type QuestionUncheckedCreateWithoutSectionInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -672,7 +672,7 @@ export type QuestionScalarWhereInput = {
 }
 
 export type QuestionCreateWithoutMarksInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -687,7 +687,7 @@ export type QuestionCreateWithoutMarksInput = {
 }
 
 export type QuestionUncheckedCreateWithoutMarksInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string
@@ -748,7 +748,7 @@ export type QuestionUncheckedUpdateWithoutMarksInput = {
 }
 
 export type QuestionCreateManySectionInput = {
-  id?: string
+  id: string
   question: string
   choice1: string
   choice2: string

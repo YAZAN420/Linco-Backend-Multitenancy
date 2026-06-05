@@ -202,13 +202,13 @@ export type ReportScalarWhereWithAggregatesInput = {
 }
 
 export type ReportCreateInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ReportUncheckedCreateInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -226,7 +226,7 @@ export type ReportUncheckedUpdateInput = {
 }
 
 export type ReportCreateManyInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }

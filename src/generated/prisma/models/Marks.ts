@@ -232,7 +232,7 @@ export type MarksScalarWhereWithAggregatesInput = {
 }
 
 export type MarksCreateInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMarksInput
@@ -240,7 +240,7 @@ export type MarksCreateInput = {
 }
 
 export type MarksUncheckedCreateInput = {
-  id?: string
+  id: string
   userId: string
   questionId: string
   createdAt?: Date | string
@@ -264,7 +264,7 @@ export type MarksUncheckedUpdateInput = {
 }
 
 export type MarksCreateManyInput = {
-  id?: string
+  id: string
   userId: string
   questionId: string
   createdAt?: Date | string
@@ -404,14 +404,14 @@ export type MarksUncheckedUpdateManyWithoutQuestionNestedInput = {
 }
 
 export type MarksCreateWithoutUserInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutMarksInput
 }
 
 export type MarksUncheckedCreateWithoutUserInput = {
-  id?: string
+  id: string
   questionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -455,14 +455,14 @@ export type MarksScalarWhereInput = {
 }
 
 export type MarksCreateWithoutQuestionInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMarksInput
 }
 
 export type MarksUncheckedCreateWithoutQuestionInput = {
-  id?: string
+  id: string
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -495,7 +495,7 @@ export type MarksUpdateManyWithWhereWithoutQuestionInput = {
 }
 
 export type MarksCreateManyUserInput = {
-  id?: string
+  id: string
   questionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -523,7 +523,7 @@ export type MarksUncheckedUpdateManyWithoutUserInput = {
 }
 
 export type MarksCreateManyQuestionInput = {
-  id?: string
+  id: string
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string

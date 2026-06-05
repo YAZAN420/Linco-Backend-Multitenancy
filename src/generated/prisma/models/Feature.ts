@@ -229,7 +229,7 @@ export type FeatureScalarWhereWithAggregatesInput = {
 }
 
 export type FeatureCreateInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -237,7 +237,7 @@ export type FeatureCreateInput = {
 }
 
 export type FeatureUncheckedCreateInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   demoId: string
   createdAt?: Date | string
@@ -261,7 +261,7 @@ export type FeatureUncheckedUpdateInput = {
 }
 
 export type FeatureCreateManyInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   demoId: string
   createdAt?: Date | string
@@ -364,14 +364,14 @@ export type FeatureUncheckedUpdateManyWithoutDemoNestedInput = {
 }
 
 export type FeatureCreateWithoutDemoInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type FeatureUncheckedCreateWithoutDemoInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -415,7 +415,7 @@ export type FeatureScalarWhereInput = {
 }
 
 export type FeatureCreateManyDemoInput = {
-  id?: string
+  id: string
   type: $Enums.FeatureType
   createdAt?: Date | string
   updatedAt?: Date | string

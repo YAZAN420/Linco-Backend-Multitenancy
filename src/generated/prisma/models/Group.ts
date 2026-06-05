@@ -217,7 +217,7 @@ export type GroupScalarWhereWithAggregatesInput = {
 }
 
 export type GroupCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -225,7 +225,7 @@ export type GroupCreateInput = {
 }
 
 export type GroupUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -249,7 +249,7 @@ export type GroupUncheckedUpdateInput = {
 }
 
 export type GroupCreateManyInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -310,14 +310,14 @@ export type GroupUpdateOneRequiredWithoutMessagesNestedInput = {
 }
 
 export type GroupCreateWithoutMessagesInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type GroupUncheckedCreateWithoutMessagesInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string

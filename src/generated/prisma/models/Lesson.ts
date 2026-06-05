@@ -323,7 +323,7 @@ export type LessonScalarWhereWithAggregatesInput = {
 }
 
 export type LessonCreateInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -337,7 +337,7 @@ export type LessonCreateInput = {
 }
 
 export type LessonUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -379,7 +379,7 @@ export type LessonUncheckedUpdateInput = {
 }
 
 export type LessonCreateManyInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -545,7 +545,7 @@ export type LessonUpdateOneRequiredWithoutCommentsNestedInput = {
 }
 
 export type LessonCreateWithoutSectionInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -558,7 +558,7 @@ export type LessonCreateWithoutSectionInput = {
 }
 
 export type LessonUncheckedCreateWithoutSectionInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -612,7 +612,7 @@ export type LessonScalarWhereInput = {
 }
 
 export type LessonCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -625,7 +625,7 @@ export type LessonCreateWithoutAttachmentsInput = {
 }
 
 export type LessonUncheckedCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -680,7 +680,7 @@ export type LessonUncheckedUpdateWithoutAttachmentsInput = {
 }
 
 export type LessonCreateWithoutCommentsInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -693,7 +693,7 @@ export type LessonCreateWithoutCommentsInput = {
 }
 
 export type LessonUncheckedCreateWithoutCommentsInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string
@@ -748,7 +748,7 @@ export type LessonUncheckedUpdateWithoutCommentsInput = {
 }
 
 export type LessonCreateManySectionInput = {
-  id?: string
+  id: string
   name: string
   time: number
   videoPath: string

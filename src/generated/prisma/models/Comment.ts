@@ -259,7 +259,7 @@ export type CommentScalarWhereWithAggregatesInput = {
 }
 
 export type CommentCreateInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   createdAt?: Date | string
@@ -270,7 +270,7 @@ export type CommentCreateInput = {
 }
 
 export type CommentUncheckedCreateInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   parentId?: string | null
@@ -303,7 +303,7 @@ export type CommentUncheckedUpdateInput = {
 }
 
 export type CommentCreateManyInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   parentId?: string | null
@@ -476,7 +476,7 @@ export type CommentUncheckedUpdateManyWithoutParentNestedInput = {
 }
 
 export type CommentCreateWithoutLessonInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   createdAt?: Date | string
@@ -486,7 +486,7 @@ export type CommentCreateWithoutLessonInput = {
 }
 
 export type CommentUncheckedCreateWithoutLessonInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   parentId?: string | null
@@ -535,7 +535,7 @@ export type CommentScalarWhereInput = {
 }
 
 export type CommentCreateWithoutRepliesInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   createdAt?: Date | string
@@ -545,7 +545,7 @@ export type CommentCreateWithoutRepliesInput = {
 }
 
 export type CommentUncheckedCreateWithoutRepliesInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   parentId?: string | null
@@ -560,7 +560,7 @@ export type CommentCreateOrConnectWithoutRepliesInput = {
 }
 
 export type CommentCreateWithoutParentInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   createdAt?: Date | string
@@ -570,7 +570,7 @@ export type CommentCreateWithoutParentInput = {
 }
 
 export type CommentUncheckedCreateWithoutParentInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   lessonId: string
@@ -637,7 +637,7 @@ export type CommentUpdateManyWithWhereWithoutParentInput = {
 }
 
 export type CommentCreateManyLessonInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   parentId?: string | null
@@ -675,7 +675,7 @@ export type CommentUncheckedUpdateManyWithoutLessonInput = {
 }
 
 export type CommentCreateManyParentInput = {
-  id?: string
+  id: string
   userId: string
   content: string
   lessonId: string

@@ -238,7 +238,7 @@ export type CourseScalarWhereWithAggregatesInput = {
 }
 
 export type CourseCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -249,7 +249,7 @@ export type CourseCreateInput = {
 }
 
 export type CourseUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   departmentId: string
   createdAt?: Date | string
@@ -282,7 +282,7 @@ export type CourseUncheckedUpdateInput = {
 }
 
 export type CourseCreateManyInput = {
-  id?: string
+  id: string
   name: string
   departmentId: string
   createdAt?: Date | string
@@ -452,7 +452,7 @@ export type CourseUncheckedUpdateManyWithoutDepartmentNestedInput = {
 }
 
 export type CourseCreateWithoutTagsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -462,7 +462,7 @@ export type CourseCreateWithoutTagsInput = {
 }
 
 export type CourseUncheckedCreateWithoutTagsInput = {
-  id?: string
+  id: string
   name: string
   departmentId: string
   createdAt?: Date | string
@@ -504,7 +504,7 @@ export type CourseScalarWhereInput = {
 }
 
 export type CourseCreateWithoutSectionsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -514,7 +514,7 @@ export type CourseCreateWithoutSectionsInput = {
 }
 
 export type CourseUncheckedCreateWithoutSectionsInput = {
-  id?: string
+  id: string
   name: string
   departmentId: string
   createdAt?: Date | string
@@ -560,7 +560,7 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
 }
 
 export type CourseCreateWithoutFaqsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -570,7 +570,7 @@ export type CourseCreateWithoutFaqsInput = {
 }
 
 export type CourseUncheckedCreateWithoutFaqsInput = {
-  id?: string
+  id: string
   name: string
   departmentId: string
   createdAt?: Date | string
@@ -616,7 +616,7 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
 }
 
 export type CourseCreateWithoutDepartmentInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -626,7 +626,7 @@ export type CourseCreateWithoutDepartmentInput = {
 }
 
 export type CourseUncheckedCreateWithoutDepartmentInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -690,7 +690,7 @@ export type CourseUncheckedUpdateManyWithoutTagsInput = {
 }
 
 export type CourseCreateManyDepartmentInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string

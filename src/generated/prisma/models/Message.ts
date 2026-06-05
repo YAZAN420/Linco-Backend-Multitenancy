@@ -244,7 +244,7 @@ export type MessageScalarWhereWithAggregatesInput = {
 }
 
 export type MessageCreateInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -253,7 +253,7 @@ export type MessageCreateInput = {
 }
 
 export type MessageUncheckedCreateInput = {
-  id?: string
+  id: string
   senderId: string
   content: string
   groupId: string
@@ -280,7 +280,7 @@ export type MessageUncheckedUpdateInput = {
 }
 
 export type MessageCreateManyInput = {
-  id?: string
+  id: string
   senderId: string
   content: string
   groupId: string
@@ -426,7 +426,7 @@ export type MessageUncheckedUpdateManyWithoutGroupNestedInput = {
 }
 
 export type MessageCreateWithoutSenderInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -434,7 +434,7 @@ export type MessageCreateWithoutSenderInput = {
 }
 
 export type MessageUncheckedCreateWithoutSenderInput = {
-  id?: string
+  id: string
   content: string
   groupId: string
   createdAt?: Date | string
@@ -480,7 +480,7 @@ export type MessageScalarWhereInput = {
 }
 
 export type MessageCreateWithoutGroupInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -488,7 +488,7 @@ export type MessageCreateWithoutGroupInput = {
 }
 
 export type MessageUncheckedCreateWithoutGroupInput = {
-  id?: string
+  id: string
   senderId: string
   content: string
   createdAt?: Date | string
@@ -522,7 +522,7 @@ export type MessageUpdateManyWithWhereWithoutGroupInput = {
 }
 
 export type MessageCreateManySenderInput = {
-  id?: string
+  id: string
   content: string
   groupId: string
   createdAt?: Date | string
@@ -554,7 +554,7 @@ export type MessageUncheckedUpdateManyWithoutSenderInput = {
 }
 
 export type MessageCreateManyGroupInput = {
-  id?: string
+  id: string
   senderId: string
   content: string
   createdAt?: Date | string

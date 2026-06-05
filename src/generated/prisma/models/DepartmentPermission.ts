@@ -247,7 +247,7 @@ export type DepartmentPermissionScalarWhereWithAggregatesInput = {
 }
 
 export type DepartmentPermissionCreateInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUserPermissionsInput
@@ -256,7 +256,7 @@ export type DepartmentPermissionCreateInput = {
 }
 
 export type DepartmentPermissionUncheckedCreateInput = {
-  id?: string
+  id: string
   permissionId: string
   userId: string
   departmentId: string
@@ -283,7 +283,7 @@ export type DepartmentPermissionUncheckedUpdateInput = {
 }
 
 export type DepartmentPermissionCreateManyInput = {
-  id?: string
+  id: string
   permissionId: string
   userId: string
   departmentId: string
@@ -470,7 +470,7 @@ export type DepartmentPermissionUncheckedUpdateManyWithoutPermissionNestedInput 
 }
 
 export type DepartmentPermissionCreateWithoutUserInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUserPermissionsInput
@@ -478,7 +478,7 @@ export type DepartmentPermissionCreateWithoutUserInput = {
 }
 
 export type DepartmentPermissionUncheckedCreateWithoutUserInput = {
-  id?: string
+  id: string
   permissionId: string
   departmentId: string
   createdAt?: Date | string
@@ -524,7 +524,7 @@ export type DepartmentPermissionScalarWhereInput = {
 }
 
 export type DepartmentPermissionCreateWithoutDepartmentInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDepartmentPermissionsInput
@@ -532,7 +532,7 @@ export type DepartmentPermissionCreateWithoutDepartmentInput = {
 }
 
 export type DepartmentPermissionUncheckedCreateWithoutDepartmentInput = {
-  id?: string
+  id: string
   permissionId: string
   userId: string
   createdAt?: Date | string
@@ -566,7 +566,7 @@ export type DepartmentPermissionUpdateManyWithWhereWithoutDepartmentInput = {
 }
 
 export type DepartmentPermissionCreateWithoutPermissionInput = {
-  id?: string
+  id: string
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutUserPermissionsInput
@@ -574,7 +574,7 @@ export type DepartmentPermissionCreateWithoutPermissionInput = {
 }
 
 export type DepartmentPermissionUncheckedCreateWithoutPermissionInput = {
-  id?: string
+  id: string
   userId: string
   departmentId: string
   createdAt?: Date | string
@@ -608,7 +608,7 @@ export type DepartmentPermissionUpdateManyWithWhereWithoutPermissionInput = {
 }
 
 export type DepartmentPermissionCreateManyUserInput = {
-  id?: string
+  id: string
   permissionId: string
   departmentId: string
   createdAt?: Date | string
@@ -640,7 +640,7 @@ export type DepartmentPermissionUncheckedUpdateManyWithoutUserInput = {
 }
 
 export type DepartmentPermissionCreateManyDepartmentInput = {
-  id?: string
+  id: string
   permissionId: string
   userId: string
   createdAt?: Date | string
@@ -672,7 +672,7 @@ export type DepartmentPermissionUncheckedUpdateManyWithoutDepartmentInput = {
 }
 
 export type DepartmentPermissionCreateManyPermissionInput = {
-  id?: string
+  id: string
   userId: string
   departmentId: string
   createdAt?: Date | string

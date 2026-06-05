@@ -250,7 +250,7 @@ export type DepartmentScalarWhereWithAggregatesInput = {
 }
 
 export type DepartmentCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -261,7 +261,7 @@ export type DepartmentCreateInput = {
 }
 
 export type DepartmentUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   demoId: string
@@ -294,7 +294,7 @@ export type DepartmentUncheckedUpdateInput = {
 }
 
 export type DepartmentCreateManyInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   demoId: string
@@ -473,7 +473,7 @@ export type DepartmentUncheckedUpdateManyWithoutDemoNestedInput = {
 }
 
 export type DepartmentCreateWithoutManagerInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -483,7 +483,7 @@ export type DepartmentCreateWithoutManagerInput = {
 }
 
 export type DepartmentUncheckedCreateWithoutManagerInput = {
-  id?: string
+  id: string
   name: string
   demoId: string
   createdAt?: Date | string
@@ -531,7 +531,7 @@ export type DepartmentScalarWhereInput = {
 }
 
 export type DepartmentCreateWithoutCoursesInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -541,7 +541,7 @@ export type DepartmentCreateWithoutCoursesInput = {
 }
 
 export type DepartmentUncheckedCreateWithoutCoursesInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   demoId: string
@@ -587,7 +587,7 @@ export type DepartmentUncheckedUpdateWithoutCoursesInput = {
 }
 
 export type DepartmentCreateWithoutUserPermissionsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -597,7 +597,7 @@ export type DepartmentCreateWithoutUserPermissionsInput = {
 }
 
 export type DepartmentUncheckedCreateWithoutUserPermissionsInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   demoId: string
@@ -643,7 +643,7 @@ export type DepartmentUncheckedUpdateWithoutUserPermissionsInput = {
 }
 
 export type DepartmentCreateWithoutDemoInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -653,7 +653,7 @@ export type DepartmentCreateWithoutDemoInput = {
 }
 
 export type DepartmentUncheckedCreateWithoutDemoInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   createdAt?: Date | string
@@ -689,7 +689,7 @@ export type DepartmentUpdateManyWithWhereWithoutDemoInput = {
 }
 
 export type DepartmentCreateManyManagerInput = {
-  id?: string
+  id: string
   name: string
   demoId: string
   createdAt?: Date | string
@@ -725,7 +725,7 @@ export type DepartmentUncheckedUpdateManyWithoutManagerInput = {
 }
 
 export type DepartmentCreateManyDemoInput = {
-  id?: string
+  id: string
   name: string
   managerId: string
   createdAt?: Date | string

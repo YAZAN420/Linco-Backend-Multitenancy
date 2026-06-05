@@ -217,7 +217,7 @@ export type PermissionScalarWhereWithAggregatesInput = {
 }
 
 export type PermissionCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -225,7 +225,7 @@ export type PermissionCreateInput = {
 }
 
 export type PermissionUncheckedCreateInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -249,7 +249,7 @@ export type PermissionUncheckedUpdateInput = {
 }
 
 export type PermissionCreateManyInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -310,14 +310,14 @@ export type PermissionUpdateOneRequiredWithoutDepartmentPermissionsNestedInput =
 }
 
 export type PermissionCreateWithoutDepartmentPermissionsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PermissionUncheckedCreateWithoutDepartmentPermissionsInput = {
-  id?: string
+  id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string

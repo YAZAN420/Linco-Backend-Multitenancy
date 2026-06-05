@@ -385,7 +385,7 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -410,7 +410,7 @@ export type UserCreateInput = {
 }
 
 export type UserUncheckedCreateInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -485,7 +485,7 @@ export type UserUncheckedUpdateInput = {
 }
 
 export type UserCreateManyInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -704,7 +704,7 @@ export type UserUpdateOneRequiredWithoutOwnedDemoNestedInput = {
 }
 
 export type UserCreateWithoutMarksInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -728,7 +728,7 @@ export type UserCreateWithoutMarksInput = {
 }
 
 export type UserUncheckedCreateWithoutMarksInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -816,7 +816,7 @@ export type UserUncheckedUpdateWithoutMarksInput = {
 }
 
 export type UserCreateWithoutManagedDepartmentsInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -840,7 +840,7 @@ export type UserCreateWithoutManagedDepartmentsInput = {
 }
 
 export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -928,7 +928,7 @@ export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
 }
 
 export type UserCreateWithoutDepartmentPermissionsInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -952,7 +952,7 @@ export type UserCreateWithoutDepartmentPermissionsInput = {
 }
 
 export type UserUncheckedCreateWithoutDepartmentPermissionsInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -1040,7 +1040,7 @@ export type UserUncheckedUpdateWithoutDepartmentPermissionsInput = {
 }
 
 export type UserCreateWithoutMessagesInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -1064,7 +1064,7 @@ export type UserCreateWithoutMessagesInput = {
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -1152,7 +1152,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
 }
 
 export type UserCreateWithoutOwnedDemoInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -1176,7 +1176,7 @@ export type UserCreateWithoutOwnedDemoInput = {
 }
 
 export type UserUncheckedCreateWithoutOwnedDemoInput = {
-  id?: string
+  id: string
   firstName: string
   lastName: string
   email: string
