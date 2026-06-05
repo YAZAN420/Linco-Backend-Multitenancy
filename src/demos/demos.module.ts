@@ -6,6 +6,8 @@ import { DemosCommandService } from './application/demos-command.service';
 import { DemosQueryService } from './application/demos-query.service';
 import { DemoResponseMapper } from './presentation/http/mappers/demo-response.mapper';
 import { AdminDemosQueryController } from './presentation/http/admin-demo-query.controller';
+import { DepartmentFactory } from './domain/factories/department.factory';
+import { DepartmentResponseMapper } from './presentation/http/mappers/department-response.mapper';
 
 @Module({
   imports: [],
@@ -18,13 +20,17 @@ import { AdminDemosQueryController } from './presentation/http/admin-demo-query.
     DemosCommandService,
     DemosQueryService,
     DemoFactory,
+    DepartmentFactory,
     DemoResponseMapper,
+    DepartmentResponseMapper,
   ],
   exports: [
     DemosCommandService,
     DemosQueryService,
     DemoFactory,
+    DepartmentFactory,
     DemoResponseMapper,
+    DepartmentResponseMapper,
   ],
 })
 export class DemosModule {

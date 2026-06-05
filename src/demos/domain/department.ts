@@ -1,3 +1,4 @@
+import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { DepartmentProps } from './interfaces/department.props';
 
 export class Department {
@@ -24,5 +25,26 @@ export class Department {
 
   get managerId(): string {
     return this.props.managerId;
+  }
+
+  update(data: UpdateDepartmentInput): void {
+    let isModified = false;
+
+    if (data.name !== undefined && data.name !== this.props.name) {
+      this.props.name = data.name;
+      isModified = true;
+    }
+
+    if (
+      data.managerId !== undefined &&
+      data.managerId !== this.props.managerId
+    ) {
+      this.props.managerId = data.managerId;
+      isModified = true;
+    }
+
+    if (isModified) {
+      this.props.updatedAt = new Date();
+    }
   }
 }

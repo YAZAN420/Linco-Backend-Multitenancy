@@ -5,7 +5,7 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Demo } from 'src/generated/prisma/client';
+import { Prisma, Demo, Department } from 'src/generated/prisma/client';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -80,6 +80,23 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   async findById(id: string): Promise<Demo | null> {
     return this.prisma.demo.findFirst({
       where: { id },
+      include: {
+        departments: {
+          take: 15,
+        },
+      },
+    });
+  }
+
+  async findDepartmentById(
+    demoId: string,
+    deptId: string,
+  ): Promise<Department | null> {
+    return this.prisma.department.findFirst({
+      where: {
+        id: deptId,
+        demoId: demoId,
+      },
     });
   }
 }

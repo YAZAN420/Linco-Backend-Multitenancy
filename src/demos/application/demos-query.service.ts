@@ -7,7 +7,7 @@ import {
   FindDemosCursorQuery,
   FindDemosQuery,
 } from './interfaces/find-demos.query';
-import { Demo } from 'src/generated/prisma/client';
+import { Demo, Department } from 'src/generated/prisma/client';
 import { DemoQueryRepository } from './ports/demo-query.repository';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
@@ -30,5 +30,23 @@ export class DemosQueryService {
     const demo = await this.demoQueryRepository.findById(id);
     if (!demo) throw new NotFoundException('Demo not found');
     return demo;
+  }
+
+  async findDepartmentById(
+    demoId: string,
+    deptId: string,
+  ): Promise<Department> {
+    const department = await this.demoQueryRepository.findDepartmentById(
+      demoId,
+      deptId,
+    );
+
+    if (!department) {
+      throw new NotFoundException(
+        `Department with ID ${deptId} not found in this demo`,
+      );
+    }
+
+    return department;
   }
 }

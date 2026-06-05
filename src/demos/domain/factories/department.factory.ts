@@ -5,11 +5,11 @@ import { CreateDepartmentInput } from 'src/demos/application/interfaces/create-d
 
 @Injectable()
 export class DepartmentFactory {
-  createNew(input: CreateDepartmentInput): Department {
+  createNew(demoId: string, input: CreateDepartmentInput): Department {
     const now = new Date();
     return new Department(uuidv7(), {
       name: input.name,
-      demoId: input.demoId,
+      demoId: demoId,
       managerId: input.managerId,
       createdAt: now,
       updatedAt: now,

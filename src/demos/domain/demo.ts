@@ -1,6 +1,7 @@
+import { UpdateDemoInput } from '../application/interfaces/update-demo-input.interface';
+import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { Department } from './department';
 import { DemoProps } from './interfaces/demo.props';
-import { UpdateDemoPayload } from './interfaces/update-demo-payload.interface';
 
 export class Demo {
   constructor(
@@ -28,7 +29,7 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
-  update(data: UpdateDemoPayload) {
+  update(data: UpdateDemoInput) {
     let isModified = false;
 
     if (data.name !== undefined && data.name !== this.props.name) {
@@ -68,6 +69,38 @@ export class Demo {
     this.props.departments = this.departments.filter(
       (d) => d.id !== departmentId,
     );
+    this.props.updatedAt = new Date();
+  }
+
+  updateDepartment(departmentId: string, data: UpdateDepartmentInput): void {
+    const department = this.departments.find((d) => d.id === departmentId);
+    if (!department) {
+      throw new Error('Department not found in this demo');
+    }
+
+    if (data.name !== undefined) {
+      if (data.name.trim().length === 0) {
+        throw new Error('Department name cannot be empty');
+      }
+
+      const isNameChanged =
+        data.name.toLowerCase() !== department.name.toLowerCase();
+      if (isNameChanged) {
+        const nameExists = this.departments.some(
+          (d) =>
+            d.id !== departmentId &&
+            d.name.toLowerCase() === data.name.toLowerCase(),
+        );
+        if (nameExists) {
+          throw new Error(
+            `Department "${data.name}" already exists in this demo`,
+          );
+        }
+      }
+    }
+
+    department.update(data);
+
     this.props.updatedAt = new Date();
   }
 

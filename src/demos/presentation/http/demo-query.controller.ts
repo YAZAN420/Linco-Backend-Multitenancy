@@ -7,12 +7,14 @@ import { DemosQueryService } from 'src/demos/application/demos-query.service';
 import { DemoResponseMapper } from './mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { DepartmentResponseMapper } from './mappers/department-response.mapper';
 
 @Controller('demos')
 export class DemosQueryController {
   constructor(
     private readonly demoQueryService: DemosQueryService,
     private readonly demoResponseMapper: DemoResponseMapper,
+    private readonly departmentResponseMapper: DepartmentResponseMapper,
   ) {}
 
   @Get()
@@ -32,10 +34,26 @@ export class DemosQueryController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const demo = await this.demoQueryService.findById(id);
-
+    console.log(demo);
     return {
       message: 'Demo retrieved successfully',
       data: this.demoResponseMapper.toResponseFromPrisma(demo),
+    };
+  }
+
+  @Get(':id/departments/:deptId')
+  async findDepartment(
+    @Param('id') id: string,
+    @Param('deptId') deptId: string,
+  ) {
+    const department = await this.demoQueryService.findDepartmentById(
+      id,
+      deptId,
+    );
+
+    return {
+      message: 'Department retrieved successfully',
+      data: this.departmentResponseMapper.toResponseFromPrisma(department),
     };
   }
 }
