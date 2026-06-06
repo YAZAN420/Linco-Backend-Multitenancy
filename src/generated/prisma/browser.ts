@@ -23,90 +23,15 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model Question
+ * Model DemoMember
  * 
  */
-export type Question = Prisma.QuestionModel
-/**
- * Model Course
- * 
- */
-export type Course = Prisma.CourseModel
-/**
- * Model Tag
- * 
- */
-export type Tag = Prisma.TagModel
-/**
- * Model Section
- * 
- */
-export type Section = Prisma.SectionModel
-/**
- * Model Attachment
- * 
- */
-export type Attachment = Prisma.AttachmentModel
-/**
- * Model Lesson
- * 
- */
-export type Lesson = Prisma.LessonModel
-/**
- * Model FAQ
- * 
- */
-export type FAQ = Prisma.FAQModel
-/**
- * Model Marks
- * 
- */
-export type Marks = Prisma.MarksModel
-/**
- * Model Comment
- * 
- */
-export type Comment = Prisma.CommentModel
+export type DemoMember = Prisma.DemoMemberModel
 /**
  * Model Department
  * 
  */
 export type Department = Prisma.DepartmentModel
-/**
- * Model Permission
- * 
- */
-export type Permission = Prisma.PermissionModel
-/**
- * Model DepartmentPermission
- * 
- */
-export type DepartmentPermission = Prisma.DepartmentPermissionModel
-/**
- * Model Message
- * 
- */
-export type Message = Prisma.MessageModel
-/**
- * Model Group
- * 
- */
-export type Group = Prisma.GroupModel
-/**
- * Model Feature
- * 
- */
-export type Feature = Prisma.FeatureModel
-/**
- * Model Certification
- * 
- */
-export type Certification = Prisma.CertificationModel
-/**
- * Model Report
- * 
- */
-export type Report = Prisma.ReportModel
 /**
  * Model Demo
  * 

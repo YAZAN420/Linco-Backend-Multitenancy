@@ -12,274 +12,70 @@ enum Role {
   ADMIN
 }
 
-enum AttachmentType {
-  PDF
-}
-
-enum FeatureType {
-  FIGMA
+enum DemoRole {
+  TRAINEE
+  MANAGER
 }
 
 model User {
-  id String @id 
-  firstName String
-  lastName String
-  email String @unique
-  password String
-  birthDate DateTime 
-  imagePath String
-
-  refreshToken String?
-
-  role Role @default(USER)
-
-  twoFactorSecret String?
-  isTwoFactorEnabled Boolean @default(false)
-
-  isEmailVerified Boolean @default(false)
-
+  id                    String                 @id
+  firstName             String
+  lastName              String
+  email                 String                 @unique
+  password              String
+  birthDate             DateTime
+  imagePath             String
+  refreshToken          String?
+  role                  Role                   @default(USER)
+  twoFactorSecret       String?
+  isTwoFactorEnabled    Boolean                @default(false)
+  isEmailVerified       Boolean                @default(false)
   emailVerificationToken String?
-  passwordResetToken String?
-  passwordResetExpires DateTime?
+  passwordResetToken    String?
+  passwordResetExpires  DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  marks Marks[]
-  managedDepartments Department[]
-  messages Message[]
-  ownedDemo Demo[]
-  departmentPermissions DepartmentPermission[]
+  managedDepartments    Department[]
+  ownedDemos            Demo[]                 @relation("DemoOwner")
+  
+  demoMemberships       DemoMember[]
 }
 
-model Question{
-  id String @id 
-  question String
-  choice1 String
-  choice2 String
-  choice3 String
-  choice4 String
-  correctId Int
-  note String
-  sectionId String
-  mark Int
+model DemoMember {
+  id        String   @id 
+  userId    String
+  demoId    String
+  role      DemoRole   @default(TRAINEE)
+  joinedAt  DateTime @default(now())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
 
-  section Section @relation(fields: [sectionId], references: [id])
-  marks Marks[]
-}
-
-model Course {
-  id String @id 
-  name String
-  departmentId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  department Department @relation(fields: [departmentId], references: [id]) 
-  sections Section[]
-  faqs FAQ[]
-  tags Tag[]
-}
-
-model Tag{
-  id String @id 
-  name String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  courses Course[]
-}
-
-model Section{
-  id String @id 
-  name String
-  numOfQuestions Int
-  courseId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course Course @relation(fields: [courseId], references: [id])
-  lessons Lesson[]
-  questions Question[]
-}
-
-model Attachment {
-  id String @id 
-  type AttachmentType
-  path String
-  name String
-  lessonId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  lesson Lesson @relation(fields: [lessonId], references: [id])
-}
-
-model Lesson{
-  id String @id 
-  name String
-  time Int
-  videoPath String
-  subtitlePath String
-  index Int
-  sectionId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  comments Comment[]
-  section Section @relation(fields: [sectionId], references: [id])
-  attachments Attachment[]
-}
-
-model FAQ {
-  id String @id 
-  question String 
-  answer String
-  courseId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course Course @relation(fields: [courseId], references: [id])
-}
-
-model Marks {
-  id String @id 
-  userId String
-  questionId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id])
-  question Question @relation(fields: [questionId], references: [id])
-}
-
-model Comment{
-  id String @id 
-  userId String 
-  content String
-  parentId String?
-  lessonId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  lesson Lesson @relation(fields: [lessonId], references: [id])
-  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
-  replies   Comment[] @relation("CommentReplies")
+  @@unique([userId, demoId])
 }
 
 model Department {
-  id String @id 
-  name String
-  managerId String
-  demoId      String
+  id         String   @id
+  name       String
+  managerId  String
+  demoId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  courses Course[]
-  manager User @relation(fields: [managerId], references: [id])
-  demo    Demo     @relation(fields: [demoId], references: [id],onDelete: Cascade)
-  userPermissions DepartmentPermission[]
+  manager    User     @relation(fields: [managerId], references: [id])
+  demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
 }
 
-model Permission{
-  id String @id 
-  name String
+model Demo {
+  id           String       @id
+  name         String
+  ownerId      String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  departmentPermissions DepartmentPermission[]
-}
-
-model DepartmentPermission{
-  id String @id 
-  permissionId String
-  userId String
-  departmentId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  department Department @relation(fields: [departmentId], references: [id])
-  user User @relation(fields: [userId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
-}
-
-model Message{
-  id String @id 
-  senderId String
-  content String
-  groupId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  sender User @relation(fields: [senderId], references: [id])
-  group Group @relation(fields: [groupId], references: [id])
-}
-
-model Group{
-  id String @id 
-  name String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  messages Message[]
-}
-
-model Feature{
-  id String @id 
-  type FeatureType
-  demoId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  demo Demo @relation(fields: [demoId], references: [id])
-}
-
-model Certification{
-  id String @id 
-  name String
-  demoId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  demo Demo @relation(fields: [demoId], references: [id])
-}
-
-model Report{
-  id String @id 
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  // ------------- ناقص
-}
-
-model Demo{
-  id String @id 
-  name String
-  ownerId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  departments  Department[]
+  members      DemoMember[]
+  owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
   
-  departments    Department[]
-  features Feature[]
-  owner User @relation(fields: [ownerId], references: [id])
-  Certifications Certification[]
 }

@@ -183,9 +183,8 @@ export type DemoWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
-  features?: Prisma.FeatureListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  Certifications?: Prisma.CertificationListRelationFilter
+  members?: Prisma.DemoMemberListRelationFilter
 }
 
 export type DemoOrderByWithRelationInput = {
@@ -195,9 +194,8 @@ export type DemoOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
-  features?: Prisma.FeatureOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
-  Certifications?: Prisma.CertificationOrderByRelationAggregateInput
+  members?: Prisma.DemoMemberOrderByRelationAggregateInput
 }
 
 export type DemoWhereUniqueInput = Prisma.AtLeast<{
@@ -210,9 +208,8 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
-  features?: Prisma.FeatureListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  Certifications?: Prisma.CertificationListRelationFilter
+  members?: Prisma.DemoMemberListRelationFilter
 }, "id">
 
 export type DemoOrderByWithAggregationInput = {
@@ -243,9 +240,8 @@ export type DemoCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
-  Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
 }
 
 export type DemoUncheckedCreateInput = {
@@ -255,8 +251,7 @@ export type DemoUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
-  Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
 }
 
 export type DemoUpdateInput = {
@@ -265,9 +260,8 @@ export type DemoUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
-  Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoUncheckedUpdateInput = {
@@ -277,8 +271,7 @@ export type DemoUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
-  Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoCreateManyInput = {
@@ -385,6 +378,20 @@ export type DemoUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.DemoScalarWhereInput | Prisma.DemoScalarWhereInput[]
 }
 
+export type DemoCreateNestedOneWithoutMembersInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutMembersInput, Prisma.DemoUncheckedCreateWithoutMembersInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutMembersInput
+  connect?: Prisma.DemoWhereUniqueInput
+}
+
+export type DemoUpdateOneRequiredWithoutMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutMembersInput, Prisma.DemoUncheckedCreateWithoutMembersInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutMembersInput
+  upsert?: Prisma.DemoUpsertWithoutMembersInput
+  connect?: Prisma.DemoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutMembersInput, Prisma.DemoUpdateWithoutMembersInput>, Prisma.DemoUncheckedUpdateWithoutMembersInput>
+}
+
 export type DemoCreateNestedOneWithoutDepartmentsInput = {
   create?: Prisma.XOR<Prisma.DemoCreateWithoutDepartmentsInput, Prisma.DemoUncheckedCreateWithoutDepartmentsInput>
   connectOrCreate?: Prisma.DemoCreateOrConnectWithoutDepartmentsInput
@@ -399,42 +406,13 @@ export type DemoUpdateOneRequiredWithoutDepartmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutDepartmentsInput, Prisma.DemoUpdateWithoutDepartmentsInput>, Prisma.DemoUncheckedUpdateWithoutDepartmentsInput>
 }
 
-export type DemoCreateNestedOneWithoutFeaturesInput = {
-  create?: Prisma.XOR<Prisma.DemoCreateWithoutFeaturesInput, Prisma.DemoUncheckedCreateWithoutFeaturesInput>
-  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutFeaturesInput
-  connect?: Prisma.DemoWhereUniqueInput
-}
-
-export type DemoUpdateOneRequiredWithoutFeaturesNestedInput = {
-  create?: Prisma.XOR<Prisma.DemoCreateWithoutFeaturesInput, Prisma.DemoUncheckedCreateWithoutFeaturesInput>
-  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutFeaturesInput
-  upsert?: Prisma.DemoUpsertWithoutFeaturesInput
-  connect?: Prisma.DemoWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutFeaturesInput, Prisma.DemoUpdateWithoutFeaturesInput>, Prisma.DemoUncheckedUpdateWithoutFeaturesInput>
-}
-
-export type DemoCreateNestedOneWithoutCertificationsInput = {
-  create?: Prisma.XOR<Prisma.DemoCreateWithoutCertificationsInput, Prisma.DemoUncheckedCreateWithoutCertificationsInput>
-  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutCertificationsInput
-  connect?: Prisma.DemoWhereUniqueInput
-}
-
-export type DemoUpdateOneRequiredWithoutCertificationsNestedInput = {
-  create?: Prisma.XOR<Prisma.DemoCreateWithoutCertificationsInput, Prisma.DemoUncheckedCreateWithoutCertificationsInput>
-  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutCertificationsInput
-  upsert?: Prisma.DemoUpsertWithoutCertificationsInput
-  connect?: Prisma.DemoWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutCertificationsInput, Prisma.DemoUpdateWithoutCertificationsInput>, Prisma.DemoUncheckedUpdateWithoutCertificationsInput>
-}
-
 export type DemoCreateWithoutOwnerInput = {
   id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
-  Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
 }
 
 export type DemoUncheckedCreateWithoutOwnerInput = {
@@ -443,8 +421,7 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
-  Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
 }
 
 export type DemoCreateOrConnectWithoutOwnerInput = {
@@ -484,14 +461,65 @@ export type DemoScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
 }
 
+export type DemoCreateWithoutMembersInput = {
+  id: string
+  name: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+}
+
+export type DemoUncheckedCreateWithoutMembersInput = {
+  id: string
+  name: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
+}
+
+export type DemoCreateOrConnectWithoutMembersInput = {
+  where: Prisma.DemoWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoCreateWithoutMembersInput, Prisma.DemoUncheckedCreateWithoutMembersInput>
+}
+
+export type DemoUpsertWithoutMembersInput = {
+  update: Prisma.XOR<Prisma.DemoUpdateWithoutMembersInput, Prisma.DemoUncheckedUpdateWithoutMembersInput>
+  create: Prisma.XOR<Prisma.DemoCreateWithoutMembersInput, Prisma.DemoUncheckedCreateWithoutMembersInput>
+  where?: Prisma.DemoWhereInput
+}
+
+export type DemoUpdateToOneWithWhereWithoutMembersInput = {
+  where?: Prisma.DemoWhereInput
+  data: Prisma.XOR<Prisma.DemoUpdateWithoutMembersInput, Prisma.DemoUncheckedUpdateWithoutMembersInput>
+}
+
+export type DemoUpdateWithoutMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+}
+
+export type DemoUncheckedUpdateWithoutMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
+}
+
 export type DemoCreateWithoutDepartmentsInput = {
   id: string
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
-  Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
 }
 
 export type DemoUncheckedCreateWithoutDepartmentsInput = {
@@ -500,8 +528,7 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
-  Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
 }
 
 export type DemoCreateOrConnectWithoutDepartmentsInput = {
@@ -525,9 +552,8 @@ export type DemoUpdateWithoutDepartmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
-  Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoUncheckedUpdateWithoutDepartmentsInput = {
@@ -536,120 +562,7 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
-  Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
-}
-
-export type DemoCreateWithoutFeaturesInput = {
-  id: string
-  name: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
-  Certifications?: Prisma.CertificationCreateNestedManyWithoutDemoInput
-}
-
-export type DemoUncheckedCreateWithoutFeaturesInput = {
-  id: string
-  name: string
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
-  Certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutDemoInput
-}
-
-export type DemoCreateOrConnectWithoutFeaturesInput = {
-  where: Prisma.DemoWhereUniqueInput
-  create: Prisma.XOR<Prisma.DemoCreateWithoutFeaturesInput, Prisma.DemoUncheckedCreateWithoutFeaturesInput>
-}
-
-export type DemoUpsertWithoutFeaturesInput = {
-  update: Prisma.XOR<Prisma.DemoUpdateWithoutFeaturesInput, Prisma.DemoUncheckedUpdateWithoutFeaturesInput>
-  create: Prisma.XOR<Prisma.DemoCreateWithoutFeaturesInput, Prisma.DemoUncheckedCreateWithoutFeaturesInput>
-  where?: Prisma.DemoWhereInput
-}
-
-export type DemoUpdateToOneWithWhereWithoutFeaturesInput = {
-  where?: Prisma.DemoWhereInput
-  data: Prisma.XOR<Prisma.DemoUpdateWithoutFeaturesInput, Prisma.DemoUncheckedUpdateWithoutFeaturesInput>
-}
-
-export type DemoUpdateWithoutFeaturesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
-  Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
-}
-
-export type DemoUncheckedUpdateWithoutFeaturesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
-  Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
-}
-
-export type DemoCreateWithoutCertificationsInput = {
-  id: string
-  name: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureCreateNestedManyWithoutDemoInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemoInput
-}
-
-export type DemoUncheckedCreateWithoutCertificationsInput = {
-  id: string
-  name: string
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
-  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutDemoInput
-}
-
-export type DemoCreateOrConnectWithoutCertificationsInput = {
-  where: Prisma.DemoWhereUniqueInput
-  create: Prisma.XOR<Prisma.DemoCreateWithoutCertificationsInput, Prisma.DemoUncheckedCreateWithoutCertificationsInput>
-}
-
-export type DemoUpsertWithoutCertificationsInput = {
-  update: Prisma.XOR<Prisma.DemoUpdateWithoutCertificationsInput, Prisma.DemoUncheckedUpdateWithoutCertificationsInput>
-  create: Prisma.XOR<Prisma.DemoCreateWithoutCertificationsInput, Prisma.DemoUncheckedCreateWithoutCertificationsInput>
-  where?: Prisma.DemoWhereInput
-}
-
-export type DemoUpdateToOneWithWhereWithoutCertificationsInput = {
-  where?: Prisma.DemoWhereInput
-  data: Prisma.XOR<Prisma.DemoUpdateWithoutCertificationsInput, Prisma.DemoUncheckedUpdateWithoutCertificationsInput>
-}
-
-export type DemoUpdateWithoutCertificationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemoNestedInput
-}
-
-export type DemoUncheckedUpdateWithoutCertificationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoCreateManyOwnerInput = {
@@ -665,8 +578,7 @@ export type DemoUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUpdateManyWithoutDemoNestedInput
-  Certifications?: Prisma.CertificationUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoUncheckedUpdateWithoutOwnerInput = {
@@ -675,8 +587,7 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
-  features?: Prisma.FeatureUncheckedUpdateManyWithoutDemoNestedInput
-  Certifications?: Prisma.CertificationUncheckedUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoUncheckedUpdateManyWithoutOwnerInput = {
@@ -693,14 +604,12 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
 
 export type DemoCountOutputType = {
   departments: number
-  features: number
-  Certifications: number
+  members: number
 }
 
 export type DemoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | DemoCountOutputTypeCountDepartmentsArgs
-  features?: boolean | DemoCountOutputTypeCountFeaturesArgs
-  Certifications?: boolean | DemoCountOutputTypeCountCertificationsArgs
+  members?: boolean | DemoCountOutputTypeCountMembersArgs
 }
 
 /**
@@ -723,15 +632,8 @@ export type DemoCountOutputTypeCountDepartmentsArgs<ExtArgs extends runtime.Type
 /**
  * DemoCountOutputType without action
  */
-export type DemoCountOutputTypeCountFeaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FeatureWhereInput
-}
-
-/**
- * DemoCountOutputType without action
- */
-export type DemoCountOutputTypeCountCertificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CertificationWhereInput
+export type DemoCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DemoMemberWhereInput
 }
 
 
@@ -742,9 +644,8 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
-  features?: boolean | Prisma.Demo$featuresArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  Certifications?: boolean | Prisma.Demo$CertificationsArgs<ExtArgs>
+  members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demo"]>
 
@@ -777,9 +678,8 @@ export type DemoSelectScalar = {
 export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
-  features?: boolean | Prisma.Demo$featuresArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  Certifications?: boolean | Prisma.Demo$CertificationsArgs<ExtArgs>
+  members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DemoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -793,9 +693,8 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Demo"
   objects: {
     departments: Prisma.$DepartmentPayload<ExtArgs>[]
-    features: Prisma.$FeaturePayload<ExtArgs>[]
     owner: Prisma.$UserPayload<ExtArgs>
-    Certifications: Prisma.$CertificationPayload<ExtArgs>[]
+    members: Prisma.$DemoMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1198,9 +1097,8 @@ readonly fields: DemoFieldRefs;
 export interface Prisma__DemoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   departments<T extends Prisma.Demo$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  features<T extends Prisma.Demo$featuresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$featuresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Certifications<T extends Prisma.Demo$CertificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$CertificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  members<T extends Prisma.Demo$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1660,51 +1558,27 @@ export type Demo$departmentsArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Demo.features
+ * Demo.members
  */
-export type Demo$featuresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Demo$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Feature
+   * Select specific fields to fetch from the DemoMember
    */
-  select?: Prisma.FeatureSelect<ExtArgs> | null
+  select?: Prisma.DemoMemberSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Feature
+   * Omit specific fields from the DemoMember
    */
-  omit?: Prisma.FeatureOmit<ExtArgs> | null
+  omit?: Prisma.DemoMemberOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FeatureInclude<ExtArgs> | null
-  where?: Prisma.FeatureWhereInput
-  orderBy?: Prisma.FeatureOrderByWithRelationInput | Prisma.FeatureOrderByWithRelationInput[]
-  cursor?: Prisma.FeatureWhereUniqueInput
+  include?: Prisma.DemoMemberInclude<ExtArgs> | null
+  where?: Prisma.DemoMemberWhereInput
+  orderBy?: Prisma.DemoMemberOrderByWithRelationInput | Prisma.DemoMemberOrderByWithRelationInput[]
+  cursor?: Prisma.DemoMemberWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FeatureScalarFieldEnum | Prisma.FeatureScalarFieldEnum[]
-}
-
-/**
- * Demo.Certifications
- */
-export type Demo$CertificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Certification
-   */
-  select?: Prisma.CertificationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Certification
-   */
-  omit?: Prisma.CertificationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CertificationInclude<ExtArgs> | null
-  where?: Prisma.CertificationWhereInput
-  orderBy?: Prisma.CertificationOrderByWithRelationInput | Prisma.CertificationOrderByWithRelationInput[]
-  cursor?: Prisma.CertificationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CertificationScalarFieldEnum | Prisma.CertificationScalarFieldEnum[]
+  distinct?: Prisma.DemoMemberScalarFieldEnum | Prisma.DemoMemberScalarFieldEnum[]
 }
 
 /**

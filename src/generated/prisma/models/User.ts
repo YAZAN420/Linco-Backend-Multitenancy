@@ -278,11 +278,9 @@ export type UserWhereInput = {
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  marks?: Prisma.MarksListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
-  ownedDemo?: Prisma.DemoListRelationFilter
-  departmentPermissions?: Prisma.DepartmentPermissionListRelationFilter
+  ownedDemos?: Prisma.DemoListRelationFilter
+  demoMemberships?: Prisma.DemoMemberListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -303,11 +301,9 @@ export type UserOrderByWithRelationInput = {
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  marks?: Prisma.MarksOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
-  messages?: Prisma.MessageOrderByRelationAggregateInput
-  ownedDemo?: Prisma.DemoOrderByRelationAggregateInput
-  departmentPermissions?: Prisma.DepartmentPermissionOrderByRelationAggregateInput
+  ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
+  demoMemberships?: Prisma.DemoMemberOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -331,11 +327,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  marks?: Prisma.MarksListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
-  ownedDemo?: Prisma.DemoListRelationFilter
-  departmentPermissions?: Prisma.DepartmentPermissionListRelationFilter
+  ownedDemos?: Prisma.DemoListRelationFilter
+  demoMemberships?: Prisma.DemoMemberListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -402,11 +396,9 @@ export type UserCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -427,11 +419,9 @@ export type UserUncheckedCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -452,11 +442,9 @@ export type UserUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
+  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -477,11 +465,9 @@ export type UserUncheckedUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
+  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -633,18 +619,18 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type UserCreateNestedOneWithoutMarksInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMarksInput, Prisma.UserUncheckedCreateWithoutMarksInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMarksInput
+export type UserCreateNestedOneWithoutDemoMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDemoMembershipsInput, Prisma.UserUncheckedCreateWithoutDemoMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDemoMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutMarksNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMarksInput, Prisma.UserUncheckedCreateWithoutMarksInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMarksInput
-  upsert?: Prisma.UserUpsertWithoutMarksInput
+export type UserUpdateOneRequiredWithoutDemoMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDemoMembershipsInput, Prisma.UserUncheckedCreateWithoutDemoMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDemoMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutDemoMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMarksInput, Prisma.UserUpdateWithoutMarksInput>, Prisma.UserUncheckedUpdateWithoutMarksInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDemoMembershipsInput, Prisma.UserUpdateWithoutDemoMembershipsInput>, Prisma.UserUncheckedUpdateWithoutDemoMembershipsInput>
 }
 
 export type UserCreateNestedOneWithoutManagedDepartmentsInput = {
@@ -661,49 +647,21 @@ export type UserUpdateOneRequiredWithoutManagedDepartmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManagedDepartmentsInput, Prisma.UserUpdateWithoutManagedDepartmentsInput>, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
 }
 
-export type UserCreateNestedOneWithoutDepartmentPermissionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentPermissionsInput
+export type UserCreateNestedOneWithoutOwnedDemosInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemosInput, Prisma.UserUncheckedCreateWithoutOwnedDemosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDemosInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutDepartmentPermissionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentPermissionsInput
-  upsert?: Prisma.UserUpsertWithoutDepartmentPermissionsInput
+export type UserUpdateOneRequiredWithoutOwnedDemosNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemosInput, Prisma.UserUncheckedCreateWithoutOwnedDemosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDemosInput
+  upsert?: Prisma.UserUpsertWithoutOwnedDemosInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDepartmentPermissionsInput, Prisma.UserUpdateWithoutDepartmentPermissionsInput>, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDemosInput, Prisma.UserUpdateWithoutOwnedDemosInput>, Prisma.UserUncheckedUpdateWithoutOwnedDemosInput>
 }
 
-export type UserCreateNestedOneWithoutMessagesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
-  upsert?: Prisma.UserUpsertWithoutMessagesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
-}
-
-export type UserCreateNestedOneWithoutOwnedDemoInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemoInput, Prisma.UserUncheckedCreateWithoutOwnedDemoInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDemoInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutOwnedDemoNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemoInput, Prisma.UserUncheckedCreateWithoutOwnedDemoInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDemoInput
-  upsert?: Prisma.UserUpsertWithoutOwnedDemoInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDemoInput, Prisma.UserUpdateWithoutOwnedDemoInput>, Prisma.UserUncheckedUpdateWithoutOwnedDemoInput>
-}
-
-export type UserCreateWithoutMarksInput = {
+export type UserCreateWithoutDemoMembershipsInput = {
   id: string
   firstName: string
   lastName: string
@@ -722,12 +680,10 @@ export type UserCreateWithoutMarksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
 
-export type UserUncheckedCreateWithoutMarksInput = {
+export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   id: string
   firstName: string
   lastName: string
@@ -746,28 +702,26 @@ export type UserUncheckedCreateWithoutMarksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
 
-export type UserCreateOrConnectWithoutMarksInput = {
+export type UserCreateOrConnectWithoutDemoMembershipsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutMarksInput, Prisma.UserUncheckedCreateWithoutMarksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDemoMembershipsInput, Prisma.UserUncheckedCreateWithoutDemoMembershipsInput>
 }
 
-export type UserUpsertWithoutMarksInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutMarksInput, Prisma.UserUncheckedUpdateWithoutMarksInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutMarksInput, Prisma.UserUncheckedCreateWithoutMarksInput>
+export type UserUpsertWithoutDemoMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDemoMembershipsInput, Prisma.UserUncheckedUpdateWithoutDemoMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDemoMembershipsInput, Prisma.UserUncheckedCreateWithoutDemoMembershipsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutMarksInput = {
+export type UserUpdateToOneWithWhereWithoutDemoMembershipsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutMarksInput, Prisma.UserUncheckedUpdateWithoutMarksInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDemoMembershipsInput, Prisma.UserUncheckedUpdateWithoutDemoMembershipsInput>
 }
 
-export type UserUpdateWithoutMarksInput = {
+export type UserUpdateWithoutDemoMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -786,12 +740,10 @@ export type UserUpdateWithoutMarksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutMarksInput = {
+export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -810,9 +762,7 @@ export type UserUncheckedUpdateWithoutMarksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutManagedDepartmentsInput = {
@@ -833,10 +783,8 @@ export type UserCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -857,10 +805,8 @@ export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -897,10 +843,8 @@ export type UserUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
+  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -921,13 +865,11 @@ export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
+  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutDepartmentPermissionsInput = {
+export type UserCreateWithoutOwnedDemosInput = {
   id: string
   firstName: string
   lastName: string
@@ -945,13 +887,11 @@ export type UserCreateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutDepartmentPermissionsInput = {
+export type UserUncheckedCreateWithoutOwnedDemosInput = {
   id: string
   firstName: string
   lastName: string
@@ -969,29 +909,27 @@ export type UserUncheckedCreateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
+  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutDepartmentPermissionsInput = {
+export type UserCreateOrConnectWithoutOwnedDemosInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemosInput, Prisma.UserUncheckedCreateWithoutOwnedDemosInput>
 }
 
-export type UserUpsertWithoutDepartmentPermissionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedCreateWithoutDepartmentPermissionsInput>
+export type UserUpsertWithoutOwnedDemosInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDemosInput, Prisma.UserUncheckedUpdateWithoutOwnedDemosInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemosInput, Prisma.UserUncheckedCreateWithoutOwnedDemosInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutDepartmentPermissionsInput = {
+export type UserUpdateToOneWithWhereWithoutOwnedDemosInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentPermissionsInput, Prisma.UserUncheckedUpdateWithoutDepartmentPermissionsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDemosInput, Prisma.UserUncheckedUpdateWithoutOwnedDemosInput>
 }
 
-export type UserUpdateWithoutDepartmentPermissionsInput = {
+export type UserUpdateWithoutOwnedDemosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1009,13 +947,11 @@ export type UserUpdateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
+  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutDepartmentPermissionsInput = {
+export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1033,234 +969,8 @@ export type UserUncheckedUpdateWithoutDepartmentPermissionsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-}
-
-export type UserCreateWithoutMessagesInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  ownedDemo?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutMessagesInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  ownedDemo?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutMessagesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
-}
-
-export type UserUpsertWithoutMessagesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutMessagesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
-}
-
-export type UserUpdateWithoutMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  ownedDemo?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutMessagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  ownedDemo?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutOwnedDemoInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  marks?: Prisma.MarksCreateNestedManyWithoutUserInput
-  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  departmentPermissions?: Prisma.DepartmentPermissionCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutOwnedDemoInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  marks?: Prisma.MarksUncheckedCreateNestedManyWithoutUserInput
-  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutOwnedDemoInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemoInput, Prisma.UserUncheckedCreateWithoutOwnedDemoInput>
-}
-
-export type UserUpsertWithoutOwnedDemoInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDemoInput, Prisma.UserUncheckedUpdateWithoutOwnedDemoInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDemoInput, Prisma.UserUncheckedCreateWithoutOwnedDemoInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutOwnedDemoInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDemoInput, Prisma.UserUncheckedUpdateWithoutOwnedDemoInput>
-}
-
-export type UserUpdateWithoutOwnedDemoInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUpdateManyWithoutUserNestedInput
-  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutOwnedDemoInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  marks?: Prisma.MarksUncheckedUpdateManyWithoutUserNestedInput
-  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  departmentPermissions?: Prisma.DepartmentPermissionUncheckedUpdateManyWithoutUserNestedInput
+  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1269,19 +979,15 @@ export type UserUncheckedUpdateWithoutOwnedDemoInput = {
  */
 
 export type UserCountOutputType = {
-  marks: number
   managedDepartments: number
-  messages: number
-  ownedDemo: number
-  departmentPermissions: number
+  ownedDemos: number
+  demoMemberships: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  marks?: boolean | UserCountOutputTypeCountMarksArgs
   managedDepartments?: boolean | UserCountOutputTypeCountManagedDepartmentsArgs
-  messages?: boolean | UserCountOutputTypeCountMessagesArgs
-  ownedDemo?: boolean | UserCountOutputTypeCountOwnedDemoArgs
-  departmentPermissions?: boolean | UserCountOutputTypeCountDepartmentPermissionsArgs
+  ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
+  demoMemberships?: boolean | UserCountOutputTypeCountDemoMembershipsArgs
 }
 
 /**
@@ -1297,13 +1003,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountMarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MarksWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DepartmentWhereInput
 }
@@ -1311,22 +1010,15 @@ export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MessageWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountOwnedDemoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountOwnedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DemoWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountDepartmentPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DepartmentPermissionWhereInput
+export type UserCountOutputTypeCountDemoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DemoMemberWhereInput
 }
 
 
@@ -1348,11 +1040,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  marks?: boolean | Prisma.User$marksArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
-  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
-  ownedDemo?: boolean | Prisma.User$ownedDemoArgs<ExtArgs>
-  departmentPermissions?: boolean | Prisma.User$departmentPermissionsArgs<ExtArgs>
+  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
+  demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1418,11 +1108,9 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  marks?: boolean | Prisma.User$marksArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
-  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
-  ownedDemo?: boolean | Prisma.User$ownedDemoArgs<ExtArgs>
-  departmentPermissions?: boolean | Prisma.User$departmentPermissionsArgs<ExtArgs>
+  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
+  demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1431,11 +1119,9 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    marks: Prisma.$MarksPayload<ExtArgs>[]
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
-    messages: Prisma.$MessagePayload<ExtArgs>[]
-    ownedDemo: Prisma.$DemoPayload<ExtArgs>[]
-    departmentPermissions: Prisma.$DepartmentPermissionPayload<ExtArgs>[]
+    ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
+    demoMemberships: Prisma.$DemoMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1849,11 +1535,9 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  marks<T extends Prisma.User$marksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$marksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managedDepartments<T extends Prisma.User$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ownedDemo<T extends Prisma.User$ownedDemoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  departmentPermissions<T extends Prisma.User$departmentPermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$departmentPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  demoMemberships<T extends Prisma.User$demoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2293,30 +1977,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.marks
- */
-export type User$marksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Marks
-   */
-  select?: Prisma.MarksSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Marks
-   */
-  omit?: Prisma.MarksOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MarksInclude<ExtArgs> | null
-  where?: Prisma.MarksWhereInput
-  orderBy?: Prisma.MarksOrderByWithRelationInput | Prisma.MarksOrderByWithRelationInput[]
-  cursor?: Prisma.MarksWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MarksScalarFieldEnum | Prisma.MarksScalarFieldEnum[]
-}
-
-/**
  * User.managedDepartments
  */
 export type User$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2341,33 +2001,9 @@ export type User$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.messages
+ * User.ownedDemos
  */
-export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Message
-   */
-  select?: Prisma.MessageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Message
-   */
-  omit?: Prisma.MessageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MessageInclude<ExtArgs> | null
-  where?: Prisma.MessageWhereInput
-  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
-  cursor?: Prisma.MessageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
-}
-
-/**
- * User.ownedDemo
- */
-export type User$ownedDemoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$ownedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Demo
    */
@@ -2389,27 +2025,27 @@ export type User$ownedDemoArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.departmentPermissions
+ * User.demoMemberships
  */
-export type User$departmentPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$demoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the DepartmentPermission
+   * Select specific fields to fetch from the DemoMember
    */
-  select?: Prisma.DepartmentPermissionSelect<ExtArgs> | null
+  select?: Prisma.DemoMemberSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the DepartmentPermission
+   * Omit specific fields from the DemoMember
    */
-  omit?: Prisma.DepartmentPermissionOmit<ExtArgs> | null
+  omit?: Prisma.DemoMemberOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.DepartmentPermissionInclude<ExtArgs> | null
-  where?: Prisma.DepartmentPermissionWhereInput
-  orderBy?: Prisma.DepartmentPermissionOrderByWithRelationInput | Prisma.DepartmentPermissionOrderByWithRelationInput[]
-  cursor?: Prisma.DepartmentPermissionWhereUniqueInput
+  include?: Prisma.DemoMemberInclude<ExtArgs> | null
+  where?: Prisma.DemoMemberWhereInput
+  orderBy?: Prisma.DemoMemberOrderByWithRelationInput | Prisma.DemoMemberOrderByWithRelationInput[]
+  cursor?: Prisma.DemoMemberWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.DepartmentPermissionScalarFieldEnum | Prisma.DepartmentPermissionScalarFieldEnum[]
+  distinct?: Prisma.DemoMemberScalarFieldEnum | Prisma.DemoMemberScalarFieldEnum[]
 }
 
 /**
