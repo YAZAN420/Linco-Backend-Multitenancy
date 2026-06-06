@@ -879,20 +879,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'DemoRole'
- */
-export type EnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole'>
-    
-
-
-/**
- * Reference to a field of type 'DemoRole[]'
- */
-export type ListEnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole[]'>
-    
-
-
-/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>

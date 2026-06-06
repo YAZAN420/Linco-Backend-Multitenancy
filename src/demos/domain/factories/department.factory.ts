@@ -15,17 +15,4 @@ export class DepartmentFactory {
       updatedAt: now,
     });
   }
-
-  reconstitute(
-    id: string,
-    props: {
-      name: string;
-      demoId: string;
-      managerId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    },
-  ): Department {
-    return new Department(id, props);
-  }
 }

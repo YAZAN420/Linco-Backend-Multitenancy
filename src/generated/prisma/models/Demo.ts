@@ -183,8 +183,8 @@ export type DemoWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.DemoMemberListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type DemoOrderByWithRelationInput = {
@@ -194,8 +194,8 @@ export type DemoOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
-  owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.DemoMemberOrderByRelationAggregateInput
+  owner?: Prisma.UserOrderByWithRelationInput
 }
 
 export type DemoWhereUniqueInput = Prisma.AtLeast<{
@@ -208,8 +208,8 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.DemoMemberListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type DemoOrderByWithAggregationInput = {
@@ -240,8 +240,8 @@ export type DemoCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
 }
 
 export type DemoUncheckedCreateInput = {
@@ -260,8 +260,8 @@ export type DemoUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
 }
 
 export type DemoUncheckedUpdateInput = {
@@ -518,8 +518,8 @@ export type DemoCreateWithoutDepartmentsInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
 }
 
 export type DemoUncheckedCreateWithoutDepartmentsInput = {
@@ -552,8 +552,8 @@ export type DemoUpdateWithoutDepartmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
 }
 
 export type DemoUncheckedUpdateWithoutDepartmentsInput = {
@@ -644,8 +644,8 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demo"]>
 
@@ -678,8 +678,8 @@ export type DemoSelectScalar = {
 export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DemoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -693,8 +693,8 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Demo"
   objects: {
     departments: Prisma.$DepartmentPayload<ExtArgs>[]
-    owner: Prisma.$UserPayload<ExtArgs>
     members: Prisma.$DemoMemberPayload<ExtArgs>[]
+    owner: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1097,8 +1097,8 @@ readonly fields: DemoFieldRefs;
 export interface Prisma__DemoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   departments<T extends Prisma.Demo$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Demo$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

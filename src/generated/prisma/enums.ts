@@ -15,11 +15,3 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const DemoRole = {
-  TRAINEE: 'TRAINEE',
-  MANAGER: 'MANAGER'
-} as const
-
-export type DemoRole = (typeof DemoRole)[keyof typeof DemoRole]

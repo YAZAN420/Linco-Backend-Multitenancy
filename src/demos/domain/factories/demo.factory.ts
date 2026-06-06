@@ -15,16 +15,4 @@ export class DemoFactory {
       updatedAt: now,
     });
   }
-
-  reconstitute(
-    id: string,
-    props: {
-      name: string;
-      ownerId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    },
-  ): Demo {
-    return new Demo(id, { ...props, departments: [] });
-  }
 }

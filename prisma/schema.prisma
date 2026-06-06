@@ -13,7 +13,7 @@ enum Role {
 }
 
 enum DemoRole {
-  TRAINEE
+  TRAINER
   MANAGER
 }
 
@@ -37,16 +37,15 @@ model User {
   updatedAt             DateTime               @updatedAt
 
   managedDepartments    Department[]
-  ownedDemos            Demo[]                 @relation("DemoOwner")
-  
   demoMemberships       DemoMember[]
+  ownedDemos            Demo[]                 @relation("DemoOwner")
 }
 
 model DemoMember {
   id        String   @id 
   userId    String
   demoId    String
-  role      DemoRole   @default(TRAINEE)
+  role      DemoRole   @default(TRAINER) 
   joinedAt  DateTime @default(now())
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -76,6 +75,6 @@ model Demo {
 
   departments  Department[]
   members      DemoMember[]
+
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
-  
 }
