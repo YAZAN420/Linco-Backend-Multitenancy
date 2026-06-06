@@ -51,7 +51,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
   async findAllForMe(
     options: FindDemosCursorQuery,
-    ownerId: string,
+    userId: string,
   ): Promise<CursorPageDto<Demo>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
@@ -62,7 +62,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       cursor: cursor ? { id: cursor } : undefined,
       where: {
         ...where,
-        ownerId,
+        ownerId: userId,
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });

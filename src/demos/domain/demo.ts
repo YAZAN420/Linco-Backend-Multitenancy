@@ -7,6 +7,7 @@ import { DomainValidationException } from './exceptions/validation.exception';
 import { DemoProps } from './interfaces/demo.props';
 
 export class Demo {
+  private static readonly MAX_MEMBERS = 50;
   constructor(
     public readonly id: string,
     private readonly props: DemoProps,
@@ -116,5 +117,13 @@ export class Demo {
 
   setDepartments(departments: Department[]): void {
     this.props.departments = departments;
+  }
+
+  verifyCanAddMember(currentCount: number): void {
+    if (currentCount >= Demo.MAX_MEMBERS) {
+      throw new DomainValidationException(
+        `Demo cannot exceed ${Demo.MAX_MEMBERS} members`,
+      );
+    }
   }
 }

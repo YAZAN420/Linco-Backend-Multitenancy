@@ -12,6 +12,12 @@ import { DepartmentsCommandController } from './presentation/http/departments-co
 import { DepartmentsCommandService } from './application/departments-command.service';
 import { DepartmentsQueryController } from './presentation/http/departments-query.controller';
 import { DepartmentsQueryService } from './application/departments-query.service';
+import { DemoMembersQueryService } from './application/demo-members-query.service';
+import { DemoMembersCommandService } from './application/demo-members-command.service';
+import { DemoMembersCommandController } from './presentation/http/demo-members-command.controller';
+import { DemoMembersQueryController } from './presentation/http/demo-members-query.controller';
+import { DemoMemberFactory } from './domain/factories/demo-member.factory';
+import { DemoMemberResponseMapper } from './presentation/http/mappers/demo-member-response.mapper';
 
 @Module({
   imports: [],
@@ -21,16 +27,22 @@ import { DepartmentsQueryService } from './application/departments-query.service
     AdminDemosQueryController,
     DepartmentsCommandController,
     DepartmentsQueryController,
+    DemoMembersCommandController,
+    DemoMembersQueryController,
   ],
   providers: [
     DemosCommandService,
     DemosQueryService,
     DepartmentsCommandService,
     DepartmentsQueryService,
+    DemoMembersCommandService,
+    DemoMembersQueryService,
     DemoFactory,
     DepartmentFactory,
+    DemoMemberFactory,
     DemoResponseMapper,
     DepartmentResponseMapper,
+    DemoMemberResponseMapper,
   ],
   exports: [
     DemosCommandService,
@@ -39,8 +51,10 @@ import { DepartmentsQueryService } from './application/departments-query.service
     DepartmentsQueryService,
     DemoFactory,
     DepartmentFactory,
+    DemoMemberFactory,
     DemoResponseMapper,
     DepartmentResponseMapper,
+    DemoMemberResponseMapper,
   ],
 })
 export class DemosModule {

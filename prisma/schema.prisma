@@ -7,12 +7,12 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
+enum UserRole {
   USER
   ADMIN
 }
 
-enum DemoRole {
+enum DemoMemberRole {
   TRAINER
   MANAGER
 }
@@ -26,7 +26,7 @@ model User {
   birthDate             DateTime
   imagePath             String
   refreshToken          String?
-  role                  Role                   @default(USER)
+  role                  UserRole                   @default(USER)
   twoFactorSecret       String?
   isTwoFactorEnabled    Boolean                @default(false)
   isEmailVerified       Boolean                @default(false)
@@ -45,8 +45,9 @@ model DemoMember {
   id        String   @id 
   userId    String
   demoId    String
-  role      DemoRole   @default(TRAINER) 
+  role      DemoMemberRole   @default(TRAINER) 
   joinedAt  DateTime @default(now())
+  updatedAt             DateTime               @updatedAt
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)

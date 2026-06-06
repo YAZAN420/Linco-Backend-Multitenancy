@@ -1,3 +1,4 @@
+import { DemoMemberRole } from './enums/demo-member-role.enum';
 import { DemoMemberProps } from './interfaces/demo-member.props';
 
 export class DemoMember {
@@ -12,13 +13,20 @@ export class DemoMember {
   get demoId(): string {
     return this.props.demoId;
   }
-  get role(): string {
+  get role(): DemoMemberRole {
     return this.props.role;
   }
-  get createdAt(): Date {
-    return this.props.createdAt;
+
+  get joinedAt(): Date {
+    return this.props.joinedAt;
   }
+
   get updatedAt(): Date {
     return this.props.updatedAt;
+  }
+
+  changeRole(newRole: DemoMemberRole): void {
+    this.props.role = newRole;
+    this.props.updatedAt = new Date();
   }
 }

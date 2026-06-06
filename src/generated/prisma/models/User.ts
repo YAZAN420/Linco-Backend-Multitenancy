@@ -279,8 +279,8 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   managedDepartments?: Prisma.DepartmentListRelationFilter
-  ownedDemos?: Prisma.DemoListRelationFilter
   demoMemberships?: Prisma.DemoMemberListRelationFilter
+  ownedDemos?: Prisma.DemoListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -302,8 +302,8 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
-  ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
   demoMemberships?: Prisma.DemoMemberOrderByRelationAggregateInput
+  ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -328,8 +328,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   managedDepartments?: Prisma.DepartmentListRelationFilter
-  ownedDemos?: Prisma.DemoListRelationFilter
   demoMemberships?: Prisma.DemoMemberListRelationFilter
+  ownedDemos?: Prisma.DemoListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -397,8 +397,8 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
-  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -420,8 +420,8 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
-  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
@@ -443,8 +443,8 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
-  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -466,8 +466,8 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -783,8 +783,8 @@ export type UserCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -805,8 +805,8 @@ export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -843,8 +843,8 @@ export type UserUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -865,8 +865,8 @@ export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutOwnedDemosInput = {
@@ -980,14 +980,14 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
 
 export type UserCountOutputType = {
   managedDepartments: number
-  ownedDemos: number
   demoMemberships: number
+  ownedDemos: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   managedDepartments?: boolean | UserCountOutputTypeCountManagedDepartmentsArgs
-  ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
   demoMemberships?: boolean | UserCountOutputTypeCountDemoMembershipsArgs
+  ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
 }
 
 /**
@@ -1010,15 +1010,15 @@ export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountOwnedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DemoWhereInput
+export type UserCountOutputTypeCountDemoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DemoMemberWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountDemoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DemoMemberWhereInput
+export type UserCountOutputTypeCountOwnedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DemoWhereInput
 }
 
 
@@ -1041,8 +1041,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
-  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
+  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1109,8 +1109,8 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
-  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
+  ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1120,8 +1120,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
-    ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
     demoMemberships: Prisma.$DemoMemberPayload<ExtArgs>[]
+    ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1536,8 +1536,8 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   managedDepartments<T extends Prisma.User$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   demoMemberships<T extends Prisma.User$demoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2001,30 +2001,6 @@ export type User$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.ownedDemos
- */
-export type User$ownedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Demo
-   */
-  select?: Prisma.DemoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Demo
-   */
-  omit?: Prisma.DemoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DemoInclude<ExtArgs> | null
-  where?: Prisma.DemoWhereInput
-  orderBy?: Prisma.DemoOrderByWithRelationInput | Prisma.DemoOrderByWithRelationInput[]
-  cursor?: Prisma.DemoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DemoScalarFieldEnum | Prisma.DemoScalarFieldEnum[]
-}
-
-/**
  * User.demoMemberships
  */
 export type User$demoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2046,6 +2022,30 @@ export type User$demoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.DemoMemberScalarFieldEnum | Prisma.DemoMemberScalarFieldEnum[]
+}
+
+/**
+ * User.ownedDemos
+ */
+export type User$ownedDemosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Demo
+   */
+  select?: Prisma.DemoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Demo
+   */
+  omit?: Prisma.DemoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DemoInclude<ExtArgs> | null
+  where?: Prisma.DemoWhereInput
+  orderBy?: Prisma.DemoOrderByWithRelationInput | Prisma.DemoOrderByWithRelationInput[]
+  cursor?: Prisma.DemoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DemoScalarFieldEnum | Prisma.DemoScalarFieldEnum[]
 }
 
 /**

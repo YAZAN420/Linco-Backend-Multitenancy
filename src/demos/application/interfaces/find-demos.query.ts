@@ -17,3 +17,8 @@ export interface FindDepartmentCursorQuery {
   cursor?: string;
   take: number;
 }
+
+export interface FindDemoMembersCursorQuery {
+  cursor?: string;
+  take: number;
+}

@@ -1,7 +1,9 @@
+import { DemoMemberRole } from '../enums/demo-member-role.enum';
+
 export interface DemoMemberProps {
   userId: string;
   demoId: string;
-  role: string;
-  createdAt: Date;
+  role: DemoMemberRole;
+  joinedAt: Date;
   updatedAt: Date;
 }

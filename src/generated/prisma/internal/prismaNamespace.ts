@@ -770,7 +770,8 @@ export const DemoMemberScalarFieldEnum = {
   userId: 'userId',
   demoId: 'demoId',
   role: 'role',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DemoMemberScalarFieldEnum = (typeof DemoMemberScalarFieldEnum)[keyof typeof DemoMemberScalarFieldEnum]
@@ -875,6 +876,20 @@ export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'DemoRole'
+ */
+export type EnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole'>
+    
+
+
+/**
+ * Reference to a field of type 'DemoRole[]'
+ */
+export type ListEnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole[]'>
     
 
 

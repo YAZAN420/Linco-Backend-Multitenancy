@@ -28,16 +28,18 @@ export type DemoMemberMinAggregateOutputType = {
   id: string | null
   userId: string | null
   demoId: string | null
-  role: string | null
+  role: $Enums.DemoRole | null
   joinedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DemoMemberMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   demoId: string | null
-  role: string | null
+  role: $Enums.DemoRole | null
   joinedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DemoMemberCountAggregateOutputType = {
@@ -46,6 +48,7 @@ export type DemoMemberCountAggregateOutputType = {
   demoId: number
   role: number
   joinedAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +59,7 @@ export type DemoMemberMinAggregateInputType = {
   demoId?: true
   role?: true
   joinedAt?: true
+  updatedAt?: true
 }
 
 export type DemoMemberMaxAggregateInputType = {
@@ -64,6 +68,7 @@ export type DemoMemberMaxAggregateInputType = {
   demoId?: true
   role?: true
   joinedAt?: true
+  updatedAt?: true
 }
 
 export type DemoMemberCountAggregateInputType = {
@@ -72,6 +77,7 @@ export type DemoMemberCountAggregateInputType = {
   demoId?: true
   role?: true
   joinedAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -151,8 +157,9 @@ export type DemoMemberGroupByOutputType = {
   id: string
   userId: string
   demoId: string
-  role: string
+  role: $Enums.DemoRole
   joinedAt: Date
+  updatedAt: Date
   _count: DemoMemberCountAggregateOutputType | null
   _min: DemoMemberMinAggregateOutputType | null
   _max: DemoMemberMaxAggregateOutputType | null
@@ -180,8 +187,9 @@ export type DemoMemberWhereInput = {
   id?: Prisma.StringFilter<"DemoMember"> | string
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.StringFilter<"DemoMember"> | string
+  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }
@@ -192,6 +200,7 @@ export type DemoMemberOrderByWithRelationInput = {
   demoId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   demo?: Prisma.DemoOrderByWithRelationInput
 }
@@ -204,8 +213,9 @@ export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DemoMemberWhereInput | Prisma.DemoMemberWhereInput[]
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.StringFilter<"DemoMember"> | string
+  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }, "id" | "userId_demoId">
@@ -216,6 +226,7 @@ export type DemoMemberOrderByWithAggregationInput = {
   demoId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.DemoMemberCountOrderByAggregateInput
   _max?: Prisma.DemoMemberMaxOrderByAggregateInput
   _min?: Prisma.DemoMemberMinOrderByAggregateInput
@@ -228,14 +239,16 @@ export type DemoMemberScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
   userId?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
   demoId?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
-  role?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
+  role?: Prisma.EnumDemoRoleWithAggregatesFilter<"DemoMember"> | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"DemoMember"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DemoMember"> | Date | string
 }
 
 export type DemoMemberCreateInput = {
   id: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
 }
@@ -244,14 +257,16 @@ export type DemoMemberUncheckedCreateInput = {
   id: string
   userId: string
   demoId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
 }
@@ -260,30 +275,34 @@ export type DemoMemberUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberCreateManyInput = {
   id: string
   userId: string
   demoId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberListRelationFilter = {
@@ -307,6 +326,7 @@ export type DemoMemberCountOrderByAggregateInput = {
   demoId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DemoMemberMaxOrderByAggregateInput = {
@@ -315,6 +335,7 @@ export type DemoMemberMaxOrderByAggregateInput = {
   demoId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DemoMemberMinOrderByAggregateInput = {
@@ -323,6 +344,7 @@ export type DemoMemberMinOrderByAggregateInput = {
   demoId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DemoMemberCreateNestedManyWithoutUserInput = {
@@ -365,6 +387,10 @@ export type DemoMemberUncheckedUpdateManyWithoutUserNestedInput = {
   update?: Prisma.DemoMemberUpdateWithWhereUniqueWithoutUserInput | Prisma.DemoMemberUpdateWithWhereUniqueWithoutUserInput[]
   updateMany?: Prisma.DemoMemberUpdateManyWithWhereWithoutUserInput | Prisma.DemoMemberUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.DemoMemberScalarWhereInput | Prisma.DemoMemberScalarWhereInput[]
+}
+
+export type EnumDemoRoleFieldUpdateOperationsInput = {
+  set?: $Enums.DemoRole
 }
 
 export type DemoMemberCreateNestedManyWithoutDemoInput = {
@@ -411,16 +437,18 @@ export type DemoMemberUncheckedUpdateManyWithoutDemoNestedInput = {
 
 export type DemoMemberCreateWithoutUserInput = {
   id: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
 }
 
 export type DemoMemberUncheckedCreateWithoutUserInput = {
   id: string
   demoId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberCreateOrConnectWithoutUserInput = {
@@ -456,22 +484,25 @@ export type DemoMemberScalarWhereInput = {
   id?: Prisma.StringFilter<"DemoMember"> | string
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.StringFilter<"DemoMember"> | string
+  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
 }
 
 export type DemoMemberCreateWithoutDemoInput = {
   id: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDemoInput = {
   id: string
   userId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberCreateOrConnectWithoutDemoInput = {
@@ -503,57 +534,65 @@ export type DemoMemberUpdateManyWithWhereWithoutDemoInput = {
 export type DemoMemberCreateManyUserInput = {
   id: string
   demoId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberCreateManyDemoInput = {
   id: string
   userId: string
-  role?: string
+  role?: $Enums.DemoRole
   joinedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -564,6 +603,7 @@ export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   demoId?: boolean
   role?: boolean
   joinedAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
@@ -574,6 +614,7 @@ export type DemoMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   demoId?: boolean
   role?: boolean
   joinedAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
@@ -584,6 +625,7 @@ export type DemoMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   demoId?: boolean
   role?: boolean
   joinedAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
@@ -594,9 +636,10 @@ export type DemoMemberSelectScalar = {
   demoId?: boolean
   role?: boolean
   joinedAt?: boolean
+  updatedAt?: boolean
 }
 
-export type DemoMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "demoId" | "role" | "joinedAt", ExtArgs["result"]["demoMember"]>
+export type DemoMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "demoId" | "role" | "joinedAt" | "updatedAt", ExtArgs["result"]["demoMember"]>
 export type DemoMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
@@ -620,8 +663,9 @@ export type $DemoMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     userId: string
     demoId: string
-    role: string
+    role: $Enums.DemoRole
     joinedAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["demoMember"]>
   composites: {}
 }
@@ -1050,8 +1094,9 @@ export interface DemoMemberFieldRefs {
   readonly id: Prisma.FieldRef<"DemoMember", 'String'>
   readonly userId: Prisma.FieldRef<"DemoMember", 'String'>
   readonly demoId: Prisma.FieldRef<"DemoMember", 'String'>
-  readonly role: Prisma.FieldRef<"DemoMember", 'String'>
+  readonly role: Prisma.FieldRef<"DemoMember", 'DemoRole'>
   readonly joinedAt: Prisma.FieldRef<"DemoMember", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"DemoMember", 'DateTime'>
 }
     
 
