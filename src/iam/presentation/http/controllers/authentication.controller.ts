@@ -53,6 +53,7 @@ export class AuthenticationController {
     return {
       message:
         'Registration successful. Please check your email to verify your account.',
+      data: null,
     };
   }
 
@@ -139,7 +140,7 @@ export class AuthenticationController {
   ) {
     this.cookieService.clearAuthCookies(response);
     await this.authService.signOut(user.id);
-    return { message: 'User signed out successfully' };
+    return { message: 'User signed out successfully', data: null };
   }
 
   @Public()
