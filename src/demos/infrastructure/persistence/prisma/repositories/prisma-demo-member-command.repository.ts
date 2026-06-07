@@ -15,16 +15,23 @@ export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepos
     const data = this.mapper.toPersistence(member);
     await this.prisma.demoMember.upsert({
       where: {
-        userId_demoId: { demoId: data.demoId, userId: data.userId },
+        id: member.id,
       },
       update: { role: data.role },
       create: data,
     });
   }
 
-  async delete(demoId: string, userId: string): Promise<void> {
+  async findById(id: string): Promise<DemoMember | null> {
+    const member = await this.prisma.demoMember.findUnique({
+      where: { id },
+    });
+    return member ? this.mapper.toDomain(member) : null;
+  }
+
+  async delete(id: string): Promise<void> {
     await this.prisma.demoMember.delete({
-      where: { userId_demoId: { demoId, userId } },
+      where: { id },
     });
   }
 

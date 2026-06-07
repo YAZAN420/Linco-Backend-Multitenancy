@@ -47,12 +47,12 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
     );
   }
 
-  async findByDemoAndUser(
+  async findById(
     demoId: string,
-    userId: string,
+    memberId: string,
   ): Promise<PrismaDemoMember | null> {
     return this.prisma.demoMember.findUnique({
-      where: { userId_demoId: { demoId, userId } },
+      where: { id: memberId, demoId },
       include: {
         user: {
           select: {

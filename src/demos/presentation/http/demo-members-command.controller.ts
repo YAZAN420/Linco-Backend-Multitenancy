@@ -34,13 +34,13 @@ export class DemoMembersCommandController {
     };
   }
 
-  @Patch(':userId')
+  @Patch(':memberId')
   async updateMemberRole(
     @Param('demoId') demoId: string,
-    @Param('userId') userId: string,
+    @Param('memberId') memberId: string,
     @Body() dto: UpdateDemoMemberDto,
   ) {
-    await this.demoMembersCommandService.updateMemberRole(demoId, userId, {
+    await this.demoMembersCommandService.updateMemberRole(demoId, memberId, {
       role: dto.role,
     });
 
@@ -50,13 +50,13 @@ export class DemoMembersCommandController {
     };
   }
 
-  @Delete(':userId')
+  @Delete(':memberId')
   @HttpCode(HttpStatus.OK)
   async removeMember(
     @Param('demoId') demoId: string,
-    @Param('userId') userId: string,
+    @Param('memberId') memberId: string,
   ) {
-    await this.demoMembersCommandService.removeMember(demoId, userId);
+    await this.demoMembersCommandService.removeMember(demoId, memberId);
 
     return {
       message: 'Member removed successfully',

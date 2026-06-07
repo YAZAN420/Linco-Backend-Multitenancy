@@ -29,14 +29,14 @@ export class DemoMembersQueryController {
     };
   }
 
-  @Get(':userId')
+  @Get(':memberId')
   async findMember(
     @Param('demoId') demoId: string,
-    @Param('userId') userId: string,
+    @Param('memberId') memberId: string,
   ) {
-    const member = await this.demoMembersQueryService.findByDemoAndUser(
+    const member = await this.demoMembersQueryService.findById(
       demoId,
-      userId,
+      memberId,
     );
 
     return {

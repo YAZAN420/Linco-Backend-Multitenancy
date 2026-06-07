@@ -41,26 +41,27 @@ export class DemoMembersCommandService {
 
   async updateMemberRole(
     demoId: string,
-    userId: string,
+    memberId: string,
     input: UpdateDemoMemberInput,
   ): Promise<void> {
-    const member = await this.demoMemberCommandRepository.findByDemoAndUser(
-      demoId,
-      userId,
-    );
+    const member = await this.demoMemberCommandRepository.findById(memberId);
     if (!member) throw new NotFoundException('Member not found');
+
+    if (member.demoId !== demoId)
+      throw new NotFoundException('Member not found');
 
     member.changeRole(input.role);
     await this.demoMemberCommandRepository.save(member);
   }
 
-  async removeMember(demoId: string, userId: string): Promise<void> {
-    const member = await this.demoMemberCommandRepository.findByDemoAndUser(
-      demoId,
-      userId,
-    );
+  async removeMember(demoId: string, memberId: string): Promise<void> {
+    const member = await this.demoMemberCommandRepository.findById(memberId);
+
     if (!member) throw new NotFoundException('Member not found');
 
-    await this.demoMemberCommandRepository.delete(demoId, userId);
+    if (member.demoId !== demoId)
+      throw new NotFoundException('Member not found');
+
+    await this.demoMemberCommandRepository.delete(memberId);
   }
 }

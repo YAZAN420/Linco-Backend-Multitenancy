@@ -23,17 +23,14 @@ export class DemoMembersQueryService {
     return await this.demoMemberQueryRepository.findAllByDemo(demoId, options);
   }
 
-  async findByDemoAndUser(
-    demoId: string,
-    userId: string,
-  ): Promise<PrismaDemoMember> {
+  async findById(demoId: string, memberId: string): Promise<PrismaDemoMember> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException('Demo not found');
     }
-    const member = await this.demoMemberQueryRepository.findByDemoAndUser(
+    const member = await this.demoMemberQueryRepository.findById(
       demoId,
-      userId,
+      memberId,
     );
     if (!member) {
       throw new NotFoundException('Member not found in this demo');

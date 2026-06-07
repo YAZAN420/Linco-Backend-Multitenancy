@@ -8,8 +8,8 @@ export abstract class DemoMemberQueryRepository {
     options: FindDemoMembersCursorQuery,
   ): Promise<CursorPageDto<PrismaDemoMember>>;
 
-  abstract findByDemoAndUser(
+  abstract findById(
     demoId: string,
-    userId: string,
+    memberId: string,
   ): Promise<PrismaDemoMember | null>;
 }

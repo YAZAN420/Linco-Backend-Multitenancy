@@ -4,7 +4,6 @@ import { CoreModule } from './core/core.module';
 import { IamModule } from './iam/iam.module';
 import { UsersModule } from './users/users.module';
 import { UsersInfrastructureModule } from './users/infrastructure/users-infrastructure.module';
-import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { ThrottlerGuard } from '@nestjs/throttler';
@@ -23,7 +22,7 @@ export class AppModule {
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
       ],
       providers: [
-        { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
+        // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
         { provide: APP_FILTER, useClass: GlobalExceptionFilter },
         { provide: APP_GUARD, useClass: ThrottlerGuard },
