@@ -23,3 +23,19 @@ export const DemoMemberRole = {
 } as const
 
 export type DemoMemberRole = (typeof DemoMemberRole)[keyof typeof DemoMemberRole]
+
+
+export const CourseVisibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type CourseVisibility = (typeof CourseVisibility)[keyof typeof CourseVisibility]
+
+
+export const AccessMethod = {
+  CREATED: 'CREATED',
+  PURCHASED: 'PURCHASED'
+} as const
+
+export type AccessMethod = (typeof AccessMethod)[keyof typeof AccessMethod]

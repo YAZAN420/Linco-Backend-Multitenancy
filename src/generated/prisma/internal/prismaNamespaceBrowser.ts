@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   DemoMember: 'DemoMember',
   Department: 'Department',
-  Demo: 'Demo'
+  Demo: 'Demo',
+  Course: 'Course'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -129,6 +130,17 @@ export const DemoScalarFieldEnum = {
 } as const
 
 export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof DemoScalarFieldEnum]
+
+
+export const CourseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  visibility: 'visibility',
+  price: 'price',
+  authorDemoId: 'authorDemoId'
+} as const
+
+export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
 
 
 export const SortOrder = {

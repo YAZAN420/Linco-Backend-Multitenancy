@@ -17,6 +17,16 @@ enum DemoMemberRole {
   MANAGER
 }
 
+enum CourseVisibility {
+  PUBLIC   
+  PRIVATE  
+}
+
+enum AccessMethod {
+  CREATED  
+  PURCHASED  
+}
+
 model User {
   id                    String                 @id
   firstName             String
@@ -67,6 +77,7 @@ model Department {
 
   manager DemoMember @relation(fields: [managerId], references: [id], onDelete: Restrict)
   demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  // courses    DepartmentCourse[]
 }
 
 model Demo {
@@ -80,4 +91,43 @@ model Demo {
   members      DemoMember[]
 
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
+
+  authoredCourses Course[]        @relation("AuthoredCourses")
+  // inventories     DemoInventory[]
 }
+
+model Course {
+  id            String             @id @default(uuid())
+  title         String
+  visibility    CourseVisibility   @default(PRIVATE)
+  price         Float?          
+
+  authorDemoId  String?
+  authorDemo    Demo?              @relation("AuthoredCourses", fields: [authorDemoId], references: [id], onDelete: SetNull)
+
+  // demoInventories  DemoInventory[]   
+  // departmentAssignments DepartmentCourse[] 
+}
+
+// model DemoInventory {
+//   demoId       String
+//   courseId     String
+//   accessMethod AccessMethod 
+//   acquiredAt   DateTime     @default(now())
+
+//   demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
+//   course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+//   @@id([demoId, courseId]) 
+// }
+
+// model DepartmentCourse {
+//   departmentId String
+//   courseId     String
+//   assignedAt   DateTime   @default(now())
+
+//   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+//   course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+//   @@id([departmentId, courseId]) 
+// }
