@@ -1,0 +1,8 @@
+import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
+
+export interface CreateCourseInput {
+  title: string;
+  visibility: CourseVisibility;
+  authorDemoId: string | null;
+  price: number | null;
+}

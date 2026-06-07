@@ -40,6 +40,8 @@ export type CourseMinAggregateOutputType = {
   visibility: $Enums.CourseVisibility | null
   price: number | null
   authorDemoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type CourseMaxAggregateOutputType = {
@@ -48,6 +50,8 @@ export type CourseMaxAggregateOutputType = {
   visibility: $Enums.CourseVisibility | null
   price: number | null
   authorDemoId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type CourseCountAggregateOutputType = {
@@ -56,6 +60,8 @@ export type CourseCountAggregateOutputType = {
   visibility: number
   price: number
   authorDemoId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -74,6 +80,8 @@ export type CourseMinAggregateInputType = {
   visibility?: true
   price?: true
   authorDemoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type CourseMaxAggregateInputType = {
@@ -82,6 +90,8 @@ export type CourseMaxAggregateInputType = {
   visibility?: true
   price?: true
   authorDemoId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type CourseCountAggregateInputType = {
@@ -90,6 +100,8 @@ export type CourseCountAggregateInputType = {
   visibility?: true
   price?: true
   authorDemoId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -185,6 +197,8 @@ export type CourseGroupByOutputType = {
   visibility: $Enums.CourseVisibility
   price: number | null
   authorDemoId: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: CourseCountAggregateOutputType | null
   _avg: CourseAvgAggregateOutputType | null
   _sum: CourseSumAggregateOutputType | null
@@ -216,6 +230,8 @@ export type CourseWhereInput = {
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatNullableFilter<"Course"> | number | null
   authorDemoId?: Prisma.StringNullableFilter<"Course"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   authorDemo?: Prisma.XOR<Prisma.DemoNullableScalarRelationFilter, Prisma.DemoWhereInput> | null
 }
 
@@ -225,6 +241,8 @@ export type CourseOrderByWithRelationInput = {
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   authorDemoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   authorDemo?: Prisma.DemoOrderByWithRelationInput
 }
 
@@ -237,6 +255,8 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatNullableFilter<"Course"> | number | null
   authorDemoId?: Prisma.StringNullableFilter<"Course"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   authorDemo?: Prisma.XOR<Prisma.DemoNullableScalarRelationFilter, Prisma.DemoWhereInput> | null
 }, "id">
 
@@ -246,6 +266,8 @@ export type CourseOrderByWithAggregationInput = {
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   authorDemoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.CourseCountOrderByAggregateInput
   _avg?: Prisma.CourseAvgOrderByAggregateInput
   _max?: Prisma.CourseMaxOrderByAggregateInput
@@ -262,6 +284,8 @@ export type CourseScalarWhereWithAggregatesInput = {
   visibility?: Prisma.EnumCourseVisibilityWithAggregatesFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatNullableWithAggregatesFilter<"Course"> | number | null
   authorDemoId?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
 }
 
 export type CourseCreateInput = {
@@ -269,6 +293,8 @@ export type CourseCreateInput = {
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   authorDemo?: Prisma.DemoCreateNestedOneWithoutAuthoredCoursesInput
 }
 
@@ -278,6 +304,8 @@ export type CourseUncheckedCreateInput = {
   visibility?: $Enums.CourseVisibility
   price?: number | null
   authorDemoId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CourseUpdateInput = {
@@ -285,6 +313,8 @@ export type CourseUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authorDemo?: Prisma.DemoUpdateOneWithoutAuthoredCoursesNestedInput
 }
 
@@ -294,6 +324,8 @@ export type CourseUncheckedUpdateInput = {
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   authorDemoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseCreateManyInput = {
@@ -302,6 +334,8 @@ export type CourseCreateManyInput = {
   visibility?: $Enums.CourseVisibility
   price?: number | null
   authorDemoId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CourseUpdateManyMutationInput = {
@@ -309,6 +343,8 @@ export type CourseUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseUncheckedUpdateManyInput = {
@@ -317,6 +353,8 @@ export type CourseUncheckedUpdateManyInput = {
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   authorDemoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseListRelationFilter = {
@@ -335,6 +373,8 @@ export type CourseCountOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
   authorDemoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CourseAvgOrderByAggregateInput = {
@@ -347,6 +387,8 @@ export type CourseMaxOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
   authorDemoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CourseMinOrderByAggregateInput = {
@@ -355,6 +397,8 @@ export type CourseMinOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
   authorDemoId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type CourseSumOrderByAggregateInput = {
@@ -420,6 +464,8 @@ export type CourseCreateWithoutAuthorDemoInput = {
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CourseUncheckedCreateWithoutAuthorDemoInput = {
@@ -427,6 +473,8 @@ export type CourseUncheckedCreateWithoutAuthorDemoInput = {
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CourseCreateOrConnectWithoutAuthorDemoInput = {
@@ -464,6 +512,8 @@ export type CourseScalarWhereInput = {
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatNullableFilter<"Course"> | number | null
   authorDemoId?: Prisma.StringNullableFilter<"Course"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
 }
 
 export type CourseCreateManyAuthorDemoInput = {
@@ -471,6 +521,8 @@ export type CourseCreateManyAuthorDemoInput = {
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type CourseUpdateWithoutAuthorDemoInput = {
@@ -478,6 +530,8 @@ export type CourseUpdateWithoutAuthorDemoInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseUncheckedUpdateWithoutAuthorDemoInput = {
@@ -485,6 +539,8 @@ export type CourseUncheckedUpdateWithoutAuthorDemoInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseUncheckedUpdateManyWithoutAuthorDemoInput = {
@@ -492,6 +548,8 @@ export type CourseUncheckedUpdateManyWithoutAuthorDemoInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -502,6 +560,8 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   visibility?: boolean
   price?: boolean
   authorDemoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   authorDemo?: boolean | Prisma.Course$authorDemoArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -511,6 +571,8 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   visibility?: boolean
   price?: boolean
   authorDemoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   authorDemo?: boolean | Prisma.Course$authorDemoArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -520,6 +582,8 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   visibility?: boolean
   price?: boolean
   authorDemoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   authorDemo?: boolean | Prisma.Course$authorDemoArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -529,9 +593,11 @@ export type CourseSelectScalar = {
   visibility?: boolean
   price?: boolean
   authorDemoId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "visibility" | "price" | "authorDemoId", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "visibility" | "price" | "authorDemoId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authorDemo?: boolean | Prisma.Course$authorDemoArgs<ExtArgs>
 }
@@ -553,6 +619,8 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     visibility: $Enums.CourseVisibility
     price: number | null
     authorDemoId: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["course"]>
   composites: {}
 }
@@ -982,6 +1050,8 @@ export interface CourseFieldRefs {
   readonly visibility: Prisma.FieldRef<"Course", 'CourseVisibility'>
   readonly price: Prisma.FieldRef<"Course", 'Float'>
   readonly authorDemoId: Prisma.FieldRef<"Course", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Course", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Course", 'DateTime'>
 }
     
 

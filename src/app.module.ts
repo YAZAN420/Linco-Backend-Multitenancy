@@ -9,6 +9,9 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { DemosModule } from './demos/demos.module';
 import { DemosInfrastructureModule } from './demos/infrastructure/demos-infrastructure.module';
+import { CoursesModule } from './courses/courses.module';
+import { CoursesInfrastructureModule } from './courses/infrastructure/courses-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -20,6 +23,7 @@ export class AppModule {
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
+        CoursesModule.withInfrastructure(CoursesInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

@@ -105,6 +105,9 @@ model Course {
   authorDemoId  String?
   authorDemo    Demo?              @relation("AuthoredCourses", fields: [authorDemoId], references: [id], onDelete: SetNull)
 
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
   // demoInventories  DemoInventory[]   
   // departmentAssignments DepartmentCourse[] 
 }
