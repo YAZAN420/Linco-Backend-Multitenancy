@@ -859,16 +859,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Role'
+ * Reference to a field of type 'UserRole'
  */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
     
 
 
 /**
- * Reference to a field of type 'Role[]'
+ * Reference to a field of type 'UserRole[]'
  */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
     
 
 
@@ -880,16 +880,16 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'DemoRole'
+ * Reference to a field of type 'DemoMemberRole'
  */
-export type EnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole'>
+export type EnumDemoMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoMemberRole'>
     
 
 
 /**
- * Reference to a field of type 'DemoRole[]'
+ * Reference to a field of type 'DemoMemberRole[]'
  */
-export type ListEnumDemoRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoRole[]'>
+export type ListEnumDemoMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoMemberRole[]'>
     
 
 

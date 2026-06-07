@@ -28,7 +28,7 @@ export type DemoMemberMinAggregateOutputType = {
   id: string | null
   userId: string | null
   demoId: string | null
-  role: $Enums.DemoRole | null
+  role: $Enums.DemoMemberRole | null
   joinedAt: Date | null
   updatedAt: Date | null
 }
@@ -37,7 +37,7 @@ export type DemoMemberMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   demoId: string | null
-  role: $Enums.DemoRole | null
+  role: $Enums.DemoMemberRole | null
   joinedAt: Date | null
   updatedAt: Date | null
 }
@@ -157,7 +157,7 @@ export type DemoMemberGroupByOutputType = {
   id: string
   userId: string
   demoId: string
-  role: $Enums.DemoRole
+  role: $Enums.DemoMemberRole
   joinedAt: Date
   updatedAt: Date
   _count: DemoMemberCountAggregateOutputType | null
@@ -187,11 +187,12 @@ export type DemoMemberWhereInput = {
   id?: Prisma.StringFilter<"DemoMember"> | string
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFilter<"DemoMember"> | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
+  managedDepartments?: Prisma.DepartmentListRelationFilter
 }
 
 export type DemoMemberOrderByWithRelationInput = {
@@ -203,6 +204,7 @@ export type DemoMemberOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   demo?: Prisma.DemoOrderByWithRelationInput
+  managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
 }
 
 export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -213,11 +215,12 @@ export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DemoMemberWhereInput | Prisma.DemoMemberWhereInput[]
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFilter<"DemoMember"> | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
+  managedDepartments?: Prisma.DepartmentListRelationFilter
 }, "id" | "userId_demoId">
 
 export type DemoMemberOrderByWithAggregationInput = {
@@ -239,59 +242,63 @@ export type DemoMemberScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
   userId?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
   demoId?: Prisma.StringWithAggregatesFilter<"DemoMember"> | string
-  role?: Prisma.EnumDemoRoleWithAggregatesFilter<"DemoMember"> | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleWithAggregatesFilter<"DemoMember"> | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"DemoMember"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DemoMember"> | Date | string
 }
 
 export type DemoMemberCreateInput = {
   id: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberUncheckedCreateInput = {
   id: string
   userId: string
   demoId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberCreateManyInput = {
   id: string
   userId: string
   demoId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -300,7 +307,7 @@ export type DemoMemberUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -347,6 +354,11 @@ export type DemoMemberMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type DemoMemberScalarRelationFilter = {
+  is?: Prisma.DemoMemberWhereInput
+  isNot?: Prisma.DemoMemberWhereInput
+}
+
 export type DemoMemberCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutUserInput, Prisma.DemoMemberUncheckedCreateWithoutUserInput> | Prisma.DemoMemberCreateWithoutUserInput[] | Prisma.DemoMemberUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutUserInput | Prisma.DemoMemberCreateOrConnectWithoutUserInput[]
@@ -389,8 +401,22 @@ export type DemoMemberUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.DemoMemberScalarWhereInput | Prisma.DemoMemberScalarWhereInput[]
 }
 
-export type EnumDemoRoleFieldUpdateOperationsInput = {
-  set?: $Enums.DemoRole
+export type EnumDemoMemberRoleFieldUpdateOperationsInput = {
+  set?: $Enums.DemoMemberRole
+}
+
+export type DemoMemberCreateNestedOneWithoutManagedDepartmentsInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedCreateWithoutManagedDepartmentsInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutManagedDepartmentsInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+}
+
+export type DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedCreateWithoutManagedDepartmentsInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutManagedDepartmentsInput
+  upsert?: Prisma.DemoMemberUpsertWithoutManagedDepartmentsInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoMemberUpdateToOneWithWhereWithoutManagedDepartmentsInput, Prisma.DemoMemberUpdateWithoutManagedDepartmentsInput>, Prisma.DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput>
 }
 
 export type DemoMemberCreateNestedManyWithoutDemoInput = {
@@ -437,18 +463,20 @@ export type DemoMemberUncheckedUpdateManyWithoutDemoNestedInput = {
 
 export type DemoMemberCreateWithoutUserInput = {
   id: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberUncheckedCreateWithoutUserInput = {
   id: string
   demoId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberCreateOrConnectWithoutUserInput = {
@@ -484,25 +512,79 @@ export type DemoMemberScalarWhereInput = {
   id?: Prisma.StringFilter<"DemoMember"> | string
   userId?: Prisma.StringFilter<"DemoMember"> | string
   demoId?: Prisma.StringFilter<"DemoMember"> | string
-  role?: Prisma.EnumDemoRoleFilter<"DemoMember"> | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFilter<"DemoMember"> | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemoMember"> | Date | string
 }
 
-export type DemoMemberCreateWithoutDemoInput = {
+export type DemoMemberCreateWithoutManagedDepartmentsInput = {
   id: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
+  demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+}
+
+export type DemoMemberUncheckedCreateWithoutManagedDepartmentsInput = {
+  id: string
+  userId: string
+  demoId: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DemoMemberCreateOrConnectWithoutManagedDepartmentsInput = {
+  where: Prisma.DemoMemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedCreateWithoutManagedDepartmentsInput>
+}
+
+export type DemoMemberUpsertWithoutManagedDepartmentsInput = {
+  update: Prisma.XOR<Prisma.DemoMemberUpdateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput>
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedCreateWithoutManagedDepartmentsInput>
+  where?: Prisma.DemoMemberWhereInput
+}
+
+export type DemoMemberUpdateToOneWithWhereWithoutManagedDepartmentsInput = {
+  where?: Prisma.DemoMemberWhereInput
+  data: Prisma.XOR<Prisma.DemoMemberUpdateWithoutManagedDepartmentsInput, Prisma.DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput>
+}
+
+export type DemoMemberUpdateWithoutManagedDepartmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
+  demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+}
+
+export type DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DemoMemberCreateWithoutDemoInput = {
+  id: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDemoInput = {
   id: string
   userId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
 export type DemoMemberCreateOrConnectWithoutDemoInput = {
@@ -534,31 +616,33 @@ export type DemoMemberUpdateManyWithWhereWithoutDemoInput = {
 export type DemoMemberCreateManyUserInput = {
   id: string
   demoId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -566,35 +650,66 @@ export type DemoMemberUncheckedUpdateManyWithoutUserInput = {
 export type DemoMemberCreateManyDemoInput = {
   id: string
   userId: string
-  role?: $Enums.DemoRole
+  role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DemoMemberUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumDemoRoleFieldUpdateOperationsInput | $Enums.DemoRole
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type DemoMemberCountOutputType
+ */
+
+export type DemoMemberCountOutputType = {
+  managedDepartments: number
+}
+
+export type DemoMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  managedDepartments?: boolean | DemoMemberCountOutputTypeCountManagedDepartmentsArgs
+}
+
+/**
+ * DemoMemberCountOutputType without action
+ */
+export type DemoMemberCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DemoMemberCountOutputType
+   */
+  select?: Prisma.DemoMemberCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * DemoMemberCountOutputType without action
+ */
+export type DemoMemberCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DepartmentWhereInput
+}
 
 
 export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -606,6 +721,8 @@ export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
+  managedDepartments?: boolean | Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
 
 export type DemoMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -643,6 +760,8 @@ export type DemoMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type DemoMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
+  managedDepartments?: boolean | Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DemoMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -658,12 +777,13 @@ export type $DemoMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     demo: Prisma.$DemoPayload<ExtArgs>
+    managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     demoId: string
-    role: $Enums.DemoRole
+    role: $Enums.DemoMemberRole
     joinedAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["demoMember"]>
@@ -1062,6 +1182,7 @@ export interface Prisma__DemoMemberClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   demo<T extends Prisma.DemoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoClient<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  managedDepartments<T extends Prisma.DemoMember$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1094,7 +1215,7 @@ export interface DemoMemberFieldRefs {
   readonly id: Prisma.FieldRef<"DemoMember", 'String'>
   readonly userId: Prisma.FieldRef<"DemoMember", 'String'>
   readonly demoId: Prisma.FieldRef<"DemoMember", 'String'>
-  readonly role: Prisma.FieldRef<"DemoMember", 'DemoRole'>
+  readonly role: Prisma.FieldRef<"DemoMember", 'DemoMemberRole'>
   readonly joinedAt: Prisma.FieldRef<"DemoMember", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"DemoMember", 'DateTime'>
 }
@@ -1495,6 +1616,30 @@ export type DemoMemberDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many DemoMembers to delete.
    */
   limit?: number
+}
+
+/**
+ * DemoMember.managedDepartments
+ */
+export type DemoMember$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Department
+   */
+  select?: Prisma.DepartmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Department
+   */
+  omit?: Prisma.DepartmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DepartmentInclude<ExtArgs> | null
+  where?: Prisma.DepartmentWhereInput
+  orderBy?: Prisma.DepartmentOrderByWithRelationInput | Prisma.DepartmentOrderByWithRelationInput[]
+  cursor?: Prisma.DepartmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DepartmentScalarFieldEnum | Prisma.DepartmentScalarFieldEnum[]
 }
 
 /**

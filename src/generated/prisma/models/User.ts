@@ -33,7 +33,7 @@ export type UserMinAggregateOutputType = {
   birthDate: Date | null
   imagePath: string | null
   refreshToken: string | null
-  role: $Enums.Role | null
+  role: $Enums.UserRole | null
   twoFactorSecret: string | null
   isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
@@ -53,7 +53,7 @@ export type UserMaxAggregateOutputType = {
   birthDate: Date | null
   imagePath: string | null
   refreshToken: string | null
-  role: $Enums.Role | null
+  role: $Enums.UserRole | null
   twoFactorSecret: string | null
   isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
@@ -228,7 +228,7 @@ export type UserGroupByOutputType = {
   birthDate: Date
   imagePath: string
   refreshToken: string | null
-  role: $Enums.Role
+  role: $Enums.UserRole
   twoFactorSecret: string | null
   isTwoFactorEnabled: boolean
   isEmailVerified: boolean
@@ -269,7 +269,7 @@ export type UserWhereInput = {
   birthDate?: Prisma.DateTimeFilter<"User"> | Date | string
   imagePath?: Prisma.StringFilter<"User"> | string
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   twoFactorSecret?: Prisma.StringNullableFilter<"User"> | string | null
   isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
@@ -278,7 +278,6 @@ export type UserWhereInput = {
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  managedDepartments?: Prisma.DepartmentListRelationFilter
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
 }
@@ -301,7 +300,6 @@ export type UserOrderByWithRelationInput = {
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   demoMemberships?: Prisma.DemoMemberOrderByRelationAggregateInput
   ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
 }
@@ -318,7 +316,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   birthDate?: Prisma.DateTimeFilter<"User"> | Date | string
   imagePath?: Prisma.StringFilter<"User"> | string
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   twoFactorSecret?: Prisma.StringNullableFilter<"User"> | string | null
   isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
@@ -327,7 +325,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  managedDepartments?: Prisma.DepartmentListRelationFilter
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
 }, "id" | "email">
@@ -367,7 +364,7 @@ export type UserScalarWhereWithAggregatesInput = {
   birthDate?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   imagePath?: Prisma.StringWithAggregatesFilter<"User"> | string
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   twoFactorSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isTwoFactorEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -387,7 +384,7 @@ export type UserCreateInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -396,7 +393,6 @@ export type UserCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
@@ -410,7 +406,7 @@ export type UserUncheckedCreateInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -419,7 +415,6 @@ export type UserUncheckedCreateInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -433,7 +428,7 @@ export type UserUpdateInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -442,7 +437,6 @@ export type UserUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
@@ -456,7 +450,7 @@ export type UserUncheckedUpdateInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -465,7 +459,6 @@ export type UserUncheckedUpdateInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -479,7 +472,7 @@ export type UserCreateManyInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -499,7 +492,7 @@ export type UserUpdateManyMutationInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -519,7 +512,7 @@ export type UserUncheckedUpdateManyInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -607,8 +600,8 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type EnumRoleFieldUpdateOperationsInput = {
-  set?: $Enums.Role
+export type EnumUserRoleFieldUpdateOperationsInput = {
+  set?: $Enums.UserRole
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -631,20 +624,6 @@ export type UserUpdateOneRequiredWithoutDemoMembershipsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutDemoMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDemoMembershipsInput, Prisma.UserUpdateWithoutDemoMembershipsInput>, Prisma.UserUncheckedUpdateWithoutDemoMembershipsInput>
-}
-
-export type UserCreateNestedOneWithoutManagedDepartmentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedDepartmentsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutManagedDepartmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedDepartmentsInput
-  upsert?: Prisma.UserUpsertWithoutManagedDepartmentsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManagedDepartmentsInput, Prisma.UserUpdateWithoutManagedDepartmentsInput>, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
 }
 
 export type UserCreateNestedOneWithoutOwnedDemosInput = {
@@ -670,7 +649,7 @@ export type UserCreateWithoutDemoMembershipsInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -679,7 +658,6 @@ export type UserCreateWithoutDemoMembershipsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
 }
 
@@ -692,7 +670,7 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -701,7 +679,6 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
 }
 
@@ -730,7 +707,7 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -739,7 +716,6 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
 }
 
@@ -752,7 +728,7 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -761,111 +737,6 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
-  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-}
-
-export type UserCreateWithoutManagedDepartmentsInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-}
-
-export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  birthDate: Date | string
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.Role
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-}
-
-export type UserCreateOrConnectWithoutManagedDepartmentsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
-}
-
-export type UserUpsertWithoutManagedDepartmentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutManagedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutManagedDepartmentsInput, Prisma.UserUncheckedCreateWithoutManagedDepartmentsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutManagedDepartmentsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutManagedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutManagedDepartmentsInput>
-}
-
-export type UserUpdateWithoutManagedDepartmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
-  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
@@ -878,7 +749,7 @@ export type UserCreateWithoutOwnedDemosInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -887,7 +758,6 @@ export type UserCreateWithoutOwnedDemosInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
 }
 
@@ -900,7 +770,7 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   birthDate: Date | string
   imagePath: string
   refreshToken?: string | null
-  role?: $Enums.Role
+  role?: $Enums.UserRole
   twoFactorSecret?: string | null
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
@@ -909,7 +779,6 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -938,7 +807,7 @@ export type UserUpdateWithoutOwnedDemosInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -947,7 +816,6 @@ export type UserUpdateWithoutOwnedDemosInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
 }
 
@@ -960,7 +828,7 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   birthDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -969,7 +837,6 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -979,13 +846,11 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
  */
 
 export type UserCountOutputType = {
-  managedDepartments: number
   demoMemberships: number
   ownedDemos: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  managedDepartments?: boolean | UserCountOutputTypeCountManagedDepartmentsArgs
   demoMemberships?: boolean | UserCountOutputTypeCountDemoMembershipsArgs
   ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
 }
@@ -998,13 +863,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DepartmentWhereInput
 }
 
 /**
@@ -1040,7 +898,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1108,7 +965,6 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  managedDepartments?: boolean | Prisma.User$managedDepartmentsArgs<ExtArgs>
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1119,7 +975,6 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     demoMemberships: Prisma.$DemoMemberPayload<ExtArgs>[]
     ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
   }
@@ -1132,7 +987,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     birthDate: Date
     imagePath: string
     refreshToken: string | null
-    role: $Enums.Role
+    role: $Enums.UserRole
     twoFactorSecret: string | null
     isTwoFactorEnabled: boolean
     isEmailVerified: boolean
@@ -1535,7 +1390,6 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  managedDepartments<T extends Prisma.User$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   demoMemberships<T extends Prisma.User$demoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1575,7 +1429,7 @@ export interface UserFieldRefs {
   readonly birthDate: Prisma.FieldRef<"User", 'DateTime'>
   readonly imagePath: Prisma.FieldRef<"User", 'String'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
-  readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly twoFactorSecret: Prisma.FieldRef<"User", 'String'>
   readonly isTwoFactorEnabled: Prisma.FieldRef<"User", 'Boolean'>
   readonly isEmailVerified: Prisma.FieldRef<"User", 'Boolean'>
@@ -1974,30 +1828,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
-}
-
-/**
- * User.managedDepartments
- */
-export type User$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Department
-   */
-  select?: Prisma.DepartmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Department
-   */
-  omit?: Prisma.DepartmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DepartmentInclude<ExtArgs> | null
-  where?: Prisma.DepartmentWhereInput
-  orderBy?: Prisma.DepartmentOrderByWithRelationInput | Prisma.DepartmentOrderByWithRelationInput[]
-  cursor?: Prisma.DepartmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DepartmentScalarFieldEnum | Prisma.DepartmentScalarFieldEnum[]
 }
 
 /**

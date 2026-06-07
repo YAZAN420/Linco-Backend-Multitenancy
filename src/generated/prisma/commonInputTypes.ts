@@ -55,11 +55,11 @@ export type StringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type EnumRoleFilter<$PrismaModel = never> = {
-  equals?: $Enums.Role | Prisma.EnumRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+export type EnumUserRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
 }
 
 export type BoolFilter<$PrismaModel = never> = {
@@ -133,14 +133,14 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
 }
 
-export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Role | Prisma.EnumRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
 }
 
 export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -165,21 +165,21 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
-export type EnumDemoRoleFilter<$PrismaModel = never> = {
-  equals?: $Enums.DemoRole | Prisma.EnumDemoRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel> | $Enums.DemoRole
+export type EnumDemoMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DemoMemberRole | Prisma.EnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel> | $Enums.DemoMemberRole
 }
 
-export type EnumDemoRoleWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.DemoRole | Prisma.EnumDemoRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDemoRoleWithAggregatesFilter<$PrismaModel> | $Enums.DemoRole
+export type EnumDemoMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DemoMemberRole | Prisma.EnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDemoMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DemoMemberRole
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -221,11 +221,11 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
-export type NestedEnumRoleFilter<$PrismaModel = never> = {
-  equals?: $Enums.Role | Prisma.EnumRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
 }
 
 export type NestedBoolFilter<$PrismaModel = never> = {
@@ -314,14 +314,14 @@ export type NestedIntNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
 }
 
-export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Role | Prisma.EnumRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Role[] | Prisma.ListEnumRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
 }
 
 export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -346,21 +346,21 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
-export type NestedEnumDemoRoleFilter<$PrismaModel = never> = {
-  equals?: $Enums.DemoRole | Prisma.EnumDemoRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel> | $Enums.DemoRole
+export type NestedEnumDemoMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DemoMemberRole | Prisma.EnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel> | $Enums.DemoMemberRole
 }
 
-export type NestedEnumDemoRoleWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.DemoRole | Prisma.EnumDemoRoleFieldRefInput<$PrismaModel>
-  in?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  notIn?: $Enums.DemoRole[] | Prisma.ListEnumDemoRoleFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDemoRoleWithAggregatesFilter<$PrismaModel> | $Enums.DemoRole
+export type NestedEnumDemoMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DemoMemberRole | Prisma.EnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DemoMemberRole[] | Prisma.ListEnumDemoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDemoMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DemoMemberRole
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumDemoRoleFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
 }
 
 

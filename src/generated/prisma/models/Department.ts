@@ -190,7 +190,7 @@ export type DepartmentWhereInput = {
   demoId?: Prisma.StringFilter<"Department"> | string
   createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Department"> | Date | string
-  manager?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  manager?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }
 
@@ -201,7 +201,7 @@ export type DepartmentOrderByWithRelationInput = {
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  manager?: Prisma.UserOrderByWithRelationInput
+  manager?: Prisma.DemoMemberOrderByWithRelationInput
   demo?: Prisma.DemoOrderByWithRelationInput
 }
 
@@ -215,7 +215,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   demoId?: Prisma.StringFilter<"Department"> | string
   createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Department"> | Date | string
-  manager?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  manager?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
 }, "id">
 
@@ -248,7 +248,7 @@ export type DepartmentCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  manager: Prisma.UserCreateNestedOneWithoutManagedDepartmentsInput
+  manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
   demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
 }
 
@@ -266,7 +266,7 @@ export type DepartmentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  manager?: Prisma.UserUpdateOneRequiredWithoutManagedDepartmentsNestedInput
+  manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
 }
 
@@ -484,7 +484,7 @@ export type DepartmentCreateWithoutDemoInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  manager: Prisma.UserCreateNestedOneWithoutManagedDepartmentsInput
+  manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
 }
 
 export type DepartmentUncheckedCreateWithoutDemoInput = {
@@ -566,7 +566,7 @@ export type DepartmentUpdateWithoutDemoInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  manager?: Prisma.UserUpdateOneRequiredWithoutManagedDepartmentsNestedInput
+  manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutDemoInput = {
@@ -594,7 +594,7 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   demoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -605,7 +605,7 @@ export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   demoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -616,7 +616,7 @@ export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   demoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -631,22 +631,22 @@ export type DepartmentSelectScalar = {
 
 export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "managerId" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
 export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  manager?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
 }
 
 export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Department"
   objects: {
-    manager: Prisma.$UserPayload<ExtArgs>
+    manager: Prisma.$DemoMemberPayload<ExtArgs>
     demo: Prisma.$DemoPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1050,7 +1050,7 @@ readonly fields: DepartmentFieldRefs;
  */
 export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  manager<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  manager<T extends Prisma.DemoMemberDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMemberDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoMemberClient<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   demo<T extends Prisma.DemoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoClient<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

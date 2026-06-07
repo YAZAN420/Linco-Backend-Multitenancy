@@ -36,7 +36,6 @@ model User {
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
-  managedDepartments    Department[]
   demoMemberships       DemoMember[]
   ownedDemos            Demo[]                 @relation("DemoOwner")
 }
@@ -51,9 +50,12 @@ model DemoMember {
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  managedDepartments Department[]
 
   @@unique([userId, demoId])
 }
+
+
 
 model Department {
   id         String   @id
@@ -63,7 +65,7 @@ model Department {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  manager    User     @relation(fields: [managerId], references: [id])
+  manager DemoMember @relation(fields: [managerId], references: [id])
   demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
 }
 
