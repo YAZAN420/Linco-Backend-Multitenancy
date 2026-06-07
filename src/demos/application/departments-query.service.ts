@@ -12,6 +12,10 @@ export class DepartmentsQueryService {
     options: FindDepartmentCursorQuery,
     demoId: string,
   ): Promise<CursorPageDto<Department>> {
+    const demo = await this.demoQueryRepository.findById(demoId);
+    if (!demo) {
+      throw new NotFoundException(`Demo with ID ${demoId} not found`);
+    }
     return await this.demoQueryRepository.findDepartments(options, demoId);
   }
 
@@ -19,6 +23,11 @@ export class DepartmentsQueryService {
     demoId: string,
     deptId: string,
   ): Promise<Department> {
+    const demo = await this.demoQueryRepository.findById(demoId);
+    if (!demo) {
+      throw new NotFoundException(`Demo with ID ${demoId} not found`);
+    }
+
     const department = await this.demoQueryRepository.findDepartmentById(
       demoId,
       deptId,

@@ -82,6 +82,7 @@ export class Demo {
 
   updateDepartment(departmentId: string, data: UpdateDepartmentInput): void {
     const department = this.departments.find((d) => d.id === departmentId);
+
     if (!department) {
       throw new DomainNotFoundException('Department not found in this demo');
     }
