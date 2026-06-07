@@ -79,7 +79,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   }
 
   async findById(id: string): Promise<Demo | null> {
-    return this.prisma.demo.findFirst({
+    return this.prisma.demo.findUnique({
       where: { id },
     });
   }

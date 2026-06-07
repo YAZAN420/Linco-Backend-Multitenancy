@@ -1,5 +1,3 @@
-// src/demos/infrastructure/persistence/prisma-demo-member-query.repository.ts
-
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member-query.repository';
@@ -51,7 +49,7 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
     demoId: string,
     memberId: string,
   ): Promise<PrismaDemoMember | null> {
-    return this.prisma.demoMember.findUnique({
+    return this.prisma.demoMember.findFirst({
       where: { id: memberId, demoId },
       include: {
         user: {

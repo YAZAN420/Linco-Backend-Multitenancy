@@ -52,7 +52,7 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
   }
 
   async findById(id: string): Promise<Demo | null> {
-    const demo = await this.prisma.demo.findFirst({
+    const demo = await this.prisma.demo.findUnique({
       where: { id },
       include: { departments: true },
     });
