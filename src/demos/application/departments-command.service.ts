@@ -62,11 +62,8 @@ export class DepartmentsCommandService {
         );
       }
     }
-
-    demo.updateDepartment(departmentId, {
-      name: input.name,
-      managerId: input.managerId,
-    });
+    demo.reassignDepartmentManager(departmentId, input.managerId);
+    demo.renameDepartment(departmentId, input.name);
 
     await this.demoCommandRepository.save(demo);
   }

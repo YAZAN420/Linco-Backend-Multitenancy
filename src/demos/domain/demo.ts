@@ -1,4 +1,3 @@
-import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { Department } from './department';
 import { DomainConflictException } from './exceptions/conflict.exception';
 import { DomainNotFoundException } from './exceptions/not-found.exception';
@@ -72,36 +71,34 @@ export class Demo {
     this.touch();
   }
 
-  updateDepartment(departmentId: string, data: UpdateDepartmentInput): void {
-    const department = this.departments.find((d) => d.id === departmentId);
-
-    if (!department) {
-      throw new DomainNotFoundException('Department not found in this demo');
+  renameDepartment(departmentId: string, newName: string): void {
+    const department = this.getDepartmentStrict(departmentId);
+    if (department.name === newName) return;
+    const cleanName = newName.trim();
+    if (cleanName.length === 0) {
+      throw new DomainValidationException('Department name cannot be empty');
     }
 
-    if (data.name !== undefined) {
-      if (data.name.trim().length === 0) {
-        throw new DomainValidationException('Department name cannot be empty');
-      }
-
-      const isNameChanged =
-        data.name.toLowerCase() !== department.name.toLowerCase();
-      if (isNameChanged) {
-        const nameExists = this.departments.some(
-          (d) =>
-            d.id !== departmentId &&
-            d.name.toLowerCase() === data.name.toLowerCase(),
-        );
-        if (nameExists) {
-          throw new DomainConflictException(
-            `Department "${data.name}" already exists in this demo`,
-          );
-        }
-      }
+    if (cleanName.toLowerCase() === department.name.toLowerCase()) {
+      return;
+    }
+    const nameExists = this.departments.some(
+      (d) => d.name.toLowerCase() === cleanName.toLowerCase(),
+    );
+    if (nameExists) {
+      throw new DomainConflictException(
+        `Department "${cleanName}" already exists in this demo`,
+      );
     }
 
-    department.updateManager(data.managerId ?? department.managerId);
-    department.updateName(data.name ?? department.name);
+    department.updateName(cleanName ?? department.name);
+    this.touch();
+  }
+
+  reassignDepartmentManager(departmentId: string, newManagerId: string): void {
+    const department = this.getDepartmentStrict(departmentId);
+    if (department.managerId === newManagerId) return;
+    department.updateManager(newManagerId ?? department.managerId);
     this.touch();
   }
 
@@ -123,5 +120,13 @@ export class Demo {
 
   private touch(): void {
     this.props.updatedAt = new Date();
+  }
+
+  private getDepartmentStrict(departmentId: string): Department {
+    const department = this.departments.find((d) => d.id === departmentId);
+    if (!department) {
+      throw new DomainNotFoundException('Department not found in this demo');
+    }
+    return department;
   }
 }
