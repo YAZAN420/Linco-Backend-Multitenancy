@@ -35,4 +35,14 @@ export class Course {
     this.props.visibility = CourseVisibility.PUBLIC;
     this.props.updatedAt = new Date();
   }
+
+  updateTitle(title: string) {
+    this.props.title = title;
+    this.props.updatedAt = new Date();
+  }
+
+  updatePrice(price: number | null) {
+    this.props.price = price;
+    this.props.updatedAt = new Date();
+  }
 }

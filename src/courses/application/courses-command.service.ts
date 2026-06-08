@@ -20,8 +20,9 @@ export class CoursesCommandService {
   }
 
   async update(id: string, input: UpdateCourseInput): Promise<Course> {
-    console.log(input);
     const course = await this.findById(id);
+    course.updateTitle(input.title ?? course.title);
+    course.updatePrice(input.price ?? course.price);
     await this.courseCommandRepository.save(course);
     return course;
   }
