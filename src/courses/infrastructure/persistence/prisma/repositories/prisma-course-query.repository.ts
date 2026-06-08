@@ -3,7 +3,6 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 import {
   buildNestedInclude,
   buildOrderBy,
@@ -26,12 +25,15 @@ type CourseRelation = keyof Prisma.CourseInclude;
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly allowedRelations: CourseRelation[] = []
+  private readonly allowedRelations: CourseRelation[] = [];
   private buildPrismaArgs<T extends FindCoursesQuery | FindCoursesCursorQuery>(
     options: T,
   ) {
     return {
-      where: buildWhere<T, Prisma.CourseWhereInput>(options, COURSE_SEARCH_COLUMNS),
+      where: buildWhere<T, Prisma.CourseWhereInput>(
+        options,
+        COURSE_SEARCH_COLUMNS,
+      ),
       orderBy: buildOrderBy(options.orderBy, COURSE_ORDERABLE_FIELDS),
       include: buildNestedInclude<CourseInclude>(
         options.with,
@@ -87,11 +89,8 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     );
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<Course | null> {
-    const include = buildNestedInclude<CourseInclude>(
-      options?.with,
-      this.allowedRelations,
-    );
+  async findById(id: string): Promise<Course | null> {
+    const include = buildNestedInclude<CourseInclude>(this.allowedRelations);
 
     return this.prisma.course.findUnique({
       where: { id },

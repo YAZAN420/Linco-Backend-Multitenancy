@@ -49,21 +49,22 @@ export class DepartmentsCommandService {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 
-    if (input.managerId) {
+    if (input.managerId !== undefined) {
       const member = await this.demoMemberCommandRepository.findById(
         input.managerId,
       );
-      if (!member) {
-        throw new NotFoundException('Member not found');
-      }
+      if (!member) throw new NotFoundException('Member not found');
       if (member.demoId !== demoId) {
         throw new DomainValidationException(
           'Manager must be a member of this demo',
         );
       }
+      demo.reassignDepartmentManager(departmentId, input.managerId);
     }
-    demo.reassignDepartmentManager(departmentId, input.managerId);
-    demo.renameDepartment(departmentId, input.name);
+
+    if (input.name !== undefined) {
+      demo.renameDepartment(departmentId, input.name);
+    }
 
     await this.demoCommandRepository.save(demo);
   }

@@ -73,32 +73,34 @@ export class Demo {
 
   renameDepartment(departmentId: string, newName: string): void {
     const department = this.getDepartmentStrict(departmentId);
-    if (department.name === newName) return;
+
     const cleanName = newName.trim();
     if (cleanName.length === 0) {
       throw new DomainValidationException('Department name cannot be empty');
     }
 
-    if (cleanName.toLowerCase() === department.name.toLowerCase()) {
-      return;
-    }
+    if (department.name === cleanName) return;
+
     const nameExists = this.departments.some(
-      (d) => d.name.toLowerCase() === cleanName.toLowerCase(),
+      (d) =>
+        d.id !== departmentId &&
+        d.name.toLowerCase() === cleanName.toLowerCase(),
     );
+
     if (nameExists) {
       throw new DomainConflictException(
         `Department "${cleanName}" already exists in this demo`,
       );
     }
 
-    department.updateName(cleanName ?? department.name);
+    department.updateName(cleanName);
     this.touch();
   }
 
   reassignDepartmentManager(departmentId: string, newManagerId: string): void {
     const department = this.getDepartmentStrict(departmentId);
-    if (department.managerId === newManagerId) return;
-    department.updateManager(newManagerId ?? department.managerId);
+    if (!newManagerId) return;
+    department.updateManager(newManagerId);
     this.touch();
   }
 
