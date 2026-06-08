@@ -40,11 +40,10 @@ export class UsersCommandService {
   async update(id: string, input: UpdateUserInput): Promise<User> {
     const user = await this.findById(id);
 
-    if (input.firstName !== undefined) user.changeFirstName(input.firstName);
-    if (input.lastName !== undefined) user.changeLastName(input.lastName);
-    if (input.birthDate !== undefined) user.changeBirthDate(input.birthDate);
-    if (input.imagePath !== undefined)
-      user.changeImagePath(input.imagePath ?? '');
+    user.updateFirstName(input.firstName ?? user.firstName);
+    user.updateLastName(input.lastName ?? user.lastName);
+    user.updateBirthDate(input.birthDate ?? user.birthDate);
+    user.updateImagePath(input.imagePath ?? user.imagePath);
 
     await this.userCommandRepository.save(user);
 

@@ -1,4 +1,3 @@
-import { UpdateDemoInput } from '../application/interfaces/update-demo-input.interface';
 import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { Department } from './department';
 import { DomainConflictException } from './exceptions/conflict.exception';
@@ -33,20 +32,13 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
-  update(data: UpdateDemoInput): void {
-    let isModified = false;
-
-    if (data.name !== undefined && data.name !== this.props.name) {
-      if (data.name.trim().length === 0) {
-        throw new DomainValidationException('Demo name cannot be empty');
-      }
-      this.props.name = data.name;
-      isModified = true;
+  updateName(newName: string): void {
+    if (newName === this.props.name) return;
+    if (newName.trim().length === 0) {
+      throw new DomainValidationException('Demo name cannot be empty');
     }
-
-    if (isModified) {
-      this.props.updatedAt = new Date();
-    }
+    this.props.name = newName;
+    this.touch();
   }
 
   addDepartment(department: Department): void {
@@ -66,7 +58,7 @@ export class Demo {
     }
 
     this.props.departments = [...this.props.departments, department];
-    this.props.updatedAt = new Date();
+    this.touch();
   }
 
   removeDepartment(departmentId: string): void {
@@ -77,7 +69,7 @@ export class Demo {
     this.props.departments = this.departments.filter(
       (d) => d.id !== departmentId,
     );
-    this.props.updatedAt = new Date();
+    this.touch();
   }
 
   updateDepartment(departmentId: string, data: UpdateDepartmentInput): void {
@@ -108,8 +100,9 @@ export class Demo {
       }
     }
 
-    department.update(data);
-    this.props.updatedAt = new Date();
+    department.updateManager(data.managerId ?? department.managerId);
+    department.updateName(data.name ?? department.name);
+    this.touch();
   }
 
   hasDepartment(departmentId: string): boolean {
@@ -126,5 +119,9 @@ export class Demo {
         `Demo cannot exceed ${Demo.MAX_MEMBERS} members`,
       );
     }
+  }
+
+  private touch(): void {
+    this.props.updatedAt = new Date();
   }
 }

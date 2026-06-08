@@ -23,6 +23,7 @@ export class CoursesCommandService {
     const course = await this.findById(id);
     course.updateTitle(input.title ?? course.title);
     course.updatePrice(input.price ?? course.price);
+    course.updateVisibility(input.visibility ?? course.visibility);
     await this.courseCommandRepository.save(course);
     return course;
   }

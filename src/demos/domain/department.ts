@@ -1,4 +1,3 @@
-import { UpdateDepartmentInput } from '../application/interfaces/update-department-input.interface';
 import { DomainValidationException } from './exceptions/validation.exception';
 import { DepartmentProps } from './interfaces/department.props';
 
@@ -28,27 +27,22 @@ export class Department {
     return this.props.managerId;
   }
 
-  update(data: UpdateDepartmentInput): void {
-    let isModified = false;
-
-    if (data.name !== undefined && data.name !== this.props.name) {
-      if (data.name.trim().length === 0) {
-        throw new DomainValidationException('Department name cannot be empty');
-      }
-      this.props.name = data.name;
-      isModified = true;
+  updateName(newName: string): void {
+    if (newName === this.props.name) return;
+    if (newName.trim().length === 0) {
+      throw new DomainValidationException('Department name cannot be empty');
     }
+    this.props.name = newName;
+    this.touch();
+  }
 
-    if (
-      data.managerId !== undefined &&
-      data.managerId !== this.props.managerId
-    ) {
-      this.props.managerId = data.managerId;
-      isModified = true;
-    }
+  updateManager(newManagerId: string): void {
+    if (newManagerId === this.props.managerId) return;
+    this.props.managerId = newManagerId;
+    this.touch();
+  }
 
-    if (isModified) {
-      this.props.updatedAt = new Date();
-    }
+  private touch(): void {
+    this.props.updatedAt = new Date();
   }
 }

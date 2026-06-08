@@ -49,27 +49,32 @@ export class User {
     return this.props.updatedAt;
   }
 
-  changeFirstName(newFirstName: string): void {
+  updateFirstName(newFirstName: string): void {
+    if (newFirstName === this.props.firstName) return;
     this.props.firstName = newFirstName;
     this.touch();
   }
 
-  changeLastName(newLastName: string): void {
+  updateLastName(newLastName: string): void {
+    if (newLastName === this.props.lastName) return;
     this.props.lastName = newLastName;
     this.touch();
   }
 
-  changeRole(newRole: Role): void {
+  updateRole(newRole: Role): void {
+    if (newRole === this.props.role) return;
     this.props.role = newRole;
     this.touch();
   }
 
-  changeImagePath(newImagePath: string): void {
+  updateImagePath(newImagePath: string): void {
+    if (newImagePath === this.props.imagePath) return;
     this.props.imagePath = newImagePath;
     this.touch();
   }
 
-  changeBirthDate(newBirthDate: Date): void {
+  updateBirthDate(newBirthDate: Date): void {
+    if (newBirthDate.getTime() === this.props.birthDate.getTime()) return;
     this.props.birthDate = newBirthDate;
     this.touch();
   }

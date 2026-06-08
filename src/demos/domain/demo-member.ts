@@ -25,8 +25,12 @@ export class DemoMember {
     return this.props.updatedAt;
   }
 
-  changeRole(newRole: DemoMemberRole): void {
+  updateRole(newRole: DemoMemberRole): void {
+    if (newRole === this.props.role) return;
     this.props.role = newRole;
+    this.touch();
+  }
+  private touch(): void {
     this.props.updatedAt = new Date();
   }
 }

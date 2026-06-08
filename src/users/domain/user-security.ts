@@ -44,7 +44,7 @@ export class UserSecurity {
     return this.props.passwordResetExpires;
   }
 
-  changePassword(newPassword: string): void {
+  updatePassword(newPassword: string): void {
     this.props.password = newPassword;
   }
 

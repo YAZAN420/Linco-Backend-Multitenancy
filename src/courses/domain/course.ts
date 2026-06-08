@@ -31,18 +31,25 @@ export class Course {
     return this.props.authorDemoId;
   }
 
-  publish() {
-    this.props.visibility = CourseVisibility.PUBLIC;
-    this.props.updatedAt = new Date();
+  updateVisibility(newVisibility: CourseVisibility) {
+    if (newVisibility === this.props.visibility) return;
+    this.props.visibility = newVisibility;
+    this.touch();
   }
 
-  updateTitle(title: string) {
-    this.props.title = title;
-    this.props.updatedAt = new Date();
+  updateTitle(newTitle: string) {
+    if (newTitle === this.props.title) return;
+    this.props.title = newTitle;
+    this.touch();
   }
 
-  updatePrice(price: number | null) {
-    this.props.price = price;
+  updatePrice(newPrice: number | null) {
+    if (newPrice === this.props.price) return;
+    this.props.price = newPrice;
+    this.touch();
+  }
+
+  private touch(): void {
     this.props.updatedAt = new Date();
   }
 }
