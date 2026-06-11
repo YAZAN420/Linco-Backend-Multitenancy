@@ -64,3 +64,18 @@ export type Demo = Prisma.DemoModel
  * 
  */
 export type Course = Prisma.CourseModel
+/**
+ * Model Section
+ * 
+ */
+export type Section = Prisma.SectionModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel
