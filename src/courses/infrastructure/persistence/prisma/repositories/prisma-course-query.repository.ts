@@ -3,14 +3,9 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import {
-  buildNestedInclude,
-  buildOrderBy,
-  buildWhere,
-} from 'src/common/utils/prisma.util';
+import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Prisma, Course } from 'src/generated/prisma/browser';
-import { CourseInclude } from 'src/generated/prisma/internal/prismaNamespaceBrowser';
 import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
@@ -19,13 +14,11 @@ import { CourseQueryRepository } from 'src/courses/application/ports/course-quer
 
 const COURSE_SEARCH_COLUMNS = [];
 const COURSE_ORDERABLE_FIELDS = ['createdAt'];
-type CourseRelation = keyof Prisma.CourseInclude;
 
 @Injectable()
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly allowedRelations: CourseRelation[] = [];
   private buildPrismaArgs<T extends FindCoursesQuery | FindCoursesCursorQuery>(
     options: T,
   ) {
@@ -35,15 +28,11 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         COURSE_SEARCH_COLUMNS,
       ),
       orderBy: buildOrderBy(options.orderBy, COURSE_ORDERABLE_FIELDS),
-      include: buildNestedInclude<CourseInclude>(
-        options.with,
-        this.allowedRelations,
-      ),
     };
   }
 
   async findAll(options: FindCoursesQuery): Promise<PageDto<Course>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
@@ -51,7 +40,6 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         skip,
         take: options.take,
         where,
-        include,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
       this.prisma.course.count({ where }),
@@ -66,7 +54,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   async findAllCursor(
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<Course>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.course.findMany({
@@ -74,7 +62,6 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where,
-      include,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
@@ -90,11 +77,8 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   }
 
   async findById(id: string): Promise<Course | null> {
-    const include = buildNestedInclude<CourseInclude>(this.allowedRelations);
-
     return this.prisma.course.findUnique({
       where: { id },
-      include,
     });
   }
 }

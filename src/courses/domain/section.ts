@@ -31,13 +31,13 @@ export class Section {
     this.touch();
   }
 
-  updateOrder(order: number): void {    
+  updateOrder(order: number): void {
     this.props.order = order;
     this.touch();
   }
 
   updateCourseId(courseId: string): void {
-    this.props.courseId = courseId
+    this.props.courseId = courseId;
     this.touch();
   }
 

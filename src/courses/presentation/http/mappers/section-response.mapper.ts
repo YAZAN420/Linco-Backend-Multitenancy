@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CourseResponseDto } from '../dto/course-response.dto';
 import { Section as PrismaSection } from 'src/generated/prisma/browser';
 import { Section as DomainSection } from 'src/courses/domain/section';
 import { SectionResponseDto } from '../dto/section-response.dto';
@@ -13,7 +12,7 @@ export class SectionResponseMapper {
       section.order,
       section.courseId,
       section.createdAt,
-      section.updatedAt
+      section.updatedAt,
     );
   }
 
@@ -24,7 +23,7 @@ export class SectionResponseMapper {
       section.order,
       section.courseId,
       section.createdAt,
-      section.updatedAt
+      section.updatedAt,
     );
   }
 

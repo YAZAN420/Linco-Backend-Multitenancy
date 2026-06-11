@@ -1,18 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { FindSectionsCursorQuery, FindSectionsQuery } from './interfaces/find-sections.query';
-import { Section } from '../domain/section';
+import { FindSectionsCursorQuery } from './interfaces/find-sections.query';
 import { SectionQueryRepository } from './ports/section-query.repository';
+import { Section } from 'src/generated/prisma/client';
 
 @Injectable()
 export class SectionsQueryService {
-  constructor(private readonly sectionQueryRepository: SectionQueryRepository) {}
-
-  async findAll(pageOptionsDto: FindSectionsQuery): Promise<PageDto<Section>> {
-    return this.sectionQueryRepository.findAll(pageOptionsDto);
-  }
+  constructor(
+    private readonly sectionQueryRepository: SectionQueryRepository,
+  ) {}
 
   async findAllCursor(
     options: FindSectionsCursorQuery,

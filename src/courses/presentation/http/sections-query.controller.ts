@@ -1,6 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SectionResponseMapper } from './mappers/section-response.mapper';
-import { FindSectionsDto } from './dto/filters/find-sections.dto';
 import { FindSectionsCursorDto } from './dto/filters/find-sections-cursor.dto';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
@@ -10,16 +9,6 @@ export class SectionsQueryController {
     private readonly sectionQueryService: SectionsQueryService,
     private readonly sectionResponseMapper: SectionResponseMapper,
   ) {}
-
-  @Get()
-  async findAll(@Query() options: FindSectionsDto) {
-    const sections = await this.sectionQueryService.findAll(options);
-    return {
-      message: 'Sections fetched successfully',
-      data: this.sectionResponseMapper.toResponseManyFromPrisma(sections.data),
-      meta: sections.meta,
-    };
-  }
 
   @Get('cursor')
   async findWithCursor(@Query() options: FindSectionsCursorDto) {
