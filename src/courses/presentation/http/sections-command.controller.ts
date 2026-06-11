@@ -30,7 +30,7 @@ export class SectionsCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: UpdateSectionDto,
   ) {
-    const course = await this.sectionCommandService.update(
+    const section = await this.sectionCommandService.update(
       courseId,
       sectionId,
       dto,
@@ -38,7 +38,7 @@ export class SectionsCommandController {
 
     return {
       message: 'Section updated successfully',
-      data: this.sectionResponseMapper.toResponseFromDomain(course),
+      data: this.sectionResponseMapper.toResponseFromDomain(section),
     };
   }
 
