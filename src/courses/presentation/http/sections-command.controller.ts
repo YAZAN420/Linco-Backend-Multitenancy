@@ -12,8 +12,11 @@ export class SectionsCommandController {
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateSectionDto) {
-    const section = await this.sectionCommandService.create(dto);
+  async create(
+    @Param('courseId') courseId: string,
+    @Body() dto: CreateSectionDto,
+  ) {
+    const section = await this.sectionCommandService.create(courseId, dto);
 
     return {
       message: 'Section created successfully',
@@ -21,22 +24,33 @@ export class SectionsCommandController {
     };
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateSectionDto) {
-    const course = await this.sectionCommandService.update(id, dto);
+  @Patch(':sectionId')
+  async update(
+    @Param('courseId') courseId: string,
+    @Param('sectionId') sectionId: string,
+    @Body() dto: UpdateSectionDto,
+  ) {
+    const course = await this.sectionCommandService.update(
+      courseId,
+      sectionId,
+      dto,
+    );
 
     return {
-      message: 'Course updated successfully',
+      message: 'Section updated successfully',
       data: this.sectionResponseMapper.toResponseFromDomain(course),
     };
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.sectionCommandService.remove(id);
+  @Delete(':sectionId')
+  async remove(
+    @Param('courseId') courseId: string,
+    @Param('sectionId') sectionId: string,
+  ) {
+    await this.sectionCommandService.remove(courseId, sectionId);
 
     return {
-      message: 'Course deleted successfully',
+      message: 'Section deleted successfully',
       data: null,
     };
   }

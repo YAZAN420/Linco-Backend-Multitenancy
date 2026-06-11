@@ -5,12 +5,12 @@ import { CreateSectionInput } from 'src/courses/application/interfaces/create-se
 
 @Injectable()
 export class SectionFactory {
-  public createNew(input: CreateSectionInput): Section {
+  public createNew(courseId: string, input: CreateSectionInput): Section {
     const now = new Date();
     return new Section(uuidv7(), {
       title: input.title,
       order: input.order,
-      courseId: input.courseId,
+      courseId: courseId,
       createdAt: now,
       updatedAt: now,
     });

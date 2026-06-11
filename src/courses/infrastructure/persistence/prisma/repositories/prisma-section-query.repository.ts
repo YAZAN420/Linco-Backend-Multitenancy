@@ -25,6 +25,7 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
   }
 
   async findAllCursor(
+    courseId: string,
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
@@ -34,7 +35,10 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
+      where: {
+        ...where,
+        courseId: courseId,
+      },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
@@ -49,9 +53,9 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Section | null> {
-    return this.prisma.section.findUnique({
-      where: { id },
+  async findById(courseId: string, sectionId: string): Promise<Section | null> {
+    return this.prisma.section.findFirst({
+      where: { id: sectionId, courseId: courseId },
     });
   }
 }

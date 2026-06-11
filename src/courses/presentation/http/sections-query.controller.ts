@@ -11,8 +11,14 @@ export class SectionsQueryController {
   ) {}
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindSectionsCursorDto) {
-    const sections = await this.sectionQueryService.findAllCursor(options);
+  async findWithCursor(
+    @Param('courseId') courseId: string,
+    @Query() options: FindSectionsCursorDto,
+  ) {
+    const sections = await this.sectionQueryService.findAllCursor(
+      courseId,
+      options,
+    );
 
     return {
       message: 'Sections fetched successfully',
@@ -21,9 +27,15 @@ export class SectionsQueryController {
     };
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const section = await this.sectionQueryService.findById(id);
+  @Get(':sectionId')
+  async findOne(
+    @Param('courseId') courseId: string,
+    @Param('sectionId') sectionId: string,
+  ) {
+    const section = await this.sectionQueryService.findById(
+      courseId,
+      sectionId,
+    );
 
     return {
       message: 'Section retrieved successfully',
