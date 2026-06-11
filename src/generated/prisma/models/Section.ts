@@ -241,6 +241,7 @@ export type SectionOrderByWithRelationInput = {
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  courseId_order?: Prisma.SectionCourseIdOrderCompoundUniqueInput
   AND?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   OR?: Prisma.SectionWhereInput[]
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
@@ -251,7 +252,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   lessons?: Prisma.LessonListRelationFilter
-}, "id">
+}, "id" | "courseId_order">
 
 export type SectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -353,6 +354,11 @@ export type SectionListRelationFilter = {
 
 export type SectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type SectionCourseIdOrderCompoundUniqueInput = {
+  courseId: string
+  order: number
 }
 
 export type SectionCountOrderByAggregateInput = {

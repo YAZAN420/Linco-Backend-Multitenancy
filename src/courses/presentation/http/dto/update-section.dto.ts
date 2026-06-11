@@ -9,8 +9,4 @@ export class UpdateSectionDto implements UpdateSectionInput {
   @IsNumber()
   @IsOptional()
   order!: number | null;
-
-  @IsString()
-  @IsOptional()
-  courseId!: string | null;
 }

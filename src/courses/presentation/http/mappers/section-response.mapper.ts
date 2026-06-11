@@ -10,7 +10,6 @@ export class SectionResponseMapper {
       section.id,
       section.title,
       section.order,
-      section.courseId,
       section.createdAt,
       section.updatedAt,
     );
@@ -21,7 +20,6 @@ export class SectionResponseMapper {
       section.id,
       section.title,
       section.order,
-      section.courseId,
       section.createdAt,
       section.updatedAt,
     );
