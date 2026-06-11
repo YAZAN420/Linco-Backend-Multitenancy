@@ -3,7 +3,7 @@ import { SectionResponseMapper } from './mappers/section-response.mapper';
 import { FindSectionsCursorDto } from './dto/filters/find-sections-cursor.dto';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
-@Controller('sections')
+@Controller('courses/:courseId/sections')
 export class SectionsQueryController {
   constructor(
     private readonly sectionQueryService: SectionsQueryService,
@@ -15,7 +15,7 @@ export class SectionsQueryController {
     const sections = await this.sectionQueryService.findAllCursor(options);
 
     return {
-      message: 'Sections fetched successfully (Cursor)',
+      message: 'Sections fetched successfully',
       data: this.sectionResponseMapper.toResponseManyFromPrisma(sections.data),
       meta: sections.meta,
     };
