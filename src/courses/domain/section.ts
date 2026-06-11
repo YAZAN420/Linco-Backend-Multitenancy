@@ -14,7 +14,7 @@ export class Section {
     return this.props.updatedAt;
   }
 
-  get title(): String {
+  get title(): string {
     return this.props.title;
   }
 
@@ -22,7 +22,26 @@ export class Section {
     return this.props.order;
   }
 
-  get courseId(): number {
+  get courseId(): string {
     return this.props.courseId;
+  }
+
+  updateTitle(title: string): void {
+    this.props.title = title;
+    this.touch();
+  }
+
+  updateOrder(order: number): void {    
+    this.props.order = order;
+    this.touch();
+  }
+
+  updateCourseId(courseId: string): void {
+    this.props.courseId = courseId
+    this.touch();
+  }
+
+  private touch(): void {
+    this.props.updatedAt = new Date();
   }
 }

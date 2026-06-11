@@ -1,7 +1,7 @@
 export interface SectionProps {
-    title: String,
+    title: string,
     order: number,
-    courseId: number,
+    courseId: string,
     createdAt: Date,
     updatedAt: Date
 }
