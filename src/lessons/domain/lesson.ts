@@ -37,4 +37,28 @@ export class Lesson {
   get courseId(): string {
     return this.props.courseId;
   }
+
+  updateTitle(newTitle: string) {
+    this.props.title = newTitle;
+    this.touch();
+  }
+
+  updateOrder(newOrder: number) {
+    this.props.order = newOrder;
+    this.touch();
+  }
+
+  updateVideoUrl(newVideoUrl: string) {
+    this.props.videoUrl = newVideoUrl;
+    this.touch();
+  }
+
+  updateSubTitleUrl(newSubTitleUrl: string | null) {
+    this.props.subTitleUrl = newSubTitleUrl;
+    this.touch();
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
 }

@@ -5,14 +5,14 @@ import { CreateLessonInput } from 'src/lessons/application/interfaces/create-les
 
 @Injectable()
 export class LessonFactory {
-  public createNew(input: CreateLessonInput): Lesson {
+  public createNew(sectionId: string, input: CreateLessonInput): Lesson {
     const now = new Date();
     return new Lesson(uuidv7(), {
       title: input.title,
       order: input.order,
       videoUrl: input.videoUrl,
       subTitleUrl: input.subTitleUrl,
-      sectionId: input.sectionId,
+      sectionId: sectionId,
       courseId: input.courseId,
       createdAt: now,
       updatedAt: now,

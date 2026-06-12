@@ -17,7 +17,4 @@ export class CreateLessonDto implements CreateLessonInput {
   @IsString()
   @IsNotEmpty()
   courseId!: string;
-  @IsString()
-  @IsNotEmpty()
-  sectionId!: string;
 }

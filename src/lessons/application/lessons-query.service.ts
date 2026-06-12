@@ -11,13 +11,14 @@ export class LessonsQueryService {
   constructor(private readonly lessonQueryRepository: LessonQueryRepository) {}
 
   async findAllCursor(
+    sectionId: string,
     options: FindLessonsCursorQuery,
   ): Promise<CursorPageDto<Lesson>> {
-    return this.lessonQueryRepository.findAllCursor(options);
+    return this.lessonQueryRepository.findAllCursor(sectionId, options);
   }
 
-  async findById(id: string): Promise<Lesson> {
-    const lesson = await this.lessonQueryRepository.findById(id);
+  async findById(sectionId: string, lessonId: string): Promise<Lesson> {
+    const lesson = await this.lessonQueryRepository.findById(lessonId);
     if (!lesson) throw new NotFoundException('Lesson not found');
     return lesson;
   }

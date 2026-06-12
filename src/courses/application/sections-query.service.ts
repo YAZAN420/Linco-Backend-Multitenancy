@@ -28,4 +28,9 @@ export class SectionsQueryService {
       throw new NotFoundException('Section not found in this course');
     return section;
   }
+
+  async exists(sectionId: string): Promise<boolean> {
+    const section = await this.courseQueryRepository.findSectionById(sectionId);
+    return !!section;
+  }
 }

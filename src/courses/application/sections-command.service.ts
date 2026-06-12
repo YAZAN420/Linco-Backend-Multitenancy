@@ -52,4 +52,10 @@ export class SectionsCommandService {
   async save(course: Course): Promise<void> {
     await this.courseCommandRepository.save(course);
   }
+
+  async exists(sectionId: string): Promise<boolean> {
+    const course =
+      await this.courseCommandRepository.findSectionById(sectionId);
+    return !!course;
+  }
 }

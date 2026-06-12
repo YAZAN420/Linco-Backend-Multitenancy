@@ -4,6 +4,7 @@ import { Course } from 'src/courses/domain/course';
 import { PrismaCourseMapper } from '../mappers/prisma-course.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { PrismaSectionMapper } from '../mappers/prisma-section.mapper';
+import { Section } from 'src/courses/domain/section';
 
 @Injectable()
 export class PrismaCourseCommandRepository implements CourseCommandRepository {
@@ -50,5 +51,12 @@ export class PrismaCourseCommandRepository implements CourseCommandRepository {
       include: { sections: true },
     });
     return course ? this.mapper.toDomain(course) : null;
+  }
+
+  async findSectionById(sectionId: string): Promise<Section | null> {
+    const section = await this.prisma.section.findUnique({
+      where: { id: sectionId },
+    });
+    return section ? this.sectionMapper.toDomain(section) : null;
   }
 }

@@ -1,20 +1,39 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
 
 import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { LessonsCommandService } from 'src/lessons/application/lessons-command.service';
 
-@Controller('lessons')
+import { SectionsCommandService } from 'src/courses/application/sections-command.service';
+
+@Controller('sections/:sectionId/lessons')
 export class LessonsCommandController {
   constructor(
     private readonly lessonCommandService: LessonsCommandService,
+    private readonly sectionCommandService: SectionsCommandService,
     private readonly lessonResponseMapper: LessonResponseMapper,
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateLessonDto) {
-    const lesson = await this.lessonCommandService.create(dto);
+  async create(
+    @Param('sectionId') sectionId: string,
+    @Body() dto: CreateLessonDto,
+  ) {
+    const section = await this.sectionCommandService.exists(sectionId);
+    if (!section) {
+      throw new NotFoundException('Section not found');
+    }
+
+    const lesson = await this.lessonCommandService.create(sectionId, dto);
 
     return {
       message: 'Lesson created successfully',
@@ -22,9 +41,22 @@ export class LessonsCommandController {
     };
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateLessonDto) {
-    const lesson = await this.lessonCommandService.update(id, dto);
+  @Patch(':lessonId')
+  async update(
+    @Param('sectionId') sectionId: string,
+    @Param('lessonId') lessonId: string,
+    @Body() dto: UpdateLessonDto,
+  ) {
+    const section = await this.sectionCommandService.exists(sectionId);
+    if (!section) {
+      throw new NotFoundException('Section not found');
+    }
+
+    const lesson = await this.lessonCommandService.update(
+      sectionId,
+      lessonId,
+      dto,
+    );
 
     return {
       message: 'Lesson updated successfully',
@@ -32,9 +64,17 @@ export class LessonsCommandController {
     };
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.lessonCommandService.remove(id);
+  @Delete(':lessonId')
+  async remove(
+    @Param('sectionId') sectionId: string,
+    @Param('lessonId') lessonId: string,
+  ) {
+    const section = await this.sectionCommandService.exists(sectionId);
+    if (!section) {
+      throw new NotFoundException('Section not found');
+    }
+
+    await this.lessonCommandService.remove(sectionId, lessonId);
 
     return {
       message: 'Lesson deleted successfully',

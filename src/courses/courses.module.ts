@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Type } from '@nestjs/common';
+import { DynamicModule, Global, Module, Type } from '@nestjs/common';
 import { CoursesCommandController } from './presentation/http/courses-command.controller';
 import { CoursesQueryController } from './presentation/http/courses-query.controller';
 import { CourseFactory } from './domain/factories/course.factory';
@@ -12,6 +12,7 @@ import { SectionsQueryService } from './application/sections-query.service';
 import { SectionFactory } from './domain/factories/section.factory';
 import { SectionResponseMapper } from './presentation/http/mappers/section-response.mapper';
 
+@Global()
 @Module({
   imports: [],
   controllers: [

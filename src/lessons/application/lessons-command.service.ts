@@ -13,30 +13,37 @@ export class LessonsCommandService {
     private readonly lessonFactory: LessonFactory,
   ) {}
 
-  async create(input: CreateLessonInput): Promise<Lesson> {
-    const lesson = this.lessonFactory.createNew(input);
+  async create(sectionId: string, input: CreateLessonInput): Promise<Lesson> {
+    const lesson = this.lessonFactory.createNew(sectionId, input);
     await this.lessonCommandRepository.save(lesson);
     return lesson;
   }
 
-  async update(id: string, input: UpdateLessonInput): Promise<Lesson> {
-    console.log(input);
-    const lesson = await this.findById(id);
+  async update(
+    sectionId: string,
+    lessonId: string,
+    input: UpdateLessonInput,
+  ): Promise<Lesson> {
+    const lesson = await this.findById(lessonId);
+    lesson.updateTitle(input.title ?? lesson.title);
+    lesson.updateOrder(input.order ?? lesson.order);
+    lesson.updateVideoUrl(input.videoUrl ?? lesson.videoUrl);
+    lesson.updateSubTitleUrl(input.subTitleUrl ?? lesson.subTitleUrl);
     await this.lessonCommandRepository.save(lesson);
     return lesson;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.findById(id);
-    await this.lessonCommandRepository.delete(id);
+  async remove(sectionId: string, lessonId: string): Promise<void> {
+    await this.findById(lessonId);
+    await this.lessonCommandRepository.delete(lessonId);
   }
 
   async save(lesson: Lesson): Promise<void> {
     await this.lessonCommandRepository.save(lesson);
   }
 
-  async findById(id: string): Promise<Lesson> {
-    const lesson = await this.lessonCommandRepository.findById(id);
+  async findById(lessonId: string): Promise<Lesson> {
+    const lesson = await this.lessonCommandRepository.findById(lessonId);
     if (!lesson) throw new NotFoundException('lesson not found');
     return lesson;
   }
