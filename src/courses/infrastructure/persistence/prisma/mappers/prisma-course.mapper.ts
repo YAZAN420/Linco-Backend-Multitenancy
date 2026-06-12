@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import type { Course as PrismaCourse } from 'src/generated/prisma/client';
+import type {
+  Prisma,
+  Course as PrismaCourse,
+} from 'src/generated/prisma/client';
 import { Course } from 'src/courses/domain/course';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
+import { PrismaSectionMapper } from './prisma-section.mapper';
+export type CourseWithSections = Prisma.CourseGetPayload<{
+  include: { sections: true };
+}>;
 
 @Injectable()
 export class PrismaCourseMapper {
-  toDomain(raw: PrismaCourse): Course {
+  constructor(private readonly sectionMapper: PrismaSectionMapper) {}
+  toDomain(raw: CourseWithSections): Course {
     return new Course(raw.id, {
       title: raw.title,
       visibility: raw.visibility as CourseVisibility,
       price: raw.price,
+      sections: raw.sections
+        ? raw.sections.map((section) => this.sectionMapper.toDomain(section))
+        : [],
       authorDemoId: raw.authorDemoId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

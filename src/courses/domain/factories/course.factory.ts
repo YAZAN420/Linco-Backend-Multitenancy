@@ -11,6 +11,7 @@ export class CourseFactory {
       title: input.title,
       visibility: input.visibility,
       price: input.price,
+      sections: [],
       authorDemoId: input.authorDemoId,
       createdAt: now,
       updatedAt: now,

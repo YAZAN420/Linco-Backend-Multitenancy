@@ -1,15 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { SectionCommandRepository } from './ports/section-command.repository';
+
 import { SectionFactory } from '../domain/factories/section.factory';
 import { CreateSectionInput } from './interfaces/create-section-input.interface';
 import { Section } from '../domain/section';
 import { UpdateSectionInput } from './interfaces/update-section-input.interface';
 import { CourseCommandRepository } from './ports/course-command.repository';
+import { Course } from '../domain/course';
 
 @Injectable()
 export class SectionsCommandService {
   constructor(
-    private readonly sectionCommandRepository: SectionCommandRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
     private readonly sectionFactory: SectionFactory,
   ) {}
@@ -19,31 +19,37 @@ export class SectionsCommandService {
     if (!course) throw new NotFoundException('Course not found');
 
     const section = this.sectionFactory.createNew(courseId, input);
-    await this.sectionCommandRepository.save(section);
+
+    course.addSection(section);
+
+    await this.courseCommandRepository.save(course);
     return section;
   }
 
-  async update(sectionId: string, input: UpdateSectionInput): Promise<Section> {
-    const section = await this.findById(sectionId);
-    section.updateTitle(input.title ?? section.title);
-    section.updateOrder(input.order ?? section.order);
-    await this.sectionCommandRepository.save(section);
-    return section;
+  async update(
+    courseId: string,
+    sectionId: string,
+    input: UpdateSectionInput,
+  ): Promise<Section> {
+    const course = await this.courseCommandRepository.findById(courseId);
+    if (!course) throw new NotFoundException('Course not found');
+
+    course.updateSection(sectionId, input.title, input.order);
+
+    await this.courseCommandRepository.save(course);
+
+    return course.sections.find((s) => s.id === sectionId)!;
   }
 
-  async remove(sectionId: string): Promise<void> {
-    await this.findById(sectionId);
-    await this.sectionCommandRepository.delete(sectionId);
+  async remove(courseId: string, sectionId: string): Promise<void> {
+    const course = await this.courseCommandRepository.findById(courseId);
+    if (!course) throw new NotFoundException('Course not found');
+
+    course.removeSection(sectionId);
+    await this.courseCommandRepository.save(course);
   }
 
-  async save(section: Section): Promise<void> {
-    await this.sectionCommandRepository.save(section);
-  }
-
-  async findById(sectionId: string): Promise<Section> {
-    const section = await this.sectionCommandRepository.findById(sectionId);
-    if (!section)
-      throw new NotFoundException('Section not found in this course');
-    return section;
+  async save(course: Course): Promise<void> {
+    await this.courseCommandRepository.save(course);
   }
 }

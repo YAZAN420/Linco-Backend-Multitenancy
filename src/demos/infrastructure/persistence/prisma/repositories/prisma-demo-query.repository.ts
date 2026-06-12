@@ -97,7 +97,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       where: {
         demoId,
       },
-      orderBy: [{ id: 'desc' }],
+      orderBy: [{ createdAt: 'desc' }],
     });
 
     const hasNextPage = items.length > take;

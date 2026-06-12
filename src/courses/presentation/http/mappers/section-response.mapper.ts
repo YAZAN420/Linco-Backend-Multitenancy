@@ -8,6 +8,7 @@ export class SectionResponseMapper {
   toResponseFromPrisma(section: PrismaSection): SectionResponseDto {
     return new SectionResponseDto(
       section.id,
+      section.courseId,
       section.title,
       section.order,
       section.createdAt,
@@ -18,6 +19,7 @@ export class SectionResponseMapper {
   toResponseFromDomain(section: DomainSection): SectionResponseDto {
     return new SectionResponseDto(
       section.id,
+      section.courseId,
       section.title,
       section.order,
       section.createdAt,

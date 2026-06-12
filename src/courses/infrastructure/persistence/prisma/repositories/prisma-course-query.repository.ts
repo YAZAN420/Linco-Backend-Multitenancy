@@ -11,6 +11,8 @@ import {
   FindCoursesQuery,
 } from 'src/courses/application/interfaces/find-courses.query';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
+import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
+import { Section } from 'src/generated/prisma/client';
 
 const COURSE_SEARCH_COLUMNS = [];
 const COURSE_ORDERABLE_FIELDS = ['createdAt'];
@@ -79,6 +81,38 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   async findById(id: string): Promise<Course | null> {
     return this.prisma.course.findUnique({
       where: { id },
+    });
+  }
+
+  async findSectionsCursor(
+    courseId: string,
+    options: FindSectionsCursorQuery,
+  ): Promise<CursorPageDto<Section>> {
+    const { cursor, take } = options;
+
+    const items = await this.prisma.section.findMany({
+      take: take + 1,
+      skip: cursor ? 1 : 0,
+      cursor: cursor ? { id: cursor } : undefined,
+      where: {
+        courseId,
+      },
+    });
+
+    const hasNextPage = items.length > take;
+    if (hasNextPage) items.pop();
+
+    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+
+    return new CursorPageDto(
+      items,
+      new CursorPageMetaDto(hasNextPage, endCursor),
+    );
+  }
+
+  async findSectionById(sectionId: string): Promise<Section | null> {
+    return this.prisma.section.findUnique({
+      where: { id: sectionId },
     });
   }
 }

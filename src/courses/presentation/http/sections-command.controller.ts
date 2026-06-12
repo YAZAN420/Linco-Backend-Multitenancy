@@ -4,14 +4,14 @@ import { SectionResponseMapper } from './mappers/section-response.mapper';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 
-@Controller()
+@Controller('courses/:courseId/sections')
 export class SectionsCommandController {
   constructor(
     private readonly sectionCommandService: SectionsCommandService,
     private readonly sectionResponseMapper: SectionResponseMapper,
   ) {}
 
-  @Post('courses/:courseId/sections')
+  @Post()
   async create(
     @Param('courseId') courseId: string,
     @Body() dto: CreateSectionDto,
@@ -24,12 +24,17 @@ export class SectionsCommandController {
     };
   }
 
-  @Patch('sections/:sectionId')
+  @Patch(':sectionId')
   async update(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Body() dto: UpdateSectionDto,
   ) {
-    const section = await this.sectionCommandService.update(sectionId, dto);
+    const section = await this.sectionCommandService.update(
+      courseId,
+      sectionId,
+      dto,
+    );
 
     return {
       message: 'Section updated successfully',
@@ -37,9 +42,12 @@ export class SectionsCommandController {
     };
   }
 
-  @Delete('sections/:sectionId')
-  async remove(@Param('sectionId') sectionId: string) {
-    await this.sectionCommandService.remove(sectionId);
+  @Delete(':sectionId')
+  async remove(
+    @Param('courseId') courseId: string,
+    @Param('sectionId') sectionId: string,
+  ) {
+    await this.sectionCommandService.remove(courseId, sectionId);
 
     return {
       message: 'Section deleted successfully',

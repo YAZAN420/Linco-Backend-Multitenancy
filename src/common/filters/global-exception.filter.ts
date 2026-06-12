@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Logger } from 'nestjs-pino';
+import { DomainException } from '../exceptions/domain.exception';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -27,9 +28,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       httpStatus = exception.getStatus();
       errorType = exception.name;
-
       const exceptionResponse = exception.getResponse();
-
       if (
         typeof exceptionResponse === 'object' &&
         exceptionResponse !== null &&
@@ -43,6 +42,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       } else {
         message = exception.message;
       }
+    } else if (exception instanceof DomainException) {
+      httpStatus = HttpStatus.BAD_REQUEST;
+      errorType = exception.name;
+      message = exception.message;
     } else if (exception instanceof Error) {
       this.logger.error(
         `[${method}] ${url} - ${exception.message}`,
