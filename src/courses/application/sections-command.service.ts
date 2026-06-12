@@ -23,32 +23,25 @@ export class SectionsCommandService {
     return section;
   }
 
-  async update(
-    courseId: string,
-    sectionId: string,
-    input: UpdateSectionInput,
-  ): Promise<Section> {
-    const section = await this.findById(courseId, sectionId);
+  async update(sectionId: string, input: UpdateSectionInput): Promise<Section> {
+    const section = await this.findById(sectionId);
     section.updateTitle(input.title ?? section.title);
     section.updateOrder(input.order ?? section.order);
     await this.sectionCommandRepository.save(section);
     return section;
   }
 
-  async remove(courseId: string, sectionId: string): Promise<void> {
-    await this.findById(courseId, sectionId);
-    await this.sectionCommandRepository.delete(courseId, sectionId);
+  async remove(sectionId: string): Promise<void> {
+    await this.findById(sectionId);
+    await this.sectionCommandRepository.delete(sectionId);
   }
 
   async save(section: Section): Promise<void> {
     await this.sectionCommandRepository.save(section);
   }
 
-  async findById(courseId: string, sectionId: string): Promise<Section> {
-    const section = await this.sectionCommandRepository.findById(
-      courseId,
-      sectionId,
-    );
+  async findById(sectionId: string): Promise<Section> {
+    const section = await this.sectionCommandRepository.findById(sectionId);
     if (!section)
       throw new NotFoundException('Section not found in this course');
     return section;

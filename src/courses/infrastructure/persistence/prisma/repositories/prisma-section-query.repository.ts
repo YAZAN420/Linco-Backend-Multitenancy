@@ -53,9 +53,9 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
     );
   }
 
-  async findById(courseId: string, sectionId: string): Promise<Section | null> {
+  async findById(sectionId: string): Promise<Section | null> {
     return this.prisma.section.findFirst({
-      where: { id: sectionId, courseId: courseId },
+      where: { id: sectionId },
     });
   }
 }

@@ -23,11 +23,8 @@ export class SectionsQueryService {
     return this.sectionQueryRepository.findAllCursor(courseId, options);
   }
 
-  async findById(courseId: string, sectionId: string): Promise<Section> {
-    const section = await this.sectionQueryRepository.findById(
-      courseId,
-      sectionId,
-    );
+  async findById(sectionId: string): Promise<Section> {
+    const section = await this.sectionQueryRepository.findById(sectionId);
     if (!section)
       throw new NotFoundException('Section not found in this course');
     return section;

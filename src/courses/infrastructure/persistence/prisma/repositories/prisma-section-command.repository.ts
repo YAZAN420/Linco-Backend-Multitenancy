@@ -20,15 +20,15 @@ export class PrismaSectionCommandRepository implements SectionCommandRepository 
     });
   }
 
-  async delete(courseId: string, sectionId: string): Promise<void> {
+  async delete(sectionId: string): Promise<void> {
     await this.prisma.section.delete({
-      where: { id: sectionId, courseId: courseId },
+      where: { id: sectionId },
     });
   }
 
-  async findById(courseId: string, sectionId: string): Promise<Section | null> {
+  async findById(sectionId: string): Promise<Section | null> {
     const section = await this.prisma.section.findFirst({
-      where: { id: sectionId, courseId: courseId },
+      where: { id: sectionId },
     });
     return section ? this.mapper.toDomain(section) : null;
   }

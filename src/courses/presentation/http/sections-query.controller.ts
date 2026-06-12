@@ -3,14 +3,14 @@ import { SectionResponseMapper } from './mappers/section-response.mapper';
 import { FindSectionsCursorDto } from './dto/filters/find-sections-cursor.dto';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
-@Controller('courses/:courseId/sections')
+@Controller('')
 export class SectionsQueryController {
   constructor(
     private readonly sectionQueryService: SectionsQueryService,
     private readonly sectionResponseMapper: SectionResponseMapper,
   ) {}
 
-  @Get('cursor')
+  @Get('courses/:courseId/sections/cursor')
   async findWithCursor(
     @Param('courseId') courseId: string,
     @Query() options: FindSectionsCursorDto,
@@ -27,15 +27,9 @@ export class SectionsQueryController {
     };
   }
 
-  @Get(':sectionId')
-  async findOne(
-    @Param('courseId') courseId: string,
-    @Param('sectionId') sectionId: string,
-  ) {
-    const section = await this.sectionQueryService.findById(
-      courseId,
-      sectionId,
-    );
+  @Get('sections/:sectionId')
+  async findOne(@Param('sectionId') sectionId: string) {
+    const section = await this.sectionQueryService.findById(sectionId);
 
     return {
       message: 'Section retrieved successfully',

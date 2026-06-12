@@ -7,8 +7,5 @@ export abstract class SectionQueryRepository {
     courseId: string,
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>>;
-  abstract findById(
-    courseId: string,
-    sectionId: string,
-  ): Promise<Section | null>;
+  abstract findById(sectionId: string): Promise<Section | null>;
 }
