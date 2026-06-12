@@ -20,6 +20,9 @@ export class SectionsQueryService {
   }
 
   async findById(courseId: string, sectionId: string): Promise<Section> {
+    const course = await this.courseQueryRepository.findById(courseId);
+    if (!course) throw new NotFoundException('Course not found');
+
     const section = await this.courseQueryRepository.findSectionById(sectionId);
     if (!section)
       throw new NotFoundException('Section not found in this course');
