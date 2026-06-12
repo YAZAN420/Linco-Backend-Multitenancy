@@ -126,24 +126,30 @@ model Section {
 
   @@index([courseId]) 
   @@unique([courseId, order])
+  @@unique([courseId, title])
 }
 
 model Lesson {
   id          String   @id @default(uuid())
   title       String
   videoUrl    String
-  subtitleUrl String?
+  subTitleUrl String?
 
   order       Int      
 
   sectionId   String
   section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
 
+  courseId String
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   attachments  Attachment[]
+  @@index([courseId]) 
   @@index([sectionId]) 
+  @@unique([sectionId, order])
+  @@unique([sectionId, title])
 }
 
 model Attachment {

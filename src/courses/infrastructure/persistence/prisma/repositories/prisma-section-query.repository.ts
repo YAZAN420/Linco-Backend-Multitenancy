@@ -39,7 +39,7 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
         ...where,
         courseId: courseId,
       },
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
     });
 
     const hasNextPage = items.length > take;

@@ -36,11 +36,6 @@ export class Section {
     this.touch();
   }
 
-  updateCourseId(courseId: string): void {
-    this.props.courseId = courseId;
-    this.touch();
-  }
-
   private touch(): void {
     this.props.updatedAt = new Date();
   }
