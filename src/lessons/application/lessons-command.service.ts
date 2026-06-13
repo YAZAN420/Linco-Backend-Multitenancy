@@ -22,7 +22,7 @@ export class LessonsCommandService {
       input.title,
       input.order,
       input.videoUrl,
-      input.subTitleUrl,
+      input.subTitleUrl ?? null,
       input.courseId,
     );
     await this.lessonCommandRepository.save(lesson);
@@ -66,7 +66,7 @@ export class LessonsCommandService {
     await this.lessonCommandRepository.save(lesson);
   }
 
-  async findById(lessonId: string): Promise<Lesson> {
+  private async findById(lessonId: string): Promise<Lesson> {
     const lesson = await this.lessonCommandRepository.findById(lessonId);
     if (!lesson) throw new NotFoundException('lesson not found');
     return lesson;

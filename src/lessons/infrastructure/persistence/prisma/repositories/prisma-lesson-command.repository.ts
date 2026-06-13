@@ -16,26 +16,28 @@ export class PrismaLessonCommandRepository implements LessonCommandRepository {
 
   async save(lesson: Lesson): Promise<void> {
     const data = this.mapper.toPersistence(lesson);
-    await this.prisma.lesson.upsert({
-      where: { id: lesson.id },
-      update: data,
-      create: data,
-    });
-    const attachmentIds = lesson.attachments.map((a) => a.id);
-    await this.prisma.attachment.deleteMany({
-      where: {
-        lessonId: lesson.id,
-        id: { notIn: attachmentIds },
-      },
-    });
-    for (const attachment of lesson.attachments) {
-      const attachmentData = this.attachmentMapper.toPersistence(attachment);
-      await this.prisma.attachment.upsert({
-        where: { id: attachment.id },
-        update: attachmentData,
-        create: attachmentData,
+    await this.prisma.$transaction(async (tx) => {
+      await tx.lesson.upsert({
+        where: { id: lesson.id },
+        update: data,
+        create: data,
       });
-    }
+      const attachmentIds = lesson.attachments.map((a) => a.id);
+      await tx.attachment.deleteMany({
+        where: {
+          lessonId: lesson.id,
+          id: { notIn: attachmentIds },
+        },
+      });
+      for (const attachment of lesson.attachments) {
+        const attachmentData = this.attachmentMapper.toPersistence(attachment);
+        await tx.attachment.upsert({
+          where: { id: attachment.id },
+          update: attachmentData,
+          create: attachmentData,
+        });
+      }
+    });
   }
 
   async delete(id: string): Promise<void> {

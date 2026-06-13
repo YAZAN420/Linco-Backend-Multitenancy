@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Section as PrismaSection } from 'src/generated/prisma/browser';
+import { Section as PrismaSection } from 'src/generated/prisma/client';
 import { Section as DomainSection } from 'src/courses/domain/section';
 import { SectionResponseDto } from '../dto/section-response.dto';
 

@@ -4,11 +4,11 @@ import { UpdateAttachmentInput } from 'src/lessons/application/interfaces/update
 export class UpdateAttachmentDto implements UpdateAttachmentInput {
   @IsString()
   @IsOptional()
-  name!: string | null;
+  name?: string;
   @IsString()
   @IsOptional()
-  path!: string | null;
+  path?: string;
   @IsString()
   @IsOptional()
-  mimeType!: string | null;
+  mimeType?: string;
 }

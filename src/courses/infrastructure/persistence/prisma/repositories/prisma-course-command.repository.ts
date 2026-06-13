@@ -17,7 +17,7 @@ export class PrismaCourseCommandRepository implements CourseCommandRepository {
   async save(course: Course): Promise<void> {
     const data = this.mapper.toPersistence(course);
     await this.prisma.$transaction(async (tx) => {
-      await this.prisma.course.upsert({
+      await tx.course.upsert({
         where: { id: course.id },
         update: data,
         create: data,

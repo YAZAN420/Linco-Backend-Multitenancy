@@ -3,7 +3,7 @@ import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
 } from '../interfaces/find-courses.query';
-import { Course, Section } from 'src/generated/prisma/browser';
+import { Course, Section } from 'src/generated/prisma/client';
 import { FindSectionsCursorQuery } from '../interfaces/find-sections.query';
 
 export abstract class CourseQueryRepository {

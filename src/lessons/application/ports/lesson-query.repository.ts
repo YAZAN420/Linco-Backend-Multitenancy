@@ -1,6 +1,6 @@
 import { CursorPageDto } from 'src/common/dtos/pagination';
 import { FindCursorQuery } from '../../../common/interfaces/find.query';
-import { Attachment, Lesson } from 'src/generated/prisma/browser';
+import { Attachment, Lesson } from 'src/generated/prisma/client';
 
 export abstract class LessonQueryRepository {
   abstract findAllCursor(

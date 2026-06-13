@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { LessonResponseDto } from '../dto/lesson-response.dto';
-import { Lesson as PrismaLesson } from 'src/generated/prisma/browser';
+import { Lesson as PrismaLesson } from 'src/generated/prisma/client';
 import { Lesson as DomainLesson } from 'src/lessons/domain/lesson';
 
 @Injectable()

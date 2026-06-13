@@ -3,7 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { FindCursorQuery } from 'src/common/interfaces/find.query';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Lesson } from 'src/generated/prisma/browser';
+import { Lesson } from 'src/generated/prisma/client';
 import { Attachment } from 'src/generated/prisma/client';
 
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';

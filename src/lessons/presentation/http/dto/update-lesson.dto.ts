@@ -4,14 +4,14 @@ import { UpdateLessonInput } from 'src/lessons/application/interfaces/update-les
 export class UpdateLessonDto implements UpdateLessonInput {
   @IsString()
   @IsOptional()
-  title!: string | null;
+  title?: string;
   @IsNumber()
   @IsOptional()
-  order!: number | null;
+  order?: number;
   @IsString()
   @IsOptional()
-  videoUrl!: string | null;
+  videoUrl?: string;
   @IsString()
   @IsOptional()
-  subTitleUrl!: string | null;
+  subTitleUrl?: string;
 }

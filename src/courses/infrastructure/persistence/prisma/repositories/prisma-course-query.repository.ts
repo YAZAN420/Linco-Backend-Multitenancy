@@ -5,7 +5,7 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Course } from 'src/generated/prisma/browser';
+import { Prisma, Course } from 'src/generated/prisma/client';
 import {
   FindCoursesCursorQuery,
   FindCoursesQuery,

@@ -10,5 +10,5 @@ export class CreateAttachmentDto implements CreateAttachmentInput {
   path!: string;
   @IsString()
   @IsOptional()
-  mimeType!: string | null;
+  mimeType?: string;
 }

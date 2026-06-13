@@ -13,7 +13,7 @@ export class CreateLessonDto implements CreateLessonInput {
   videoUrl!: string;
   @IsString()
   @IsOptional()
-  subTitleUrl!: string | null;
+  subTitleUrl?: string;
   @IsString()
   @IsNotEmpty()
   courseId!: string;

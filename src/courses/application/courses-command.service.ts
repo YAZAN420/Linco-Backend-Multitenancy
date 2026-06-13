@@ -50,8 +50,8 @@ export class CoursesCommandService {
     await this.courseCommandRepository.save(course);
   }
 
-  async findById(id: string): Promise<Course> {
-    const course = await this.courseCommandRepository.findById(id);
+  async findById(courseId: string): Promise<Course> {
+    const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('course not found');
     return course;
   }
