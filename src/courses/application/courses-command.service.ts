@@ -5,6 +5,8 @@ import { Course } from '../domain/course';
 
 import { CreateCourseInput } from './interfaces/create-course-input.interface';
 import { UpdateCourseInput } from './interfaces/update-course-input.interface';
+import { Title } from '../domain/value-objects/title.vo';
+import { Price } from '../domain/value-objects/price.vo';
 
 @Injectable()
 export class CoursesCommandService {
@@ -14,15 +16,26 @@ export class CoursesCommandService {
   ) {}
 
   async create(input: CreateCourseInput): Promise<Course> {
-    const course = this.courseFactory.createNew(input);
+    const course = this.courseFactory.createNew(
+      input.title,
+      input.visibility,
+      input.price,
+      input.authorDemoId,
+    );
     await this.courseCommandRepository.save(course);
     return course;
   }
 
   async update(id: string, input: UpdateCourseInput): Promise<Course> {
     const course = await this.findById(id);
-    course.updateTitle(input.title ?? course.title);
-    course.updatePrice(input.price ?? course.price);
+    if (input.title) {
+      const titleVo = Title.create(input.title);
+      course.updateTitle(titleVo);
+    }
+    if (input.price) {
+      const priceVo = Price.create(input.price);
+      course.updatePrice(priceVo);
+    }
     course.updateVisibility(input.visibility ?? course.visibility);
     await this.courseCommandRepository.save(course);
     return course;

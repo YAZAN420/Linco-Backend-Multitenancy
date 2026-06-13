@@ -32,10 +32,11 @@ export class DemoMembersCommandService {
     const count = await this.demoMemberCommandRepository.countByDemo(demoId);
     demo.verifyCanAddMember(count);
 
-    const member = this.demoMemberFactory.createNew(demoId, {
-      userId: input.userId,
-      role: input.role,
-    });
+    const member = this.demoMemberFactory.createNew(
+      demoId,
+      input.userId,
+      input.role,
+    );
     await this.demoMemberCommandRepository.save(member);
   }
 

@@ -1,11 +1,16 @@
 import { CursorPageDto } from 'src/common/dtos/pagination';
-import { FindLessonsCursorQuery } from '../interfaces/find-lessons.query';
-import { Lesson } from 'src/generated/prisma/browser';
+import { FindCursorQuery } from '../../../common/interfaces/find.query';
+import { Attachment, Lesson } from 'src/generated/prisma/browser';
 
 export abstract class LessonQueryRepository {
   abstract findAllCursor(
     sectionId: string,
-    options: FindLessonsCursorQuery,
+    options: FindCursorQuery,
   ): Promise<CursorPageDto<Lesson>>;
   abstract findById(id: string): Promise<Lesson | null>;
+  abstract findAttachmentsCursor(
+    lessonId: string,
+    options: FindCursorQuery,
+  ): Promise<CursorPageDto<Attachment>>;
+  abstract findAttachmentById(attachmentId: string): Promise<Attachment | null>;
 }

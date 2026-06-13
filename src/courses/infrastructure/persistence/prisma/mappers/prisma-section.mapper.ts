@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Section } from 'src/courses/domain/section';
+import { SectionOrder } from 'src/courses/domain/value-objects/section-order.vo';
 import type { Section as PrismaSection } from 'src/generated/prisma/client';
+import { Title } from 'src/lessons/domain/value-objects/title.vo';
 
 @Injectable()
 export class PrismaSectionMapper {
   toDomain(raw: PrismaSection): Section {
+    const titleVo = Title.fromPersistence(raw.title);
+    const sectionOrderVo = SectionOrder.fromPersistence(raw.order);
     return new Section(raw.id, {
-      title: raw.title,
-      order: raw.order,
+      title: titleVo,
+      order: sectionOrderVo,
       courseId: raw.courseId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

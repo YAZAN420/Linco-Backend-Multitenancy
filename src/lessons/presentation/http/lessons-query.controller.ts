@@ -6,12 +6,11 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { FindLessonsCursorDto } from './dto/filters/find-lessons-cursor.dto';
-
 import { LessonsQueryService } from 'src/lessons/application/lessons-query.service';
 
 import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
 
 @Controller('sections/:sectionId/lessons')
 export class LessonsQueryController {
@@ -24,7 +23,7 @@ export class LessonsQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindLessonsCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) {

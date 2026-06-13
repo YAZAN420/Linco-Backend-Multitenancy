@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { Department } from '../department';
-import { CreateDepartmentInput } from 'src/demos/application/interfaces/create-department-input.interface';
 
 @Injectable()
 export class DepartmentFactory {
-  createNew(demoId: string, input: CreateDepartmentInput): Department {
+  createNew(demoId: string, name: string, managerId: string): Department {
     const now = new Date();
     return new Department(uuidv7(), {
-      name: input.name,
+      name,
+      managerId,
       demoId: demoId,
-      managerId: input.managerId,
       createdAt: now,
       updatedAt: now,
     });

@@ -97,7 +97,7 @@ model Demo {
 }
 
 model Course {
-  id            String             @id @default(uuid())
+  id            String             @id 
   title         String
   visibility    CourseVisibility   @default(PRIVATE)
   price         Float?          
@@ -112,7 +112,7 @@ model Course {
 }
 
 model Section {
-  id        String   @id @default(uuid())
+  id        String   @id 
   title     String
   order     Int
   
@@ -130,7 +130,7 @@ model Section {
 }
 
 model Lesson {
-  id          String   @id @default(uuid())
+  id          String   @id 
   title       String
   videoUrl    String
   subTitleUrl String?

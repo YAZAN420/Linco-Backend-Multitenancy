@@ -35,7 +35,11 @@ export class DepartmentsCommandService {
       }
     }
 
-    const newDepartment = this.departmentFactory.createNew(demoId, input);
+    const newDepartment = this.departmentFactory.createNew(
+      demoId,
+      input.name,
+      input.managerId,
+    );
     demo.addDepartment(newDepartment);
 
     await this.demoCommandRepository.save(demo);

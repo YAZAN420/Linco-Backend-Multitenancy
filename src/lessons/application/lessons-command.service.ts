@@ -5,6 +5,9 @@ import { Lesson } from '../domain/lesson';
 
 import { CreateLessonInput } from './interfaces/create-lesson-input.interface';
 import { UpdateLessonInput } from './interfaces/update-lesson-input.interface';
+import { Title } from '../domain/value-objects/title.vo';
+import { LessonOrder } from '../domain/value-objects/lesson-order.vo';
+import { Url } from '../domain/value-objects/url.vo';
 
 @Injectable()
 export class LessonsCommandService {
@@ -14,7 +17,14 @@ export class LessonsCommandService {
   ) {}
 
   async create(sectionId: string, input: CreateLessonInput): Promise<Lesson> {
-    const lesson = this.lessonFactory.createNew(sectionId, input);
+    const lesson = this.lessonFactory.createNew(
+      sectionId,
+      input.title,
+      input.order,
+      input.videoUrl,
+      input.subTitleUrl,
+      input.courseId,
+    );
     await this.lessonCommandRepository.save(lesson);
     return lesson;
   }
@@ -25,10 +35,24 @@ export class LessonsCommandService {
     input: UpdateLessonInput,
   ): Promise<Lesson> {
     const lesson = await this.findById(lessonId);
-    lesson.updateTitle(input.title ?? lesson.title);
-    lesson.updateOrder(input.order ?? lesson.order);
-    lesson.updateVideoUrl(input.videoUrl ?? lesson.videoUrl);
-    lesson.updateSubTitleUrl(input.subTitleUrl ?? lesson.subTitleUrl);
+    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (input.title) {
+      const titleVo = Title.create(input.title);
+      lesson.updateTitle(titleVo);
+    }
+    if (input.order) {
+      const lessonOrderVo = LessonOrder.create(input.order);
+      lesson.updateOrder(lessonOrderVo);
+    }
+    if (input.videoUrl) {
+      const videoUrlVo = Url.create(input.videoUrl);
+      lesson.updateVideoUrl(videoUrlVo);
+    }
+    if (input.subTitleUrl) {
+      const subTitleUrlVo = Url.create(input.subTitleUrl);
+      lesson.updateSubTitleUrl(subTitleUrlVo);
+    }
+
     await this.lessonCommandRepository.save(lesson);
     return lesson;
   }

@@ -1,18 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { Course } from '../course';
 import { v7 as uuidv7 } from 'uuid';
-import { CreateCourseInput } from 'src/courses/application/interfaces/create-course-input.interface';
+import { CourseVisibility } from '../enums/course-visibility.enum';
+import { Price } from '../value-objects/price.vo';
+import { Title } from '../value-objects/title.vo';
 
 @Injectable()
 export class CourseFactory {
-  public createNew(input: CreateCourseInput): Course {
+  public createNew(
+    title: string,
+    visibility: CourseVisibility,
+    price: number | null,
+    authorDemoId: string | null,
+  ): Course {
     const now = new Date();
+    const titleVo = Title.create(title);
+    const priceVo = Price.create(price);
     return new Course(uuidv7(), {
-      title: input.title,
-      visibility: input.visibility,
-      price: input.price,
+      title: titleVo,
+      visibility,
+      price: priceVo,
+      authorDemoId,
       sections: [],
-      authorDemoId: input.authorDemoId,
       createdAt: now,
       updatedAt: now,
     });

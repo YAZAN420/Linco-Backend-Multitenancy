@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { Demo } from '../demo';
-import { CreateDemoInput } from 'src/demos/application/interfaces/create-demo-input.interface';
 
 @Injectable()
 export class DemoFactory {
-  createNew(input: CreateDemoInput): Demo {
+  createNew(name: string, ownerId: string): Demo {
     const now = new Date();
     return new Demo(uuidv7(), {
-      name: input.name,
-      ownerId: input.ownerId,
+      name,
+      ownerId,
       departments: [],
       createdAt: now,
       updatedAt: now,

@@ -5,7 +5,8 @@ import { CreateSectionInput } from './interfaces/create-section-input.interface'
 import { Section } from '../domain/section';
 import { UpdateSectionInput } from './interfaces/update-section-input.interface';
 import { CourseCommandRepository } from './ports/course-command.repository';
-import { Course } from '../domain/course';
+import { Title } from '../domain/value-objects/title.vo';
+import { SectionOrder } from '../domain/value-objects/section-order.vo';
 
 @Injectable()
 export class SectionsCommandService {
@@ -18,7 +19,11 @@ export class SectionsCommandService {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('Course not found');
 
-    const section = this.sectionFactory.createNew(courseId, input);
+    const section = this.sectionFactory.createNew(
+      courseId,
+      input.title,
+      input.order,
+    );
 
     course.addSection(section);
 
@@ -34,7 +39,12 @@ export class SectionsCommandService {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('Course not found');
 
-    course.updateSection(sectionId, input.title, input.order);
+    const titleVo = input.title ? Title.create(input.title) : null;
+    const sectionOrderVo = input.order
+      ? SectionOrder.create(input.order)
+      : null;
+
+    course.updateSection(sectionId, titleVo, sectionOrderVo);
 
     await this.courseCommandRepository.save(course);
 
@@ -46,10 +56,6 @@ export class SectionsCommandService {
     if (!course) throw new NotFoundException('Course not found');
 
     course.removeSection(sectionId);
-    await this.courseCommandRepository.save(course);
-  }
-
-  async save(course: Course): Promise<void> {
     await this.courseCommandRepository.save(course);
   }
 

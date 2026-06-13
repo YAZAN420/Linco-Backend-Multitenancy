@@ -4,10 +4,12 @@ import { PrismaLessonCommandRepository } from './repositories/prisma-lesson-comm
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
 import { PrismaLessonQueryRepository } from './repositories/prisma-lesson-query.repository';
 import { PrismaLessonMapper } from './mappers/prisma-lesson.mapper';
+import { PrismaAttachmentMapper } from './mappers/prisma-attachment.mapper';
 
 @Module({
   providers: [
     PrismaLessonMapper,
+    PrismaAttachmentMapper,
     {
       provide: LessonCommandRepository,
       useClass: PrismaLessonCommandRepository,

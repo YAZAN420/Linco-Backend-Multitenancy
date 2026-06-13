@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import databaseConfig from 'src/config/database.config';
-import appConfig from 'src/config/app.config';
-import redisConfig from 'src/config/redis.config';
-import bullConfig from 'src/config/bull.config';
-import { validate } from 'src/config/env.validation';
+import databaseConfig from 'src/common/config/database.config';
+import appConfig from 'src/common/config/app.config';
+import redisConfig from 'src/common/config/redis.config';
+import bullConfig from 'src/common/config/bull.config';
+import { validate } from 'src/common/config/env.validation';
 
 @Module({
   imports: [

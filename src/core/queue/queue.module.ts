@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import bullConfig from 'src/config/bull.config';
+import bullConfig from 'src/common/config/bull.config';
 
 @Module({
   imports: [

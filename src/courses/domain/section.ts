@@ -1,4 +1,6 @@
 import { SectionProps } from './interfaces/section.props';
+import { SectionOrder } from './value-objects/section-order.vo';
+import { Title } from './value-objects/title.vo';
 
 export class Section {
   constructor(
@@ -15,24 +17,26 @@ export class Section {
   }
 
   get title(): string {
-    return this.props.title;
+    return this.props.title.value;
   }
 
   get order(): number {
-    return this.props.order;
+    return this.props.order.value;
   }
 
   get courseId(): string {
     return this.props.courseId;
   }
 
-  updateTitle(title: string): void {
-    this.props.title = title;
+  updateTitle(newTitle: Title): void {
+    if (this.props.title.equals(newTitle)) return;
+    this.props.title = newTitle;
     this.touch();
   }
 
-  updateOrder(order: number): void {
-    this.props.order = order;
+  updateOrder(newOrder: SectionOrder): void {
+    if (this.props.order.equals(newOrder)) return;
+    this.props.order = newOrder;
     this.touch();
   }
 

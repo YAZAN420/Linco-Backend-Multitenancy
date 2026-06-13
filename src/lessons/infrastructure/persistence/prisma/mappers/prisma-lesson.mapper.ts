@@ -1,17 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import type { Lesson as PrismaLesson } from 'src/generated/prisma/client';
+import type {
+  Prisma,
+  Lesson as PrismaLesson,
+} from 'src/generated/prisma/client';
 import { Lesson } from 'src/lessons/domain/lesson';
+import { LessonOrder } from 'src/lessons/domain/value-objects/lesson-order.vo';
+import { Title } from 'src/lessons/domain/value-objects/title.vo';
+import { Url } from 'src/lessons/domain/value-objects/url.vo';
+import { PrismaAttachmentMapper } from './prisma-attachment.mapper';
+
+export type LessonWithAttachments = Prisma.LessonGetPayload<{
+  include: { attachments: true };
+}>;
 
 @Injectable()
 export class PrismaLessonMapper {
-  toDomain(raw: PrismaLesson): Lesson {
+  constructor(private readonly attachmentMapper: PrismaAttachmentMapper) {}
+  toDomain(raw: LessonWithAttachments): Lesson {
+    const titleVo = Title.fromPersistence(raw.title);
+    const videoUrlVo = Url.fromPersistence(raw.videoUrl);
+    const lessonOrderVo = LessonOrder.fromPersistence(raw.order);
+    const subTitleUrlVo = raw.subTitleUrl
+      ? Url.fromPersistence(raw.subTitleUrl)
+      : null;
     return new Lesson(raw.id, {
-      title: raw.title,
-      order: raw.order,
-      videoUrl: raw.videoUrl,
-      subTitleUrl: raw.subTitleUrl,
+      title: titleVo,
+      order: lessonOrderVo,
+      videoUrl: videoUrlVo,
+      subTitleUrl: subTitleUrlVo,
       sectionId: raw.sectionId,
       courseId: raw.courseId,
+      attachments: raw.attachments
+        ? raw.attachments.map((a) => this.attachmentMapper.toDomain(a))
+        : [],
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });

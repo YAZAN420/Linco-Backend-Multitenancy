@@ -6,6 +6,8 @@ import type {
 import { Course } from 'src/courses/domain/course';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 import { PrismaSectionMapper } from './prisma-section.mapper';
+import { Title } from 'src/courses/domain/value-objects/title.vo';
+import { Price } from 'src/courses/domain/value-objects/price.vo';
 export type CourseWithSections = Prisma.CourseGetPayload<{
   include: { sections: true };
 }>;
@@ -14,10 +16,13 @@ export type CourseWithSections = Prisma.CourseGetPayload<{
 export class PrismaCourseMapper {
   constructor(private readonly sectionMapper: PrismaSectionMapper) {}
   toDomain(raw: CourseWithSections): Course {
+    const titleVo = Title.fromPersistence(raw.title);
+    const priceVo = Price.fromPersistence(raw.price);
+
     return new Course(raw.id, {
-      title: raw.title,
+      title: titleVo,
       visibility: raw.visibility as CourseVisibility,
-      price: raw.price,
+      price: priceVo,
       sections: raw.sections
         ? raw.sections.map((section) => this.sectionMapper.toDomain(section))
         : [],

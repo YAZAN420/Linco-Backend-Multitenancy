@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import { FindLessonsCursorQuery } from './interfaces/find-lessons.query';
+import { FindCursorQuery } from '../../common/interfaces/find.query';
 import { Lesson } from 'src/generated/prisma/client';
 import { LessonQueryRepository } from './ports/lesson-query.repository';
 
@@ -12,7 +12,7 @@ export class LessonsQueryService {
 
   async findAllCursor(
     sectionId: string,
-    options: FindLessonsCursorQuery,
+    options: FindCursorQuery,
   ): Promise<CursorPageDto<Lesson>> {
     return this.lessonQueryRepository.findAllCursor(sectionId, options);
   }
