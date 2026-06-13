@@ -5,27 +5,27 @@ import { AttachmentResponseDto } from '../dto/attachment-response.dto';
 
 @Injectable()
 export class AttachmentResponseMapper {
-  toResponseFromPrisma(lesson: PrismaAttachment): AttachmentResponseDto {
+  toResponseFromPrisma(attachment: PrismaAttachment): AttachmentResponseDto {
     return new AttachmentResponseDto(
-      lesson.id,
-      lesson.name,
-      lesson.path,
-      lesson.mimeType,
-      lesson.lessonId,
-      lesson.createdAt,
-      lesson.updatedAt,
+      attachment.id,
+      attachment.name,
+      attachment.path,
+      attachment.mimeType,
+      attachment.lessonId,
+      attachment.createdAt,
+      attachment.updatedAt,
     );
   }
 
-  toResponseFromDomain(lesson: DomainAttachment): AttachmentResponseDto {
+  toResponseFromDomain(attachment: DomainAttachment): AttachmentResponseDto {
     return new AttachmentResponseDto(
-      lesson.id,
-      lesson.name,
-      lesson.path,
-      lesson.mimeType,
-      lesson.lessonId,
-      lesson.createdAt,
-      lesson.updatedAt,
+      attachment.id,
+      attachment.name,
+      attachment.path,
+      attachment.mimeType,
+      attachment.lessonId,
+      attachment.createdAt,
+      attachment.updatedAt,
     );
   }
 

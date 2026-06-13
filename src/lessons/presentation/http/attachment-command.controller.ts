@@ -1,9 +1,9 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
-import { UpdateAttachmentDto } from './dto/update-attachment.dto.';
+import { UpdateAttachmentDto } from './dto/update-attachment.dto';
 import { AttachmentCommandService } from 'src/lessons/application/attachment-command.service';
-import { AttachmentResponseMapper } from './mappers/attachment-response.mapper.';
+import { AttachmentResponseMapper } from './mappers/attachment-response.mapper';
 
 @Controller('lessons/:lessonId/attachments')
 export class AttachmentsCommandController {

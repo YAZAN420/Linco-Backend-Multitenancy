@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
 import { AttachmentQueryService } from 'src/lessons/application/attachment-query.service';
-import { AttachmentResponseMapper } from './mappers/attachment-response.mapper.';
+import { AttachmentResponseMapper } from './mappers/attachment-response.mapper';
 
 @Controller('lessons/:lessonId/attachments')
 export class AttachmentsQueryController {

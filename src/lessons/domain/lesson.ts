@@ -66,7 +66,7 @@ export class Lesson {
     this.touch();
   }
 
-  updateSubTitleUrl(newSubTitleUrl: Url) {
+  updateSubTitleUrl(newSubTitleUrl: Url | null) {
     if (this.props.subTitleUrl === null && newSubTitleUrl === null) return;
     if (
       this.props.subTitleUrl &&
