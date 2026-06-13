@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import type {
-  Prisma,
-  Course as PrismaCourse,
-} from 'src/generated/prisma/client';
+import type { Course as PrismaCourse } from 'src/generated/prisma/client';
 import { Course } from 'src/courses/domain/course';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 import { PrismaSectionMapper } from './prisma-section.mapper';
 import { Title } from 'src/courses/domain/value-objects/title.vo';
 import { Price } from 'src/courses/domain/value-objects/price.vo';
-export type CourseWithSections = Prisma.CourseGetPayload<{
-  include: { sections: true };
-}>;
+import { CourseWithSections } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaCourseMapper {

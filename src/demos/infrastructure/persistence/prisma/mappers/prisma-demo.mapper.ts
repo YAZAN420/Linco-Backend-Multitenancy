@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { Prisma, Demo as PrismaDemo } from 'src/generated/prisma/client';
+import type { Demo as PrismaDemo } from 'src/generated/prisma/client';
 import { Demo } from 'src/demos/domain/demo';
 import { PrismaDepartmentMapper } from './prisma-department.mapper';
-
-export type DemoWithDepartments = Prisma.DemoGetPayload<{
-  include: { departments: true };
-}>;
+import { DemoWithDepartments } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaDemoMapper {

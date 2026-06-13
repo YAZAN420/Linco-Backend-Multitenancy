@@ -1,17 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import type {
-  Prisma,
-  Lesson as PrismaLesson,
-} from 'src/generated/prisma/client';
+import type { Lesson as PrismaLesson } from 'src/generated/prisma/client';
 import { Lesson } from 'src/lessons/domain/lesson';
 import { LessonOrder } from 'src/lessons/domain/value-objects/lesson-order.vo';
 import { Title } from 'src/lessons/domain/value-objects/title.vo';
 import { Url } from 'src/lessons/domain/value-objects/url.vo';
 import { PrismaAttachmentMapper } from './prisma-attachment.mapper';
-
-export type LessonWithAttachments = Prisma.LessonGetPayload<{
-  include: { attachments: true };
-}>;
+import { LessonWithAttachments } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaLessonMapper {
