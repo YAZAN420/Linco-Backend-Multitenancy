@@ -12,14 +12,13 @@ import { UpdateLessonDto } from './dto/update-lesson.dto';
 
 import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { LessonsCommandService } from 'src/lessons/application/lessons-command.service';
-
-import { SectionsCommandService } from 'src/courses/application/sections-command.service';
+import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Controller('sections/:sectionId/lessons')
 export class LessonsCommandController {
   constructor(
     private readonly lessonCommandService: LessonsCommandService,
-    private readonly sectionCommandService: SectionsCommandService,
+    private readonly sectionQueryService: SectionsQueryService,
     private readonly lessonResponseMapper: LessonResponseMapper,
   ) {}
 
@@ -28,7 +27,7 @@ export class LessonsCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateLessonDto,
   ) {
-    const section = await this.sectionCommandService.exists(sectionId);
+    const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
       throw new NotFoundException('Section not found');
     }
@@ -47,7 +46,7 @@ export class LessonsCommandController {
     @Param('lessonId') lessonId: string,
     @Body() dto: UpdateLessonDto,
   ) {
-    const section = await this.sectionCommandService.exists(sectionId);
+    const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
       throw new NotFoundException('Section not found');
     }
@@ -69,7 +68,7 @@ export class LessonsCommandController {
     @Param('sectionId') sectionId: string,
     @Param('lessonId') lessonId: string,
   ) {
-    const section = await this.sectionCommandService.exists(sectionId);
+    const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
       throw new NotFoundException('Section not found');
     }
