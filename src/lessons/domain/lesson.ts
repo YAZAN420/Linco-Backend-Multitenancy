@@ -2,8 +2,8 @@ import { DomainException } from 'src/common/exceptions/domain.exception';
 import { Attachment } from './attachment';
 import { LessonProps } from './interfaces/lesson.props';
 import { Title } from './value-objects/title.vo';
-import { FilePath } from './value-objects/file-path.vo';
-import { Url } from './value-objects/url.vo';
+import { FilePath } from '../../common/value-objects/file-path.vo';
+import { Url } from '../../common/value-objects/url.vo';
 import { LessonOrder } from './value-objects/lesson-order.vo';
 
 export class Lesson {

@@ -3,14 +3,16 @@ import type { Demo as PrismaDemo } from 'src/generated/prisma/client';
 import { Demo } from 'src/demos/domain/demo';
 import { PrismaDepartmentMapper } from './prisma-department.mapper';
 import { DemoWithDepartments } from 'src/core/database/prisma/types';
+import { Name } from 'src/demos/domain/value-objects/name.vo';
 
 @Injectable()
 export class PrismaDemoMapper {
   constructor(private readonly departmentMapper: PrismaDepartmentMapper) {}
 
   toDomain(raw: DemoWithDepartments): Demo {
+    const nameVo = Name.create(raw.name);
     return new Demo(raw.id, {
-      name: raw.name,
+      name: nameVo,
       ownerId: raw.ownerId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

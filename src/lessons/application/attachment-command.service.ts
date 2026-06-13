@@ -6,7 +6,7 @@ import { UpdateAttachmentInput } from './interfaces/update-attachment-input.inte
 import { LessonCommandRepository } from './ports/lesson-command.repository';
 import { AttachmentFactory } from '../domain/factories/attachment.factory';
 import { Title } from '../domain/value-objects/title.vo';
-import { FilePath } from '../domain/value-objects/file-path.vo';
+import { FilePath } from '../../common/value-objects/file-path.vo';
 
 @Injectable()
 export class AttachmentCommandService {

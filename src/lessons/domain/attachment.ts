@@ -1,5 +1,5 @@
 import { AttachmentProps } from './interfaces/attachments.props';
-import { FilePath } from './value-objects/file-path.vo';
+import { FilePath } from '../../common/value-objects/file-path.vo';
 import { Title } from './value-objects/title.vo';
 
 export class Attachment {

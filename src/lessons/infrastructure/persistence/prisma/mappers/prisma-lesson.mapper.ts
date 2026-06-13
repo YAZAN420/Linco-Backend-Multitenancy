@@ -3,7 +3,7 @@ import type { Lesson as PrismaLesson } from 'src/generated/prisma/client';
 import { Lesson } from 'src/lessons/domain/lesson';
 import { LessonOrder } from 'src/lessons/domain/value-objects/lesson-order.vo';
 import { Title } from 'src/lessons/domain/value-objects/title.vo';
-import { Url } from 'src/lessons/domain/value-objects/url.vo';
+import { Url } from 'src/common/value-objects/url.vo';
 import { PrismaAttachmentMapper } from './prisma-attachment.mapper';
 import { LessonWithAttachments } from 'src/core/database/prisma/types';
 

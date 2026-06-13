@@ -1,3 +1,3 @@
 export interface UpdateDemoInput {
-  name?: string;
+  name: string | null;
 }

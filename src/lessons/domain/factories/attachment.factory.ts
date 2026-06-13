@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { Attachment } from '../attachment';
 import { Title } from '../value-objects/title.vo';
-import { FilePath } from '../value-objects/file-path.vo';
+import { FilePath } from '../../../common/value-objects/file-path.vo';
 
 @Injectable()
 export class AttachmentFactory {

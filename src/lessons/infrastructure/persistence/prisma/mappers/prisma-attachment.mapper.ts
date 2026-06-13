@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { Attachment as PrismaAttachment } from 'src/generated/prisma/client';
 import { Attachment } from 'src/lessons/domain/attachment';
-import { FilePath } from 'src/lessons/domain/value-objects/file-path.vo';
+import { FilePath } from 'src/common/value-objects/file-path.vo';
 import { Title } from 'src/lessons/domain/value-objects/title.vo';
 
 @Injectable()

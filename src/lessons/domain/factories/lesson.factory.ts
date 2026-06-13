@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Lesson } from '../lesson';
 import { v7 as uuidv7 } from 'uuid';
 import { Title } from '../value-objects/title.vo';
-import { Url } from '../value-objects/url.vo';
+import { Url } from '../../../common/value-objects/url.vo';
 import { LessonOrder } from '../value-objects/lesson-order.vo';
 
 @Injectable()

@@ -7,7 +7,7 @@ import { CreateLessonInput } from './interfaces/create-lesson-input.interface';
 import { UpdateLessonInput } from './interfaces/update-lesson-input.interface';
 import { Title } from '../domain/value-objects/title.vo';
 import { LessonOrder } from '../domain/value-objects/lesson-order.vo';
-import { Url } from '../domain/value-objects/url.vo';
+import { Url } from '../../common/value-objects/url.vo';
 
 @Injectable()
 export class LessonsCommandService {

@@ -1,5 +1,5 @@
-import { DomainValidationException } from './exceptions/validation.exception';
 import { DepartmentProps } from './interfaces/department.props';
+import { Name } from './value-objects/name.vo';
 
 export class Department {
   constructor(
@@ -8,11 +8,14 @@ export class Department {
   ) {}
 
   get name(): string {
-    return this.props.name;
+    return this.props.name.value;
   }
 
   get demoId(): string {
     return this.props.demoId;
+  }
+  get nameVo(): Name {
+    return this.props.name;
   }
 
   get createdAt(): Date {
@@ -27,11 +30,8 @@ export class Department {
     return this.props.managerId;
   }
 
-  updateName(newName: string): void {
-    if (newName === this.props.name) return;
-    if (newName.trim().length === 0) {
-      throw new DomainValidationException('Department name cannot be empty');
-    }
+  updateName(newName: Name): void {
+    if (this.props.name.equals(newName)) return;
     this.props.name = newName;
     this.touch();
   }
