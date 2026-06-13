@@ -4,5 +4,5 @@ import { UpdateDemoInput } from 'src/demos/application/interfaces/update-demo-in
 export class UpdateDemoDto implements UpdateDemoInput {
   @IsOptional()
   @IsString()
-  name?: string;
+  name!: string | null;
 }

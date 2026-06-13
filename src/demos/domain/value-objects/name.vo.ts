@@ -1,4 +1,4 @@
-import { DomainValidationException } from '../exceptions/validation.exception';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 export class Name {
   public readonly value: string;
@@ -10,10 +10,10 @@ export class Name {
   static create(name: string): Name {
     const cleanName = name.trim();
     if (cleanName.length === 0) {
-      throw new DomainValidationException('Name cannot be empty');
+      throw new DomainException('Name cannot be empty');
     }
     if (cleanName.length > 50) {
-      throw new DomainValidationException('Name cannot exceed 50 characters');
+      throw new DomainException('Name cannot exceed 50 characters');
     }
     return new Name(cleanName);
   }
