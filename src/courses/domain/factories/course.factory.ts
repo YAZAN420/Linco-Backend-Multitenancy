@@ -10,17 +10,17 @@ export class CourseFactory {
   public createNew(
     title: string,
     visibility: CourseVisibility,
-    price: number | null,
-    authorDemoId: string | null,
+    price?: number | null,
+    authorDemoId?: string | null,
   ): Course {
     const now = new Date();
     const titleVo = Title.create(title);
-    const priceVo = Price.create(price);
+    const priceVo = Price.create(price ?? null);
     return new Course(uuidv7(), {
       title: titleVo,
       visibility,
       price: priceVo,
-      authorDemoId,
+      authorDemoId: authorDemoId ?? null,
       sections: [],
       createdAt: now,
       updatedAt: now,

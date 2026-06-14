@@ -87,11 +87,13 @@ export class Course {
 
   updateSection(
     sectionId: string,
-    newTitle: Title | null,
-    newOrder: SectionOrder | null,
+    newTitle?: Title,
+    newOrder?: SectionOrder,
   ): void {
     const section = this.props.sections.find((s) => s.id === sectionId);
     if (!section) throw new DomainException('Section not found in this course');
+
+    let isUpdated = false;
 
     if (newTitle && newTitle.value !== section.title) {
       const isTitleExists = this.props.sections.some(
@@ -103,6 +105,7 @@ export class Course {
         );
       }
       section.updateTitle(newTitle);
+      isUpdated = true;
     }
 
     if (newOrder && newOrder.value !== section.order) {
@@ -115,16 +118,18 @@ export class Course {
         );
       }
       section.updateOrder(newOrder);
+      isUpdated = true;
     }
 
-    this.touch();
+    if (isUpdated) {
+      this.touch();
+    }
   }
 
   removeSection(sectionId: string): void {
-    const initialLength = this.props.sections.length;
-    this.props.sections = this.props.sections.filter((s) => s.id !== sectionId);
-
-    if (this.props.sections.length !== initialLength) {
+    const index = this.props.sections.findIndex((s) => s.id === sectionId);
+    if (index !== -1) {
+      this.props.sections.splice(index, 1);
       this.touch();
     }
   }

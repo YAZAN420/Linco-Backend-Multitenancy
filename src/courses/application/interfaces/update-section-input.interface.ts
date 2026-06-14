@@ -1,4 +1,4 @@
 export interface UpdateSectionInput {
-  title: string | null;
-  order: number | null;
+  title?: string;
+  order?: number;
 }

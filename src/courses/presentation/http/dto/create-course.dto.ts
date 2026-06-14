@@ -19,9 +19,9 @@ export class CreateCourseDto implements CreateCourseInput {
 
   @IsString()
   @IsOptional()
-  authorDemoId!: string | null;
+  authorDemoId?: string;
 
   @IsNumber()
   @IsOptional()
-  price!: number | null;
+  price?: number;
 }

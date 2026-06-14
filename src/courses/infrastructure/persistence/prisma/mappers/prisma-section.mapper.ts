@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Section } from 'src/courses/domain/section';
 import { SectionOrder } from 'src/courses/domain/value-objects/section-order.vo';
 import type { Section as PrismaSection } from 'src/generated/prisma/client';
-import { Title } from 'src/lessons/domain/value-objects/title.vo';
+import { Title } from 'src/courses/domain/value-objects/title.vo';
 
 @Injectable()
 export class PrismaSectionMapper {

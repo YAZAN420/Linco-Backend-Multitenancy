@@ -28,15 +28,19 @@ export class CoursesCommandService {
 
   async update(id: string, input: UpdateCourseInput): Promise<Course> {
     const course = await this.findById(id);
-    if (input.title) {
+    if (input.title !== undefined && input.title !== null) {
       const titleVo = Title.create(input.title);
       course.updateTitle(titleVo);
     }
-    if (input.price) {
+
+    if (input.price !== undefined) {
       const priceVo = Price.create(input.price);
       course.updatePrice(priceVo);
     }
-    course.updateVisibility(input.visibility ?? course.visibility);
+
+    if (input.visibility !== undefined && input.visibility !== null) {
+      course.updateVisibility(input.visibility);
+    }
     await this.courseCommandRepository.save(course);
     return course;
   }

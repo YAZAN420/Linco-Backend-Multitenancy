@@ -38,10 +38,10 @@ export class SectionsCommandService {
   ): Promise<Section> {
     const course = await this.findCourseById(courseId);
 
-    const titleVo = input.title ? Title.create(input.title) : null;
-    const sectionOrderVo = input.order
-      ? SectionOrder.create(input.order)
-      : null;
+    const titleVo =
+      input.title !== undefined ? Title.create(input.title) : undefined;
+    const sectionOrderVo =
+      input.order !== undefined ? SectionOrder.create(input.order) : undefined;
 
     course.updateSection(sectionId, titleVo, sectionOrderVo);
 

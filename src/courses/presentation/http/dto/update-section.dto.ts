@@ -4,9 +4,9 @@ import { UpdateSectionInput } from 'src/courses/application/interfaces/update-se
 export class UpdateSectionDto implements UpdateSectionInput {
   @IsString()
   @IsOptional()
-  title!: string | null;
+  title?: string;
 
   @IsNumber()
   @IsOptional()
-  order!: number | null;
+  order?: number;
 }
