@@ -15,7 +15,7 @@ export class UserFactory {
     birthDate: Date,
     imagePath: string,
   ): User {
-    const email = new Email(emailStr);
+    const email = Email.create(emailStr);
     const now = new Date();
 
     const security = new UserSecurity({

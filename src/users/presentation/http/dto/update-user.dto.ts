@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsOptional, IsString, IsDateString } from 'class-validator';
 import { UpdateUserInput } from 'src/users/application/interfaces/update-user-input.interface';
 
@@ -12,6 +13,7 @@ export class UpdateUserDto implements UpdateUserInput {
 
   @IsOptional()
   @IsDateString()
+  @Type(() => Date)
   birthDate?: Date;
 
   @IsOptional()
