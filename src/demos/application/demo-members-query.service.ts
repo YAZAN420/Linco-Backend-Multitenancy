@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DemoMemberQueryRepository } from './ports/demo-member-query.repository';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { DemoMember as PrismaDemoMember } from 'src/generated/prisma/client';
+
 import { FindDemoMembersCursorQuery } from './interfaces/find-demos.query';
 import { DemoQueryRepository } from './ports/demo-query.repository';
+import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class DemoMembersQueryService {
@@ -15,7 +16,7 @@ export class DemoMembersQueryService {
   async findAllByDemo(
     demoId: string,
     options: FindDemoMembersCursorQuery,
-  ): Promise<CursorPageDto<PrismaDemoMember>> {
+  ): Promise<CursorPageDto<DemoMemberWithUser>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException('Demo not found');
@@ -23,7 +24,10 @@ export class DemoMembersQueryService {
     return await this.demoMemberQueryRepository.findAllByDemo(demoId, options);
   }
 
-  async findById(demoId: string, memberId: string): Promise<PrismaDemoMember> {
+  async findById(
+    demoId: string,
+    memberId: string,
+  ): Promise<DemoMemberWithUser> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException('Demo not found');

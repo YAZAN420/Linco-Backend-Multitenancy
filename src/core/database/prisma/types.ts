@@ -11,3 +11,7 @@ export type CourseWithSections = Prisma.CourseGetPayload<{
 export type DemoWithDepartments = Prisma.DemoGetPayload<{
   include: { departments: true };
 }>;
+
+export type DemoMemberWithUser = Prisma.DemoMemberGetPayload<{
+  include: { user: true };
+}>;
