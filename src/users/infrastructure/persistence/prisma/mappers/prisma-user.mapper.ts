@@ -22,7 +22,7 @@ export class PrismaUserMapper {
     return new User(raw.id, {
       firstName: raw.firstName,
       lastName: raw.lastName,
-      email: Email.create(raw.email),
+      email: Email.fromPersistence(raw.email),
       birthDate: raw.birthDate,
       imagePath: raw.imagePath,
       role: raw.role as unknown as Role,

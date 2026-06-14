@@ -14,6 +14,7 @@ export class UserFactory {
     passwordStr: string,
     birthDate: Date,
     imagePath: string,
+    role: Role,
   ): User {
     const email = Email.create(emailStr);
     const now = new Date();
@@ -35,7 +36,7 @@ export class UserFactory {
       email,
       birthDate,
       imagePath,
-      role: Role.USER,
+      role,
       security,
       createdAt: now,
       updatedAt: now,

@@ -30,6 +30,7 @@ export class UsersCommandService {
       hashedPassword,
       input.birthDate,
       input.imagePath,
+      input.role,
     );
 
     await this.userCommandRepository.save(user);
