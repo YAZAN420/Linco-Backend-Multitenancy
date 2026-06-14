@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { DemoMember as PrismaDemoMember } from 'src/generated/prisma/client';
-import { DemoMemberResponseDto } from '../dto/demo-member-respomse.dto';
+import { DemoMemberResponseDto } from '../dto/demo-member-response.dto';
+import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 
 @Injectable()
 export class DemoMemberResponseMapper {
   toResponseFromPrisma(member: PrismaDemoMember): DemoMemberResponseDto {
-    return {
-      id: member.id,
-      demoId: member.demoId,
-      userId: member.userId,
-      role: member.role,
-      joinedAt: member.joinedAt,
-      updatedAt: member.updatedAt,
-    };
+    return new DemoMemberResponseDto(
+      member.id,
+      member.demoId,
+      member.userId,
+      member.role as DemoMemberRole,
+      member.joinedAt,
+      member.updatedAt,
+    );
   }
 
   toResponseManyFromPrisma(

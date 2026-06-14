@@ -22,10 +22,9 @@ export class DemosCommandService {
 
   async update(id: string, input: UpdateDemoInput): Promise<Demo> {
     const demo = await this.findById(id);
-    const nameVo = input.name
-      ? Name.create(input.name)
-      : Name.create(demo.name);
-    demo.updateName(nameVo);
+    if (input.name !== undefined) {
+      demo.updateName(Name.create(input.name));
+    }
     await this.demoCommandRepository.save(demo);
     return demo;
   }

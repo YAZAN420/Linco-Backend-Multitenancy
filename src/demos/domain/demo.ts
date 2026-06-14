@@ -50,7 +50,7 @@ export class Demo {
       );
     }
 
-    this.props.departments = [...this.props.departments, department];
+    this.props.departments.push(department);
     this.touch();
   }
 
@@ -59,10 +59,13 @@ export class Demo {
       throw new DomainException('Department not found in this demo');
     }
 
-    this.props.departments = this.departments.filter(
-      (d) => d.id !== departmentId,
+    const index = this.props.departments.findIndex(
+      (d) => d.id === departmentId,
     );
-    this.touch();
+    if (index !== -1) {
+      this.props.departments.splice(index, 1);
+      this.touch();
+    }
   }
 
   renameDepartment(departmentId: string, newName: Name): void {
@@ -86,17 +89,12 @@ export class Demo {
 
   reassignDepartmentManager(departmentId: string, newManagerId: string): void {
     const department = this.getDepartmentStrict(departmentId);
-    if (!newManagerId) return;
     department.updateManager(newManagerId);
     this.touch();
   }
 
   hasDepartment(departmentId: string): boolean {
     return this.departments.some((d) => d.id === departmentId);
-  }
-
-  setDepartments(departments: Department[]): void {
-    this.props.departments = departments;
   }
 
   verifyCanAddMember(currentCount: number): void {
