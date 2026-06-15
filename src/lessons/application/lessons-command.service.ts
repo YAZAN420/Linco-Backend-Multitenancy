@@ -23,7 +23,6 @@ export class LessonsCommandService {
       input.order,
       input.videoUrl,
       input.subTitleUrl ?? null,
-      input.courseId,
     );
     await this.lessonCommandRepository.save(lesson);
     return lesson;

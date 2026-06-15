@@ -40,10 +40,6 @@ export class Lesson {
     return this.props.sectionId;
   }
 
-  get courseId(): string {
-    return this.props.courseId;
-  }
-
   get attachments(): Attachment[] {
     return [...this.props.attachments];
   }

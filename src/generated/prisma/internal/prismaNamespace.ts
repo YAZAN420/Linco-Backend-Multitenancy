@@ -391,7 +391,9 @@ export const ModelName = {
   Course: 'Course',
   Section: 'Section',
   Lesson: 'Lesson',
-  Attachment: 'Attachment'
+  Attachment: 'Attachment',
+  DemoInventory: 'DemoInventory',
+  DepartmentCourse: 'DepartmentCourse'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment"
+    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "demoInventory" | "departmentCourse"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1005,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DemoInventory: {
+      payload: Prisma.$DemoInventoryPayload<ExtArgs>
+      fields: Prisma.DemoInventoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DemoInventoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DemoInventoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        findFirst: {
+          args: Prisma.DemoInventoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DemoInventoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        findMany: {
+          args: Prisma.DemoInventoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+        }
+        create: {
+          args: Prisma.DemoInventoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        createMany: {
+          args: Prisma.DemoInventoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DemoInventoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+        }
+        delete: {
+          args: Prisma.DemoInventoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        update: {
+          args: Prisma.DemoInventoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.DemoInventoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DemoInventoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DemoInventoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.DemoInventoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+        }
+        aggregate: {
+          args: Prisma.DemoInventoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDemoInventory>
+        }
+        groupBy: {
+          args: Prisma.DemoInventoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DemoInventoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DemoInventoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DemoInventoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    DepartmentCourse: {
+      payload: Prisma.$DepartmentCoursePayload<ExtArgs>
+      fields: Prisma.DepartmentCourseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DepartmentCourseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DepartmentCourseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        findFirst: {
+          args: Prisma.DepartmentCourseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DepartmentCourseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        findMany: {
+          args: Prisma.DepartmentCourseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>[]
+        }
+        create: {
+          args: Prisma.DepartmentCourseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        createMany: {
+          args: Prisma.DepartmentCourseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DepartmentCourseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>[]
+        }
+        delete: {
+          args: Prisma.DepartmentCourseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        update: {
+          args: Prisma.DepartmentCourseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        deleteMany: {
+          args: Prisma.DepartmentCourseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DepartmentCourseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DepartmentCourseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>[]
+        }
+        upsert: {
+          args: Prisma.DepartmentCourseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentCoursePayload>
+        }
+        aggregate: {
+          args: Prisma.DepartmentCourseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartmentCourse>
+        }
+        groupBy: {
+          args: Prisma.DepartmentCourseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentCourseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DepartmentCourseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentCourseCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1132,7 +1282,6 @@ export const LessonScalarFieldEnum = {
   subTitleUrl: 'subTitleUrl',
   order: 'order',
   sectionId: 'sectionId',
-  courseId: 'courseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1151,6 +1300,25 @@ export const AttachmentScalarFieldEnum = {
 } as const
 
 export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
+
+
+export const DemoInventoryScalarFieldEnum = {
+  demoId: 'demoId',
+  courseId: 'courseId',
+  accessMethod: 'accessMethod',
+  acquiredAt: 'acquiredAt'
+} as const
+
+export type DemoInventoryScalarFieldEnum = (typeof DemoInventoryScalarFieldEnum)[keyof typeof DemoInventoryScalarFieldEnum]
+
+
+export const DepartmentCourseScalarFieldEnum = {
+  departmentId: 'departmentId',
+  courseId: 'courseId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type DepartmentCourseScalarFieldEnum = (typeof DepartmentCourseScalarFieldEnum)[keyof typeof DepartmentCourseScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1287,6 +1455,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
+
+/**
+ * Reference to a field of type 'AccessMethod'
+ */
+export type EnumAccessMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccessMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'AccessMethod[]'
+ */
+export type ListEnumAccessMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccessMethod[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1405,6 +1587,8 @@ export type GlobalOmitConfig = {
   section?: Prisma.SectionOmit
   lesson?: Prisma.LessonOmit
   attachment?: Prisma.AttachmentOmit
+  demoInventory?: Prisma.DemoInventoryOmit
+  departmentCourse?: Prisma.DepartmentCourseOmit
 }
 
 /* Types for Logging */

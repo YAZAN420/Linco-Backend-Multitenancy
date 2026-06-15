@@ -282,7 +282,7 @@ export type SectionScalarWhereWithAggregatesInput = {
 }
 
 export type SectionCreateInput = {
-  id?: string
+  id: string
   title: string
   order: number
   createdAt?: Date | string
@@ -292,7 +292,7 @@ export type SectionCreateInput = {
 }
 
 export type SectionUncheckedCreateInput = {
-  id?: string
+  id: string
   title: string
   order: number
   courseId: string
@@ -322,7 +322,7 @@ export type SectionUncheckedUpdateInput = {
 }
 
 export type SectionCreateManyInput = {
-  id?: string
+  id: string
   title: string
   order: number
   courseId: string
@@ -472,7 +472,7 @@ export type SectionUpdateOneRequiredWithoutLessonsNestedInput = {
 }
 
 export type SectionCreateWithoutCourseInput = {
-  id?: string
+  id: string
   title: string
   order: number
   createdAt?: Date | string
@@ -481,7 +481,7 @@ export type SectionCreateWithoutCourseInput = {
 }
 
 export type SectionUncheckedCreateWithoutCourseInput = {
-  id?: string
+  id: string
   title: string
   order: number
   createdAt?: Date | string
@@ -528,7 +528,7 @@ export type SectionScalarWhereInput = {
 }
 
 export type SectionCreateWithoutLessonsInput = {
-  id?: string
+  id: string
   title: string
   order: number
   createdAt?: Date | string
@@ -537,7 +537,7 @@ export type SectionCreateWithoutLessonsInput = {
 }
 
 export type SectionUncheckedCreateWithoutLessonsInput = {
-  id?: string
+  id: string
   title: string
   order: number
   courseId: string
@@ -580,7 +580,7 @@ export type SectionUncheckedUpdateWithoutLessonsInput = {
 }
 
 export type SectionCreateManyCourseInput = {
-  id?: string
+  id: string
   title: string
   order: number
   createdAt?: Date | string

@@ -41,7 +41,6 @@ export type LessonMinAggregateOutputType = {
   subTitleUrl: string | null
   order: number | null
   sectionId: string | null
-  courseId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,7 +52,6 @@ export type LessonMaxAggregateOutputType = {
   subTitleUrl: string | null
   order: number | null
   sectionId: string | null
-  courseId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,7 +63,6 @@ export type LessonCountAggregateOutputType = {
   subTitleUrl: number
   order: number
   sectionId: number
-  courseId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -87,7 +84,6 @@ export type LessonMinAggregateInputType = {
   subTitleUrl?: true
   order?: true
   sectionId?: true
-  courseId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -99,7 +95,6 @@ export type LessonMaxAggregateInputType = {
   subTitleUrl?: true
   order?: true
   sectionId?: true
-  courseId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -111,7 +106,6 @@ export type LessonCountAggregateInputType = {
   subTitleUrl?: true
   order?: true
   sectionId?: true
-  courseId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -210,7 +204,6 @@ export type LessonGroupByOutputType = {
   subTitleUrl: string | null
   order: number
   sectionId: string
-  courseId: string
   createdAt: Date
   updatedAt: Date
   _count: LessonCountAggregateOutputType | null
@@ -245,7 +238,6 @@ export type LessonWhereInput = {
   subTitleUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null
   order?: Prisma.IntFilter<"Lesson"> | number
   sectionId?: Prisma.StringFilter<"Lesson"> | string
-  courseId?: Prisma.StringFilter<"Lesson"> | string
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -259,7 +251,6 @@ export type LessonOrderByWithRelationInput = {
   subTitleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
@@ -278,7 +269,6 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   subTitleUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null
   order?: Prisma.IntFilter<"Lesson"> | number
   sectionId?: Prisma.StringFilter<"Lesson"> | string
-  courseId?: Prisma.StringFilter<"Lesson"> | string
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -292,7 +282,6 @@ export type LessonOrderByWithAggregationInput = {
   subTitleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.LessonCountOrderByAggregateInput
@@ -312,18 +301,16 @@ export type LessonScalarWhereWithAggregatesInput = {
   subTitleUrl?: Prisma.StringNullableWithAggregatesFilter<"Lesson"> | string | null
   order?: Prisma.IntWithAggregatesFilter<"Lesson"> | number
   sectionId?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
-  courseId?: Prisma.StringWithAggregatesFilter<"Lesson"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Lesson"> | Date | string
 }
 
 export type LessonCreateInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutLessonsInput
@@ -331,13 +318,12 @@ export type LessonCreateInput = {
 }
 
 export type LessonUncheckedCreateInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
   sectionId: string
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
@@ -349,7 +335,6 @@ export type LessonUpdateInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutLessonsNestedInput
@@ -363,20 +348,18 @@ export type LessonUncheckedUpdateInput = {
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonCreateManyInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
   sectionId: string
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -387,7 +370,6 @@ export type LessonUpdateManyMutationInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -399,7 +381,6 @@ export type LessonUncheckedUpdateManyInput = {
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -431,7 +412,6 @@ export type LessonCountOrderByAggregateInput = {
   subTitleUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -447,7 +427,6 @@ export type LessonMaxOrderByAggregateInput = {
   subTitleUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -459,7 +438,6 @@ export type LessonMinOrderByAggregateInput = {
   subTitleUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -530,24 +508,22 @@ export type LessonUpdateOneRequiredWithoutAttachmentsNestedInput = {
 }
 
 export type LessonCreateWithoutSectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUncheckedCreateWithoutSectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
@@ -589,31 +565,28 @@ export type LessonScalarWhereInput = {
   subTitleUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null
   order?: Prisma.IntFilter<"Lesson"> | number
   sectionId?: Prisma.StringFilter<"Lesson"> | string
-  courseId?: Prisma.StringFilter<"Lesson"> | string
   createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
 }
 
 export type LessonCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutLessonsInput
 }
 
 export type LessonUncheckedCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
   sectionId: string
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -640,7 +613,6 @@ export type LessonUpdateWithoutAttachmentsInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutLessonsNestedInput
@@ -653,18 +625,16 @@ export type LessonUncheckedUpdateWithoutAttachmentsInput = {
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LessonCreateManySectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
   order: number
-  courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -675,7 +645,6 @@ export type LessonUpdateWithoutSectionInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUpdateManyWithoutLessonNestedInput
@@ -687,7 +656,6 @@ export type LessonUncheckedUpdateWithoutSectionInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
@@ -699,7 +667,6 @@ export type LessonUncheckedUpdateManyWithoutSectionInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -742,7 +709,6 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   subTitleUrl?: boolean
   order?: boolean
   sectionId?: boolean
-  courseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -757,7 +723,6 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   subTitleUrl?: boolean
   order?: boolean
   sectionId?: boolean
-  courseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -770,7 +735,6 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   subTitleUrl?: boolean
   order?: boolean
   sectionId?: boolean
-  courseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -783,12 +747,11 @@ export type LessonSelectScalar = {
   subTitleUrl?: boolean
   order?: boolean
   sectionId?: boolean
-  courseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "videoUrl" | "subTitleUrl" | "order" | "sectionId" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "videoUrl" | "subTitleUrl" | "order" | "sectionId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
@@ -814,7 +777,6 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     subTitleUrl: string | null
     order: number
     sectionId: string
-    courseId: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["lesson"]>
@@ -1248,7 +1210,6 @@ export interface LessonFieldRefs {
   readonly subTitleUrl: Prisma.FieldRef<"Lesson", 'String'>
   readonly order: Prisma.FieldRef<"Lesson", 'Int'>
   readonly sectionId: Prisma.FieldRef<"Lesson", 'String'>
-  readonly courseId: Prisma.FieldRef<"Lesson", 'String'>
   readonly createdAt: Prisma.FieldRef<"Lesson", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Lesson", 'DateTime'>
 }

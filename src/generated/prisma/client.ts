@@ -79,3 +79,13 @@ export type Lesson = Prisma.LessonModel
  * 
  */
 export type Attachment = Prisma.AttachmentModel
+/**
+ * Model DemoInventory
+ * 
+ */
+export type DemoInventory = Prisma.DemoInventoryModel
+/**
+ * Model DepartmentCourse
+ * 
+ */
+export type DepartmentCourse = Prisma.DepartmentCourseModel
