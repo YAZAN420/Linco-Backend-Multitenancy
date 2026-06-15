@@ -43,7 +43,10 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
       this.prisma.asset.findMany({
         skip,
         take: options.take,
-        where,
+        where: {
+          ...where,
+          demoId,
+        },
         orderBy: orderBy.length > 0 ? orderBy : [{ acquiredAt: 'desc' }],
       }),
       this.prisma.asset.count({ where }),
@@ -66,7 +69,10 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
+      where: {
+        ...where,
+        demoId,
+      },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
