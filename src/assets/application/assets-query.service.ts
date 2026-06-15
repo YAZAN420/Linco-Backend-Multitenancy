@@ -37,7 +37,6 @@ export class AssetsQueryService {
     if (!demo) throw new NotFoundException('Demo not found');
 
     const asset = await this.assetQueryRepository.findById(assetId);
-    console.log(assetId);
     if (!asset) throw new NotFoundException('Asset not found');
     return asset;
   }

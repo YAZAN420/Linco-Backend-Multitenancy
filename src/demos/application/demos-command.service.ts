@@ -34,10 +34,6 @@ export class DemosCommandService {
     await this.demoCommandRepository.delete(id);
   }
 
-  async save(demo: Demo): Promise<void> {
-    await this.demoCommandRepository.save(demo);
-  }
-
   async findById(id: string): Promise<Demo> {
     const demo = await this.demoCommandRepository.findById(id);
     if (!demo) throw new NotFoundException('demo not found');

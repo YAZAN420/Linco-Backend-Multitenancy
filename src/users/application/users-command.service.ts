@@ -74,10 +74,6 @@ export class UsersCommandService {
     await this.userCommandRepository.save(user);
   }
 
-  async save(user: User): Promise<void> {
-    await this.userCommandRepository.save(user);
-  }
-
   private async ensureEmailIsUnique(email: string): Promise<void> {
     const existing = await this.userCommandRepository.findByEmail(email);
     if (existing) throw new ConflictException('Email already exists');

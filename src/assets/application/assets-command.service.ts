@@ -47,13 +47,9 @@ export class AssetsCommandService {
     await this.assetCommandRepository.delete(assetId);
   }
 
-  async save(asset: Asset): Promise<void> {
-    await this.assetCommandRepository.save(asset);
-  }
-
   private async findById(assetId: string): Promise<Asset> {
     const asset = await this.assetCommandRepository.findById(assetId);
-    if (!asset) throw new NotFoundException('asset not found');
+    if (!asset) throw new NotFoundException('Asset not found');
     return asset;
   }
 }
