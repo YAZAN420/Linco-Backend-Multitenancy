@@ -14,7 +14,7 @@ export class Email {
       throw new InvalidEmailFormatException();
     }
 
-    return Email.create(trimmed);
+    return new Email(trimmed);
   }
 
   static fromPersistence(value: string): Email {

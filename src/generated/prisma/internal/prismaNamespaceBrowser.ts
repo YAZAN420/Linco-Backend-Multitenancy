@@ -59,7 +59,7 @@ export const ModelName = {
   Section: 'Section',
   Lesson: 'Lesson',
   Attachment: 'Attachment',
-  DemoInventory: 'DemoInventory',
+  Asset: 'Asset',
   DepartmentCourse: 'DepartmentCourse'
 } as const
 
@@ -189,20 +189,24 @@ export const AttachmentScalarFieldEnum = {
 export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
-export const DemoInventoryScalarFieldEnum = {
+export const AssetScalarFieldEnum = {
+  id: 'id',
   demoId: 'demoId',
   courseId: 'courseId',
   accessMethod: 'accessMethod',
-  acquiredAt: 'acquiredAt'
+  acquiredAt: 'acquiredAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type DemoInventoryScalarFieldEnum = (typeof DemoInventoryScalarFieldEnum)[keyof typeof DemoInventoryScalarFieldEnum]
+export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
 
 
 export const DepartmentCourseScalarFieldEnum = {
+  id: 'id',
   departmentId: 'departmentId',
   courseId: 'courseId',
-  assignedAt: 'assignedAt'
+  assignedAt: 'assignedAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DepartmentCourseScalarFieldEnum = (typeof DepartmentCourseScalarFieldEnum)[keyof typeof DepartmentCourseScalarFieldEnum]

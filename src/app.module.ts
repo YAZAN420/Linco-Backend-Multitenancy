@@ -13,8 +13,8 @@ import { CoursesModule } from './courses/courses.module';
 import { CoursesInfrastructureModule } from './courses/infrastructure/courses-infrastructure.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { LessonsInfrastructureModule } from './lessons/infrastructure/lessons-infrastructure.module';
-
-
+import { AssetsModule } from './assets/assets.module';
+import { AssetsInfrastructureModule } from './assets/infrastructure/assets-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -28,6 +28,7 @@ export class AppModule {
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
         CoursesModule.withInfrastructure(CoursesInfrastructureModule.use()),
         LessonsModule.withInfrastructure(LessonsInfrastructureModule.use()),
+        AssetsModule.withInfrastructure(AssetsInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

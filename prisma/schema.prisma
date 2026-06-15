@@ -93,7 +93,7 @@ model Demo {
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
 
   authoredCourses Course[]        @relation("AuthoredCourses")
-  inventories     DemoInventory[]
+  assets     Asset[]
 }
 
 model Course {
@@ -108,7 +108,7 @@ model Course {
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
 
-  inventories     DemoInventory[]
+  assets     Asset[]
   departments     DepartmentCourse[]
   sections       Section[]
 }
@@ -167,25 +167,29 @@ model Attachment {
   @@index([lessonId])
 }
 
-model DemoInventory {
+model Asset {
+  id           String       @id
   demoId       String
   courseId     String
   accessMethod AccessMethod 
   acquiredAt   DateTime     @default(now())
+  updatedAt DateTime @updatedAt
 
   demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
   course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  @@id([demoId, courseId]) 
+  @@unique([demoId, courseId])
 }
 
 model DepartmentCourse {
+  id           String       @id
   departmentId String
   courseId     String
   assignedAt   DateTime   @default(now())
+   updatedAt DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  @@id([departmentId, courseId]) 
+  @@unique([departmentId, courseId]) 
 }

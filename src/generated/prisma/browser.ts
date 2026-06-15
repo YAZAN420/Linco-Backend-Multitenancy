@@ -58,10 +58,10 @@ export type Lesson = Prisma.LessonModel
  */
 export type Attachment = Prisma.AttachmentModel
 /**
- * Model DemoInventory
+ * Model Asset
  * 
  */
-export type DemoInventory = Prisma.DemoInventoryModel
+export type Asset = Prisma.AssetModel
 /**
  * Model DepartmentCourse
  * 

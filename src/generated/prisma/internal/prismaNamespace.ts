@@ -392,7 +392,7 @@ export const ModelName = {
   Section: 'Section',
   Lesson: 'Lesson',
   Attachment: 'Attachment',
-  DemoInventory: 'DemoInventory',
+  Asset: 'Asset',
   DepartmentCourse: 'DepartmentCourse'
 } as const
 
@@ -409,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "demoInventory" | "departmentCourse"
+    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "asset" | "departmentCourse"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1005,77 +1005,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    DemoInventory: {
-      payload: Prisma.$DemoInventoryPayload<ExtArgs>
-      fields: Prisma.DemoInventoryFieldRefs
+    Asset: {
+      payload: Prisma.$AssetPayload<ExtArgs>
+      fields: Prisma.AssetFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.DemoInventoryFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload> | null
+          args: Prisma.AssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.DemoInventoryFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         findFirst: {
-          args: Prisma.DemoInventoryFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload> | null
+          args: Prisma.AssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.DemoInventoryFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         findMany: {
-          args: Prisma.DemoInventoryFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+          args: Prisma.AssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
         }
         create: {
-          args: Prisma.DemoInventoryCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         createMany: {
-          args: Prisma.DemoInventoryCreateManyArgs<ExtArgs>
+          args: Prisma.AssetCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.DemoInventoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+          args: Prisma.AssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
         }
         delete: {
-          args: Prisma.DemoInventoryDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         update: {
-          args: Prisma.DemoInventoryUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         deleteMany: {
-          args: Prisma.DemoInventoryDeleteManyArgs<ExtArgs>
+          args: Prisma.AssetDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.DemoInventoryUpdateManyArgs<ExtArgs>
+          args: Prisma.AssetUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.DemoInventoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>[]
+          args: Prisma.AssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
         }
         upsert: {
-          args: Prisma.DemoInventoryUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoInventoryPayload>
+          args: Prisma.AssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
         }
         aggregate: {
-          args: Prisma.DemoInventoryAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDemoInventory>
+          args: Prisma.AssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAsset>
         }
         groupBy: {
-          args: Prisma.DemoInventoryGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DemoInventoryGroupByOutputType>[]
+          args: Prisma.AssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetGroupByOutputType>[]
         }
         count: {
-          args: Prisma.DemoInventoryCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DemoInventoryCountAggregateOutputType> | number
+          args: Prisma.AssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetCountAggregateOutputType> | number
         }
       }
     }
@@ -1302,20 +1302,24 @@ export const AttachmentScalarFieldEnum = {
 export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
-export const DemoInventoryScalarFieldEnum = {
+export const AssetScalarFieldEnum = {
+  id: 'id',
   demoId: 'demoId',
   courseId: 'courseId',
   accessMethod: 'accessMethod',
-  acquiredAt: 'acquiredAt'
+  acquiredAt: 'acquiredAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type DemoInventoryScalarFieldEnum = (typeof DemoInventoryScalarFieldEnum)[keyof typeof DemoInventoryScalarFieldEnum]
+export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
 
 
 export const DepartmentCourseScalarFieldEnum = {
+  id: 'id',
   departmentId: 'departmentId',
   courseId: 'courseId',
-  assignedAt: 'assignedAt'
+  assignedAt: 'assignedAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DepartmentCourseScalarFieldEnum = (typeof DepartmentCourseScalarFieldEnum)[keyof typeof DepartmentCourseScalarFieldEnum]
@@ -1587,7 +1591,7 @@ export type GlobalOmitConfig = {
   section?: Prisma.SectionOmit
   lesson?: Prisma.LessonOmit
   attachment?: Prisma.AttachmentOmit
-  demoInventory?: Prisma.DemoInventoryOmit
+  asset?: Prisma.AssetOmit
   departmentCourse?: Prisma.DepartmentCourseOmit
 }
 
