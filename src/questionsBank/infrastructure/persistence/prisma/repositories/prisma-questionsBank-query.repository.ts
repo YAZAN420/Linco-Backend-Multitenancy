@@ -20,16 +20,21 @@ const QUESTIONSBANK_ORDERABLE_FIELDS = ['createdAt'];
 export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<T extends FindQuestionsBankQuery | FindQuestionsBankCursorQuery>(
-    options: T,
-  ) {
+  private buildPrismaArgs<
+    T extends FindQuestionsBankQuery | FindQuestionsBankCursorQuery,
+  >(options: T) {
     return {
-      where: buildWhere<T, Prisma.QuestionBankWhereInput>(options, QUESTIONSBANK_SEARCH_COLUMNS),
+      where: buildWhere<T, Prisma.QuestionBankWhereInput>(
+        options,
+        QUESTIONSBANK_SEARCH_COLUMNS,
+      ),
       orderBy: buildOrderBy(options.orderBy, QUESTIONSBANK_ORDERABLE_FIELDS),
     };
   }
 
-  async findAll(options: FindQuestionsBankQuery): Promise<PageDto<QuestionBank>> {
+  async findAll(
+    options: FindQuestionsBankQuery,
+  ): Promise<PageDto<QuestionBank>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 

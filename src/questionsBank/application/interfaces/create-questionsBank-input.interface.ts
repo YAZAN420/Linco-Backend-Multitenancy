@@ -1,4 +1,4 @@
 export interface CreateQuestionsBankInput {
-    numberOfQuestions: number;
-    text: string;
+  numberOfQuestions: number;
+  text: string;
 }

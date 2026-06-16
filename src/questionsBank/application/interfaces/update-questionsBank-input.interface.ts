@@ -1,4 +1,4 @@
 export interface UpdateQuestionsBankInput {
-    numberOfQuestions?: number;
-    text?: string;
+  numberOfQuestions?: number;
+  text?: string;
 }

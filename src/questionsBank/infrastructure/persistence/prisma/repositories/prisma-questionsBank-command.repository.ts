@@ -25,7 +25,9 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
   }
 
   async findById(id: string): Promise<QuestionsBank | null> {
-    const questionsBank = await this.prisma.questionBank.findUnique({ where: { id } });
+    const questionsBank = await this.prisma.questionBank.findUnique({
+      where: { id },
+    });
     return questionsBank ? this.mapper.toDomain(questionsBank) : null;
   }
 }

@@ -7,20 +7,20 @@ import { QuestionsBankQueryService } from './application/questionsBank-query.ser
 import { QuestionsBankResponseMapper } from './presentation/http/mappers/questionsBank-response.mapper';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [QuestionsBankCommandController, QuestionsBankQueryController],
   providers: [
     QuestionsBankCommandService,
     QuestionsBankQueryService,
-    QuestionsBankFactory, 
-    QuestionsBankResponseMapper
-    ],
+    QuestionsBankFactory,
+    QuestionsBankResponseMapper,
+  ],
   exports: [
     QuestionsBankCommandService,
     QuestionsBankQueryService,
     QuestionsBankFactory,
-    QuestionsBankResponseMapper
-    ],
+    QuestionsBankResponseMapper,
+  ],
 })
 export class QuestionsBankModule {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

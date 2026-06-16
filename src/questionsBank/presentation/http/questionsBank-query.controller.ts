@@ -17,12 +17,17 @@ export class QuestionsBankQueryController {
   @Get()
   async findAll(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindQuestionsBankDto
+    @Query() options: FindQuestionsBankDto,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findAll(sectionId, options);
+    const questionsBank = await this.questionsBankQueryService.findAll(
+      sectionId,
+      options,
+    );
     return {
       message: 'QuestionBank fetched successfully',
-      data: this.questionsBankResponseMapper.toResponseManyFromPrisma(questionsBank.data),
+      data: this.questionsBankResponseMapper.toResponseManyFromPrisma(
+        questionsBank.data,
+      ),
       meta: questionsBank.meta,
     };
   }
@@ -30,13 +35,18 @@ export class QuestionsBankQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindQuestionsBankCursorDto
+    @Query() options: FindQuestionsBankCursorDto,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findAllCursor(sectionId, options);
+    const questionsBank = await this.questionsBankQueryService.findAllCursor(
+      sectionId,
+      options,
+    );
 
     return {
       message: 'QuestionBank fetched successfully (Cursor)',
-      data: this.questionsBankResponseMapper.toResponseManyFromPrisma(questionsBank.data),
+      data: this.questionsBankResponseMapper.toResponseManyFromPrisma(
+        questionsBank.data,
+      ),
       meta: questionsBank.meta,
     };
   }
@@ -46,11 +56,16 @@ export class QuestionsBankQueryController {
     @Param('sectionId') sectionId: string,
     @Param('questionBankId') questionsBankId: string,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findById(sectionId, questionsBankId);
+    const questionsBank = await this.questionsBankQueryService.findById(
+      sectionId,
+      questionsBankId,
+    );
 
     return {
       message: 'QuestionBank retrieved successfully',
-      data: this.questionsBankResponseMapper.toResponseFromPrisma(questionsBank),
+      data: this.questionsBankResponseMapper.toResponseFromPrisma(
+        questionsBank,
+      ),
     };
   }
 }

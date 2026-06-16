@@ -5,29 +5,37 @@ import { QuestionsBank as DomainQuestionsBank } from 'src/questionsBank/domain/q
 
 @Injectable()
 export class QuestionsBankResponseMapper {
-  toResponseFromPrisma(questionsBank: PrismaQuestionsBank): QuestionsBankResponseDto {
+  toResponseFromPrisma(
+    questionsBank: PrismaQuestionsBank,
+  ): QuestionsBankResponseDto {
     return new QuestionsBankResponseDto(
       questionsBank.id,
       questionsBank.sectionId,
       questionsBank.text,
       questionsBank.numberOfQuestions,
       questionsBank.createdAt,
-      questionsBank.updatedAt
+      questionsBank.updatedAt,
     );
   }
 
-  toResponseFromDomain(questionsBank: DomainQuestionsBank): QuestionsBankResponseDto {
+  toResponseFromDomain(
+    questionsBank: DomainQuestionsBank,
+  ): QuestionsBankResponseDto {
     return new QuestionsBankResponseDto(
       questionsBank.id,
       questionsBank.sectionId,
       questionsBank.text,
       questionsBank.numberOfQuestions,
       questionsBank.createdAt,
-      questionsBank.updatedAt
+      questionsBank.updatedAt,
     );
   }
 
-  toResponseManyFromPrisma(questionsBank: PrismaQuestionsBank[]): QuestionsBankResponseDto[] {
-    return questionsBank.map((questionsBank) => this.toResponseFromPrisma(questionsBank));
+  toResponseManyFromPrisma(
+    questionsBank: PrismaQuestionsBank[],
+  ): QuestionsBankResponseDto[] {
+    return questionsBank.map((questionsBank) =>
+      this.toResponseFromPrisma(questionsBank),
+    );
   }
 }

@@ -13,12 +13,12 @@ import { QuestionsBankQueryRepository } from './ports/questionsBank-query.reposi
 @Injectable()
 export class QuestionsBankQueryService {
   constructor(
-    private readonly questionsBankQueryRepository: QuestionsBankQueryRepository
+    private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
   ) {}
 
   async findAll(
     sectionId: string,
-    pageOptionsDto: FindQuestionsBankQuery
+    pageOptionsDto: FindQuestionsBankQuery,
   ): Promise<PageDto<QuestionBank>> {
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }

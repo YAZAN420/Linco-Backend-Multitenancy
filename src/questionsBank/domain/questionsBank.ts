@@ -1,6 +1,5 @@
 import { QuestionsBankProps } from './interfaces/questionsBank.props';
 
-
 export class QuestionsBank {
   constructor(
     public readonly id: string,
