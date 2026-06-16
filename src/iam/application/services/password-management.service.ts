@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 
 import { HashingPort } from '../ports/hashing.port';
@@ -7,6 +12,7 @@ import { MailQueueService } from './mail-queue.service';
 import { MAIL_JOBS } from '../constants/mail.constants';
 import { IAM_CONSTANTS } from '../../domain/constants/iam.constants';
 import { UsersCommandService } from 'src/users/application/users-command.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class PasswordManagementService {
@@ -15,6 +21,7 @@ export class PasswordManagementService {
     private readonly cryptoPort: CryptoPort,
     private readonly usersCommandService: UsersCommandService,
     private readonly mailQueueService: MailQueueService,
+    private readonly tokenService: TokenService,
     private readonly logger: Logger,
   ) {}
 
@@ -54,6 +61,39 @@ export class PasswordManagementService {
       hashedPassword,
     );
 
+    await this.tokenService.invalidateRefreshToken(user.id);
+
     this.logger.log(`Password reset successfully for user: ${user.id}`);
+  }
+
+  async changePassword(
+    userId: string,
+    oldPassword: string,
+    newPassword: string,
+  ) {
+    const user = await this.usersCommandService.findById(userId);
+    if (!user) throw new UnauthorizedException('User not found');
+
+    if (!user.security.password) {
+      throw new ForbiddenException(
+        'Account registered via Google. Please use the "Forgot Password" flow or email verification to set your first password.',
+      );
+    }
+
+    if (!oldPassword) {
+      throw new BadRequestException('Current password is required.');
+    }
+
+    const isOldPasswordValid = await this.hashingPort.compare(
+      oldPassword,
+      user.security.password,
+    );
+    if (!isOldPasswordValid) {
+      throw new BadRequestException('Current password is incorrect.');
+    }
+
+    const hashedPassword = await this.hashingPort.hash(newPassword);
+    await this.usersCommandService.updatePassword(user.id, hashedPassword);
+    await this.tokenService.invalidateRefreshToken(user.id);
   }
 }

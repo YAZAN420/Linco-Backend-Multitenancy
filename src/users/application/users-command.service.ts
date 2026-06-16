@@ -108,6 +108,13 @@ export class UsersCommandService {
     return user;
   }
 
+  async updatePassword(userId: string, hashedPassword: string): Promise<User> {
+    const user = await this.findById(userId);
+    user.security.updatePassword(hashedPassword);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
+
   async setTwoFactorSecret(userId: string, secret: string): Promise<User> {
     const user = await this.findById(userId);
     user.security.setTwoFactorSecret(secret);
