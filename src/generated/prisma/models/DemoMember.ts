@@ -193,6 +193,7 @@ export type DemoMemberWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
   managedDepartments?: Prisma.DepartmentListRelationFilter
+  quizAttempt?: Prisma.QuizAttemptListRelationFilter
 }
 
 export type DemoMemberOrderByWithRelationInput = {
@@ -205,6 +206,7 @@ export type DemoMemberOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   demo?: Prisma.DemoOrderByWithRelationInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
+  quizAttempt?: Prisma.QuizAttemptOrderByRelationAggregateInput
 }
 
 export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -221,6 +223,7 @@ export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
   managedDepartments?: Prisma.DepartmentListRelationFilter
+  quizAttempt?: Prisma.QuizAttemptListRelationFilter
 }, "id" | "userId_demoId">
 
 export type DemoMemberOrderByWithAggregationInput = {
@@ -255,6 +258,7 @@ export type DemoMemberCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberUncheckedCreateInput = {
@@ -265,6 +269,7 @@ export type DemoMemberUncheckedCreateInput = {
   joinedAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberUpdateInput = {
@@ -275,6 +280,7 @@ export type DemoMemberUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateInput = {
@@ -285,6 +291,7 @@ export type DemoMemberUncheckedUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberCreateManyInput = {
@@ -461,6 +468,20 @@ export type DemoMemberUncheckedUpdateManyWithoutDemoNestedInput = {
   deleteMany?: Prisma.DemoMemberScalarWhereInput | Prisma.DemoMemberScalarWhereInput[]
 }
 
+export type DemoMemberCreateNestedOneWithoutQuizAttemptInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedCreateWithoutQuizAttemptInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutQuizAttemptInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+}
+
+export type DemoMemberUpdateOneRequiredWithoutQuizAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedCreateWithoutQuizAttemptInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutQuizAttemptInput
+  upsert?: Prisma.DemoMemberUpsertWithoutQuizAttemptInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoMemberUpdateToOneWithWhereWithoutQuizAttemptInput, Prisma.DemoMemberUpdateWithoutQuizAttemptInput>, Prisma.DemoMemberUncheckedUpdateWithoutQuizAttemptInput>
+}
+
 export type DemoMemberCreateWithoutUserInput = {
   id: string
   role?: $Enums.DemoMemberRole
@@ -468,6 +489,7 @@ export type DemoMemberCreateWithoutUserInput = {
   updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberUncheckedCreateWithoutUserInput = {
@@ -477,6 +499,7 @@ export type DemoMemberUncheckedCreateWithoutUserInput = {
   joinedAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberCreateOrConnectWithoutUserInput = {
@@ -524,6 +547,7 @@ export type DemoMemberCreateWithoutManagedDepartmentsInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
   demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+  quizAttempt?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -533,6 +557,7 @@ export type DemoMemberUncheckedCreateWithoutManagedDepartmentsInput = {
   role?: $Enums.DemoMemberRole
   joinedAt?: Date | string
   updatedAt?: Date | string
+  quizAttempt?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -558,6 +583,7 @@ export type DemoMemberUpdateWithoutManagedDepartmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+  quizAttempt?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -567,6 +593,7 @@ export type DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput = {
   role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quizAttempt?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberCreateWithoutDemoInput = {
@@ -576,6 +603,7 @@ export type DemoMemberCreateWithoutDemoInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDemoInput = {
@@ -585,6 +613,7 @@ export type DemoMemberUncheckedCreateWithoutDemoInput = {
   joinedAt?: Date | string
   updatedAt?: Date | string
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type DemoMemberCreateOrConnectWithoutDemoInput = {
@@ -613,6 +642,62 @@ export type DemoMemberUpdateManyWithWhereWithoutDemoInput = {
   data: Prisma.XOR<Prisma.DemoMemberUpdateManyMutationInput, Prisma.DemoMemberUncheckedUpdateManyWithoutDemoInput>
 }
 
+export type DemoMemberCreateWithoutQuizAttemptInput = {
+  id: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
+  demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+}
+
+export type DemoMemberUncheckedCreateWithoutQuizAttemptInput = {
+  id: string
+  userId: string
+  demoId: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type DemoMemberCreateOrConnectWithoutQuizAttemptInput = {
+  where: Prisma.DemoMemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedCreateWithoutQuizAttemptInput>
+}
+
+export type DemoMemberUpsertWithoutQuizAttemptInput = {
+  update: Prisma.XOR<Prisma.DemoMemberUpdateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedUpdateWithoutQuizAttemptInput>
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedCreateWithoutQuizAttemptInput>
+  where?: Prisma.DemoMemberWhereInput
+}
+
+export type DemoMemberUpdateToOneWithWhereWithoutQuizAttemptInput = {
+  where?: Prisma.DemoMemberWhereInput
+  data: Prisma.XOR<Prisma.DemoMemberUpdateWithoutQuizAttemptInput, Prisma.DemoMemberUncheckedUpdateWithoutQuizAttemptInput>
+}
+
+export type DemoMemberUpdateWithoutQuizAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
+  demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+}
+
+export type DemoMemberUncheckedUpdateWithoutQuizAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
 export type DemoMemberCreateManyUserInput = {
   id: string
   demoId: string
@@ -628,6 +713,7 @@ export type DemoMemberUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutUserInput = {
@@ -637,6 +723,7 @@ export type DemoMemberUncheckedUpdateWithoutUserInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutUserInput = {
@@ -662,6 +749,7 @@ export type DemoMemberUpdateWithoutDemoInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDemoInput = {
@@ -671,6 +759,7 @@ export type DemoMemberUncheckedUpdateWithoutDemoInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  quizAttempt?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutDemoInput = {
@@ -688,10 +777,12 @@ export type DemoMemberUncheckedUpdateManyWithoutDemoInput = {
 
 export type DemoMemberCountOutputType = {
   managedDepartments: number
+  quizAttempt: number
 }
 
 export type DemoMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   managedDepartments?: boolean | DemoMemberCountOutputTypeCountManagedDepartmentsArgs
+  quizAttempt?: boolean | DemoMemberCountOutputTypeCountQuizAttemptArgs
 }
 
 /**
@@ -711,6 +802,13 @@ export type DemoMemberCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends
   where?: Prisma.DepartmentWhereInput
 }
 
+/**
+ * DemoMemberCountOutputType without action
+ */
+export type DemoMemberCountOutputTypeCountQuizAttemptArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuizAttemptWhereInput
+}
+
 
 export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -722,6 +820,7 @@ export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>
+  quizAttempt?: boolean | Prisma.DemoMember$quizAttemptArgs<ExtArgs>
   _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
 
@@ -761,6 +860,7 @@ export type DemoMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>
+  quizAttempt?: boolean | Prisma.DemoMember$quizAttemptArgs<ExtArgs>
   _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DemoMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -778,6 +878,7 @@ export type $DemoMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     user: Prisma.$UserPayload<ExtArgs>
     demo: Prisma.$DemoPayload<ExtArgs>
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
+    quizAttempt: Prisma.$QuizAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1183,6 +1284,7 @@ export interface Prisma__DemoMemberClient<T, Null = never, ExtArgs extends runti
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   demo<T extends Prisma.DemoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoClient<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   managedDepartments<T extends Prisma.DemoMember$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quizAttempt<T extends Prisma.DemoMember$quizAttemptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$quizAttemptArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuizAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1640,6 +1742,30 @@ export type DemoMember$managedDepartmentsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.DepartmentScalarFieldEnum | Prisma.DepartmentScalarFieldEnum[]
+}
+
+/**
+ * DemoMember.quizAttempt
+ */
+export type DemoMember$quizAttemptArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuizAttempt
+   */
+  select?: Prisma.QuizAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuizAttempt
+   */
+  omit?: Prisma.QuizAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuizAttemptInclude<ExtArgs> | null
+  where?: Prisma.QuizAttemptWhereInput
+  orderBy?: Prisma.QuizAttemptOrderByWithRelationInput | Prisma.QuizAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.QuizAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuizAttemptScalarFieldEnum | Prisma.QuizAttemptScalarFieldEnum[]
 }
 
 /**

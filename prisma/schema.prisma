@@ -61,6 +61,7 @@ model DemoMember {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
   managedDepartments Department[]
+  quizAttempt   QuizAttempt[]
 
   @@unique([userId, demoId])
 }
@@ -212,6 +213,7 @@ model QuizAttempt {
 
   quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
   answers      AttemptAnswer[]
+  user        DemoMember @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, quizId])
 }
