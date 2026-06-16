@@ -80,6 +80,31 @@ export type Lesson = Prisma.LessonModel
  */
 export type Attachment = Prisma.AttachmentModel
 /**
+ * Model Quiz
+ * 
+ */
+export type Quiz = Prisma.QuizModel
+/**
+ * Model QuestionBank
+ * 
+ */
+export type QuestionBank = Prisma.QuestionBankModel
+/**
+ * Model QuestionChoice
+ * 
+ */
+export type QuestionChoice = Prisma.QuestionChoiceModel
+/**
+ * Model QuizAttempt
+ * 
+ */
+export type QuizAttempt = Prisma.QuizAttemptModel
+/**
+ * Model AttemptAnswer
+ * 
+ */
+export type AttemptAnswer = Prisma.AttemptAnswerModel
+/**
  * Model Asset
  * 
  */

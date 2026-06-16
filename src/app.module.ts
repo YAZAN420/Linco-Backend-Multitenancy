@@ -15,6 +15,9 @@ import { LessonsModule } from './lessons/lessons.module';
 import { LessonsInfrastructureModule } from './lessons/infrastructure/lessons-infrastructure.module';
 import { AssetsModule } from './assets/assets.module';
 import { AssetsInfrastructureModule } from './assets/infrastructure/assets-infrastructure.module';
+import { QuestionsBankModule } from './questionsBank/questionsBank.module';
+import { QuestionsBankInfrastructureModule } from './questionsBank/infrastructure/questionsBank-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -29,6 +32,7 @@ export class AppModule {
         CoursesModule.withInfrastructure(CoursesInfrastructureModule.use()),
         LessonsModule.withInfrastructure(LessonsInfrastructureModule.use()),
         AssetsModule.withInfrastructure(AssetsInfrastructureModule.use()),
+        QuestionsBankModule.withInfrastructure(QuestionsBankInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

@@ -51,7 +51,7 @@ model User {
 }
 
 model DemoMember {
-  id        String   @id 
+  id        String   @id
   userId    String
   demoId    String
   role      DemoMemberRole   @default(TRAINER) 
@@ -61,6 +61,7 @@ model DemoMember {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
   managedDepartments Department[]
+  quizAttempt   QuizAttempt[]
 
   @@unique([userId, demoId])
 }
@@ -114,17 +115,19 @@ model Course {
 }
 
 model Section {
-  id        String   @id 
-  title     String
-  order     Int
+  id            String   @id 
+  title         String
+  order         Int
   
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
+  courseId      String
 
-  lessons   Lesson[]
+  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
+  lessons       Lesson[]
+  questionsBank QuestionBank[]
+  quiz          Quiz?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([courseId]) 
   @@unique([courseId, order])
@@ -136,15 +139,12 @@ model Lesson {
   title       String
   videoUrl    String
   subTitleUrl String?
-
   order       Int      
-
   sectionId   String
-  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
-
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
   attachments  Attachment[]
   
   @@index([sectionId]) 
@@ -156,15 +156,92 @@ model Attachment {
   id        String   @id 
   name      String  
   path      String
-  mimeType  String? 
+  mimeType  String?
   lessonId  String
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@index([lessonId])
+}
+
+model Quiz {
+  id          String   @id 
+  sectionId   String   @unique
+  title       String
+  numOfQuestions Int
+
+  section         Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
+  attempts        QuizAttempt[]
+ 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([sectionId]) 
+}
+
+model QuestionBank {
+  id          String            @id @default(cuid())
+  sectionId   String
+  text        String
+  points      Int               @default(1)
+  sortOrder   Int
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  section     Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  choices     QuestionChoice[]
+  answers     AttemptAnswer[]
+}
+
+model QuestionChoice {
+  id          String            @id @default(cuid())
+  questionId  String
+  text        String
+  isCorrect   Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  question    QuestionBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers     AttemptAnswer[]
+}
+
+model QuizAttempt {
+  id          String            @id @default(cuid())
+  userId      String
+  quizId      String
+  score       Int               @default(0)
+  startedAt   DateTime          @default(now())
+  submittedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers      AttemptAnswer[]
+  user        DemoMember @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, quizId])
+}
+
+model AttemptAnswer {
+  id          String            @id @default(cuid())
+  attemptId   String
+  questionId  String
+  choiceId    String
+  isCorrect   Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  attempt     QuizAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question    QuestionBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  choice      QuestionChoice    @relation(fields: [choiceId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
 }
 
 model Asset {
@@ -186,7 +263,7 @@ model DepartmentCourse {
   departmentId String
   courseId     String
   assignedAt   DateTime   @default(now())
-   updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
