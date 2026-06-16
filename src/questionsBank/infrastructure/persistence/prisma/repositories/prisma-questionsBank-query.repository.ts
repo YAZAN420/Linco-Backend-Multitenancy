@@ -3,15 +3,10 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
-import {
-  buildNestedInclude,
-  buildOrderBy,
-  buildWhere,
-} from 'src/common/utils/prisma.util';
+import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, QuestionsBank } from 'src/generated/prisma/browser';
-import { QuestionsBankInclude } from 'src/generated/prisma/internal/prismaNamespaceBrowser';
+import { Prisma, QuestionBank } from 'src/generated/prisma/client';
+
 import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
@@ -20,39 +15,32 @@ import { QuestionsBankQueryRepository } from 'src/questionsBank/application/port
 
 const QUESTIONSBANK_SEARCH_COLUMNS = [];
 const QUESTIONSBANK_ORDERABLE_FIELDS = ['createdAt'];
-type QuestionsBankRelation = keyof Prisma.QuestionsBankInclude;
 
 @Injectable()
 export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly allowedRelations: QuestionsBankRelation[] = []
   private buildPrismaArgs<T extends FindQuestionsBankQuery | FindQuestionsBankCursorQuery>(
     options: T,
   ) {
     return {
-      where: buildWhere<T, Prisma.QuestionsBankWhereInput>(options, QUESTIONSBANK_SEARCH_COLUMNS),
+      where: buildWhere<T, Prisma.QuestionBankWhereInput>(options, QUESTIONSBANK_SEARCH_COLUMNS),
       orderBy: buildOrderBy(options.orderBy, QUESTIONSBANK_ORDERABLE_FIELDS),
-      include: buildNestedInclude<QuestionsBankInclude>(
-        options.with,
-        this.allowedRelations,
-      ),
     };
   }
 
-  async findAll(options: FindQuestionsBankQuery): Promise<PageDto<QuestionsBank>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+  async findAll(options: FindQuestionsBankQuery): Promise<PageDto<QuestionBank>> {
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
-      this.prisma.questionsBank.findMany({
+      this.prisma.questionBank.findMany({
         skip,
         take: options.take,
         where,
-        include,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
-      this.prisma.questionsBank.count({ where }),
+      this.prisma.questionBank.count({ where }),
     ]);
 
     return new PageDto(
@@ -63,16 +51,15 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findAllCursor(
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+  ): Promise<CursorPageDto<QuestionBank>> {
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
-    const items = await this.prisma.questionsBank.findMany({
+    const items = await this.prisma.questionBank.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where,
-      include,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
@@ -87,15 +74,9 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     );
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<QuestionsBank | null> {
-    const include = buildNestedInclude<QuestionsBankInclude>(
-      options?.with,
-      this.allowedRelations,
-    );
-
-    return this.prisma.questionsBank.findUnique({
+  async findById(id: string): Promise<QuestionBank | null> {
+    return this.prisma.questionBank.findUnique({
       where: { id },
-      include,
     });
   }
 }

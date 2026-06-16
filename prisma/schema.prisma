@@ -185,8 +185,6 @@ model QuestionBank {
   id          String            @id @default(cuid())
   sectionId   String
   text        String
-  points      Int               @default(1)
-  sortOrder   Int
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

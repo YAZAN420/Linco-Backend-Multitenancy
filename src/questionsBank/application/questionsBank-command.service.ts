@@ -3,8 +3,8 @@ import { QuestionsBankCommandRepository } from './ports/questionsBank-command.re
 import { QuestionsBankFactory } from '../domain/factories/questionsBank.factory';
 import { QuestionsBank } from '../domain/questionsBank';
 
-import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
 import { UpdateQuestionsBankInput } from './interfaces/update-questionsBank-input.interface';
+import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
 
 @Injectable()
 export class QuestionsBankCommandService {
@@ -13,33 +13,27 @@ export class QuestionsBankCommandService {
     private readonly questionsBankFactory: QuestionsBankFactory,
   ) {}
 
-  async create(input: CreateQuestionsBankInput): Promise<QuestionsBank> {
+  async create(sectionId: string, input: CreateQuestionsBankInput): Promise<QuestionsBank> {
+    const questionsBank = this.questionsBankFactory.createNew(sectionId, input.text);
+    await this.questionsBankCommandRepository.save(questionsBank);
+    return questionsBank;
+  }
+
+  async update(sectionId: string, questionBankId: string, input: UpdateQuestionsBankInput): Promise<QuestionsBank> {
     console.log(input);
-    const questionsBank = this.questionsBankFactory.createNew();
+    const questionsBank = await this.findById(questionBankId);
     await this.questionsBankCommandRepository.save(questionsBank);
     return questionsBank;
   }
 
-  async update(id: string, input: UpdateQuestionsBankInput): Promise<QuestionsBank> {
-    console.log(input);
-    const questionsBank = await this.findById(id);
-    await this.questionsBankCommandRepository.save(questionsBank);
+  async remove(questionBankId: string): Promise<void> {
+    await this.findById(questionBankId);
+    await this.questionsBankCommandRepository.delete(questionBankId);
+  }
+
+  async findById(questionBankId: string): Promise<QuestionsBank> {
+    const questionsBank = await this.questionsBankCommandRepository.findById(questionBankId);
+    if (!questionsBank) throw new NotFoundException('QuestionBank not found');
     return questionsBank;
   }
-
-  async remove(id: string): Promise<void> {
-    await this.findById(id);
-    await this.questionsBankCommandRepository.delete(id);
-  }
-
-  async save(questionsBank: QuestionsBank): Promise<void> {
-    await this.questionsBankCommandRepository.save(questionsBank);
-  }
-
-  async findById(id: string): Promise<QuestionsBank> {
-    const questionsBank = await this.questionsBankCommandRepository.findById(id);
-    if (!questionsBank) throw new NotFoundException('questionsBank not found');
-    return questionsBank;
-  }
-
 }

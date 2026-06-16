@@ -3,7 +3,7 @@ import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
 } from '../interfaces/find-questionsBank.query';
-import { QuestionsBank } from 'src/generated/prisma/browser';
+import { QuestionsBank } from 'src/generated/prisma/client';
 
 export abstract class QuestionsBankQueryRepository {
   abstract findAll(options: FindQuestionsBankQuery): Promise<PageDto<QuestionsBank>>;

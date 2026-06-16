@@ -11,21 +11,21 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
     private readonly mapper: PrismaQuestionsBankMapper,
   ) {}
 
-  async save(questionsBank: QuestionsBank): Promise<void> {
-    const data = this.mapper.toPersistence(questionsBank);
-    await this.prisma.questionsBank.upsert({
-      where: { id: questionsBank.id },
+  async save(questionBank: QuestionsBank): Promise<void> {
+    const data = this.mapper.toPersistence(questionBank);
+    await this.prisma.questionBank.upsert({
+      where: { id: questionBank.id },
       update: data,
       create: data,
     });
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.questionsBank.delete({ where: { id } });
+    await this.prisma.questionBank.delete({ where: { id } });
   }
 
   async findById(id: string): Promise<QuestionsBank | null> {
-    const questionsBank = await this.prisma.questionsBank.findUnique({ where: { id } });
+    const questionsBank = await this.prisma.questionBank.findUnique({ where: { id } });
     return questionsBank ? this.mapper.toDomain(questionsBank) : null;
   }
 }

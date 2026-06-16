@@ -8,7 +8,7 @@ import { QuestionsBankResponseMapper } from './presentation/http/mappers/questio
 
 @Module({
   imports: [], 
-  controllers: [QuestionsBankCommandController,         QuestionsBankQueryController],
+  controllers: [QuestionsBankCommandController, QuestionsBankQueryController],
   providers: [
     QuestionsBankCommandService,
     QuestionsBankQueryService,

@@ -7,27 +7,26 @@ import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
 } from './interfaces/find-questionsBank.query';
-import { QuestionsBank } from 'src/generated/prisma/client';
+import { QuestionBank } from 'src/generated/prisma/client';
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Injectable()
 export class QuestionsBankQueryService {
   constructor(private readonly questionsBankQueryRepository: QuestionsBankQueryRepository) {}
 
-  async findAll(pageOptionsDto: FindQuestionsBankQuery): Promise<PageDto<QuestionsBank>> {
+  async findAll(pageOptionsDto: FindQuestionsBankQuery): Promise<PageDto<QuestionBank>> {
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>> {
+  ): Promise<CursorPageDto<QuestionBank>> {
     return this.questionsBankQueryRepository.findAllCursor(options);
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<QuestionsBank> {
-    const questionsBank = await this.questionsBankQueryRepository.findById(id, options);
-    if (!questionsBank) throw new NotFoundException('QuestionsBank not found');
+  async findById(id: string): Promise<QuestionBank> {
+    const questionsBank = await this.questionsBankQueryRepository.findById(id);
+    if (!questionsBank) throw new NotFoundException('QuestionBank not found');
     return questionsBank;
   }
 }

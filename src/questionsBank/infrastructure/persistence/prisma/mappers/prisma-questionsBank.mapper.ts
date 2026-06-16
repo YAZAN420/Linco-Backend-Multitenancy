@@ -1,25 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import type {
-  QuestionsBank as PrismaQuestionsBank,
-} from 'src/generated/prisma/client';
+import type { QuestionBank as PrismaQuestionsBank} from 'src/generated/prisma/client';
 import { QuestionsBank } from 'src/questionsBank/domain/questionsBank';
 
 
 @Injectable()
 export class PrismaQuestionsBankMapper {
   toDomain(raw: PrismaQuestionsBank): QuestionsBank {
-    return new QuestionsBank(
-      raw.id,{
+    return new QuestionsBank(raw.id, {
+      sectionId: raw.sectionId,
+      text: raw.text,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
   }
 
-  toPersistence(questionsBank: QuestionsBank): PrismaQuestionsBank {
+  toPersistence(questionBank: QuestionsBank): PrismaQuestionsBank {
     return {
-      id: questionsBank.id,
-      createdAt: questionsBank.createdAt,
-      updatedAt: questionsBank.updatedAt,
+      id: questionBank.id,
+      sectionId: questionBank.sectionId,
+      text: questionBank.text,
+      createdAt: questionBank.createdAt,
+      updatedAt: questionBank.updatedAt,
     };
   }
 }

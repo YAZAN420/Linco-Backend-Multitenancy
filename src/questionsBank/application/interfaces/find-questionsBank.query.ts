@@ -4,12 +4,10 @@ export interface FindQuestionsBankQuery extends QuestionsBankFilter {
   page: number;
   take: number;
   orderBy?: any;
-  with?: string[];
 }
 
 export interface FindQuestionsBankCursorQuery extends QuestionsBankFilter {
   cursor?: string;
   take: number;
   orderBy?: any;
-  with?: string[];
 }

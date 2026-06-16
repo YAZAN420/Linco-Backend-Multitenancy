@@ -5,7 +5,7 @@ import { UpdateQuestionsBankDto } from './dto/update-questionsBank.dto';
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
 import { QuestionsBankCommandService } from 'src/questionsBank/application/questionsBank-command.service';
 
-@Controller('questionsBank')
+@Controller('sections/:sectionId/questionBank')
 export class QuestionsBankCommandController {
   constructor(
     private readonly questionsBankCommandService: QuestionsBankCommandService,
@@ -13,8 +13,11 @@ export class QuestionsBankCommandController {
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateQuestionsBankDto) {
-    const questionsBank = await this.questionsBankCommandService.create(dto);
+  async create(
+    @Param('sectionId') sectionId: string,
+    @Body() dto: CreateQuestionsBankDto
+  ) {
+    const questionsBank = await this.questionsBankCommandService.create(sectionId, dto);
 
     return {
       message: 'QuestionsBank created successfully',
@@ -22,9 +25,13 @@ export class QuestionsBankCommandController {
     };
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateQuestionsBankDto) {
-    const questionsBank = await this.questionsBankCommandService.update(id, dto);
+  @Patch(':questionsBankId')
+  async update(
+    @Param('sectionId') sectionId: string,
+    @Param('questionsBankId') questionsBankId: string, 
+    @Body() dto: UpdateQuestionsBankDto
+  ) {
+    const questionsBank = await this.questionsBankCommandService.update(sectionId, questionsBankId, dto);
 
     return {
       message: 'QuestionsBank updated successfully',
@@ -32,9 +39,9 @@ export class QuestionsBankCommandController {
     };
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.questionsBankCommandService.remove(id);
+  @Delete(':questionsBankId')
+  async remove(@Param('questionsBankId') questionsBankId: string) {
+    await this.questionsBankCommandService.remove(questionsBankId);
 
     return {
       message: 'QuestionsBank deleted successfully',
