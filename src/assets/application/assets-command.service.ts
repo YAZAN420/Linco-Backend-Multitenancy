@@ -7,16 +7,24 @@ import { CreateAssetInput } from './interfaces/create-asset-input.interface';
 import { UpdateAssetInput } from './interfaces/update-asset-input.interface';
 
 import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 
 @Injectable()
 export class AssetsCommandService {
   constructor(
     private readonly assetCommandRepository: AssetCommandRepository,
     private readonly demoQueryRepository: DemoQueryRepository,
+    private readonly courseQueryRepository: CourseQueryRepository,
     private readonly assetFactory: AssetFactory,
   ) {}
 
   async create(demoId: string, input: CreateAssetInput): Promise<Asset> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) throw new NotFoundException('Demo not found');
+
+    const course = await this.courseQueryRepository.findById(input.courseId);
+    if (!course) throw new NotFoundException('Course not found');
+
     const asset = this.assetFactory.createNew(
       demoId,
       input.courseId,

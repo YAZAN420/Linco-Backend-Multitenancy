@@ -3,6 +3,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 import { AssetsCommandService } from 'src/assets/application/assets-command.service';
+import { AccessMethod } from 'src/assets/domain/enums/access-method.enum';
 
 @Controller('demos/:demoId/assets')
 export class AssetsCommandController {
@@ -13,7 +14,10 @@ export class AssetsCommandController {
 
   @Post()
   async create(@Param('demoId') demoId: string, @Body() dto: CreateAssetDto) {
-    const asset = await this.assetCommandService.create(demoId, dto);
+    const asset = await this.assetCommandService.create(demoId, {
+      ...dto,
+      accessMethod: AccessMethod.PURCHASED,
+    });
 
     return {
       message: 'Asset created successfully',
