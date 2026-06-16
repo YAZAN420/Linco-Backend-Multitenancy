@@ -12,7 +12,7 @@ export class UserSecurity {
     return this.props;
   }
 
-  get password(): string {
+  get password(): string | null {
     return this.props.password;
   }
 

@@ -25,7 +25,7 @@ export class User {
     return this.props.email;
   }
 
-  get birthDate(): Date {
+  get birthDate(): Date | null {
     return this.props.birthDate;
   }
 
@@ -73,8 +73,8 @@ export class User {
     this.touch();
   }
 
-  updateBirthDate(newBirthDate: Date): void {
-    if (newBirthDate.getTime() === this.props.birthDate.getTime()) return;
+  updateBirthDate(newBirthDate: Date | null): void {
+    if (newBirthDate === this.props.birthDate) return;
     this.props.birthDate = newBirthDate;
     this.touch();
   }

@@ -6,7 +6,7 @@ export interface UserProps {
   firstName: string;
   lastName: string;
   email: Email;
-  birthDate: Date;
+  birthDate: Date | null;
   imagePath: string;
   role: Role;
   security: UserSecurity;

@@ -11,8 +11,8 @@ export class UserFactory {
     firstName: string,
     lastName: string,
     emailStr: string,
-    passwordStr: string,
-    birthDate: Date,
+    passwordStr: string | null,
+    birthDate: Date | null,
     imagePath: string,
     role: Role,
   ): User {

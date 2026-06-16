@@ -1,5 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { randomBytes } from 'crypto';
 import { OAuth2Client } from 'google-auth-library';
 import { OTP } from 'otplib';
 import { HashingPort } from '../ports/hashing.port';
@@ -15,8 +14,6 @@ import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface
 import { GoogleUserData } from 'src/iam/domain/interfaces/google-user-data.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
 import { UsersCommandService } from 'src/users/application/users-command.service';
-
-const GOOGLE_DEFAULT_BIRTH_DATE = new Date('2000-01-01');
 
 @Injectable()
 export class AuthenticationService {
@@ -69,14 +66,10 @@ export class AuthenticationService {
     let user = await this.usersCommandService.findByEmail(email);
 
     if (!user) {
-      const randomPassword = randomBytes(32).toString('hex');
-
       user = await this.usersCommandService.create({
         firstName: googleUser.firstName,
         lastName: googleUser.lastName,
         email: googleUser.email,
-        password: randomPassword,
-        birthDate: GOOGLE_DEFAULT_BIRTH_DATE,
         imagePath: googleUser.imagePath,
         role: Role.USER,
       });

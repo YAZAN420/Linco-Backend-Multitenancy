@@ -25,14 +25,16 @@ export class UsersCommandService {
 
   async create(input: CreateUserInput): Promise<User> {
     await this.ensureEmailIsUnique(input.email);
-    const hashedPassword = await this.hashService.hash(input.password);
+    const hashedPassword = input.password
+      ? await this.hashService.hash(input.password)
+      : null;
 
     const user = this.userFactory.createNew(
       input.firstName,
       input.lastName,
       input.email,
       hashedPassword,
-      input.birthDate,
+      input.birthDate ?? null,
       input.imagePath,
       input.role,
     );

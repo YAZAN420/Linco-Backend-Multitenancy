@@ -32,8 +32,8 @@ model User {
   firstName             String
   lastName              String
   email                 String                 @unique
-  password              String
-  birthDate             DateTime
+  password              String?
+  birthDate             DateTime?
   imagePath             String
   refreshToken          String?
   role                  UserRole                   @default(USER)

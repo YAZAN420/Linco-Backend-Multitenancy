@@ -1,5 +1,5 @@
 export interface UserSecurityProps {
-  password: string;
+  password: string | null;
   isEmailVerified: boolean;
   isTwoFactorEnabled: boolean;
   refreshToken: string | null;

@@ -4,8 +4,8 @@ export interface CreateUserInput {
   firstName: string;
   lastName: string;
   email: string;
-  birthDate: Date;
+  birthDate?: Date | null;
   imagePath: string;
-  password: string;
+  password?: string | null;
   role: Role;
 }
