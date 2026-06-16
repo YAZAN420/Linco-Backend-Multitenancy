@@ -7,7 +7,7 @@ import { QuestionsBankQueryService } from 'src/questionsBank/application/questio
 
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
 
-@Controller('questionsBank')
+@Controller('sections/:sectionId/questionBank')
 export class QuestionsBankQueryController {
   constructor(
     private readonly questionsBankQueryService: QuestionsBankQueryService,
@@ -15,8 +15,11 @@ export class QuestionsBankQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: FindQuestionsBankDto) {
-    const questionsBank = await this.questionsBankQueryService.findAll(options);
+  async findAll(
+    @Param('sectionId') sectionId: string,
+    @Query() options: FindQuestionsBankDto
+  ) {
+    const questionsBank = await this.questionsBankQueryService.findAll(sectionId, options);
     return {
       message: 'QuestionBank fetched successfully',
       data: this.questionsBankResponseMapper.toResponseManyFromPrisma(questionsBank.data),
@@ -25,8 +28,11 @@ export class QuestionsBankQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindQuestionsBankCursorDto) {
-    const questionsBank = await this.questionsBankQueryService.findAllCursor(options);
+  async findWithCursor(
+    @Param('sectionId') sectionId: string,
+    @Query() options: FindQuestionsBankCursorDto
+  ) {
+    const questionsBank = await this.questionsBankQueryService.findAllCursor(sectionId, options);
 
     return {
       message: 'QuestionBank fetched successfully (Cursor)',
@@ -37,9 +43,10 @@ export class QuestionsBankQueryController {
 
   @Get(':questionBankId')
   async findOne(
+    @Param('sectionId') sectionId: string,
     @Param('questionBankId') questionsBankId: string,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findById(questionsBankId);
+    const questionsBank = await this.questionsBankQueryService.findById(sectionId, questionsBankId);
 
     return {
       message: 'QuestionBank retrieved successfully',

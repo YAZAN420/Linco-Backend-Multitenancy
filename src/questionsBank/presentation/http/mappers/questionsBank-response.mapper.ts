@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { QuestionsBankResponseDto } from '../dto/questionsBank-response.dto';
-import { QuestionsBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
+import { QuestionBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBank as DomainQuestionsBank } from 'src/questionsBank/domain/questionsBank';
 
 @Injectable()
@@ -8,16 +8,22 @@ export class QuestionsBankResponseMapper {
   toResponseFromPrisma(questionsBank: PrismaQuestionsBank): QuestionsBankResponseDto {
     return new QuestionsBankResponseDto(
       questionsBank.id,
+      questionsBank.sectionId,
+      questionsBank.text,
+      questionsBank.numberOfQuestions,
       questionsBank.createdAt,
-      questionsBank.updatedAt,
+      questionsBank.updatedAt
     );
   }
 
   toResponseFromDomain(questionsBank: DomainQuestionsBank): QuestionsBankResponseDto {
     return new QuestionsBankResponseDto(
       questionsBank.id,
+      questionsBank.sectionId,
+      questionsBank.text,
+      questionsBank.numberOfQuestions,
       questionsBank.createdAt,
-      questionsBank.updatedAt,
+      questionsBank.updatedAt
     );
   }
 

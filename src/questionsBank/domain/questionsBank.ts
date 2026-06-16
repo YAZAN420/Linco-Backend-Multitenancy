@@ -11,6 +11,10 @@ export class QuestionsBank {
     return this.props.sectionId;
   }
 
+  get numberOfQuestions() {
+    return this.props.numberOfQuestions;
+  }
+
   get text(): string {
     return this.props.text;
   }

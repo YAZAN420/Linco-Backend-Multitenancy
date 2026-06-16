@@ -9,6 +9,7 @@ export class PrismaQuestionsBankMapper {
     return new QuestionsBank(raw.id, {
       sectionId: raw.sectionId,
       text: raw.text,
+      numberOfQuestions: raw.numberOfQuestions,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -19,6 +20,7 @@ export class PrismaQuestionsBankMapper {
       id: questionBank.id,
       sectionId: questionBank.sectionId,
       text: questionBank.text,
+      numberOfQuestions: questionBank.numberOfQuestions,
       createdAt: questionBank.createdAt,
       updatedAt: questionBank.updatedAt,
     };

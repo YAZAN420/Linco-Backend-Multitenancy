@@ -1693,6 +1693,7 @@ export const QuestionBankScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
   text: 'text',
+  numberOfQuestions: 'numberOfQuestions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

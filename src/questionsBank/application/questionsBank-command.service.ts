@@ -14,24 +14,25 @@ export class QuestionsBankCommandService {
   ) {}
 
   async create(sectionId: string, input: CreateQuestionsBankInput): Promise<QuestionsBank> {
-    const questionsBank = this.questionsBankFactory.createNew(sectionId, input.text);
+    const questionsBank = this.questionsBankFactory.createNew(sectionId, input.text, input.numberOfQuestions);
     await this.questionsBankCommandRepository.save(questionsBank);
     return questionsBank;
   }
 
   async update(sectionId: string, questionBankId: string, input: UpdateQuestionsBankInput): Promise<QuestionsBank> {
     console.log(input);
-    const questionsBank = await this.findById(questionBankId);
+    const questionsBank = await this.findById(sectionId, questionBankId);
     await this.questionsBankCommandRepository.save(questionsBank);
     return questionsBank;
   }
 
-  async remove(questionBankId: string): Promise<void> {
-    await this.findById(questionBankId);
+  async remove(sectionId: string, questionBankId: string): Promise<void> {
+    await this.findById(sectionId, questionBankId);
     await this.questionsBankCommandRepository.delete(questionBankId);
   }
 
-  async findById(questionBankId: string): Promise<QuestionsBank> {
+  async findById(sectionId: string, questionBankId: string): Promise<QuestionsBank> {
+    // To Do: section exists
     const questionsBank = await this.questionsBankCommandRepository.findById(questionBankId);
     if (!questionsBank) throw new NotFoundException('QuestionBank not found');
     return questionsBank;

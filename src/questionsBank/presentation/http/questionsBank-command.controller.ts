@@ -40,8 +40,11 @@ export class QuestionsBankCommandController {
   }
 
   @Delete(':questionsBankId')
-  async remove(@Param('questionsBankId') questionsBankId: string) {
-    await this.questionsBankCommandService.remove(questionsBankId);
+  async remove(
+    @Param('sectionId') sectionId: string,
+    @Param('questionsBankId') questionsBankId: string
+  ) {
+    await this.questionsBankCommandService.remove(sectionId, questionsBankId);
 
     return {
       message: 'QuestionsBank deleted successfully',

@@ -12,19 +12,25 @@ import { QuestionsBankQueryRepository } from './ports/questionsBank-query.reposi
 
 @Injectable()
 export class QuestionsBankQueryService {
-  constructor(private readonly questionsBankQueryRepository: QuestionsBankQueryRepository) {}
+  constructor(
+    private readonly questionsBankQueryRepository: QuestionsBankQueryRepository
+  ) {}
 
-  async findAll(pageOptionsDto: FindQuestionsBankQuery): Promise<PageDto<QuestionBank>> {
+  async findAll(
+    sectionId: string,
+    pageOptionsDto: FindQuestionsBankQuery
+  ): Promise<PageDto<QuestionBank>> {
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
+    sectionId: string,
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionBank>> {
     return this.questionsBankQueryRepository.findAllCursor(options);
   }
 
-  async findById(id: string): Promise<QuestionBank> {
+  async findById(sectionId: string, id: string): Promise<QuestionBank> {
     const questionsBank = await this.questionsBankQueryRepository.findById(id);
     if (!questionsBank) throw new NotFoundException('QuestionBank not found');
     return questionsBank;

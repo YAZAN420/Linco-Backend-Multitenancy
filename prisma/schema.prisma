@@ -185,6 +185,7 @@ model QuestionBank {
   id          String            @id @default(cuid())
   sectionId   String
   text        String
+  numberOfQuestions Int
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
