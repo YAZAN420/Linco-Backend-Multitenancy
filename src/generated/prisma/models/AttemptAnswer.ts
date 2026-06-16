@@ -30,6 +30,8 @@ export type AttemptAnswerMinAggregateOutputType = {
   questionId: string | null
   choiceId: string | null
   isCorrect: boolean | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttemptAnswerMaxAggregateOutputType = {
@@ -38,6 +40,8 @@ export type AttemptAnswerMaxAggregateOutputType = {
   questionId: string | null
   choiceId: string | null
   isCorrect: boolean | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttemptAnswerCountAggregateOutputType = {
@@ -46,6 +50,8 @@ export type AttemptAnswerCountAggregateOutputType = {
   questionId: number
   choiceId: number
   isCorrect: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +62,8 @@ export type AttemptAnswerMinAggregateInputType = {
   questionId?: true
   choiceId?: true
   isCorrect?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AttemptAnswerMaxAggregateInputType = {
@@ -64,6 +72,8 @@ export type AttemptAnswerMaxAggregateInputType = {
   questionId?: true
   choiceId?: true
   isCorrect?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AttemptAnswerCountAggregateInputType = {
@@ -72,6 +82,8 @@ export type AttemptAnswerCountAggregateInputType = {
   questionId?: true
   choiceId?: true
   isCorrect?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -153,6 +165,8 @@ export type AttemptAnswerGroupByOutputType = {
   questionId: string
   choiceId: string
   isCorrect: boolean
+  createdAt: Date
+  updatedAt: Date
   _count: AttemptAnswerCountAggregateOutputType | null
   _min: AttemptAnswerMinAggregateOutputType | null
   _max: AttemptAnswerMaxAggregateOutputType | null
@@ -182,6 +196,8 @@ export type AttemptAnswerWhereInput = {
   questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   choiceId?: Prisma.StringFilter<"AttemptAnswer"> | string
   isCorrect?: Prisma.BoolFilter<"AttemptAnswer"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.QuizAttemptScalarRelationFilter, Prisma.QuizAttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionBankScalarRelationFilter, Prisma.QuestionBankWhereInput>
   choice?: Prisma.XOR<Prisma.QuestionChoiceScalarRelationFilter, Prisma.QuestionChoiceWhereInput>
@@ -193,6 +209,8 @@ export type AttemptAnswerOrderByWithRelationInput = {
   questionId?: Prisma.SortOrder
   choiceId?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   attempt?: Prisma.QuizAttemptOrderByWithRelationInput
   question?: Prisma.QuestionBankOrderByWithRelationInput
   choice?: Prisma.QuestionChoiceOrderByWithRelationInput
@@ -208,6 +226,8 @@ export type AttemptAnswerWhereUniqueInput = Prisma.AtLeast<{
   questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   choiceId?: Prisma.StringFilter<"AttemptAnswer"> | string
   isCorrect?: Prisma.BoolFilter<"AttemptAnswer"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.QuizAttemptScalarRelationFilter, Prisma.QuizAttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionBankScalarRelationFilter, Prisma.QuestionBankWhereInput>
   choice?: Prisma.XOR<Prisma.QuestionChoiceScalarRelationFilter, Prisma.QuestionChoiceWhereInput>
@@ -219,6 +239,8 @@ export type AttemptAnswerOrderByWithAggregationInput = {
   questionId?: Prisma.SortOrder
   choiceId?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AttemptAnswerCountOrderByAggregateInput
   _max?: Prisma.AttemptAnswerMaxOrderByAggregateInput
   _min?: Prisma.AttemptAnswerMinOrderByAggregateInput
@@ -233,11 +255,15 @@ export type AttemptAnswerScalarWhereWithAggregatesInput = {
   questionId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
   choiceId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
   isCorrect?: Prisma.BoolWithAggregatesFilter<"AttemptAnswer"> | boolean
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptAnswer"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptAnswer"> | Date | string
 }
 
 export type AttemptAnswerCreateInput = {
   id?: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   attempt: Prisma.QuizAttemptCreateNestedOneWithoutAnswersInput
   question: Prisma.QuestionBankCreateNestedOneWithoutAnswersInput
   choice: Prisma.QuestionChoiceCreateNestedOneWithoutAnswersInput
@@ -249,11 +275,15 @@ export type AttemptAnswerUncheckedCreateInput = {
   questionId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.QuizAttemptUpdateOneRequiredWithoutAnswersNestedInput
   question?: Prisma.QuestionBankUpdateOneRequiredWithoutAnswersNestedInput
   choice?: Prisma.QuestionChoiceUpdateOneRequiredWithoutAnswersNestedInput
@@ -265,6 +295,8 @@ export type AttemptAnswerUncheckedUpdateInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerCreateManyInput = {
@@ -273,11 +305,15 @@ export type AttemptAnswerCreateManyInput = {
   questionId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerUncheckedUpdateManyInput = {
@@ -286,6 +322,8 @@ export type AttemptAnswerUncheckedUpdateManyInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerListRelationFilter = {
@@ -309,6 +347,8 @@ export type AttemptAnswerCountOrderByAggregateInput = {
   questionId?: Prisma.SortOrder
   choiceId?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptAnswerMaxOrderByAggregateInput = {
@@ -317,6 +357,8 @@ export type AttemptAnswerMaxOrderByAggregateInput = {
   questionId?: Prisma.SortOrder
   choiceId?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptAnswerMinOrderByAggregateInput = {
@@ -325,6 +367,8 @@ export type AttemptAnswerMinOrderByAggregateInput = {
   questionId?: Prisma.SortOrder
   choiceId?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptAnswerCreateNestedManyWithoutQuestionInput = {
@@ -456,6 +500,8 @@ export type AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput = {
 export type AttemptAnswerCreateWithoutQuestionInput = {
   id?: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   attempt: Prisma.QuizAttemptCreateNestedOneWithoutAnswersInput
   choice: Prisma.QuestionChoiceCreateNestedOneWithoutAnswersInput
 }
@@ -465,6 +511,8 @@ export type AttemptAnswerUncheckedCreateWithoutQuestionInput = {
   attemptId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerCreateOrConnectWithoutQuestionInput = {
@@ -502,11 +550,15 @@ export type AttemptAnswerScalarWhereInput = {
   questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   choiceId?: Prisma.StringFilter<"AttemptAnswer"> | string
   isCorrect?: Prisma.BoolFilter<"AttemptAnswer"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
 }
 
 export type AttemptAnswerCreateWithoutChoiceInput = {
   id?: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   attempt: Prisma.QuizAttemptCreateNestedOneWithoutAnswersInput
   question: Prisma.QuestionBankCreateNestedOneWithoutAnswersInput
 }
@@ -516,6 +568,8 @@ export type AttemptAnswerUncheckedCreateWithoutChoiceInput = {
   attemptId: string
   questionId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerCreateOrConnectWithoutChoiceInput = {
@@ -547,6 +601,8 @@ export type AttemptAnswerUpdateManyWithWhereWithoutChoiceInput = {
 export type AttemptAnswerCreateWithoutAttemptInput = {
   id?: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionBankCreateNestedOneWithoutAnswersInput
   choice: Prisma.QuestionChoiceCreateNestedOneWithoutAnswersInput
 }
@@ -556,6 +612,8 @@ export type AttemptAnswerUncheckedCreateWithoutAttemptInput = {
   questionId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerCreateOrConnectWithoutAttemptInput = {
@@ -589,11 +647,15 @@ export type AttemptAnswerCreateManyQuestionInput = {
   attemptId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.QuizAttemptUpdateOneRequiredWithoutAnswersNestedInput
   choice?: Prisma.QuestionChoiceUpdateOneRequiredWithoutAnswersNestedInput
 }
@@ -603,6 +665,8 @@ export type AttemptAnswerUncheckedUpdateWithoutQuestionInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerUncheckedUpdateManyWithoutQuestionInput = {
@@ -610,6 +674,8 @@ export type AttemptAnswerUncheckedUpdateManyWithoutQuestionInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerCreateManyChoiceInput = {
@@ -617,11 +683,15 @@ export type AttemptAnswerCreateManyChoiceInput = {
   attemptId: string
   questionId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerUpdateWithoutChoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.QuizAttemptUpdateOneRequiredWithoutAnswersNestedInput
   question?: Prisma.QuestionBankUpdateOneRequiredWithoutAnswersNestedInput
 }
@@ -631,6 +701,8 @@ export type AttemptAnswerUncheckedUpdateWithoutChoiceInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerUncheckedUpdateManyWithoutChoiceInput = {
@@ -638,6 +710,8 @@ export type AttemptAnswerUncheckedUpdateManyWithoutChoiceInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerCreateManyAttemptInput = {
@@ -645,11 +719,15 @@ export type AttemptAnswerCreateManyAttemptInput = {
   questionId: string
   choiceId: string
   isCorrect: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AttemptAnswerUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionBankUpdateOneRequiredWithoutAnswersNestedInput
   choice?: Prisma.QuestionChoiceUpdateOneRequiredWithoutAnswersNestedInput
 }
@@ -659,6 +737,8 @@ export type AttemptAnswerUncheckedUpdateWithoutAttemptInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptAnswerUncheckedUpdateManyWithoutAttemptInput = {
@@ -666,6 +746,8 @@ export type AttemptAnswerUncheckedUpdateManyWithoutAttemptInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   choiceId?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -676,6 +758,8 @@ export type AttemptAnswerSelect<ExtArgs extends runtime.Types.Extensions.Interna
   questionId?: boolean
   choiceId?: boolean
   isCorrect?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionBankDefaultArgs<ExtArgs>
   choice?: boolean | Prisma.QuestionChoiceDefaultArgs<ExtArgs>
@@ -687,6 +771,8 @@ export type AttemptAnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   questionId?: boolean
   choiceId?: boolean
   isCorrect?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionBankDefaultArgs<ExtArgs>
   choice?: boolean | Prisma.QuestionChoiceDefaultArgs<ExtArgs>
@@ -698,6 +784,8 @@ export type AttemptAnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   questionId?: boolean
   choiceId?: boolean
   isCorrect?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionBankDefaultArgs<ExtArgs>
   choice?: boolean | Prisma.QuestionChoiceDefaultArgs<ExtArgs>
@@ -709,9 +797,11 @@ export type AttemptAnswerSelectScalar = {
   questionId?: boolean
   choiceId?: boolean
   isCorrect?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AttemptAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "choiceId" | "isCorrect", ExtArgs["result"]["attemptAnswer"]>
+export type AttemptAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "choiceId" | "isCorrect" | "createdAt" | "updatedAt", ExtArgs["result"]["attemptAnswer"]>
 export type AttemptAnswerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionBankDefaultArgs<ExtArgs>
@@ -741,6 +831,8 @@ export type $AttemptAnswerPayload<ExtArgs extends runtime.Types.Extensions.Inter
     questionId: string
     choiceId: string
     isCorrect: boolean
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["attemptAnswer"]>
   composites: {}
 }
@@ -1172,6 +1264,8 @@ export interface AttemptAnswerFieldRefs {
   readonly questionId: Prisma.FieldRef<"AttemptAnswer", 'String'>
   readonly choiceId: Prisma.FieldRef<"AttemptAnswer", 'String'>
   readonly isCorrect: Prisma.FieldRef<"AttemptAnswer", 'Boolean'>
+  readonly createdAt: Prisma.FieldRef<"AttemptAnswer", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"AttemptAnswer", 'DateTime'>
 }
     
 

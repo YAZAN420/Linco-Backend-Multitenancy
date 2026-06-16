@@ -211,7 +211,9 @@ export const QuestionBankScalarFieldEnum = {
   sectionId: 'sectionId',
   text: 'text',
   points: 'points',
-  sortOrder: 'sortOrder'
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type QuestionBankScalarFieldEnum = (typeof QuestionBankScalarFieldEnum)[keyof typeof QuestionBankScalarFieldEnum]
@@ -221,7 +223,9 @@ export const QuestionChoiceScalarFieldEnum = {
   id: 'id',
   questionId: 'questionId',
   text: 'text',
-  isCorrect: 'isCorrect'
+  isCorrect: 'isCorrect',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type QuestionChoiceScalarFieldEnum = (typeof QuestionChoiceScalarFieldEnum)[keyof typeof QuestionChoiceScalarFieldEnum]
@@ -233,7 +237,9 @@ export const QuizAttemptScalarFieldEnum = {
   quizId: 'quizId',
   score: 'score',
   startedAt: 'startedAt',
-  submittedAt: 'submittedAt'
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type QuizAttemptScalarFieldEnum = (typeof QuizAttemptScalarFieldEnum)[keyof typeof QuizAttemptScalarFieldEnum]
@@ -244,7 +250,9 @@ export const AttemptAnswerScalarFieldEnum = {
   attemptId: 'attemptId',
   questionId: 'questionId',
   choiceId: 'choiceId',
-  isCorrect: 'isCorrect'
+  isCorrect: 'isCorrect',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]

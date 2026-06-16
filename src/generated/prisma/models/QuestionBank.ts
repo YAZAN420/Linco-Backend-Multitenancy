@@ -42,6 +42,8 @@ export type QuestionBankMinAggregateOutputType = {
   text: string | null
   points: number | null
   sortOrder: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionBankMaxAggregateOutputType = {
@@ -50,6 +52,8 @@ export type QuestionBankMaxAggregateOutputType = {
   text: string | null
   points: number | null
   sortOrder: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionBankCountAggregateOutputType = {
@@ -58,6 +62,8 @@ export type QuestionBankCountAggregateOutputType = {
   text: number
   points: number
   sortOrder: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -78,6 +84,8 @@ export type QuestionBankMinAggregateInputType = {
   text?: true
   points?: true
   sortOrder?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionBankMaxAggregateInputType = {
@@ -86,6 +94,8 @@ export type QuestionBankMaxAggregateInputType = {
   text?: true
   points?: true
   sortOrder?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionBankCountAggregateInputType = {
@@ -94,6 +104,8 @@ export type QuestionBankCountAggregateInputType = {
   text?: true
   points?: true
   sortOrder?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -189,6 +201,8 @@ export type QuestionBankGroupByOutputType = {
   text: string
   points: number
   sortOrder: number
+  createdAt: Date
+  updatedAt: Date
   _count: QuestionBankCountAggregateOutputType | null
   _avg: QuestionBankAvgAggregateOutputType | null
   _sum: QuestionBankSumAggregateOutputType | null
@@ -220,6 +234,8 @@ export type QuestionBankWhereInput = {
   text?: Prisma.StringFilter<"QuestionBank"> | string
   points?: Prisma.IntFilter<"QuestionBank"> | number
   sortOrder?: Prisma.IntFilter<"QuestionBank"> | number
+  createdAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   choices?: Prisma.QuestionChoiceListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
@@ -231,6 +247,8 @@ export type QuestionBankOrderByWithRelationInput = {
   text?: Prisma.SortOrder
   points?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
   choices?: Prisma.QuestionChoiceOrderByRelationAggregateInput
   answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
@@ -245,6 +263,8 @@ export type QuestionBankWhereUniqueInput = Prisma.AtLeast<{
   text?: Prisma.StringFilter<"QuestionBank"> | string
   points?: Prisma.IntFilter<"QuestionBank"> | number
   sortOrder?: Prisma.IntFilter<"QuestionBank"> | number
+  createdAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   choices?: Prisma.QuestionChoiceListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
@@ -256,6 +276,8 @@ export type QuestionBankOrderByWithAggregationInput = {
   text?: Prisma.SortOrder
   points?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionBankCountOrderByAggregateInput
   _avg?: Prisma.QuestionBankAvgOrderByAggregateInput
   _max?: Prisma.QuestionBankMaxOrderByAggregateInput
@@ -272,6 +294,8 @@ export type QuestionBankScalarWhereWithAggregatesInput = {
   text?: Prisma.StringWithAggregatesFilter<"QuestionBank"> | string
   points?: Prisma.IntWithAggregatesFilter<"QuestionBank"> | number
   sortOrder?: Prisma.IntWithAggregatesFilter<"QuestionBank"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionBank"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionBank"> | Date | string
 }
 
 export type QuestionBankCreateInput = {
@@ -279,6 +303,8 @@ export type QuestionBankCreateInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
@@ -290,6 +316,8 @@ export type QuestionBankUncheckedCreateInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
@@ -299,6 +327,8 @@ export type QuestionBankUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
@@ -310,6 +340,8 @@ export type QuestionBankUncheckedUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
 }
@@ -320,6 +352,8 @@ export type QuestionBankCreateManyInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionBankUpdateManyMutationInput = {
@@ -327,6 +361,8 @@ export type QuestionBankUpdateManyMutationInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionBankUncheckedUpdateManyInput = {
@@ -335,6 +371,8 @@ export type QuestionBankUncheckedUpdateManyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionBankListRelationFilter = {
@@ -353,6 +391,8 @@ export type QuestionBankCountOrderByAggregateInput = {
   text?: Prisma.SortOrder
   points?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionBankAvgOrderByAggregateInput = {
@@ -366,6 +406,8 @@ export type QuestionBankMaxOrderByAggregateInput = {
   text?: Prisma.SortOrder
   points?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionBankMinOrderByAggregateInput = {
@@ -374,6 +416,8 @@ export type QuestionBankMinOrderByAggregateInput = {
   text?: Prisma.SortOrder
   points?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionBankSumOrderByAggregateInput = {
@@ -461,6 +505,8 @@ export type QuestionBankCreateWithoutSectionInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
 }
@@ -470,6 +516,8 @@ export type QuestionBankUncheckedCreateWithoutSectionInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
@@ -509,6 +557,8 @@ export type QuestionBankScalarWhereInput = {
   text?: Prisma.StringFilter<"QuestionBank"> | string
   points?: Prisma.IntFilter<"QuestionBank"> | number
   sortOrder?: Prisma.IntFilter<"QuestionBank"> | number
+  createdAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"QuestionBank"> | Date | string
 }
 
 export type QuestionBankCreateWithoutChoicesInput = {
@@ -516,6 +566,8 @@ export type QuestionBankCreateWithoutChoicesInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
 }
@@ -526,6 +578,8 @@ export type QuestionBankUncheckedCreateWithoutChoicesInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
 
@@ -550,6 +604,8 @@ export type QuestionBankUpdateWithoutChoicesInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
 }
@@ -560,6 +616,8 @@ export type QuestionBankUncheckedUpdateWithoutChoicesInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
@@ -568,6 +626,8 @@ export type QuestionBankCreateWithoutAnswersInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
 }
@@ -578,6 +638,8 @@ export type QuestionBankUncheckedCreateWithoutAnswersInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
 }
 
@@ -602,6 +664,8 @@ export type QuestionBankUpdateWithoutAnswersInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
 }
@@ -612,6 +676,8 @@ export type QuestionBankUncheckedUpdateWithoutAnswersInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
@@ -620,6 +686,8 @@ export type QuestionBankCreateManySectionInput = {
   text: string
   points?: number
   sortOrder: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionBankUpdateWithoutSectionInput = {
@@ -627,6 +695,8 @@ export type QuestionBankUpdateWithoutSectionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
 }
@@ -636,6 +706,8 @@ export type QuestionBankUncheckedUpdateWithoutSectionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
 }
@@ -645,6 +717,8 @@ export type QuestionBankUncheckedUpdateManyWithoutSectionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -693,6 +767,8 @@ export type QuestionBankSelect<ExtArgs extends runtime.Types.Extensions.Internal
   text?: boolean
   points?: boolean
   sortOrder?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   choices?: boolean | Prisma.QuestionBank$choicesArgs<ExtArgs>
   answers?: boolean | Prisma.QuestionBank$answersArgs<ExtArgs>
@@ -705,6 +781,8 @@ export type QuestionBankSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   text?: boolean
   points?: boolean
   sortOrder?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionBank"]>
 
@@ -714,6 +792,8 @@ export type QuestionBankSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   text?: boolean
   points?: boolean
   sortOrder?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionBank"]>
 
@@ -723,9 +803,11 @@ export type QuestionBankSelectScalar = {
   text?: boolean
   points?: boolean
   sortOrder?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type QuestionBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "text" | "points" | "sortOrder", ExtArgs["result"]["questionBank"]>
+export type QuestionBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "text" | "points" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["questionBank"]>
 export type QuestionBankInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   choices?: boolean | Prisma.QuestionBank$choicesArgs<ExtArgs>
@@ -752,6 +834,8 @@ export type $QuestionBankPayload<ExtArgs extends runtime.Types.Extensions.Intern
     text: string
     points: number
     sortOrder: number
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["questionBank"]>
   composites: {}
 }
@@ -1183,6 +1267,8 @@ export interface QuestionBankFieldRefs {
   readonly text: Prisma.FieldRef<"QuestionBank", 'String'>
   readonly points: Prisma.FieldRef<"QuestionBank", 'Int'>
   readonly sortOrder: Prisma.FieldRef<"QuestionBank", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"QuestionBank", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"QuestionBank", 'DateTime'>
 }
     
 

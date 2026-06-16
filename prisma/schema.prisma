@@ -51,7 +51,7 @@ model User {
 }
 
 model DemoMember {
-  id        String   @id 
+  id        String   @id
   userId    String
   demoId    String
   role      DemoMemberRole   @default(TRAINER) 
@@ -188,6 +188,9 @@ model QuestionBank {
   points      Int               @default(1)
   sortOrder   Int
 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   section     Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   choices     QuestionChoice[]
   answers     AttemptAnswer[]
@@ -198,8 +201,11 @@ model QuestionChoice {
   questionId  String
   text        String
   isCorrect   Boolean
-  question    QuestionBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  question    QuestionBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
   answers     AttemptAnswer[]
 }
 
@@ -210,6 +216,9 @@ model QuizAttempt {
   score       Int               @default(0)
   startedAt   DateTime          @default(now())
   submittedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
   answers      AttemptAnswer[]
@@ -225,6 +234,9 @@ model AttemptAnswer {
   choiceId    String
   isCorrect   Boolean
 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
   attempt     QuizAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   question    QuestionBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
   choice      QuestionChoice    @relation(fields: [choiceId], references: [id], onDelete: Cascade)
@@ -251,7 +263,7 @@ model DepartmentCourse {
   departmentId String
   courseId     String
   assignedAt   DateTime   @default(now())
-   updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
