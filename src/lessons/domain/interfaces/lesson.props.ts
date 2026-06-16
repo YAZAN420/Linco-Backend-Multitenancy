@@ -8,7 +8,6 @@ export interface LessonProps {
   videoUrl: Url;
   order: LessonOrder;
   sectionId: string;
-  courseId: string;
   subTitleUrl: Url | null;
   attachments: Attachment[];
   createdAt: Date;

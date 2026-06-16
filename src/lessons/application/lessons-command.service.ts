@@ -23,7 +23,6 @@ export class LessonsCommandService {
       input.order,
       input.videoUrl,
       input.subTitleUrl ?? null,
-      input.courseId,
     );
     await this.lessonCommandRepository.save(lesson);
     return lesson;
@@ -60,10 +59,6 @@ export class LessonsCommandService {
   async remove(sectionId: string, lessonId: string): Promise<void> {
     await this.findById(lessonId);
     await this.lessonCommandRepository.delete(lessonId);
-  }
-
-  async save(lesson: Lesson): Promise<void> {
-    await this.lessonCommandRepository.save(lesson);
   }
 
   private async findById(lessonId: string): Promise<Lesson> {

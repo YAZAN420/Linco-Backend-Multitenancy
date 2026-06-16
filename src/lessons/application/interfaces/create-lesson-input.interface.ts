@@ -3,5 +3,4 @@ export interface CreateLessonInput {
   order: number;
   videoUrl: string;
   subTitleUrl?: string;
-  courseId: string;
 }

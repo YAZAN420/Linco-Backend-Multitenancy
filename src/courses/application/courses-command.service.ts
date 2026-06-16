@@ -50,10 +50,6 @@ export class CoursesCommandService {
     await this.courseCommandRepository.delete(id);
   }
 
-  async save(course: Course): Promise<void> {
-    await this.courseCommandRepository.save(course);
-  }
-
   async findById(courseId: string): Promise<Course> {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('course not found');

@@ -253,6 +253,23 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumAccessMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccessMethod | Prisma.EnumAccessMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel> | $Enums.AccessMethod
+}
+
+export type EnumAccessMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccessMethod | Prisma.EnumAccessMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccessMethodWithAggregatesFilter<$PrismaModel> | $Enums.AccessMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -503,6 +520,23 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumAccessMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccessMethod | Prisma.EnumAccessMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel> | $Enums.AccessMethod
+}
+
+export type NestedEnumAccessMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccessMethod | Prisma.EnumAccessMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccessMethod[] | Prisma.ListEnumAccessMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccessMethodWithAggregatesFilter<$PrismaModel> | $Enums.AccessMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccessMethodFilter<$PrismaModel>
 }
 
 

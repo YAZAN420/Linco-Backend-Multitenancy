@@ -82,3 +82,13 @@ export type QuizAttempt = Prisma.QuizAttemptModel
  * 
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
+/**
+ * Model Asset
+ * 
+ */
+export type Asset = Prisma.AssetModel
+/**
+ * Model DepartmentCourse
+ * 
+ */
+export type DepartmentCourse = Prisma.DepartmentCourseModel

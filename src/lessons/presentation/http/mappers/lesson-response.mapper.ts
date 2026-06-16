@@ -13,7 +13,6 @@ export class LessonResponseMapper {
       lesson.videoUrl,
       lesson.subTitleUrl,
       lesson.sectionId,
-      lesson.courseId,
       lesson.createdAt,
       lesson.updatedAt,
     );
@@ -27,7 +26,6 @@ export class LessonResponseMapper {
       lesson.videoUrl,
       lesson.subTitleUrl,
       lesson.sectionId,
-      lesson.courseId,
       lesson.createdAt,
       lesson.updatedAt,
     );

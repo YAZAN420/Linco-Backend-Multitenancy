@@ -13,7 +13,6 @@ export class LessonFactory {
     order: number,
     videoUrl: string,
     subTitleUrl: string | null,
-    courseId: string,
   ): Lesson {
     const now = new Date();
     const titleVo = Title.create(title);
@@ -26,7 +25,6 @@ export class LessonFactory {
       videoUrl: videoUrlVo,
       subTitleUrl: subTitleUrlVo,
       sectionId,
-      courseId,
       attachments: [],
       createdAt: now,
       updatedAt: now,

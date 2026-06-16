@@ -21,4 +21,5 @@ export abstract class DemoQueryRepository {
     demoId: string,
     deptId: string,
   ): Promise<Department | null>;
+  abstract demoExists(id: string): Promise<boolean>;
 }
