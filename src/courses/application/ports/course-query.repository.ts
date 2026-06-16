@@ -7,8 +7,12 @@ import { Course, Section } from 'src/generated/prisma/client';
 import { FindSectionsCursorQuery } from '../interfaces/find-sections.query';
 
 export abstract class CourseQueryRepository {
-  abstract findAll(options: FindCoursesQuery): Promise<PageDto<Course>>;
+  abstract findAll(
+    demoId: string,
+    options: FindCoursesQuery,
+  ): Promise<PageDto<Course>>;
   abstract findAllCursor(
+    demoIdL: string,
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<Course>>;
   abstract findById(id: string): Promise<Course | null>;

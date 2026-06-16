@@ -7,27 +7,53 @@ import { CreateCourseInput } from './interfaces/create-course-input.interface';
 import { UpdateCourseInput } from './interfaces/update-course-input.interface';
 import { Title } from '../domain/value-objects/title.vo';
 import { Price } from '../domain/value-objects/price.vo';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { CourseCreatedEvent } from 'src/common/events/course-created.event';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
 
 @Injectable()
 export class CoursesCommandService {
   constructor(
+    private readonly demoQueryRepository: DemoQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
+    private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
   ) {}
 
-  async create(input: CreateCourseInput): Promise<Course> {
+  async create(demoId: string, input: CreateCourseInput): Promise<Course> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) {
+      throw new NotFoundException('Demo not found');
+    }
+
     const course = this.courseFactory.createNew(
       input.title,
       input.visibility,
+      demoId,
       input.price,
-      input.authorDemoId,
     );
+
     await this.courseCommandRepository.save(course);
+
+    this.eventEmitter.emit(
+      'course.created',
+      new CourseCreatedEvent(demoId, course.id),
+    );
+
     return course;
   }
 
-  async update(id: string, input: UpdateCourseInput): Promise<Course> {
-    const course = await this.findById(id);
+  async update(
+    demoId: string,
+    courseId: string,
+    input: UpdateCourseInput,
+  ): Promise<Course> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) {
+      throw new NotFoundException('Demo not found');
+    }
+
+    const course = await this.findById(courseId);
     if (input.title !== undefined && input.title !== null) {
       const titleVo = Title.create(input.title);
       course.updateTitle(titleVo);
@@ -45,9 +71,13 @@ export class CoursesCommandService {
     return course;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.findById(id);
-    await this.courseCommandRepository.delete(id);
+  async remove(demoId: string, courseId: string): Promise<void> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) {
+      throw new NotFoundException('Demo not found');
+    }
+    await this.findById(courseId);
+    await this.courseCommandRepository.delete(courseId);
   }
 
   async findById(courseId: string): Promise<Course> {

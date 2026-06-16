@@ -7,7 +7,7 @@ import { CoursesQueryService } from 'src/courses/application/courses-query.servi
 
 import { CourseResponseMapper } from './mappers/course-response.mapper';
 
-@Controller('courses')
+@Controller('demos/:demoId/courses')
 export class CoursesQueryController {
   constructor(
     private readonly courseQueryService: CoursesQueryService,
@@ -15,8 +15,11 @@ export class CoursesQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: FindCoursesDto) {
-    const courses = await this.courseQueryService.findAll(options);
+  async findAll(
+    @Param('demoId') demoId: string,
+    @Query() options: FindCoursesDto,
+  ) {
+    const courses = await this.courseQueryService.findAll(demoId, options);
     return {
       message: 'Courses fetched successfully',
       data: this.courseResponseMapper.toResponseManyFromPrisma(courses.data),
@@ -25,8 +28,14 @@ export class CoursesQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindCoursesCursorDto) {
-    const courses = await this.courseQueryService.findAllCursor(options);
+  async findWithCursor(
+    @Param('demoId') demoId: string,
+    @Query() options: FindCoursesCursorDto,
+  ) {
+    const courses = await this.courseQueryService.findAllCursor(
+      demoId,
+      options,
+    );
 
     return {
       message: 'Courses fetched successfully (Cursor)',
@@ -35,9 +44,12 @@ export class CoursesQueryController {
     };
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const course = await this.courseQueryService.findById(id);
+  @Get(':courseId')
+  async findOne(
+    @Param('demoId') demoId: string,
+    @Param('courseId') courseId: string,
+  ) {
+    const course = await this.courseQueryService.findById(demoId, courseId);
 
     return {
       message: 'Course retrieved successfully',

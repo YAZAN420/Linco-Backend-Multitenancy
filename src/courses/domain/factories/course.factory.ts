@@ -10,8 +10,8 @@ export class CourseFactory {
   public createNew(
     title: string,
     visibility: CourseVisibility,
+    authorDemoId: string,
     price?: number | null,
-    authorDemoId?: string | null,
   ): Course {
     const now = new Date();
     const titleVo = Title.create(title);

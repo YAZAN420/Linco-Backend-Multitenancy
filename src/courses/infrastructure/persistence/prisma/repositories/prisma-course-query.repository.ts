@@ -33,7 +33,10 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     };
   }
 
-  async findAll(options: FindCoursesQuery): Promise<PageDto<Course>> {
+  async findAll(
+    demoId: string,
+    options: FindCoursesQuery,
+  ): Promise<PageDto<Course>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -41,7 +44,10 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       this.prisma.course.findMany({
         skip,
         take: options.take,
-        where,
+        where: {
+          ...where,
+          demoId,
+        },
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
       this.prisma.course.count({ where }),
@@ -54,6 +60,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   }
 
   async findAllCursor(
+    demoId: string,
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<Course>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
@@ -63,7 +70,10 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
+      where: {
+        ...where,
+        demoId,
+      },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 

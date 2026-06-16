@@ -8,6 +8,7 @@ import { AppConfigModule } from './config/app-config.module';
 import { RateLimiterModule } from './rate-limiter/rate-limiter.module';
 import { ContextModule } from './context/context.module';
 import { QueueModule } from './queue/queue.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Global()
 @Module({})
@@ -16,6 +17,7 @@ export class CoreModule {
     return {
       module: CoreModule,
       imports: [
+        EventEmitterModule.forRoot(),
         DatabaseModule.use(),
         AppConfigModule,
         RateLimiterModule,
