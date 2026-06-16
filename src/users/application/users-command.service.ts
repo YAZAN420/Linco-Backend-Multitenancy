@@ -30,6 +30,7 @@ export class UsersCommandService {
       hashedPassword,
       input.birthDate,
       input.imagePath,
+      input.role,
     );
 
     await this.userCommandRepository.save(user);
@@ -40,10 +41,10 @@ export class UsersCommandService {
   async update(id: string, input: UpdateUserInput): Promise<User> {
     const user = await this.findById(id);
 
-    user.updateFirstName(input.firstName ?? user.firstName);
-    user.updateLastName(input.lastName ?? user.lastName);
-    user.updateBirthDate(input.birthDate ?? user.birthDate);
-    user.updateImagePath(input.imagePath ?? user.imagePath);
+    if (input.firstName) user.updateFirstName(input.firstName);
+    if (input.lastName) user.updateLastName(input.lastName);
+    if (input.birthDate) user.updateBirthDate(input.birthDate);
+    if (input.imagePath) user.updateImagePath(input.imagePath);
 
     await this.userCommandRepository.save(user);
 
@@ -70,10 +71,6 @@ export class UsersCommandService {
     if (!user) throw new NotFoundException('Invalid verification token');
 
     user.security.verifyEmail(token);
-    await this.userCommandRepository.save(user);
-  }
-
-  async save(user: User): Promise<void> {
     await this.userCommandRepository.save(user);
   }
 

@@ -3,7 +3,8 @@ import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
 } from '../interfaces/find-courses.query';
-import { Course } from 'src/generated/prisma/browser';
+import { Course, Section } from 'src/generated/prisma/client';
+import { FindSectionsCursorQuery } from '../interfaces/find-sections.query';
 
 export abstract class CourseQueryRepository {
   abstract findAll(options: FindCoursesQuery): Promise<PageDto<Course>>;
@@ -11,4 +12,9 @@ export abstract class CourseQueryRepository {
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<Course>>;
   abstract findById(id: string): Promise<Course | null>;
+  abstract findSectionsCursor(
+    courseId: string,
+    options: FindSectionsCursorQuery,
+  ): Promise<CursorPageDto<Section>>;
+  abstract findSectionById(sectionId: string): Promise<Section | null>;
 }

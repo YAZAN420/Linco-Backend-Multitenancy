@@ -3,17 +3,25 @@ import { InvalidEmailFormatException } from '../exceptions/invalid-email-format.
 export class Email {
   private readonly value: string;
 
-  constructor(value: string) {
+  private constructor(value: string) {
+    this.value = value;
+  }
+
+  static create(value: string): Email {
     const trimmed = value.trim().toLowerCase();
 
     if (!this.isValid(trimmed)) {
       throw new InvalidEmailFormatException();
     }
 
-    this.value = trimmed;
+    return new Email(trimmed);
   }
 
-  private isValid(email: string): boolean {
+  static fromPersistence(value: string): Email {
+    return Email.create(value);
+  }
+
+  private static isValid(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 

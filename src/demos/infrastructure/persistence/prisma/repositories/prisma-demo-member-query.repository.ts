@@ -3,8 +3,8 @@ import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member-query.repository';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
-import { DemoMember as PrismaDemoMember } from 'src/generated/prisma/client';
 import { FindDemoMembersCursorQuery } from 'src/demos/application/interfaces/find-demos.query';
+import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepository {
@@ -13,7 +13,7 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
   async findAllByDemo(
     demoId: string,
     options: FindDemoMembersCursorQuery,
-  ): Promise<CursorPageDto<PrismaDemoMember>> {
+  ): Promise<CursorPageDto<DemoMemberWithUser>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.demoMember.findMany({
@@ -21,16 +21,9 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where: { demoId },
-      orderBy: [{ joinedAt: 'desc' }],
+      orderBy: [{ joinedAt: 'desc' }, { id: 'desc' }],
       include: {
-        user: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
+        user: true,
       },
     });
 
@@ -48,18 +41,11 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
   async findById(
     demoId: string,
     memberId: string,
-  ): Promise<PrismaDemoMember | null> {
+  ): Promise<DemoMemberWithUser | null> {
     return this.prisma.demoMember.findFirst({
       where: { id: memberId, demoId },
       include: {
-        user: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
+        user: true,
       },
     });
   }

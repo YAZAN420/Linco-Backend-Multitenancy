@@ -1,4 +1,4 @@
 export interface UpdateDepartmentInput {
-  name: string;
-  managerId: string;
+  name?: string;
+  managerId?: string;
 }

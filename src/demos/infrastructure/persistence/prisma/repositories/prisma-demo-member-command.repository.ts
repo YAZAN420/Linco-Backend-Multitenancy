@@ -17,7 +17,7 @@ export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepos
       where: {
         id: member.id,
       },
-      update: { role: data.role },
+      update: data,
       create: data,
     });
   }

@@ -4,10 +4,12 @@ import { PrismaCourseCommandRepository } from './repositories/prisma-course-comm
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { PrismaCourseQueryRepository } from './repositories/prisma-course-query.repository';
 import { PrismaCourseMapper } from './mappers/prisma-course.mapper';
+import { PrismaSectionMapper } from './mappers/prisma-section.mapper';
 
 @Module({
   providers: [
     PrismaCourseMapper,
+    PrismaSectionMapper,
     {
       provide: CourseCommandRepository,
       useClass: PrismaCourseCommandRepository,

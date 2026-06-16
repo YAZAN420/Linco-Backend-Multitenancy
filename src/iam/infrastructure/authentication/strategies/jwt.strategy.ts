@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import type { ConfigType } from '@nestjs/config';
-import jwtConfig from 'src/config/jwt.config';
+import jwtConfig from 'src/common/config/jwt.config';
 import { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';

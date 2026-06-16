@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import mailConfig from 'src/config/mail.config';
+import mailConfig from 'src/common/config/mail.config';
 import { MailPort } from './mail.port';
 import { NodemailerAdapter } from './nodemailer.adapter';
 import { ConfigModule } from '@nestjs/config';

@@ -1,8 +1,7 @@
+import { DomainException } from 'src/common/exceptions/domain.exception';
 import { Department } from './department';
-import { DomainConflictException } from './exceptions/conflict.exception';
-import { DomainNotFoundException } from './exceptions/not-found.exception';
-import { DomainValidationException } from './exceptions/validation.exception';
 import { DemoProps } from './interfaces/demo.props';
+import { Name } from './value-objects/name.vo';
 
 export class Demo {
   private static readonly MAX_MEMBERS = 50;
@@ -20,7 +19,7 @@ export class Demo {
   }
 
   get name(): string {
-    return this.props.name;
+    return this.props.name.value;
   }
 
   get ownerId(): string {
@@ -31,75 +30,65 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
-  updateName(newName: string): void {
-    if (newName === this.props.name) return;
-    if (newName.trim().length === 0) {
-      throw new DomainValidationException('Demo name cannot be empty');
-    }
+  updateName(newName: Name): void {
+    if (this.props.name.equals(newName)) return;
     this.props.name = newName;
     this.touch();
   }
 
   addDepartment(department: Department): void {
     if (!department) {
-      throw new DomainValidationException(
-        'Department cannot be null or undefined',
-      );
+      throw new DomainException('Department cannot be null or undefined');
     }
 
     const exists = this.departments.some(
       (d) => d.name.toLowerCase() === department.name.toLowerCase(),
     );
     if (exists) {
-      throw new DomainConflictException(
+      throw new DomainException(
         `Department "${department.name}" already exists`,
       );
     }
 
-    this.props.departments = [...this.props.departments, department];
+    this.props.departments.push(department);
     this.touch();
   }
 
   removeDepartment(departmentId: string): void {
     if (!this.hasDepartment(departmentId)) {
-      throw new DomainNotFoundException('Department not found in this demo');
+      throw new DomainException('Department not found in this demo');
     }
 
-    this.props.departments = this.departments.filter(
-      (d) => d.id !== departmentId,
+    const index = this.props.departments.findIndex(
+      (d) => d.id === departmentId,
     );
-    this.touch();
+    if (index !== -1) {
+      this.props.departments.splice(index, 1);
+      this.touch();
+    }
   }
 
-  renameDepartment(departmentId: string, newName: string): void {
+  renameDepartment(departmentId: string, newName: Name): void {
     const department = this.getDepartmentStrict(departmentId);
 
-    const cleanName = newName.trim();
-    if (cleanName.length === 0) {
-      throw new DomainValidationException('Department name cannot be empty');
-    }
-
-    if (department.name === cleanName) return;
+    if (department.nameVo.equals(newName)) return;
 
     const nameExists = this.departments.some(
-      (d) =>
-        d.id !== departmentId &&
-        d.name.toLowerCase() === cleanName.toLowerCase(),
+      (d) => d.id !== departmentId && d.nameVo.equals(newName),
     );
 
     if (nameExists) {
-      throw new DomainConflictException(
-        `Department "${cleanName}" already exists in this demo`,
+      throw new DomainException(
+        `Department "${newName.value}" already exists in this demo`,
       );
     }
 
-    department.updateName(cleanName);
+    department.updateName(newName);
     this.touch();
   }
 
   reassignDepartmentManager(departmentId: string, newManagerId: string): void {
     const department = this.getDepartmentStrict(departmentId);
-    if (!newManagerId) return;
     department.updateManager(newManagerId);
     this.touch();
   }
@@ -108,13 +97,9 @@ export class Demo {
     return this.departments.some((d) => d.id === departmentId);
   }
 
-  setDepartments(departments: Department[]): void {
-    this.props.departments = departments;
-  }
-
   verifyCanAddMember(currentCount: number): void {
     if (currentCount >= Demo.MAX_MEMBERS) {
-      throw new DomainValidationException(
+      throw new DomainException(
         `Demo cannot exceed ${Demo.MAX_MEMBERS} members`,
       );
     }
@@ -127,7 +112,7 @@ export class Demo {
   private getDepartmentStrict(departmentId: string): Department {
     const department = this.departments.find((d) => d.id === departmentId);
     if (!department) {
-      throw new DomainNotFoundException('Department not found in this demo');
+      throw new DomainException('Department not found in this demo');
     }
     return department;
   }

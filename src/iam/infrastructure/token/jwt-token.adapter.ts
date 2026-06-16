@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import jwtConfig from 'src/config/jwt.config';
+import jwtConfig from 'src/common/config/jwt.config';
 import { TokenPair } from 'src/iam/domain/interfaces/token-pair.interface';
 import { TokenPort } from 'src/iam/application/ports/token.port';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';

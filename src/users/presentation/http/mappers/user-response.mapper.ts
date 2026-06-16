@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { User as PrismaUser } from 'src/generated/prisma/client';
 import { User as DomainUser } from 'src/users/domain/user';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
 export class UserResponseMapper {
@@ -13,7 +14,7 @@ export class UserResponseMapper {
       user.email,
       user.birthDate,
       user.imagePath,
-      user.role as unknown as DomainUser['role'],
+      user.role as Role,
       user.isEmailVerified,
       user.isTwoFactorEnabled,
       user.createdAt,

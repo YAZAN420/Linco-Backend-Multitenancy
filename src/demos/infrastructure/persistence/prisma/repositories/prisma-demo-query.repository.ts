@@ -84,6 +84,13 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     });
   }
 
+  async demoExists(id: string): Promise<boolean> {
+    const count = await this.prisma.demo.count({
+      where: { id },
+    });
+    return count > 0;
+  }
+
   async findDepartments(
     options: FindDepartmentCursorQuery,
     demoId: string,
@@ -97,7 +104,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       where: {
         demoId,
       },
-      orderBy: [{ id: 'desc' }],
+      orderBy: [{ createdAt: 'desc' }],
     });
 
     const hasNextPage = items.length > take;

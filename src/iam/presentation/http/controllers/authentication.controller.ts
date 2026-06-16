@@ -166,7 +166,7 @@ export class AuthenticationController {
 
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens);
-      return { message: 'Tokens refreshed successfully' };
+      return { message: 'Tokens refreshed successfully', data: null };
     }
 
     return {

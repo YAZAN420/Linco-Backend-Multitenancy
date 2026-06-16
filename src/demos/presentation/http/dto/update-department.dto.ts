@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateDepartmentDto {
   @IsString()
-  @IsNotEmpty()
-  name!: string;
+  @IsOptional()
+  name?: string;
   @IsString()
-  @IsNotEmpty()
-  managerId!: string;
+  @IsOptional()
+  managerId?: string;
 }

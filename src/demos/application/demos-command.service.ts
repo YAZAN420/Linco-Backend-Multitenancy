@@ -5,25 +5,26 @@ import { Demo } from '../domain/demo';
 
 import { CreateDemoInput } from './interfaces/create-demo-input.interface';
 import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
-import { DepartmentFactory } from '../domain/factories/department.factory';
+import { Name } from '../domain/value-objects/name.vo';
 
 @Injectable()
 export class DemosCommandService {
   constructor(
     private readonly demoCommandRepository: DemoCommandRepository,
     private readonly demoFactory: DemoFactory,
-    private readonly departmentFactory: DepartmentFactory,
   ) {}
 
   async create(input: CreateDemoInput): Promise<Demo> {
-    const demo = this.demoFactory.createNew(input);
+    const demo = this.demoFactory.createNew(input.name, input.ownerId);
     await this.demoCommandRepository.save(demo);
     return demo;
   }
 
   async update(id: string, input: UpdateDemoInput): Promise<Demo> {
     const demo = await this.findById(id);
-    demo.updateName(input.name ?? demo.name);
+    if (input.name !== undefined) {
+      demo.updateName(Name.create(input.name));
+    }
     await this.demoCommandRepository.save(demo);
     return demo;
   }
@@ -31,10 +32,6 @@ export class DemosCommandService {
   async remove(id: string): Promise<void> {
     await this.findById(id);
     await this.demoCommandRepository.delete(id);
-  }
-
-  async save(demo: Demo): Promise<void> {
-    await this.demoCommandRepository.save(demo);
   }
 
   async findById(id: string): Promise<Demo> {

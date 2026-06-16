@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
-import jwtConfig from 'src/config/jwt.config';
-import googleOAuthConfig from 'src/config/google-oauth.config';
+import jwtConfig from 'src/common/config/jwt.config';
+import googleOAuthConfig from 'src/common/config/google-oauth.config';
 
 import { IamApplicationModule } from '../application/application.module';
 

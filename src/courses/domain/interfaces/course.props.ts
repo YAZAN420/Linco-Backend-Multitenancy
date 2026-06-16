@@ -1,10 +1,14 @@
 import { CourseVisibility } from '../enums/course-visibility.enum';
+import { Section } from '../section';
+import { Price } from '../value-objects/price.vo';
+import { Title } from '../value-objects/title.vo';
 
 export interface CourseProps {
-  title: string;
+  title: Title;
   visibility: CourseVisibility;
   authorDemoId: string | null;
-  price: number | null;
+  price: Price;
+  sections: Section[];
   createdAt: Date;
   updatedAt: Date;
 }

@@ -5,13 +5,13 @@ import { UpdateCourseInput } from 'src/courses/application/interfaces/update-cou
 export class UpdateCourseDto implements UpdateCourseInput {
   @IsString()
   @IsOptional()
-  title!: string | null;
+  title?: string;
 
   @IsOptional()
   @IsEnum(CourseVisibility)
-  visibility!: CourseVisibility | null;
+  visibility?: CourseVisibility;
 
   @IsNumber()
   @IsOptional()
-  price!: number | null;
+  price?: number;
 }

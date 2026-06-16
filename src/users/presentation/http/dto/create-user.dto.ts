@@ -7,6 +7,7 @@ import {
   MaxLength,
   MinLength,
   IsEnum,
+  IsDateString,
 } from 'class-validator';
 import { CreateUserInput } from 'src/users/application/interfaces/create-user-input.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
@@ -25,6 +26,7 @@ export class CreateUserDto implements CreateUserInput {
   email!: string;
 
   @Type(() => Date)
+  @IsDateString()
   @IsNotEmpty()
   birthDate!: Date;
 

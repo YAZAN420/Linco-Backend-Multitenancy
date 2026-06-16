@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Type } from '@nestjs/common';
+import { DynamicModule, Global, Module, Type } from '@nestjs/common';
 import { DemosCommandController } from './presentation/http/demo-command.controller';
 import { DemosQueryController } from './presentation/http/demo-query.controller';
 import { DemoFactory } from './domain/factories/demo.factory';
@@ -19,6 +19,7 @@ import { DemoMembersQueryController } from './presentation/http/demo-members-que
 import { DemoMemberFactory } from './domain/factories/demo-member.factory';
 import { DemoMemberResponseMapper } from './presentation/http/mappers/demo-member-response.mapper';
 
+@Global()
 @Module({
   imports: [],
   controllers: [

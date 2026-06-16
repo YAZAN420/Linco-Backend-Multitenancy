@@ -3,8 +3,9 @@ import { DemoCommandRepository } from './ports/demo-command.repository';
 import { DepartmentFactory } from '../domain/factories/department.factory';
 import { CreateDepartmentInput } from './interfaces/create-department-input.interface';
 import { UpdateDepartmentInput } from './interfaces/update-department-input.interface';
-import { DomainValidationException } from '../domain/exceptions/validation.exception';
 import { DemoMemberCommandRepository } from './ports/demo-member-command.repository';
+import { Name } from '../domain/value-objects/name.vo';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 @Injectable()
 export class DepartmentsCommandService {
@@ -29,13 +30,15 @@ export class DepartmentsCommandService {
         throw new NotFoundException('Member not found');
       }
       if (member.demoId !== demoId) {
-        throw new DomainValidationException(
-          'Manager must be a member of this demo',
-        );
+        throw new DomainException('Manager must be a member of this demo');
       }
     }
 
-    const newDepartment = this.departmentFactory.createNew(demoId, input);
+    const newDepartment = this.departmentFactory.createNew(
+      demoId,
+      input.name,
+      input.managerId,
+    );
     demo.addDepartment(newDepartment);
 
     await this.demoCommandRepository.save(demo);
@@ -55,15 +58,14 @@ export class DepartmentsCommandService {
       );
       if (!member) throw new NotFoundException('Member not found');
       if (member.demoId !== demoId) {
-        throw new DomainValidationException(
-          'Manager must be a member of this demo',
-        );
+        throw new DomainException('Manager must be a member of this demo');
       }
       demo.reassignDepartmentManager(departmentId, input.managerId);
     }
 
     if (input.name !== undefined) {
-      demo.renameDepartment(departmentId, input.name);
+      const nameVo = Name.create(input.name);
+      demo.renameDepartment(departmentId, nameVo);
     }
 
     await this.demoCommandRepository.save(demo);
