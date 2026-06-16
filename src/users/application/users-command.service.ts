@@ -10,6 +10,10 @@ import { HashingPort } from 'src/iam/application/ports/hashing.port';
 
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
+import {
+  InvalidResetTokenException,
+  InvalidVerificationTokenException,
+} from '../domain/exceptions';
 
 @Injectable()
 export class UsersCommandService {
@@ -74,9 +78,57 @@ export class UsersCommandService {
     await this.userCommandRepository.save(user);
   }
 
+  async verifyEmailWithToken(hashedToken: string): Promise<User> {
+    const user =
+      await this.userCommandRepository.findByVerificationToken(hashedToken);
+    if (!user) throw new InvalidVerificationTokenException();
+    user.security.verifyEmail(hashedToken);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
   async markEmailAsVerified(userId: string): Promise<User> {
     const user = await this.findById(userId);
     user.security.markEmailVerified();
+    await this.userCommandRepository.save(user);
+    return user;
+  }
+
+  async setPasswordResetToken(
+    email: string,
+    hashedToken: string,
+    expiry: Date,
+  ): Promise<User | null> {
+    const user = await this.userCommandRepository.findByEmail(email);
+    if (!user) return null;
+    user.security.generatePasswordResetToken(hashedToken, expiry);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
+
+  async setTwoFactorSecret(userId: string, secret: string): Promise<User> {
+    const user = await this.findById(userId);
+    user.security.setTwoFactorSecret(secret);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
+
+  async enableTwoFactorAuth(userId: string, secret: string): Promise<User> {
+    const user = await this.findById(userId);
+    if (user.security.isTwoFactorEnabled) {
+      throw new Error('Two-factor authentication is already enabled.');
+    }
+    user.security.enableTwoFactorAuth(secret);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
+
+  async resetPassword(
+    hashedToken: string,
+    hashedPassword: string,
+  ): Promise<User> {
+    const user = await this.userCommandRepository.findByResetToken(hashedToken);
+    if (!user) throw new InvalidResetTokenException();
+    user.security.resetPasswordWithToken(hashedPassword, hashedToken);
     await this.userCommandRepository.save(user);
     return user;
   }

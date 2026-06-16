@@ -4,7 +4,6 @@ import { SignUpDto } from 'src/iam/presentation/http/dto/sign-up.dto';
 import { CryptoPort } from '../ports/crypto.port';
 import { MailQueueService } from './mail-queue.service';
 import { MAIL_JOBS } from '../constants/mail.constants';
-import { InvalidVerificationTokenException } from '../../domain/exceptions';
 import { Role } from 'src/users/domain/enums/role.enum';
 import { UsersCommandService } from 'src/users/application/users-command.service';
 
@@ -22,16 +21,10 @@ export class RegistrationService {
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
     const newUser = await this.usersCommandService.create({
-      firstName: signUpDto.firstName,
-      lastName: signUpDto.lastName,
-      email: signUpDto.email,
-      password: signUpDto.password,
-      birthDate: signUpDto.birthDate,
-      imagePath: signUpDto.imagePath,
+      ...signUpDto,
       role: Role.USER,
     });
     newUser.security.setVerificationToken(hashedToken);
-    await this.usersCommandService.save(newUser);
 
     await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
       email: signUpDto.email,
@@ -43,17 +36,8 @@ export class RegistrationService {
 
   async verifyEmail(token: string) {
     const hashedToken = this.cryptoPort.hashToken(token);
-
     const user =
-      await this.usersCommandService.findByVerificationToken(hashedToken);
-
-    if (!user) {
-      throw new InvalidVerificationTokenException();
-    }
-
-    user.security.verifyEmail(hashedToken);
-    await this.usersCommandService.save(user);
-
+      await this.usersCommandService.verifyEmailWithToken(hashedToken);
     this.logger.log(`Email verified for user: ${user.id}`);
   }
 }

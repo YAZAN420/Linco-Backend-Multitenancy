@@ -17,21 +17,19 @@ export class TwoFactorAuthService {
     private readonly usersCommandService: UsersCommandService,
     private readonly logger: Logger,
   ) {}
-
   async generateSecret(
     activeUser: ActiveUserData,
   ): Promise<{ qrCode: string }> {
-    const user = await this.usersCommandService.findById(activeUser.id);
-
+    const userEmail = activeUser.email;
     const secret = this.otp.generateSecret();
+
     const otpauthUrl = this.otp.generateURI({
-      label: user.email,
+      label: userEmail,
       issuer: 'NestJS Server',
       secret,
     });
 
-    user.security.setTwoFactorSecret(secret);
-    await this.usersCommandService.save(user);
+    await this.usersCommandService.setTwoFactorSecret(activeUser.id, secret);
 
     const qrCode = await toDataURL(otpauthUrl);
     this.logger.log(`2FA secret generated for user: ${activeUser.id}`);
@@ -41,23 +39,14 @@ export class TwoFactorAuthService {
 
   async turnOn(userId: string, code: string) {
     const user = await this.usersCommandService.findById(userId);
-
-    if (user.security.isTwoFactorEnabled) {
-      throw new Error('Two-factor authentication is already enabled.');
-    }
-
     const secret = user.security.twoFactorSecret;
-    if (!secret) {
-      throw new Missing2FASecretException();
-    }
+
+    if (!secret) throw new Missing2FASecretException();
 
     const { valid } = await this.otp.verify({ token: code, secret });
-    if (!valid) {
-      throw new Invalid2FACodeException();
-    }
+    if (!valid) throw new Invalid2FACodeException();
 
-    user.security.enableTwoFactorAuth(secret);
-    await this.usersCommandService.save(user);
+    await this.usersCommandService.enableTwoFactorAuth(userId, secret);
 
     this.logger.log(`2FA enabled successfully for user: ${userId}`);
   }
