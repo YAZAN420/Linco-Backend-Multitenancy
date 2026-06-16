@@ -292,7 +292,7 @@ export type CourseScalarWhereWithAggregatesInput = {
 }
 
 export type CourseCreateInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -303,7 +303,7 @@ export type CourseCreateInput = {
 }
 
 export type CourseUncheckedCreateInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -336,7 +336,7 @@ export type CourseUncheckedUpdateInput = {
 }
 
 export type CourseCreateManyInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -486,7 +486,7 @@ export type CourseUpdateOneRequiredWithoutSectionsNestedInput = {
 }
 
 export type CourseCreateWithoutAuthorDemoInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -496,7 +496,7 @@ export type CourseCreateWithoutAuthorDemoInput = {
 }
 
 export type CourseUncheckedCreateWithoutAuthorDemoInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -545,7 +545,7 @@ export type CourseScalarWhereInput = {
 }
 
 export type CourseCreateWithoutSectionsInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -555,7 +555,7 @@ export type CourseCreateWithoutSectionsInput = {
 }
 
 export type CourseUncheckedCreateWithoutSectionsInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null
@@ -601,7 +601,7 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
 }
 
 export type CourseCreateManyAuthorDemoInput = {
-  id?: string
+  id: string
   title: string
   visibility?: $Enums.CourseVisibility
   price?: number | null

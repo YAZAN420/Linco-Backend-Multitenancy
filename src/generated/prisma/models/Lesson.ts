@@ -318,7 +318,7 @@ export type LessonScalarWhereWithAggregatesInput = {
 }
 
 export type LessonCreateInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -331,7 +331,7 @@ export type LessonCreateInput = {
 }
 
 export type LessonUncheckedCreateInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -370,7 +370,7 @@ export type LessonUncheckedUpdateInput = {
 }
 
 export type LessonCreateManyInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -530,7 +530,7 @@ export type LessonUpdateOneRequiredWithoutAttachmentsNestedInput = {
 }
 
 export type LessonCreateWithoutSectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -542,7 +542,7 @@ export type LessonCreateWithoutSectionInput = {
 }
 
 export type LessonUncheckedCreateWithoutSectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -595,7 +595,7 @@ export type LessonScalarWhereInput = {
 }
 
 export type LessonCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -607,7 +607,7 @@ export type LessonCreateWithoutAttachmentsInput = {
 }
 
 export type LessonUncheckedCreateWithoutAttachmentsInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
@@ -659,7 +659,7 @@ export type LessonUncheckedUpdateWithoutAttachmentsInput = {
 }
 
 export type LessonCreateManySectionInput = {
-  id?: string
+  id: string
   title: string
   videoUrl: string
   subTitleUrl?: string | null
