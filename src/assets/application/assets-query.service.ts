@@ -22,6 +22,9 @@ export class AssetsQueryService {
     demoId: string,
     pageOptionsDto: FindAssetsQuery,
   ): Promise<PageDto<AssetWithCourse>> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) throw new NotFoundException('Demo not found');
+
     return this.assetQueryRepository.findAll(demoId, pageOptionsDto);
   }
 
@@ -29,6 +32,9 @@ export class AssetsQueryService {
     demoId: string,
     options: FindAssetsCursorQuery,
   ): Promise<CursorPageDto<AssetWithCourse>> {
+    const demo = await this.demoQueryRepository.demoExists(demoId);
+    if (!demo) throw new NotFoundException('Demo not found');
+
     return this.assetQueryRepository.findAllCursor(demoId, options);
   }
 
