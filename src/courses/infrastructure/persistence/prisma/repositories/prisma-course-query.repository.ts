@@ -46,7 +46,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         take: options.take,
         where: {
           ...where,
-          demoId,
+          authorDemoId: demoId,
         },
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
@@ -72,7 +72,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       cursor: cursor ? { id: cursor } : undefined,
       where: {
         ...where,
-        demoId,
+        authorDemoId: demoId,
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
