@@ -8,6 +8,8 @@ import {
   MinLength,
   IsEnum,
   IsDateString,
+  IsBoolean,
+  IsOptional,
 } from 'class-validator';
 import { CreateUserInput } from 'src/users/application/interfaces/create-user-input.interface';
 import { Role } from 'src/users/domain/enums/role.enum';
@@ -46,4 +48,8 @@ export class CreateUserDto implements CreateUserInput {
   @IsNotEmpty()
   @IsEnum(Role)
   role!: Role;
+
+  @IsBoolean()
+  @IsOptional()
+  isEmailVerified: boolean = false;
 }

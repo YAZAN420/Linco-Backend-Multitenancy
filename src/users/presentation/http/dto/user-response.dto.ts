@@ -6,7 +6,7 @@ export class UserResponseDto {
     readonly firstName: string,
     readonly lastName: string,
     readonly email: string,
-    readonly birthDate: Date,
+    readonly birthDate: Date | null,
     readonly imagePath: string | null,
     readonly role: Role,
     readonly isEmailVerified: boolean,

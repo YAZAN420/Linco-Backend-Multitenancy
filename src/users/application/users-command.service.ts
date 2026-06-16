@@ -37,6 +37,7 @@ export class UsersCommandService {
       input.birthDate ?? null,
       input.imagePath,
       input.role,
+      input.isEmailVerified,
     );
 
     await this.userCommandRepository.save(user);

@@ -22,7 +22,7 @@ import { ActiveUser } from '../decorators/active-user.decorator';
 import { IsWeb } from '../decorators/is-web.decorator';
 
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
-import { GoogleUserData } from '../../../domain/interfaces/google-user-data.interface';
+import { GoogleUserData } from '../../../application/interfaces/google-user-data.interface';
 
 import { SignUpDto } from '../dto/sign-up.dto';
 import { SignInDto } from '../dto/sign-in.dto';

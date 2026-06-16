@@ -8,4 +8,5 @@ export interface CreateUserInput {
   imagePath: string;
   password?: string | null;
   role: Role;
+  isEmailVerified: boolean;
 }

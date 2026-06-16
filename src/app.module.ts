@@ -1,3 +1,4 @@
+import { GoogleAuthModule } from './iam/infrastructure/google-auth/google-auth.module';
 import { Module, DynamicModule } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CoreModule } from './core/core.module';
@@ -18,13 +19,13 @@ import { AssetsInfrastructureModule } from './assets/infrastructure/assets-infra
 import { QuestionsBankModule } from './questionsBank/questionsBank.module';
 import { QuestionsBankInfrastructureModule } from './questionsBank/infrastructure/questionsBank-infrastructure.module';
 
-
 @Module({})
 export class AppModule {
   static register(): DynamicModule {
     return {
       module: AppModule,
       imports: [
+        GoogleAuthModule,
         IamModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
@@ -32,7 +33,9 @@ export class AppModule {
         CoursesModule.withInfrastructure(CoursesInfrastructureModule.use()),
         LessonsModule.withInfrastructure(LessonsInfrastructureModule.use()),
         AssetsModule.withInfrastructure(AssetsInfrastructureModule.use()),
-        QuestionsBankModule.withInfrastructure(QuestionsBankInfrastructureModule.use()),
+        QuestionsBankModule.withInfrastructure(
+          QuestionsBankInfrastructureModule.use(),
+        ),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

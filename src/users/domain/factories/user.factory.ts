@@ -15,13 +15,14 @@ export class UserFactory {
     birthDate: Date | null,
     imagePath: string,
     role: Role,
+    isEmailVerified: boolean = false,
   ): User {
     const email = Email.create(emailStr);
     const now = new Date();
 
     const security = new UserSecurity({
       password: passwordStr,
-      isEmailVerified: false,
+      isEmailVerified: isEmailVerified,
       isTwoFactorEnabled: false,
       refreshToken: null,
       twoFactorSecret: null,

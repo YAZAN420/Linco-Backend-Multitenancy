@@ -23,6 +23,7 @@ export class RegistrationService {
     const newUser = await this.usersCommandService.create({
       ...signUpDto,
       role: Role.USER,
+      isEmailVerified: false,
     });
     newUser.security.setVerificationToken(hashedToken);
 

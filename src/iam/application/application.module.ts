@@ -11,6 +11,7 @@ import { PasswordManagementService } from './services/password-management.servic
 import { TwoFactorAuthService } from './services/two-factor-auth.service';
 import { TokenService } from './services/token.service';
 import { MailQueueService } from './services/mail-queue.service';
+import { GoogleAuthModule } from '../infrastructure/google-auth/google-auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MailQueueService } from './services/mail-queue.service';
     HashingModule,
     TokenModule,
     CryptoModule,
+    GoogleAuthModule,
     MailQueueModule,
   ],
   providers: [
