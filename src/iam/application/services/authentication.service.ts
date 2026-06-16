@@ -47,6 +47,10 @@ export class AuthenticationService {
 
     if (!user) return null;
 
+    if (!user.security.password) {
+      return null;
+    }
+
     const isPasswordValid = await this.hashingPort.compare(
       password,
       user.security.password,
@@ -79,8 +83,7 @@ export class AuthenticationService {
     }
 
     if (!user.security.isEmailVerified) {
-      user.security.markEmailVerified();
-      await this.usersCommandService.save(user);
+      user = await this.usersCommandService.markEmailAsVerified(user.id);
     }
 
     const tokens = await this.tokenService.generateTokens(user);
