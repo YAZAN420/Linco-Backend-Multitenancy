@@ -1,18 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { AssetResponseDto } from '../dto/asset-response.dto';
-import { Asset as PrismaAsset } from 'src/generated/prisma/client';
 import { Asset as DomainAsset } from 'src/assets/domain/asset';
+import { CourseResponseMapper } from 'src/courses/presentation/http/mappers/course-response.mapper';
+import { AssetWithCourse } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class AssetResponseMapper {
-  toResponseFromPrisma(asset: PrismaAsset): AssetResponseDto {
+  constructor(private readonly courseResponseMapper: CourseResponseMapper) {}
+  toResponseFromPrisma(asset: AssetWithCourse): AssetResponseDto {
     return new AssetResponseDto(
       asset.id,
       asset.demoId,
-      asset.courseId,
       asset.accessMethod,
       asset.acquiredAt,
       asset.updatedAt,
+      asset.course
+        ? this.courseResponseMapper.toResponseFromPrisma(asset.course)
+        : undefined,
     );
   }
 
@@ -20,14 +24,13 @@ export class AssetResponseMapper {
     return new AssetResponseDto(
       asset.id,
       asset.demoId,
-      asset.courseId,
       asset.accessMethod,
       asset.acquiredAt,
       asset.updatedAt,
     );
   }
 
-  toResponseManyFromPrisma(assets: PrismaAsset[]): AssetResponseDto[] {
+  toResponseManyFromPrisma(assets: AssetWithCourse[]): AssetResponseDto[] {
     return assets.map((asset) => this.toResponseFromPrisma(asset));
   }
 }

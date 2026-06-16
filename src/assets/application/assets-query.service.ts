@@ -7,9 +7,9 @@ import {
   FindAssetsCursorQuery,
   FindAssetsQuery,
 } from './interfaces/find-assets.query';
-import { Asset } from 'src/generated/prisma/client';
 import { AssetQueryRepository } from './ports/asset-query.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { AssetWithCourse } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class AssetsQueryService {
@@ -21,18 +21,18 @@ export class AssetsQueryService {
   async findAll(
     demoId: string,
     pageOptionsDto: FindAssetsQuery,
-  ): Promise<PageDto<Asset>> {
+  ): Promise<PageDto<AssetWithCourse>> {
     return this.assetQueryRepository.findAll(demoId, pageOptionsDto);
   }
 
   async findAllCursor(
     demoId: string,
     options: FindAssetsCursorQuery,
-  ): Promise<CursorPageDto<Asset>> {
+  ): Promise<CursorPageDto<AssetWithCourse>> {
     return this.assetQueryRepository.findAllCursor(demoId, options);
   }
 
-  async findById(demoId: string, assetId: string): Promise<Asset> {
+  async findById(demoId: string, assetId: string): Promise<AssetWithCourse> {
     const demo = await this.demoQueryRepository.demoExists(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 

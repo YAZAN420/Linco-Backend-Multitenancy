@@ -3,16 +3,16 @@ import {
   FindAssetsCursorQuery,
   FindAssetsQuery,
 } from '../interfaces/find-assets.query';
-import { Asset } from 'src/generated/prisma/client';
+import { AssetWithCourse } from 'src/core/database/prisma/types';
 
 export abstract class AssetQueryRepository {
   abstract findAll(
     demoId: string,
     options: FindAssetsQuery,
-  ): Promise<PageDto<Asset>>;
+  ): Promise<PageDto<AssetWithCourse>>;
   abstract findAllCursor(
     demoId: string,
     options: FindAssetsCursorQuery,
-  ): Promise<CursorPageDto<Asset>>;
-  abstract findById(id: string): Promise<Asset | null>;
+  ): Promise<CursorPageDto<AssetWithCourse>>;
+  abstract findById(id: string): Promise<AssetWithCourse | null>;
 }

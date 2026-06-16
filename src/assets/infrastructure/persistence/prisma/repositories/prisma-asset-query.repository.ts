@@ -5,13 +5,14 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Asset } from 'src/generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindAssetsCursorQuery,
   FindAssetsQuery,
 } from 'src/assets/application/interfaces/find-assets.query';
 import { AssetQueryRepository } from 'src/assets/application/ports/asset-query.repository';
+import { AssetWithCourse } from 'src/core/database/prisma/types';
 
 const ASSET_SEARCH_COLUMNS = [];
 const ASSET_ORDERABLE_FIELDS = ['acquiredAt'];
@@ -35,7 +36,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
   async findAll(
     demoId: string,
     options: FindAssetsQuery,
-  ): Promise<PageDto<Asset>> {
+  ): Promise<PageDto<AssetWithCourse>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -48,6 +49,9 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
           demoId,
         },
         orderBy: orderBy.length > 0 ? orderBy : [{ acquiredAt: 'desc' }],
+        include: {
+          course: true,
+        },
       }),
       this.prisma.asset.count({ where }),
     ]);
@@ -61,7 +65,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
   async findAllCursor(
     demoId: string,
     options: FindAssetsCursorQuery,
-  ): Promise<CursorPageDto<Asset>> {
+  ): Promise<CursorPageDto<AssetWithCourse>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
@@ -74,6 +78,9 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
         demoId,
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      include: {
+        course: true,
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -87,9 +94,12 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Asset | null> {
+  async findById(id: string): Promise<AssetWithCourse | null> {
     return this.prisma.asset.findUnique({
       where: { id },
+      include: {
+        course: true,
+      },
     });
   }
 }

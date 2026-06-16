@@ -17,7 +17,6 @@ export class AssetsQueryController {
     @Query() options: FindAssetsDto,
   ) {
     const assets = await this.assetQueryService.findAll(demoId, options);
-
     return {
       message: 'Assets fetched successfully',
       data: this.assetResponseMapper.toResponseManyFromPrisma(assets.data),
