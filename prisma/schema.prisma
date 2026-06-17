@@ -110,7 +110,6 @@ model Course {
   updatedAt     DateTime           @updatedAt
 
   assets     Asset[]
-  departments     DepartmentCourse[]
   sections       Section[]
 }
 
@@ -249,6 +248,7 @@ model Asset {
   accessMethod AccessMethod 
   acquiredAt   DateTime     @default(now())
   updatedAt DateTime @updatedAt
+  departments     DepartmentCourse[]
 
   demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
   course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -259,12 +259,12 @@ model Asset {
 model DepartmentCourse {
   id           String       @id
   departmentId String
-  courseId     String
+  assetId     String
   assignedAt   DateTime   @default(now())
   updatedAt DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  asset        Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
 
-  @@unique([departmentId, courseId]) 
+  @@unique([departmentId, assetId]) 
 }

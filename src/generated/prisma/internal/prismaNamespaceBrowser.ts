@@ -271,7 +271,7 @@ export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof As
 export const DepartmentCourseScalarFieldEnum = {
   id: 'id',
   departmentId: 'departmentId',
-  courseId: 'courseId',
+  assetId: 'assetId',
   assignedAt: 'assignedAt',
   updatedAt: 'updatedAt'
 } as const
