@@ -226,7 +226,7 @@ export type SectionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   lessons?: Prisma.LessonListRelationFilter
-  questionsBank?: Prisma.QuestionBankListRelationFilter
+  questionsBank?: Prisma.QuestionsBankListRelationFilter
   quiz?: Prisma.XOR<Prisma.QuizNullableScalarRelationFilter, Prisma.QuizWhereInput> | null
 }
 
@@ -239,7 +239,7 @@ export type SectionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
-  questionsBank?: Prisma.QuestionBankOrderByRelationAggregateInput
+  questionsBank?: Prisma.QuestionsBankOrderByRelationAggregateInput
   quiz?: Prisma.QuizOrderByWithRelationInput
 }
 
@@ -257,7 +257,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   lessons?: Prisma.LessonListRelationFilter
-  questionsBank?: Prisma.QuestionBankListRelationFilter
+  questionsBank?: Prisma.QuestionsBankListRelationFilter
   quiz?: Prisma.XOR<Prisma.QuizNullableScalarRelationFilter, Prisma.QuizWhereInput> | null
 }, "id" | "courseId_order" | "courseId_title">
 
@@ -295,7 +295,7 @@ export type SectionCreateInput = {
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
 }
 
@@ -307,7 +307,7 @@ export type SectionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankUncheckedCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
 }
 
@@ -319,7 +319,7 @@ export type SectionUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
 }
 
@@ -331,7 +331,7 @@ export type SectionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUncheckedUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
 }
 
@@ -520,7 +520,7 @@ export type SectionCreateWithoutCourseInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
 }
 
@@ -531,7 +531,7 @@ export type SectionUncheckedCreateWithoutCourseInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankUncheckedCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
 }
 
@@ -580,7 +580,7 @@ export type SectionCreateWithoutLessonsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
-  questionsBank?: Prisma.QuestionBankCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
 }
 
@@ -591,7 +591,7 @@ export type SectionUncheckedCreateWithoutLessonsInput = {
   courseId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  questionsBank?: Prisma.QuestionBankUncheckedCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
   quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
 }
 
@@ -618,7 +618,7 @@ export type SectionUpdateWithoutLessonsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
-  questionsBank?: Prisma.QuestionBankUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
 }
 
@@ -629,7 +629,7 @@ export type SectionUncheckedUpdateWithoutLessonsInput = {
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questionsBank?: Prisma.QuestionBankUncheckedUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
 }
 
@@ -641,7 +641,7 @@ export type SectionCreateWithoutQuizInput = {
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutQuizInput = {
@@ -652,7 +652,7 @@ export type SectionUncheckedCreateWithoutQuizInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
-  questionsBank?: Prisma.QuestionBankUncheckedCreateNestedManyWithoutSectionInput
+  questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutQuizInput = {
@@ -679,7 +679,7 @@ export type SectionUpdateWithoutQuizInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutQuizInput = {
@@ -690,7 +690,7 @@ export type SectionUncheckedUpdateWithoutQuizInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUncheckedUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionCreateWithoutQuestionsBankInput = {
@@ -768,7 +768,7 @@ export type SectionUpdateWithoutCourseInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
 }
 
@@ -779,7 +779,7 @@ export type SectionUncheckedUpdateWithoutCourseInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
-  questionsBank?: Prisma.QuestionBankUncheckedUpdateManyWithoutSectionNestedInput
+  questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
   quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
 }
 
@@ -827,7 +827,7 @@ export type SectionCountOutputTypeCountLessonsArgs<ExtArgs extends runtime.Types
  * SectionCountOutputType without action
  */
 export type SectionCountOutputTypeCountQuestionsBankArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.QuestionBankWhereInput
+  where?: Prisma.QuestionsBankWhereInput
 }
 
 
@@ -894,7 +894,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     course: Prisma.$CoursePayload<ExtArgs>
     lessons: Prisma.$LessonPayload<ExtArgs>[]
-    questionsBank: Prisma.$QuestionBankPayload<ExtArgs>[]
+    questionsBank: Prisma.$QuestionsBankPayload<ExtArgs>[]
     quiz: Prisma.$QuizPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1300,7 +1300,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   lessons<T extends Prisma.Section$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  questionsBank<T extends Prisma.Section$questionsBankArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$questionsBankArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionBankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questionsBank<T extends Prisma.Section$questionsBankArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$questionsBankArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionsBankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quiz<T extends Prisma.Section$quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$quizArgs<ExtArgs>>): Prisma.Prisma__QuizClient<runtime.Types.Result.GetResult<Prisma.$QuizPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1766,23 +1766,23 @@ export type Section$lessonsArgs<ExtArgs extends runtime.Types.Extensions.Interna
  */
 export type Section$questionsBankArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the QuestionBank
+   * Select specific fields to fetch from the QuestionsBank
    */
-  select?: Prisma.QuestionBankSelect<ExtArgs> | null
+  select?: Prisma.QuestionsBankSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the QuestionBank
+   * Omit specific fields from the QuestionsBank
    */
-  omit?: Prisma.QuestionBankOmit<ExtArgs> | null
+  omit?: Prisma.QuestionsBankOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.QuestionBankInclude<ExtArgs> | null
-  where?: Prisma.QuestionBankWhereInput
-  orderBy?: Prisma.QuestionBankOrderByWithRelationInput | Prisma.QuestionBankOrderByWithRelationInput[]
-  cursor?: Prisma.QuestionBankWhereUniqueInput
+  include?: Prisma.QuestionsBankInclude<ExtArgs> | null
+  where?: Prisma.QuestionsBankWhereInput
+  orderBy?: Prisma.QuestionsBankOrderByWithRelationInput | Prisma.QuestionsBankOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionsBankWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.QuestionBankScalarFieldEnum | Prisma.QuestionBankScalarFieldEnum[]
+  distinct?: Prisma.QuestionsBankScalarFieldEnum | Prisma.QuestionsBankScalarFieldEnum[]
 }
 
 /**

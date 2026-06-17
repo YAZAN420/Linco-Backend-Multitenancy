@@ -13,7 +13,7 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
 
   async save(questionBank: QuestionsBank): Promise<void> {
     const data = this.mapper.toPersistence(questionBank);
-    await this.prisma.questionBank.upsert({
+    await this.prisma.questionsBank.upsert({
       where: { id: questionBank.id },
       update: data,
       create: data,
@@ -21,11 +21,11 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.questionBank.delete({ where: { id } });
+    await this.prisma.questionsBank.delete({ where: { id } });
   }
 
   async findById(id: string): Promise<QuestionsBank | null> {
-    const questionsBank = await this.prisma.questionBank.findUnique({
+    const questionsBank = await this.prisma.questionsBank.findUnique({
       where: { id },
     });
     return questionsBank ? this.mapper.toDomain(questionsBank) : null;

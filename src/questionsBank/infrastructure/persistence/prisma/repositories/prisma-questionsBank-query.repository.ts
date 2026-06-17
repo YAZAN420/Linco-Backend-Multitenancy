@@ -5,7 +5,7 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, QuestionBank } from 'src/generated/prisma/client';
+import { Prisma, QuestionsBank } from 'src/generated/prisma/client';
 
 import {
   FindQuestionsBankCursorQuery,
@@ -24,7 +24,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     T extends FindQuestionsBankQuery | FindQuestionsBankCursorQuery,
   >(options: T) {
     return {
-      where: buildWhere<T, Prisma.QuestionBankWhereInput>(
+      where: buildWhere<T, Prisma.QuestionsBankWhereInput>(
         options,
         QUESTIONSBANK_SEARCH_COLUMNS,
       ),
@@ -34,18 +34,18 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findAll(
     options: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionBank>> {
+  ): Promise<PageDto<QuestionsBank>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
-      this.prisma.questionBank.findMany({
+      this.prisma.questionsBank.findMany({
         skip,
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
-      this.prisma.questionBank.count({ where }),
+      this.prisma.questionsBank.count({ where }),
     ]);
 
     return new PageDto(
@@ -56,11 +56,11 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findAllCursor(
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionBank>> {
+  ): Promise<CursorPageDto<QuestionsBank>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
-    const items = await this.prisma.questionBank.findMany({
+    const items = await this.prisma.questionsBank.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
@@ -79,8 +79,8 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     );
   }
 
-  async findById(id: string): Promise<QuestionBank | null> {
-    return this.prisma.questionBank.findUnique({
+  async findById(id: string): Promise<QuestionsBank | null> {
+    return this.prisma.questionsBank.findUnique({
       where: { id },
     });
   }

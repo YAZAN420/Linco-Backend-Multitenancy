@@ -5,7 +5,7 @@ import { UpdateQuestionsBankDto } from './dto/update-questionsBank.dto';
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
 import { QuestionsBankCommandService } from 'src/questionsBank/application/questionsBank-command.service';
 
-@Controller('sections/:sectionId/questionBank')
+@Controller('courses/:courseId/sections/:sectionId/questionBank')
 export class QuestionsBankCommandController {
   constructor(
     private readonly questionsBankCommandService: QuestionsBankCommandService,
@@ -14,10 +14,12 @@ export class QuestionsBankCommandController {
 
   @Post()
   async create(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateQuestionsBankDto,
   ) {
     const questionsBank = await this.questionsBankCommandService.create(
+      courseId,
       sectionId,
       dto,
     );
@@ -32,11 +34,13 @@ export class QuestionsBankCommandController {
 
   @Patch(':questionsBankId')
   async update(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Param('questionsBankId') questionsBankId: string,
     @Body() dto: UpdateQuestionsBankDto,
   ) {
     const questionsBank = await this.questionsBankCommandService.update(
+      courseId,
       sectionId,
       questionsBankId,
       dto,
@@ -52,10 +56,11 @@ export class QuestionsBankCommandController {
 
   @Delete(':questionsBankId')
   async remove(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Param('questionsBankId') questionsBankId: string,
   ) {
-    await this.questionsBankCommandService.remove(sectionId, questionsBankId);
+    await this.questionsBankCommandService.remove(courseId, sectionId, questionsBankId);
 
     return {
       message: 'QuestionsBank deleted successfully',

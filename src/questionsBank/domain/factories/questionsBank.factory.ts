@@ -6,14 +6,12 @@ import { v7 as uuidv7 } from 'uuid';
 export class QuestionsBankFactory {
   public createNew(
     sectionId: string,
-    text: string,
-    numberOfQuestions: number,
+    text: string
   ): QuestionsBank {
     const now = new Date();
     return new QuestionsBank(uuidv7(), {
       sectionId: sectionId,
       text: text,
-      numberOfQuestions: numberOfQuestions,
       createdAt: now,
       updatedAt: now,
     });

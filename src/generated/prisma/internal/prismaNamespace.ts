@@ -393,7 +393,7 @@ export const ModelName = {
   Lesson: 'Lesson',
   Attachment: 'Attachment',
   Quiz: 'Quiz',
-  QuestionBank: 'QuestionBank',
+  QuestionsBank: 'QuestionsBank',
   QuestionChoice: 'QuestionChoice',
   QuizAttempt: 'QuizAttempt',
   AttemptAnswer: 'AttemptAnswer',
@@ -414,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "quiz" | "questionBank" | "questionChoice" | "quizAttempt" | "attemptAnswer" | "asset" | "departmentCourse"
+    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "quiz" | "questionsBank" | "questionChoice" | "quizAttempt" | "attemptAnswer" | "asset" | "departmentCourse"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1084,77 +1084,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    QuestionBank: {
-      payload: Prisma.$QuestionBankPayload<ExtArgs>
-      fields: Prisma.QuestionBankFieldRefs
+    QuestionsBank: {
+      payload: Prisma.$QuestionsBankPayload<ExtArgs>
+      fields: Prisma.QuestionsBankFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.QuestionBankFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload> | null
+          args: Prisma.QuestionsBankFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.QuestionBankFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         findFirst: {
-          args: Prisma.QuestionBankFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload> | null
+          args: Prisma.QuestionsBankFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.QuestionBankFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         findMany: {
-          args: Prisma.QuestionBankFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>[]
+          args: Prisma.QuestionsBankFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>[]
         }
         create: {
-          args: Prisma.QuestionBankCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         createMany: {
-          args: Prisma.QuestionBankCreateManyArgs<ExtArgs>
+          args: Prisma.QuestionsBankCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.QuestionBankCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>[]
+          args: Prisma.QuestionsBankCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>[]
         }
         delete: {
-          args: Prisma.QuestionBankDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         update: {
-          args: Prisma.QuestionBankUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         deleteMany: {
-          args: Prisma.QuestionBankDeleteManyArgs<ExtArgs>
+          args: Prisma.QuestionsBankDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.QuestionBankUpdateManyArgs<ExtArgs>
+          args: Prisma.QuestionsBankUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.QuestionBankUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>[]
+          args: Prisma.QuestionsBankUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>[]
         }
         upsert: {
-          args: Prisma.QuestionBankUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionBankPayload>
+          args: Prisma.QuestionsBankUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionsBankPayload>
         }
         aggregate: {
-          args: Prisma.QuestionBankAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateQuestionBank>
+          args: Prisma.QuestionsBankAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuestionsBank>
         }
         groupBy: {
-          args: Prisma.QuestionBankGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.QuestionBankGroupByOutputType>[]
+          args: Prisma.QuestionsBankGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestionsBankGroupByOutputType>[]
         }
         count: {
-          args: Prisma.QuestionBankCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.QuestionBankCountAggregateOutputType> | number
+          args: Prisma.QuestionsBankCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestionsBankCountAggregateOutputType> | number
         }
       }
     }
@@ -1689,16 +1689,15 @@ export const QuizScalarFieldEnum = {
 export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof QuizScalarFieldEnum]
 
 
-export const QuestionBankScalarFieldEnum = {
+export const QuestionsBankScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
   text: 'text',
-  numberOfQuestions: 'numberOfQuestions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type QuestionBankScalarFieldEnum = (typeof QuestionBankScalarFieldEnum)[keyof typeof QuestionBankScalarFieldEnum]
+export type QuestionsBankScalarFieldEnum = (typeof QuestionsBankScalarFieldEnum)[keyof typeof QuestionsBankScalarFieldEnum]
 
 
 export const QuestionChoiceScalarFieldEnum = {
@@ -2030,7 +2029,7 @@ export type GlobalOmitConfig = {
   lesson?: Prisma.LessonOmit
   attachment?: Prisma.AttachmentOmit
   quiz?: Prisma.QuizOmit
-  questionBank?: Prisma.QuestionBankOmit
+  questionsBank?: Prisma.QuestionsBankOmit
   questionChoice?: Prisma.QuestionChoiceOmit
   quizAttempt?: Prisma.QuizAttemptOmit
   attemptAnswer?: Prisma.AttemptAnswerOmit
