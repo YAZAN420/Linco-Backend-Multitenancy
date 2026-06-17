@@ -85,10 +85,10 @@ export type Attachment = Prisma.AttachmentModel
  */
 export type Quiz = Prisma.QuizModel
 /**
- * Model QuestionBank
+ * Model QuestionsBank
  * 
  */
-export type QuestionBank = Prisma.QuestionBankModel
+export type QuestionsBank = Prisma.QuestionsBankModel
 /**
  * Model QuestionChoice
  * 

@@ -7,7 +7,7 @@ import { QuestionsBankQueryService } from 'src/questionsBank/application/questio
 
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
 
-@Controller('sections/:sectionId/questionBank')
+@Controller('courses/:courseId/sections/:sectionId/questionBank')
 export class QuestionsBankQueryController {
   constructor(
     private readonly questionsBankQueryService: QuestionsBankQueryService,
@@ -16,10 +16,12 @@ export class QuestionsBankQueryController {
 
   @Get()
   async findAll(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionsBankDto,
   ) {
     const questionsBank = await this.questionsBankQueryService.findAll(
+      courseId,
       sectionId,
       options,
     );
@@ -34,10 +36,12 @@ export class QuestionsBankQueryController {
 
   @Get('cursor')
   async findWithCursor(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionsBankCursorDto,
   ) {
     const questionsBank = await this.questionsBankQueryService.findAllCursor(
+      courseId,
       sectionId,
       options,
     );
@@ -53,10 +57,12 @@ export class QuestionsBankQueryController {
 
   @Get(':questionBankId')
   async findOne(
+    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Param('questionBankId') questionsBankId: string,
   ) {
     const questionsBank = await this.questionsBankQueryService.findById(
+      courseId,
       sectionId,
       questionsBankId,
     );

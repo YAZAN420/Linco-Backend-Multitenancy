@@ -7,32 +7,39 @@ import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
 } from './interfaces/find-questionsBank.query';
-import { QuestionBank } from 'src/generated/prisma/client';
+import { QuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
+import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Injectable()
 export class QuestionsBankQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
+    private readonly sectionsQueryService: SectionsQueryService
   ) {}
 
   async findAll(
+    courseId: string,
     sectionId: string,
     pageOptionsDto: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionBank>> {
+  ): Promise<PageDto<QuestionsBank>> {
+    this.sectionsQueryService.findById(courseId, sectionId);
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
+    courseId: string,
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionBank>> {
+  ): Promise<CursorPageDto<QuestionsBank>> {
+    this.sectionsQueryService.findById(courseId, sectionId);
     return this.questionsBankQueryRepository.findAllCursor(options);
   }
 
-  async findById(sectionId: string, id: string): Promise<QuestionBank> {
+  async findById(courseId: string, sectionId: string, id: string): Promise<QuestionsBank> {
+    this.sectionsQueryService.findById(courseId, sectionId);
     const questionsBank = await this.questionsBankQueryRepository.findById(id);
-    if (!questionsBank) throw new NotFoundException('QuestionBank not found');
+    if (!questionsBank) throw new NotFoundException('QuestionsBank not found');
     return questionsBank;
   }
 }

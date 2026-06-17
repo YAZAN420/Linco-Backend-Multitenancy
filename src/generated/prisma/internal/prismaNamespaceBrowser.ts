@@ -60,7 +60,7 @@ export const ModelName = {
   Lesson: 'Lesson',
   Attachment: 'Attachment',
   Quiz: 'Quiz',
-  QuestionBank: 'QuestionBank',
+  QuestionsBank: 'QuestionsBank',
   QuestionChoice: 'QuestionChoice',
   QuizAttempt: 'QuizAttempt',
   AttemptAnswer: 'AttemptAnswer',
@@ -206,16 +206,15 @@ export const QuizScalarFieldEnum = {
 export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof QuizScalarFieldEnum]
 
 
-export const QuestionBankScalarFieldEnum = {
+export const QuestionsBankScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
   text: 'text',
-  numberOfQuestions: 'numberOfQuestions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type QuestionBankScalarFieldEnum = (typeof QuestionBankScalarFieldEnum)[keyof typeof QuestionBankScalarFieldEnum]
+export type QuestionsBankScalarFieldEnum = (typeof QuestionsBankScalarFieldEnum)[keyof typeof QuestionsBankScalarFieldEnum]
 
 
 export const QuestionChoiceScalarFieldEnum = {
