@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { QuestionsBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
-import { QuestionsBank } from 'src/questionsBank/domain/questionsBank';
+import { QuestionsBank } from 'src/questionsBanks/domain/questionsBank';
 
 @Injectable()
 export class PrismaQuestionsBankMapper {

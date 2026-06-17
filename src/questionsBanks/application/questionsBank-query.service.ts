@@ -12,10 +12,10 @@ import { QuestionsBankQueryRepository } from './ports/questionsBank-query.reposi
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Injectable()
-export class QuestionsBankQueryService {
+export class QuestionsBanksQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
-    private readonly sectionsQueryService: SectionsQueryService
+    private readonly sectionsQueryService: SectionsQueryService,
   ) {}
 
   async findAll(
@@ -23,7 +23,7 @@ export class QuestionsBankQueryService {
     sectionId: string,
     pageOptionsDto: FindQuestionsBankQuery,
   ): Promise<PageDto<QuestionsBank>> {
-    this.sectionsQueryService.findById(courseId, sectionId);
+    await this.sectionsQueryService.findById(courseId, sectionId);
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }
 
@@ -32,12 +32,16 @@ export class QuestionsBankQueryService {
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBank>> {
-    this.sectionsQueryService.findById(courseId, sectionId);
+    await this.sectionsQueryService.findById(courseId, sectionId);
     return this.questionsBankQueryRepository.findAllCursor(options);
   }
 
-  async findById(courseId: string, sectionId: string, id: string): Promise<QuestionsBank> {
-    this.sectionsQueryService.findById(courseId, sectionId);
+  async findById(
+    courseId: string,
+    sectionId: string,
+    id: string,
+  ): Promise<QuestionsBank> {
+    await this.sectionsQueryService.findById(courseId, sectionId);
     const questionsBank = await this.questionsBankQueryRepository.findById(id);
     if (!questionsBank) throw new NotFoundException('QuestionsBank not found');
     return questionsBank;

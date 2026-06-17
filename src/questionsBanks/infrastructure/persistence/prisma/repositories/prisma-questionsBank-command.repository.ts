@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { QuestionsBankCommandRepository } from 'src/questionsBank/application/ports/questionsBank-command.repository';
-import { QuestionsBank } from 'src/questionsBank/domain/questionsBank';
+import { QuestionsBankCommandRepository } from 'src/questionsBanks/application/ports/questionsBank-command.repository';
+import { QuestionsBank } from 'src/questionsBanks/domain/questionsBank';
 import { PrismaQuestionsBankMapper } from '../mappers/prisma-questionsBank.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 

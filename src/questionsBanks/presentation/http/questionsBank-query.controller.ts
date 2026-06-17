@@ -3,14 +3,14 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FindQuestionsBankDto } from './dto/filters/find-questionsBank.dto';
 import { FindQuestionsBankCursorDto } from './dto/filters/find-questionsBank-cursor.dto';
 
-import { QuestionsBankQueryService } from 'src/questionsBank/application/questionsBank-query.service';
+import { QuestionsBanksQueryService } from 'src/questionsBanks/application/questionsBank-query.service';
 
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
 
-@Controller('courses/:courseId/sections/:sectionId/questionBank')
-export class QuestionsBankQueryController {
+@Controller('courses/:courseId/sections/:sectionId/questionBanks')
+export class QuestionsBanksQueryController {
   constructor(
-    private readonly questionsBankQueryService: QuestionsBankQueryService,
+    private readonly questionsBanksQueryService: QuestionsBanksQueryService,
     private readonly questionsBankResponseMapper: QuestionsBankResponseMapper,
   ) {}
 
@@ -20,7 +20,7 @@ export class QuestionsBankQueryController {
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionsBankDto,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findAll(
+    const questionsBank = await this.questionsBanksQueryService.findAll(
       courseId,
       sectionId,
       options,
@@ -40,7 +40,7 @@ export class QuestionsBankQueryController {
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionsBankCursorDto,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findAllCursor(
+    const questionsBank = await this.questionsBanksQueryService.findAllCursor(
       courseId,
       sectionId,
       options,
@@ -61,7 +61,7 @@ export class QuestionsBankQueryController {
     @Param('sectionId') sectionId: string,
     @Param('questionBankId') questionsBankId: string,
   ) {
-    const questionsBank = await this.questionsBankQueryService.findById(
+    const questionsBank = await this.questionsBanksQueryService.findById(
       courseId,
       sectionId,
       questionsBankId,

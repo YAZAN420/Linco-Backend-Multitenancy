@@ -10,8 +10,8 @@ import { Prisma, QuestionsBank } from 'src/generated/prisma/client';
 import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
-} from 'src/questionsBank/application/interfaces/find-questionsBank.query';
-import { QuestionsBankQueryRepository } from 'src/questionsBank/application/ports/questionsBank-query.repository';
+} from 'src/questionsBanks/application/interfaces/find-questionsBank.query';
+import { QuestionsBankQueryRepository } from 'src/questionsBanks/application/ports/questionsBank-query.repository';
 
 const QUESTIONSBANK_SEARCH_COLUMNS = [];
 const QUESTIONSBANK_ORDERABLE_FIELDS = ['createdAt'];

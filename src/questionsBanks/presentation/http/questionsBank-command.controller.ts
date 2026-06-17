@@ -3,12 +3,12 @@ import { CreateQuestionsBankDto } from './dto/create-questionsBank.dto';
 import { UpdateQuestionsBankDto } from './dto/update-questionsBank.dto';
 
 import { QuestionsBankResponseMapper } from './mappers/questionsBank-response.mapper';
-import { QuestionsBankCommandService } from 'src/questionsBank/application/questionsBank-command.service';
+import { QuestionsBanksCommandService } from 'src/questionsBanks/application/questionsBank-command.service';
 
-@Controller('courses/:courseId/sections/:sectionId/questionBank')
-export class QuestionsBankCommandController {
+@Controller('courses/:courseId/sections/:sectionId/questionBanks')
+export class QuestionsBanksCommandController {
   constructor(
-    private readonly questionsBankCommandService: QuestionsBankCommandService,
+    private readonly questionsBanksCommandService: QuestionsBanksCommandService,
     private readonly questionsBankResponseMapper: QuestionsBankResponseMapper,
   ) {}
 
@@ -18,7 +18,7 @@ export class QuestionsBankCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateQuestionsBankDto,
   ) {
-    const questionsBank = await this.questionsBankCommandService.create(
+    const questionsBank = await this.questionsBanksCommandService.create(
       courseId,
       sectionId,
       dto,
@@ -39,7 +39,7 @@ export class QuestionsBankCommandController {
     @Param('questionsBankId') questionsBankId: string,
     @Body() dto: UpdateQuestionsBankDto,
   ) {
-    const questionsBank = await this.questionsBankCommandService.update(
+    const questionsBank = await this.questionsBanksCommandService.update(
       courseId,
       sectionId,
       questionsBankId,
@@ -60,7 +60,11 @@ export class QuestionsBankCommandController {
     @Param('sectionId') sectionId: string,
     @Param('questionsBankId') questionsBankId: string,
   ) {
-    await this.questionsBankCommandService.remove(courseId, sectionId, questionsBankId);
+    await this.questionsBanksCommandService.remove(
+      courseId,
+      sectionId,
+      questionsBankId,
+    );
 
     return {
       message: 'QuestionsBank deleted successfully',

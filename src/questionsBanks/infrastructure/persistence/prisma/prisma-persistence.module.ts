@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { QuestionsBankCommandRepository } from 'src/questionsBank/application/ports/questionsBank-command.repository';
+import { QuestionsBankCommandRepository } from 'src/questionsBanks/application/ports/questionsBank-command.repository';
 import { PrismaQuestionsBankCommandRepository } from './repositories/prisma-questionsBank-command.repository';
-import { QuestionsBankQueryRepository } from 'src/questionsBank/application/ports/questionsBank-query.repository';
+import { QuestionsBankQueryRepository } from 'src/questionsBanks/application/ports/questionsBank-query.repository';
 import { PrismaQuestionsBankQueryRepository } from './repositories/prisma-questionsBank-query.repository';
 import { PrismaQuestionsBankMapper } from './mappers/prisma-questionsBank.mapper';
 

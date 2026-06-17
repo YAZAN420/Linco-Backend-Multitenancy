@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { QuestionsBankResponseDto } from '../dto/questionsBank-response.dto';
 import { QuestionsBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
-import { QuestionsBank as DomainQuestionsBank } from 'src/questionsBank/domain/questionsBank';
+import { QuestionsBank as DomainQuestionsBank } from 'src/questionsBanks/domain/questionsBank';
 
 @Injectable()
 export class QuestionsBankResponseMapper {
