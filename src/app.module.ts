@@ -21,6 +21,8 @@ import { DepartmentCoursesModule } from './departmentCourses/departmentCourses.m
 import { DepartmentCoursesInfrastructureModule } from './departmentCourses/infrastructure/departmentCourses-infrastructure.module';
 import { QuestionsBanksModule } from './questionBanks/questionBanks.module';
 import { QuestionsBanksInfrastructureModule } from './questionBanks/infrastructure/questionBanks-infrastructure.module';
+import { DiscussionQuestionsModule } from './discussionQuestions/discussionQuestions.module';
+import { DiscussionQuestionsInfrastructureModule } from './discussionQuestions/infrastructure/discussionQuestions-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -41,6 +43,9 @@ export class AppModule {
         ),
         DepartmentCoursesModule.withInfrastructure(
           DepartmentCoursesInfrastructureModule.use(),
+        ),
+        DiscussionQuestionsModule.withInfrastructure(
+          DiscussionQuestionsInfrastructureModule.use(),
         ),
       ],
       providers: [
