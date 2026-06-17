@@ -13,6 +13,7 @@ export abstract class CourseQueryRepository {
   ): Promise<CursorPageDto<Course>>;
   abstract findById(id: string): Promise<Course | null>;
   abstract findSectionsCursor(
+    courseId: string,
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>>;
   abstract findSectionById(sectionId: string): Promise<Section | null>;

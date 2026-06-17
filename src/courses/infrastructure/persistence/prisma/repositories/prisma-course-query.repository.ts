@@ -85,6 +85,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   }
 
   async findSectionsCursor(
+    courseId: string,
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>> {
     const { cursor, take } = options;
@@ -92,6 +93,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     const items = await this.prisma.section.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
+      where: { courseId },
       cursor: cursor ? { id: cursor } : undefined,
     });
 
