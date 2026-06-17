@@ -17,6 +17,10 @@ export class CreateCourseDto implements CreateCourseInput {
   @IsEnum(CourseVisibility)
   visibility!: CourseVisibility;
 
+  @IsString()
+  @IsNotEmpty()
+  authorDemoId!: string;
+
   @IsNumber()
   @IsOptional()
   price?: number;

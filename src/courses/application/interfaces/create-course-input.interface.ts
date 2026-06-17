@@ -3,5 +3,6 @@ import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enu
 export interface CreateCourseInput {
   title: string;
   visibility: CourseVisibility;
+  authorDemoId: string;
   price?: number | null;
 }

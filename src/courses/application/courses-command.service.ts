@@ -9,27 +9,19 @@ import { Title } from '../domain/value-objects/title.vo';
 import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
-
 @Injectable()
 export class CoursesCommandService {
   constructor(
-    private readonly demoQueryRepository: DemoQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
   ) {}
 
-  async create(demoId: string, input: CreateCourseInput): Promise<Course> {
-    const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) {
-      throw new NotFoundException('Demo not found');
-    }
-
+  async create(input: CreateCourseInput): Promise<Course> {
     const course = this.courseFactory.createNew(
       input.title,
       input.visibility,
-      demoId,
+      input.authorDemoId,
       input.price,
     );
 
@@ -37,22 +29,13 @@ export class CoursesCommandService {
 
     this.eventEmitter.emit(
       'course.created',
-      new CourseCreatedEvent(demoId, course.id),
+      new CourseCreatedEvent(input.authorDemoId, course.id),
     );
 
     return course;
   }
 
-  async update(
-    demoId: string,
-    courseId: string,
-    input: UpdateCourseInput,
-  ): Promise<Course> {
-    const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) {
-      throw new NotFoundException('Demo not found');
-    }
-
+  async update(courseId: string, input: UpdateCourseInput): Promise<Course> {
     const course = await this.findById(courseId);
     if (input.title !== undefined && input.title !== null) {
       const titleVo = Title.create(input.title);
@@ -71,11 +54,7 @@ export class CoursesCommandService {
     return course;
   }
 
-  async remove(demoId: string, courseId: string): Promise<void> {
-    const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) {
-      throw new NotFoundException('Demo not found');
-    }
+  async remove(courseId: string): Promise<void> {
     await this.findById(courseId);
     await this.courseCommandRepository.delete(courseId);
   }
