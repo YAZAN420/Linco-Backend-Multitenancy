@@ -1,6 +1,6 @@
 export interface DepartmentCourseProps {
   departmentId: string;
-  courseId;
-  createdAt: Date;
+  assetId: string;
+  assignedAt: Date;
   updatedAt: Date;
 }

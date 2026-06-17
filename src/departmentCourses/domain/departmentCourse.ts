@@ -6,8 +6,16 @@ export class DepartmentCourse {
     private readonly props: DepartmentCourseProps,
   ) {}
 
-  get createdAt(): Date {
-    return this.props.createdAt;
+  get departmentId(): string {
+    return this.props.departmentId;
+  }
+
+  get assetId(): string {
+    return this.props.assetId;
+  }
+
+  get assignedAt(): Date {
+    return this.props.assignedAt;
   }
 
   get updatedAt(): Date {

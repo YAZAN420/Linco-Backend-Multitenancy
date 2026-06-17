@@ -1,1 +1,3 @@
-export interface CreateDepartmentCourseInput {}
+export interface CreateDepartmentCourseInput {
+  assetId: string;
+}

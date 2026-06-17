@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import type { DepartmentCourse as PrismaDepartmentCourse} from 'src/generated/prisma/client';
+import type { DepartmentCourse as PrismaDepartmentCourse } from 'src/generated/prisma/client';
 import { DepartmentCourse } from 'src/departmentCourses/domain/departmentCourse';
-
 
 @Injectable()
 export class PrismaDepartmentCourseMapper {
   toDomain(raw: PrismaDepartmentCourse): DepartmentCourse {
     return new DepartmentCourse(raw.id, {
-      createdAt: raw.createdAt,
+      departmentId: raw.departmentId,
+      assetId: raw.assetId,
+      assignedAt: raw.assignedAt,
       updatedAt: raw.updatedAt,
     });
   }
@@ -15,7 +16,9 @@ export class PrismaDepartmentCourseMapper {
   toPersistence(departmentCourse: DepartmentCourse): PrismaDepartmentCourse {
     return {
       id: departmentCourse.id,
-      createdAt: departmentCourse.createdAt,
+      departmentId: departmentCourse.departmentId,
+      assetId: departmentCourse.assetId,
+      assignedAt: departmentCourse.assignedAt,
       updatedAt: departmentCourse.updatedAt,
     };
   }

@@ -1,11 +1,10 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
 import { CreateDepartmentCourseDto } from './dto/create-departmentCourse.dto';
-import { UpdateDepartmentCourseDto } from './dto/update-departmentCourse.dto';
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
 import { DepartmentCoursesCommandService } from 'src/departmentCourses/application/departmentCourses-command.service';
 
-@Controller('departmentCourses')
+@Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesCommandController {
   constructor(
     private readonly departmentCourseCommandService: DepartmentCoursesCommandService,
@@ -13,9 +12,14 @@ export class DepartmentCoursesCommandController {
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateDepartmentCourseDto) {
-    const departmentCourse =
-      await this.departmentCourseCommandService.create(dto);
+  async create(
+    @Param('departmentId') departmentId: string,
+    @Body() dto: CreateDepartmentCourseDto,
+  ) {
+    const departmentCourse = await this.departmentCourseCommandService.create(
+      departmentId,
+      dto,
+    );
 
     return {
       message: 'DepartmentCourse created successfully',
@@ -25,27 +29,15 @@ export class DepartmentCoursesCommandController {
     };
   }
 
-  @Patch(':departmentCourseId')
-  async update(
-    @Param('departmentCourseId') departmentCourseId: string,
-    @Body() dto: UpdateDepartmentCourseDto,
-  ) {
-    const departmentCourse = await this.departmentCourseCommandService.update(
-      departmentCourseId,
-      dto,
-    );
-
-    return {
-      message: 'DepartmentCourse updated successfully',
-      data: this.departmentCourseResponseMapper.toResponseFromDomain(
-        departmentCourse,
-      ),
-    };
-  }
-
   @Delete(':departmentCourseId')
-  async remove(@Param('departmentCourseId') departmentCourseId: string) {
-    await this.departmentCourseCommandService.remove(departmentCourseId);
+  async remove(
+    @Param('departmentId') departmentId: string,
+    @Param('departmentCourseId') departmentCourseId: string,
+  ) {
+    await this.departmentCourseCommandService.remove(
+      departmentId,
+      departmentCourseId,
+    );
 
     return {
       message: 'DepartmentCourse deleted successfully',

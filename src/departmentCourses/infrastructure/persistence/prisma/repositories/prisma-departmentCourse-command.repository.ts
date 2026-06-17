@@ -25,7 +25,9 @@ export class PrismaDepartmentCourseCommandRepository implements DepartmentCourse
   }
 
   async findById(id: string): Promise<DepartmentCourse | null> {
-    const departmentCourse = await this.prisma.departmentCourse.findUnique({ where: { id } });
+    const departmentCourse = await this.prisma.departmentCourse.findUnique({
+      where: { id },
+    });
     return departmentCourse ? this.mapper.toDomain(departmentCourse) : null;
   }
 }

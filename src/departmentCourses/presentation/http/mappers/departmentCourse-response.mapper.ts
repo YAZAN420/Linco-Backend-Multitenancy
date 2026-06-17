@@ -5,23 +5,35 @@ import { DepartmentCourse as DomainDepartmentCourse } from 'src/departmentCourse
 
 @Injectable()
 export class DepartmentCourseResponseMapper {
-  toResponseFromPrisma(departmentCourse: PrismaDepartmentCourse): DepartmentCourseResponseDto {
+  toResponseFromPrisma(
+    departmentCourse: PrismaDepartmentCourse,
+  ): DepartmentCourseResponseDto {
     return new DepartmentCourseResponseDto(
       departmentCourse.id,
-      departmentCourse.createdAt,
+      departmentCourse.departmentId,
+      departmentCourse.assetId,
+      departmentCourse.assignedAt,
       departmentCourse.updatedAt,
     );
   }
 
-  toResponseFromDomain(departmentCourse: DomainDepartmentCourse): DepartmentCourseResponseDto {
+  toResponseFromDomain(
+    departmentCourse: DomainDepartmentCourse,
+  ): DepartmentCourseResponseDto {
     return new DepartmentCourseResponseDto(
       departmentCourse.id,
-      departmentCourse.createdAt,
+      departmentCourse.departmentId,
+      departmentCourse.assetId,
+      departmentCourse.assignedAt,
       departmentCourse.updatedAt,
     );
   }
 
-  toResponseManyFromPrisma(departmentCourses: PrismaDepartmentCourse[]): DepartmentCourseResponseDto[] {
-    return departmentCourses.map((departmentCourse) => this.toResponseFromPrisma(departmentCourse));
+  toResponseManyFromPrisma(
+    departmentCourses: PrismaDepartmentCourse[],
+  ): DepartmentCourseResponseDto[] {
+    return departmentCourses.map((departmentCourse) =>
+      this.toResponseFromPrisma(departmentCourse),
+    );
   }
 }

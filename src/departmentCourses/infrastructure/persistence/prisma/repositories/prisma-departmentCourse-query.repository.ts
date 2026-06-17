@@ -20,16 +20,21 @@ const DEPARTMENTCOURSE_ORDERABLE_FIELDS = ['createdAt'];
 export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<T extends FindDepartmentCoursesQuery | FindDepartmentCoursesCursorQuery>(
-    options: T,
-  ) {
+  private buildPrismaArgs<
+    T extends FindDepartmentCoursesQuery | FindDepartmentCoursesCursorQuery,
+  >(options: T) {
     return {
-      where: buildWhere<T, Prisma.DepartmentCourseWhereInput>(options, DEPARTMENTCOURSE_SEARCH_COLUMNS),
+      where: buildWhere<T, Prisma.DepartmentCourseWhereInput>(
+        options,
+        DEPARTMENTCOURSE_SEARCH_COLUMNS,
+      ),
       orderBy: buildOrderBy(options.orderBy, DEPARTMENTCOURSE_ORDERABLE_FIELDS),
     };
   }
 
-  async findAll(options: FindDepartmentCoursesQuery): Promise<PageDto<DepartmentCourse>> {
+  async findAll(
+    options: FindDepartmentCoursesQuery,
+  ): Promise<PageDto<DepartmentCourse>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -38,7 +43,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
         skip,
         take: options.take,
         where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: orderBy.length > 0 ? orderBy : [{ assignedAt: 'desc' }],
       }),
       this.prisma.departmentCourse.count({ where }),
     ]);

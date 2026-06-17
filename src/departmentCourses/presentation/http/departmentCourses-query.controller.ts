@@ -7,7 +7,7 @@ import { DepartmentCoursesQueryService } from 'src/departmentCourses/application
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
 
-@Controller('departmentCourses')
+@Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesQueryController {
   constructor(
     private readonly departmentCourseQueryService: DepartmentCoursesQueryService,
@@ -15,9 +15,14 @@ export class DepartmentCoursesQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: FindDepartmentCoursesDto) {
-    const departmentCourses =
-      await this.departmentCourseQueryService.findAll(options);
+  async findAll(
+    @Param('departmentId') departmentId: string,
+    @Query() options: FindDepartmentCoursesDto,
+  ) {
+    const departmentCourses = await this.departmentCourseQueryService.findAll(
+      departmentId,
+      options,
+    );
     return {
       message: 'DepartmentCourses fetched successfully',
       data: this.departmentCourseResponseMapper.toResponseManyFromPrisma(
@@ -28,12 +33,18 @@ export class DepartmentCoursesQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindDepartmentCoursesCursorDto) {
+  async findWithCursor(
+    @Param('departmentId') departmentId: string,
+    @Query() options: FindDepartmentCoursesCursorDto,
+  ) {
     const departmentCourses =
-      await this.departmentCourseQueryService.findAllCursor(options);
+      await this.departmentCourseQueryService.findAllCursor(
+        departmentId,
+        options,
+      );
 
     return {
-      message: 'DepartmentCourses fetched successfully (Cursor)',
+      message: 'DepartmentCourses fetched successfully',
       data: this.departmentCourseResponseMapper.toResponseManyFromPrisma(
         departmentCourses.data,
       ),
@@ -42,9 +53,14 @@ export class DepartmentCoursesQueryController {
   }
 
   @Get(':departmentCourseId')
-  async findOne(@Param('departmentCourseId') departmentCourseId: string) {
-    const departmentCourse =
-      await this.departmentCourseQueryService.findById(departmentCourseId);
+  async findOne(
+    @Param('departmentId') departmentId: string,
+    @Param('departmentCourseId') departmentCourseId: string,
+  ) {
+    const departmentCourse = await this.departmentCourseQueryService.findById(
+      departmentId,
+      departmentCourseId,
+    );
 
     return {
       message: 'DepartmentCourse retrieved successfully',

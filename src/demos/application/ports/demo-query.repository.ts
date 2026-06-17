@@ -17,9 +17,6 @@ export abstract class DemoQueryRepository {
     options: FindDepartmentCursorQuery,
     demoId: string,
   ): Promise<CursorPageDto<Department>>;
-  abstract findDepartmentById(
-    demoId: string,
-    deptId: string,
-  ): Promise<Department | null>;
+  abstract findDepartmentById(deptId: string): Promise<Department | null>;
   abstract demoExists(id: string): Promise<boolean>;
 }
