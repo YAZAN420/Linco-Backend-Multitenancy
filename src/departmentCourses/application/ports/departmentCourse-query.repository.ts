@@ -3,12 +3,16 @@ import {
   FindDepartmentCoursesCursorQuery,
   FindDepartmentCoursesQuery,
 } from '../interfaces/find-departmentCourses.query';
-import { DepartmentCourse } from 'src/generated/prisma/client';
+import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
 
 export abstract class DepartmentCourseQueryRepository {
-  abstract findAll(options: FindDepartmentCoursesQuery): Promise<PageDto<DepartmentCourse>>;
+  abstract findAll(
+    options: FindDepartmentCoursesQuery,
+  ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>>;
   abstract findAllCursor(
     options: FindDepartmentCoursesCursorQuery,
-  ): Promise<CursorPageDto<DepartmentCourse>>;
-  abstract findById(id: string): Promise<DepartmentCourse | null>;
+  ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>>;
+  abstract findById(
+    id: string,
+  ): Promise<DepartmentCourseWithAssetWithCourse | null>;
 }

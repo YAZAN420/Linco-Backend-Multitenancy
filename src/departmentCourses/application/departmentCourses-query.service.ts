@@ -7,9 +7,9 @@ import {
   FindDepartmentCoursesCursorQuery,
   FindDepartmentCoursesQuery,
 } from './interfaces/find-departmentCourses.query';
-import { DepartmentCourse } from 'src/generated/prisma/client';
 import { DepartmentCourseQueryRepository } from './ports/departmentCourse-query.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class DepartmentCoursesQueryService {
@@ -21,7 +21,7 @@ export class DepartmentCoursesQueryService {
   async findAll(
     departmentId: string,
     pageOptionsDto: FindDepartmentCoursesQuery,
-  ): Promise<PageDto<DepartmentCourse>> {
+  ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
@@ -33,7 +33,7 @@ export class DepartmentCoursesQueryService {
   async findAllCursor(
     departmentId: string,
     options: FindDepartmentCoursesCursorQuery,
-  ): Promise<CursorPageDto<DepartmentCourse>> {
+  ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
@@ -42,7 +42,10 @@ export class DepartmentCoursesQueryService {
     return this.departmentCourseQueryRepository.findAllCursor(options);
   }
 
-  async findById(departmentId: string, id: string): Promise<DepartmentCourse> {
+  async findById(
+    departmentId: string,
+    id: string,
+  ): Promise<DepartmentCourseWithAssetWithCourse> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
