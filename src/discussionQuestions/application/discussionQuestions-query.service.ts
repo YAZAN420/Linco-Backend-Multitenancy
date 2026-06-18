@@ -13,12 +13,13 @@ export class DiscussionQuestionsQueryService {
   ) {}
 
   async findAllCursor(
+    lessonId: string,
     options: FindDiscussionQuestionsCursorQuery,
   ): Promise<CursorPageDto<DiscussionQuestion>> {
     return this.discussionQuestionQueryRepository.findAllCursor(options);
   }
 
-  async findById(id: string): Promise<DiscussionQuestion> {
+  async findById(lessonId: string, id: string): Promise<DiscussionQuestion> {
     const discussionQuestion =
       await this.discussionQuestionQueryRepository.findById(id);
     if (!discussionQuestion)

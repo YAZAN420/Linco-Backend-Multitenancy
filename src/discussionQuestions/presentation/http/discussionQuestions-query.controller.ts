@@ -19,7 +19,10 @@ export class DiscussionQuestionsQueryController {
     @Query() options: FindDiscussionQuestionsCursorDto,
   ) {
     const discussionQuestions =
-      await this.discussionQuestionQueryService.findAllCursor(options);
+      await this.discussionQuestionQueryService.findAllCursor(
+        lessonId,
+        options,
+      );
 
     return {
       message: 'DiscussionQuestions fetched successfully (Cursor)',

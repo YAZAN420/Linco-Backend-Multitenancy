@@ -1,6 +1,7 @@
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { FindDemoMembersCursorQuery } from '../interfaces/find-demos.query';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
+import { DemoMember } from 'src/generated/prisma/client';
 
 export abstract class DemoMemberQueryRepository {
   abstract findAllByDemo(
@@ -12,4 +13,6 @@ export abstract class DemoMemberQueryRepository {
     demoId: string,
     memberId: string,
   ): Promise<DemoMemberWithUser | null>;
+
+  abstract findDemoMemberByUserId(userId: string): Promise<DemoMember | null>;
 }

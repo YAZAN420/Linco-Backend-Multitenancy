@@ -21,7 +21,11 @@ export class DiscussionQuestionsCommandController {
     @Body() dto: CreateDiscussionQuestionDto,
   ) {
     const discussionQuestion =
-      await this.discussionQuestionCommandService.create(dto);
+      await this.discussionQuestionCommandService.create(
+        lessonId,
+        activeUser.id,
+        dto,
+      );
 
     return {
       message: 'DiscussionQuestion created successfully',
@@ -39,6 +43,7 @@ export class DiscussionQuestionsCommandController {
   ) {
     const discussionQuestion =
       await this.discussionQuestionCommandService.update(
+        lessonId,
         discussionQuestionId,
         dto,
       );
@@ -56,7 +61,10 @@ export class DiscussionQuestionsCommandController {
     @Param('lessonId') lessonId: string,
     @Param('discussionQuestionId') discussionQuestionId: string,
   ) {
-    await this.discussionQuestionCommandService.remove(discussionQuestionId);
+    await this.discussionQuestionCommandService.remove(
+      lessonId,
+      discussionQuestionId,
+    );
 
     return {
       message: 'DiscussionQuestion deleted successfully',

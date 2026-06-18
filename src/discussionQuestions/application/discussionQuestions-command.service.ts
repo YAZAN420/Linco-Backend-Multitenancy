@@ -5,38 +5,46 @@ import { DiscussionQuestion } from '../domain/discussionQuestion';
 
 import { CreateDiscussionQuestionInput } from './interfaces/create-discussionQuestion-input.interface';
 import { UpdateDiscussionQuestionInput } from './interfaces/update-discussionQuestion-input.interface';
+import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member-query.repository';
 
 @Injectable()
 export class DiscussionQuestionsCommandService {
   constructor(
     private readonly discussionQuestionCommandRepository: DiscussionQuestionCommandRepository,
     private readonly discussionQuestionFactory: DiscussionQuestionFactory,
+    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
   ) {}
 
   async create(
+    lessonId: string,
+    userId: string,
     input: CreateDiscussionQuestionInput,
   ): Promise<DiscussionQuestion> {
-    console.log(input);
+    const demoMember =
+      await this.demoMemberQueryRepository.findDemoMemberByUserId(userId);
+    if (!demoMember) throw new NotFoundException('Not member in this demo');
+
     const discussionQuestion = this.discussionQuestionFactory.createNew(
-      '',
-      '',
-      '',
+      input.content,
+      lessonId,
+      demoMember.id,
     );
     await this.discussionQuestionCommandRepository.save(discussionQuestion);
     return discussionQuestion;
   }
 
   async update(
+    lessonId: string,
     discussionQuestionId: string,
     input: UpdateDiscussionQuestionInput,
   ): Promise<DiscussionQuestion> {
-    console.log(input);
     const discussionQuestion = await this.findById(discussionQuestionId);
+    if (input.content) discussionQuestion.updateContent(input.content);
     await this.discussionQuestionCommandRepository.save(discussionQuestion);
     return discussionQuestion;
   }
 
-  async remove(discussionQuestionId: string): Promise<void> {
+  async remove(lessonId: string, discussionQuestionId: string): Promise<void> {
     await this.findById(discussionQuestionId);
     await this.discussionQuestionCommandRepository.delete(discussionQuestionId);
   }
