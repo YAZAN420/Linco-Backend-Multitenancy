@@ -28,10 +28,8 @@ export class DepartmentsQueryService {
       throw new NotFoundException(`Demo with ID ${demoId} not found`);
     }
 
-    const department = await this.demoQueryRepository.findDepartmentById(
-      demoId,
-      deptId,
-    );
+    const department =
+      await this.demoQueryRepository.findDepartmentById(deptId);
 
     if (!department) {
       throw new NotFoundException(

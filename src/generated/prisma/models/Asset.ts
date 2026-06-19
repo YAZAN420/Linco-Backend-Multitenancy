@@ -190,6 +190,7 @@ export type AssetWhereInput = {
   accessMethod?: Prisma.EnumAccessMethodFilter<"Asset"> | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  departments?: Prisma.DepartmentCourseListRelationFilter
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }
@@ -201,6 +202,7 @@ export type AssetOrderByWithRelationInput = {
   accessMethod?: Prisma.SortOrder
   acquiredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  departments?: Prisma.DepartmentCourseOrderByRelationAggregateInput
   demo?: Prisma.DemoOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
 }
@@ -216,6 +218,7 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   accessMethod?: Prisma.EnumAccessMethodFilter<"Asset"> | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  departments?: Prisma.DepartmentCourseListRelationFilter
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
 }, "id" | "demoId_courseId">
@@ -249,6 +252,7 @@ export type AssetCreateInput = {
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseCreateNestedManyWithoutAssetInput
   demo: Prisma.DemoCreateNestedOneWithoutAssetsInput
   course: Prisma.CourseCreateNestedOneWithoutAssetsInput
 }
@@ -260,6 +264,7 @@ export type AssetUncheckedCreateInput = {
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type AssetUpdateInput = {
@@ -267,6 +272,7 @@ export type AssetUpdateInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUpdateManyWithoutAssetNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutAssetsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutAssetsNestedInput
 }
@@ -278,6 +284,7 @@ export type AssetUncheckedUpdateInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetCreateManyInput = {
@@ -345,6 +352,11 @@ export type AssetMinOrderByAggregateInput = {
   accessMethod?: Prisma.SortOrder
   acquiredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type AssetScalarRelationFilter = {
+  is?: Prisma.AssetWhereInput
+  isNot?: Prisma.AssetWhereInput
 }
 
 export type AssetCreateNestedManyWithoutDemoInput = {
@@ -435,11 +447,26 @@ export type EnumAccessMethodFieldUpdateOperationsInput = {
   set?: $Enums.AccessMethod
 }
 
+export type AssetCreateNestedOneWithoutDepartmentsInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutDepartmentsInput, Prisma.AssetUncheckedCreateWithoutDepartmentsInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutDepartmentsInput
+  connect?: Prisma.AssetWhereUniqueInput
+}
+
+export type AssetUpdateOneRequiredWithoutDepartmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutDepartmentsInput, Prisma.AssetUncheckedCreateWithoutDepartmentsInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutDepartmentsInput
+  upsert?: Prisma.AssetUpsertWithoutDepartmentsInput
+  connect?: Prisma.AssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutDepartmentsInput, Prisma.AssetUpdateWithoutDepartmentsInput>, Prisma.AssetUncheckedUpdateWithoutDepartmentsInput>
+}
+
 export type AssetCreateWithoutDemoInput = {
   id: string
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseCreateNestedManyWithoutAssetInput
   course: Prisma.CourseCreateNestedOneWithoutAssetsInput
 }
 
@@ -449,6 +476,7 @@ export type AssetUncheckedCreateWithoutDemoInput = {
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type AssetCreateOrConnectWithoutDemoInput = {
@@ -494,6 +522,7 @@ export type AssetCreateWithoutCourseInput = {
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseCreateNestedManyWithoutAssetInput
   demo: Prisma.DemoCreateNestedOneWithoutAssetsInput
 }
 
@@ -503,6 +532,7 @@ export type AssetUncheckedCreateWithoutCourseInput = {
   accessMethod: $Enums.AccessMethod
   acquiredAt?: Date | string
   updatedAt?: Date | string
+  departments?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type AssetCreateOrConnectWithoutCourseInput = {
@@ -531,6 +561,58 @@ export type AssetUpdateManyWithWhereWithoutCourseInput = {
   data: Prisma.XOR<Prisma.AssetUpdateManyMutationInput, Prisma.AssetUncheckedUpdateManyWithoutCourseInput>
 }
 
+export type AssetCreateWithoutDepartmentsInput = {
+  id: string
+  accessMethod: $Enums.AccessMethod
+  acquiredAt?: Date | string
+  updatedAt?: Date | string
+  demo: Prisma.DemoCreateNestedOneWithoutAssetsInput
+  course: Prisma.CourseCreateNestedOneWithoutAssetsInput
+}
+
+export type AssetUncheckedCreateWithoutDepartmentsInput = {
+  id: string
+  demoId: string
+  courseId: string
+  accessMethod: $Enums.AccessMethod
+  acquiredAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AssetCreateOrConnectWithoutDepartmentsInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutDepartmentsInput, Prisma.AssetUncheckedCreateWithoutDepartmentsInput>
+}
+
+export type AssetUpsertWithoutDepartmentsInput = {
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutDepartmentsInput, Prisma.AssetUncheckedUpdateWithoutDepartmentsInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutDepartmentsInput, Prisma.AssetUncheckedCreateWithoutDepartmentsInput>
+  where?: Prisma.AssetWhereInput
+}
+
+export type AssetUpdateToOneWithWhereWithoutDepartmentsInput = {
+  where?: Prisma.AssetWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutDepartmentsInput, Prisma.AssetUncheckedUpdateWithoutDepartmentsInput>
+}
+
+export type AssetUpdateWithoutDepartmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
+  acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demo?: Prisma.DemoUpdateOneRequiredWithoutAssetsNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutAssetsNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutDepartmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
+  acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type AssetCreateManyDemoInput = {
   id: string
   courseId: string
@@ -544,6 +626,7 @@ export type AssetUpdateWithoutDemoInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUpdateManyWithoutAssetNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutAssetsNestedInput
 }
 
@@ -553,6 +636,7 @@ export type AssetUncheckedUpdateWithoutDemoInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetUncheckedUpdateManyWithoutDemoInput = {
@@ -576,6 +660,7 @@ export type AssetUpdateWithoutCourseInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUpdateManyWithoutAssetNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutAssetsNestedInput
 }
 
@@ -585,6 +670,7 @@ export type AssetUncheckedUpdateWithoutCourseInput = {
   accessMethod?: Prisma.EnumAccessMethodFieldUpdateOperationsInput | $Enums.AccessMethod
   acquiredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetUncheckedUpdateManyWithoutCourseInput = {
@@ -596,6 +682,35 @@ export type AssetUncheckedUpdateManyWithoutCourseInput = {
 }
 
 
+/**
+ * Count Type AssetCountOutputType
+ */
+
+export type AssetCountOutputType = {
+  departments: number
+}
+
+export type AssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  departments?: boolean | AssetCountOutputTypeCountDepartmentsArgs
+}
+
+/**
+ * AssetCountOutputType without action
+ */
+export type AssetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssetCountOutputType
+   */
+  select?: Prisma.AssetCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AssetCountOutputType without action
+ */
+export type AssetCountOutputTypeCountDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DepartmentCourseWhereInput
+}
+
 
 export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -604,8 +719,10 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accessMethod?: boolean
   acquiredAt?: boolean
   updatedAt?: boolean
+  departments?: boolean | Prisma.Asset$departmentsArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -641,8 +758,10 @@ export type AssetSelectScalar = {
 
 export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "demoId" | "courseId" | "accessMethod" | "acquiredAt" | "updatedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  departments?: boolean | Prisma.Asset$departmentsArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
@@ -656,6 +775,7 @@ export type AssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Asset"
   objects: {
+    departments: Prisma.$DepartmentCoursePayload<ExtArgs>[]
     demo: Prisma.$DemoPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
   }
@@ -1060,6 +1180,7 @@ readonly fields: AssetFieldRefs;
  */
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  departments<T extends Prisma.Asset$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   demo<T extends Prisma.DemoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoClient<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1495,6 +1616,30 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Assets to delete.
    */
   limit?: number
+}
+
+/**
+ * Asset.departments
+ */
+export type Asset$departmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DepartmentCourse
+   */
+  select?: Prisma.DepartmentCourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DepartmentCourse
+   */
+  omit?: Prisma.DepartmentCourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DepartmentCourseInclude<ExtArgs> | null
+  where?: Prisma.DepartmentCourseWhereInput
+  orderBy?: Prisma.DepartmentCourseOrderByWithRelationInput | Prisma.DepartmentCourseOrderByWithRelationInput[]
+  cursor?: Prisma.DepartmentCourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DepartmentCourseScalarFieldEnum | Prisma.DepartmentCourseScalarFieldEnum[]
 }
 
 /**

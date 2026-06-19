@@ -5,6 +5,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { FindDemoMembersCursorQuery } from 'src/demos/application/interfaces/find-demos.query';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
+import { DemoMember } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepository {
@@ -47,6 +48,12 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
       include: {
         user: true,
       },
+    });
+  }
+
+  async findDemoMemberByUserId(userId: string): Promise<DemoMember | null> {
+    return this.prisma.demoMember.findFirst({
+      where: { userId: userId },
     });
   }
 }

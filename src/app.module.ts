@@ -16,8 +16,13 @@ import { LessonsModule } from './lessons/lessons.module';
 import { LessonsInfrastructureModule } from './lessons/infrastructure/lessons-infrastructure.module';
 import { AssetsModule } from './assets/assets.module';
 import { AssetsInfrastructureModule } from './assets/infrastructure/assets-infrastructure.module';
-import { QuestionsBankModule } from './questionsBank/questionsBank.module';
-import { QuestionsBankInfrastructureModule } from './questionsBank/infrastructure/questionsBank-infrastructure.module';
+
+import { DepartmentCoursesModule } from './departmentCourses/departmentCourses.module';
+import { DepartmentCoursesInfrastructureModule } from './departmentCourses/infrastructure/departmentCourses-infrastructure.module';
+import { QuestionsBanksModule } from './questionBanks/questionBanks.module';
+import { QuestionsBanksInfrastructureModule } from './questionBanks/infrastructure/questionBanks-infrastructure.module';
+import { DiscussionQuestionsModule } from './discussionQuestions/discussionQuestions.module';
+import { DiscussionQuestionsInfrastructureModule } from './discussionQuestions/infrastructure/discussionQuestions-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -33,8 +38,14 @@ export class AppModule {
         CoursesModule.withInfrastructure(CoursesInfrastructureModule.use()),
         LessonsModule.withInfrastructure(LessonsInfrastructureModule.use()),
         AssetsModule.withInfrastructure(AssetsInfrastructureModule.use()),
-        QuestionsBankModule.withInfrastructure(
-          QuestionsBankInfrastructureModule.use(),
+        QuestionsBanksModule.withInfrastructure(
+          QuestionsBanksInfrastructureModule.use(),
+        ),
+        DepartmentCoursesModule.withInfrastructure(
+          DepartmentCoursesInfrastructureModule.use(),
+        ),
+        DiscussionQuestionsModule.withInfrastructure(
+          DiscussionQuestionsInfrastructureModule.use(),
         ),
       ],
       providers: [

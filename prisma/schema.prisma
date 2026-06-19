@@ -63,6 +63,9 @@ model DemoMember {
   managedDepartments Department[]
   quizAttempt   QuizAttempt[]
 
+  discussionQuestions DiscussionQuestion[]
+  discussionAnswers   DiscussionAnswer[]
+
   @@unique([userId, demoId])
 }
 
@@ -110,7 +113,6 @@ model Course {
   updatedAt     DateTime           @updatedAt
 
   assets     Asset[]
-  departments     DepartmentCourse[]
   sections       Section[]
 }
 
@@ -146,7 +148,8 @@ model Lesson {
 
   section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
   attachments  Attachment[]
-  
+  questions DiscussionQuestion[]
+
   @@index([sectionId]) 
   @@unique([sectionId, order])
   @@unique([sectionId, title])
@@ -250,6 +253,7 @@ model Asset {
   accessMethod AccessMethod 
   acquiredAt   DateTime     @default(now())
   updatedAt DateTime @updatedAt
+  departments     DepartmentCourse[]
 
   demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
   course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -260,12 +264,42 @@ model Asset {
 model DepartmentCourse {
   id           String       @id
   departmentId String
-  courseId     String
+  assetId     String
   assignedAt   DateTime   @default(now())
   updatedAt DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  asset        Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
 
-  @@unique([departmentId, courseId]) 
+  @@unique([departmentId, assetId]) 
+}
+
+
+model DiscussionQuestion {
+  id           String             @id @default(uuid())
+  lessonId     String             
+  demoMemberId String             
+  content      String             @db.Text 
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  lesson       Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  answers      DiscussionAnswer[] 
+
+  @@index([lessonId]) 
+}
+
+model DiscussionAnswer {
+  id           String             @id @default(uuid())
+  discussionId String             
+  demoMemberId String             
+  content      String             @db.Text 
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  discussion   DiscussionQuestion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+
+  @@index([discussionId]) 
 }

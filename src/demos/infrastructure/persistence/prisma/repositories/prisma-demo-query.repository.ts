@@ -118,14 +118,10 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     );
   }
 
-  async findDepartmentById(
-    demoId: string,
-    deptId: string,
-  ): Promise<Department | null> {
+  async findDepartmentById(deptId: string): Promise<Department | null> {
     return this.prisma.department.findFirst({
       where: {
         id: deptId,
-        demoId: demoId,
       },
     });
   }

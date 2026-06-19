@@ -114,3 +114,13 @@ export type Asset = Prisma.AssetModel
  * 
  */
 export type DepartmentCourse = Prisma.DepartmentCourseModel
+/**
+ * Model DiscussionQuestion
+ * 
+ */
+export type DiscussionQuestion = Prisma.DiscussionQuestionModel
+/**
+ * Model DiscussionAnswer
+ * 
+ */
+export type DiscussionAnswer = Prisma.DiscussionAnswerModel

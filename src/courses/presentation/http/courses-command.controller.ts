@@ -5,7 +5,7 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { CourseResponseMapper } from './mappers/course-response.mapper';
 import { CoursesCommandService } from 'src/courses/application/courses-command.service';
 
-@Controller('demos/:demoId/courses')
+@Controller('courses')
 export class CoursesCommandController {
   constructor(
     private readonly courseCommandService: CoursesCommandService,
@@ -13,8 +13,8 @@ export class CoursesCommandController {
   ) {}
 
   @Post()
-  async create(@Param('demoId') demoId: string, @Body() dto: CreateCourseDto) {
-    const course = await this.courseCommandService.create(demoId, dto);
+  async create(@Body() dto: CreateCourseDto) {
+    const course = await this.courseCommandService.create(dto);
 
     return {
       message: 'Course created successfully',
@@ -24,15 +24,10 @@ export class CoursesCommandController {
 
   @Patch('courseId')
   async update(
-    @Param('demoId') demoId: string,
     @Param('courseId') courseId: string,
     @Body() dto: UpdateCourseDto,
   ) {
-    const course = await this.courseCommandService.update(
-      demoId,
-      courseId,
-      dto,
-    );
+    const course = await this.courseCommandService.update(courseId, dto);
 
     return {
       message: 'Course updated successfully',
@@ -41,11 +36,8 @@ export class CoursesCommandController {
   }
 
   @Delete(':courseId')
-  async remove(
-    @Param('demoId') demoId: string,
-    @Param('courseId') courseId: string,
-  ) {
-    await this.courseCommandService.remove(demoId, courseId);
+  async remove(@Param('courseId') courseId: string) {
+    await this.courseCommandService.remove(courseId);
 
     return {
       message: 'Course deleted successfully',

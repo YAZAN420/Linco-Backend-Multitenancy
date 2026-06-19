@@ -242,6 +242,7 @@ export type LessonWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   attachments?: Prisma.AttachmentListRelationFilter
+  questions?: Prisma.DiscussionQuestionListRelationFilter
 }
 
 export type LessonOrderByWithRelationInput = {
@@ -255,6 +256,7 @@ export type LessonOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
   attachments?: Prisma.AttachmentOrderByRelationAggregateInput
+  questions?: Prisma.DiscussionQuestionOrderByRelationAggregateInput
 }
 
 export type LessonWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +275,7 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   attachments?: Prisma.AttachmentListRelationFilter
+  questions?: Prisma.DiscussionQuestionListRelationFilter
 }, "id" | "sectionId_order" | "sectionId_title">
 
 export type LessonOrderByWithAggregationInput = {
@@ -315,6 +318,7 @@ export type LessonCreateInput = {
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutLessonsInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutLessonInput
+  questions?: Prisma.DiscussionQuestionCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUncheckedCreateInput = {
@@ -327,6 +331,7 @@ export type LessonUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
+  questions?: Prisma.DiscussionQuestionUncheckedCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUpdateInput = {
@@ -339,6 +344,7 @@ export type LessonUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutLessonsNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutLessonNestedInput
+  questions?: Prisma.DiscussionQuestionUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonUncheckedUpdateInput = {
@@ -351,6 +357,7 @@ export type LessonUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
+  questions?: Prisma.DiscussionQuestionUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonCreateManyInput = {
@@ -507,6 +514,20 @@ export type LessonUpdateOneRequiredWithoutAttachmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LessonUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.LessonUpdateWithoutAttachmentsInput>, Prisma.LessonUncheckedUpdateWithoutAttachmentsInput>
 }
 
+export type LessonCreateNestedOneWithoutQuestionsInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutQuestionsInput, Prisma.LessonUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutQuestionsInput
+  connect?: Prisma.LessonWhereUniqueInput
+}
+
+export type LessonUpdateOneRequiredWithoutQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutQuestionsInput, Prisma.LessonUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutQuestionsInput
+  upsert?: Prisma.LessonUpsertWithoutQuestionsInput
+  connect?: Prisma.LessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LessonUpdateToOneWithWhereWithoutQuestionsInput, Prisma.LessonUpdateWithoutQuestionsInput>, Prisma.LessonUncheckedUpdateWithoutQuestionsInput>
+}
+
 export type LessonCreateWithoutSectionInput = {
   id: string
   title: string
@@ -516,6 +537,7 @@ export type LessonCreateWithoutSectionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentCreateNestedManyWithoutLessonInput
+  questions?: Prisma.DiscussionQuestionCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUncheckedCreateWithoutSectionInput = {
@@ -527,6 +549,7 @@ export type LessonUncheckedCreateWithoutSectionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
+  questions?: Prisma.DiscussionQuestionUncheckedCreateNestedManyWithoutLessonInput
 }
 
 export type LessonCreateOrConnectWithoutSectionInput = {
@@ -578,6 +601,7 @@ export type LessonCreateWithoutAttachmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutLessonsInput
+  questions?: Prisma.DiscussionQuestionCreateNestedManyWithoutLessonInput
 }
 
 export type LessonUncheckedCreateWithoutAttachmentsInput = {
@@ -589,6 +613,7 @@ export type LessonUncheckedCreateWithoutAttachmentsInput = {
   sectionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  questions?: Prisma.DiscussionQuestionUncheckedCreateNestedManyWithoutLessonInput
 }
 
 export type LessonCreateOrConnectWithoutAttachmentsInput = {
@@ -616,6 +641,7 @@ export type LessonUpdateWithoutAttachmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutLessonsNestedInput
+  questions?: Prisma.DiscussionQuestionUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutAttachmentsInput = {
@@ -627,6 +653,71 @@ export type LessonUncheckedUpdateWithoutAttachmentsInput = {
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.DiscussionQuestionUncheckedUpdateManyWithoutLessonNestedInput
+}
+
+export type LessonCreateWithoutQuestionsInput = {
+  id: string
+  title: string
+  videoUrl: string
+  subTitleUrl?: string | null
+  order: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  section: Prisma.SectionCreateNestedOneWithoutLessonsInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutLessonInput
+}
+
+export type LessonUncheckedCreateWithoutQuestionsInput = {
+  id: string
+  title: string
+  videoUrl: string
+  subTitleUrl?: string | null
+  order: number
+  sectionId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutLessonInput
+}
+
+export type LessonCreateOrConnectWithoutQuestionsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.LessonCreateWithoutQuestionsInput, Prisma.LessonUncheckedCreateWithoutQuestionsInput>
+}
+
+export type LessonUpsertWithoutQuestionsInput = {
+  update: Prisma.XOR<Prisma.LessonUpdateWithoutQuestionsInput, Prisma.LessonUncheckedUpdateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.LessonCreateWithoutQuestionsInput, Prisma.LessonUncheckedCreateWithoutQuestionsInput>
+  where?: Prisma.LessonWhereInput
+}
+
+export type LessonUpdateToOneWithWhereWithoutQuestionsInput = {
+  where?: Prisma.LessonWhereInput
+  data: Prisma.XOR<Prisma.LessonUpdateWithoutQuestionsInput, Prisma.LessonUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type LessonUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  section?: Prisma.SectionUpdateOneRequiredWithoutLessonsNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutLessonNestedInput
+}
+
+export type LessonUncheckedUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  subTitleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonCreateManySectionInput = {
@@ -648,6 +739,7 @@ export type LessonUpdateWithoutSectionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUpdateManyWithoutLessonNestedInput
+  questions?: Prisma.DiscussionQuestionUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutSectionInput = {
@@ -659,6 +751,7 @@ export type LessonUncheckedUpdateWithoutSectionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutLessonNestedInput
+  questions?: Prisma.DiscussionQuestionUncheckedUpdateManyWithoutLessonNestedInput
 }
 
 export type LessonUncheckedUpdateManyWithoutSectionInput = {
@@ -678,10 +771,12 @@ export type LessonUncheckedUpdateManyWithoutSectionInput = {
 
 export type LessonCountOutputType = {
   attachments: number
+  questions: number
 }
 
 export type LessonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attachments?: boolean | LessonCountOutputTypeCountAttachmentsArgs
+  questions?: boolean | LessonCountOutputTypeCountQuestionsArgs
 }
 
 /**
@@ -701,6 +796,13 @@ export type LessonCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.AttachmentWhereInput
 }
 
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiscussionQuestionWhereInput
+}
+
 
 export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -713,6 +815,7 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
+  questions?: boolean | Prisma.Lesson$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
@@ -755,6 +858,7 @@ export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.Lesson$attachmentsArgs<ExtArgs>
+  questions?: boolean | Prisma.Lesson$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -769,6 +873,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     section: Prisma.$SectionPayload<ExtArgs>
     attachments: Prisma.$AttachmentPayload<ExtArgs>[]
+    questions: Prisma.$DiscussionQuestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1175,6 +1280,7 @@ export interface Prisma__LessonClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   section<T extends Prisma.SectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SectionDefaultArgs<ExtArgs>>): Prisma.Prisma__SectionClient<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   attachments<T extends Prisma.Lesson$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questions<T extends Prisma.Lesson$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiscussionQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1634,6 +1740,30 @@ export type Lesson$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
+}
+
+/**
+ * Lesson.questions
+ */
+export type Lesson$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiscussionQuestion
+   */
+  select?: Prisma.DiscussionQuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiscussionQuestion
+   */
+  omit?: Prisma.DiscussionQuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiscussionQuestionInclude<ExtArgs> | null
+  where?: Prisma.DiscussionQuestionWhereInput
+  orderBy?: Prisma.DiscussionQuestionOrderByWithRelationInput | Prisma.DiscussionQuestionOrderByWithRelationInput[]
+  cursor?: Prisma.DiscussionQuestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiscussionQuestionScalarFieldEnum | Prisma.DiscussionQuestionScalarFieldEnum[]
 }
 
 /**
