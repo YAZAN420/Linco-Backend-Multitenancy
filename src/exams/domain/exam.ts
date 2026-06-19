@@ -1,11 +1,11 @@
-import { QuizProps } from './interfaces/quiz.props';
-import { PositiveInteger } from './value-objects/positive-integer.vo';
+import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 import { Title } from './value-objects/title.vo';
+import { ExamProps } from './interfaces/exam.props';
 
-export class Quiz {
+export class Exam {
   constructor(
     public readonly id: string,
-    private readonly props: QuizProps,
+    private readonly props: ExamProps,
   ) {}
 
   get createdAt(): Date {

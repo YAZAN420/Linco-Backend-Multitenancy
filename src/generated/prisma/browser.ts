@@ -58,10 +58,10 @@ export type Lesson = Prisma.LessonModel
  */
 export type Attachment = Prisma.AttachmentModel
 /**
- * Model Quiz
+ * Model Exam
  * 
  */
-export type Quiz = Prisma.QuizModel
+export type Exam = Prisma.ExamModel
 /**
  * Model QuestionsBank
  * 
@@ -73,10 +73,10 @@ export type QuestionsBank = Prisma.QuestionsBankModel
  */
 export type QuestionChoice = Prisma.QuestionChoiceModel
 /**
- * Model QuizAttempt
+ * Model ExamAttempt
  * 
  */
-export type QuizAttempt = Prisma.QuizAttemptModel
+export type ExamAttempt = Prisma.ExamAttemptModel
 /**
  * Model AttemptAnswer
  * 

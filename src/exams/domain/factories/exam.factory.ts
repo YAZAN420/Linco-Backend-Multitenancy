@@ -5,7 +5,7 @@ import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 import { Exam } from '../exam';
 
 @Injectable()
-export class QuizFactory {
+export class ExamFactory {
   public createNew(sectionId: string, title: string, numberOfQuestions: number, durationMinutes: number): Exam {
     const now = new Date();
     const titleVo = Title.create(title);

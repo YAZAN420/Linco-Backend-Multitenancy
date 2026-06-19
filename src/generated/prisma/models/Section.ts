@@ -227,7 +227,7 @@ export type SectionWhereInput = {
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   questionsBank?: Prisma.QuestionsBankListRelationFilter
-  quiz?: Prisma.XOR<Prisma.QuizNullableScalarRelationFilter, Prisma.QuizWhereInput> | null
+  exam?: Prisma.XOR<Prisma.ExamNullableScalarRelationFilter, Prisma.ExamWhereInput> | null
 }
 
 export type SectionOrderByWithRelationInput = {
@@ -240,7 +240,7 @@ export type SectionOrderByWithRelationInput = {
   course?: Prisma.CourseOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
   questionsBank?: Prisma.QuestionsBankOrderByRelationAggregateInput
-  quiz?: Prisma.QuizOrderByWithRelationInput
+  exam?: Prisma.ExamOrderByWithRelationInput
 }
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -258,7 +258,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   questionsBank?: Prisma.QuestionsBankListRelationFilter
-  quiz?: Prisma.XOR<Prisma.QuizNullableScalarRelationFilter, Prisma.QuizWhereInput> | null
+  exam?: Prisma.XOR<Prisma.ExamNullableScalarRelationFilter, Prisma.ExamWhereInput> | null
 }, "id" | "courseId_order" | "courseId_title">
 
 export type SectionOrderByWithAggregationInput = {
@@ -296,7 +296,7 @@ export type SectionCreateInput = {
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
   questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamCreateNestedOneWithoutSectionInput
 }
 
 export type SectionUncheckedCreateInput = {
@@ -308,7 +308,7 @@ export type SectionUncheckedCreateInput = {
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
   questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamUncheckedCreateNestedOneWithoutSectionInput
 }
 
 export type SectionUpdateInput = {
@@ -320,7 +320,7 @@ export type SectionUpdateInput = {
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
   questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateInput = {
@@ -332,7 +332,7 @@ export type SectionUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
   questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUncheckedUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionCreateManyInput = {
@@ -485,18 +485,18 @@ export type SectionUpdateOneRequiredWithoutLessonsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutLessonsInput, Prisma.SectionUpdateWithoutLessonsInput>, Prisma.SectionUncheckedUpdateWithoutLessonsInput>
 }
 
-export type SectionCreateNestedOneWithoutQuizInput = {
-  create?: Prisma.XOR<Prisma.SectionCreateWithoutQuizInput, Prisma.SectionUncheckedCreateWithoutQuizInput>
-  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutQuizInput
+export type SectionCreateNestedOneWithoutExamInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutExamInput, Prisma.SectionUncheckedCreateWithoutExamInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutExamInput
   connect?: Prisma.SectionWhereUniqueInput
 }
 
-export type SectionUpdateOneRequiredWithoutQuizNestedInput = {
-  create?: Prisma.XOR<Prisma.SectionCreateWithoutQuizInput, Prisma.SectionUncheckedCreateWithoutQuizInput>
-  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutQuizInput
-  upsert?: Prisma.SectionUpsertWithoutQuizInput
+export type SectionUpdateOneRequiredWithoutExamNestedInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutExamInput, Prisma.SectionUncheckedCreateWithoutExamInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutExamInput
+  upsert?: Prisma.SectionUpsertWithoutExamInput
   connect?: Prisma.SectionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutQuizInput, Prisma.SectionUpdateWithoutQuizInput>, Prisma.SectionUncheckedUpdateWithoutQuizInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutExamInput, Prisma.SectionUpdateWithoutExamInput>, Prisma.SectionUncheckedUpdateWithoutExamInput>
 }
 
 export type SectionCreateNestedOneWithoutQuestionsBankInput = {
@@ -521,7 +521,7 @@ export type SectionCreateWithoutCourseInput = {
   updatedAt?: Date | string
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
   questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamCreateNestedOneWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutCourseInput = {
@@ -532,7 +532,7 @@ export type SectionUncheckedCreateWithoutCourseInput = {
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
   questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamUncheckedCreateNestedOneWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutCourseInput = {
@@ -581,7 +581,7 @@ export type SectionCreateWithoutLessonsInput = {
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamCreateNestedOneWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutLessonsInput = {
@@ -592,7 +592,7 @@ export type SectionUncheckedCreateWithoutLessonsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamUncheckedCreateNestedOneWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutLessonsInput = {
@@ -619,7 +619,7 @@ export type SectionUpdateWithoutLessonsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutLessonsInput = {
@@ -630,10 +630,10 @@ export type SectionUncheckedUpdateWithoutLessonsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUncheckedUpdateOneWithoutSectionNestedInput
 }
 
-export type SectionCreateWithoutQuizInput = {
+export type SectionCreateWithoutExamInput = {
   id: string
   title: string
   order: number
@@ -644,7 +644,7 @@ export type SectionCreateWithoutQuizInput = {
   questionsBank?: Prisma.QuestionsBankCreateNestedManyWithoutSectionInput
 }
 
-export type SectionUncheckedCreateWithoutQuizInput = {
+export type SectionUncheckedCreateWithoutExamInput = {
   id: string
   title: string
   order: number
@@ -655,23 +655,23 @@ export type SectionUncheckedCreateWithoutQuizInput = {
   questionsBank?: Prisma.QuestionsBankUncheckedCreateNestedManyWithoutSectionInput
 }
 
-export type SectionCreateOrConnectWithoutQuizInput = {
+export type SectionCreateOrConnectWithoutExamInput = {
   where: Prisma.SectionWhereUniqueInput
-  create: Prisma.XOR<Prisma.SectionCreateWithoutQuizInput, Prisma.SectionUncheckedCreateWithoutQuizInput>
+  create: Prisma.XOR<Prisma.SectionCreateWithoutExamInput, Prisma.SectionUncheckedCreateWithoutExamInput>
 }
 
-export type SectionUpsertWithoutQuizInput = {
-  update: Prisma.XOR<Prisma.SectionUpdateWithoutQuizInput, Prisma.SectionUncheckedUpdateWithoutQuizInput>
-  create: Prisma.XOR<Prisma.SectionCreateWithoutQuizInput, Prisma.SectionUncheckedCreateWithoutQuizInput>
+export type SectionUpsertWithoutExamInput = {
+  update: Prisma.XOR<Prisma.SectionUpdateWithoutExamInput, Prisma.SectionUncheckedUpdateWithoutExamInput>
+  create: Prisma.XOR<Prisma.SectionCreateWithoutExamInput, Prisma.SectionUncheckedCreateWithoutExamInput>
   where?: Prisma.SectionWhereInput
 }
 
-export type SectionUpdateToOneWithWhereWithoutQuizInput = {
+export type SectionUpdateToOneWithWhereWithoutExamInput = {
   where?: Prisma.SectionWhereInput
-  data: Prisma.XOR<Prisma.SectionUpdateWithoutQuizInput, Prisma.SectionUncheckedUpdateWithoutQuizInput>
+  data: Prisma.XOR<Prisma.SectionUpdateWithoutExamInput, Prisma.SectionUncheckedUpdateWithoutExamInput>
 }
 
-export type SectionUpdateWithoutQuizInput = {
+export type SectionUpdateWithoutExamInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
@@ -682,7 +682,7 @@ export type SectionUpdateWithoutQuizInput = {
   questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
 }
 
-export type SectionUncheckedUpdateWithoutQuizInput = {
+export type SectionUncheckedUpdateWithoutExamInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
@@ -701,7 +701,7 @@ export type SectionCreateWithoutQuestionsBankInput = {
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   lessons?: Prisma.LessonCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamCreateNestedOneWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutQuestionsBankInput = {
@@ -712,7 +712,7 @@ export type SectionUncheckedCreateWithoutQuestionsBankInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutSectionInput
-  quiz?: Prisma.QuizUncheckedCreateNestedOneWithoutSectionInput
+  exam?: Prisma.ExamUncheckedCreateNestedOneWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutQuestionsBankInput = {
@@ -739,7 +739,7 @@ export type SectionUpdateWithoutQuestionsBankInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutQuestionsBankInput = {
@@ -750,7 +750,7 @@ export type SectionUncheckedUpdateWithoutQuestionsBankInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUncheckedUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionCreateManyCourseInput = {
@@ -769,7 +769,7 @@ export type SectionUpdateWithoutCourseInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUpdateManyWithoutSectionNestedInput
   questionsBank?: Prisma.QuestionsBankUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutCourseInput = {
@@ -780,7 +780,7 @@ export type SectionUncheckedUpdateWithoutCourseInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutSectionNestedInput
   questionsBank?: Prisma.QuestionsBankUncheckedUpdateManyWithoutSectionNestedInput
-  quiz?: Prisma.QuizUncheckedUpdateOneWithoutSectionNestedInput
+  exam?: Prisma.ExamUncheckedUpdateOneWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateManyWithoutCourseInput = {
@@ -841,7 +841,7 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Section$lessonsArgs<ExtArgs>
   questionsBank?: boolean | Prisma.Section$questionsBankArgs<ExtArgs>
-  quiz?: boolean | Prisma.Section$quizArgs<ExtArgs>
+  exam?: boolean | Prisma.Section$examArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
@@ -879,7 +879,7 @@ export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Section$lessonsArgs<ExtArgs>
   questionsBank?: boolean | Prisma.Section$questionsBankArgs<ExtArgs>
-  quiz?: boolean | Prisma.Section$quizArgs<ExtArgs>
+  exam?: boolean | Prisma.Section$examArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -895,7 +895,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     course: Prisma.$CoursePayload<ExtArgs>
     lessons: Prisma.$LessonPayload<ExtArgs>[]
     questionsBank: Prisma.$QuestionsBankPayload<ExtArgs>[]
-    quiz: Prisma.$QuizPayload<ExtArgs> | null
+    exam: Prisma.$ExamPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1301,7 +1301,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   lessons<T extends Prisma.Section$lessonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questionsBank<T extends Prisma.Section$questionsBankArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$questionsBankArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionsBankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  quiz<T extends Prisma.Section$quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$quizArgs<ExtArgs>>): Prisma.Prisma__QuizClient<runtime.Types.Result.GetResult<Prisma.$QuizPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  exam<T extends Prisma.Section$examArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$examArgs<ExtArgs>>): Prisma.Prisma__ExamClient<runtime.Types.Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1786,22 +1786,22 @@ export type Section$questionsBankArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * Section.quiz
+ * Section.exam
  */
-export type Section$quizArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Section$examArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Quiz
+   * Select specific fields to fetch from the Exam
    */
-  select?: Prisma.QuizSelect<ExtArgs> | null
+  select?: Prisma.ExamSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Quiz
+   * Omit specific fields from the Exam
    */
-  omit?: Prisma.QuizOmit<ExtArgs> | null
+  omit?: Prisma.ExamOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.QuizInclude<ExtArgs> | null
-  where?: Prisma.QuizWhereInput
+  include?: Prisma.ExamInclude<ExtArgs> | null
+  where?: Prisma.ExamWhereInput
 }
 
 /**
