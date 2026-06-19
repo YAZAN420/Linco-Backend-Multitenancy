@@ -5,11 +5,11 @@ export class Title {
 
   static create(title: string): Title {
     if (!title || title.trim().length === 0) {
-      throw new DomainException('Course title cannot be empty');
+      throw new DomainException('title cannot be empty');
     }
 
     if (title.length > 100) {
-      throw new DomainException('Course title cannot exceed 100 characters');
+      throw new DomainException('title cannot exceed 100 characters');
     }
 
     return new Title(title.trim());
