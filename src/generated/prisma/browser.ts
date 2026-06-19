@@ -102,3 +102,8 @@ export type DiscussionQuestion = Prisma.DiscussionQuestionModel
  * 
  */
 export type DiscussionAnswer = Prisma.DiscussionAnswerModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel

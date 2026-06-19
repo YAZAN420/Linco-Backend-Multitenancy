@@ -67,7 +67,8 @@ export const ModelName = {
   Asset: 'Asset',
   DepartmentCourse: 'DepartmentCourse',
   DiscussionQuestion: 'DiscussionQuestion',
-  DiscussionAnswer: 'DiscussionAnswer'
+  DiscussionAnswer: 'DiscussionAnswer',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -303,6 +304,26 @@ export const DiscussionAnswerScalarFieldEnum = {
 } as const
 
 export type DiscussionAnswerScalarFieldEnum = (typeof DiscussionAnswerScalarFieldEnum)[keyof typeof DiscussionAnswerScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purchaseType: 'purchaseType',
+  courseId: 'courseId',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  stripeSessionId: 'stripeSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  paymentMethod: 'paymentMethod',
+  receiptUrl: 'receiptUrl',
+  failureReason: 'failureReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {

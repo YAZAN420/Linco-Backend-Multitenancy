@@ -18,8 +18,9 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const DemoMemberRole = {
-  TRAINER: 'TRAINER',
-  MANAGER: 'MANAGER'
+  OWNER: 'OWNER',
+  MANAGER: 'MANAGER',
+  TRAINER: 'TRAINER'
 } as const
 
 export type DemoMemberRole = (typeof DemoMemberRole)[keyof typeof DemoMemberRole]
@@ -39,3 +40,21 @@ export const AccessMethod = {
 } as const
 
 export type AccessMethod = (typeof AccessMethod)[keyof typeof AccessMethod]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCESSFUL: 'SUCCESSFUL',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PurchaseType = {
+  COURSE: 'COURSE'
+} as const
+
+export type PurchaseType = (typeof PurchaseType)[keyof typeof PurchaseType]

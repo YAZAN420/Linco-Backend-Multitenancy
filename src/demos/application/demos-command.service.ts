@@ -17,6 +17,7 @@ export class DemosCommandService {
   async create(input: CreateDemoInput): Promise<Demo> {
     const demo = this.demoFactory.createNew(input.name, input.ownerId);
     await this.demoCommandRepository.save(demo);
+
     return demo;
   }
 
