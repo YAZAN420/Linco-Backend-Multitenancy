@@ -27,18 +27,21 @@ export type AggregateQuiz = {
 }
 
 export type QuizAvgAggregateOutputType = {
-  numOfQuestions: number | null
+  numberOfQuestions: number | null
+  durationMiutes: number | null
 }
 
 export type QuizSumAggregateOutputType = {
-  numOfQuestions: number | null
+  numberOfQuestions: number | null
+  durationMiutes: number | null
 }
 
 export type QuizMinAggregateOutputType = {
   id: string | null
   sectionId: string | null
   title: string | null
-  numOfQuestions: number | null
+  numberOfQuestions: number | null
+  durationMiutes: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,7 +50,8 @@ export type QuizMaxAggregateOutputType = {
   id: string | null
   sectionId: string | null
   title: string | null
-  numOfQuestions: number | null
+  numberOfQuestions: number | null
+  durationMiutes: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,7 +60,8 @@ export type QuizCountAggregateOutputType = {
   id: number
   sectionId: number
   title: number
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -64,18 +69,21 @@ export type QuizCountAggregateOutputType = {
 
 
 export type QuizAvgAggregateInputType = {
-  numOfQuestions?: true
+  numberOfQuestions?: true
+  durationMiutes?: true
 }
 
 export type QuizSumAggregateInputType = {
-  numOfQuestions?: true
+  numberOfQuestions?: true
+  durationMiutes?: true
 }
 
 export type QuizMinAggregateInputType = {
   id?: true
   sectionId?: true
   title?: true
-  numOfQuestions?: true
+  numberOfQuestions?: true
+  durationMiutes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -84,7 +92,8 @@ export type QuizMaxAggregateInputType = {
   id?: true
   sectionId?: true
   title?: true
-  numOfQuestions?: true
+  numberOfQuestions?: true
+  durationMiutes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,7 +102,8 @@ export type QuizCountAggregateInputType = {
   id?: true
   sectionId?: true
   title?: true
-  numOfQuestions?: true
+  numberOfQuestions?: true
+  durationMiutes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -189,7 +199,8 @@ export type QuizGroupByOutputType = {
   id: string
   sectionId: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt: Date
   updatedAt: Date
   _count: QuizCountAggregateOutputType | null
@@ -221,7 +232,8 @@ export type QuizWhereInput = {
   id?: Prisma.StringFilter<"Quiz"> | string
   sectionId?: Prisma.StringFilter<"Quiz"> | string
   title?: Prisma.StringFilter<"Quiz"> | string
-  numOfQuestions?: Prisma.IntFilter<"Quiz"> | number
+  numberOfQuestions?: Prisma.IntFilter<"Quiz"> | number
+  durationMiutes?: Prisma.IntFilter<"Quiz"> | number
   createdAt?: Prisma.DateTimeFilter<"Quiz"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quiz"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -232,7 +244,8 @@ export type QuizOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
@@ -246,7 +259,8 @@ export type QuizWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.QuizWhereInput[]
   NOT?: Prisma.QuizWhereInput | Prisma.QuizWhereInput[]
   title?: Prisma.StringFilter<"Quiz"> | string
-  numOfQuestions?: Prisma.IntFilter<"Quiz"> | number
+  numberOfQuestions?: Prisma.IntFilter<"Quiz"> | number
+  durationMiutes?: Prisma.IntFilter<"Quiz"> | number
   createdAt?: Prisma.DateTimeFilter<"Quiz"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quiz"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -257,7 +271,8 @@ export type QuizOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuizCountOrderByAggregateInput
@@ -274,7 +289,8 @@ export type QuizScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Quiz"> | string
   sectionId?: Prisma.StringWithAggregatesFilter<"Quiz"> | string
   title?: Prisma.StringWithAggregatesFilter<"Quiz"> | string
-  numOfQuestions?: Prisma.IntWithAggregatesFilter<"Quiz"> | number
+  numberOfQuestions?: Prisma.IntWithAggregatesFilter<"Quiz"> | number
+  durationMiutes?: Prisma.IntWithAggregatesFilter<"Quiz"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Quiz"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Quiz"> | Date | string
 }
@@ -282,7 +298,8 @@ export type QuizScalarWhereWithAggregatesInput = {
 export type QuizCreateInput = {
   id: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuizInput
@@ -293,7 +310,8 @@ export type QuizUncheckedCreateInput = {
   id: string
   sectionId: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutQuizInput
@@ -302,7 +320,8 @@ export type QuizUncheckedCreateInput = {
 export type QuizUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuizNestedInput
@@ -313,7 +332,8 @@ export type QuizUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutQuizNestedInput
@@ -323,7 +343,8 @@ export type QuizCreateManyInput = {
   id: string
   sectionId: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -331,7 +352,8 @@ export type QuizCreateManyInput = {
 export type QuizUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -340,7 +362,8 @@ export type QuizUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,20 +377,23 @@ export type QuizCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type QuizAvgOrderByAggregateInput = {
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
 }
 
 export type QuizMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -376,13 +402,15 @@ export type QuizMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type QuizSumOrderByAggregateInput = {
-  numOfQuestions?: Prisma.SortOrder
+  numberOfQuestions?: Prisma.SortOrder
+  durationMiutes?: Prisma.SortOrder
 }
 
 export type QuizScalarRelationFilter = {
@@ -439,7 +467,8 @@ export type QuizUpdateOneRequiredWithoutAttemptsNestedInput = {
 export type QuizCreateWithoutSectionInput = {
   id: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.QuizAttemptCreateNestedManyWithoutQuizInput
@@ -448,7 +477,8 @@ export type QuizCreateWithoutSectionInput = {
 export type QuizUncheckedCreateWithoutSectionInput = {
   id: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutQuizInput
@@ -473,7 +503,8 @@ export type QuizUpdateToOneWithWhereWithoutSectionInput = {
 export type QuizUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.QuizAttemptUpdateManyWithoutQuizNestedInput
@@ -482,7 +513,8 @@ export type QuizUpdateWithoutSectionInput = {
 export type QuizUncheckedUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutQuizNestedInput
@@ -491,7 +523,8 @@ export type QuizUncheckedUpdateWithoutSectionInput = {
 export type QuizCreateWithoutAttemptsInput = {
   id: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuizInput
@@ -501,7 +534,8 @@ export type QuizUncheckedCreateWithoutAttemptsInput = {
   id: string
   sectionId: string
   title: string
-  numOfQuestions: number
+  numberOfQuestions: number
+  durationMiutes: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -525,7 +559,8 @@ export type QuizUpdateToOneWithWhereWithoutAttemptsInput = {
 export type QuizUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuizNestedInput
@@ -535,7 +570,8 @@ export type QuizUncheckedUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  numOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -575,7 +611,8 @@ export type QuizSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   sectionId?: boolean
   title?: boolean
-  numOfQuestions?: boolean
+  numberOfQuestions?: boolean
+  durationMiutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -587,7 +624,8 @@ export type QuizSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   sectionId?: boolean
   title?: boolean
-  numOfQuestions?: boolean
+  numberOfQuestions?: boolean
+  durationMiutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -597,7 +635,8 @@ export type QuizSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   sectionId?: boolean
   title?: boolean
-  numOfQuestions?: boolean
+  numberOfQuestions?: boolean
+  durationMiutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -607,12 +646,13 @@ export type QuizSelectScalar = {
   id?: boolean
   sectionId?: boolean
   title?: boolean
-  numOfQuestions?: boolean
+  numberOfQuestions?: boolean
+  durationMiutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuizOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "title" | "numOfQuestions" | "createdAt" | "updatedAt", ExtArgs["result"]["quiz"]>
+export type QuizOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "title" | "numberOfQuestions" | "durationMiutes" | "createdAt" | "updatedAt", ExtArgs["result"]["quiz"]>
 export type QuizInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attempts?: boolean | Prisma.Quiz$attemptsArgs<ExtArgs>
@@ -635,7 +675,8 @@ export type $QuizPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     sectionId: string
     title: string
-    numOfQuestions: number
+    numberOfQuestions: number
+    durationMiutes: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["quiz"]>
@@ -1066,7 +1107,8 @@ export interface QuizFieldRefs {
   readonly id: Prisma.FieldRef<"Quiz", 'String'>
   readonly sectionId: Prisma.FieldRef<"Quiz", 'String'>
   readonly title: Prisma.FieldRef<"Quiz", 'String'>
-  readonly numOfQuestions: Prisma.FieldRef<"Quiz", 'Int'>
+  readonly numberOfQuestions: Prisma.FieldRef<"Quiz", 'Int'>
+  readonly durationMiutes: Prisma.FieldRef<"Quiz", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Quiz", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Quiz", 'DateTime'>
 }
