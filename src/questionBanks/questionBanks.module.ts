@@ -5,6 +5,7 @@ import { QuestionsBankFactory } from './domain/factories/questionsBank.factory';
 import { QuestionsBanksCommandService } from './application/questionsBank-command.service';
 import { QuestionsBanksQueryService } from './application/questionsBank-query.service';
 import { QuestionsBankResponseMapper } from './presentation/http/mappers/questionBank-response.mapper';
+import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
 
 @Module({
   imports: [],
@@ -14,6 +15,7 @@ import { QuestionsBankResponseMapper } from './presentation/http/mappers/questio
     QuestionsBanksQueryService,
     QuestionsBankFactory,
     QuestionsBankResponseMapper,
+    PrismaCourseQueryRepository,
   ],
   exports: [
     QuestionsBanksCommandService,

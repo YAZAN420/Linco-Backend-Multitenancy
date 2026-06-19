@@ -5,22 +5,21 @@ import { QuestionsBank } from '../domain/questionsBank';
 
 import { UpdateQuestionsBankInput } from './interfaces/update-questionsBank-input.interface';
 import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
-import { SectionsQueryService } from 'src/courses/application/sections-query.service';
+import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
 
 @Injectable()
 export class QuestionsBanksCommandService {
   constructor(
     private readonly questionsBankCommandRepository: QuestionsBankCommandRepository,
-    private readonly sectionsService: SectionsQueryService,
+    private readonly sectionsService: PrismaCourseQueryRepository,
     private readonly questionsBankFactory: QuestionsBankFactory,
   ) {}
 
   async create(
-    courseId: string,
     sectionId: string,
     input: CreateQuestionsBankInput,
   ): Promise<QuestionsBank> {
-    await this.sectionsService.findById(courseId, sectionId);
+    await this.sectionsService.findSectionById(sectionId);
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
       input.text,
@@ -30,14 +29,12 @@ export class QuestionsBanksCommandService {
   }
 
   async update(
-    courseId: string,
     sectionId: string,
     questionBankId: string,
     input: UpdateQuestionsBankInput,
   ): Promise<QuestionsBank> {
     console.log(input);
     const questionsBank = await this.findById(
-      courseId,
       sectionId,
       questionBankId,
     );
@@ -46,20 +43,18 @@ export class QuestionsBanksCommandService {
   }
 
   async remove(
-    courseId: string,
     sectionId: string,
     questionBankId: string,
   ): Promise<void> {
-    await this.findById(courseId, sectionId, questionBankId);
+    await this.findById(sectionId, questionBankId);
     await this.questionsBankCommandRepository.delete(questionBankId);
   }
 
   async findById(
-    courseId: string,
     sectionId: string,
     questionBankId: string,
   ): Promise<QuestionsBank> {
-    await this.sectionsService.findById(courseId, sectionId);
+    await this.sectionsService.findSectionById(sectionId);
     const questionsBank =
       await this.questionsBankCommandRepository.findById(questionBankId);
     if (!questionsBank) throw new NotFoundException('QuestionBank not found');

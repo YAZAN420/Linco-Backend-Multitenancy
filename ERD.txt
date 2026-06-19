@@ -1,0 +1,335 @@
+model Course {
+  id            String             @id 
+  title         String
+  visibility    CourseVisibility   @default(PRIVATE)
+  price         Float?          
+
+  authorDemoId  String?
+  authorDemo    Demo?              @relation("AuthoredCourses", fields: [authorDemoId], references: [id], onDelete: SetNull)
+
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  assets     Asset[]
+  sections       Section[]
+  tag Tag[]
+}
+
+model Tag{
+  id String @id @default(uuid())
+  name String
+  courses Course[]
+}
+
+model Section {
+  id            String   @id 
+  title         String
+  order         Int
+  
+  courseId      String
+
+  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
+  lessons       Lesson[]
+  questionsBank QuestionsBank[]
+  quiz          Quiz?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([courseId]) 
+  @@unique([courseId, order])
+  @@unique([courseId, title])
+}
+
+model Quiz {
+  id                String    @id 
+  sectionId         String    @unique
+  title             String
+  numberOfQuestions Int
+  durationMiutes    Int
+
+  section           Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
+  attempts          QuizAttempt[]
+ 
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([sectionId]) 
+}
+
+model QuestionsBank {
+  id          String            @id @default(cuid())
+  sectionId   String
+  text        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  section     Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  choices     QuestionChoice[]
+  answers     AttemptAnswer[]
+}
+
+model QuestionChoice {
+  id          String            @id @default(cuid())
+  questionId  String
+  text        String
+  isCorrect   Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers     AttemptAnswer[]
+}
+
+model QuizAttempt {
+  id          String            @id @default(cuid())
+  userId      String
+  quizId      String
+  score       Int               @default(0)
+  startedAt   DateTime          @default(now())
+  submittedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers      AttemptAnswer[]
+  user        DemoMember @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, quizId])
+}
+
+model AttemptAnswer {
+  id          String            @id @default(cuid())
+  attemptId   String
+  questionId  String
+  choiceId    String
+  isCorrect   Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  attempt     QuizAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  choice      QuestionChoice    @relation(fields: [choiceId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+}
+
+
+model Lesson {
+  id          String   @id 
+  title       String
+  videoUrl    String
+  subTitleUrl String?
+  order       Int      
+  sectionId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
+  attachments  Attachment[]
+  questions DiscussionQuestion[]
+
+  @@index([sectionId]) 
+  @@unique([sectionId, order])
+  @@unique([sectionId, title])
+}
+
+model Comment{
+  id String @id @default(uuid())
+  userId String 
+  content String
+  parentId String
+  lessonId String
+
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
+}
+
+
+model User {
+  id                    String                 @id
+  firstName             String
+  lastName              String
+  email                 String                 @unique
+  password              String?
+  birthDate             DateTime?
+  imagePath             String
+  refreshToken          String?
+  role                  UserRole                   @default(USER)
+  twoFactorSecret       String?
+  isTwoFactorEnabled    Boolean                @default(false)
+  isEmailVerified       Boolean                @default(false)
+  emailVerificationToken String?
+  passwordResetToken    String?
+  passwordResetExpires  DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  demoMemberships       DemoMember[]
+  ownedDemos            Demo[]                 @relation("DemoOwner")
+}
+
+model DemoMember {
+  id        String   @id
+  userId    String
+  demoId    String
+  role      DemoMemberRole   @default(TRAINER) 
+  joinedAt  DateTime @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  managedDepartments Department[]
+  quizAttempt   QuizAttempt[]
+
+  discussionQuestions DiscussionQuestion[]
+  discussionAnswers   DiscussionAnswer[]
+
+  @@unique([userId, demoId])
+}
+
+model Department {
+  id         String   @id
+  name       String
+  managerId  String
+  demoId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  manager DemoMember @relation(fields: [managerId], references: [id], onDelete: Restrict)
+  demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  courses    DepartmentCourse[]
+}
+
+model Permission{
+  id String @id @default(uuid())
+  name String
+
+  departmentPermissions DepartmentPermission[]
+}
+
+model DepartmentPermission{
+  id String @id @default(uuid())
+  permissionId String
+  userId String
+  departmentId String
+
+  department Department @relation(fields: [departmentId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+}
+
+model Message{
+  id String @id @default(uuid())
+  senderId String
+  content String
+  groupId String
+
+  sender User @relation(fields: [senderId], references: [id])
+  group Group @relation(fields: [groupId], references: [id])
+}
+
+model Group{
+  id String @id @default(uuid())
+  name String
+
+  messages Message[]
+}
+
+model Feature{
+  id String @id @default(uuid())
+  type FeatureType
+  demoId String
+
+  demo Demo @relation(fields: [demoId], references: [id])
+}
+
+model Certification{
+  id String @id @default(uuid())
+  name String
+  demoId String
+
+  demo Demo @relation(fields: [demoId], references: [id])
+}
+
+model Demo{
+  id           String       @id
+  name         String
+  ownerId      String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  departments  Department[]
+  members      DemoMember[]
+
+  owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
+
+  authoredCourses Course[]        @relation("AuthoredCourses")
+  assets     Asset[]
+  features Feature[]
+  Certifications Certification[]
+}
+
+
+model Asset {
+  id           String       @id
+  demoId       String
+  courseId     String
+  accessMethod AccessMethod
+  acquiredAt   DateTime     @default(now())
+  updatedAt DateTime @updatedAt
+  departments     DepartmentCourse[]
+
+  demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([demoId, courseId])
+}
+
+model DepartmentCourse {
+  id           String       @id
+  departmentId String
+  assetId     String
+  assignedAt   DateTime   @default(now())
+  updatedAt DateTime @updatedAt
+
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  asset        Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@unique([departmentId, assetId]) 
+}
+
+
+model DiscussionQuestion {
+  id           String             @id @default(uuid())
+  lessonId     String             
+  demoMemberId String             
+  content      String             @db.Text 
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  lesson       Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  answers      DiscussionAnswer[] 
+
+  @@index([lessonId]) 
+}
+
+model DiscussionAnswer {
+  id           String             @id @default(uuid())
+  discussionId String             
+  demoMemberId String             
+  content      String             @db.Text 
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  discussion   DiscussionQuestion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+
+  @@index([discussionId]) 
+}

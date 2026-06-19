@@ -25,7 +25,7 @@ enum CourseVisibility {
 
 enum AccessMethod {
   CREATED  
-  PURCHASED  
+  PURCHASED
 }
 
 enum PaymentStatus {
@@ -76,7 +76,7 @@ model DemoMember {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
   managedDepartments Department[]
-  quizAttempt   QuizAttempt[]
+  examAttempt   ExamAttempt[]
 
   discussionQuestions DiscussionQuestion[]
   discussionAnswers   DiscussionAnswer[]
@@ -142,7 +142,7 @@ model Section {
   course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
   lessons       Lesson[]
   questionsBank QuestionsBank[]
-  quiz          Quiz?
+  exam          Exam?
 
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -185,17 +185,18 @@ model Attachment {
   @@index([lessonId])
 }
 
-model Quiz {
-  id          String   @id 
-  sectionId   String   @unique
-  title       String
-  numOfQuestions Int
+model Exam {
+  id                String    @id 
+  sectionId         String    @unique
+  title             String
+  numberOfQuestions Int
+  durationMiutes    Int
 
-  section         Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
-  attempts        QuizAttempt[]
+  section           Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
+  attempts          ExamAttempt[]
  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   @@index([sectionId]) 
 }
@@ -226,10 +227,10 @@ model QuestionChoice {
   answers     AttemptAnswer[]
 }
 
-model QuizAttempt {
+model ExamAttempt {
   id          String            @id @default(cuid())
   userId      String
-  quizId      String
+  examId      String
   score       Int               @default(0)
   startedAt   DateTime          @default(now())
   submittedAt DateTime?
@@ -237,11 +238,11 @@ model QuizAttempt {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  exam         Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
   answers      AttemptAnswer[]
   user        DemoMember @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, quizId])
+  @@unique([userId, examId])
 }
 
 model AttemptAnswer {
@@ -254,7 +255,7 @@ model AttemptAnswer {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  attempt     QuizAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attempt     ExamAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
   choice      QuestionChoice    @relation(fields: [choiceId], references: [id], onDelete: Cascade)
 
@@ -265,7 +266,7 @@ model Asset {
   id           String       @id
   demoId       String
   courseId     String
-  accessMethod AccessMethod 
+  accessMethod AccessMethod
   acquiredAt   DateTime     @default(now())
   updatedAt DateTime @updatedAt
   departments     DepartmentCourse[]

@@ -23,6 +23,9 @@ import { QuestionsBanksModule } from './questionBanks/questionBanks.module';
 import { QuestionsBanksInfrastructureModule } from './questionBanks/infrastructure/questionBanks-infrastructure.module';
 import { DiscussionQuestionsModule } from './discussionQuestions/discussionQuestions.module';
 import { DiscussionQuestionsInfrastructureModule } from './discussionQuestions/infrastructure/discussionQuestions-infrastructure.module';
+import { ExamsModule } from './exams/exams.module';
+import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -47,6 +50,7 @@ export class AppModule {
         DiscussionQuestionsModule.withInfrastructure(
           DiscussionQuestionsInfrastructureModule.use(),
         ),
+        ExamsModule.withInfrastructure(ExamsInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

@@ -6,7 +6,7 @@ import { QuestionsBankResponseMapper } from './mappers/questionBank-response.map
 import { FindQuestionsBanksDto } from './dto/filters/find-questionsBank.dto';
 import { FindQuestionBanksCursorDto } from './dto/filters/find-questionsBank-cursor.dto';
 
-@Controller('courses/:courseId/sections/:sectionId/questionBanks')
+@Controller('sections/:sectionId/questionsBank')
 export class QuestionsBanksQueryController {
   constructor(
     private readonly questionBankQueryService: QuestionsBanksQueryService,
@@ -15,12 +15,10 @@ export class QuestionsBanksQueryController {
 
   @Get()
   async findAll(
-    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionsBanksDto,
   ) {
     const questionsBank = await this.questionBankQueryService.findAll(
-      courseId,
       sectionId,
       options,
     );
@@ -35,12 +33,10 @@ export class QuestionsBanksQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Query() options: FindQuestionBanksCursorDto,
   ) {
     const questionsBank = await this.questionBankQueryService.findAllCursor(
-      courseId,
       sectionId,
       options,
     );
@@ -56,12 +52,10 @@ export class QuestionsBanksQueryController {
 
   @Get(':questionBankId')
   async findOne(
-    @Param('courseId') courseId: string,
     @Param('sectionId') sectionId: string,
     @Param('questionBankId') questionsBankId: string,
   ) {
     const questionsBank = await this.questionBankQueryService.findById(
-      courseId,
       sectionId,
       questionsBankId,
     );
