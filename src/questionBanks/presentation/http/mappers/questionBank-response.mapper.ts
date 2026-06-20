@@ -2,15 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { QuestionsBankResponseDto } from '../dto/questionsBank-response.dto';
 import { QuestionsBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBank as DomainQuestionsBank } from 'src/questionBanks/domain/questionsBank';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class QuestionsBankResponseMapper {
   toResponseFromPrisma(
-    questionsBank: PrismaQuestionsBank,
+    questionsBank: QuestionsBankWithQuestionChoices,
   ): QuestionsBankResponseDto {
     return new QuestionsBankResponseDto(
       questionsBank.id,
       questionsBank.sectionId,
+      questionsBank.choices.map((choice) => [choice.text, choice.isCorrect]),
       questionsBank.text,
       questionsBank.createdAt,
       questionsBank.updatedAt,
@@ -23,6 +25,7 @@ export class QuestionsBankResponseMapper {
     return new QuestionsBankResponseDto(
       questionsBank.id,
       questionsBank.sectionId,
+      questionsBank.choices.map((choice) => [choice.text, choice.isCorrect]),
       questionsBank.text,
       questionsBank.createdAt,
       questionsBank.updatedAt,
@@ -30,7 +33,7 @@ export class QuestionsBankResponseMapper {
   }
 
   toResponseManyFromPrisma(
-    questionsBank: PrismaQuestionsBank[],
+    questionsBank: QuestionsBankWithQuestionChoices[],
   ): QuestionsBankResponseDto[] {
     return questionsBank.map((questionsBank) =>
       this.toResponseFromPrisma(questionsBank),

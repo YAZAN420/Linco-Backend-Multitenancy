@@ -1,4 +1,6 @@
+import { DomainException } from 'src/common/exceptions/domain.exception';
 import { QuestionsBankProps } from './interfaces/questionsBank.props';
+import { QuestionChoice } from './question-choice';
 
 export class QuestionsBank {
   constructor(
@@ -8,6 +10,10 @@ export class QuestionsBank {
 
   get sectionId(): string {
     return this.props.sectionId;
+  }
+
+  get choices(): QuestionChoice[] {
+    return this.props.choices;
   }
 
   get text(): string {
@@ -22,9 +28,21 @@ export class QuestionsBank {
     return this.props.updatedAt;
   }
 
-  updateText(newText: string): void {
-    if (this.props.text === newText) return;
-    this.props.text = newText;
+  addChoice(choice: QuestionChoice): void {
+    if (this.props.choices.length >= 50) {
+      throw new DomainException("question cannot have more than 50 choice");
+    }
+
+    const isChoiceExists = this.props.choices.some(
+      (s) => s.text === choice.text,
+    );
+    if (isChoiceExists) {
+      throw new DomainException(
+        "text must be unique withins question's choices",
+      );
+    }
+
+    this.props.choices.push(choice);
     this.touch();
   }
 

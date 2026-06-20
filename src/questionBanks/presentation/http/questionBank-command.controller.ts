@@ -1,7 +1,5 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateQuestionBankDto } from './dto/create-questionsBank.dto';
-import { UpdateQuestionBankDto } from './dto/update-questionsBank.dto';
-
 import { QuestionsBankResponseMapper } from './mappers/questionBank-response.mapper';
 import { QuestionsBanksCommandService } from 'src/questionBanks/application/questionsBank-command.service';
 
@@ -17,6 +15,7 @@ export class QuestionsBanksCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateQuestionBankDto,
   ) {
+    console.log('Received DTO:', dto); // Log the received DTO for debugging
     const questionsBank = await this.questionsBankCommandService.create(
       sectionId,
       dto,
@@ -24,26 +23,6 @@ export class QuestionsBanksCommandController {
 
     return {
       message: 'QuestionsBank created successfully',
-      data: this.questionsBankResponseMapper.toResponseFromDomain(
-        questionsBank,
-      ),
-    };
-  }
-
-  @Patch(':questionsBankId')
-  async update(
-    @Param('sectionId') sectionId: string,
-    @Param('questionsBankId') questionsBankId: string,
-    @Body() dto: UpdateQuestionBankDto,
-  ) {
-    const questionsBank = await this.questionsBankCommandService.update(
-      sectionId,
-      questionsBankId,
-      dto,
-    );
-
-    return {
-      message: 'QuestionsBank updated successfully',
       data: this.questionsBankResponseMapper.toResponseFromDomain(
         questionsBank,
       ),
