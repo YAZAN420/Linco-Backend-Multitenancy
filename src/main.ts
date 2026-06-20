@@ -35,7 +35,7 @@ async function bootstrap() {
       setupSwagger(app);
     }
 
-    await app.listen(port, '209.38.37.231');
+    await app.listen(port, '0.0.0.0');
 
     logger.log(`🚀 Application is running on: http://localhost:${port}`);
     if (swaggerEnabled) {
