@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import mailConfig from 'src/common/config/mail.config';
 import { MailPort } from './mail.port';
-import { GmailApiAdapter } from './gmail-api.adapter';
+import { ResendMailAdapter } from './resend-mail.adapter';
 import { ConfigModule } from '@nestjs/config';
 
 @Global()
@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
   providers: [
     {
       provide: MailPort,
-      useClass: GmailApiAdapter,
+      useClass: ResendMailAdapter,
     },
   ],
   exports: [MailPort],
