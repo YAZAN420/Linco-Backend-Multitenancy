@@ -1,10 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('mail', () => ({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: Number(process.env.SMTP_PORT) || 587,
-  user: process.env.SMTP_USER,
-  pass: process.env.SMTP_PASS,
+  fromAddress: process.env.MAIL_FROM_ADDRESS || '',
+  resendApiKey: process.env.RESEND_API_KEY || '',
   appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:3000',
-  fromAddress: process.env.MAIL_FROM || 'no-reply@app.com',
 }));

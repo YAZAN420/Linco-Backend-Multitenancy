@@ -43,18 +43,6 @@ class EnvironmentVariables {
   JWT_REFRESH_TOKEN_TTL!: number;
 
   @IsString()
-  SMTP_HOST!: string;
-
-  @IsNumber()
-  SMTP_PORT!: number;
-
-  @IsString()
-  SMTP_USER!: string;
-
-  @IsString()
-  SMTP_PASS!: string;
-
-  @IsString()
   GOOGLE_CLIENT_ID!: string;
 
   @IsString()
