@@ -8,7 +8,7 @@ export class PositiveInteger {
       throw new DomainException(`${msg} must be greater than zero`);
     }
 
-    if (positiveInteger > 200) {
+    if (positiveInteger > 1000) {
       throw new DomainException(`${msg} exceeds maximum allowed value`);
     }
 

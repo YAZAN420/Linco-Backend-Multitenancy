@@ -10,7 +10,7 @@ export class ExamResponseMapper {
       exam.id,
       exam.title,
       exam.numberOfQuestions,
-      exam.durationMiutes,
+      exam.durationMinutes,
       exam.sectionId,
       exam.createdAt,
       exam.updatedAt,

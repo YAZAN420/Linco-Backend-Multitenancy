@@ -63,6 +63,7 @@ model User {
   demoMemberships       DemoMember[]
   ownedDemos            Demo[]                 @relation("DemoOwner")
   payments              Payment[]
+  examAttempts          ExamAttempt[]
 }
 
 model DemoMember {
@@ -76,15 +77,12 @@ model DemoMember {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
   managedDepartments Department[]
-  examAttempt   ExamAttempt[]
 
   discussionQuestions DiscussionQuestion[]
   discussionAnswers   DiscussionAnswer[]
 
   @@unique([userId, demoId])
 }
-
-
 
 model Department {
   id         String   @id
@@ -190,7 +188,7 @@ model Exam {
   sectionId         String    @unique
   title             String
   numberOfQuestions Int
-  durationMiutes    Int
+  durationMinutes   Int @default(1000)
 
   section           Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
   attempts          ExamAttempt[]
@@ -211,7 +209,6 @@ model QuestionsBank {
 
   section     Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   choices     QuestionChoice[]
-  answers     AttemptAnswer[]
 }
 
 model QuestionChoice {
@@ -224,7 +221,6 @@ model QuestionChoice {
   updatedAt   DateTime @updatedAt
 
   question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  answers     AttemptAnswer[]
 }
 
 model ExamAttempt {
@@ -232,34 +228,14 @@ model ExamAttempt {
   userId      String
   examId      String
   score       Int               @default(0)
-  startedAt   DateTime          @default(now())
-  submittedAt DateTime?
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   exam         Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
-  answers      AttemptAnswer[]
-  user        DemoMember @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, examId])
-}
-
-model AttemptAnswer {
-  id          String            @id @default(cuid())
-  attemptId   String
-  questionId  String
-  choiceId    String
-  isCorrect   Boolean
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  attempt     ExamAttempt       @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  choice      QuestionChoice    @relation(fields: [choiceId], references: [id], onDelete: Cascade)
-
-  @@unique([attemptId, questionId])
 }
 
 model Asset {

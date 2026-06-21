@@ -3,6 +3,7 @@ import { ExamCommandRepository } from 'src/exams/application/ports/exam-command.
 import { Exam } from 'src/exams/domain/exam';
 import { PrismaExamMapper } from '../mappers/prisma-exam.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 @Injectable()
 export class PrismaExamCommandRepository implements ExamCommandRepository {
@@ -12,6 +13,23 @@ export class PrismaExamCommandRepository implements ExamCommandRepository {
   ) {}
 
   async save(exam: Exam): Promise<void> {
+    const savedExam = await this.prisma.exam.findFirst({
+      where: {
+        sectionId: exam.sectionId
+      }
+    });
+    if(savedExam != null) {
+      console.log(savedExam);
+      const currentExam = await this.prisma.exam.findFirst({
+        where: {
+          id: exam.id
+        }
+      });
+      if(currentExam == null) {
+        throw new DomainException('exam must be unique in the section');
+      }
+    }
+
     const data = this.mapper.toPersistence(exam);
     await this.prisma.exam.upsert({
       where: { id: exam.id },

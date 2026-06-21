@@ -3,7 +3,7 @@ import {
   FindExamsCursorQuery,
   FindExamsQuery,
 } from '../interfaces/find-exams.query';
-import { Exam } from 'src/generated/prisma/client';
+import { Exam } from 'src/exams/domain/exam';
 
 export abstract class ExamQueryRepository {
   abstract findAll(options: FindExamsQuery): Promise<PageDto<Exam>>;

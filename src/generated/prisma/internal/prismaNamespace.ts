@@ -396,7 +396,6 @@ export const ModelName = {
   QuestionsBank: 'QuestionsBank',
   QuestionChoice: 'QuestionChoice',
   ExamAttempt: 'ExamAttempt',
-  AttemptAnswer: 'AttemptAnswer',
   Asset: 'Asset',
   DepartmentCourse: 'DepartmentCourse',
   DiscussionQuestion: 'DiscussionQuestion',
@@ -417,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "attemptAnswer" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "payment"
+    modelProps: "user" | "demoMember" | "department" | "demo" | "course" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "payment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1309,80 +1308,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    AttemptAnswer: {
-      payload: Prisma.$AttemptAnswerPayload<ExtArgs>
-      fields: Prisma.AttemptAnswerFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.AttemptAnswerFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.AttemptAnswerFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        findFirst: {
-          args: Prisma.AttemptAnswerFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.AttemptAnswerFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        findMany: {
-          args: Prisma.AttemptAnswerFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>[]
-        }
-        create: {
-          args: Prisma.AttemptAnswerCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        createMany: {
-          args: Prisma.AttemptAnswerCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.AttemptAnswerCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>[]
-        }
-        delete: {
-          args: Prisma.AttemptAnswerDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        update: {
-          args: Prisma.AttemptAnswerUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        deleteMany: {
-          args: Prisma.AttemptAnswerDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.AttemptAnswerUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AttemptAnswerUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>[]
-        }
-        upsert: {
-          args: Prisma.AttemptAnswerUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttemptAnswerPayload>
-        }
-        aggregate: {
-          args: Prisma.AttemptAnswerAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAttemptAnswer>
-        }
-        groupBy: {
-          args: Prisma.AttemptAnswerGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AttemptAnswerGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.AttemptAnswerCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AttemptAnswerCountAggregateOutputType> | number
-        }
-      }
-    }
     Asset: {
       payload: Prisma.$AssetPayload<ExtArgs>
       fields: Prisma.AssetFieldRefs
@@ -1907,7 +1832,7 @@ export const ExamScalarFieldEnum = {
   sectionId: 'sectionId',
   title: 'title',
   numberOfQuestions: 'numberOfQuestions',
-  durationMiutes: 'durationMiutes',
+  durationMinutes: 'durationMinutes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1943,26 +1868,11 @@ export const ExamAttemptScalarFieldEnum = {
   userId: 'userId',
   examId: 'examId',
   score: 'score',
-  startedAt: 'startedAt',
-  submittedAt: 'submittedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ExamAttemptScalarFieldEnum = (typeof ExamAttemptScalarFieldEnum)[keyof typeof ExamAttemptScalarFieldEnum]
-
-
-export const AttemptAnswerScalarFieldEnum = {
-  id: 'id',
-  attemptId: 'attemptId',
-  questionId: 'questionId',
-  choiceId: 'choiceId',
-  isCorrect: 'isCorrect',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
 
 
 export const AssetScalarFieldEnum = {
@@ -2330,7 +2240,6 @@ export type GlobalOmitConfig = {
   questionsBank?: Prisma.QuestionsBankOmit
   questionChoice?: Prisma.QuestionChoiceOmit
   examAttempt?: Prisma.ExamAttemptOmit
-  attemptAnswer?: Prisma.AttemptAnswerOmit
   asset?: Prisma.AssetOmit
   departmentCourse?: Prisma.DepartmentCourseOmit
   discussionQuestion?: Prisma.DiscussionQuestionOmit

@@ -78,11 +78,6 @@ export type QuestionChoice = Prisma.QuestionChoiceModel
  */
 export type ExamAttempt = Prisma.ExamAttemptModel
 /**
- * Model AttemptAnswer
- * 
- */
-export type AttemptAnswer = Prisma.AttemptAnswerModel
-/**
  * Model Asset
  * 
  */

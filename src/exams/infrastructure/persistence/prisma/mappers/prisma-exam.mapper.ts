@@ -10,7 +10,7 @@ export class PrismaExamMapper {
   toDomain(raw: PrismaExam): Exam {
     const titleVo = Title.create(raw.title);
     const numberOfQuestionsVo = PositiveInteger.create(raw.numberOfQuestions, "Number Of Questions");
-    const durationMinutesVo = PositiveInteger.create(raw.durationMiutes, "Duration Minutes");
+    const durationMinutesVo = PositiveInteger.create(raw.durationMinutes, "Duration Minutes");
     return new Exam(raw.id, {
       sectionId: raw.sectionId,
       title: titleVo,
@@ -27,7 +27,7 @@ export class PrismaExamMapper {
       sectionId: exam.sectionId,
       title: exam.title,
       numberOfQuestions: exam.numberOfQuestions,
-      durationMiutes: exam.durationMinutes,
+      durationMinutes: exam.durationMinutes,
       createdAt: exam.createdAt,
       updatedAt: exam.updatedAt,
     };

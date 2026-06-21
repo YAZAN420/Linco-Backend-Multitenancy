@@ -6,46 +6,42 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Prisma } from 'src/generated/prisma/client';
+import { PrismaExamAttemptMapper } from '../mappers/prisma-exam-attempt.mapper';
+import { ExamAttempt } from 'src/exams/domain/exam-attempt';
+import { ExamAttemptQueryRepository } from 'src/exams/application/ports/exam-attempt-query.repository';
+import { FindExamAttemptsCursorQuery, FindExamAttemptsQuery } from 'src/exams/application/interfaces/find-exam-attempts.query';
 
-import {
-  FindExamsCursorQuery,
-  FindExamsQuery,
-} from 'src/exams/application/interfaces/find-exams.query';
-import { ExamQueryRepository } from 'src/exams/application/ports/exam-query.repository';
-import { Exam } from 'src/exams/domain/exam';
-import { PrismaExamMapper } from '../mappers/prisma-exam.mapper';
-
-const EXAM_SEARCH_COLUMNS = [];
-const EXAM_ORDERABLE_FIELDS = ['createdAt'];
+const EXAM_ATTEMPT_SEARCH_COLUMNS = [];
+const EXAM_ATTEMPT_ORDERABLE_FIELDS = ['createdAt'];
 
 @Injectable()
-export class PrismaExamQueryRepository implements ExamQueryRepository {
+export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryRepository {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly mapper: PrismaExamMapper
+    private readonly mapper: PrismaExamAttemptMapper
   ) {}
 
-  private buildPrismaArgs<T extends FindExamsQuery | FindExamsCursorQuery>(
+  private buildPrismaArgs<T extends FindExamAttemptsQuery | FindExamAttemptsCursorQuery>(
     options: T,
   ) {
     return {
-      where: buildWhere<T, Prisma.ExamWhereInput>(options, EXAM_SEARCH_COLUMNS),
-      orderBy: buildOrderBy(options.orderBy, EXAM_ORDERABLE_FIELDS),
+      where: buildWhere<T, Prisma.ExamAttemptWhereInput>(options, EXAM_ATTEMPT_SEARCH_COLUMNS),
+      orderBy: buildOrderBy(options.orderBy, EXAM_ATTEMPT_ORDERABLE_FIELDS),
     };
   }
 
-  async findAll(options: FindExamsQuery): Promise<PageDto<Exam>> {
+  async findAll(courseId: string, options: FindExamAttemptsQuery): Promise<PageDto<ExamAttempt>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
-      this.prisma.exam.findMany({
+      this.prisma.examAttempt.findMany({
         skip,
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
-      this.prisma.exam.count({ where }),
+      this.prisma.examAttempt.count({ where }),
     ]);
 
     return new PageDto(
@@ -55,12 +51,13 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
   }
 
   async findAllCursor(
-    options: FindExamsCursorQuery,
-  ): Promise<CursorPageDto<Exam>> {
+    sectionId: string,
+    options: FindExamAttemptsCursorQuery,
+  ): Promise<CursorPageDto<ExamAttempt>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
-    const items = await this.prisma.exam.findMany({
+    const items = await this.prisma.examAttempt.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
@@ -79,13 +76,14 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Exam | null> {
-    const exam = await this.prisma.exam.findUnique({
+  async findById(id: string): Promise<ExamAttempt | null> {
+    console.log(id);
+    const examAttempt = await this.prisma.examAttempt.findUnique({
       where: { id },
     });
-    if(exam == null) {
-      throw new NotFoundException('exam not found');
+    if(examAttempt == null) {
+      return null;
     }
-    return this.mapper.toDomain(exam);
+    return this.mapper.toDomain(examAttempt);
   }
 }

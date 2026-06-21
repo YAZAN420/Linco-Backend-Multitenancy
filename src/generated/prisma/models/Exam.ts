@@ -28,12 +28,12 @@ export type AggregateExam = {
 
 export type ExamAvgAggregateOutputType = {
   numberOfQuestions: number | null
-  durationMiutes: number | null
+  durationMinutes: number | null
 }
 
 export type ExamSumAggregateOutputType = {
   numberOfQuestions: number | null
-  durationMiutes: number | null
+  durationMinutes: number | null
 }
 
 export type ExamMinAggregateOutputType = {
@@ -41,7 +41,7 @@ export type ExamMinAggregateOutputType = {
   sectionId: string | null
   title: string | null
   numberOfQuestions: number | null
-  durationMiutes: number | null
+  durationMinutes: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,7 +51,7 @@ export type ExamMaxAggregateOutputType = {
   sectionId: string | null
   title: string | null
   numberOfQuestions: number | null
-  durationMiutes: number | null
+  durationMinutes: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,7 +61,7 @@ export type ExamCountAggregateOutputType = {
   sectionId: number
   title: number
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,12 +70,12 @@ export type ExamCountAggregateOutputType = {
 
 export type ExamAvgAggregateInputType = {
   numberOfQuestions?: true
-  durationMiutes?: true
+  durationMinutes?: true
 }
 
 export type ExamSumAggregateInputType = {
   numberOfQuestions?: true
-  durationMiutes?: true
+  durationMinutes?: true
 }
 
 export type ExamMinAggregateInputType = {
@@ -83,7 +83,7 @@ export type ExamMinAggregateInputType = {
   sectionId?: true
   title?: true
   numberOfQuestions?: true
-  durationMiutes?: true
+  durationMinutes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,7 +93,7 @@ export type ExamMaxAggregateInputType = {
   sectionId?: true
   title?: true
   numberOfQuestions?: true
-  durationMiutes?: true
+  durationMinutes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,7 +103,7 @@ export type ExamCountAggregateInputType = {
   sectionId?: true
   title?: true
   numberOfQuestions?: true
-  durationMiutes?: true
+  durationMinutes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -200,7 +200,7 @@ export type ExamGroupByOutputType = {
   sectionId: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes: number
   createdAt: Date
   updatedAt: Date
   _count: ExamCountAggregateOutputType | null
@@ -233,7 +233,7 @@ export type ExamWhereInput = {
   sectionId?: Prisma.StringFilter<"Exam"> | string
   title?: Prisma.StringFilter<"Exam"> | string
   numberOfQuestions?: Prisma.IntFilter<"Exam"> | number
-  durationMiutes?: Prisma.IntFilter<"Exam"> | number
+  durationMinutes?: Prisma.IntFilter<"Exam"> | number
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -245,7 +245,7 @@ export type ExamOrderByWithRelationInput = {
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
@@ -260,7 +260,7 @@ export type ExamWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ExamWhereInput | Prisma.ExamWhereInput[]
   title?: Prisma.StringFilter<"Exam"> | string
   numberOfQuestions?: Prisma.IntFilter<"Exam"> | number
-  durationMiutes?: Prisma.IntFilter<"Exam"> | number
+  durationMinutes?: Prisma.IntFilter<"Exam"> | number
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -272,7 +272,7 @@ export type ExamOrderByWithAggregationInput = {
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExamCountOrderByAggregateInput
@@ -290,7 +290,7 @@ export type ExamScalarWhereWithAggregatesInput = {
   sectionId?: Prisma.StringWithAggregatesFilter<"Exam"> | string
   title?: Prisma.StringWithAggregatesFilter<"Exam"> | string
   numberOfQuestions?: Prisma.IntWithAggregatesFilter<"Exam"> | number
-  durationMiutes?: Prisma.IntWithAggregatesFilter<"Exam"> | number
+  durationMinutes?: Prisma.IntWithAggregatesFilter<"Exam"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
 }
@@ -299,7 +299,7 @@ export type ExamCreateInput = {
   id: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutExamInput
@@ -311,7 +311,7 @@ export type ExamUncheckedCreateInput = {
   sectionId: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutExamInput
@@ -321,7 +321,7 @@ export type ExamUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutExamNestedInput
@@ -333,7 +333,7 @@ export type ExamUncheckedUpdateInput = {
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutExamNestedInput
@@ -344,7 +344,7 @@ export type ExamCreateManyInput = {
   sectionId: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -353,7 +353,7 @@ export type ExamUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -363,7 +363,7 @@ export type ExamUncheckedUpdateManyInput = {
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -378,14 +378,14 @@ export type ExamCountOrderByAggregateInput = {
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ExamAvgOrderByAggregateInput = {
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
 }
 
 export type ExamMaxOrderByAggregateInput = {
@@ -393,7 +393,7 @@ export type ExamMaxOrderByAggregateInput = {
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -403,14 +403,14 @@ export type ExamMinOrderByAggregateInput = {
   sectionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ExamSumOrderByAggregateInput = {
   numberOfQuestions?: Prisma.SortOrder
-  durationMiutes?: Prisma.SortOrder
+  durationMinutes?: Prisma.SortOrder
 }
 
 export type ExamScalarRelationFilter = {
@@ -468,7 +468,7 @@ export type ExamCreateWithoutSectionInput = {
   id: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.ExamAttemptCreateNestedManyWithoutExamInput
@@ -478,7 +478,7 @@ export type ExamUncheckedCreateWithoutSectionInput = {
   id: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutExamInput
@@ -504,7 +504,7 @@ export type ExamUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.ExamAttemptUpdateManyWithoutExamNestedInput
@@ -514,7 +514,7 @@ export type ExamUncheckedUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutExamNestedInput
@@ -524,7 +524,7 @@ export type ExamCreateWithoutAttemptsInput = {
   id: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutExamInput
@@ -535,7 +535,7 @@ export type ExamUncheckedCreateWithoutAttemptsInput = {
   sectionId: string
   title: string
   numberOfQuestions: number
-  durationMiutes: number
+  durationMinutes?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -560,7 +560,7 @@ export type ExamUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutExamNestedInput
@@ -571,7 +571,7 @@ export type ExamUncheckedUpdateWithoutAttemptsInput = {
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfQuestions?: Prisma.IntFieldUpdateOperationsInput | number
-  durationMiutes?: Prisma.IntFieldUpdateOperationsInput | number
+  durationMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -612,7 +612,7 @@ export type ExamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sectionId?: boolean
   title?: boolean
   numberOfQuestions?: boolean
-  durationMiutes?: boolean
+  durationMinutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -625,7 +625,7 @@ export type ExamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   sectionId?: boolean
   title?: boolean
   numberOfQuestions?: boolean
-  durationMiutes?: boolean
+  durationMinutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -636,7 +636,7 @@ export type ExamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   sectionId?: boolean
   title?: boolean
   numberOfQuestions?: boolean
-  durationMiutes?: boolean
+  durationMinutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -647,12 +647,12 @@ export type ExamSelectScalar = {
   sectionId?: boolean
   title?: boolean
   numberOfQuestions?: boolean
-  durationMiutes?: boolean
+  durationMinutes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "title" | "numberOfQuestions" | "durationMiutes" | "createdAt" | "updatedAt", ExtArgs["result"]["exam"]>
+export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "title" | "numberOfQuestions" | "durationMinutes" | "createdAt" | "updatedAt", ExtArgs["result"]["exam"]>
 export type ExamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   attempts?: boolean | Prisma.Exam$attemptsArgs<ExtArgs>
@@ -676,7 +676,7 @@ export type $ExamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sectionId: string
     title: string
     numberOfQuestions: number
-    durationMiutes: number
+    durationMinutes: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["exam"]>
@@ -1108,7 +1108,7 @@ export interface ExamFieldRefs {
   readonly sectionId: Prisma.FieldRef<"Exam", 'String'>
   readonly title: Prisma.FieldRef<"Exam", 'String'>
   readonly numberOfQuestions: Prisma.FieldRef<"Exam", 'Int'>
-  readonly durationMiutes: Prisma.FieldRef<"Exam", 'Int'>
+  readonly durationMinutes: Prisma.FieldRef<"Exam", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Exam", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Exam", 'DateTime'>
 }
