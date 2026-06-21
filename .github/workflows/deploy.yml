@@ -31,7 +31,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'dist/,package.json,package-lock.json'
+          source: 'dist/,prisma/,package.json,package-lock.json'
           target: '~/server'
 
       - name: Restart Application via SSH
@@ -43,6 +43,10 @@ jobs:
           script: |
             cd ~/server
 
-            npm install --omit=dev
+            npm ci --omit=dev
 
-            pm2 restart all --update-env || pm2 start dist/main.js --name "linco-backend"
+            npx prisma generate
+
+            npx prisma migrate deploy
+
+            pm2 restart linco-backend --update-env || pm2 start dist/main.js --name "linco-backend"
