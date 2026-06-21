@@ -1,10 +1,9 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('mail', () => ({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: Number(process.env.SMTP_PORT) || 587,
-  user: process.env.SMTP_USER,
-  pass: process.env.SMTP_PASS,
+  gmailClientId: process.env.GOOGLE_CLIENT_ID,
+  gmailClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  gmailRefreshToken: process.env.GMAIL_REFRESH_TOKEN,
+  fromAddress: process.env.MAIL_FROM_ADDRESS || '',
   appBaseUrl: process.env.APP_BASE_URL || 'http://localhost:3000',
-  fromAddress: process.env.MAIL_FROM || 'no-reply@app.com',
 }));
