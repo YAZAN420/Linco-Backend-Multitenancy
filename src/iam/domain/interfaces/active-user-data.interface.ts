@@ -5,3 +5,4 @@ export interface ActiveUserData {
   email: string;
   role: Role;
 }
+

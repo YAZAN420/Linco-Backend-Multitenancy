@@ -63,7 +63,6 @@ export const ModelName = {
   QuestionsBank: 'QuestionsBank',
   QuestionChoice: 'QuestionChoice',
   ExamAttempt: 'ExamAttempt',
-  AttemptAnswer: 'AttemptAnswer',
   Asset: 'Asset',
   DepartmentCourse: 'DepartmentCourse',
   DiscussionQuestion: 'DiscussionQuestion',
@@ -202,7 +201,7 @@ export const ExamScalarFieldEnum = {
   sectionId: 'sectionId',
   title: 'title',
   numberOfQuestions: 'numberOfQuestions',
-  durationMiutes: 'durationMiutes',
+  durationMinutes: 'durationMinutes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -238,26 +237,11 @@ export const ExamAttemptScalarFieldEnum = {
   userId: 'userId',
   examId: 'examId',
   score: 'score',
-  startedAt: 'startedAt',
-  submittedAt: 'submittedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ExamAttemptScalarFieldEnum = (typeof ExamAttemptScalarFieldEnum)[keyof typeof ExamAttemptScalarFieldEnum]
-
-
-export const AttemptAnswerScalarFieldEnum = {
-  id: 'id',
-  attemptId: 'attemptId',
-  questionId: 'questionId',
-  choiceId: 'choiceId',
-  isCorrect: 'isCorrect',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
 
 
 export const AssetScalarFieldEnum = {

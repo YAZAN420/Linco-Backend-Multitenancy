@@ -18,6 +18,7 @@ import { PrismaQuestionCoicesMapper } from './mappers/prisma-question-choices.ma
       useClass: PrismaQuestionsBankQueryRepository,
     },
     PrismaQuestionCoicesMapper,
+    PrismaQuestionsBankMapper
   ],
   exports: [QuestionsBankCommandRepository, QuestionsBankQueryRepository],
 })

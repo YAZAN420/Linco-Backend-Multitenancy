@@ -184,7 +184,6 @@ export type QuestionsBankWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   choices?: Prisma.QuestionChoiceListRelationFilter
-  answers?: Prisma.AttemptAnswerListRelationFilter
 }
 
 export type QuestionsBankOrderByWithRelationInput = {
@@ -195,7 +194,6 @@ export type QuestionsBankOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
   choices?: Prisma.QuestionChoiceOrderByRelationAggregateInput
-  answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
 }
 
 export type QuestionsBankWhereUniqueInput = Prisma.AtLeast<{
@@ -209,7 +207,6 @@ export type QuestionsBankWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   choices?: Prisma.QuestionChoiceListRelationFilter
-  answers?: Prisma.AttemptAnswerListRelationFilter
 }, "id">
 
 export type QuestionsBankOrderByWithAggregationInput = {
@@ -241,7 +238,6 @@ export type QuestionsBankCreateInput = {
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankUncheckedCreateInput = {
@@ -251,7 +247,6 @@ export type QuestionsBankUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankUpdateInput = {
@@ -261,7 +256,6 @@ export type QuestionsBankUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
-  answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankUncheckedUpdateInput = {
@@ -271,7 +265,6 @@ export type QuestionsBankUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
-  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankCreateManyInput = {
@@ -392,27 +385,12 @@ export type QuestionsBankUpdateOneRequiredWithoutChoicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionsBankUpdateToOneWithWhereWithoutChoicesInput, Prisma.QuestionsBankUpdateWithoutChoicesInput>, Prisma.QuestionsBankUncheckedUpdateWithoutChoicesInput>
 }
 
-export type QuestionsBankCreateNestedOneWithoutAnswersInput = {
-  create?: Prisma.XOR<Prisma.QuestionsBankCreateWithoutAnswersInput, Prisma.QuestionsBankUncheckedCreateWithoutAnswersInput>
-  connectOrCreate?: Prisma.QuestionsBankCreateOrConnectWithoutAnswersInput
-  connect?: Prisma.QuestionsBankWhereUniqueInput
-}
-
-export type QuestionsBankUpdateOneRequiredWithoutAnswersNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionsBankCreateWithoutAnswersInput, Prisma.QuestionsBankUncheckedCreateWithoutAnswersInput>
-  connectOrCreate?: Prisma.QuestionsBankCreateOrConnectWithoutAnswersInput
-  upsert?: Prisma.QuestionsBankUpsertWithoutAnswersInput
-  connect?: Prisma.QuestionsBankWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionsBankUpdateToOneWithWhereWithoutAnswersInput, Prisma.QuestionsBankUpdateWithoutAnswersInput>, Prisma.QuestionsBankUncheckedUpdateWithoutAnswersInput>
-}
-
 export type QuestionsBankCreateWithoutSectionInput = {
   id?: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankUncheckedCreateWithoutSectionInput = {
@@ -421,7 +399,6 @@ export type QuestionsBankUncheckedCreateWithoutSectionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
-  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankCreateOrConnectWithoutSectionInput = {
@@ -467,7 +444,6 @@ export type QuestionsBankCreateWithoutChoicesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
-  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankUncheckedCreateWithoutChoicesInput = {
@@ -476,7 +452,6 @@ export type QuestionsBankUncheckedCreateWithoutChoicesInput = {
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionsBankCreateOrConnectWithoutChoicesInput = {
@@ -501,7 +476,6 @@ export type QuestionsBankUpdateWithoutChoicesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
-  answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankUncheckedUpdateWithoutChoicesInput = {
@@ -510,59 +484,6 @@ export type QuestionsBankUncheckedUpdateWithoutChoicesInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
-}
-
-export type QuestionsBankCreateWithoutAnswersInput = {
-  id?: string
-  text: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
-  choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionsBankUncheckedCreateWithoutAnswersInput = {
-  id?: string
-  sectionId: string
-  text: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionsBankCreateOrConnectWithoutAnswersInput = {
-  where: Prisma.QuestionsBankWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionsBankCreateWithoutAnswersInput, Prisma.QuestionsBankUncheckedCreateWithoutAnswersInput>
-}
-
-export type QuestionsBankUpsertWithoutAnswersInput = {
-  update: Prisma.XOR<Prisma.QuestionsBankUpdateWithoutAnswersInput, Prisma.QuestionsBankUncheckedUpdateWithoutAnswersInput>
-  create: Prisma.XOR<Prisma.QuestionsBankCreateWithoutAnswersInput, Prisma.QuestionsBankUncheckedCreateWithoutAnswersInput>
-  where?: Prisma.QuestionsBankWhereInput
-}
-
-export type QuestionsBankUpdateToOneWithWhereWithoutAnswersInput = {
-  where?: Prisma.QuestionsBankWhereInput
-  data: Prisma.XOR<Prisma.QuestionsBankUpdateWithoutAnswersInput, Prisma.QuestionsBankUncheckedUpdateWithoutAnswersInput>
-}
-
-export type QuestionsBankUpdateWithoutAnswersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
-  choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
-}
-
-export type QuestionsBankUncheckedUpdateWithoutAnswersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankCreateManySectionInput = {
@@ -578,7 +499,6 @@ export type QuestionsBankUpdateWithoutSectionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
-  answers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankUncheckedUpdateWithoutSectionInput = {
@@ -587,7 +507,6 @@ export type QuestionsBankUncheckedUpdateWithoutSectionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
-  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionsBankUncheckedUpdateManyWithoutSectionInput = {
@@ -604,12 +523,10 @@ export type QuestionsBankUncheckedUpdateManyWithoutSectionInput = {
 
 export type QuestionsBankCountOutputType = {
   choices: number
-  answers: number
 }
 
 export type QuestionsBankCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   choices?: boolean | QuestionsBankCountOutputTypeCountChoicesArgs
-  answers?: boolean | QuestionsBankCountOutputTypeCountAnswersArgs
 }
 
 /**
@@ -629,13 +546,6 @@ export type QuestionsBankCountOutputTypeCountChoicesArgs<ExtArgs extends runtime
   where?: Prisma.QuestionChoiceWhereInput
 }
 
-/**
- * QuestionsBankCountOutputType without action
- */
-export type QuestionsBankCountOutputTypeCountAnswersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AttemptAnswerWhereInput
-}
-
 
 export type QuestionsBankSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -645,7 +555,6 @@ export type QuestionsBankSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   choices?: boolean | Prisma.QuestionsBank$choicesArgs<ExtArgs>
-  answers?: boolean | Prisma.QuestionsBank$answersArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionsBankCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionsBank"]>
 
@@ -679,7 +588,6 @@ export type QuestionsBankOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type QuestionsBankInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   choices?: boolean | Prisma.QuestionsBank$choicesArgs<ExtArgs>
-  answers?: boolean | Prisma.QuestionsBank$answersArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionsBankCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestionsBankIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -694,7 +602,6 @@ export type $QuestionsBankPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     section: Prisma.$SectionPayload<ExtArgs>
     choices: Prisma.$QuestionChoicePayload<ExtArgs>[]
-    answers: Prisma.$AttemptAnswerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1098,7 +1005,6 @@ export interface Prisma__QuestionsBankClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   section<T extends Prisma.SectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SectionDefaultArgs<ExtArgs>>): Prisma.Prisma__SectionClient<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   choices<T extends Prisma.QuestionsBank$choicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionsBank$choicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionChoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  answers<T extends Prisma.QuestionsBank$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionsBank$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1555,30 +1461,6 @@ export type QuestionsBank$choicesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.QuestionChoiceScalarFieldEnum | Prisma.QuestionChoiceScalarFieldEnum[]
-}
-
-/**
- * QuestionsBank.answers
- */
-export type QuestionsBank$answersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AttemptAnswer
-   */
-  select?: Prisma.AttemptAnswerSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AttemptAnswer
-   */
-  omit?: Prisma.AttemptAnswerOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AttemptAnswerInclude<ExtArgs> | null
-  where?: Prisma.AttemptAnswerWhereInput
-  orderBy?: Prisma.AttemptAnswerOrderByWithRelationInput | Prisma.AttemptAnswerOrderByWithRelationInput[]
-  cursor?: Prisma.AttemptAnswerWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AttemptAnswerScalarFieldEnum | Prisma.AttemptAnswerScalarFieldEnum[]
 }
 
 /**

@@ -13,7 +13,7 @@ export class PrismaExamMapper {
       'Number Of Questions',
     );
     const durationMinutesVo = PositiveInteger.create(
-      raw.durationMiutes,
+      raw.durationMinutes,
       'Duration Minutes',
     );
     return new Exam(raw.id, {
@@ -32,7 +32,7 @@ export class PrismaExamMapper {
       sectionId: exam.sectionId,
       title: exam.title,
       numberOfQuestions: exam.numberOfQuestions,
-      durationMiutes: exam.durationMinutes,
+      durationMinutes: exam.durationMinutes,
       createdAt: exam.createdAt,
       updatedAt: exam.updatedAt,
     };

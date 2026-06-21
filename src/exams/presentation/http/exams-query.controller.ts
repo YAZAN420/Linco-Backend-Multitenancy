@@ -50,7 +50,7 @@ export class ExamsQueryController {
 
     return {
       message: 'Exam retrieved successfully',
-      data: this.examResponseMapper.toResponseFromPrisma(exam),
+      data: this.examResponseMapper.toResponseFromDomain(exam),
     };
   }
 }
