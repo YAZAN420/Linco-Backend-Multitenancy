@@ -1,26 +1,42 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import mailConfig from 'src/common/config/mail.config';
-import { google } from 'googleapis';
 import { MailPort } from './mail.port';
 
 @Injectable()
 export class GmailApiAdapter implements MailPort {
-  private readonly oauth2Client: InstanceType<typeof google.auth.OAuth2>;
-
   constructor(
     @Inject(mailConfig.KEY)
     private readonly mailConfiguration: ConfigType<typeof mailConfig>,
-  ) {
-    this.oauth2Client = new google.auth.OAuth2(
-      this.mailConfiguration.gmailClientId,
-      this.mailConfiguration.gmailClientSecret,
-      'https://developers.google.com/oauthplayground',
-    );
+  ) {}
 
-    this.oauth2Client.setCredentials({
-      refresh_token: this.mailConfiguration.gmailRefreshToken,
-    });
+  private async getAccessToken(): Promise<string> {
+    try {
+      const response = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: this.mailConfiguration.gmailClientId,
+          client_secret: this.mailConfiguration.gmailClientSecret,
+          refresh_token: this.mailConfiguration.gmailRefreshToken,
+          grant_type: 'refresh_token',
+        }),
+      });
+
+      const data = (await response.json()) as {
+        access_token?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !data.access_token) {
+        throw new Error(data.error || 'Failed to refresh access token');
+      }
+
+      return data.access_token;
+    } catch (error) {
+      console.error('❌ Gmail OAuth2 Authentication Failed:', error);
+      throw error;
+    }
   }
 
   private async sendEmailViaApi(
@@ -29,10 +45,9 @@ export class GmailApiAdapter implements MailPort {
     htmlContent: string,
   ) {
     try {
-      const gmail = google.gmail({ version: 'v1', auth: this.oauth2Client });
+      const accessToken = await this.getAccessToken();
 
       const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
-
       const emailLines = [
         `From: "Linco" <${this.mailConfiguration.fromAddress}>`,
         `To: ${to}`,
@@ -44,23 +59,32 @@ export class GmailApiAdapter implements MailPort {
       ];
 
       const email = emailLines.join('\r\n');
-
       const encodedMessage = Buffer.from(email)
         .toString('base64')
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/, '');
 
-      await gmail.users.messages.send({
-        userId: 'me',
-        requestBody: {
-          raw: encodedMessage,
+      const googleResponse = await fetch(
+        'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ raw: encodedMessage }),
         },
-      });
+      );
 
-      console.log(`✅ Email sent to ${to} (Check Spam)`);
+      if (!googleResponse.ok) {
+        const errorData = await googleResponse.text();
+        throw new Error(`Google API Error: ${errorData}`);
+      }
+
+      console.log(`✅ Email sent successfully via HTTP REST to ${to}`);
     } catch (error) {
-      console.error('❌ Failed to send email :', error);
+      console.error('❌ Failed to send email via HTTP API:', error);
       throw error;
     }
   }
