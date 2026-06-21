@@ -14,8 +14,8 @@ export class ExamsCommandController {
 
   @Post()
   async create(
-    @Param("sectionId") sectionId: string,
-    @Body() dto: CreateExamDto
+    @Param('sectionId') sectionId: string,
+    @Body() dto: CreateExamDto,
   ) {
     const exam = await this.examCommandService.create(sectionId, dto);
 
@@ -27,9 +27,9 @@ export class ExamsCommandController {
 
   @Patch(':examId')
   async update(
-    @Param("sectionId") sectionId: string,
-    @Param('examId') examId: string, 
-    @Body() dto: UpdateExamDto
+    @Param('sectionId') sectionId: string,
+    @Param('examId') examId: string,
+    @Body() dto: UpdateExamDto,
   ) {
     const exam = await this.examCommandService.update(sectionId, examId, dto);
 
@@ -41,8 +41,8 @@ export class ExamsCommandController {
 
   @Delete(':examId')
   async remove(
-    @Param("sectionId") sectionId: string,
-    @Param('examId') examId: string
+    @Param('sectionId') sectionId: string,
+    @Param('examId') examId: string,
   ) {
     await this.examCommandService.remove(sectionId, examId);
 

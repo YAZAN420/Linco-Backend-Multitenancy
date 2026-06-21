@@ -25,7 +25,7 @@ export class QuestionsBanksQueryController {
     return {
       message: 'QuestionBank fetched successfully',
       data: this.questionsBankResponseMapper.toResponseManyFromPrisma(
-        questionsBank.data
+        questionsBank.data,
       ),
       meta: questionsBank.meta,
     };
@@ -63,7 +63,7 @@ export class QuestionsBanksQueryController {
     return {
       message: 'QuestionBank retrieved successfully',
       data: this.questionsBankResponseMapper.toResponseFromPrisma(
-        questionsBank
+        questionsBank,
       ),
     };
   }

@@ -19,7 +19,7 @@ import { QuestionChoiceFactory } from './domain/factories/question-choice.factor
     QuestionsBankResponseMapper,
     PrismaQuestionCoicesMapper,
     PrismaCourseQueryRepository,
-    QuestionChoiceFactory
+    QuestionChoiceFactory,
   ],
   exports: [
     QuestionsBanksCommandService,

@@ -27,7 +27,11 @@ export class QuestionsBanksCommandService {
     );
 
     input.choices.forEach((element) => {
-      const choice = this.questionChoiceFactory.createNew(questionsBank.id, element.text, element.isCorrect);
+      const choice = this.questionChoiceFactory.createNew(
+        questionsBank.id,
+        element.text,
+        element.isCorrect,
+      );
       questionsBank.addChoice(choice);
     });
 
@@ -35,10 +39,7 @@ export class QuestionsBanksCommandService {
     return questionsBank;
   }
 
-  async remove(
-    sectionId: string,
-    questionBankId: string,
-  ): Promise<void> {
+  async remove(sectionId: string, questionBankId: string): Promise<void> {
     await this.findById(sectionId, questionBankId);
     await this.questionsBankCommandRepository.delete(questionBankId);
   }

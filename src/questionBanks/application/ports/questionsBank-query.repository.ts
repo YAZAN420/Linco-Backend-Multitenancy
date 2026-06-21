@@ -12,5 +12,7 @@ export abstract class QuestionsBankQueryRepository {
   abstract findAllCursor(
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>>;
-  abstract findById(id: string): Promise<QuestionsBankWithQuestionChoices | null>;
+  abstract findById(
+    id: string,
+  ): Promise<QuestionsBankWithQuestionChoices | null>;
 }

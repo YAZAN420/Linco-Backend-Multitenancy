@@ -8,21 +8,20 @@ import { ExamFactory } from './domain/factories/exam.factory';
 import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [ExamsCommandController, ExamsQueryController],
   providers: [
     ExamsCommandService,
-    ExamsQueryService,
     ExamFactory,
     ExamResponseMapper,
-    PrismaCourseQueryRepository
-    ],
+    PrismaCourseQueryRepository,
+  ],
   exports: [
     ExamsCommandService,
     ExamsQueryService,
     ExamFactory,
-    ExamResponseMapper
-    ],
+    ExamResponseMapper,
+  ],
 })
 export class ExamsModule {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

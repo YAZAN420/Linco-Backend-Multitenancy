@@ -1,4 +1,4 @@
-import { QuestionChoice } from "../question-choice";
+import { QuestionChoice } from '../question-choice';
 
 export interface QuestionsBankProps {
   sectionId: string;

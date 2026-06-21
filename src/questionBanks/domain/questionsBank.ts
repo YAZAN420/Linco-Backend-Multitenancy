@@ -30,7 +30,7 @@ export class QuestionsBank {
 
   addChoice(choice: QuestionChoice): void {
     if (this.props.choices.length >= 50) {
-      throw new DomainException("question cannot have more than 50 choice");
+      throw new DomainException('question cannot have more than 50 choice');
     }
 
     const isChoiceExists = this.props.choices.some(

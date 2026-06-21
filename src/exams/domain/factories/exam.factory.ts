@@ -6,11 +6,22 @@ import { Exam } from '../exam';
 
 @Injectable()
 export class ExamFactory {
-  public createNew(sectionId: string, title: string, numberOfQuestions: number, durationMinutes: number): Exam {
+  public createNew(
+    sectionId: string,
+    title: string,
+    numberOfQuestions: number,
+    durationMinutes: number,
+  ): Exam {
     const now = new Date();
     const titleVo = Title.create(title);
-    const numberOfQuestionsVo = PositiveInteger.create(numberOfQuestions, "number of questions");
-    const durationMinutesVo = PositiveInteger.create(durationMinutes, "number of questions");
+    const numberOfQuestionsVo = PositiveInteger.create(
+      numberOfQuestions,
+      'number of questions',
+    );
+    const durationMinutesVo = PositiveInteger.create(
+      durationMinutes,
+      'number of questions',
+    );
     return new Exam(uuidv7(), {
       sectionId: sectionId,
       title: titleVo,

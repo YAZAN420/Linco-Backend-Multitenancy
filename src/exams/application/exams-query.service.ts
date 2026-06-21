@@ -15,20 +15,23 @@ import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persiste
 export class ExamsQueryService {
   constructor(
     private readonly examQueryRepository: ExamQueryRepository,
-    private readonly prismaCourseQueryRepository: PrismaCourseQueryRepository
+    private readonly prismaCourseQueryRepository: PrismaCourseQueryRepository,
   ) {}
 
-  async findAll(sectionId: string, pageOptionsDto: FindExamsQuery): Promise<PageDto<Exam>> {
+  async findAll(
+    sectionId: string,
+    pageOptionsDto: FindExamsQuery,
+  ): Promise<PageDto<Exam>> {
     await this.prismaCourseQueryRepository.findSectionById(sectionId);
     return this.examQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
-    sectionId: string, 
+    sectionId: string,
     options: FindExamsCursorQuery,
   ): Promise<CursorPageDto<Exam>> {
     await this.prismaCourseQueryRepository.findSectionById(sectionId);
-    
+
     return this.examQueryRepository.findAllCursor(options);
   }
 

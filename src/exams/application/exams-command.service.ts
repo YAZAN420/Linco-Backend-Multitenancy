@@ -19,24 +19,33 @@ export class ExamsCommandService {
 
   async create(sectionId: string, input: CreateExamInput): Promise<Exam> {
     const exam = this.examFactory.createNew(
-      sectionId, 
-      input.title, 
-      input.numberOfQuestions, 
-      input.durationMinutes
+      sectionId,
+      input.title,
+      input.numberOfQuestions,
+      input.durationMinutes,
     );
     await this.examCommandRepository.save(exam);
     return exam;
   }
 
-  async update(sectionId: string, examId: string, input: UpdateExamInput): Promise<Exam> {
-
+  async update(
+    sectionId: string,
+    examId: string,
+    input: UpdateExamInput,
+  ): Promise<Exam> {
     const exam = await this.findById(sectionId, examId);
-    
+
     const { title, numberOfQuestions, durationMinutes } = input;
     if (title) exam.updateTitle(Title.create(title));
-    if (numberOfQuestions) exam.updateNumberOfQuestions(PositiveInteger.create(numberOfQuestions, "Number Of Questions"));
-    if (durationMinutes) exam.updateDurationMinutes(PositiveInteger.create(durationMinutes, "Duration Minutes"));
-    
+    if (numberOfQuestions)
+      exam.updateNumberOfQuestions(
+        PositiveInteger.create(numberOfQuestions, 'Number Of Questions'),
+      );
+    if (durationMinutes)
+      exam.updateDurationMinutes(
+        PositiveInteger.create(durationMinutes, 'Duration Minutes'),
+      );
+
     await this.examCommandRepository.save(exam);
     return exam;
   }

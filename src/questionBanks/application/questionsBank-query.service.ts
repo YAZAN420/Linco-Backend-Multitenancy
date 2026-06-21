@@ -7,10 +7,8 @@ import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
 } from './interfaces/find-questionsBank.query';
-import { QuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
 import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
-import { PrismaQuestionCoicesMapper } from '../infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 @Injectable()

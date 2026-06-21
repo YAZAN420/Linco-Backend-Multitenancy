@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { QuestionChoice as PrismaQuestionChoice } from 'src/generated/prisma/client';
 import { QuestionChoice } from 'src/questionBanks/domain/question-choice';
-import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
 
 @Injectable()
 export class PrismaQuestionCoicesMapper {

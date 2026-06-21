@@ -6,7 +6,7 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
-import { Prisma, QuestionsBank } from 'src/generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindQuestionsBankCursorQuery,
@@ -45,7 +45,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
-        include: {choices: true}
+        include: { choices: true },
       }),
       this.prisma.questionsBank.count({ where }),
     ]);
@@ -68,7 +68,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
       cursor: cursor ? { id: cursor } : undefined,
       where,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
-      include: {choices: true}
+      include: { choices: true },
     });
 
     const hasNextPage = items.length > take;
@@ -85,7 +85,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
   async findById(id: string): Promise<QuestionsBankWithQuestionChoices | null> {
     return this.prisma.questionsBank.findUnique({
       where: { id },
-      include: {choices: true}
+      include: { choices: true },
     });
   }
 }

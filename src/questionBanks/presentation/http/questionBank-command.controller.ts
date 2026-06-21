@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
 import { CreateQuestionBankDto } from './dto/create-questionsBank.dto';
 import { QuestionsBankResponseMapper } from './mappers/questionBank-response.mapper';
 import { QuestionsBanksCommandService } from 'src/questionBanks/application/questionsBank-command.service';
@@ -34,10 +34,7 @@ export class QuestionsBanksCommandController {
     @Param('sectionId') sectionId: string,
     @Param('questionsBankId') questionsBankId: string,
   ) {
-    await this.questionsBankCommandService.remove(
-      sectionId,
-      questionsBankId,
-    );
+    await this.questionsBankCommandService.remove(sectionId, questionsBankId);
 
     return {
       message: 'QuestionsBank deleted successfully',

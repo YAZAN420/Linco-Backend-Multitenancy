@@ -16,8 +16,8 @@ export class ExamsQueryController {
 
   @Get()
   async findAll(
-    @Param("sectionId") sectionId: string,
-    @Query() options: FindExamsDto
+    @Param('sectionId') sectionId: string,
+    @Query() options: FindExamsDto,
   ) {
     const exams = await this.examQueryService.findAll(sectionId, options);
     return {
@@ -29,9 +29,9 @@ export class ExamsQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param("sectionId") sectionId: string,
-    @Query() options: FindExamsCursorDto
-    ) {
+    @Param('sectionId') sectionId: string,
+    @Query() options: FindExamsCursorDto,
+  ) {
     const exams = await this.examQueryService.findAllCursor(sectionId, options);
 
     return {
@@ -43,7 +43,7 @@ export class ExamsQueryController {
 
   @Get(':examId')
   async findOne(
-    @Param("sectionId") sectionId: string,
+    @Param('sectionId') sectionId: string,
     @Param('examId') examId: string,
   ) {
     const exam = await this.examQueryService.findById(sectionId, examId);
