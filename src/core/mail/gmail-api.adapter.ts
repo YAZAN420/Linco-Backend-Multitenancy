@@ -1,26 +1,25 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import mailConfig from 'src/common/config/mail.config';
-import * as nodemailer from 'nodemailer';
+import { google } from 'googleapis';
 import { MailPort } from './mail.port';
 
 @Injectable()
 export class GmailApiAdapter implements MailPort {
-  private readonly transporter: nodemailer.Transporter;
+  private readonly oauth2Client: InstanceType<typeof google.auth.OAuth2>;
 
   constructor(
     @Inject(mailConfig.KEY)
     private readonly mailConfiguration: ConfigType<typeof mailConfig>,
   ) {
-    this.transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: this.mailConfiguration.fromAddress,
-        clientId: this.mailConfiguration.gmailClientId,
-        clientSecret: this.mailConfiguration.gmailClientSecret,
-        refreshToken: this.mailConfiguration.gmailRefreshToken,
-      },
+    this.oauth2Client = new google.auth.OAuth2(
+      this.mailConfiguration.gmailClientId,
+      this.mailConfiguration.gmailClientSecret,
+      'https://developers.google.com/oauthplayground',
+    );
+
+    this.oauth2Client.setCredentials({
+      refresh_token: this.mailConfiguration.gmailRefreshToken,
     });
   }
 
@@ -30,15 +29,38 @@ export class GmailApiAdapter implements MailPort {
     htmlContent: string,
   ) {
     try {
-      await this.transporter.sendMail({
-        from: `Linco <${this.mailConfiguration.fromAddress}>`,
-        to,
-        subject,
-        html: htmlContent,
+      const gmail = google.gmail({ version: 'v1', auth: this.oauth2Client });
+
+      const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+
+      const emailLines = [
+        `From: "Linco" <${this.mailConfiguration.fromAddress}>`,
+        `To: ${to}`,
+        `Subject: ${utf8Subject}`,
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset=utf-8',
+        '',
+        htmlContent,
+      ];
+
+      const email = emailLines.join('\r\n');
+
+      const encodedMessage = Buffer.from(email)
+        .toString('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+      await gmail.users.messages.send({
+        userId: 'me',
+        requestBody: {
+          raw: encodedMessage,
+        },
       });
-      console.log(`✅ Email sent to ${to}`);
+
+      console.log(`✅ Email sent to ${to} (Check Spam)`);
     } catch (error) {
-      console.error('❌ Failed to send email:', error);
+      console.error('❌ Failed to send email :', error);
       throw error;
     }
   }
