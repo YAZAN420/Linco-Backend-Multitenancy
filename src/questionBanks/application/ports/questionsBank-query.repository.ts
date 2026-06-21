@@ -3,14 +3,14 @@ import {
   FindQuestionsBankCursorQuery,
   FindQuestionsBankQuery,
 } from '../interfaces/find-questionsBank.query';
-import { QuestionsBank } from 'src/generated/prisma/client';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 export abstract class QuestionsBankQueryRepository {
   abstract findAll(
     options: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionsBank>>;
+  ): Promise<PageDto<QuestionsBankWithQuestionChoices>>;
   abstract findAllCursor(
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>>;
-  abstract findById(id: string): Promise<QuestionsBank | null>;
+  ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>>;
+  abstract findById(id: string): Promise<QuestionsBankWithQuestionChoices | null>;
 }

@@ -9,6 +9,7 @@ export class QuestionsBankFactory {
     return new QuestionsBank(uuidv7(), {
       sectionId: sectionId,
       text: text,
+      choices: [],
       createdAt: now,
       updatedAt: now,
     });

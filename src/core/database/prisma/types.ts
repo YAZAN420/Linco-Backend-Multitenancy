@@ -8,6 +8,10 @@ export type CourseWithSections = Prisma.CourseGetPayload<{
   include: { sections: true };
 }>;
 
+export type QuestionsBankWithQuestionChoices = Prisma.QuestionsBankGetPayload<{
+  include: { choices : true };
+}>;
+
 export type DemoWithDepartments = Prisma.DemoGetPayload<{
   include: { departments: true };
 }>;

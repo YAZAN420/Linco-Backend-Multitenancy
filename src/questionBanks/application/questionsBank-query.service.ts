@@ -10,6 +10,8 @@ import {
 import { QuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
 import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
+import { PrismaQuestionCoicesMapper } from '../infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class QuestionsBanksQueryService {
@@ -21,8 +23,7 @@ export class QuestionsBanksQueryService {
   async findAll(
     sectionId: string,
     pageOptionsDto: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionsBank>> {
-    console.log(sectionId);
+  ): Promise<PageDto<QuestionsBankWithQuestionChoices>> {
     await this.sectionsQueryService.findSectionById(sectionId);
     return this.questionsBankQueryRepository.findAll(pageOptionsDto);
   }
@@ -30,7 +31,7 @@ export class QuestionsBanksQueryService {
   async findAllCursor(
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>> {
+  ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
     await this.sectionsQueryService.findSectionById(sectionId);
     return this.questionsBankQueryRepository.findAllCursor(options);
   }
@@ -38,7 +39,7 @@ export class QuestionsBanksQueryService {
   async findById(
     sectionId: string,
     id: string,
-  ): Promise<QuestionsBank> {
+  ): Promise<QuestionsBankWithQuestionChoices> {
     await this.sectionsQueryService.findSectionById(sectionId);
     const questionsBank = await this.questionsBankQueryRepository.findById(id);
     if (!questionsBank) throw new NotFoundException('QuestionsBank not found');

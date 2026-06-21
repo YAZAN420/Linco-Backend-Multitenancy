@@ -5,6 +5,7 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 import { Prisma, QuestionsBank } from 'src/generated/prisma/client';
 
 import {
@@ -34,7 +35,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findAll(
     options: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionsBank>> {
+  ): Promise<PageDto<QuestionsBankWithQuestionChoices>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -44,6 +45,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        include: {choices: true}
       }),
       this.prisma.questionsBank.count({ where }),
     ]);
@@ -56,7 +58,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findAllCursor(
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>> {
+  ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
@@ -66,6 +68,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
       cursor: cursor ? { id: cursor } : undefined,
       where,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      include: {choices: true}
     });
 
     const hasNextPage = items.length > take;
@@ -79,9 +82,10 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     );
   }
 
-  async findById(id: string): Promise<QuestionsBank | null> {
+  async findById(id: string): Promise<QuestionsBankWithQuestionChoices | null> {
     return this.prisma.questionsBank.findUnique({
       where: { id },
+      include: {choices: true}
     });
   }
 }

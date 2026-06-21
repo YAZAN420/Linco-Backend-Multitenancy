@@ -2,10 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { QuestionsBankCommandRepository } from './ports/questionsBank-command.repository';
 import { QuestionsBankFactory } from '../domain/factories/questionsBank.factory';
 import { QuestionsBank } from '../domain/questionsBank';
-
-import { UpdateQuestionsBankInput } from './interfaces/update-questionsBank-input.interface';
 import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
 import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
+import { QuestionChoiceFactory } from '../domain/factories/question-choice.factory';
 
 @Injectable()
 export class QuestionsBanksCommandService {
@@ -13,6 +12,7 @@ export class QuestionsBanksCommandService {
     private readonly questionsBankCommandRepository: QuestionsBankCommandRepository,
     private readonly sectionsService: PrismaCourseQueryRepository,
     private readonly questionsBankFactory: QuestionsBankFactory,
+    private readonly questionChoiceFactory: QuestionChoiceFactory,
   ) {}
 
   async create(
@@ -20,24 +20,17 @@ export class QuestionsBanksCommandService {
     input: CreateQuestionsBankInput,
   ): Promise<QuestionsBank> {
     await this.sectionsService.findSectionById(sectionId);
+
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
       input.text,
     );
-    await this.questionsBankCommandRepository.save(questionsBank);
-    return questionsBank;
-  }
 
-  async update(
-    sectionId: string,
-    questionBankId: string,
-    input: UpdateQuestionsBankInput,
-  ): Promise<QuestionsBank> {
-    console.log(input);
-    const questionsBank = await this.findById(
-      sectionId,
-      questionBankId,
-    );
+    input.choices.forEach((element) => {
+      const choice = this.questionChoiceFactory.createNew(questionsBank.id, element.text, element.isCorrect);
+      questionsBank.addChoice(choice);
+    });
+
     await this.questionsBankCommandRepository.save(questionsBank);
     return questionsBank;
   }
