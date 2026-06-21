@@ -25,6 +25,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Check Secret Length and Lines
+        run: |
+          echo "=== فحص طول المتغير ==="
+          echo -n "${{ secrets.SSH_PRIVATE_KEY }}" | wc -c
+          echo "=== فحص عدد الأسطر ==="
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | wc -l
+
       - name: Copy Files to DigitalOcean
         uses: appleboy/scp-action@v0.1.7
         with:
