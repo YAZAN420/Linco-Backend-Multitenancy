@@ -1,21 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
-import { StoragePort } from '../application/ports/storage.port';
+import { StoragePort } from './storage.port';
+import type { ConfigType } from '@nestjs/config';
+import storageConfig from 'src/common/config/storage.config';
 
 @Injectable()
 export class SpacesService implements StoragePort {
   private s3Client: S3Client;
 
-  constructor() {
+  constructor(
+    @Inject(storageConfig.KEY)
+    private readonly storageConfiguration: ConfigType<typeof storageConfig>,
+  ) {
     this.s3Client = new S3Client({
-      //   endpoint: process.env.DO_SPACES_ORIGIN_ENDPOINT,
-      //   region: process.env.DO_SPACES_REGION,
-      //   credentials: {
-      //     accessKeyId: process.env.DO_SPACES_KEY,
-      //     secretAccessKey: process.env.DO_SPACES_SECRET,
-      //   },
+      endpoint: this.storageConfiguration.originEndpoint!,
+      region: this.storageConfiguration.region!,
+      credentials: {
+        accessKeyId: this.storageConfiguration.accessKey!,
+        secretAccessKey: this.storageConfiguration.secretKey!,
+      },
     });
   }
 
@@ -27,7 +32,7 @@ export class SpacesService implements StoragePort {
     const fileKey = `uploads/${uuidv4()}.${fileExtension}`;
 
     const command = new PutObjectCommand({
-      Bucket: process.env.DO_SPACES_BUCKET_NAME,
+      Bucket: this.storageConfiguration.bucketName!,
       Key: fileKey,
       ContentType: contentType,
       ACL: 'public-read',
@@ -37,7 +42,7 @@ export class SpacesService implements StoragePort {
       expiresIn: 900,
     });
 
-    const cdnUrl = `${process.env.DO_SPACES_CDN_ENDPOINT}/${fileKey}`;
+    const cdnUrl = `${this.storageConfiguration.cdnEndpoint!}/${fileKey}`;
 
     return { uploadUrl, cdnUrl };
   }

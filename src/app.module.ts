@@ -26,7 +26,6 @@ import { DiscussionQuestionsInfrastructureModule } from './discussionQuestions/i
 import { ExamsModule } from './exams/exams.module';
 import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
 
-
 @Module({})
 export class AppModule {
   static register(): DynamicModule {

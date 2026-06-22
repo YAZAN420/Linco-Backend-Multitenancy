@@ -15,7 +15,6 @@ export class QuestionsBanksCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateQuestionBankDto,
   ) {
-    console.log('Received DTO:', dto); // Log the received DTO for debugging
     const questionsBank = await this.questionsBankCommandService.create(
       sectionId,
       dto,

@@ -9,6 +9,7 @@ import { RateLimiterModule } from './rate-limiter/rate-limiter.module';
 import { ContextModule } from './context/context.module';
 import { QueueModule } from './queue/queue.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { StorageModule } from './storage/storage.module';
 
 @Global()
 @Module({})
@@ -26,6 +27,7 @@ export class CoreModule {
         MailModule,
         LoggerModule,
         QueueModule,
+        StorageModule,
       ],
       exports: [CacheModule, DatabaseModule, MailModule, LoggerModule],
     };
