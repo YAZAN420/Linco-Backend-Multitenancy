@@ -37,9 +37,9 @@ async function bootstrap() {
 
     await app.listen(port, '0.0.0.0');
 
-    logger.log(`🚀 Application is running on: http://localhost:${port}`);
+    logger.log(`🚀 Application is running on: https://api.lincolms.me`);
     if (swaggerEnabled) {
-      logger.log(`📚 Swagger documentation at: http://localhost:${port}/api`);
+      logger.log(`📚 Swagger documentation at: https://api.lincolms.me`);
     }
   } catch (error) {
     const trace = error instanceof Error ? error.stack : undefined;
