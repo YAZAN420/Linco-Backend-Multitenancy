@@ -42,7 +42,7 @@ export class UsersQueryController {
 
     return {
       message: 'User profile retrieved successfully',
-      data: this.userResponseMapper.toResponseFromPrisma(user),
+      data: { user: this.userResponseMapper.toResponseFromPrisma(user) },
     };
   }
 
