@@ -14,10 +14,12 @@ export class AuthCookieService {
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {
+    const isProduction = process.env.NODE_ENV === 'production';
     this.baseCookieOptions = {
       httpOnly: true,
       secure: this.jwtConfiguration.cookieSecure,
-      sameSite: 'strict',
+      sameSite: 'lax',
+      domain: isProduction ? '.lincolms.me' : undefined,
     };
   }
 
