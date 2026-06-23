@@ -20,7 +20,7 @@ async function bootstrap() {
     const instance = app.getHttpAdapter().getInstance() as Express;
     instance.set('query parser', 'extended');
     setupApp(app);
-
+    instance.set('trust proxy', 1);
     const configService = app.get(ConfigService);
     const port = configService.get<number>('PORT', 3000);
     const nodeEnv = configService.get<string>(
