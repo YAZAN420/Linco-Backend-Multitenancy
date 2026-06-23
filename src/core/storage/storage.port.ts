@@ -1,6 +1,7 @@
 export abstract class StoragePort {
   abstract generateUploadUrl(
-    fileName: string,
+    fileKey: string,
     contentType: string,
-  ): Promise<{ uploadUrl: string; cdnUrl: string }>;
+    isPublic: boolean,
+  ): Promise<{ uploadUrl: string }>;
 }

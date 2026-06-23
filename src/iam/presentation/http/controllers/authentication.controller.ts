@@ -112,7 +112,7 @@ export class AuthenticationController {
 
     this.cookieService.setAuthCookies(response, result.tokens);
 
-    return response.redirect('http://localhost:3000/api');
+    return response.redirect('https://lincolms.me');
   }
 
   @Public()
