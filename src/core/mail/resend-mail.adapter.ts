@@ -20,10 +20,7 @@ export class ResendMailAdapter implements MailPort {
   }
 
   async sendVerificationEmail(to: string, token: string): Promise<void> {
-    const verificationUrl = this.buildAppUrl(
-      '/authentication/verify-email',
-      token,
-    );
+    const verificationUrl = this.buildAppUrl('/verify-email', token);
 
     const html = `
       <div style="background-color: #f4f6f9; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
@@ -64,7 +61,7 @@ export class ResendMailAdapter implements MailPort {
   }
 
   async sendPasswordResetEmail(to: string, token: string): Promise<void> {
-    const resetUrl = this.buildAppUrl('/authentication/reset-password', token);
+    const resetUrl = this.buildAppUrl('/reset-password', token);
 
     const html = `
       <div style="background-color: #f4f6f9; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
