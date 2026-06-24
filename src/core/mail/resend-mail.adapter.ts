@@ -9,6 +9,9 @@ export class ResendMailAdapter implements MailPort {
   private readonly resend: Resend;
   private readonly logger = new Logger(ResendMailAdapter.name);
 
+  private readonly mascotImageUrl =
+    'https://storage.lincolms.me/EmailPhoto.png';
+
   constructor(
     @Inject(mailConfig.KEY)
     private readonly mailConfiguration: ConfigType<typeof mailConfig>,
@@ -23,32 +26,33 @@ export class ResendMailAdapter implements MailPort {
     );
 
     const html = `
-      <div style="background-color: #f9fafb; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
-        <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+      <div style="background-color: #f4f6f9; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
+        <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-top: 6px solid #1e3a8a;">
           
-          <div style="background-color: #4f46e5; padding: 30px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">Welcome to Linco!</h1>
+          <div style="padding: 40px 20px 10px; text-align: center;">
+            <!-- صورة الحبار -->
+            <img src="${this.mascotImageUrl}" alt="LinCo Mascot" width="120" style="display: block; margin: 0 auto 20px;" />
+            <h1 style="color: #1e3a8a; margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.5px;">Welcome to LinCo!</h1>
           </div>
 
-          <div style="padding: 30px 25px; line-height: 1.6; text-align: center;">
-            <h2 style="color: #111827; margin-top: 0; font-size: 20px;">Verify Your Email Address</h2>
-            <p style="color: #4b5563; font-size: 15px; margin-bottom: 30px;">
-              Thank you for signing up! Please confirm your email address to activate your account and unlock all features.
+          <div style="padding: 20px 30px 40px; line-height: 1.6; text-align: center;">
+            <p style="color: #4b5563; font-size: 16px; margin-bottom: 30px;">
+              Thank you for signing up! Please confirm your email address to activate your account and start your learning journey.
             </p>
 
             <div style="margin: 35px 0;">
-              <a href="${verificationUrl}" style="background-color: #4f46e5; color: #ffffff; padding: 14px 32px; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; display: inline-block; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2); transition: background-color 0.2s;">
+              <a href="${verificationUrl}" style="background-color: #1e3a8a; color: #ffffff; padding: 14px 40px; font-weight: 600; text-decoration: none; border-radius: 30px; font-size: 16px; display: inline-block; box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2); transition: opacity 0.2s;">
                 Verify Email Address
               </a>
             </div>
           </div>
 
-          <div style="background-color: #f3f4f6; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-            <p style="margin: 0; color: #6b7280; font-size: 12px;">
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="margin: 0; color: #64748b; font-size: 12px;">
               This link will expire in 24 hours. If you didn't create an account, you can safely ignore this email.
             </p>
-            <p style="margin: 10px 0 0 0; color: #9ca3af; font-size: 11px;">
-              &copy; ${new Date().getFullYear()} Linco. All rights reserved.
+            <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 12px;">
+              &copy; ${new Date().getFullYear()} LinCo. All rights reserved.
             </p>
           </div>
 
@@ -63,32 +67,33 @@ export class ResendMailAdapter implements MailPort {
     const resetUrl = this.buildAppUrl('/authentication/reset-password', token);
 
     const html = `
-      <div style="background-color: #f9fafb; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
-        <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+      <div style="background-color: #f4f6f9; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: ltr; color: #1f2937;">
+        <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-top: 6px solid #1e3a8a;">
           
-          <div style="background-color: #4f46e5; padding: 30px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">Linco Support</h1>
+          <div style="padding: 40px 20px 10px; text-align: center;">
+            <!-- صورة الحبار -->
+            <img src="${this.mascotImageUrl}" alt="LinCo Mascot" width="120" style="display: block; margin: 0 auto 20px;" />
+            <h1 style="color: #1e3a8a; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">Password Reset</h1>
           </div>
 
-          <div style="padding: 30px 25px; line-height: 1.6; text-align: center;">
-            <h2 style="color: #111827; margin-top: 0; font-size: 20px;">Password Reset Request</h2>
-            <p style="color: #4b5563; font-size: 15px; margin-bottom: 30px;">
-              We received a request to reset your password. Click the button below to set a new password and regain access to your account.
+          <div style="padding: 20px 30px 40px; line-height: 1.6; text-align: center;">
+            <p style="color: #4b5563; font-size: 16px; margin-bottom: 30px;">
+              We received a request to reset your password. Click the button below to set a new password and regain access to your LinCo account.
             </p>
 
             <div style="margin: 35px 0;">
-              <a href="${resetUrl}" style="background-color: #4f46e5; color: #ffffff; padding: 14px 32px; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; display: inline-block; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2); transition: background-color 0.2s;">
+              <a href="${resetUrl}" style="background-color: #1e3a8a; color: #ffffff; padding: 14px 40px; font-weight: 600; text-decoration: none; border-radius: 30px; font-size: 16px; display: inline-block; box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2); transition: opacity 0.2s;">
                 Reset Password
               </a>
             </div>
           </div>
 
-          <div style="background-color: #f3f4f6; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-            <p style="margin: 0; color: #6b7280; font-size: 12px;">
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="margin: 0; color: #64748b; font-size: 12px;">
               If you did not request this, you can safely ignore this email. Your password will remain unchanged.
             </p>
-            <p style="margin: 10px 0 0 0; color: #9ca3af; font-size: 11px;">
-              &copy; ${new Date().getFullYear()} Linco. All rights reserved.
+            <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 12px;">
+              &copy; ${new Date().getFullYear()} LinCo. All rights reserved.
             </p>
           </div>
 
