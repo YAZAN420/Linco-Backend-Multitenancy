@@ -5,6 +5,7 @@ export interface UserSecurityProps {
   refreshToken: string | null;
   twoFactorSecret: string | null;
   emailVerificationToken: string | null;
+  emailVerificationExpires: string | null;
   passwordResetToken: string | null;
   passwordResetExpires: Date | null;
 }

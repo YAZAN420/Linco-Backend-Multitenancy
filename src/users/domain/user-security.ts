@@ -24,6 +24,10 @@ export class UserSecurity {
     return this.props.isTwoFactorEnabled;
   }
 
+  get emailVerificationExpires(): string | null {
+    return this.props.emailVerificationExpires;
+  }
+
   get refreshToken(): string | null {
     return this.props.refreshToken;
   }
@@ -52,8 +56,9 @@ export class UserSecurity {
     this.props.refreshToken = newToken;
   }
 
-  setVerificationToken(token: string): void {
+  setVerificationToken(token: string, expiresAt: Date): void {
     this.props.emailVerificationToken = token;
+    this.props.emailVerificationExpires = expiresAt;
   }
 
   verifyEmail(providedToken: string): void {
@@ -65,6 +70,7 @@ export class UserSecurity {
     }
     this.props.isEmailVerified = true;
     this.props.emailVerificationToken = null;
+    this.props.emailVerificationExpires = null;
   }
 
   markEmailVerified(): void {

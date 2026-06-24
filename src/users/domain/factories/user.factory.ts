@@ -27,6 +27,7 @@ export class UserFactory {
       refreshToken: null,
       twoFactorSecret: null,
       emailVerificationToken: null,
+      emailVerificationExpires: null,
       passwordResetToken: null,
       passwordResetExpires: null,
     });

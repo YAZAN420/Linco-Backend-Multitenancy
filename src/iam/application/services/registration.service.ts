@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { SignUpDto } from 'src/iam/presentation/http/dto/sign-up.dto';
 import { CryptoPort } from '../ports/crypto.port';
@@ -19,6 +19,9 @@ export class RegistrationService {
   async signUp(signUpDto: SignUpDto) {
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
+
+    const expiresInMilliseconds = 15 * 60 * 1000;
+    const expiresAt = new Date(Date.now() + expiresInMilliseconds);
 
     const newUser = await this.usersCommandService.create({
       ...signUpDto,
@@ -44,5 +47,27 @@ export class RegistrationService {
     const user =
       await this.usersCommandService.verifyEmailWithToken(hashedToken);
     this.logger.log(`Email verified for user: ${user.id}`);
+  }
+
+  async resendVerificationEmail(email: string): Promise<void> {
+    const user = await this.usersCommandService.findByEmail(email);
+
+    if (!user || user.security.isEmailVerified) {
+      throw new BadRequestException('User already verified or does not exist');
+    }
+    const verificationToken = this.cryptoPort.generateSecureToken();
+    const hashedToken = this.cryptoPort.hashToken(verificationToken);
+
+    const expiresInMilliseconds = 15 * 60 * 1000;
+    const expiresAt = new Date(Date.now() + expiresInMilliseconds);
+
+    await this.usersCommandService.setVerificationToken(user.id, hashedToken);
+
+    await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
+      email: email,
+      token: verificationToken,
+    });
+
+    this.logger.log(`New Email verification token sent for user: ${user.id}`);
   }
 }
