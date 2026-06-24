@@ -96,6 +96,15 @@ export class UsersCommandService {
     return user;
   }
 
+  async setVerificationToken(
+    userId: string,
+    hashedToken: string,
+  ): Promise<User> {
+    const user = await this.findById(userId);
+    user.security.setVerificationToken(hashedToken);
+    await this.userCommandRepository.save(user);
+    return user;
+  }
   async setPasswordResetToken(
     email: string,
     hashedToken: string,

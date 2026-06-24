@@ -25,7 +25,11 @@ export class RegistrationService {
       role: Role.USER,
       isEmailVerified: false,
     });
-    newUser.security.setVerificationToken(hashedToken);
+
+    await this.usersCommandService.setVerificationToken(
+      newUser.id,
+      hashedToken,
+    );
 
     await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
       email: signUpDto.email,
