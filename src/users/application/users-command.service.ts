@@ -99,9 +99,10 @@ export class UsersCommandService {
   async setVerificationToken(
     userId: string,
     hashedToken: string,
+    expiresAt: Date,
   ): Promise<User> {
     const user = await this.findById(userId);
-    user.security.setVerificationToken(hashedToken);
+    user.security.setVerificationToken(hashedToken, expiresAt);
     await this.userCommandRepository.save(user);
     return user;
   }

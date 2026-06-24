@@ -4,6 +4,7 @@ import { EmailNotVerifiedFor2FAException } from './exceptions/email-not-verified
 import { InvalidResetTokenException } from './exceptions/invalid-reset-token.exception';
 import { ResetTokenExpiredException } from './exceptions/reset-token-expired.exception';
 import { UserSecurityProps } from './interfaces/user-security.props';
+import { VerificationTokenExpiredException } from './exceptions/verification-token-expired.exception';
 
 export class UserSecurity {
   constructor(private readonly props: UserSecurityProps) {}
@@ -24,7 +25,7 @@ export class UserSecurity {
     return this.props.isTwoFactorEnabled;
   }
 
-  get emailVerificationExpires(): string | null {
+  get emailVerificationExpires(): Date | null {
     return this.props.emailVerificationExpires;
   }
 
@@ -68,14 +69,19 @@ export class UserSecurity {
     if (this.props.emailVerificationToken !== providedToken) {
       throw new InvalidVerificationTokenException();
     }
-    this.props.isEmailVerified = true;
-    this.props.emailVerificationToken = null;
-    this.props.emailVerificationExpires = null;
+    if (
+      !this.props.emailVerificationExpires ||
+      new Date(this.props.emailVerificationExpires) < new Date()
+    ) {
+      throw new VerificationTokenExpiredException();
+    }
+    this.markEmailVerified();
   }
 
   markEmailVerified(): void {
     this.props.isEmailVerified = true;
     this.props.emailVerificationToken = null;
+    this.props.emailVerificationExpires = null;
   }
 
   enableTwoFactorAuth(secret: string): void {

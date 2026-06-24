@@ -23,6 +23,7 @@ export class TwoFactorAuthController {
     await this.twoFactorService.turnOn(user.id, dto.tfaCode);
     return {
       message: 'Two-factor authentication successfully enabled',
+      data: null,
     };
   }
 }

@@ -15,6 +15,7 @@ export class PrismaUserMapper {
       refreshToken: raw.refreshToken,
       twoFactorSecret: raw.twoFactorSecret,
       emailVerificationToken: raw.emailVerificationToken,
+      emailVerificationExpires: raw.emailVerificationExpires,
       passwordResetToken: raw.passwordResetToken,
       passwordResetExpires: raw.passwordResetExpires,
     });
@@ -49,6 +50,7 @@ export class PrismaUserMapper {
       refreshToken: securityProps.refreshToken,
       twoFactorSecret: securityProps.twoFactorSecret,
       emailVerificationToken: securityProps.emailVerificationToken,
+      emailVerificationExpires: securityProps.emailVerificationExpires,
       passwordResetToken: securityProps.passwordResetToken,
       passwordResetExpires: securityProps.passwordResetExpires,
       createdAt: user.createdAt,

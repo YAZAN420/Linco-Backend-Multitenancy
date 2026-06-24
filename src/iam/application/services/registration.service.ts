@@ -32,6 +32,7 @@ export class RegistrationService {
     await this.usersCommandService.setVerificationToken(
       newUser.id,
       hashedToken,
+      expiresAt,
     );
 
     await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
@@ -61,7 +62,11 @@ export class RegistrationService {
     const expiresInMilliseconds = 15 * 60 * 1000;
     const expiresAt = new Date(Date.now() + expiresInMilliseconds);
 
-    await this.usersCommandService.setVerificationToken(user.id, hashedToken);
+    await this.usersCommandService.setVerificationToken(
+      user.id,
+      hashedToken,
+      expiresAt,
+    );
 
     await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
       email: email,

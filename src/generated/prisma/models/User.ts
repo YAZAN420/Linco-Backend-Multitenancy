@@ -38,6 +38,7 @@ export type UserMinAggregateOutputType = {
   isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
   emailVerificationToken: string | null
+  emailVerificationExpires: Date | null
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   createdAt: Date | null
@@ -58,6 +59,7 @@ export type UserMaxAggregateOutputType = {
   isTwoFactorEnabled: boolean | null
   isEmailVerified: boolean | null
   emailVerificationToken: string | null
+  emailVerificationExpires: Date | null
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   createdAt: Date | null
@@ -78,6 +80,7 @@ export type UserCountAggregateOutputType = {
   isTwoFactorEnabled: number
   isEmailVerified: number
   emailVerificationToken: number
+  emailVerificationExpires: number
   passwordResetToken: number
   passwordResetExpires: number
   createdAt: number
@@ -100,6 +103,7 @@ export type UserMinAggregateInputType = {
   isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
+  emailVerificationExpires?: true
   passwordResetToken?: true
   passwordResetExpires?: true
   createdAt?: true
@@ -120,6 +124,7 @@ export type UserMaxAggregateInputType = {
   isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
+  emailVerificationExpires?: true
   passwordResetToken?: true
   passwordResetExpires?: true
   createdAt?: true
@@ -140,6 +145,7 @@ export type UserCountAggregateInputType = {
   isTwoFactorEnabled?: true
   isEmailVerified?: true
   emailVerificationToken?: true
+  emailVerificationExpires?: true
   passwordResetToken?: true
   passwordResetExpires?: true
   createdAt?: true
@@ -233,6 +239,7 @@ export type UserGroupByOutputType = {
   isTwoFactorEnabled: boolean
   isEmailVerified: boolean
   emailVerificationToken: string | null
+  emailVerificationExpires: Date | null
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   createdAt: Date
@@ -274,6 +281,7 @@ export type UserWhereInput = {
   isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerificationExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -298,6 +306,7 @@ export type UserOrderByWithRelationInput = {
   isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerificationExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -325,6 +334,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isTwoFactorEnabled?: Prisma.BoolFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerificationExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -349,6 +359,7 @@ export type UserOrderByWithAggregationInput = {
   isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerificationExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +386,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isTwoFactorEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isEmailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   emailVerificationToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  emailVerificationExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   passwordResetToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -395,6 +407,7 @@ export type UserCreateInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -419,6 +432,7 @@ export type UserUncheckedCreateInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -443,6 +457,7 @@ export type UserUpdateInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -467,6 +482,7 @@ export type UserUncheckedUpdateInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -491,6 +507,7 @@ export type UserCreateManyInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -511,6 +528,7 @@ export type UserUpdateManyMutationInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -531,6 +549,7 @@ export type UserUncheckedUpdateManyInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -551,6 +570,7 @@ export type UserCountOrderByAggregateInput = {
   isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
+  emailVerificationExpires?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -571,6 +591,7 @@ export type UserMaxOrderByAggregateInput = {
   isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
+  emailVerificationExpires?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -591,6 +612,7 @@ export type UserMinOrderByAggregateInput = {
   isTwoFactorEnabled?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   emailVerificationToken?: Prisma.SortOrder
+  emailVerificationExpires?: Prisma.SortOrder
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -696,6 +718,7 @@ export type UserCreateWithoutDemoMembershipsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -719,6 +742,7 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -758,6 +782,7 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -781,6 +806,7 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -804,6 +830,7 @@ export type UserCreateWithoutOwnedDemosInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -827,6 +854,7 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -866,6 +894,7 @@ export type UserUpdateWithoutOwnedDemosInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -889,6 +918,7 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -912,6 +942,7 @@ export type UserCreateWithoutExamAttemptsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -935,6 +966,7 @@ export type UserUncheckedCreateWithoutExamAttemptsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -974,6 +1006,7 @@ export type UserUpdateWithoutExamAttemptsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -997,6 +1030,7 @@ export type UserUncheckedUpdateWithoutExamAttemptsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1020,6 +1054,7 @@ export type UserCreateWithoutPaymentsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -1043,6 +1078,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   createdAt?: Date | string
@@ -1082,6 +1118,7 @@ export type UserUpdateWithoutPaymentsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1105,6 +1142,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1186,6 +1224,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
+  emailVerificationExpires?: boolean
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   createdAt?: boolean
@@ -1211,6 +1250,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
+  emailVerificationExpires?: boolean
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   createdAt?: boolean
@@ -1231,6 +1271,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
+  emailVerificationExpires?: boolean
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   createdAt?: boolean
@@ -1251,13 +1292,14 @@ export type UserSelectScalar = {
   isTwoFactorEnabled?: boolean
   isEmailVerified?: boolean
   emailVerificationToken?: boolean
+  emailVerificationExpires?: boolean
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "emailVerificationExpires" | "passwordResetToken" | "passwordResetExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
@@ -1290,6 +1332,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isTwoFactorEnabled: boolean
     isEmailVerified: boolean
     emailVerificationToken: string | null
+    emailVerificationExpires: Date | null
     passwordResetToken: string | null
     passwordResetExpires: Date | null
     createdAt: Date
@@ -1734,6 +1777,7 @@ export interface UserFieldRefs {
   readonly isTwoFactorEnabled: Prisma.FieldRef<"User", 'Boolean'>
   readonly isEmailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly emailVerificationToken: Prisma.FieldRef<"User", 'String'>
+  readonly emailVerificationExpires: Prisma.FieldRef<"User", 'DateTime'>
   readonly passwordResetToken: Prisma.FieldRef<"User", 'String'>
   readonly passwordResetExpires: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
