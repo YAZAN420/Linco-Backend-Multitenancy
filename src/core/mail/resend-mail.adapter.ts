@@ -27,7 +27,6 @@ export class ResendMailAdapter implements MailPort {
         <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-top: 6px solid #1e3a8a;">
           
           <div style="padding: 40px 20px 10px; text-align: center;">
-            <!-- صورة الحبار -->
             <img src="${this.mascotImageUrl}" alt="LinCo Mascot" width="120" style="display: block; margin: 0 auto 20px;" />
             <h1 style="color: #1e3a8a; margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.5px;">Welcome to LinCo!</h1>
           </div>
@@ -46,7 +45,7 @@ export class ResendMailAdapter implements MailPort {
 
           <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
             <p style="margin: 0; color: #64748b; font-size: 12px;">
-              This link will expire in 24 hours. If you didn't create an account, you can safely ignore this email.
+              This link will expire in 1 hour. If you didn't create an account, you can safely ignore this email.
             </p>
             <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 12px;">
               &copy; ${new Date().getFullYear()} LinCo. All rights reserved.
@@ -68,7 +67,6 @@ export class ResendMailAdapter implements MailPort {
         <div style="max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-top: 6px solid #1e3a8a;">
           
           <div style="padding: 40px 20px 10px; text-align: center;">
-            <!-- صورة الحبار -->
             <img src="${this.mascotImageUrl}" alt="LinCo Mascot" width="120" style="display: block; margin: 0 auto 20px;" />
             <h1 style="color: #1e3a8a; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">Password Reset</h1>
           </div>
@@ -111,7 +109,7 @@ export class ResendMailAdapter implements MailPort {
         from: `Linco <${this.mailConfiguration.fromAddress}>`,
         to: [to],
         subject: subject,
-        replyTo: 'yazanmahfooz8@gmail.com',
+        replyTo: 'noreply@lincolms.me',
         html: htmlContent,
       });
 

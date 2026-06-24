@@ -20,7 +20,7 @@ export class RegistrationService {
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
-    const expiresInMilliseconds = 15 * 60 * 1000;
+    const expiresInMilliseconds = 60 * 60 * 1000;
     const expiresAt = new Date(Date.now() + expiresInMilliseconds);
 
     const newUser = await this.usersCommandService.create({
@@ -59,7 +59,7 @@ export class RegistrationService {
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);
 
-    const expiresInMilliseconds = 15 * 60 * 1000;
+    const expiresInMilliseconds = 60 * 60 * 1000;
     const expiresAt = new Date(Date.now() + expiresInMilliseconds);
 
     await this.usersCommandService.setVerificationToken(
