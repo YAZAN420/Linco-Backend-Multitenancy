@@ -7,20 +7,9 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: server_db
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
     env_file:
       - .env
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - '5050:80'
-    depends_on:
-      - postgres
 
   redis:
     image: redis
