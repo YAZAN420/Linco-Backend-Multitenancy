@@ -39,7 +39,7 @@ export class CreateUserDto implements CreateUserInput {
   @IsString()
   @MinLength(8)
   @MaxLength(128)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/, {
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/, {
     message:
       'Password must contain uppercase, lowercase, number, and special character',
   })
