@@ -6,11 +6,14 @@ import { Demo } from '../domain/demo';
 import { CreateDemoInput } from './interfaces/create-demo-input.interface';
 import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
 import { Name } from '../domain/value-objects/name.vo';
+import { DemoMembersCommandService } from './demo-members-command.service';
+import { DemoMemberRole } from '../domain/enums/demo-member-role.enum';
 
 @Injectable()
 export class DemosCommandService {
   constructor(
     private readonly demoCommandRepository: DemoCommandRepository,
+    private readonly demoMemberCommandService: DemoMembersCommandService,
     private readonly demoFactory: DemoFactory,
   ) {}
 
@@ -23,6 +26,10 @@ export class DemosCommandService {
     );
     await this.demoCommandRepository.save(demo);
 
+    await this.demoMemberCommandService.addMember(demo.id, {
+      userId: input.ownerId,
+      role: DemoMemberRole.OWNER,
+    });
     return demo;
   }
 
