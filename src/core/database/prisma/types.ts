@@ -9,7 +9,7 @@ export type CourseWithSections = Prisma.CourseGetPayload<{
 }>;
 
 export type QuestionsBankWithQuestionChoices = Prisma.QuestionsBankGetPayload<{
-  include: { choices : true };
+  include: { choices: true };
 }>;
 
 export type DemoWithDepartments = Prisma.DemoGetPayload<{
@@ -21,7 +21,13 @@ export type DemoMemberWithUser = Prisma.DemoMemberGetPayload<{
 }>;
 
 export type AssetWithCourse = Prisma.AssetGetPayload<{
-  include: { course: true };
+  include: {
+    course: {
+      include: {
+        demo: true;
+      };
+    };
+  };
 }>;
 
 export type DepartmentCourseWithAssetWithCourse =
@@ -32,3 +38,9 @@ export type DepartmentCourseWithAssetWithCourse =
       };
     };
   }>;
+
+export type CourseWithDemo = Prisma.CourseGetPayload<{
+  include: {
+    demo: true;
+  };
+}>;

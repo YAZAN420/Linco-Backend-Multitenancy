@@ -6,7 +6,7 @@ import { Title } from '../value-objects/title.vo';
 export interface CourseProps {
   title: Title;
   visibility: CourseVisibility;
-  authorDemoId: string | null;
+  demoId: string;
   price: Price;
   sections: Section[];
   createdAt: Date;

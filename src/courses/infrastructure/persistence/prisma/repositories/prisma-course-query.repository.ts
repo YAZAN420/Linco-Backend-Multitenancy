@@ -5,7 +5,7 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Course } from 'src/generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
@@ -13,6 +13,7 @@ import {
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
 import { Section } from 'src/generated/prisma/client';
+import { CourseWithDemo } from 'src/core/database/prisma/types';
 
 const COURSE_SEARCH_COLUMNS = [];
 const COURSE_ORDERABLE_FIELDS = ['createdAt'];
@@ -33,7 +34,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     };
   }
 
-  async findAll(options: FindCoursesQuery): Promise<PageDto<Course>> {
+  async findAll(options: FindCoursesQuery): Promise<PageDto<CourseWithDemo>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -43,6 +44,9 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        include: {
+          demo: true,
+        },
       }),
       this.prisma.course.count({ where }),
     ]);
@@ -55,7 +59,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
 
   async findAllCursor(
     options: FindCoursesCursorQuery,
-  ): Promise<CursorPageDto<Course>> {
+  ): Promise<CursorPageDto<CourseWithDemo>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
@@ -65,6 +69,9 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       cursor: cursor ? { id: cursor } : undefined,
       where,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      include: {
+        demo: true,
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -78,9 +85,14 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Course | null> {
+  async findById(id: string): Promise<CourseWithDemo | null> {
     return this.prisma.course.findUnique({
-      where: { id },
+      where: {
+        id,
+      },
+      include: {
+        demo: true,
+      },
     });
   }
 

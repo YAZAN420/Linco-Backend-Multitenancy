@@ -10,7 +10,7 @@ export class CourseFactory {
   public createNew(
     title: string,
     visibility: CourseVisibility,
-    authorDemoId: string,
+    demoId: string,
     price?: number | null,
   ): Course {
     const now = new Date();
@@ -20,7 +20,7 @@ export class CourseFactory {
       title: titleVo,
       visibility,
       price: priceVo,
-      authorDemoId: authorDemoId ?? null,
+      demoId: demoId ?? null,
       sections: [],
       createdAt: now,
       updatedAt: now,

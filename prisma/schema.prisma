@@ -110,21 +110,21 @@ model Demo {
 
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
 
-  authoredCourses Course[]        @relation("AuthoredCourses")
+  courses     Course[]
   assets     Asset[]
 }
 
 model Course {
-  id            String             @id 
-  title         String
-  visibility    CourseVisibility   @default(PRIVATE)
-  price         Float?          
+  id         String           @id 
+  title      String
+  visibility CourseVisibility @default(PRIVATE)
+  price      Float?          
 
-  authorDemoId  String?
-  authorDemo    Demo?              @relation("AuthoredCourses", fields: [authorDemoId], references: [id], onDelete: SetNull)
+  demoId     String
+  demo       Demo             @relation(fields: [demoId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
 
   assets     Asset[]
   sections   Section[]

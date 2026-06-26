@@ -50,7 +50,11 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
         },
         orderBy: orderBy.length > 0 ? orderBy : [{ acquiredAt: 'desc' }],
         include: {
-          course: true,
+          course: {
+            include: {
+              demo: true,
+            },
+          },
         },
       }),
       this.prisma.asset.count({ where }),
@@ -79,7 +83,11 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
       include: {
-        course: true,
+        course: {
+          include: {
+            demo: true,
+          },
+        },
       },
     });
 
@@ -98,7 +106,11 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
     return this.prisma.asset.findUnique({
       where: { id },
       include: {
-        course: true,
+        course: {
+          include: {
+            demo: true,
+          },
+        },
       },
     });
   }

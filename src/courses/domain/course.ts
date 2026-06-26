@@ -32,8 +32,8 @@ export class Course {
     return this.props.price.value;
   }
 
-  get authorDemoId(): string | null {
-    return this.props.authorDemoId;
+  get demoId(): string {
+    return this.props.demoId;
   }
 
   get sections(): Section[] {

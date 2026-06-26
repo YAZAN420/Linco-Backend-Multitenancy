@@ -12,15 +12,14 @@ import appConfig from 'src/common/config/app.config';
         return {
           pinoHttp: {
             level: isProduction ? 'info' : 'debug',
-            transport: isProduction
-              ? undefined
-              : {
-                  target: 'pino-pretty',
-                  options: {
-                    singleLine: true,
-                    colorize: true,
-                  },
-                },
+
+            transport: {
+              target: 'pino-pretty',
+              options: {
+                singleLine: true,
+                colorize: true,
+              },
+            },
           },
         };
       },

@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CourseResponseDto } from '../dto/course-response.dto';
-import { Course as PrismaCourse } from 'src/generated/prisma/client';
 import { Course as DomainCourse } from 'src/courses/domain/course';
+import { CourseWithDemo } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class CourseResponseMapper {
-  toResponseFromPrisma(course: PrismaCourse): CourseResponseDto {
+  toResponseFromPrisma(course: CourseWithDemo): CourseResponseDto {
     return new CourseResponseDto(
       course.id,
       course.title,
       course.visibility,
-      course.authorDemoId,
       course.price,
       course.createdAt,
       course.updatedAt,
+      course.demo,
     );
   }
 
@@ -22,14 +22,13 @@ export class CourseResponseMapper {
       course.id,
       course.title,
       course.visibility,
-      course.authorDemoId,
       course.price,
       course.createdAt,
       course.updatedAt,
     );
   }
 
-  toResponseManyFromPrisma(courses: PrismaCourse[]): CourseResponseDto[] {
+  toResponseManyFromPrisma(courses: CourseWithDemo[]): CourseResponseDto[] {
     return courses.map((course) => this.toResponseFromPrisma(course));
   }
 }

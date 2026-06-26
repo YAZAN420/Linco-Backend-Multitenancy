@@ -9,19 +9,24 @@ import { Title } from '../domain/value-objects/title.vo';
 import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
 @Injectable()
 export class CoursesCommandService {
   constructor(
     private readonly courseCommandRepository: CourseCommandRepository,
+    private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
   ) {}
 
   async create(input: CreateCourseInput): Promise<Course> {
+    const demoExists = await this.demoQueryRepository.demoExists(input.demoId);
+    if (!demoExists) throw new NotFoundException('demo not found');
+
     const course = this.courseFactory.createNew(
       input.title,
       input.visibility,
-      input.authorDemoId,
+      input.demoId,
       input.price,
     );
 
@@ -29,7 +34,7 @@ export class CoursesCommandService {
 
     this.eventEmitter.emit(
       'course.created',
-      new CourseCreatedEvent(input.authorDemoId, course.id),
+      new CourseCreatedEvent(input.demoId, course.id),
     );
 
     return course;

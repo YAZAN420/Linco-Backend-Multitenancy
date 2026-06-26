@@ -7,24 +7,27 @@ import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
 } from './interfaces/find-courses.query';
-import { Course } from 'src/generated/prisma/client';
+
 import { CourseQueryRepository } from './ports/course-query.repository';
+import { CourseWithDemo } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class CoursesQueryService {
   constructor(private readonly courseQueryRepository: CourseQueryRepository) {}
 
-  async findAll(pageOptionsDto: FindCoursesQuery): Promise<PageDto<Course>> {
+  async findAll(
+    pageOptionsDto: FindCoursesQuery,
+  ): Promise<PageDto<CourseWithDemo>> {
     return this.courseQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
     options: FindCoursesCursorQuery,
-  ): Promise<CursorPageDto<Course>> {
+  ): Promise<CursorPageDto<CourseWithDemo>> {
     return this.courseQueryRepository.findAllCursor(options);
   }
 
-  async findById(courseId: string): Promise<Course> {
+  async findById(courseId: string): Promise<CourseWithDemo> {
     const course = await this.courseQueryRepository.findById(courseId);
     if (!course) throw new NotFoundException('Course not found');
     return course;
