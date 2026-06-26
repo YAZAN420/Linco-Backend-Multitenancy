@@ -6,6 +6,7 @@ import { DemoResponseMapper } from './mappers/demo-response.mapper';
 import { DemosCommandService } from 'src/demos/application/demos-command.service';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 
 @Controller('demos')
 export class DemosCommandController {
@@ -13,6 +14,13 @@ export class DemosCommandController {
     private readonly demoCommandService: DemosCommandService,
     private readonly demoResponseMapper: DemoResponseMapper,
   ) {}
+
+  @Post('upload-url')
+  async asyncgetUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    return await this.demoCommandService.generateDemoImageUploadUrl(
+      dto.fileName,
+    );
+  }
 
   @Post()
   async create(@ActiveUser() user: ActiveUserData, @Body() dto: CreateDemoDto) {

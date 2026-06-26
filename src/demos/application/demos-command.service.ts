@@ -8,6 +8,7 @@ import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
 import { Name } from '../domain/value-objects/name.vo';
 import { DemoMembersCommandService } from './demo-members-command.service';
 import { DemoMemberRole } from '../domain/enums/demo-member-role.enum';
+import { StoragePort } from 'src/core/storage/storage.port';
 
 @Injectable()
 export class DemosCommandService {
@@ -15,7 +16,17 @@ export class DemosCommandService {
     private readonly demoCommandRepository: DemoCommandRepository,
     private readonly demoMemberCommandService: DemoMembersCommandService,
     private readonly demoFactory: DemoFactory,
+    private readonly spacesService: StoragePort,
   ) {}
+
+  async generateDemoImageUploadUrl(fileName: string) {
+    return await this.spacesService.generateUploadUrl(
+      fileName,
+      'image/png',
+      true,
+      'demos',
+    );
+  }
 
   async create(input: CreateDemoInput): Promise<Demo> {
     const demo = this.demoFactory.createNew(

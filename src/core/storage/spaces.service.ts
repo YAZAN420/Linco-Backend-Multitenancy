@@ -1,25 +1,26 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
-import { StoragePort } from './storage.port';
 import type { ConfigType } from '@nestjs/config';
 import storageConfig from 'src/common/config/storage.config';
-
+import { GenerateUploadUrl } from './interfaces/generate-upload-url.interface';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 @Injectable()
-export class SpacesService implements StoragePort {
+export class SpacesService {
   private s3Client: S3Client;
 
   constructor(
     @Inject(storageConfig.KEY)
-    private readonly storageConfiguration: ConfigType<typeof storageConfig>,
+    private readonly config: ConfigType<typeof storageConfig>,
   ) {
     this.s3Client = new S3Client({
-      endpoint: this.storageConfiguration.originEndpoint!,
-      region: this.storageConfiguration.region!,
+      endpoint: this.config.originEndpoint!,
+      region: this.config.region!,
+      forcePathStyle: true,
       credentials: {
-        accessKeyId: this.storageConfiguration.accessKey!,
-        secretAccessKey: this.storageConfiguration.secretKey!,
+        accessKeyId: this.config.accessKey!,
+        secretAccessKey: this.config.secretKey!,
       },
     });
   }
@@ -27,23 +28,44 @@ export class SpacesService implements StoragePort {
   async generateUploadUrl(
     fileName: string,
     contentType: string,
-  ): Promise<{ uploadUrl: string; cdnUrl: string }> {
-    const fileExtension = fileName.split('.').pop();
-    const fileKey = `uploads/${uuidv4()}.${fileExtension}`;
+    isPublic: boolean,
+    folder?: string,
+  ): Promise<GenerateUploadUrl> {
+    const ext = fileName.split('.').pop();
 
-    const command = new PutObjectCommand({
-      Bucket: this.storageConfiguration.bucketName!,
+    const fileKey = `${folder}/${uuidv4()}.${ext}`;
+
+    const { url, fields } = await createPresignedPost(this.s3Client, {
+      Bucket: this.config.bucketName!,
       Key: fileKey,
-      ContentType: contentType,
-      ACL: 'public-read',
+      Conditions: [
+        ['eq', '$acl', isPublic ? 'public-read' : 'private'],
+        ['eq', '$Content-Type', contentType],
+      ],
+      Fields: {
+        acl: isPublic ? 'public-read' : 'private',
+        'Content-Type': contentType,
+      },
+      Expires: 900,
     });
 
-    const uploadUrl = await getSignedUrl(this.s3Client, command, {
-      expiresIn: 900,
+    return {
+      uploadUrl: url,
+      fields,
+      fileKey,
+      isPublic,
+      cdnUrl: isPublic ? `${this.config.cdnEndpoint}/${fileKey}` : null,
+    };
+  }
+
+  async generateDownloadUrl(fileKey: string) {
+    const command = new GetObjectCommand({
+      Bucket: this.config.bucketName,
+      Key: fileKey,
     });
 
-    const cdnUrl = `${this.storageConfiguration.cdnEndpoint!}/${fileKey}`;
-
-    return { uploadUrl, cdnUrl };
+    return await getSignedUrl(this.s3Client, command, {
+      expiresIn: 300,
+    });
   }
 }
