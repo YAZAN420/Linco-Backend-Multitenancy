@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type DemoMember = Prisma.DemoMemberModel
 /**
+ * Model DepartmentMember
+ * 
+ */
+export type DepartmentMember = Prisma.DepartmentMemberModel
+/**
  * Model Department
  * 
  */
@@ -102,3 +107,8 @@ export type DiscussionAnswer = Prisma.DiscussionAnswerModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel

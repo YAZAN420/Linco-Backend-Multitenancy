@@ -9,6 +9,7 @@ export class PrismaDepartmentMapper {
     const nameVo = Name.create(raw.name);
     return new Department(raw.id, {
       name: nameVo,
+      description: raw.description,
       managerId: raw.managerId,
       demoId: raw.demoId,
       createdAt: raw.createdAt,
@@ -20,6 +21,7 @@ export class PrismaDepartmentMapper {
     return {
       id: department.id,
       name: department.name,
+      description: department.description,
       managerId: department.managerId,
       demoId: department.demoId,
       createdAt: department.createdAt,

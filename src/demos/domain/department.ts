@@ -11,6 +11,10 @@ export class Department {
     return this.props.name.value;
   }
 
+  get description(): string {
+    return this.props.description;
+  }
+
   get demoId(): string {
     return this.props.demoId;
   }
@@ -33,6 +37,12 @@ export class Department {
   updateName(newName: Name): void {
     if (this.props.name.equals(newName)) return;
     this.props.name = newName;
+    this.touch();
+  }
+
+  updateDescription(newDescription: string): void {
+    if (this.props.description === newDescription) return;
+    this.props.description = newDescription;
     this.touch();
   }
 

@@ -10,6 +10,7 @@
  */
 export type * from './models/User'
 export type * from './models/DemoMember'
+export type * from './models/DepartmentMember'
 export type * from './models/Department'
 export type * from './models/Demo'
 export type * from './models/Course'
@@ -25,4 +26,5 @@ export type * from './models/DepartmentCourse'
 export type * from './models/DiscussionQuestion'
 export type * from './models/DiscussionAnswer'
 export type * from './models/Payment'
+export type * from './models/Tag'
 export type * from './commonInputTypes'

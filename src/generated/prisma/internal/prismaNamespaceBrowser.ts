@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   DemoMember: 'DemoMember',
+  DepartmentMember: 'DepartmentMember',
   Department: 'Department',
   Demo: 'Demo',
   Course: 'Course',
@@ -67,7 +68,8 @@ export const ModelName = {
   DepartmentCourse: 'DepartmentCourse',
   DiscussionQuestion: 'DiscussionQuestion',
   DiscussionAnswer: 'DiscussionAnswer',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Tag: 'Tag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -122,9 +124,20 @@ export const DemoMemberScalarFieldEnum = {
 export type DemoMemberScalarFieldEnum = (typeof DemoMemberScalarFieldEnum)[keyof typeof DemoMemberScalarFieldEnum]
 
 
+export const DepartmentMemberScalarFieldEnum = {
+  id: 'id',
+  departmentId: 'departmentId',
+  demoMemberId: 'demoMemberId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type DepartmentMemberScalarFieldEnum = (typeof DepartmentMemberScalarFieldEnum)[keyof typeof DepartmentMemberScalarFieldEnum]
+
+
 export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   managerId: 'managerId',
   demoId: 'demoId',
   createdAt: 'createdAt',
@@ -312,6 +325,16 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -38,6 +38,7 @@ export class DepartmentsCommandService {
       demoId,
       input.name,
       input.managerId,
+      input.description,
     );
     demo.addDepartment(newDepartment);
 
@@ -66,6 +67,10 @@ export class DepartmentsCommandService {
     if (input.name !== undefined) {
       const nameVo = Name.create(input.name);
       demo.renameDepartment(departmentId, nameVo);
+    }
+
+    if (input.description !== undefined) {
+      demo.updateDepartmentDescription(departmentId, input.description);
     }
 
     await this.demoCommandRepository.save(demo);

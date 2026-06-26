@@ -10,6 +10,7 @@ export class DepartmentResponseMapper {
       department.id,
       department.name,
       department.managerId,
+      department.description,
       department.createdAt,
       department.updatedAt,
     );
@@ -20,6 +21,7 @@ export class DepartmentResponseMapper {
       department.id,
       department.name,
       department.managerId,
+      department.description,
       department.createdAt,
       department.updatedAt,
     );

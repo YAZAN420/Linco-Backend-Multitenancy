@@ -107,6 +107,15 @@ export class Demo {
     this.touch();
   }
 
+  updateDepartmentDescription(
+    departmentId: string,
+    newDescription: string,
+  ): void {
+    const department = this.getDepartmentStrict(departmentId);
+    department.updateDescription(newDescription);
+    this.touch();
+  }
+
   reassignDepartmentManager(departmentId: string, newManagerId: string): void {
     const department = this.getDepartmentStrict(departmentId);
     department.updateManager(newManagerId);

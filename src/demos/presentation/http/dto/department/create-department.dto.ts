@@ -7,4 +7,7 @@ export class CreateDepartmentDto {
   @IsString()
   @IsNotEmpty()
   managerId!: string;
+  @IsString()
+  @IsNotEmpty()
+  description!: string;
 }

@@ -148,6 +148,7 @@ model Course {
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt
 
+  tags        Tag[]
   assets     Asset[]
   sections   Section[]
   payments   Payment[]
@@ -159,7 +160,6 @@ model Section {
   order         Int
   
   courseId      String
-
   course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
   lessons       Lesson[]
   questionsBank QuestionsBank[]
@@ -346,4 +346,14 @@ model Payment {
 
   @@index([userId])
   @@index([stripeSessionId])
+}
+
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique 
+  courses   Course[] 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
