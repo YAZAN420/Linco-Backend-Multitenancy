@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member-query.repository';
+
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
-import { FindDemoMembersCursorQuery } from 'src/demos/application/interfaces/find-demos.query';
+import { FindDemoMembersCursorQuery } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 import { DemoMember } from 'src/generated/prisma/client';
+import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
 
 @Injectable()
 export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepository {

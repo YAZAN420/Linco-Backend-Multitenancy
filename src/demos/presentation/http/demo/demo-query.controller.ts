@@ -1,13 +1,13 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindDemosCursorDto } from './dto/filters/find-demos-cursor.dto';
+import { FindDemosCursorDto } from '../dto/filters/find-demos-cursor.dto';
 
-import { DemosQueryService } from 'src/demos/application/demos-query.service';
+import { DemosQueryService } from 'src/demos/application/demo/demos-query.service';
 
-import { DemoResponseMapper } from './mappers/demo-response.mapper';
+import { DemoResponseMapper } from '../mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
-import { DepartmentResponseMapper } from './mappers/department-response.mapper';
+import { DepartmentResponseMapper } from '../mappers/department-response.mapper';
 
 @Controller('demos')
 export class DemosQueryController {

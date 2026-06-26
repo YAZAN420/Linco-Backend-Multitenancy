@@ -1,10 +1,9 @@
 import { Controller, Get, Query } from '@nestjs/common';
 
-import { FindDemosDto } from './dto/filters/find-demos.dto';
+import { FindDemosDto } from '../dto/filters/find-demos.dto';
 
-import { DemosQueryService } from 'src/demos/application/demos-query.service';
-
-import { DemoResponseMapper } from './mappers/demo-response.mapper';
+import { DemoResponseMapper } from '../mappers/demo-response.mapper';
+import { DemosQueryService } from 'src/demos/application/demo/demos-query.service';
 
 @Controller('admin/demos')
 export class AdminDemosQueryController {

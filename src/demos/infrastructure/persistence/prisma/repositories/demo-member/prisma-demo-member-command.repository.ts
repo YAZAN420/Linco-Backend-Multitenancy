@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { DemoMemberCommandRepository } from 'src/demos/application/ports/demo-member-command.repository';
+import { DemoMemberCommandRepository } from 'src/demos/application/ports/demo-member/demo-member-command.repository';
 import { DemoMember } from 'src/demos/domain/demo-member';
-import { PrismaDemoMemberMapper } from '../mappers/prisma-demo-member.mapper';
+import { PrismaDemoMemberMapper } from '../../mappers/prisma-demo-member.mapper';
 
 @Injectable()
 export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepository {

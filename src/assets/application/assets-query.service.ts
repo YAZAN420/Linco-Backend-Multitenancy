@@ -8,7 +8,7 @@ import {
   FindAssetsQuery,
 } from './interfaces/find-assets.query';
 import { AssetQueryRepository } from './ports/asset-query.repository';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { AssetWithCourse } from 'src/core/database/prisma/types';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { Department } from 'src/generated/prisma/client';
-import { DemoQueryRepository } from './ports/demo-query.repository';
-import { FindDepartmentCursorQuery } from './interfaces/find-demos.query';
+import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
+import { FindDepartmentCursorQuery } from '../demo/interfaces/find-demos.query';
 
 @Injectable()
 export class DepartmentsQueryService {

@@ -9,7 +9,7 @@ import { Title } from '../domain/value-objects/title.vo';
 import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 @Injectable()
 export class CoursesCommandService {
   constructor(

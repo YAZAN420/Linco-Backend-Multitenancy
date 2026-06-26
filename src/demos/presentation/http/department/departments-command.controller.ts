@@ -1,7 +1,8 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { DepartmentsCommandService } from 'src/demos/application/departments-command.service';
-import { CreateDepartmentDto } from './dto/create-department.dto';
-import { UpdateDepartmentDto } from './dto/update-department.dto';
+
+import { CreateDepartmentDto } from '../dto/department/create-department.dto';
+import { UpdateDepartmentDto } from '../dto/department/update-department.dto';
+import { DepartmentsCommandService } from 'src/demos/application/department/departments-command.service';
 
 @Controller('demos/:demoId/departments')
 export class DepartmentsCommandController {

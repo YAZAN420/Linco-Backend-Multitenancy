@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DemoCommandRepository } from './ports/demo-command.repository';
-import { DepartmentFactory } from '../domain/factories/department.factory';
+import { DomainException } from 'src/common/exceptions/domain.exception';
+import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
+import { DemoMemberCommandRepository } from '../ports/demo-member/demo-member-command.repository';
+import { DepartmentFactory } from 'src/demos/domain/factories/department.factory';
 import { CreateDepartmentInput } from './interfaces/create-department-input.interface';
 import { UpdateDepartmentInput } from './interfaces/update-department-input.interface';
-import { DemoMemberCommandRepository } from './ports/demo-member-command.repository';
-import { Name } from '../domain/value-objects/name.vo';
-import { DomainException } from 'src/common/exceptions/domain.exception';
+import { Name } from 'src/demos/domain/value-objects/name.vo';
 
 @Injectable()
 export class DepartmentsCommandService {

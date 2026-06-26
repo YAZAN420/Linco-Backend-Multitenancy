@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DemoResponseDto } from '../dto/demo-response.dto';
+import { DemoResponseDto } from '../dto/demo/demo-response.dto';
 
 import { Demo as DomainDemo } from 'src/demos/domain/demo';
 import { DepartmentResponseMapper } from './department-response.mapper';

@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DemoMemberQueryRepository } from './ports/demo-member-query.repository';
+
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import { FindDemoMembersCursorQuery } from './interfaces/find-demos.query';
-import { DemoQueryRepository } from './ports/demo-query.repository';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
+import { DemoMemberQueryRepository } from '../ports/demo-member/demo-member-query.repository';
+import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
+import { FindDemoMembersCursorQuery } from '../demo/interfaces/find-demos.query';
 
 @Injectable()
 export class DemoMembersQueryService {

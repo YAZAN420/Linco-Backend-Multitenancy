@@ -82,12 +82,29 @@ model DemoMember {
   discussionQuestions DiscussionQuestion[]
   discussionAnswers   DiscussionAnswer[]
 
+  accessibleDepartments DepartmentMember[]
+
   @@unique([userId, demoId])
+}
+
+model DepartmentMember {
+  id           String     @id @default(uuid())
+  departmentId String
+  demoMemberId String
+  assignedAt   DateTime   @default(now())
+
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  demoMember   DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+
+  @@unique([departmentId, demoMemberId])
+  @@index([departmentId])
+  @@index([demoMemberId])
 }
 
 model Department {
   id         String   @id
   name       String
+  description  String
   managerId  String
   demoId     String
   createdAt  DateTime @default(now())
@@ -96,6 +113,8 @@ model Department {
   manager DemoMember @relation(fields: [managerId], references: [id], onDelete: Restrict)
   demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
   courses    DepartmentCourse[]
+
+  members DepartmentMember[]
 }
 
 model Demo {

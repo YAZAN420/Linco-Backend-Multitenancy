@@ -8,7 +8,7 @@ import {
   FindDepartmentCoursesQuery,
 } from './interfaces/find-departmentCourses.query';
 import { DepartmentCourseQueryRepository } from './ports/departmentCourse-query.repository';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
 
 @Injectable()

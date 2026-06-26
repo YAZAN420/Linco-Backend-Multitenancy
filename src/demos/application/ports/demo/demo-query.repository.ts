@@ -1,11 +1,12 @@
 import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
+
+import { Department } from 'src/generated/prisma/client';
+import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
   FindDepartmentCursorQuery,
-} from '../interfaces/find-demos.query';
-import { Department } from 'src/generated/prisma/client';
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+} from '../../demo/interfaces/find-demos.query';
 
 export abstract class DemoQueryRepository {
   abstract findAll(

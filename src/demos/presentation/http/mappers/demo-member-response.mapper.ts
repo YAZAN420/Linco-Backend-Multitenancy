@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DemoMemberResponseDto } from '../dto/demo-member-response.dto';
+import { DemoMemberResponseDto } from '../dto/demo-member/demo-member-response.dto';
 import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 import { UserResponseMapper } from 'src/users/presentation/http/mappers/user-response.mapper';

@@ -38,7 +38,13 @@ export type DepartmentCourseWithAssetWithCourse =
   Prisma.DepartmentCourseGetPayload<{
     include: {
       asset: {
-        include: { course: true };
+        include: {
+          course: {
+            include: {
+              demo: true;
+            };
+          };
+        };
       };
     };
   }>;

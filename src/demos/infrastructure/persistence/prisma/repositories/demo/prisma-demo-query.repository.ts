@@ -10,8 +10,8 @@ import {
   FindDemosCursorQuery,
   FindDemosQuery,
   FindDepartmentCursorQuery,
-} from 'src/demos/application/interfaces/find-demos.query';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+} from 'src/demos/application/demo/interfaces/find-demos.query';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 
 const DEMO_SEARCH_COLUMNS = [];

@@ -8,9 +8,10 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { DemoMembersCommandService } from 'src/demos/application/demo-members-command.service';
-import { CreateDemoMemberDto } from './dto/create-demo-member.dto';
-import { UpdateDemoMemberDto } from './dto/update-demo-member.dto';
+
+import { CreateDemoMemberDto } from '../dto/demo-member/create-demo-member.dto';
+import { UpdateDemoMemberDto } from '../dto/demo-member/update-demo-member.dto';
+import { DemoMembersCommandService } from 'src/demos/application/demo-member/demo-members-command.service';
 
 @Controller('demos/:demoId/members')
 export class DemoMembersCommandController {

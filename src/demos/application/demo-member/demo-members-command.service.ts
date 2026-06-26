@@ -3,9 +3,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { DemoCommandRepository } from './ports/demo-command.repository';
-import { DemoMemberCommandRepository } from './ports/demo-member-command.repository';
-import { DemoMemberFactory } from '../domain/factories/demo-member.factory';
+import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
+import { DemoMemberCommandRepository } from '../ports/demo-member/demo-member-command.repository';
+import { DemoMemberFactory } from 'src/demos/domain/factories/demo-member.factory';
 import { CreateDemoMemberInput } from './interfaces/create-demo-member-input.interface';
 import { UpdateDemoMemberInput } from './interfaces/update-demo-member-input.interface';
 

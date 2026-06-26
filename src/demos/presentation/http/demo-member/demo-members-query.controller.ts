@@ -1,7 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { DemoMembersQueryService } from 'src/demos/application/demo-members-query.service';
-import { DemoMemberResponseMapper } from './mappers/demo-member-response.mapper';
+
+import { DemoMemberResponseMapper } from '../mappers/demo-member-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
+import { DemoMembersQueryService } from 'src/demos/application/demo-member/demo-members-query.service';
 
 @Controller('demos/:demoId/members')
 export class DemoMembersQueryController {

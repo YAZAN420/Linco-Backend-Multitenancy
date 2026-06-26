@@ -1,7 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { DepartmentsQueryService } from 'src/demos/application/departments-query.service';
-import { DepartmentResponseMapper } from './mappers/department-response.mapper';
+
+import { DepartmentResponseMapper } from '../mappers/department-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
+import { DepartmentsQueryService } from 'src/demos/application/department/departments-query.service';
 
 @Controller('demos/:demoId/departments')
 export class DepartmentsQueryController {

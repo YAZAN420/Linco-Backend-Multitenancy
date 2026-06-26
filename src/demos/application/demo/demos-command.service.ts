@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DemoCommandRepository } from './ports/demo-command.repository';
-import { DemoFactory } from '../domain/factories/demo.factory';
-import { Demo } from '../domain/demo';
 
-import { CreateDemoInput } from './interfaces/create-demo-input.interface';
-import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
-import { Name } from '../domain/value-objects/name.vo';
-import { DemoMembersCommandService } from './demo-members-command.service';
-import { DemoMemberRole } from '../domain/enums/demo-member-role.enum';
 import { StoragePort } from 'src/core/storage/storage.port';
+import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
+import { DemoMembersCommandService } from '../demo-member/demo-members-command.service';
+import { DemoFactory } from 'src/demos/domain/factories/demo.factory';
+import { CreateDemoInput } from './interfaces/create-demo-input.interface';
+import { Demo } from 'src/demos/domain/demo';
+import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
+import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
+import { Name } from 'src/demos/domain/value-objects/name.vo';
 
 @Injectable()
 export class DemosCommandService {

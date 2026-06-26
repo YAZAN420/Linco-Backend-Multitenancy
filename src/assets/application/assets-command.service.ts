@@ -6,8 +6,8 @@ import { Asset } from '../domain/asset';
 import { CreateAssetInput } from './interfaces/create-asset-input.interface';
 import { UpdateAssetInput } from './interfaces/update-asset-input.interface';
 
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 
 @Injectable()
 export class AssetsCommandService {

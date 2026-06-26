@@ -4,7 +4,7 @@ import { DepartmentCourseFactory } from '../domain/factories/departmentCourse.fa
 import { DepartmentCourse } from '../domain/departmentCourse';
 
 import { CreateDepartmentCourseInput } from './interfaces/create-departmentCourse-input.interface';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 
 @Injectable()
 export class DepartmentCoursesCommandService {

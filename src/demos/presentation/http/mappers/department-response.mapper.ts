@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Department as PrismaDepartment } from 'src/generated/prisma/client';
 import { Department as DomainDepartment } from 'src/demos/domain/department';
-import { DepartmentResponseDto } from '../dto/department-response.dto';
+import { DepartmentResponseDto } from '../dto/department/department-response.dto';
 
 @Injectable()
 export class DepartmentResponseMapper {

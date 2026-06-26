@@ -1,4 +1,4 @@
-import { DemoResponseDto } from 'src/demos/presentation/http/dto/demo-response.dto';
+import { DemoResponseDto } from 'src/demos/presentation/http/dto/demo/demo-response.dto';
 
 export class CourseResponseDto {
   constructor(

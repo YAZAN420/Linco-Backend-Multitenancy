@@ -3,12 +3,12 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
+import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
 } from './interfaces/find-demos.query';
-import { DemoQueryRepository } from './ports/demo-query.repository';
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
 
 @Injectable()
 export class DemosQueryService {
