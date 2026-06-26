@@ -5,11 +5,18 @@ import { Name } from '../value-objects/name.vo';
 
 @Injectable()
 export class DemoFactory {
-  createNew(name: string, ownerId: string): Demo {
+  createNew(
+    name: string,
+    ownerId: string,
+    imagePath: string,
+    description: string,
+  ): Demo {
     const now = new Date();
     const nameVo = Name.create(name);
     return new Demo(uuidv7(), {
       name: nameVo,
+      imagePath,
+      description,
       ownerId,
       departments: [],
       createdAt: now,

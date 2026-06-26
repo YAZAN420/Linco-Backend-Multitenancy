@@ -5,4 +5,12 @@ export class UpdateDemoDto implements UpdateDemoInput {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @IsOptional()
+  @IsString()
+  imagePath?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
 }

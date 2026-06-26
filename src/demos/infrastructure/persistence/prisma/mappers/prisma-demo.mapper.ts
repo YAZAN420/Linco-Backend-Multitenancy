@@ -13,6 +13,8 @@ export class PrismaDemoMapper {
     const nameVo = Name.create(raw.name);
     return new Demo(raw.id, {
       name: nameVo,
+      imagePath: raw.imagePath,
+      description: raw.description,
       ownerId: raw.ownerId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
@@ -26,6 +28,8 @@ export class PrismaDemoMapper {
     return {
       id: demo.id,
       name: demo.name,
+      imagePath: demo.imagePath,
+      description: demo.description,
       ownerId: demo.ownerId,
       createdAt: demo.createdAt,
       updatedAt: demo.updatedAt,

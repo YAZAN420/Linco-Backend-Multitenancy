@@ -4,15 +4,18 @@ import {
   FindDemosQuery,
   FindDepartmentCursorQuery,
 } from '../interfaces/find-demos.query';
-import { Demo, Department } from 'src/generated/prisma/client';
+import { Department } from 'src/generated/prisma/client';
+import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 
 export abstract class DemoQueryRepository {
-  abstract findAll(options: FindDemosQuery): Promise<PageDto<Demo>>;
+  abstract findAll(
+    options: FindDemosQuery,
+  ): Promise<PageDto<DemoWithMemberCount>>;
   abstract findAllForMe(
     options: FindDemosCursorQuery,
     userId: string,
-  ): Promise<CursorPageDto<Demo>>;
-  abstract findById(id: string): Promise<Demo | null>;
+  ): Promise<CursorPageDto<DemoWithMemberCount>>;
+  abstract findById(id: string): Promise<DemoWithMemberCount | null>;
   abstract findDepartments(
     options: FindDepartmentCursorQuery,
     demoId: string,

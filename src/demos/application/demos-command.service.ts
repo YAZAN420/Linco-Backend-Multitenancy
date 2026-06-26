@@ -15,7 +15,12 @@ export class DemosCommandService {
   ) {}
 
   async create(input: CreateDemoInput): Promise<Demo> {
-    const demo = this.demoFactory.createNew(input.name, input.ownerId);
+    const demo = this.demoFactory.createNew(
+      input.name,
+      input.ownerId,
+      input.imagePath,
+      input.description,
+    );
     await this.demoCommandRepository.save(demo);
 
     return demo;
@@ -25,6 +30,12 @@ export class DemosCommandService {
     const demo = await this.findById(id);
     if (input.name !== undefined) {
       demo.updateName(Name.create(input.name));
+    }
+    if (input.imagePath !== undefined) {
+      demo.updateImagePath(input.imagePath);
+    }
+    if (input.description !== undefined) {
+      demo.updateDescription(input.description);
     }
     await this.demoCommandRepository.save(demo);
     return demo;

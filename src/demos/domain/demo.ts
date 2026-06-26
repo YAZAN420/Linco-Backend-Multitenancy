@@ -18,6 +18,14 @@ export class Demo {
     return this.props.updatedAt;
   }
 
+  get imagePath(): string {
+    return this.props.imagePath;
+  }
+
+  get description(): string {
+    return this.props.description;
+  }
+
   get name(): string {
     return this.props.name.value;
   }
@@ -33,6 +41,18 @@ export class Demo {
   updateName(newName: Name): void {
     if (this.props.name.equals(newName)) return;
     this.props.name = newName;
+    this.touch();
+  }
+
+  updateImagePath(newImagePath: string): void {
+    if (this.props.imagePath === newImagePath) return;
+    this.props.imagePath = newImagePath;
+    this.touch();
+  }
+
+  updateDescription(newDescription: string): void {
+    if (this.props.description === newDescription) return;
+    this.props.description = newDescription;
     this.touch();
   }
 

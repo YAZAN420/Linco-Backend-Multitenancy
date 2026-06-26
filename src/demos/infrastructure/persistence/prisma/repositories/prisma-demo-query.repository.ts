@@ -5,13 +5,14 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Demo, Department } from 'src/generated/prisma/client';
+import { Prisma, Department } from 'src/generated/prisma/client';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
   FindDepartmentCursorQuery,
 } from 'src/demos/application/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo-query.repository';
+import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 
 const DEMO_SEARCH_COLUMNS = [];
 const DEMO_ORDERABLE_FIELDS = ['createdAt'];
@@ -29,7 +30,9 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     };
   }
 
-  async findAll(options: FindDemosQuery): Promise<PageDto<Demo>> {
+  async findAll(
+    options: FindDemosQuery,
+  ): Promise<PageDto<DemoWithMemberCount>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -39,6 +42,11 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         take: options.take,
         where,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        include: {
+          _count: {
+            select: { members: true },
+          },
+        },
       }),
       this.prisma.demo.count({ where }),
     ]);
@@ -52,7 +60,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   async findAllForMe(
     options: FindDemosCursorQuery,
     userId: string,
-  ): Promise<CursorPageDto<Demo>> {
+  ): Promise<CursorPageDto<DemoWithMemberCount>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
@@ -65,6 +73,11 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         ownerId: userId,
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      include: {
+        _count: {
+          select: { members: true },
+        },
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -78,9 +91,14 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Demo | null> {
+  async findById(id: string): Promise<DemoWithMemberCount | null> {
     return this.prisma.demo.findUnique({
       where: { id },
+      include: {
+        _count: {
+          select: { members: true },
+        },
+      },
     });
   }
 

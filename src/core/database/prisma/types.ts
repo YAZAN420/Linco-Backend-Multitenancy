@@ -20,6 +20,10 @@ export type DemoMemberWithUser = Prisma.DemoMemberGetPayload<{
   include: { user: true };
 }>;
 
+export type DemoWithMemberCount = Prisma.DemoGetPayload<{
+  include: { _count: { select: { members: true } } };
+}>;
+
 export type AssetWithCourse = Prisma.AssetGetPayload<{
   include: {
     course: {

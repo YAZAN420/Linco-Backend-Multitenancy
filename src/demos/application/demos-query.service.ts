@@ -7,25 +7,27 @@ import {
   FindDemosCursorQuery,
   FindDemosQuery,
 } from './interfaces/find-demos.query';
-import { Demo } from 'src/generated/prisma/client';
 import { DemoQueryRepository } from './ports/demo-query.repository';
+import { DemoWithMemberCount } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class DemosQueryService {
   constructor(private readonly demoQueryRepository: DemoQueryRepository) {}
 
-  async findAll(pageOptionsDto: FindDemosQuery): Promise<PageDto<Demo>> {
+  async findAll(
+    pageOptionsDto: FindDemosQuery,
+  ): Promise<PageDto<DemoWithMemberCount>> {
     return this.demoQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllForMe(
     options: FindDemosCursorQuery,
     id: string,
-  ): Promise<CursorPageDto<Demo>> {
+  ): Promise<CursorPageDto<DemoWithMemberCount>> {
     return this.demoQueryRepository.findAllForMe(options, id);
   }
 
-  async findById(id: string): Promise<Demo> {
+  async findById(id: string): Promise<DemoWithMemberCount> {
     const demo = await this.demoQueryRepository.findById(id);
     if (!demo) throw new NotFoundException('Demo not found');
     return demo;
