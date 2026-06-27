@@ -47,7 +47,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
         orderBy: orderBy.length > 0 ? orderBy : [{ assignedAt: 'desc' }],
         include: {
           asset: {
-            include: { course: true },
+            include: {
+              course: {
+                include: {
+                  demo: true,
+                },
+              },
+            },
           },
         },
       }),
@@ -74,7 +80,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
       include: {
         asset: {
-          include: { course: true },
+          include: {
+            course: {
+              include: {
+                demo: true,
+              },
+            },
+          },
         },
       },
     });
@@ -97,7 +109,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
       where: { id },
       include: {
         asset: {
-          include: { course: true },
+          include: {
+            course: {
+              include: {
+                demo: true,
+              },
+            },
+          },
         },
       },
     });

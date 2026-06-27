@@ -68,10 +68,7 @@ export class AuthenticationController {
     @Res({ passthrough: true }) response: Response,
     @IsWeb() isWeb: boolean,
   ) {
-    const result = await this.authService.signIn(
-      request.user as User,
-      dto.tfaCode,
-    );
+    const result = await this.authService.signIn(request.user as User);
 
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens);

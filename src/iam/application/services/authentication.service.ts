@@ -26,11 +26,8 @@ export class AuthenticationService {
     private readonly googleAuthPort: GoogleAuthPort,
   ) {}
 
-  async signIn(user: User, tfaCode?: string): Promise<SignInResult> {
+  async signIn(user: User): Promise<SignInResult> {
     if (!user.security.isEmailVerified) throw new EmailNotVerifiedException();
-    if (user.security.isTwoFactorEnabled)
-      await this.validate2FACode(user, tfaCode);
-
     const tokens = await this.tokenService.generateTokens(user);
     return { user, tokens };
   }
