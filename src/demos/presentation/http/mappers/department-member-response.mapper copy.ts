@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { DepartmentMemberWithUser } from 'src/core/database/prisma/types';
 import { DepartmentMemberResponseDto } from '../dto/department-member/department-member-response.dto';
 import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
+import { DemoMemberResponseMapper } from './demo-member-response.mapper';
 @Injectable()
 export class DepartmentMemberResponseMapper {
-  constructor() {}
+  constructor(
+    private readonly demoMemberResponseMapper: DemoMemberResponseMapper,
+  ) {}
 
   toResponseFromPrisma(
     member: DepartmentMemberWithUser,
@@ -12,10 +15,10 @@ export class DepartmentMemberResponseMapper {
     return new DepartmentMemberResponseDto(
       member.id,
       member.demoMemberId,
-      member.departmentId,
       member.jobTitle as JobTitle,
       member.assignedAt,
       member.updatedAt,
+      this.demoMemberResponseMapper.toResponseFromPrisma(member.demoMember),
     );
   }
 
