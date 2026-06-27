@@ -33,6 +33,7 @@ import { AuthCookieService } from '../services/auth-cookie.service';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Verify2FADto } from '../dto/verify-2fa.dto';
+import { SignInDto } from '../dto/sign-in.dto';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -63,6 +64,7 @@ export class AuthenticationController {
   @UseGuards(LocalAuthGuard)
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signIn(
+    @Body() dto: SignInDto,
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
     @IsWeb() isWeb: boolean,
