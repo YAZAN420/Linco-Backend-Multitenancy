@@ -25,7 +25,6 @@ import type { ActiveUserData } from '../../../domain/interfaces/active-user-data
 import { GoogleUserData } from '../../../application/interfaces/google-user-data.interface';
 
 import { SignUpDto } from '../dto/sign-up.dto';
-import { SignInDto } from '../dto/sign-in.dto';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import { GoogleMobileSignInDto } from '../dto/google-mobile-sign-in.dto';
 import { RegistrationService } from '../../../application/services/registration.service';
@@ -33,6 +32,7 @@ import { Public } from '../decorators/public.decorator';
 import { AuthCookieService } from '../services/auth-cookie.service';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
+import { Verify2FADto } from '../dto/verify-2fa.dto';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -64,18 +64,28 @@ export class AuthenticationController {
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signIn(
     @Req() request: Request,
-    @Body() dto: SignInDto,
     @Res({ passthrough: true }) response: Response,
     @IsWeb() isWeb: boolean,
   ) {
     const result = await this.authService.signIn(request.user as User);
 
+    if (result.requires2FA) {
+      return {
+        message: 'Two-factor authentication required',
+        data: {
+          requires2FA: true,
+          twoFactorToken: result.twoFactorToken,
+        },
+      };
+    }
+
     if (isWeb) {
-      this.cookieService.setAuthCookies(response, result.tokens);
+      this.cookieService.setAuthCookies(response, result.tokens!);
       return {
         message: 'User signed in successfully',
         data: {
-          user: this.userResponseMapper.toResponseFromDomain(result.user),
+          requires2FA: false,
+          user: this.userResponseMapper.toResponseFromDomain(result.user!),
         },
       };
     }
@@ -83,9 +93,46 @@ export class AuthenticationController {
     return {
       message: 'User signed in successfully',
       data: {
-        user: this.userResponseMapper.toResponseFromDomain(result.user),
-        accessToken: result.tokens.accessToken,
-        refreshToken: result.tokens.refreshToken,
+        requires2FA: false,
+        user: this.userResponseMapper.toResponseFromDomain(result.user!),
+        accessToken: result.tokens!.accessToken,
+        refreshToken: result.tokens!.refreshToken,
+      },
+    };
+  }
+
+  @Public()
+  @Post('sign-in/2fa')
+  @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  async verify2FA(
+    @Body() dto: Verify2FADto,
+    @Res({ passthrough: true }) response: Response,
+    @IsWeb() isWeb: boolean,
+  ) {
+    const userId = await this.tokenService.verifyTwoFactorToken(
+      dto.twoFactorToken,
+    );
+    const result = await this.authService.verify2FaSignIn(userId, dto.tfaCode);
+
+    if (isWeb) {
+      this.cookieService.setAuthCookies(response, result.tokens!);
+      return {
+        message: 'User signed in successfully',
+        data: {
+          requires2FA: false,
+          user: this.userResponseMapper.toResponseFromDomain(result.user!),
+        },
+      };
+    }
+
+    return {
+      message: 'User signed in successfully',
+      data: {
+        requires2FA: false,
+        user: this.userResponseMapper.toResponseFromDomain(result.user!),
+        accessToken: result.tokens!.accessToken,
+        refreshToken: result.tokens!.refreshToken,
       },
     };
   }
@@ -107,7 +154,7 @@ export class AuthenticationController {
 
     const result = await this.authService.signInWithGoogle(googleUser);
 
-    this.cookieService.setAuthCookies(response, result.tokens);
+    this.cookieService.setAuthCookies(response, result.tokens!);
 
     return response.redirect('https://lincolms.me/home');
   }
@@ -122,9 +169,9 @@ export class AuthenticationController {
     return {
       message: 'User signed in successfully',
       data: {
-        user: this.userResponseMapper.toResponseFromDomain(result.user),
-        accessToken: result.tokens.accessToken,
-        refreshToken: result.tokens.refreshToken,
+        user: this.userResponseMapper.toResponseFromDomain(result.user!),
+        accessToken: result.tokens!.accessToken,
+        refreshToken: result.tokens!.refreshToken,
       },
     };
   }

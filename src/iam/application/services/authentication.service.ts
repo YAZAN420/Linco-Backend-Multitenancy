@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { OTP } from 'otplib';
 import { HashingPort } from '../ports/hashing.port';
 import { TokenService } from './token.service';
@@ -7,7 +7,6 @@ import { GoogleAuthPort } from '../ports/google-auth.port';
 import { User } from 'src/users/domain/user';
 import {
   EmailNotVerifiedException,
-  TwoFactorRequiredException,
   Invalid2FACodeException,
 } from '../../domain/exceptions';
 import { SignInResult } from 'src/iam/domain/interfaces/sign-in-result.interface';
@@ -28,8 +27,16 @@ export class AuthenticationService {
 
   async signIn(user: User): Promise<SignInResult> {
     if (!user.security.isEmailVerified) throw new EmailNotVerifiedException();
+
+    if (user.security.isTwoFactorEnabled) {
+      const twoFactorToken = await this.tokenService.generateTwoFactorToken(
+        user.id,
+      );
+      return { requires2FA: true, twoFactorToken };
+    }
+
     const tokens = await this.tokenService.generateTokens(user);
-    return { user, tokens };
+    return { requires2FA: false, user, tokens };
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
@@ -64,7 +71,7 @@ export class AuthenticationService {
     }
 
     const tokens = await this.tokenService.generateTokens(user);
-    return { user, tokens };
+    return { requires2FA: false, user, tokens };
   }
 
   async signInWithGoogleIdToken(idToken: string): Promise<SignInResult> {
@@ -72,12 +79,23 @@ export class AuthenticationService {
     return this.signInWithGoogle(googleUser);
   }
 
-  private async validate2FACode(user: User, tfaCode?: string): Promise<void> {
-    if (!tfaCode) throw new TwoFactorRequiredException();
-    const { valid } = await this.otp.verify({
+  async verify2FaSignIn(
+    userId: string,
+    tfaCode: string,
+  ): Promise<SignInResult> {
+    const user = await this.usersCommandService.findById(userId);
+    if (!user) throw new UnauthorizedException('User not found');
+
+    const verificationResult = await this.otp.verify({
       token: tfaCode,
       secret: user.security.twoFactorSecret!,
     });
-    if (!valid) throw new Invalid2FACodeException();
+
+    if (!verificationResult.valid) {
+      throw new Invalid2FACodeException();
+    }
+
+    const tokens = await this.tokenService.generateTokens(user);
+    return { requires2FA: false, user, tokens };
   }
 }

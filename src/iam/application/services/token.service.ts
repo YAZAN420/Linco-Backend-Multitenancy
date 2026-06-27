@@ -30,6 +30,33 @@ export class TokenService {
 
     return tokenPair;
   }
+  async generateTwoFactorToken(userId: string): Promise<string> {
+    return this.tokenPort.signToken(userId, 300, { purpose: '2FA' });
+  }
+
+  async verifyTwoFactorToken(token: string): Promise<string> {
+    try {
+      const payload = await this.tokenPort.verifyToken<{
+        id?: string;
+        sub?: string;
+        purpose?: string;
+      }>(token);
+
+      if (payload.purpose !== '2FA') {
+        throw new UnauthorizedException('Invalid token purpose');
+      }
+
+      const userId = payload.id || payload.sub;
+      if (!userId) {
+        throw new UnauthorizedException('User ID missing in token');
+      }
+
+      return userId;
+    } catch (error) {
+      this.logger.warn(`Invalid 2FA token: ${error}`);
+      throw new UnauthorizedException('Invalid or expired 2FA token');
+    }
+  }
 
   async refreshTokens(refreshTokenDto: {
     refreshToken: string;
