@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { UsersCommandService } from 'src/users/application/users-command.service';
+import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 
 @Controller('users')
 export class UsersCommandController {
@@ -11,6 +12,13 @@ export class UsersCommandController {
     private readonly userCommandService: UsersCommandService,
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
+
+  @Post('upload-url')
+  async asyncgetUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    return await this.userCommandService.generateDemoImageUploadUrl(
+      dto.fileName,
+    );
+  }
 
   @Post()
   async create(@Body() dto: CreateUserDto) {

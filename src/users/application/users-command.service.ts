@@ -14,6 +14,7 @@ import {
   InvalidResetTokenException,
   InvalidVerificationTokenException,
 } from '../domain/exceptions';
+import { StoragePort } from 'src/core/storage/storage.port';
 
 @Injectable()
 export class UsersCommandService {
@@ -21,7 +22,17 @@ export class UsersCommandService {
     private readonly hashService: HashingPort,
     private readonly userCommandRepository: UserCommandRepository,
     private readonly userFactory: UserFactory,
+    private readonly spacesService: StoragePort,
   ) {}
+
+  async generateDemoImageUploadUrl(fileName: string) {
+    return await this.spacesService.generateUploadUrl(
+      fileName,
+      'image/png',
+      true,
+      'users',
+    );
+  }
 
   async create(input: CreateUserInput): Promise<User> {
     await this.ensureEmailIsUnique(input.email);
