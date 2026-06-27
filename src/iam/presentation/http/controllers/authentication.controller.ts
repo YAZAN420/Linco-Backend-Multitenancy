@@ -2,8 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
-  HttpStatus,
   Post,
   Req,
   Res,
@@ -47,7 +45,6 @@ export class AuthenticationController {
 
   @Public()
   @Post('sign-up')
-  @HttpCode(HttpStatus.CREATED)
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signUp(@Body() dto: SignUpDto) {
     await this.registrationService.signUp(dto);
@@ -60,7 +57,6 @@ export class AuthenticationController {
 
   @Public()
   @Post('sign-in')
-  @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async signIn(
@@ -105,7 +101,6 @@ export class AuthenticationController {
 
   @Public()
   @Post('sign-in/2fa')
-  @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async verify2FA(
     @Body() dto: Verify2FADto,
@@ -163,7 +158,6 @@ export class AuthenticationController {
 
   @Public()
   @Post('google/mobile')
-  @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   async googleMobileSignIn(@Body() dto: GoogleMobileSignInDto) {
     const result = await this.authService.signInWithGoogleIdToken(dto.idToken);
@@ -179,7 +173,6 @@ export class AuthenticationController {
   }
 
   @Post('sign-out')
-  @HttpCode(HttpStatus.OK)
   async signOut(
     @ActiveUser() user: ActiveUserData,
     @Res({ passthrough: true }) response: Response,
@@ -191,7 +184,6 @@ export class AuthenticationController {
 
   @Public()
   @Post('refresh-tokens')
-  @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   async refreshTokens(
     @Req() request: Request,

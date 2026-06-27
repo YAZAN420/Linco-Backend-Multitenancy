@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { PasswordManagementService } from '../../../application/services/password-management.service';
 import { Public } from '../decorators/public.decorator';
 import { ForgotPasswordDto } from '../dto/forgot-password.dto';
@@ -12,7 +12,6 @@ export class PasswordController {
 
   @Public()
   @Post('forgot-password')
-  @HttpCode(HttpStatus.OK)
   async forgotPassword(@Body() dto: ForgotPasswordDto) {
     await this.passwordService.forgotPassword(dto.email);
     return {
@@ -24,14 +23,12 @@ export class PasswordController {
 
   @Public()
   @Post('reset-password')
-  @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() dto: ResetPasswordDto) {
     await this.passwordService.resetPassword(dto.token, dto.password);
     return { message: 'Password has been reset successfully.', data: null };
   }
 
   @Post('change-password')
-  @HttpCode(HttpStatus.OK)
   async changePassword(
     @ActiveUser('id') userId: string,
     @Body() dto: ChangePasswordDto,

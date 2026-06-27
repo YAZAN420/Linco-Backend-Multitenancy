@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Post,
-  Patch,
-  Delete,
-  Body,
-  Param,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Post, Patch, Delete, Body, Param } from '@nestjs/common';
 
 import { CreateDemoMemberDto } from '../dto/demo-member/create-demo-member.dto';
 import { UpdateDemoMemberDto } from '../dto/demo-member/update-demo-member.dto';
@@ -52,7 +43,6 @@ export class DemoMembersCommandController {
   }
 
   @Delete(':memberId')
-  @HttpCode(HttpStatus.OK)
   async removeMember(
     @Param('demoId') demoId: string,
     @Param('memberId') memberId: string,

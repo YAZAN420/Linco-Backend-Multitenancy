@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { RegistrationService } from '../../../application/services/registration.service';
 import { Public } from '../decorators/public.decorator';
 import { VerifyEmailDto } from '../dto/verify-email.dto';
@@ -25,7 +17,6 @@ export class EmailVerificationController {
 
   @Public()
   @Post('resend-verification-email')
-  @HttpCode(HttpStatus.OK)
   async resendVerificationEmail(@Body() dto: ResendVerificationEmailDto) {
     await this.registrationService.resendVerificationEmail(dto.email);
     return {
