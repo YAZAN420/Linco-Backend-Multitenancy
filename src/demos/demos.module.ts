@@ -20,6 +20,13 @@ import { DepartmentsCommandService } from './application/department/departments-
 import { DepartmentsQueryService } from './application/department/departments-query.service';
 import { DemoMembersCommandService } from './application/demo-member/demo-members-command.service';
 import { DemoMembersQueryService } from './application/demo-member/demo-members-query.service';
+import { DepartmentMembersCommandService } from './application/department-member/department-members-command.service';
+import { DepartmentMembersQueryService } from './application/department-member/department-members-query.service';
+import { DepartmentMemberFactory } from './domain/factories/department-member.factory';
+
+import { DepartmentMemberResponseMapper } from './presentation/http/mappers/department-member-response.mapper copy';
+import { DepartmentMembersQueryController } from './presentation/http/department-member/department-members-query.controller';
+import { DepartmentMembersCommandController } from './presentation/http/department-member/department-members-command.controller';
 
 @Global()
 @Module({
@@ -32,6 +39,8 @@ import { DemoMembersQueryService } from './application/demo-member/demo-members-
     DepartmentsQueryController,
     DemoMembersCommandController,
     DemoMembersQueryController,
+    DepartmentMembersCommandController,
+    DepartmentMembersQueryController,
   ],
   providers: [
     DemosCommandService,
@@ -46,6 +55,10 @@ import { DemoMembersQueryService } from './application/demo-member/demo-members-
     DemoResponseMapper,
     DepartmentResponseMapper,
     DemoMemberResponseMapper,
+    DepartmentMembersCommandService,
+    DepartmentMembersQueryService,
+    DepartmentMemberFactory,
+    DepartmentMemberResponseMapper,
   ],
   exports: [
     DemosCommandService,
@@ -58,6 +71,10 @@ import { DemoMembersQueryService } from './application/demo-member/demo-members-
     DemoResponseMapper,
     DepartmentResponseMapper,
     DemoMemberResponseMapper,
+    DepartmentMembersCommandService,
+    DepartmentMembersQueryService,
+    DepartmentMemberFactory,
+    DepartmentMemberResponseMapper,
   ],
 })
 export class DemosModule {

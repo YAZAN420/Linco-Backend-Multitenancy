@@ -128,7 +128,9 @@ export const DepartmentMemberScalarFieldEnum = {
   id: 'id',
   departmentId: 'departmentId',
   demoMemberId: 'demoMemberId',
-  assignedAt: 'assignedAt'
+  jobTitle: 'jobTitle',
+  assignedAt: 'assignedAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DepartmentMemberScalarFieldEnum = (typeof DepartmentMemberScalarFieldEnum)[keyof typeof DepartmentMemberScalarFieldEnum]

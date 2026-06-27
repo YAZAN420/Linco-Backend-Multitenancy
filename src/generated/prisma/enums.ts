@@ -58,3 +58,12 @@ export const PurchaseType = {
 } as const
 
 export type PurchaseType = (typeof PurchaseType)[keyof typeof PurchaseType]
+
+
+export const JobTitle = {
+  INTERN: 'INTERN',
+  JUNIOR: 'JUNIOR',
+  SENIOR: 'SENIOR'
+} as const
+
+export type JobTitle = (typeof JobTitle)[keyof typeof JobTitle]

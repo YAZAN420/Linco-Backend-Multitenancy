@@ -54,3 +54,13 @@ export type CourseWithDemo = Prisma.CourseGetPayload<{
     demo: true;
   };
 }>;
+
+export type DepartmentMemberWithUser = Prisma.DepartmentMemberGetPayload<{
+  include: {
+    demoMember: {
+      include: {
+        user: true;
+      };
+    };
+  };
+}>;

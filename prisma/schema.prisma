@@ -40,6 +40,12 @@ enum PurchaseType {
   COURSE
 }
 
+enum JobTitle {
+  INTERN
+  JUNIOR
+  SENIOR
+}
+
 
 model User {
   id                    String                 @id
@@ -91,7 +97,10 @@ model DepartmentMember {
   id           String     @id @default(uuid())
   departmentId String
   demoMemberId String
+
+  jobTitle     JobTitle   @default(JUNIOR)
   assignedAt   DateTime   @default(now())
+  updatedAt  DateTime @updatedAt
 
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   demoMember   DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)

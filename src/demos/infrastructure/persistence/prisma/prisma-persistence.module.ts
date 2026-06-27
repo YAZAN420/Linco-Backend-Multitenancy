@@ -11,12 +11,18 @@ import { PrismaDemoCommandRepository } from './repositories/demo/prisma-demo-com
 import { PrismaDemoMemberCommandRepository } from './repositories/demo-member/prisma-demo-member-command.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
+import { DepartmentMemberQueryRepository } from 'src/demos/application/ports/department-member/department-member-query.repository';
+import { PrismaDepartmentMemberQueryRepository } from './repositories/department-member/prisma-department-member-query.repository';
+import { DepartmentMemberCommandRepository } from 'src/demos/application/ports/department-member/department-member-command.repository';
+import { PrismaDepartmentMemberCommandRepository } from './repositories/department-member/prisma-department-member-command.repository';
+import { PrismaDepartmentMemberMapper } from './mappers/prisma-department-member.mapper';
 
 @Module({
   providers: [
     PrismaDemoMapper,
     PrismaDepartmentMapper,
     PrismaDemoMemberMapper,
+    PrismaDepartmentMemberMapper,
     {
       provide: DemoCommandRepository,
       useClass: PrismaDemoCommandRepository,
@@ -33,12 +39,22 @@ import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-memb
       provide: DemoMemberQueryRepository,
       useClass: PrismaDemoMemberQueryRepository,
     },
+    {
+      provide: DepartmentMemberQueryRepository,
+      useClass: PrismaDepartmentMemberQueryRepository,
+    },
+    {
+      provide: DepartmentMemberCommandRepository,
+      useClass: PrismaDepartmentMemberCommandRepository,
+    },
   ],
   exports: [
     DemoCommandRepository,
     DemoQueryRepository,
     DemoMemberCommandRepository,
     DemoMemberQueryRepository,
+    DepartmentMemberQueryRepository,
+    DepartmentMemberCommandRepository,
   ],
 })
 export class PrismaPersistenceModule {}

@@ -28,21 +28,27 @@ export type DepartmentMemberMinAggregateOutputType = {
   id: string | null
   departmentId: string | null
   demoMemberId: string | null
+  jobTitle: $Enums.JobTitle | null
   assignedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DepartmentMemberMaxAggregateOutputType = {
   id: string | null
   departmentId: string | null
   demoMemberId: string | null
+  jobTitle: $Enums.JobTitle | null
   assignedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type DepartmentMemberCountAggregateOutputType = {
   id: number
   departmentId: number
   demoMemberId: number
+  jobTitle: number
   assignedAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -51,21 +57,27 @@ export type DepartmentMemberMinAggregateInputType = {
   id?: true
   departmentId?: true
   demoMemberId?: true
+  jobTitle?: true
   assignedAt?: true
+  updatedAt?: true
 }
 
 export type DepartmentMemberMaxAggregateInputType = {
   id?: true
   departmentId?: true
   demoMemberId?: true
+  jobTitle?: true
   assignedAt?: true
+  updatedAt?: true
 }
 
 export type DepartmentMemberCountAggregateInputType = {
   id?: true
   departmentId?: true
   demoMemberId?: true
+  jobTitle?: true
   assignedAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -145,7 +157,9 @@ export type DepartmentMemberGroupByOutputType = {
   id: string
   departmentId: string
   demoMemberId: string
+  jobTitle: $Enums.JobTitle
   assignedAt: Date
+  updatedAt: Date
   _count: DepartmentMemberCountAggregateOutputType | null
   _min: DepartmentMemberMinAggregateOutputType | null
   _max: DepartmentMemberMaxAggregateOutputType | null
@@ -173,7 +187,9 @@ export type DepartmentMemberWhereInput = {
   id?: Prisma.StringFilter<"DepartmentMember"> | string
   departmentId?: Prisma.StringFilter<"DepartmentMember"> | string
   demoMemberId?: Prisma.StringFilter<"DepartmentMember"> | string
+  jobTitle?: Prisma.EnumJobTitleFilter<"DepartmentMember"> | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   demoMember?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
 }
@@ -182,7 +198,9 @@ export type DepartmentMemberOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   demoMemberId?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   department?: Prisma.DepartmentOrderByWithRelationInput
   demoMember?: Prisma.DemoMemberOrderByWithRelationInput
 }
@@ -195,7 +213,9 @@ export type DepartmentMemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DepartmentMemberWhereInput | Prisma.DepartmentMemberWhereInput[]
   departmentId?: Prisma.StringFilter<"DepartmentMember"> | string
   demoMemberId?: Prisma.StringFilter<"DepartmentMember"> | string
+  jobTitle?: Prisma.EnumJobTitleFilter<"DepartmentMember"> | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   demoMember?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
 }, "id" | "departmentId_demoMemberId">
@@ -204,7 +224,9 @@ export type DepartmentMemberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   demoMemberId?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.DepartmentMemberCountOrderByAggregateInput
   _max?: Prisma.DepartmentMemberMaxOrderByAggregateInput
   _min?: Prisma.DepartmentMemberMinOrderByAggregateInput
@@ -217,12 +239,16 @@ export type DepartmentMemberScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DepartmentMember"> | string
   departmentId?: Prisma.StringWithAggregatesFilter<"DepartmentMember"> | string
   demoMemberId?: Prisma.StringWithAggregatesFilter<"DepartmentMember"> | string
+  jobTitle?: Prisma.EnumJobTitleWithAggregatesFilter<"DepartmentMember"> | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeWithAggregatesFilter<"DepartmentMember"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DepartmentMember"> | Date | string
 }
 
 export type DepartmentMemberCreateInput = {
   id?: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutMembersInput
   demoMember: Prisma.DemoMemberCreateNestedOneWithoutAccessibleDepartmentsInput
 }
@@ -231,12 +257,16 @@ export type DepartmentMemberUncheckedCreateInput = {
   id?: string
   departmentId: string
   demoMemberId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutMembersNestedInput
   demoMember?: Prisma.DemoMemberUpdateOneRequiredWithoutAccessibleDepartmentsNestedInput
 }
@@ -245,26 +275,34 @@ export type DepartmentMemberUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberCreateManyInput = {
   id?: string
   departmentId: string
   demoMemberId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberListRelationFilter = {
@@ -286,21 +324,27 @@ export type DepartmentMemberCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   demoMemberId?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DepartmentMemberMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   demoMemberId?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DepartmentMemberMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   demoMemberId?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type DepartmentMemberCreateNestedManyWithoutDemoMemberInput = {
@@ -343,6 +387,10 @@ export type DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput = {
   update?: Prisma.DepartmentMemberUpdateWithWhereUniqueWithoutDemoMemberInput | Prisma.DepartmentMemberUpdateWithWhereUniqueWithoutDemoMemberInput[]
   updateMany?: Prisma.DepartmentMemberUpdateManyWithWhereWithoutDemoMemberInput | Prisma.DepartmentMemberUpdateManyWithWhereWithoutDemoMemberInput[]
   deleteMany?: Prisma.DepartmentMemberScalarWhereInput | Prisma.DepartmentMemberScalarWhereInput[]
+}
+
+export type EnumJobTitleFieldUpdateOperationsInput = {
+  set?: $Enums.JobTitle
 }
 
 export type DepartmentMemberCreateNestedManyWithoutDepartmentInput = {
@@ -389,14 +437,18 @@ export type DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput = {
 
 export type DepartmentMemberCreateWithoutDemoMemberInput = {
   id?: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutMembersInput
 }
 
 export type DepartmentMemberUncheckedCreateWithoutDemoMemberInput = {
   id?: string
   departmentId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberCreateOrConnectWithoutDemoMemberInput = {
@@ -432,19 +484,25 @@ export type DepartmentMemberScalarWhereInput = {
   id?: Prisma.StringFilter<"DepartmentMember"> | string
   departmentId?: Prisma.StringFilter<"DepartmentMember"> | string
   demoMemberId?: Prisma.StringFilter<"DepartmentMember"> | string
+  jobTitle?: Prisma.EnumJobTitleFilter<"DepartmentMember"> | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"DepartmentMember"> | Date | string
 }
 
 export type DepartmentMemberCreateWithoutDepartmentInput = {
   id?: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
   demoMember: Prisma.DemoMemberCreateNestedOneWithoutAccessibleDepartmentsInput
 }
 
 export type DepartmentMemberUncheckedCreateWithoutDepartmentInput = {
   id?: string
   demoMemberId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberCreateOrConnectWithoutDepartmentInput = {
@@ -476,49 +534,65 @@ export type DepartmentMemberUpdateManyWithWhereWithoutDepartmentInput = {
 export type DepartmentMemberCreateManyDemoMemberInput = {
   id?: string
   departmentId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberUpdateWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutMembersNestedInput
 }
 
 export type DepartmentMemberUncheckedUpdateWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberUncheckedUpdateManyWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberCreateManyDepartmentInput = {
   id?: string
   demoMemberId: string
+  jobTitle?: $Enums.JobTitle
   assignedAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type DepartmentMemberUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demoMember?: Prisma.DemoMemberUpdateOneRequiredWithoutAccessibleDepartmentsNestedInput
 }
 
 export type DepartmentMemberUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DepartmentMemberUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.EnumJobTitleFieldUpdateOperationsInput | $Enums.JobTitle
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -527,7 +601,9 @@ export type DepartmentMemberSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   departmentId?: boolean
   demoMemberId?: boolean
+  jobTitle?: boolean
   assignedAt?: boolean
+  updatedAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["departmentMember"]>
@@ -536,7 +612,9 @@ export type DepartmentMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   departmentId?: boolean
   demoMemberId?: boolean
+  jobTitle?: boolean
   assignedAt?: boolean
+  updatedAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["departmentMember"]>
@@ -545,7 +623,9 @@ export type DepartmentMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   departmentId?: boolean
   demoMemberId?: boolean
+  jobTitle?: boolean
   assignedAt?: boolean
+  updatedAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["departmentMember"]>
@@ -554,10 +634,12 @@ export type DepartmentMemberSelectScalar = {
   id?: boolean
   departmentId?: boolean
   demoMemberId?: boolean
+  jobTitle?: boolean
   assignedAt?: boolean
+  updatedAt?: boolean
 }
 
-export type DepartmentMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "departmentId" | "demoMemberId" | "assignedAt", ExtArgs["result"]["departmentMember"]>
+export type DepartmentMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "departmentId" | "demoMemberId" | "jobTitle" | "assignedAt" | "updatedAt", ExtArgs["result"]["departmentMember"]>
 export type DepartmentMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
@@ -581,7 +663,9 @@ export type $DepartmentMemberPayload<ExtArgs extends runtime.Types.Extensions.In
     id: string
     departmentId: string
     demoMemberId: string
+    jobTitle: $Enums.JobTitle
     assignedAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["departmentMember"]>
   composites: {}
 }
@@ -1010,7 +1094,9 @@ export interface DepartmentMemberFieldRefs {
   readonly id: Prisma.FieldRef<"DepartmentMember", 'String'>
   readonly departmentId: Prisma.FieldRef<"DepartmentMember", 'String'>
   readonly demoMemberId: Prisma.FieldRef<"DepartmentMember", 'String'>
+  readonly jobTitle: Prisma.FieldRef<"DepartmentMember", 'JobTitle'>
   readonly assignedAt: Prisma.FieldRef<"DepartmentMember", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"DepartmentMember", 'DateTime'>
 }
     
 

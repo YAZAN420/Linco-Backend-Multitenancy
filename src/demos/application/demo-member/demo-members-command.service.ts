@@ -51,7 +51,7 @@ export class DemoMembersCommandService {
     if (member.demoId !== demoId)
       throw new NotFoundException('Member not found');
 
-    member.updateRole(input.role);
+    if (input.role) member.updateRole(input.role);
     await this.demoMemberCommandRepository.save(member);
   }
 

@@ -182,6 +182,23 @@ export type EnumDemoMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
 }
 
+export type EnumJobTitleFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
+  in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobTitleFilter<$PrismaModel> | $Enums.JobTitle
+}
+
+export type EnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
+  in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobTitleWithAggregatesFilter<$PrismaModel> | $Enums.JobTitle
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
+}
+
 export type EnumCourseVisibilityFilter<$PrismaModel = never> = {
   equals?: $Enums.CourseVisibility | Prisma.EnumCourseVisibilityFieldRefInput<$PrismaModel>
   in?: $Enums.CourseVisibility[] | Prisma.ListEnumCourseVisibilityFieldRefInput<$PrismaModel>
@@ -510,6 +527,23 @@ export type NestedEnumDemoMemberRoleWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDemoMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumJobTitleFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
+  in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobTitleFilter<$PrismaModel> | $Enums.JobTitle
+}
+
+export type NestedEnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
+  in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobTitleWithAggregatesFilter<$PrismaModel> | $Enums.JobTitle
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
 }
 
 export type NestedEnumCourseVisibilityFilter<$PrismaModel = never> = {
