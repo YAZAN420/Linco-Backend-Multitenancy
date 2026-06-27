@@ -23,24 +23,13 @@ async function bootstrap() {
     instance.set('trust proxy', 1);
     const configService = app.get(ConfigService);
     const port = configService.get<number>('PORT', 3000);
-    const nodeEnv = configService.get<string>(
-      'NODE_ENV',
-      process.env.NODE_ENV ?? 'development',
-    );
-    const swaggerEnabled =
-      (process.env.SWAGGER_ENABLED ?? '').toLowerCase() === 'true' ||
-      nodeEnv !== 'production';
 
-    if (swaggerEnabled) {
-      setupSwagger(app);
-    }
+    setupSwagger(app);
 
     await app.listen(port, '0.0.0.0');
 
     logger.log(`🚀 Application is running on: https://api.lincolms.me`);
-    if (swaggerEnabled) {
-      logger.log(`📚 Swagger documentation at: https://api.lincolms.me/docs`);
-    }
+    logger.log(`📚 Swagger documentation at: https://api.lincolms.me/docs`);
   } catch (error) {
     const trace = error instanceof Error ? error.stack : undefined;
     bootstrapLogger.error('Application failed to start', trace);
