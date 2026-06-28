@@ -67,3 +67,12 @@ export const JobTitle = {
 } as const
 
 export type JobTitle = (typeof JobTitle)[keyof typeof JobTitle]
+
+
+export const PlanTier = {
+  STARTER: 'STARTER',
+  PRO: 'PRO',
+  ENTERPRISE: 'ENTERPRISE'
+} as const
+
+export type PlanTier = (typeof PlanTier)[keyof typeof PlanTier]

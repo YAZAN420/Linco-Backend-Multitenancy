@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { DemoResponseDto } from '../dto/demo/demo-response.dto';
 
 import { Demo as DomainDemo } from 'src/demos/domain/demo';
-import { DepartmentResponseMapper } from './department-response.mapper';
 
 import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
 
 @Injectable()
 export class DemoResponseMapper {
-  constructor(private readonly departmentMapper: DepartmentResponseMapper) {}
+  constructor() {}
 
   toResponseFromPrisma(demo: DemoWithMemberCount): DemoResponseDto {
     return new DemoResponseDto(
@@ -16,6 +16,7 @@ export class DemoResponseMapper {
       demo.name,
       demo.imagePath,
       demo.description,
+      demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
       demo._count.members,
@@ -28,6 +29,7 @@ export class DemoResponseMapper {
       demo.name,
       demo.imagePath,
       demo.description,
+      demo.plan,
       demo.createdAt,
       demo.updatedAt,
     );

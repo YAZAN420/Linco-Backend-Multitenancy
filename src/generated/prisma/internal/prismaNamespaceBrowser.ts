@@ -154,6 +154,7 @@ export const DemoScalarFieldEnum = {
   name: 'name',
   imagePath: 'imagePath',
   description: 'description',
+  plan: 'plan',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

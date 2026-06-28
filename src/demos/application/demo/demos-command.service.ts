@@ -34,6 +34,7 @@ export class DemosCommandService {
       input.ownerId,
       input.imagePath,
       input.description,
+      input.plan,
     );
     await this.demoCommandRepository.save(demo);
 
@@ -54,6 +55,9 @@ export class DemosCommandService {
     }
     if (input.description !== undefined) {
       demo.updateDescription(input.description);
+    }
+    if (input.plan !== undefined) {
+      demo.updatePlan(input.plan);
     }
     await this.demoCommandRepository.save(demo);
     return demo;

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { Demo } from '../demo';
 import { Name } from '../value-objects/name.vo';
+import { PlanTier } from '../enums/plan-tier.enum';
 
 @Injectable()
 export class DemoFactory {
@@ -10,6 +11,7 @@ export class DemoFactory {
     ownerId: string,
     imagePath: string,
     description: string,
+    plan: PlanTier,
   ): Demo {
     const now = new Date();
     const nameVo = Name.create(name);
@@ -18,6 +20,7 @@ export class DemoFactory {
       imagePath,
       description,
       ownerId,
+      plan,
       departments: [],
       createdAt: now,
       updatedAt: now,

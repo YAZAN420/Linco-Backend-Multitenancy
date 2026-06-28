@@ -2,6 +2,7 @@ import { DomainException } from 'src/common/exceptions/domain.exception';
 import { Department } from './department';
 import { DemoProps } from './interfaces/demo.props';
 import { Name } from './value-objects/name.vo';
+import { PlanTier } from './enums/plan-tier.enum';
 
 export class Demo {
   private static readonly MAX_MEMBERS = 50;
@@ -12,6 +13,10 @@ export class Demo {
 
   get createdAt(): Date {
     return this.props.createdAt;
+  }
+
+  get plan(): PlanTier {
+    return this.props.plan;
   }
 
   get updatedAt(): Date {
@@ -36,6 +41,12 @@ export class Demo {
 
   get departments(): Department[] {
     return this.props.departments ?? [];
+  }
+
+  updatePlan(newPlan: PlanTier): void {
+    if (this.props.plan === newPlan) return;
+    this.props.plan = newPlan;
+    this.touch();
   }
 
   updateName(newName: Name): void {

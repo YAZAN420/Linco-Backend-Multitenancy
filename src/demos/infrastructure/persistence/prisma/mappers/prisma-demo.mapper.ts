@@ -4,6 +4,7 @@ import { Demo } from 'src/demos/domain/demo';
 import { PrismaDepartmentMapper } from './prisma-department.mapper';
 import { DemoWithDepartments } from 'src/core/database/prisma/types';
 import { Name } from 'src/demos/domain/value-objects/name.vo';
+import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
 
 @Injectable()
 export class PrismaDemoMapper {
@@ -16,6 +17,7 @@ export class PrismaDemoMapper {
       imagePath: raw.imagePath,
       description: raw.description,
       ownerId: raw.ownerId,
+      plan: raw.plan as PlanTier,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
       departments: raw.departments
@@ -29,6 +31,7 @@ export class PrismaDemoMapper {
       id: demo.id,
       name: demo.name,
       imagePath: demo.imagePath,
+      plan: demo.plan,
       description: demo.description,
       ownerId: demo.ownerId,
       createdAt: demo.createdAt,

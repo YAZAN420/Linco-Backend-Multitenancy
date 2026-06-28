@@ -46,6 +46,12 @@ enum JobTitle {
   SENIOR
 }
 
+enum PlanTier {
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
 
 model User {
   id                    String                 @id
@@ -131,7 +137,8 @@ model Demo {
   name         String
   imagePath String
   description  String
-  
+  plan PlanTier @default(STARTER)
+
   ownerId      String
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt

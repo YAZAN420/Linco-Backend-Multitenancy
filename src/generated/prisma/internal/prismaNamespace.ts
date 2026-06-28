@@ -1933,6 +1933,7 @@ export const DemoScalarFieldEnum = {
   name: 'name',
   imagePath: 'imagePath',
   description: 'description',
+  plan: 'plan',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2222,6 +2223,20 @@ export type EnumJobTitleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'JobTitle[]'
  */
 export type ListEnumJobTitleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobTitle[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PlanTier'
+ */
+export type EnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlanTier'>
+    
+
+
+/**
+ * Reference to a field of type 'PlanTier[]'
+ */
+export type ListEnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlanTier[]'>
     
 
 
