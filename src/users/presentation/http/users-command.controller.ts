@@ -16,7 +16,7 @@ export class UsersCommandController {
 
   @Public()
   @Post('upload-url')
-  async asyncgetUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+  async getUploadUrl(@Body() dto: GenerateUploadUrlDto) {
     return await this.userCommandService.generateDemoImageUploadUrl(
       dto.fileName,
     );
