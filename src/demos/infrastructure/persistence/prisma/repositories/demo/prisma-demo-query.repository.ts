@@ -200,7 +200,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
   async findDepartmentById(
     deptId: string,
-    userId: string,
+    userId?: string,
   ): Promise<DepartmentWithDetails | null> {
     const dept = await this.prisma.department.findUnique({
       where: {
