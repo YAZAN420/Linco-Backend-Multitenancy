@@ -19,6 +19,7 @@ export class DemoResponseMapper {
       demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
+      demo.owner.firstName + ' ' + demo.owner.lastName,
       demo._count.members,
       demo.isOwner,
     );

@@ -9,6 +9,7 @@ export class DemoResponseDto {
     readonly plan: PlanTier,
     readonly createdAt: Date,
     readonly updatedAt: Date,
+    readonly ownerName?: string,
     readonly membersCount?: number,
     readonly isOwner?: boolean,
   ) {}

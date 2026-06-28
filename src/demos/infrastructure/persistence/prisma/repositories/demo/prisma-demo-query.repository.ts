@@ -49,6 +49,12 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
           _count: {
             select: { members: true },
           },
+          owner: {
+            select: {
+              firstName: true,
+              lastName: true,
+            },
+          },
         },
       }),
       this.prisma.demo.count({ where }),
@@ -80,6 +86,12 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         _count: {
           select: { members: true },
         },
+        owner: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
       },
     });
 
@@ -108,6 +120,12 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       include: {
         _count: {
           select: { members: true },
+        },
+        owner: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
         },
       },
     });

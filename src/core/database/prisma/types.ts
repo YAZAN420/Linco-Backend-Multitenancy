@@ -21,7 +21,10 @@ export type DemoMemberWithUser = Prisma.DemoMemberGetPayload<{
 }>;
 
 export type DemoWithMemberCount = Prisma.DemoGetPayload<{
-  include: { _count: { select: { members: true } } };
+  include: {
+    _count: { select: { members: true } };
+    owner: { select: { firstName: true; lastName: true } };
+  };
 }>;
 
 export type DemoWithOwnership = DemoWithMemberCount & { isOwner: boolean };
