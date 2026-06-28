@@ -3,7 +3,10 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import {
+  DemoWithMemberCount,
+  DemoWithOwnership,
+} from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -23,11 +26,11 @@ export class DemosQueryService {
   async findAllForMe(
     options: FindDemosCursorQuery,
     id: string,
-  ): Promise<CursorPageDto<DemoWithMemberCount>> {
+  ): Promise<CursorPageDto<DemoWithOwnership>> {
     return this.demoQueryRepository.findAllForMe(options, id);
   }
 
-  async findById(id: string): Promise<DemoWithMemberCount> {
+  async findById(id: string): Promise<DemoWithOwnership> {
     const demo = await this.demoQueryRepository.findById(id);
     if (!demo) throw new NotFoundException('Demo not found');
     return demo;

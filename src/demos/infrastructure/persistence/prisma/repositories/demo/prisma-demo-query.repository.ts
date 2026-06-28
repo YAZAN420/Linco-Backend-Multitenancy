@@ -12,7 +12,10 @@ import {
   FindDepartmentCursorQuery,
 } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import {
+  DemoWithMemberCount,
+  DemoWithOwnership,
+} from 'src/core/database/prisma/types';
 
 const DEMO_SEARCH_COLUMNS = [];
 const DEMO_ORDERABLE_FIELDS = ['createdAt'];
@@ -60,7 +63,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   async findAllForMe(
     options: FindDemosCursorQuery,
     userId: string,
-  ): Promise<CursorPageDto<DemoWithMemberCount>> {
+  ): Promise<CursorPageDto<DemoWithOwnership>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
@@ -70,7 +73,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       cursor: cursor ? { id: cursor } : undefined,
       where: {
         ...where,
-        ownerId: userId,
+        OR: [{ ownerId: userId }, { members: { some: { userId: userId } } }],
       },
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
       include: {
@@ -85,14 +88,22 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
     const endCursor = items.length > 0 ? items[items.length - 1].id : null;
 
+    const itemsWithOwnership = items.map((item) => ({
+      ...item,
+      isOwner: item.ownerId === userId,
+    }));
+
     return new CursorPageDto(
-      items,
+      itemsWithOwnership,
       new CursorPageMetaDto(hasNextPage, endCursor),
     );
   }
 
-  async findById(id: string): Promise<DemoWithMemberCount | null> {
-    return this.prisma.demo.findUnique({
+  async findById(
+    id: string,
+    userId?: string,
+  ): Promise<DemoWithOwnership | null> {
+    const demo = await this.prisma.demo.findUnique({
       where: { id },
       include: {
         _count: {
@@ -100,6 +111,13 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         },
       },
     });
+
+    if (!demo) return null;
+
+    return {
+      ...demo,
+      isOwner: demo.ownerId === userId,
+    };
   }
 
   async demoExists(id: string): Promise<boolean> {

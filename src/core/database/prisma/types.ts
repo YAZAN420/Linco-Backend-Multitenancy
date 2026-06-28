@@ -24,6 +24,8 @@ export type DemoWithMemberCount = Prisma.DemoGetPayload<{
   include: { _count: { select: { members: true } } };
 }>;
 
+export type DemoWithOwnership = DemoWithMemberCount & { isOwner: boolean };
+
 export type AssetWithCourse = Prisma.AssetGetPayload<{
   include: {
     course: {

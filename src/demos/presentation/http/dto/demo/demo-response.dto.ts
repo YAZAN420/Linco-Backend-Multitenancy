@@ -10,5 +10,6 @@ export class DemoResponseDto {
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly membersCount?: number,
+    readonly isOwner?: boolean,
   ) {}
 }

@@ -7,14 +7,12 @@ import { DemosQueryService } from 'src/demos/application/demo/demos-query.servic
 import { DemoResponseMapper } from '../mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
-import { DepartmentResponseMapper } from '../mappers/department-response.mapper';
 
 @Controller('demos')
 export class DemosQueryController {
   constructor(
     private readonly demoQueryService: DemosQueryService,
     private readonly demoResponseMapper: DemoResponseMapper,
-    private readonly departmentResponseMapper: DepartmentResponseMapper,
   ) {}
 
   @Get()

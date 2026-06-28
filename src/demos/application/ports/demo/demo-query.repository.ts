@@ -1,7 +1,10 @@
 import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
 
 import { Department } from 'src/generated/prisma/client';
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import {
+  DemoWithMemberCount,
+  DemoWithOwnership,
+} from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -15,8 +18,8 @@ export abstract class DemoQueryRepository {
   abstract findAllForMe(
     options: FindDemosCursorQuery,
     userId: string,
-  ): Promise<CursorPageDto<DemoWithMemberCount>>;
-  abstract findById(id: string): Promise<DemoWithMemberCount | null>;
+  ): Promise<CursorPageDto<DemoWithOwnership>>;
+  abstract findById(id: string): Promise<DemoWithOwnership | null>;
   abstract findDepartments(
     options: FindDepartmentCursorQuery,
     demoId: string,

@@ -3,14 +3,14 @@ import { DemoResponseDto } from '../dto/demo/demo-response.dto';
 
 import { Demo as DomainDemo } from 'src/demos/domain/demo';
 
-import { DemoWithMemberCount } from 'src/core/database/prisma/types';
+import { DemoWithOwnership } from 'src/core/database/prisma/types';
 import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
 
 @Injectable()
 export class DemoResponseMapper {
   constructor() {}
 
-  toResponseFromPrisma(demo: DemoWithMemberCount): DemoResponseDto {
+  toResponseFromPrisma(demo: DemoWithOwnership): DemoResponseDto {
     return new DemoResponseDto(
       demo.id,
       demo.name,
@@ -20,6 +20,7 @@ export class DemoResponseMapper {
       demo.createdAt,
       demo.updatedAt,
       demo._count.members,
+      demo.isOwner,
     );
   }
 
@@ -35,7 +36,7 @@ export class DemoResponseMapper {
     );
   }
 
-  toResponseManyFromPrisma(demos: DemoWithMemberCount[]): DemoResponseDto[] {
+  toResponseManyFromPrisma(demos: DemoWithOwnership[]): DemoResponseDto[] {
     return demos.map((demo) => this.toResponseFromPrisma(demo));
   }
 }
