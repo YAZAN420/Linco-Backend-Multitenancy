@@ -5,10 +5,23 @@ import { Demo as DomainDemo } from 'src/demos/domain/demo';
 
 import { DemoWithOwnership } from 'src/core/database/prisma/types';
 import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
+import { Demo } from 'src/generated/prisma/client';
 
 @Injectable()
 export class DemoResponseMapper {
   constructor() {}
+
+  toSimpleResponseFromPrisma(demo: Demo): DemoResponseDto {
+    return new DemoResponseDto(
+      demo.id,
+      demo.name,
+      demo.imagePath,
+      demo.description,
+      demo.plan as PlanTier,
+      demo.createdAt,
+      demo.updatedAt,
+    );
+  }
 
   toResponseFromPrisma(demo: DemoWithOwnership): DemoResponseDto {
     return new DemoResponseDto(
