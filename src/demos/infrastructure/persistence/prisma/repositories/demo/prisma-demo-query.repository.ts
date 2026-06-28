@@ -12,10 +12,7 @@ import {
   FindDepartmentCursorQuery,
 } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import {
-  DemoWithMemberCount,
-  DemoWithOwnership,
-} from 'src/core/database/prisma/types';
+import { DemoWithOwnership } from 'src/core/database/prisma/types';
 
 const DEMO_SEARCH_COLUMNS = [];
 const DEMO_ORDERABLE_FIELDS = ['createdAt'];
@@ -33,9 +30,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     };
   }
 
-  async findAll(
-    options: FindDemosQuery,
-  ): Promise<PageDto<DemoWithMemberCount>> {
+  async findAll(options: FindDemosQuery): Promise<PageDto<DemoWithOwnership>> {
     const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
@@ -59,9 +54,13 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       }),
       this.prisma.demo.count({ where }),
     ]);
+    const itemsWithOwnership = items.map((item) => ({
+      ...item,
+      isOwner: false,
+    }));
 
     return new PageDto(
-      items,
+      itemsWithOwnership,
       new PageMetaDto({ itemCount, pageOptionsDto: options }),
     );
   }

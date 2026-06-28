@@ -3,10 +3,7 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import {
-  DemoWithMemberCount,
-  DemoWithOwnership,
-} from 'src/core/database/prisma/types';
+import { DemoWithOwnership } from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -19,7 +16,7 @@ export class DemosQueryService {
 
   async findAll(
     pageOptionsDto: FindDemosQuery,
-  ): Promise<PageDto<DemoWithMemberCount>> {
+  ): Promise<PageDto<DemoWithOwnership>> {
     return this.demoQueryRepository.findAll(pageOptionsDto);
   }
 
