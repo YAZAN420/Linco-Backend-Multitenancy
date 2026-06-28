@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Department as PrismaDepartment } from 'src/generated/prisma/client';
 import { Department as DomainDepartment } from 'src/demos/domain/department';
 import { DepartmentResponseDto } from '../dto/department/department-response.dto';
+import { DepartmentWithDetails } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class DepartmentResponseMapper {
-  toResponseFromPrisma(department: PrismaDepartment): DepartmentResponseDto {
+  toResponseFromPrisma(
+    department: DepartmentWithDetails,
+  ): DepartmentResponseDto {
     return new DepartmentResponseDto(
       department.id,
       department.name,
@@ -13,6 +15,9 @@ export class DepartmentResponseMapper {
       department.description,
       department.createdAt,
       department.updatedAt,
+      department._count.courses,
+      department._count.members,
+      department.isJoined,
     );
   }
 
@@ -28,7 +33,7 @@ export class DepartmentResponseMapper {
   }
 
   toResponseManyFromPrisma(
-    departments: PrismaDepartment[],
+    departments: DepartmentWithDetails[],
   ): DepartmentResponseDto[] {
     return departments.map((dept) => this.toResponseFromPrisma(dept));
   }

@@ -6,5 +6,8 @@ export class DepartmentResponseDto {
     readonly description: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,
+    readonly courseCount?: number,
+    readonly membersCount?: number,
+    readonly isJoind?: boolean,
   ) {}
 }

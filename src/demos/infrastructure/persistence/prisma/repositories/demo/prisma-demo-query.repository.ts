@@ -5,14 +5,17 @@ import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, Department } from 'src/generated/prisma/client';
+import { Prisma } from 'src/generated/prisma/client';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
   FindDepartmentCursorQuery,
 } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import { DemoWithOwnership } from 'src/core/database/prisma/types';
+import {
+  DemoWithOwnership,
+  DepartmentWithDetails,
+} from 'src/core/database/prisma/types';
 
 const DEMO_SEARCH_COLUMNS = [];
 const DEMO_ORDERABLE_FIELDS = ['createdAt'];
@@ -147,7 +150,8 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   async findDepartments(
     options: FindDepartmentCursorQuery,
     demoId: string,
-  ): Promise<CursorPageDto<Department>> {
+    userId: string,
+  ): Promise<CursorPageDto<DepartmentWithDetails>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.department.findMany({
@@ -158,6 +162,21 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         demoId,
       },
       orderBy: [{ createdAt: 'desc' }],
+      include: {
+        _count: {
+          select: { members: true, courses: true },
+        },
+        members: {
+          where: {
+            demoMember: {
+              userId: userId,
+            },
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -165,17 +184,51 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
     const endCursor = items.length > 0 ? items[items.length - 1].id : null;
 
+    const formattedItems = items.map((item) => {
+      const { members, ...rest } = item;
+      return {
+        ...rest,
+        isJoined: members.length > 0,
+      };
+    });
+
     return new CursorPageDto(
-      items,
+      formattedItems,
       new CursorPageMetaDto(hasNextPage, endCursor),
     );
   }
 
-  async findDepartmentById(deptId: string): Promise<Department | null> {
-    return this.prisma.department.findFirst({
+  async findDepartmentById(
+    deptId: string,
+    userId: string,
+  ): Promise<DepartmentWithDetails | null> {
+    const dept = await this.prisma.department.findUnique({
       where: {
         id: deptId,
       },
+      include: {
+        _count: {
+          select: { members: true, courses: true },
+        },
+        members: {
+          where: {
+            demoMember: {
+              userId: userId,
+            },
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
     });
+
+    if (!dept) return null;
+
+    const { members, ...rest } = dept;
+    return {
+      ...rest,
+      isJoined: members.length > 0,
+    };
   }
 }

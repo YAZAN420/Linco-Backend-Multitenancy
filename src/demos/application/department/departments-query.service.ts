@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { Department } from 'src/generated/prisma/client';
 import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
 import { FindDepartmentCursorQuery } from '../demo/interfaces/find-demos.query';
+import { DepartmentWithDetails } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class DepartmentsQueryService {
@@ -11,25 +11,33 @@ export class DepartmentsQueryService {
   async findDepartments(
     options: FindDepartmentCursorQuery,
     demoId: string,
-  ): Promise<CursorPageDto<Department>> {
+    userId: string,
+  ): Promise<CursorPageDto<DepartmentWithDetails>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo with ID ${demoId} not found`);
     }
-    return await this.demoQueryRepository.findDepartments(options, demoId);
+    return await this.demoQueryRepository.findDepartments(
+      options,
+      demoId,
+      userId,
+    );
   }
 
   async findDepartmentById(
     demoId: string,
     deptId: string,
-  ): Promise<Department> {
+    userId: string,
+  ): Promise<DepartmentWithDetails> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo with ID ${demoId} not found`);
     }
 
-    const department =
-      await this.demoQueryRepository.findDepartmentById(deptId);
+    const department = await this.demoQueryRepository.findDepartmentById(
+      deptId,
+      userId,
+    );
 
     if (!department) {
       throw new NotFoundException(

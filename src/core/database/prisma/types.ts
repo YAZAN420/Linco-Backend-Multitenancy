@@ -60,6 +60,16 @@ export type CourseWithDemo = Prisma.CourseGetPayload<{
   };
 }>;
 
+export type DepartmentWithCounts = Prisma.DepartmentGetPayload<{
+  include: {
+    _count: { select: { members: true; courses: true } };
+  };
+}>;
+
+export type DepartmentWithDetails = DepartmentWithCounts & {
+  isJoined: boolean;
+};
+
 export type DepartmentMemberWithUser = Prisma.DepartmentMemberGetPayload<{
   include: {
     demoMember: {
