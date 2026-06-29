@@ -9,12 +9,12 @@ export function setupApp(app: INestApplication): void {
     .map((origin) => origin.trim())
     .filter((origin) => origin.length > 0);
 
-  app.use(helmet());
-  app.use(cookieParser());
   app.enableCors({
     origin: corsOrigins.length > 0 ? corsOrigins : !isProduction,
     credentials: true,
   });
+  app.use(cookieParser());
+  app.use(helmet());
 
   app.useGlobalPipes(
     new ValidationPipe({

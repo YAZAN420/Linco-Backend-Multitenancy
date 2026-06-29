@@ -16,7 +16,7 @@ export class DemosCommandController {
   ) {}
 
   @Post('upload-url')
-  async asyncgetUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+  async getUploadUrl(@Body() dto: GenerateUploadUrlDto) {
     return await this.demoCommandService.generateDemoImageUploadUrl(
       dto.fileName,
     );
