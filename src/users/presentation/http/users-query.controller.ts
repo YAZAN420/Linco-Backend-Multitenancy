@@ -1,12 +1,13 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindUsersDto } from './dto/filters/find-users.dto';
-import { FindUsersCursorDto } from './dto/filters/find-users-cursor.dto';
-
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Controller('users')
 export class UsersQueryController {
@@ -16,7 +17,7 @@ export class UsersQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() pageOptionsDto: FindUsersDto) {
+  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
     const users = await this.userQueryService.findAll(pageOptionsDto);
     return {
       message: 'Users fetched successfully',
@@ -26,7 +27,7 @@ export class UsersQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindUsersCursorDto) {
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
     const users = await this.userQueryService.findAllCursor(options);
 
     return {

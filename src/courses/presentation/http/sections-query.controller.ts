@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SectionResponseMapper } from './mappers/section-response.mapper';
-import { FindSectionsCursorDto } from './dto/filters/find-sections-cursor.dto';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Controller('courses/:courseId/sections')
@@ -13,7 +13,7 @@ export class SectionsQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('courseId') courseId: string,
-    @Query() options: FindSectionsCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const sections = await this.sectionQueryService.findAllCursor(
       courseId,

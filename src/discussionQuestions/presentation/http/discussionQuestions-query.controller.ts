@@ -1,10 +1,10 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindDiscussionQuestionsCursorDto } from './dto/filters/find-discussionQuestions-cursor.dto';
-
 import { DiscussionQuestionsQueryService } from 'src/discussionQuestions/application/discussionQuestions-query.service';
 
 import { DiscussionQuestionResponseMapper } from './mappers/discussionQuestion-response.mapper';
+
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 
 @Controller('lessons/:lessonId/discussionQuestions')
 export class DiscussionQuestionsQueryController {
@@ -16,7 +16,7 @@ export class DiscussionQuestionsQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('lessonId') lessonId: string,
-    @Query() options: FindDiscussionQuestionsCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const discussionQuestions =
       await this.discussionQuestionQueryService.findAllCursor(

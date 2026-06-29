@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { FindAssetsDto } from './dto/filters/find-assets.dto';
-import { FindAssetsCursorDto } from './dto/filters/find-assets-cursor.dto';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 
@@ -14,7 +16,7 @@ export class AssetsQueryController {
   @Get()
   async findAll(
     @Param('demoId') demoId: string,
-    @Query() options: FindAssetsDto,
+    @Query() options: PageOptionsDto,
   ) {
     const assets = await this.assetQueryService.findAll(demoId, options);
     return {
@@ -27,7 +29,7 @@ export class AssetsQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('demoId') demoId: string,
-    @Query() options: FindAssetsCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const assets = await this.assetQueryService.findAllCursor(demoId, options);
 

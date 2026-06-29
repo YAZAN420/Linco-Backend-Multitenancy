@@ -1,11 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindDepartmentCoursesDto } from './dto/filters/find-departmentCourses.dto';
-import { FindDepartmentCoursesCursorDto } from './dto/filters/find-departmentCourses-cursor.dto';
-
 import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesQueryController {
@@ -17,7 +18,7 @@ export class DepartmentCoursesQueryController {
   @Get()
   async findAll(
     @Param('departmentId') departmentId: string,
-    @Query() options: FindDepartmentCoursesDto,
+    @Query() options: PageOptionsDto,
   ) {
     const departmentCourses = await this.departmentCourseQueryService.findAll(
       departmentId,
@@ -35,7 +36,7 @@ export class DepartmentCoursesQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('departmentId') departmentId: string,
-    @Query() options: FindDepartmentCoursesCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const departmentCourses =
       await this.departmentCourseQueryService.findAllCursor(

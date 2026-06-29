@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Query } from '@nestjs/common';
 import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
 import { ExamRandomResponseMapper } from './mappers/random-exam-response.mapper';
-import { FindExamsDto } from './dto/filters/find-exams.dto';
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
-import { FindExamsCursorDto } from './dto/filters/find-exams-cursor.dto';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Controller('examAttempts')
 export class ExamsAttemptQueryController {
@@ -15,10 +17,13 @@ export class ExamsAttemptQueryController {
 
   @Get()
   async findAll(
-    @Param("sectionId") sectionId: string,
-    @Query() options: FindExamsDto
+    @Param('sectionId') sectionId: string,
+    @Query() options: PageOptionsDto,
   ) {
-    const exams = await this.examAttemptQueryService.findAll(sectionId, options);
+    const exams = await this.examAttemptQueryService.findAll(
+      sectionId,
+      options,
+    );
     return {
       message: 'Exams fetched successfully',
       data: this.examAttemptResponseMapper.toResponseManyFromPrisma(exams.data),
@@ -28,10 +33,13 @@ export class ExamsAttemptQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param("courseId") courseId: string,
-    @Query() options: FindExamsCursorDto
-    ) {
-    const exams = await this.examAttemptQueryService.findAllCursor(courseId, options);
+    @Param('courseId') courseId: string,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const exams = await this.examAttemptQueryService.findAllCursor(
+      courseId,
+      options,
+    );
 
     return {
       message: 'Exams fetched successfully (Cursor)',
@@ -41,9 +49,7 @@ export class ExamsAttemptQueryController {
   }
 
   @Get(':examAttemptId')
-  async findOne(
-    @Param('examAttemptId') examAttemptId: string,
-  ) {
+  async findOne(@Param('examAttemptId') examAttemptId: string) {
     const exam = await this.examAttemptQueryService.findById(examAttemptId);
 
     return {
@@ -53,9 +59,7 @@ export class ExamsAttemptQueryController {
   }
 
   @Get(':examAttemptId')
-  async generateExam(
-    @Param('examAttemptId') examAttemptId: string,
-  ) {
+  async generateExam(@Param('examAttemptId') examAttemptId: string) {
     const exam = await this.examAttemptQueryService.generateExam(examAttemptId);
 
     return {

@@ -1,11 +1,13 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindExamsDto } from './dto/filters/find-exams.dto';
-import { FindExamsCursorDto } from './dto/filters/find-exams-cursor.dto';
-
 import { ExamsQueryService } from 'src/exams/application/exams-query.service';
 
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
+
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Controller('sections/:sectionId/exams')
 export class ExamsQueryController {
@@ -17,7 +19,7 @@ export class ExamsQueryController {
   @Get()
   async findAll(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindExamsDto,
+    @Query() options: PageOptionsDto,
   ) {
     const exams = await this.examQueryService.findAll(sectionId, options);
     return {
@@ -30,7 +32,7 @@ export class ExamsQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindExamsCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const exams = await this.examQueryService.findAllCursor(sectionId, options);
 

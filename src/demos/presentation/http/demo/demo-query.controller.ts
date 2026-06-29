@@ -1,7 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindDemosCursorDto } from '../dto/filters/find-demos-cursor.dto';
-
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DemosQueryService } from 'src/demos/application/demo/demos-query.service';
 
 import { DemoResponseMapper } from '../mappers/demo-response.mapper';
@@ -18,7 +17,7 @@ export class DemosQueryController {
   @Get()
   async findAllForMe(
     @ActiveUser() user: ActiveUserData,
-    @Query() options: FindDemosCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const demos = await this.demoQueryService.findAllForMe(options, user.id);
 

@@ -3,8 +3,10 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { QuestionsBanksQueryService } from 'src/questionBanks/application/questionsBank-query.service';
 
 import { QuestionsBankResponseMapper } from './mappers/questionBank-response.mapper';
-import { FindQuestionsBanksDto } from './dto/filters/find-questionsBank.dto';
-import { FindQuestionBanksCursorDto } from './dto/filters/find-questionsBank-cursor.dto';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 @Controller('sections/:sectionId/questionsBank')
 export class QuestionsBanksQueryController {
@@ -16,7 +18,7 @@ export class QuestionsBanksQueryController {
   @Get()
   async findAll(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindQuestionsBanksDto,
+    @Query() options: PageOptionsDto,
   ) {
     const questionsBank = await this.questionBankQueryService.findAll(
       sectionId,
@@ -34,7 +36,7 @@ export class QuestionsBanksQueryController {
   @Get('cursor')
   async findWithCursor(
     @Param('sectionId') sectionId: string,
-    @Query() options: FindQuestionBanksCursorDto,
+    @Query() options: CursorPageOptionsDto,
   ) {
     const questionsBank = await this.questionBankQueryService.findAllCursor(
       sectionId,

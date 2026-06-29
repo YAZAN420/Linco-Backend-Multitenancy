@@ -1,8 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { FindCoursesDto } from './dto/filters/find-courses.dto';
-import { FindCoursesCursorDto } from './dto/filters/find-courses-cursor.dto';
-
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 
 import { CourseResponseMapper } from './mappers/course-response.mapper';
@@ -15,7 +16,7 @@ export class CoursesQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: FindCoursesDto) {
+  async findAll(@Query() options: PageOptionsDto) {
     const courses = await this.courseQueryService.findAll(options);
     return {
       message: 'Courses fetched successfully',
@@ -25,7 +26,7 @@ export class CoursesQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: FindCoursesCursorDto) {
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
     const courses = await this.courseQueryService.findAllCursor(options);
 
     return {
