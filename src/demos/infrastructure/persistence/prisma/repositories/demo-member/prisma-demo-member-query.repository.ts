@@ -5,24 +5,56 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { FindDemoMembersCursorQuery } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
-import { DemoMember } from 'src/generated/prisma/client';
+import { DemoMember, Prisma } from 'src/generated/prisma/client';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
 
 @Injectable()
 export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  private buildWhereClause(
+    demoId: string,
+    options: FindDemoMembersCursorQuery,
+  ): Prisma.DemoMemberWhereInput {
+    const { search, createdAt } = options;
+    const where: Prisma.DemoMemberWhereInput = {
+      demoId,
+    };
+    if (createdAt) {
+      where.joinedAt = createdAt;
+    }
+    if (search) {
+      const searchString = search.trim();
+      const parts = searchString.split(/\s+/);
+
+      if (parts.length > 1) {
+        where.user = {
+          firstName: { contains: parts[0], mode: 'insensitive' },
+          lastName: { contains: parts[parts.length - 1], mode: 'insensitive' },
+        };
+      } else {
+        where.user = {
+          OR: [
+            { firstName: { contains: searchString, mode: 'insensitive' } },
+            { lastName: { contains: searchString, mode: 'insensitive' } },
+          ],
+        };
+      }
+    }
+    return where;
+  }
+
   async findAllByDemo(
     demoId: string,
     options: FindDemoMembersCursorQuery,
   ): Promise<CursorPageDto<DemoMemberWithUser>> {
     const { cursor, take } = options;
-
+    const where = this.buildWhereClause(demoId, options);
     const items = await this.prisma.demoMember.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where: { demoId },
+      where,
       orderBy: [{ joinedAt: 'desc' }, { id: 'desc' }],
       include: {
         user: true,

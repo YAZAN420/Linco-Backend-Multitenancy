@@ -1,4 +1,5 @@
 import { DemoFilter } from './demo-filter.interface';
+import { DemoMemberFilter } from './demo-member-filter.interface';
 
 export interface FindDemosQuery extends DemoFilter {
   page: number;
@@ -17,7 +18,7 @@ export interface FindDepartmentCursorQuery {
   take: number;
 }
 
-export interface FindDemoMembersCursorQuery {
+export interface FindDemoMembersCursorQuery extends DemoMemberFilter {
   cursor?: string;
   take: number;
 }

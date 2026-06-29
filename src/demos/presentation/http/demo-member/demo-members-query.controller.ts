@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { DemoMemberResponseMapper } from '../mappers/demo-member-response.mapper';
-import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DemoMembersQueryService } from 'src/demos/application/demo-member/demo-members-query.service';
+import { FindDemoMembersCursorDto } from '../dto/filters/find-demo-members-cursor.dto';
 
 @Controller('demos/:demoId/members')
 export class DemoMembersQueryController {
@@ -14,7 +14,7 @@ export class DemoMembersQueryController {
   @Get()
   async findAllByDemo(
     @Param('demoId') demoId: string,
-    @Query() options: CursorPageOptionsDto,
+    @Query() options: FindDemoMembersCursorDto,
   ) {
     const members = await this.demoMembersQueryService.findAllByDemo(
       demoId,
