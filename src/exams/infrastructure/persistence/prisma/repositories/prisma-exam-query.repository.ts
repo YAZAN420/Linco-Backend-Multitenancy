@@ -3,9 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindExamsCursorQuery,
@@ -15,37 +13,23 @@ import { ExamQueryRepository } from 'src/exams/application/ports/exam-query.repo
 import { Exam } from 'src/exams/domain/exam';
 import { PrismaExamMapper } from '../mappers/prisma-exam.mapper';
 
-const EXAM_SEARCH_COLUMNS = [];
-const EXAM_ORDERABLE_FIELDS = ['createdAt'];
-
 @Injectable()
 export class PrismaExamQueryRepository implements ExamQueryRepository {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly mapper: PrismaExamMapper
+    private readonly mapper: PrismaExamMapper,
   ) {}
 
-  private buildPrismaArgs<T extends FindExamsQuery | FindExamsCursorQuery>(
-    options: T,
-  ) {
-    return {
-      where: buildWhere<T, Prisma.ExamWhereInput>(options, EXAM_SEARCH_COLUMNS),
-      orderBy: buildOrderBy(options.orderBy, EXAM_ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(options: FindExamsQuery): Promise<PageDto<Exam>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.exam.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: [{ createdAt: 'desc' }],
       }),
-      this.prisma.exam.count({ where }),
+      this.prisma.exam.count(),
     ]);
 
     return new PageDto(
@@ -57,15 +41,13 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
   async findAllCursor(
     options: FindExamsCursorQuery,
   ): Promise<CursorPageDto<Exam>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.exam.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
     });
 
     const hasNextPage = items.length > take;
@@ -83,7 +65,7 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
     const exam = await this.prisma.exam.findUnique({
       where: { id },
     });
-    if(exam == null) {
+    if (exam == null) {
       throw new NotFoundException('exam not found');
     }
     return this.mapper.toDomain(exam);

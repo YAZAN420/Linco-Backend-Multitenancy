@@ -3,9 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindAssetsCursorQuery,
@@ -14,30 +12,14 @@ import {
 import { AssetQueryRepository } from 'src/assets/application/ports/asset-query.repository';
 import { AssetWithCourse } from 'src/core/database/prisma/types';
 
-const ASSET_SEARCH_COLUMNS = [];
-const ASSET_ORDERABLE_FIELDS = ['acquiredAt'];
-
 @Injectable()
 export class PrismaAssetQueryRepository implements AssetQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
-
-  private buildPrismaArgs<T extends FindAssetsQuery | FindAssetsCursorQuery>(
-    options: T,
-  ) {
-    return {
-      where: buildWhere<T, Prisma.AssetWhereInput>(
-        options,
-        ASSET_SEARCH_COLUMNS,
-      ),
-      orderBy: buildOrderBy(options.orderBy, ASSET_ORDERABLE_FIELDS),
-    };
-  }
 
   async findAll(
     demoId: string,
     options: FindAssetsQuery,
   ): Promise<PageDto<AssetWithCourse>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
@@ -45,10 +27,9 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
         skip,
         take: options.take,
         where: {
-          ...where,
           demoId,
         },
-        orderBy: orderBy.length > 0 ? orderBy : [{ acquiredAt: 'desc' }],
+        orderBy: [{ acquiredAt: 'desc' }],
         include: {
           course: {
             include: {
@@ -57,7 +38,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
           },
         },
       }),
-      this.prisma.asset.count({ where }),
+      this.prisma.asset.count(),
     ]);
 
     return new PageDto(
@@ -70,7 +51,6 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
     demoId: string,
     options: FindAssetsCursorQuery,
   ): Promise<CursorPageDto<AssetWithCourse>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.asset.findMany({
@@ -78,10 +58,9 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where: {
-        ...where,
         demoId,
       },
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
       include: {
         course: {
           include: {

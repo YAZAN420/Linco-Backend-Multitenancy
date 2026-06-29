@@ -3,9 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindDepartmentCoursesCursorQuery,
@@ -14,37 +12,20 @@ import {
 import { DepartmentCourseQueryRepository } from 'src/departmentCourses/application/ports/departmentCourse-query.repository';
 import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
 
-const DEPARTMENTCOURSE_SEARCH_COLUMNS = [];
-const DEPARTMENTCOURSE_ORDERABLE_FIELDS = ['createdAt'];
-
 @Injectable()
 export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<
-    T extends FindDepartmentCoursesQuery | FindDepartmentCoursesCursorQuery,
-  >(options: T) {
-    return {
-      where: buildWhere<T, Prisma.DepartmentCourseWhereInput>(
-        options,
-        DEPARTMENTCOURSE_SEARCH_COLUMNS,
-      ),
-      orderBy: buildOrderBy(options.orderBy, DEPARTMENTCOURSE_ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(
     options: FindDepartmentCoursesQuery,
   ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.departmentCourse.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ assignedAt: 'desc' }],
+        orderBy: [{ assignedAt: 'desc' }],
         include: {
           asset: {
             include: {
@@ -57,7 +38,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
           },
         },
       }),
-      this.prisma.departmentCourse.count({ where }),
+      this.prisma.departmentCourse.count(),
     ]);
 
     return new PageDto(
@@ -69,15 +50,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
   async findAllCursor(
     options: FindDepartmentCoursesCursorQuery,
   ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.departmentCourse.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
       include: {
         asset: {
           include: {

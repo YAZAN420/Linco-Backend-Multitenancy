@@ -3,9 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -17,32 +15,18 @@ import {
   DepartmentWithDetails,
 } from 'src/core/database/prisma/types';
 
-const DEMO_SEARCH_COLUMNS = [];
-const DEMO_ORDERABLE_FIELDS = ['createdAt'];
-
 @Injectable()
 export class PrismaDemoQueryRepository implements DemoQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<T extends FindDemosQuery | FindDemosCursorQuery>(
-    options: T,
-  ) {
-    return {
-      where: buildWhere<T, Prisma.DemoWhereInput>(options, DEMO_SEARCH_COLUMNS),
-      orderBy: buildOrderBy(options.orderBy, DEMO_ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(options: FindDemosQuery): Promise<PageDto<DemoWithOwnership>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.demo.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: [{ createdAt: 'desc' }],
         include: {
           _count: {
             select: { members: true },
@@ -55,7 +39,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
           },
         },
       }),
-      this.prisma.demo.count({ where }),
+      this.prisma.demo.count(),
     ]);
     const itemsWithOwnership = items.map((item) => ({
       ...item,
@@ -72,7 +56,6 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
     options: FindDemosCursorQuery,
     userId: string,
   ): Promise<CursorPageDto<DemoWithOwnership>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.demo.findMany({
@@ -80,10 +63,9 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where: {
-        ...where,
         OR: [{ ownerId: userId }, { members: { some: { userId: userId } } }],
       },
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
       include: {
         _count: {
           select: { members: true },

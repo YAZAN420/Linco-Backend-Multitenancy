@@ -3,43 +3,28 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, User } from 'src/generated/prisma/client';
+import { User } from 'src/generated/prisma/client';
 import {
   FindUsersCursorQuery,
   FindUsersQuery,
 } from 'src/users/application/interfaces/find-users.query';
 import { UserQueryRepository } from 'src/users/application/ports/user-query.repository';
 
-const USER_SEARCH_COLUMNS = ['firstName', 'lastName', 'email'];
-const USER_ORDERABLE_FIELDS = ['createdAt', 'firstName', 'lastName', 'email'];
-
 @Injectable()
 export class PrismaUserQueryRepository implements UserQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<T extends FindUsersQuery | FindUsersCursorQuery>(
-    options: T,
-  ) {
-    return {
-      where: buildWhere<T, Prisma.UserWhereInput>(options, USER_SEARCH_COLUMNS),
-      orderBy: buildOrderBy(options.orderBy, USER_ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(options: FindUsersQuery): Promise<PageDto<User>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: [{ createdAt: 'desc' }],
       }),
-      this.prisma.user.count({ where }),
+      this.prisma.user.count(),
     ]);
 
     return new PageDto(
@@ -51,15 +36,13 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
   async findAllCursor(
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
     });
 
     const hasNextPage = items.length > take;

@@ -4,9 +4,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { DomainException } from 'src/common/exceptions/domain.exception';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
 
 import {
   FindQuestionsBankCursorQuery,
@@ -16,9 +14,6 @@ import { QuestionsBankQueryRepository } from 'src/questionBanks/application/port
 import { PrismaQuestionsBankMapper } from '../mappers/prisma-questionsBank.mapper';
 import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
 
-const QUESTIONSBANK_SEARCH_COLUMNS = [];
-const QUESTIONSBANK_ORDERABLE_FIELDS = ['createdAt'];
-
 @Injectable()
 export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRepository {
   constructor(
@@ -26,33 +21,19 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     private readonly mapper: PrismaQuestionsBankMapper,
   ) {}
 
-  private buildPrismaArgs<
-    T extends FindQuestionsBankQuery | FindQuestionsBankCursorQuery,
-  >(options: T) {
-    return {
-      where: buildWhere<T, Prisma.QuestionsBankWhereInput>(
-        options,
-        QUESTIONSBANK_SEARCH_COLUMNS,
-      ),
-      orderBy: buildOrderBy(options.orderBy, QUESTIONSBANK_ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(
     options: FindQuestionsBankQuery,
   ): Promise<PageDto<QuestionsBank>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.questionsBank.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: [{ createdAt: 'desc' }],
         include: { choices: true },
       }),
-      this.prisma.questionsBank.count({ where }),
+      this.prisma.questionsBank.count(),
     ]);
 
     return new PageDto(
@@ -64,14 +45,13 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
   async findAllCursor(
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBank>> {
-    const { orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.questionsBank.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
       include: { choices: true },
     });
 
