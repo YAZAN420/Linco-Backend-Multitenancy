@@ -4,5 +4,7 @@ export interface CreateCourseInput {
   title: string;
   visibility: CourseVisibility;
   demoId: string;
+  description: string;
+  imagePath: string;
   price?: number | null;
 }

@@ -13,6 +13,8 @@ export class CourseResponseMapper {
       course.title,
       course.visibility,
       course.price,
+      course.description,
+      course.imagePath,
       course.createdAt,
       course.updatedAt,
       this.demoResponseMapper.toSimpleResponseFromPrisma(course.demo),
@@ -25,6 +27,8 @@ export class CourseResponseMapper {
       course.title,
       course.visibility,
       course.price,
+      course.description,
+      course.imagePath,
       course.createdAt,
       course.updatedAt,
     );

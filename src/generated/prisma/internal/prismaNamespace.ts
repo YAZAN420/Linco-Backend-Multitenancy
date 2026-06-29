@@ -1945,6 +1945,8 @@ export type DemoScalarFieldEnum = (typeof DemoScalarFieldEnum)[keyof typeof Demo
 export const CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  imagePath: 'imagePath',
+  description: 'description',
   visibility: 'visibility',
   price: 'price',
   demoId: 'demoId',

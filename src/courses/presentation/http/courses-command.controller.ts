@@ -4,6 +4,7 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 
 import { CourseResponseMapper } from './mappers/course-response.mapper';
 import { CoursesCommandService } from 'src/courses/application/courses-command.service';
+import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 
 @Controller('courses')
 export class CoursesCommandController {
@@ -11,6 +12,13 @@ export class CoursesCommandController {
     private readonly courseCommandService: CoursesCommandService,
     private readonly courseResponseMapper: CourseResponseMapper,
   ) {}
+
+  @Post('upload-url')
+  async getUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    return await this.courseCommandService.generateDemoImageUploadUrl(
+      dto.fileName,
+    );
+  }
 
   @Post()
   async create(@Body() dto: CreateCourseDto) {

@@ -16,6 +16,14 @@ export class Course {
     return this.props.createdAt;
   }
 
+  get imagePath(): string {
+    return this.props.imagePath;
+  }
+
+  get description(): string {
+    return this.props.description;
+  }
+
   get updatedAt(): Date {
     return this.props.updatedAt;
   }
@@ -38,6 +46,18 @@ export class Course {
 
   get sections(): Section[] {
     return this.props.sections;
+  }
+
+  updateDescription(newDescription: string) {
+    if (newDescription === this.props.description) return;
+    this.props.description = newDescription;
+    this.touch();
+  }
+
+  updateImagePath(newImagePath: string) {
+    if (newImagePath === this.props.imagePath) return;
+    this.props.imagePath = newImagePath;
+    this.touch();
   }
 
   updateVisibility(newVisibility: CourseVisibility) {

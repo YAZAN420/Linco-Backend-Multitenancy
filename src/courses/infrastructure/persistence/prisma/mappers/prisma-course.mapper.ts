@@ -21,6 +21,8 @@ export class PrismaCourseMapper {
       sections: raw.sections
         ? raw.sections.map((section) => this.sectionMapper.toDomain(section))
         : [],
+      description: raw.description,
+      imagePath: raw.imagePath,
       demoId: raw.demoId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
@@ -32,6 +34,8 @@ export class PrismaCourseMapper {
       id: course.id,
       createdAt: course.createdAt,
       updatedAt: course.updatedAt,
+      imagePath: course.imagePath,
+      description: course.description,
       title: course.title,
       visibility: course.visibility,
       demoId: course.demoId,

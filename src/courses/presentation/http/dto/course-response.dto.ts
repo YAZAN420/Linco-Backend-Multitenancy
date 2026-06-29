@@ -6,6 +6,8 @@ export class CourseResponseDto {
     readonly title: string,
     readonly visibility: string,
     readonly price: number | null,
+    readonly description: string,
+    readonly imagePath: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly demo?: DemoResponseDto,

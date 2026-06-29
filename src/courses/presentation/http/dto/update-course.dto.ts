@@ -11,6 +11,14 @@ export class UpdateCourseDto implements UpdateCourseInput {
   @IsEnum(CourseVisibility)
   visibility?: CourseVisibility;
 
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsOptional()
+  imagePath?: string;
+
   @IsNumber()
   @IsOptional()
   price?: number;

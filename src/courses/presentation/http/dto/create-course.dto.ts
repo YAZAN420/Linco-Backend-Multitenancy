@@ -21,6 +21,14 @@ export class CreateCourseDto implements CreateCourseInput {
   @IsNotEmpty()
   demoId!: string;
 
+  @IsString()
+  @IsNotEmpty()
+  description!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  imagePath!: string;
+
   @IsNumber()
   @IsOptional()
   price?: number;

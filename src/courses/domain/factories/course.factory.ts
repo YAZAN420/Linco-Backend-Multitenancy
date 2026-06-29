@@ -11,6 +11,8 @@ export class CourseFactory {
     title: string,
     visibility: CourseVisibility,
     demoId: string,
+    description: string,
+    imagePath: string,
     price?: number | null,
   ): Course {
     const now = new Date();
@@ -19,6 +21,8 @@ export class CourseFactory {
     return new Course(uuidv7(), {
       title: titleVo,
       visibility,
+      imagePath,
+      description,
       price: priceVo,
       demoId: demoId ?? null,
       sections: [],

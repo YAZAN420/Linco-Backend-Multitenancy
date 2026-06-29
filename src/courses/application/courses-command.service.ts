@@ -10,6 +10,7 @@ import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
+import { StoragePort } from 'src/core/storage/storage.port';
 @Injectable()
 export class CoursesCommandService {
   constructor(
@@ -17,7 +18,17 @@ export class CoursesCommandService {
     private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
+    private readonly spacesService: StoragePort,
   ) {}
+
+  async generateDemoImageUploadUrl(fileName: string) {
+    return await this.spacesService.generateUploadUrl(
+      fileName,
+      'image/png',
+      true,
+      'courses',
+    );
+  }
 
   async create(input: CreateCourseInput): Promise<Course> {
     const demoExists = await this.demoQueryRepository.demoExists(input.demoId);
@@ -27,6 +38,8 @@ export class CoursesCommandService {
       input.title,
       input.visibility,
       input.demoId,
+      input.description,
+      input.imagePath,
       input.price,
     );
 
@@ -50,6 +63,14 @@ export class CoursesCommandService {
     if (input.price !== undefined) {
       const priceVo = Price.create(input.price);
       course.updatePrice(priceVo);
+    }
+
+    if (input.description !== undefined) {
+      course.updateDescription(input.description);
+    }
+
+    if (input.imagePath !== undefined) {
+      course.updateImagePath(input.imagePath);
     }
 
     if (input.visibility !== undefined && input.visibility !== null) {
