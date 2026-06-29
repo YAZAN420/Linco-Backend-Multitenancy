@@ -155,6 +155,8 @@ model Demo {
 model Course {
   id         String           @id 
   title      String
+  imagePath String
+  description String
   visibility CourseVisibility @default(PRIVATE)
   price      Float?          
 
