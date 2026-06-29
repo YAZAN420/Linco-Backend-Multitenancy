@@ -12,6 +12,12 @@ export class CreateLessonDto implements CreateLessonInput {
   @IsNotEmpty()
   videoUrl!: string;
   @IsString()
+  @IsNotEmpty()
+  description!: string;
+  @IsNumber()
+  @IsNotEmpty()
+  duration!: number;
+  @IsString()
   @IsOptional()
   subTitleUrl?: string;
 }

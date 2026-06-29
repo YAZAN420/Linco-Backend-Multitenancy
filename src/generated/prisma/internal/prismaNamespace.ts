@@ -1972,7 +1972,9 @@ export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeo
 export const LessonScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  description: 'description',
   videoUrl: 'videoUrl',
+  duration: 'duration',
   subTitleUrl: 'subTitleUrl',
   order: 'order',
   sectionId: 'sectionId',

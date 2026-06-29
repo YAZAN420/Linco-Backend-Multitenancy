@@ -13,5 +13,11 @@ export class UpdateLessonDto implements UpdateLessonInput {
   videoUrl?: string;
   @IsString()
   @IsOptional()
+  description?: string;
+  @IsNumber()
+  @IsOptional()
+  duration?: number;
+  @IsString()
+  @IsOptional()
   subTitleUrl?: string;
 }

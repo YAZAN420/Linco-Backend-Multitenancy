@@ -194,7 +194,9 @@ model Section {
 model Lesson {
   id          String   @id 
   title       String
+  description String 
   videoUrl    String
+  duration    Int
   subTitleUrl String?
   order       Int      
   sectionId   String

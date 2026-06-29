@@ -22,6 +22,8 @@ export class PrismaLessonMapper {
       order: lessonOrderVo,
       videoUrl: videoUrlVo,
       subTitleUrl: subTitleUrlVo,
+      duration: raw.duration,
+      description: raw.description,
       sectionId: raw.sectionId,
       attachments: raw.attachments
         ? raw.attachments.map((a) => this.attachmentMapper.toDomain(a))
@@ -37,6 +39,8 @@ export class PrismaLessonMapper {
       title: lesson.title,
       order: lesson.order,
       videoUrl: lesson.videoUrl,
+      duration: lesson.duration,
+      description: lesson.description,
       subTitleUrl: lesson.subTitleUrl,
       sectionId: lesson.sectionId,
       createdAt: lesson.createdAt,

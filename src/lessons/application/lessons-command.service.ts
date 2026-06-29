@@ -22,6 +22,8 @@ export class LessonsCommandService {
       input.title,
       input.order,
       input.videoUrl,
+      input.description,
+      input.duration,
       input.subTitleUrl ?? null,
     );
     await this.lessonCommandRepository.save(lesson);
@@ -35,21 +37,27 @@ export class LessonsCommandService {
   ): Promise<Lesson> {
     const lesson = await this.findById(lessonId);
     if (!lesson) throw new NotFoundException('Lesson not found');
-    if (input.title) {
+    if (input.title !== undefined) {
       const titleVo = Title.create(input.title);
       lesson.updateTitle(titleVo);
     }
-    if (input.order) {
+    if (input.order !== undefined) {
       const lessonOrderVo = LessonOrder.create(input.order);
       lesson.updateOrder(lessonOrderVo);
     }
-    if (input.videoUrl) {
+    if (input.videoUrl !== undefined) {
       const videoUrlVo = Url.create(input.videoUrl);
       lesson.updateVideoUrl(videoUrlVo);
     }
-    if (input.subTitleUrl) {
+    if (input.subTitleUrl !== undefined) {
       const subTitleUrlVo = Url.create(input.subTitleUrl);
       lesson.updateSubTitleUrl(subTitleUrlVo);
+    }
+    if (input.description !== undefined) {
+      lesson.updateDescription(input.description);
+    }
+    if (input.duration !== undefined) {
+      lesson.updateDuration(input.duration);
     }
 
     await this.lessonCommandRepository.save(lesson);

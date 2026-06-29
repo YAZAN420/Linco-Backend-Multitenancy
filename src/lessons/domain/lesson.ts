@@ -16,6 +16,14 @@ export class Lesson {
     return this.props.createdAt;
   }
 
+  get description(): string {
+    return this.props.description;
+  }
+
+  get duration(): number {
+    return this.props.duration;
+  }
+
   get updatedAt(): Date {
     return this.props.updatedAt;
   }
@@ -42,6 +50,18 @@ export class Lesson {
 
   get attachments(): Attachment[] {
     return [...this.props.attachments];
+  }
+
+  updateDuration(newDuration: number) {
+    if (this.props.duration === newDuration) return;
+    this.props.duration = newDuration;
+    this.touch();
+  }
+
+  updateDescription(newDescription: string) {
+    if (this.props.description === newDescription) return;
+    this.props.description = newDescription;
+    this.touch();
   }
 
   updateTitle(newTitle: Title) {

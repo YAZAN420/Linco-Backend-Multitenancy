@@ -6,6 +6,8 @@ export class LessonResponseDto {
     readonly videoUrl: string,
     readonly subTitleUrl: string | null,
     readonly sectionId: string,
+    readonly duration: number,
+    readonly description: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,
   ) {}
