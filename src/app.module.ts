@@ -25,6 +25,9 @@ import { DiscussionQuestionsModule } from './discussionQuestions/discussionQuest
 import { DiscussionQuestionsInfrastructureModule } from './discussionQuestions/infrastructure/discussionQuestions-infrastructure.module';
 import { ExamsModule } from './exams/exams.module';
 import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
+import { PaymentsModule } from './payments/payments.module';
+import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -50,6 +53,7 @@ export class AppModule {
           DiscussionQuestionsInfrastructureModule.use(),
         ),
         ExamsModule.withInfrastructure(ExamsInfrastructureModule.use()),
+        PaymentsModule.withInfrastructure(PaymentsInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

@@ -137,7 +137,7 @@ export class Lesson {
     this.touch();
   }
 
-  private touch() {
+  private touch(): void {
     this.props.updatedAt = new Date();
   }
 }

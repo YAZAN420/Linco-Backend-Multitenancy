@@ -105,6 +105,7 @@ export const UserScalarFieldEnum = {
   emailVerificationExpires: 'emailVerificationExpires',
   passwordResetToken: 'passwordResetToken',
   passwordResetExpires: 'passwordResetExpires',
+  stripeCustomerId: 'stripeCustomerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -155,6 +156,9 @@ export const DemoScalarFieldEnum = {
   imagePath: 'imagePath',
   description: 'description',
   plan: 'plan',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  subscriptionStatus: 'subscriptionStatus',
+  currentPeriodEnd: 'currentPeriodEnd',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -316,19 +320,18 @@ export type DiscussionAnswerScalarFieldEnum = (typeof DiscussionAnswerScalarFiel
 
 export const PaymentScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  purchaseType: 'purchaseType',
-  courseId: 'courseId',
   amount: 'amount',
   currency: 'currency',
+  type: 'type',
+  plan: 'plan',
   status: 'status',
-  stripeSessionId: 'stripeSessionId',
+  stripeInvoiceId: 'stripeInvoiceId',
   stripePaymentIntentId: 'stripePaymentIntentId',
-  paymentMethod: 'paymentMethod',
-  receiptUrl: 'receiptUrl',
-  failureReason: 'failureReason',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  demoId: 'demoId',
+  courseId: 'courseId'
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]

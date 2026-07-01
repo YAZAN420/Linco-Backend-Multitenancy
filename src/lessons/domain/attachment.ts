@@ -50,7 +50,7 @@ export class Attachment {
     this.touch();
   }
 
-  private touch() {
+  private touch(): void {
     this.props.updatedAt = new Date();
   }
 }

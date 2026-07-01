@@ -10,6 +10,7 @@ export interface UserProps {
   imagePath: string;
   role: Role;
   security: UserSecurity;
+  stripeCustomerId?: string;
   createdAt: Date;
   updatedAt: Date;
 }

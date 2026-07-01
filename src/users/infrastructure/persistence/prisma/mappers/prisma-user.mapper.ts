@@ -28,6 +28,7 @@ export class PrismaUserMapper {
       imagePath: raw.imagePath,
       role: raw.role as unknown as Role,
       security,
+      stripeCustomerId: raw.stripeCustomerId ?? undefined,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -42,6 +43,7 @@ export class PrismaUserMapper {
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+      stripeCustomerId: user.stripeCustomerId ?? null,
       birthDate: user.birthDate,
       imagePath: user.imagePath,
       password: securityProps.password,

@@ -27,6 +27,7 @@ import { DepartmentMemberFactory } from './domain/factories/department-member.fa
 import { DepartmentMemberResponseMapper } from './presentation/http/mappers/department-member-response.mapper copy';
 import { DepartmentMembersQueryController } from './presentation/http/department-member/department-members-query.controller';
 import { DepartmentMembersCommandController } from './presentation/http/department-member/department-members-command.controller';
+import { DemoEventsListener } from './presentation/events/demo.listener';
 
 @Global()
 @Module({
@@ -43,6 +44,7 @@ import { DepartmentMembersCommandController } from './presentation/http/departme
     DepartmentMembersQueryController,
   ],
   providers: [
+    DemoEventsListener,
     DemosCommandService,
     DemosQueryService,
     DepartmentsCommandService,

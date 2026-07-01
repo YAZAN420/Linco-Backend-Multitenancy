@@ -17,6 +17,10 @@ export class User {
     return this.props.lastName;
   }
 
+  get stripeCustomerId(): string | undefined {
+    return this.props.stripeCustomerId;
+  }
+
   get email(): string {
     return this.props.email.getValue();
   }

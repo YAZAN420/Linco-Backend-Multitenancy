@@ -6,12 +6,20 @@ import redisConfig from 'src/common/config/redis.config';
 import bullConfig from 'src/common/config/bull.config';
 import { validate } from 'src/common/config/env.validation';
 import storageConfig from 'src/common/config/storage.config';
+import stripeConfig from 'src/common/config/stripe.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig, redisConfig, bullConfig, storageConfig],
+      load: [
+        appConfig,
+        databaseConfig,
+        redisConfig,
+        bullConfig,
+        storageConfig,
+        stripeConfig,
+      ],
       validate: validate,
     }),
   ],

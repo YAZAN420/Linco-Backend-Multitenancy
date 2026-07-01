@@ -9,6 +9,7 @@ import { Demo } from 'src/demos/domain/demo';
 import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
 import { Name } from 'src/demos/domain/value-objects/name.vo';
+import { PlanTier } from 'src/common/enums/plan-tier.enum';
 
 @Injectable()
 export class DemosCommandService {
@@ -26,6 +27,19 @@ export class DemosCommandService {
       true,
       'demos',
     );
+  }
+
+  async activateDemoSubscription(
+    userId: string,
+    demoId: string,
+    plan: PlanTier,
+  ) {
+    const demo = await this.demoCommandRepository.findById(demoId);
+    if (!demo) {
+      throw new NotFoundException(`Demo workspace with ID ${demoId} not found`);
+    }
+    demo.updatePlan(plan);
+    await this.demoCommandRepository.save(demo);
   }
 
   async create(input: CreateDemoInput): Promise<Demo> {

@@ -1884,6 +1884,7 @@ export const UserScalarFieldEnum = {
   emailVerificationExpires: 'emailVerificationExpires',
   passwordResetToken: 'passwordResetToken',
   passwordResetExpires: 'passwordResetExpires',
+  stripeCustomerId: 'stripeCustomerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1934,6 +1935,9 @@ export const DemoScalarFieldEnum = {
   imagePath: 'imagePath',
   description: 'description',
   plan: 'plan',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  subscriptionStatus: 'subscriptionStatus',
+  currentPeriodEnd: 'currentPeriodEnd',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2095,19 +2099,18 @@ export type DiscussionAnswerScalarFieldEnum = (typeof DiscussionAnswerScalarFiel
 
 export const PaymentScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  purchaseType: 'purchaseType',
-  courseId: 'courseId',
   amount: 'amount',
   currency: 'currency',
+  type: 'type',
+  plan: 'plan',
   status: 'status',
-  stripeSessionId: 'stripeSessionId',
+  stripeInvoiceId: 'stripeInvoiceId',
   stripePaymentIntentId: 'stripePaymentIntentId',
-  paymentMethod: 'paymentMethod',
-  receiptUrl: 'receiptUrl',
-  failureReason: 'failureReason',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  demoId: 'demoId',
+  courseId: 'courseId'
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
@@ -2245,6 +2248,20 @@ export type ListEnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
+ * Reference to a field of type 'SubscriptionStatus'
+ */
+export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SubscriptionStatus[]'
+ */
+export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'CourseVisibility'
  */
 export type EnumCourseVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseVisibility'>
@@ -2301,16 +2318,16 @@ export type ListEnumAccessMethodFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'PurchaseType'
+ * Reference to a field of type 'PaymentType'
  */
-export type EnumPurchaseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PurchaseType'>
+export type EnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType'>
     
 
 
 /**
- * Reference to a field of type 'PurchaseType[]'
+ * Reference to a field of type 'PaymentType[]'
  */
-export type ListEnumPurchaseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PurchaseType[]'>
+export type ListEnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType[]'>
     
 
 

@@ -30,6 +30,9 @@ export type DemoMinAggregateOutputType = {
   imagePath: string | null
   description: string | null
   plan: $Enums.PlanTier | null
+  stripeSubscriptionId: string | null
+  subscriptionStatus: $Enums.SubscriptionStatus | null
+  currentPeriodEnd: Date | null
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,6 +44,9 @@ export type DemoMaxAggregateOutputType = {
   imagePath: string | null
   description: string | null
   plan: $Enums.PlanTier | null
+  stripeSubscriptionId: string | null
+  subscriptionStatus: $Enums.SubscriptionStatus | null
+  currentPeriodEnd: Date | null
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,6 +58,9 @@ export type DemoCountAggregateOutputType = {
   imagePath: number
   description: number
   plan: number
+  stripeSubscriptionId: number
+  subscriptionStatus: number
+  currentPeriodEnd: number
   ownerId: number
   createdAt: number
   updatedAt: number
@@ -65,6 +74,9 @@ export type DemoMinAggregateInputType = {
   imagePath?: true
   description?: true
   plan?: true
+  stripeSubscriptionId?: true
+  subscriptionStatus?: true
+  currentPeriodEnd?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -76,6 +88,9 @@ export type DemoMaxAggregateInputType = {
   imagePath?: true
   description?: true
   plan?: true
+  stripeSubscriptionId?: true
+  subscriptionStatus?: true
+  currentPeriodEnd?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +102,9 @@ export type DemoCountAggregateInputType = {
   imagePath?: true
   description?: true
   plan?: true
+  stripeSubscriptionId?: true
+  subscriptionStatus?: true
+  currentPeriodEnd?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -171,6 +189,9 @@ export type DemoGroupByOutputType = {
   imagePath: string
   description: string
   plan: $Enums.PlanTier
+  stripeSubscriptionId: string | null
+  subscriptionStatus: $Enums.SubscriptionStatus | null
+  currentPeriodEnd: Date | null
   ownerId: string
   createdAt: Date
   updatedAt: Date
@@ -203,12 +224,16 @@ export type DemoWhereInput = {
   imagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
   members?: Prisma.DemoMemberListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  payments?: Prisma.PaymentListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   assets?: Prisma.AssetListRelationFilter
 }
@@ -219,18 +244,23 @@ export type DemoOrderByWithRelationInput = {
   imagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
   members?: Prisma.DemoMemberOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   assets?: Prisma.AssetOrderByRelationAggregateInput
 }
 
 export type DemoWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  stripeSubscriptionId?: string
   AND?: Prisma.DemoWhereInput | Prisma.DemoWhereInput[]
   OR?: Prisma.DemoWhereInput[]
   NOT?: Prisma.DemoWhereInput | Prisma.DemoWhereInput[]
@@ -238,15 +268,18 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   imagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
   members?: Prisma.DemoMemberListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  payments?: Prisma.PaymentListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   assets?: Prisma.AssetListRelationFilter
-}, "id">
+}, "id" | "stripeSubscriptionId">
 
 export type DemoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -254,6 +287,9 @@ export type DemoOrderByWithAggregationInput = {
   imagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -271,6 +307,9 @@ export type DemoScalarWhereWithAggregatesInput = {
   imagePath?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   description?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierWithAggregatesFilter<"Demo"> | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"Demo"> | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableWithAggregatesFilter<"Demo"> | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"Demo"> | Date | string | null
   ownerId?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
@@ -282,11 +321,15 @@ export type DemoCreateInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
 }
@@ -297,11 +340,15 @@ export type DemoUncheckedCreateInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -312,11 +359,15 @@ export type DemoUpdateInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
 }
@@ -327,11 +378,15 @@ export type DemoUncheckedUpdateInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -342,6 +397,9 @@ export type DemoCreateManyInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -353,6 +411,9 @@ export type DemoUpdateManyMutationInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -363,6 +424,9 @@ export type DemoUncheckedUpdateManyInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,6 +453,9 @@ export type DemoCountOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -400,6 +467,9 @@ export type DemoMaxOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -411,9 +481,17 @@ export type DemoMinOrderByAggregateInput = {
   imagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type DemoNullableScalarRelationFilter = {
+  is?: Prisma.DemoWhereInput | null
+  isNot?: Prisma.DemoWhereInput | null
 }
 
 export type DemoCreateNestedManyWithoutOwnerInput = {
@@ -490,6 +568,10 @@ export type EnumPlanTierFieldUpdateOperationsInput = {
   set?: $Enums.PlanTier
 }
 
+export type NullableEnumSubscriptionStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SubscriptionStatus | null
+}
+
 export type DemoCreateNestedOneWithoutCoursesInput = {
   create?: Prisma.XOR<Prisma.DemoCreateWithoutCoursesInput, Prisma.DemoUncheckedCreateWithoutCoursesInput>
   connectOrCreate?: Prisma.DemoCreateOrConnectWithoutCoursesInput
@@ -518,16 +600,36 @@ export type DemoUpdateOneRequiredWithoutAssetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutAssetsInput, Prisma.DemoUpdateWithoutAssetsInput>, Prisma.DemoUncheckedUpdateWithoutAssetsInput>
 }
 
+export type DemoCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutPaymentsInput, Prisma.DemoUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.DemoWhereUniqueInput
+}
+
+export type DemoUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutPaymentsInput, Prisma.DemoUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.DemoUpsertWithoutPaymentsInput
+  disconnect?: Prisma.DemoWhereInput | boolean
+  delete?: Prisma.DemoWhereInput | boolean
+  connect?: Prisma.DemoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutPaymentsInput, Prisma.DemoUpdateWithoutPaymentsInput>, Prisma.DemoUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type DemoCreateWithoutOwnerInput = {
   id: string
   name: string
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
 }
@@ -538,10 +640,14 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -581,6 +687,9 @@ export type DemoScalarWhereInput = {
   imagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
@@ -592,10 +701,14 @@ export type DemoCreateWithoutMembersInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
 }
@@ -606,10 +719,14 @@ export type DemoUncheckedCreateWithoutMembersInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -636,10 +753,14 @@ export type DemoUpdateWithoutMembersInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
 }
@@ -650,10 +771,14 @@ export type DemoUncheckedUpdateWithoutMembersInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -664,10 +789,14 @@ export type DemoCreateWithoutDepartmentsInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
 }
@@ -678,10 +807,14 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -708,10 +841,14 @@ export type DemoUpdateWithoutDepartmentsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
 }
@@ -722,10 +859,14 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -736,11 +877,15 @@ export type DemoCreateWithoutCoursesInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
 }
 
@@ -750,11 +895,15 @@ export type DemoUncheckedCreateWithoutCoursesInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
 
@@ -780,11 +929,15 @@ export type DemoUpdateWithoutCoursesInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
 }
 
@@ -794,11 +947,15 @@ export type DemoUncheckedUpdateWithoutCoursesInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
 
@@ -808,11 +965,15 @@ export type DemoCreateWithoutAssetsInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
 }
 
@@ -822,11 +983,15 @@ export type DemoUncheckedCreateWithoutAssetsInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
 }
 
@@ -852,11 +1017,15 @@ export type DemoUpdateWithoutAssetsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
 }
 
@@ -866,12 +1035,104 @@ export type DemoUncheckedUpdateWithoutAssetsInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
+}
+
+export type DemoCreateWithoutPaymentsInput = {
+  id: string
+  name: string
+  imagePath: string
+  description: string
+  plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
+  assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
+}
+
+export type DemoUncheckedCreateWithoutPaymentsInput = {
+  id: string
+  name: string
+  imagePath: string
+  description: string
+  plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
+}
+
+export type DemoCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.DemoWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoCreateWithoutPaymentsInput, Prisma.DemoUncheckedCreateWithoutPaymentsInput>
+}
+
+export type DemoUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.DemoUpdateWithoutPaymentsInput, Prisma.DemoUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.DemoCreateWithoutPaymentsInput, Prisma.DemoUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.DemoWhereInput
+}
+
+export type DemoUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.DemoWhereInput
+  data: Prisma.XOR<Prisma.DemoUpdateWithoutPaymentsInput, Prisma.DemoUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type DemoUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
+}
+
+export type DemoUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoCreateManyOwnerInput = {
@@ -880,6 +1141,9 @@ export type DemoCreateManyOwnerInput = {
   imagePath: string
   description: string
   plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -890,10 +1154,14 @@ export type DemoUpdateWithoutOwnerInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
 }
@@ -904,10 +1172,14 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -918,6 +1190,9 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -930,6 +1205,7 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
 export type DemoCountOutputType = {
   departments: number
   members: number
+  payments: number
   courses: number
   assets: number
 }
@@ -937,6 +1213,7 @@ export type DemoCountOutputType = {
 export type DemoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | DemoCountOutputTypeCountDepartmentsArgs
   members?: boolean | DemoCountOutputTypeCountMembersArgs
+  payments?: boolean | DemoCountOutputTypeCountPaymentsArgs
   courses?: boolean | DemoCountOutputTypeCountCoursesArgs
   assets?: boolean | DemoCountOutputTypeCountAssetsArgs
 }
@@ -968,6 +1245,13 @@ export type DemoCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Ex
 /**
  * DemoCountOutputType without action
  */
+export type DemoCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
+/**
+ * DemoCountOutputType without action
+ */
 export type DemoCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CourseWhereInput
 }
@@ -986,12 +1270,16 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   imagePath?: boolean
   description?: boolean
   plan?: boolean
+  stripeSubscriptionId?: boolean
+  subscriptionStatus?: boolean
+  currentPeriodEnd?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  payments?: boolean | Prisma.Demo$paymentsArgs<ExtArgs>
   courses?: boolean | Prisma.Demo$coursesArgs<ExtArgs>
   assets?: boolean | Prisma.Demo$assetsArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
@@ -1003,6 +1291,9 @@ export type DemoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   imagePath?: boolean
   description?: boolean
   plan?: boolean
+  stripeSubscriptionId?: boolean
+  subscriptionStatus?: boolean
+  currentPeriodEnd?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1015,6 +1306,9 @@ export type DemoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   imagePath?: boolean
   description?: boolean
   plan?: boolean
+  stripeSubscriptionId?: boolean
+  subscriptionStatus?: boolean
+  currentPeriodEnd?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1027,16 +1321,20 @@ export type DemoSelectScalar = {
   imagePath?: boolean
   description?: boolean
   plan?: boolean
+  stripeSubscriptionId?: boolean
+  subscriptionStatus?: boolean
+  currentPeriodEnd?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imagePath" | "description" | "plan" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
+export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imagePath" | "description" | "plan" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  payments?: boolean | Prisma.Demo$paymentsArgs<ExtArgs>
   courses?: boolean | Prisma.Demo$coursesArgs<ExtArgs>
   assets?: boolean | Prisma.Demo$assetsArgs<ExtArgs>
   _count?: boolean | Prisma.DemoCountOutputTypeDefaultArgs<ExtArgs>
@@ -1054,6 +1352,7 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     departments: Prisma.$DepartmentPayload<ExtArgs>[]
     members: Prisma.$DemoMemberPayload<ExtArgs>[]
     owner: Prisma.$UserPayload<ExtArgs>
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
     courses: Prisma.$CoursePayload<ExtArgs>[]
     assets: Prisma.$AssetPayload<ExtArgs>[]
   }
@@ -1063,6 +1362,9 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     imagePath: string
     description: string
     plan: $Enums.PlanTier
+    stripeSubscriptionId: string | null
+    subscriptionStatus: $Enums.SubscriptionStatus | null
+    currentPeriodEnd: Date | null
     ownerId: string
     createdAt: Date
     updatedAt: Date
@@ -1463,6 +1765,7 @@ export interface Prisma__DemoClient<T, Null = never, ExtArgs extends runtime.Typ
   departments<T extends Prisma.Demo$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Demo$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  payments<T extends Prisma.Demo$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.Demo$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assets<T extends Prisma.Demo$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1499,6 +1802,9 @@ export interface DemoFieldRefs {
   readonly imagePath: Prisma.FieldRef<"Demo", 'String'>
   readonly description: Prisma.FieldRef<"Demo", 'String'>
   readonly plan: Prisma.FieldRef<"Demo", 'PlanTier'>
+  readonly stripeSubscriptionId: Prisma.FieldRef<"Demo", 'String'>
+  readonly subscriptionStatus: Prisma.FieldRef<"Demo", 'SubscriptionStatus'>
+  readonly currentPeriodEnd: Prisma.FieldRef<"Demo", 'DateTime'>
   readonly ownerId: Prisma.FieldRef<"Demo", 'String'>
   readonly createdAt: Prisma.FieldRef<"Demo", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Demo", 'DateTime'>
@@ -1948,6 +2254,30 @@ export type Demo$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.DemoMemberScalarFieldEnum | Prisma.DemoMemberScalarFieldEnum[]
+}
+
+/**
+ * Demo.payments
+ */
+export type Demo$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

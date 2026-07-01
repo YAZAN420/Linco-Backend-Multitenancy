@@ -2,10 +2,10 @@ import { DomainException } from 'src/common/exceptions/domain.exception';
 import { Department } from './department';
 import { DemoProps } from './interfaces/demo.props';
 import { Name } from './value-objects/name.vo';
-import { PlanTier } from './enums/plan-tier.enum';
+import { PlanTier } from '../../common/enums/plan-tier.enum';
+import { SubscriptionStatus } from './enums/subscription-status.enum';
 
 export class Demo {
-  private static readonly MAX_MEMBERS = 50;
   constructor(
     public readonly id: string,
     private readonly props: DemoProps,
@@ -43,6 +43,78 @@ export class Demo {
     return this.props.departments ?? [];
   }
 
+  get stripeSubscriptionId(): string | undefined {
+    return this.props.stripeSubscriptionId;
+  }
+  get subscriptionStatus(): SubscriptionStatus | undefined {
+    return this.props.subscriptionStatus;
+  }
+
+  get currentPeriodEnd(): Date | undefined {
+    return this.props.currentPeriodEnd;
+  }
+
+  get maxMembersLimit(): number {
+    switch (this.props.plan) {
+      case PlanTier.ENTERPRISE:
+        return 100;
+      case PlanTier.PRO:
+        return 25;
+      case PlanTier.STARTER:
+      default:
+        return 5;
+    }
+  }
+
+  get maxDepartmentsLimit(): number {
+    switch (this.props.plan) {
+      case PlanTier.ENTERPRISE:
+        return 50;
+      case PlanTier.PRO:
+        return 10;
+      case PlanTier.STARTER:
+      default:
+        return 2;
+    }
+  }
+
+  private isSubscriptionActive(): boolean {
+    if (this.props.subscriptionStatus !== SubscriptionStatus.ACTIVE) {
+      return false;
+    }
+
+    if (
+      this.props.currentPeriodEnd &&
+      new Date() > this.props.currentPeriodEnd
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  isProFeatureAllowed(): boolean {
+    if (this.props.plan === PlanTier.STARTER) {
+      return false;
+    }
+
+    return this.isSubscriptionActive();
+  }
+  isEnterpriseFeatureAllowed(): boolean {
+    if (this.props.plan !== PlanTier.ENTERPRISE) {
+      return false;
+    }
+
+    return this.isSubscriptionActive();
+  }
+
+  activateSubscription(stripeSubId: string, periodEnd: Date): void {
+    this.props.subscriptionStatus = SubscriptionStatus.ACTIVE;
+    this.props.stripeSubscriptionId = stripeSubId;
+    this.props.currentPeriodEnd = periodEnd;
+    this.touch();
+  }
+
   updatePlan(newPlan: PlanTier): void {
     if (this.props.plan === newPlan) return;
     this.props.plan = newPlan;
@@ -70,6 +142,12 @@ export class Demo {
   addDepartment(department: Department): void {
     if (!department) {
       throw new DomainException('Department cannot be null or undefined');
+    }
+
+    if (this.departments.length >= this.maxDepartmentsLimit) {
+      throw new DomainException(
+        `Your current plan (${this.props.plan}) allows a maximum of ${this.maxDepartmentsLimit} departments. Please upgrade.`,
+      );
     }
 
     const exists = this.departments.some(
@@ -138,9 +216,9 @@ export class Demo {
   }
 
   verifyCanAddMember(currentCount: number): void {
-    if (currentCount >= Demo.MAX_MEMBERS) {
+    if (currentCount >= this.maxMembersLimit) {
       throw new DomainException(
-        `Demo cannot exceed ${Demo.MAX_MEMBERS} members`,
+        `Your current plan (${this.props.plan}) limits you to ${this.maxMembersLimit} members. Please upgrade.`,
       );
     }
   }

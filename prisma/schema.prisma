@@ -36,6 +36,11 @@ enum PaymentStatus {
   CANCELED    
 }
 
+enum PaymentType {
+  COURSE
+  SUBSCRIPTION
+}
+
 enum PurchaseType {
   COURSE
 }
@@ -51,6 +56,15 @@ enum PlanTier {
   PRO
   ENTERPRISE
 }
+
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  PAST_DUE
+  CANCELED
+}
+
 
 
 model User {
@@ -70,6 +84,7 @@ model User {
   emailVerificationExpires DateTime?
   passwordResetToken    String?
   passwordResetExpires  DateTime?
+  stripeCustomerId       String?   @unique
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
@@ -139,6 +154,10 @@ model Demo {
   description  String
   plan PlanTier @default(STARTER)
 
+  stripeSubscriptionId   String?   @unique
+  subscriptionStatus   SubscriptionStatus?
+  currentPeriodEnd       DateTime?
+
   ownerId      String
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
@@ -148,6 +167,7 @@ model Demo {
 
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
 
+  payments  Payment[]
   courses     Course[]
   assets     Asset[]
 }
@@ -166,10 +186,10 @@ model Course {
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt
 
+  payments Payment[]
   tags        Tag[]
   assets     Asset[]
   sections   Section[]
-  payments   Payment[]
 }
 
 model Section {
@@ -341,33 +361,28 @@ model DiscussionAnswer {
 
 
 model Payment {
-  id                    String        @id @default(uuid())
-  userId                String
+  id                     String    @id @default(uuid())
+  amount                 Float    
+  currency               String    @default("USD")
+  type PaymentType @default(SUBSCRIPTION)
+  plan PlanTier?
+  status                 PaymentStatus @default(PENDING)
   
-  purchaseType          PurchaseType  @default(COURSE)
-  courseId              String       
-  
-  amount                Float
-  currency              String        @default("USD")
-  status                PaymentStatus @default(PENDING)
-  
-  stripeSessionId       String        @unique 
-  stripePaymentIntentId String?       @unique 
-  
-  paymentMethod         String?       
-  receiptUrl            String?       
-  failureReason         String?       
-  
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
+  stripeInvoiceId        String?   @unique 
+  stripePaymentIntentId  String?   @unique 
 
-  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course                Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt            DateTime  @default(now())
+  updatedAt              DateTime @updatedAt
 
-  @@index([userId])
-  @@index([stripeSessionId])
+  userId                 String
+  user                   User      @relation(fields: [userId], references: [id])
+  
+  demoId                 String?
+  demo                   Demo?     @relation(fields: [demoId], references: [id])
+
+  courseId               String?
+  course                 Course?   @relation(fields: [courseId], references: [id]) 
 }
-
 
 model Tag {
   id        String   @id @default(cuid())

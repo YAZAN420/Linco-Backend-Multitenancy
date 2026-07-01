@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
+import { PlanTier } from 'src/common/enums/plan-tier.enum';
 
 export class CreateDemoDto {
   @IsString()

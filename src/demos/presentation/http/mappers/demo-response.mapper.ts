@@ -4,8 +4,9 @@ import { DemoResponseDto } from '../dto/demo/demo-response.dto';
 import { Demo as DomainDemo } from 'src/demos/domain/demo';
 
 import { DemoWithOwnership } from 'src/core/database/prisma/types';
-import { PlanTier } from 'src/demos/domain/enums/plan-tier.enum';
+import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { Demo } from 'src/generated/prisma/client';
+import { SubscriptionStatus } from 'src/demos/domain/enums/subscription-status.enum';
 
 @Injectable()
 export class DemoResponseMapper {
@@ -20,6 +21,8 @@ export class DemoResponseMapper {
       demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
+      demo.subscriptionStatus as SubscriptionStatus,
+      demo.currentPeriodEnd ?? undefined,
     );
   }
 
@@ -32,6 +35,8 @@ export class DemoResponseMapper {
       demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
+      demo.subscriptionStatus as SubscriptionStatus,
+      demo.currentPeriodEnd ?? undefined,
       demo.owner.firstName + ' ' + demo.owner.lastName,
       demo._count.members,
       demo.isOwner,
@@ -47,6 +52,8 @@ export class DemoResponseMapper {
       demo.plan,
       demo.createdAt,
       demo.updatedAt,
+      demo.subscriptionStatus as SubscriptionStatus,
+      demo.currentPeriodEnd ?? undefined,
     );
   }
 
