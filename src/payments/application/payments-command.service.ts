@@ -36,9 +36,12 @@ export class PaymentsCommandService {
     let amount: number;
     const currency = 'usd';
 
-    if (plan === PlanTier.PRO) {
-      priceId = this.stripeConfiguration.proPriceId!;
+    if (plan === PlanTier.STARTER) {
+      priceId = this.stripeConfiguration.starterPriceId!;
       amount = 20;
+    } else if (plan === PlanTier.PRO) {
+      priceId = this.stripeConfiguration.proPriceId!;
+      amount = 100;
     } else if (plan === PlanTier.ENTERPRISE) {
       priceId = this.stripeConfiguration.enterprisePriceId!;
       amount = 200;
@@ -105,6 +108,7 @@ export class PaymentsCommandService {
 
       const paymentId = session.metadata?.paymentId;
       const type = session.metadata?.type;
+      const stripeSubscriptionId = session.subscription as string;
 
       if (!paymentId) return;
 
@@ -112,7 +116,18 @@ export class PaymentsCommandService {
         await this.fulfillPayment(paymentId, type);
         console.log(`Course payment ${paymentId} succeeded!`);
       } else if (type === 'subscription') {
-        await this.fulfillPayment(paymentId, type);
+        const subscription: Stripe.Subscription =
+          await this.paymentGateway.getSubscription(stripeSubscriptionId);
+
+        const currentPeriodEnd = new Date(
+          subscription.items.data[0].current_period_end * 1000,
+        );
+        await this.fulfillPayment(
+          paymentId,
+          type,
+          stripeSubscriptionId,
+          currentPeriodEnd,
+        );
         console.log(
           `Subscription ${paymentId} succeeded! Unlocking demo for user.`,
         );
@@ -120,7 +135,12 @@ export class PaymentsCommandService {
     }
   }
 
-  async fulfillPayment(paymentId: string, type: string) {
+  async fulfillPayment(
+    paymentId: string,
+    type: string,
+    stripeSubscriptionId?: string,
+    currentPeriodEnd?: Date,
+  ) {
     const payment = await this.paymentCommandRepository.findById(paymentId);
     if (!payment) throw new NotFoundException('Payment not found');
 
@@ -140,6 +160,8 @@ export class PaymentsCommandService {
         userId: payment.userId,
         demoId: payment.demoId,
         plan: payment.plan,
+        stripeSubscriptionId: stripeSubscriptionId,
+        currentPeriodEnd: currentPeriodEnd,
       });
     }
   }

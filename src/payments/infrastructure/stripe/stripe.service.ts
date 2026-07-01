@@ -139,4 +139,14 @@ export class StripeService implements PaymentGatewayPort {
       );
     }
   }
+
+  async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
+    try {
+      return await this.stripe.subscriptions.retrieve(subscriptionId);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Failed to fetch subscription from Stripe: ${error}`,
+      );
+    }
+  }
 }
