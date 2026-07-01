@@ -33,12 +33,15 @@ export class DemosCommandService {
     userId: string,
     demoId: string,
     plan: PlanTier,
+    stripeSubscriptionId: string,
+    currentPeriodEnd: Date,
   ) {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo workspace with ID ${demoId} not found`);
     }
     demo.updatePlan(plan);
+    demo.activateSubscription(stripeSubscriptionId, currentPeriodEnd);
     await this.demoCommandRepository.save(demo);
   }
 

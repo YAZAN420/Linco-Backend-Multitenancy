@@ -11,6 +11,8 @@ export class DemoEventsListener {
     userId: string;
     demoId: string;
     plan: PlanTier;
+    stripeSubscriptionId: string;
+    currentPeriodEnd: Date;
   }) {
     console.log(`🔊 Event received in Demo Module for user: ${payload.userId}`);
     try {
@@ -18,6 +20,8 @@ export class DemoEventsListener {
         payload.userId,
         payload.demoId,
         payload.plan,
+        payload.stripeSubscriptionId,
+        payload.currentPeriodEnd,
       );
     } catch (error) {
       console.error(`❌ Failed to process demo.subscribed event: ${error}`);
