@@ -79,3 +79,10 @@ export type DepartmentMemberWithUser = Prisma.DepartmentMemberGetPayload<{
     };
   };
 }>;
+
+export type InvitationWithUserAndDemo = Prisma.InvitationGetPayload<{
+  include: {
+    sender: true;
+    demo: true;
+  };
+}>;

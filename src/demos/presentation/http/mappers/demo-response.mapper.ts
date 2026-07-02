@@ -53,7 +53,7 @@ export class DemoResponseMapper {
       demo.createdAt,
       demo.updatedAt,
       demo.currentPeriodEnd,
-      demo.subscriptionStatus as SubscriptionStatus,
+      demo.subscriptionStatus,
     );
   }
 

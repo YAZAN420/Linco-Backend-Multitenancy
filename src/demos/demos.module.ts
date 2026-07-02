@@ -35,10 +35,11 @@ import { InvitationsCommandService } from './application/invitation/invitations-
 import { InvitationsQueryService } from './application/invitation/invitations-query.service';
 import { InvitationFactory } from './domain/factories/invitation.factory';
 import { InvitationResponseMapper } from './presentation/http/mappers/invitation-response.mapper';
+import { UsersModule } from 'src/users/users.module';
 
 @Global()
 @Module({
-  imports: [],
+  imports: [UsersModule],
   controllers: [
     DemosCommandController,
     DemosQueryController,

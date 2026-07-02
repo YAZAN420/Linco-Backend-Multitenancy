@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Invitation, InvitationStatus } from 'src/generated/prisma/client';
+import { InvitationStatus } from 'src/generated/prisma/client';
 
 import { InvitationQueryRepository } from 'src/demos/application/ports/invitation/invitation-query.repository';
 import { FindCursorQuery } from 'src/common/interfaces/find.query';
+import { InvitationWithUserAndDemo } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaInvitationQueryRepository implements InvitationQueryRepository {
@@ -14,7 +15,7 @@ export class PrismaInvitationQueryRepository implements InvitationQueryRepositor
   async findAllCursor(
     receiverId: string,
     options: FindCursorQuery,
-  ): Promise<CursorPageDto<Invitation>> {
+  ): Promise<CursorPageDto<InvitationWithUserAndDemo>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.invitation.findMany({
@@ -25,6 +26,10 @@ export class PrismaInvitationQueryRepository implements InvitationQueryRepositor
       where: {
         receiverId,
         status: InvitationStatus.PENDING,
+      },
+      include: {
+        sender: true,
+        demo: true,
       },
     });
 
@@ -39,9 +44,13 @@ export class PrismaInvitationQueryRepository implements InvitationQueryRepositor
     );
   }
 
-  async findById(id: string): Promise<Invitation | null> {
+  async findById(id: string): Promise<InvitationWithUserAndDemo | null> {
     return this.prisma.invitation.findUnique({
       where: { id },
+      include: {
+        sender: true,
+        demo: true,
+      },
     });
   }
 }
