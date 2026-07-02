@@ -37,6 +37,11 @@ export class TwoFactorAuthService {
     return { qrCode };
   }
 
+  async turnOff(userId: string) {
+    await this.usersCommandService.disableTwoFactorAuth(userId);
+    this.logger.log(`2FA disabled successfully for user: ${userId}`);
+  }
+
   async turnOn(userId: string, code: string) {
     const user = await this.usersCommandService.findById(userId);
     const secret = user.security.twoFactorSecret;

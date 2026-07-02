@@ -25,4 +25,14 @@ export class TwoFactorAuthController {
       data: null,
     };
   }
+
+  @Post('turn-off')
+  async turnOff(@ActiveUser() user: ActiveUserData) {
+    await this.twoFactorService.turnOff(user.id);
+
+    return {
+      message: 'Two-factor authentication successfully disabled',
+      data: null,
+    };
+  }
 }
