@@ -11,8 +11,8 @@ export interface DemoProps {
   plan: PlanTier;
   departments: Department[];
   stripeSubscriptionId?: string;
-  subscriptionStatus?: SubscriptionStatus;
-  currentPeriodEnd?: Date;
+  subscriptionStatus: SubscriptionStatus;
+  currentPeriodEnd: Date;
   createdAt: Date;
   updatedAt: Date;
 }

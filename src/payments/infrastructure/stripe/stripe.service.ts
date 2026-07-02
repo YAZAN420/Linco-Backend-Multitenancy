@@ -149,4 +149,16 @@ export class StripeService implements PaymentGatewayPort {
       );
     }
   }
+
+  async getCheckoutSession(
+    sessionId: string,
+  ): Promise<Stripe.Checkout.Session> {
+    try {
+      return await this.stripe.checkout.sessions.retrieve(sessionId);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Failed to fetch checkout session: ${error}`,
+      );
+    }
+  }
 }

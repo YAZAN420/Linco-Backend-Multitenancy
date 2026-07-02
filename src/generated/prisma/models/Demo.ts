@@ -190,8 +190,8 @@ export type DemoGroupByOutputType = {
   description: string
   plan: $Enums.PlanTier
   stripeSubscriptionId: string | null
-  subscriptionStatus: $Enums.SubscriptionStatus | null
-  currentPeriodEnd: Date | null
+  subscriptionStatus: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date
   ownerId: string
   createdAt: Date
   updatedAt: Date
@@ -225,8 +225,8 @@ export type DemoWhereInput = {
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
-  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Demo"> | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFilter<"Demo"> | Date | string
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
@@ -245,8 +245,8 @@ export type DemoOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -268,8 +268,8 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   imagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
-  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Demo"> | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFilter<"Demo"> | Date | string
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
@@ -288,8 +288,8 @@ export type DemoOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  subscriptionStatus?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -308,8 +308,8 @@ export type DemoScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierWithAggregatesFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"Demo"> | string | null
-  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableWithAggregatesFilter<"Demo"> | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"Demo"> | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusWithAggregatesFilter<"Demo"> | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
   ownerId?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Demo"> | Date | string
@@ -322,8 +322,8 @@ export type DemoCreateInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -341,8 +341,8 @@ export type DemoUncheckedCreateInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -360,8 +360,8 @@ export type DemoUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -379,8 +379,8 @@ export type DemoUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,8 +398,8 @@ export type DemoCreateManyInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -412,8 +412,8 @@ export type DemoUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -425,8 +425,8 @@ export type DemoUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -568,8 +568,8 @@ export type EnumPlanTierFieldUpdateOperationsInput = {
   set?: $Enums.PlanTier
 }
 
-export type NullableEnumSubscriptionStatusFieldUpdateOperationsInput = {
-  set?: $Enums.SubscriptionStatus | null
+export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SubscriptionStatus
 }
 
 export type DemoCreateNestedOneWithoutCoursesInput = {
@@ -623,8 +623,8 @@ export type DemoCreateWithoutOwnerInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -641,8 +641,8 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
@@ -688,8 +688,8 @@ export type DemoScalarWhereInput = {
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
-  subscriptionStatus?: Prisma.EnumSubscriptionStatusNullableFilter<"Demo"> | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Demo"> | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Demo"> | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFilter<"Demo"> | Date | string
   ownerId?: Prisma.StringFilter<"Demo"> | string
   createdAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
@@ -702,8 +702,8 @@ export type DemoCreateWithoutMembersInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -720,8 +720,8 @@ export type DemoUncheckedCreateWithoutMembersInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -754,8 +754,8 @@ export type DemoUpdateWithoutMembersInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -772,8 +772,8 @@ export type DemoUncheckedUpdateWithoutMembersInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -790,8 +790,8 @@ export type DemoCreateWithoutDepartmentsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
@@ -808,8 +808,8 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -842,8 +842,8 @@ export type DemoUpdateWithoutDepartmentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
@@ -860,8 +860,8 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -878,8 +878,8 @@ export type DemoCreateWithoutCoursesInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -896,8 +896,8 @@ export type DemoUncheckedCreateWithoutCoursesInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -930,8 +930,8 @@ export type DemoUpdateWithoutCoursesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -948,8 +948,8 @@ export type DemoUncheckedUpdateWithoutCoursesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -966,8 +966,8 @@ export type DemoCreateWithoutAssetsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -984,8 +984,8 @@ export type DemoUncheckedCreateWithoutAssetsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1018,8 +1018,8 @@ export type DemoUpdateWithoutAssetsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -1036,8 +1036,8 @@ export type DemoUncheckedUpdateWithoutAssetsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1054,8 +1054,8 @@ export type DemoCreateWithoutPaymentsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
@@ -1072,8 +1072,8 @@ export type DemoUncheckedCreateWithoutPaymentsInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1106,8 +1106,8 @@ export type DemoUpdateWithoutPaymentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -1124,8 +1124,8 @@ export type DemoUncheckedUpdateWithoutPaymentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1142,8 +1142,8 @@ export type DemoCreateManyOwnerInput = {
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
-  subscriptionStatus?: $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1155,8 +1155,8 @@ export type DemoUpdateWithoutOwnerInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
@@ -1173,8 +1173,8 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
@@ -1191,8 +1191,8 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableEnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1363,8 +1363,8 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string
     plan: $Enums.PlanTier
     stripeSubscriptionId: string | null
-    subscriptionStatus: $Enums.SubscriptionStatus | null
-    currentPeriodEnd: Date | null
+    subscriptionStatus: $Enums.SubscriptionStatus
+    currentPeriodEnd: Date
     ownerId: string
     createdAt: Date
     updatedAt: Date

@@ -45,9 +45,7 @@ export type AccessMethod = (typeof AccessMethod)[keyof typeof AccessMethod]
 export const PaymentStatus = {
   PENDING: 'PENDING',
   SUCCESSFUL: 'SUCCESSFUL',
-  FAILED: 'FAILED',
-  REFUNDED: 'REFUNDED',
-  CANCELED: 'CANCELED'
+  FAILED: 'FAILED'
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
@@ -78,6 +76,7 @@ export type JobTitle = (typeof JobTitle)[keyof typeof JobTitle]
 
 
 export const PlanTier = {
+  FREE: 'FREE',
   STARTER: 'STARTER',
   PRO: 'PRO',
   ENTERPRISE: 'ENTERPRISE'
@@ -87,10 +86,12 @@ export type PlanTier = (typeof PlanTier)[keyof typeof PlanTier]
 
 
 export const SubscriptionStatus = {
+  TRIALING: 'TRIALING',
+  EXPIRED: 'EXPIRED',
+  PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
-  INACTIVE: 'INACTIVE',
-  PAST_DUE: 'PAST_DUE',
-  CANCELED: 'CANCELED'
+  CANCELED: 'CANCELED',
+  PAST_DUE: 'PAST_DUE'
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]

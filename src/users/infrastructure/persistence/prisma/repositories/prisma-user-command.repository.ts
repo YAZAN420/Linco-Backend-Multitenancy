@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserCommandRepository } from 'src/users/application/ports/user-command.repository';
 import { User } from 'src/users/domain/user';
 import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaUserCommandRepository implements UserCommandRepository {
@@ -13,11 +18,22 @@ export class PrismaUserCommandRepository implements UserCommandRepository {
 
   async save(user: User): Promise<void> {
     const data = this.mapper.toPersistence(user);
-    await this.prisma.user.upsert({
-      where: { id: user.id },
-      update: data,
-      create: data,
-    });
+    try {
+      await this.prisma.user.upsert({
+        where: { id: user.id },
+        update: data,
+        create: data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(`User Not Found`);
+        }
+      }
+      throw new InternalServerErrorException(
+        `Database operation failed ${error}`,
+      );
+    }
   }
 
   async delete(id: string): Promise<void> {

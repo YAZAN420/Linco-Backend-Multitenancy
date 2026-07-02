@@ -71,11 +71,7 @@ export class Payment {
   }
 
   get isFinal() {
-    return [
-      PaymentStatus.SUCCESSFUL,
-      PaymentStatus.REFUNDED,
-      PaymentStatus.CANCELED,
-    ].includes(this.props.status);
+    return [PaymentStatus.SUCCESSFUL].includes(this.props.status);
   }
 
   updateStripePaymentIntentId(newStripePaymentIntentId: string) {
@@ -101,18 +97,6 @@ export class Payment {
   markAsFailed() {
     this.assertNotFinalState();
     this.props.status = PaymentStatus.FAILED;
-    this.touch();
-  }
-
-  markAsRefunded() {
-    this.assertNotFinalState();
-    this.props.status = PaymentStatus.REFUNDED;
-    this.touch();
-  }
-
-  markAsCanceled() {
-    this.assertNotFinalState();
-    this.props.status = PaymentStatus.CANCELED;
     this.touch();
   }
 

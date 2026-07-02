@@ -21,8 +21,8 @@ export class DemoResponseMapper {
       demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
+      demo.currentPeriodEnd,
       demo.subscriptionStatus as SubscriptionStatus,
-      demo.currentPeriodEnd ?? undefined,
     );
   }
 
@@ -35,8 +35,8 @@ export class DemoResponseMapper {
       demo.plan as PlanTier,
       demo.createdAt,
       demo.updatedAt,
+      demo.currentPeriodEnd,
       demo.subscriptionStatus as SubscriptionStatus,
-      demo.currentPeriodEnd ?? undefined,
       demo.owner.firstName + ' ' + demo.owner.lastName,
       demo._count.members,
       demo.isOwner,
@@ -52,8 +52,8 @@ export class DemoResponseMapper {
       demo.plan,
       demo.createdAt,
       demo.updatedAt,
+      demo.currentPeriodEnd,
       demo.subscriptionStatus as SubscriptionStatus,
-      demo.currentPeriodEnd ?? undefined,
     );
   }
 

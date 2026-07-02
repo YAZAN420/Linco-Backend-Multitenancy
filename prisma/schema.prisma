@@ -32,8 +32,6 @@ enum PaymentStatus {
   PENDING
   SUCCESSFUL
   FAILED
-  REFUNDED
-  CANCELED    
 }
 
 enum PaymentType {
@@ -52,6 +50,7 @@ enum JobTitle {
 }
 
 enum PlanTier {
+  FREE
   STARTER
   PRO
   ENTERPRISE
@@ -59,12 +58,13 @@ enum PlanTier {
 
 
 enum SubscriptionStatus {
+  TRIALING
+  EXPIRED
+  PENDING
   ACTIVE
-  INACTIVE
-  PAST_DUE
   CANCELED
+  PAST_DUE
 }
-
 
 
 model User {
@@ -152,11 +152,11 @@ model Demo {
   name         String
   imagePath String
   description  String
-  plan PlanTier @default(STARTER)
+  plan PlanTier @default(FREE)
 
   stripeSubscriptionId   String?   @unique
-  subscriptionStatus   SubscriptionStatus?
-  currentPeriodEnd       DateTime?
+  subscriptionStatus   SubscriptionStatus  @default(TRIALING)
+  currentPeriodEnd       DateTime
 
   ownerId      String
   createdAt    DateTime     @default(now())
@@ -362,7 +362,7 @@ model DiscussionAnswer {
 
 model Payment {
   id                     String    @id @default(uuid())
-  amount                 Float    
+  amount                 Int    
   currency               String    @default("USD")
   type PaymentType @default(SUBSCRIPTION)
   plan PlanTier?

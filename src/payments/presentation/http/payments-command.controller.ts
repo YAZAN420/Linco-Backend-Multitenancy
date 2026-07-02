@@ -5,6 +5,8 @@ import {
   Req,
   Headers,
   BadRequestException,
+  Get,
+  Query,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
@@ -40,6 +42,7 @@ export class PaymentsCommandController {
     return { url };
   }
 
+  @Public()
   @Post('checkout/course')
   async buyCourse(
     @ActiveUser() user: ActiveUserData,
@@ -54,6 +57,15 @@ export class PaymentsCommandController {
     );
 
     return { url };
+  }
+
+  @Get('checkout/status')
+  async getCheckoutStatus(@Query('session_id') sessionId: string) {
+    if (!sessionId) {
+      throw new BadRequestException('session_id query parameter is required');
+    }
+
+    return await this.paymentCommandService.getCheckoutStatus(sessionId);
   }
 
   @Public()

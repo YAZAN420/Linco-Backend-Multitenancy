@@ -1,5 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { PlanTier } from 'src/common/enums/plan-tier.enum';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateDemoDto {
   @IsString()
@@ -13,8 +12,4 @@ export class CreateDemoDto {
   @IsString()
   @IsNotEmpty()
   description!: string;
-
-  @IsEnum(PlanTier)
-  @IsNotEmpty()
-  plan!: PlanTier;
 }

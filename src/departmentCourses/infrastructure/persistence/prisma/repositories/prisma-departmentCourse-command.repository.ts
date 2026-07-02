@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { DepartmentCourseCommandRepository } from 'src/departmentCourses/application/ports/departmentCourse-command.repository';
 import { DepartmentCourse } from 'src/departmentCourses/domain/departmentCourse';
 import { PrismaDepartmentCourseMapper } from '../mappers/prisma-departmentCourse.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaDepartmentCourseCommandRepository implements DepartmentCourseCommandRepository {
@@ -13,11 +18,22 @@ export class PrismaDepartmentCourseCommandRepository implements DepartmentCourse
 
   async save(departmentCourse: DepartmentCourse): Promise<void> {
     const data = this.mapper.toPersistence(departmentCourse);
-    await this.prisma.departmentCourse.upsert({
-      where: { id: departmentCourse.id },
-      update: data,
-      create: data,
-    });
+    try {
+      await this.prisma.departmentCourse.upsert({
+        where: { id: departmentCourse.id },
+        update: data,
+        create: data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(`DepartmentCourse Not Found`);
+        }
+      }
+      throw new InternalServerErrorException(
+        `Database operation failed ${error}`,
+      );
+    }
   }
 
   async delete(id: string): Promise<void> {

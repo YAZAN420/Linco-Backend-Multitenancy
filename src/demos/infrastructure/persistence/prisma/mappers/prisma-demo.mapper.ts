@@ -36,7 +36,7 @@ export class PrismaDemoMapper {
       name: demo.name,
       imagePath: demo.imagePath,
       plan: demo.plan,
-      subscriptionStatus: demo.subscriptionStatus ?? null,
+      subscriptionStatus: demo.subscriptionStatus,
       stripeSubscriptionId: demo.stripeSubscriptionId ?? null,
       currentPeriodEnd: demo.currentPeriodEnd ?? null,
       description: demo.description,

@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { DemoMemberCommandRepository } from 'src/demos/application/ports/demo-member/demo-member-command.repository';
 import { DemoMember } from 'src/demos/domain/demo-member';
 import { PrismaDemoMemberMapper } from '../../mappers/prisma-demo-member.mapper';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepository {
@@ -13,13 +18,24 @@ export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepos
 
   async save(member: DemoMember): Promise<void> {
     const data = this.mapper.toPersistence(member);
-    await this.prisma.demoMember.upsert({
-      where: {
-        id: member.id,
-      },
-      update: data,
-      create: data,
-    });
+    try {
+      await this.prisma.demoMember.upsert({
+        where: {
+          id: member.id,
+        },
+        update: data,
+        create: data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(`Demo Member Not Found`);
+        }
+      }
+      throw new InternalServerErrorException(
+        `Database operation failed ${error}`,
+      );
+    }
   }
 
   async findById(id: string): Promise<DemoMember | null> {

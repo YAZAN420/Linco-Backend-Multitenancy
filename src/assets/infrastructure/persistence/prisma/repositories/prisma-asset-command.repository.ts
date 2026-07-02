@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { AssetCommandRepository } from 'src/assets/application/ports/asset-command.repository';
 import { Asset } from 'src/assets/domain/asset';
 import { PrismaAssetMapper } from '../mappers/prisma-asset.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-
+import { Prisma } from 'src/generated/prisma/client';
 @Injectable()
 export class PrismaAssetCommandRepository implements AssetCommandRepository {
   constructor(
@@ -13,11 +17,22 @@ export class PrismaAssetCommandRepository implements AssetCommandRepository {
 
   async save(asset: Asset): Promise<void> {
     const data = this.mapper.toPersistence(asset);
-    await this.prisma.asset.upsert({
-      where: { id: asset.id },
-      update: data,
-      create: data,
-    });
+    try {
+      await this.prisma.asset.upsert({
+        where: { id: asset.id },
+        update: data,
+        create: data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(`Asset Not Found`);
+        }
+      }
+      throw new InternalServerErrorException(
+        `Database operation failed ${error}`,
+      );
+    }
   }
 
   async delete(id: string): Promise<void> {

@@ -32,4 +32,8 @@ export abstract class PaymentGatewayPort {
   abstract getSubscription(
     subscriptionId: string,
   ): Promise<Stripe.Subscription>;
+
+  abstract getCheckoutSession(
+    sessionId: string,
+  ): Promise<Stripe.Checkout.Session>;
 }

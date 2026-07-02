@@ -10,6 +10,7 @@ import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
 import { Name } from 'src/demos/domain/value-objects/name.vo';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 @Injectable()
 export class DemosCommandService {
@@ -36,7 +37,7 @@ export class DemosCommandService {
     stripeSubscriptionId: string,
     currentPeriodEnd: Date,
   ) {
-    const demo = await this.demoCommandRepository.findById(demoId);
+    const demo = await this.demoCommandRepository.findByOwnerId(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo workspace with ID ${demoId} not found`);
     }
@@ -46,12 +47,18 @@ export class DemosCommandService {
   }
 
   async create(input: CreateDemoInput): Promise<Demo> {
+    const existingDemo = await this.demoCommandRepository.findById(
+      input.ownerId,
+    );
+
+    if (existingDemo) {
+      throw new DomainException('You have already used your free trial limit.');
+    }
     const demo = this.demoFactory.createNew(
       input.name,
       input.ownerId,
       input.imagePath,
       input.description,
-      input.plan,
     );
     await this.demoCommandRepository.save(demo);
 
@@ -73,9 +80,6 @@ export class DemosCommandService {
     if (input.description !== undefined) {
       demo.updateDescription(input.description);
     }
-    if (input.plan !== undefined) {
-      demo.updatePlan(input.plan);
-    }
     await this.demoCommandRepository.save(demo);
     return demo;
   }
@@ -83,6 +87,10 @@ export class DemosCommandService {
   async remove(id: string): Promise<void> {
     await this.findById(id);
     await this.demoCommandRepository.delete(id);
+  }
+
+  async expireFinishedTrials(): Promise<void> {
+    await this.demoCommandRepository.updateExpiredTrials();
   }
 
   async findById(id: string): Promise<Demo> {

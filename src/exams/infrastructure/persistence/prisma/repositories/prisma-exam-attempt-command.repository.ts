@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 import { ExamAttemptCommandRepository } from 'src/exams/application/ports/exam-attempt-command.repository';
 import { PrismaExamAttemptMapper } from '../mappers/prisma-exam-attempt.mapper';
-import { DomainException } from 'src/common/exceptions/domain.exception';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRepository {
@@ -16,19 +20,30 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
     const exam = await this.prisma.examAttempt.findFirst({
       where: {
         userId: examAttempt.userId,
-        examId: examAttempt.examId
-      }
+        examId: examAttempt.examId,
+      },
     });
 
-    if(exam != null) {
-      this.delete(exam.id);
+    if (exam != null) {
+      await this.delete(exam.id);
     }
     const data = this.mapper.toPersistence(examAttempt);
-    await this.prisma.examAttempt.upsert({
-      where: { id: examAttempt.id },
-      update: data,
-      create: data,
-    });
+    try {
+      await this.prisma.examAttempt.upsert({
+        where: { id: examAttempt.id },
+        update: data,
+        create: data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(`Exam Attempt Not Found`);
+        }
+      }
+      throw new InternalServerErrorException(
+        `Database operation failed ${error}`,
+      );
+    }
   }
 
   async delete(id: string): Promise<void> {

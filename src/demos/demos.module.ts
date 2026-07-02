@@ -28,6 +28,7 @@ import { DepartmentMemberResponseMapper } from './presentation/http/mappers/depa
 import { DepartmentMembersQueryController } from './presentation/http/department-member/department-members-query.controller';
 import { DepartmentMembersCommandController } from './presentation/http/department-member/department-members-command.controller';
 import { DemoEventsListener } from './presentation/events/demo.listener';
+import { DemosCron } from './presentation/cron/demos.cron';
 
 @Global()
 @Module({
@@ -44,6 +45,7 @@ import { DemoEventsListener } from './presentation/events/demo.listener';
     DepartmentMembersQueryController,
   ],
   providers: [
+    DemosCron,
     DemoEventsListener,
     DemosCommandService,
     DemosQueryService,

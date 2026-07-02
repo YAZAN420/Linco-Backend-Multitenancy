@@ -38,13 +38,13 @@ export class PaymentsCommandService {
 
     if (plan === PlanTier.STARTER) {
       priceId = this.stripeConfiguration.starterPriceId!;
-      amount = 20;
+      amount = 2000;
     } else if (plan === PlanTier.PRO) {
       priceId = this.stripeConfiguration.proPriceId!;
-      amount = 100;
+      amount = 10000;
     } else if (plan === PlanTier.ENTERPRISE) {
       priceId = this.stripeConfiguration.enterprisePriceId!;
-      amount = 200;
+      amount = 20000;
     } else {
       throw new BadRequestException('Invalid subscription plan');
     }
@@ -164,6 +164,31 @@ export class PaymentsCommandService {
         currentPeriodEnd: currentPeriodEnd,
       });
     }
+  }
+
+  async getCheckoutStatus(sessionId: string) {
+    const session = await this.paymentGateway.getCheckoutSession(sessionId);
+
+    const paymentId = session.metadata?.paymentId;
+    if (!paymentId) {
+      throw new NotFoundException('Payment metadata not found in session');
+    }
+
+    const payment = await this.paymentCommandRepository.findById(paymentId);
+    if (!payment) throw new NotFoundException('Payment record not found');
+    return {
+      status: session.status,
+      paymentStatus: session.payment_status,
+      isFulfilled: payment.isSuccessful,
+      customerEmail: session.customer_details?.email,
+      amountTotal: session.amount_total ? session.amount_total / 100 : 0,
+      currency: payment.currency,
+      metadata: {
+        type: session.metadata?.type,
+        courseId: session.metadata?.courseId,
+        demoId: session.metadata?.demoId,
+      },
+    };
   }
 
   async findById(paymentId: string): Promise<Payment> {

@@ -268,7 +268,7 @@ export type PaymentWhereInput = {
   OR?: Prisma.PaymentWhereInput[]
   NOT?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
   id?: Prisma.StringFilter<"Payment"> | string
-  amount?: Prisma.FloatFilter<"Payment"> | number
+  amount?: Prisma.IntFilter<"Payment"> | number
   currency?: Prisma.StringFilter<"Payment"> | string
   type?: Prisma.EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
   plan?: Prisma.EnumPlanTierNullableFilter<"Payment"> | $Enums.PlanTier | null
@@ -311,7 +311,7 @@ export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
   OR?: Prisma.PaymentWhereInput[]
   NOT?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
-  amount?: Prisma.FloatFilter<"Payment"> | number
+  amount?: Prisma.IntFilter<"Payment"> | number
   currency?: Prisma.StringFilter<"Payment"> | string
   type?: Prisma.EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
   plan?: Prisma.EnumPlanTierNullableFilter<"Payment"> | $Enums.PlanTier | null
@@ -352,7 +352,7 @@ export type PaymentScalarWhereWithAggregatesInput = {
   OR?: Prisma.PaymentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PaymentScalarWhereWithAggregatesInput | Prisma.PaymentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Payment"> | string
-  amount?: Prisma.FloatWithAggregatesFilter<"Payment"> | number
+  amount?: Prisma.IntWithAggregatesFilter<"Payment"> | number
   currency?: Prisma.StringWithAggregatesFilter<"Payment"> | string
   type?: Prisma.EnumPaymentTypeWithAggregatesFilter<"Payment"> | $Enums.PaymentType
   plan?: Prisma.EnumPlanTierNullableWithAggregatesFilter<"Payment"> | $Enums.PlanTier | null
@@ -400,7 +400,7 @@ export type PaymentUncheckedCreateInput = {
 
 export type PaymentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -416,7 +416,7 @@ export type PaymentUpdateInput = {
 
 export type PaymentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -448,7 +448,7 @@ export type PaymentCreateManyInput = {
 
 export type PaymentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -461,7 +461,7 @@ export type PaymentUpdateManyMutationInput = {
 
 export type PaymentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -667,14 +667,6 @@ export type PaymentUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.PaymentScalarWhereInput | Prisma.PaymentScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type EnumPaymentTypeFieldUpdateOperationsInput = {
   set?: $Enums.PaymentType
 }
@@ -748,7 +740,7 @@ export type PaymentScalarWhereInput = {
   OR?: Prisma.PaymentScalarWhereInput[]
   NOT?: Prisma.PaymentScalarWhereInput | Prisma.PaymentScalarWhereInput[]
   id?: Prisma.StringFilter<"Payment"> | string
-  amount?: Prisma.FloatFilter<"Payment"> | number
+  amount?: Prisma.IntFilter<"Payment"> | number
   currency?: Prisma.StringFilter<"Payment"> | string
   type?: Prisma.EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
   plan?: Prisma.EnumPlanTierNullableFilter<"Payment"> | $Enums.PlanTier | null
@@ -891,7 +883,7 @@ export type PaymentCreateManyUserInput = {
 
 export type PaymentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -906,7 +898,7 @@ export type PaymentUpdateWithoutUserInput = {
 
 export type PaymentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -921,7 +913,7 @@ export type PaymentUncheckedUpdateWithoutUserInput = {
 
 export type PaymentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -951,7 +943,7 @@ export type PaymentCreateManyDemoInput = {
 
 export type PaymentUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -966,7 +958,7 @@ export type PaymentUpdateWithoutDemoInput = {
 
 export type PaymentUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -981,7 +973,7 @@ export type PaymentUncheckedUpdateWithoutDemoInput = {
 
 export type PaymentUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -1011,7 +1003,7 @@ export type PaymentCreateManyCourseInput = {
 
 export type PaymentUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -1026,7 +1018,7 @@ export type PaymentUpdateWithoutCourseInput = {
 
 export type PaymentUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -1041,7 +1033,7 @@ export type PaymentUncheckedUpdateWithoutCourseInput = {
 
 export type PaymentUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
   plan?: Prisma.NullableEnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier | null
@@ -1594,7 +1586,7 @@ export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface PaymentFieldRefs {
   readonly id: Prisma.FieldRef<"Payment", 'String'>
-  readonly amount: Prisma.FieldRef<"Payment", 'Float'>
+  readonly amount: Prisma.FieldRef<"Payment", 'Int'>
   readonly currency: Prisma.FieldRef<"Payment", 'String'>
   readonly type: Prisma.FieldRef<"Payment", 'PaymentType'>
   readonly plan: Prisma.FieldRef<"Payment", 'PlanTier'>

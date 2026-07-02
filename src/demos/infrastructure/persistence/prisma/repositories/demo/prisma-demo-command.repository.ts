@@ -4,6 +4,7 @@ import { Demo } from 'src/demos/domain/demo';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { PrismaDemoMapper } from '../../mappers/prisma-demo.mapper';
 import { PrismaDepartmentMapper } from '../../mappers/prisma-department.mapper';
+import { SubscriptionStatus } from 'src/demos/domain/enums/subscription-status.enum';
 
 @Injectable()
 export class PrismaDemoCommandRepository implements DemoCommandRepository {
@@ -55,5 +56,27 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
       include: { departments: true },
     });
     return demo ? this.mapper.toDomain(demo) : null;
+  }
+
+  async findByOwnerId(ownerId: string): Promise<Demo | null> {
+    const demo = await this.prisma.demo.findFirst({
+      where: { ownerId },
+      include: { departments: true },
+    });
+    return demo ? this.mapper.toDomain(demo) : null;
+  }
+
+  async updateExpiredTrials(): Promise<void> {
+    await this.prisma.demo.updateMany({
+      where: {
+        subscriptionStatus: SubscriptionStatus.TRIALING,
+        currentPeriodEnd: {
+          lt: new Date(),
+        },
+      },
+      data: {
+        subscriptionStatus: SubscriptionStatus.EXPIRED,
+      },
+    });
   }
 }

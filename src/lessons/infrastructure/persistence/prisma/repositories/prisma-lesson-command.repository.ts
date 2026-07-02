@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { LessonCommandRepository } from 'src/lessons/application/ports/lesson-command.repository';
 import { Lesson } from 'src/lessons/domain/lesson';
 import { PrismaLessonMapper } from '../mappers/prisma-lesson.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { PrismaAttachmentMapper } from '../mappers/prisma-attachment.mapper';
 import { Attachment } from 'src/lessons/domain/attachment';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class PrismaLessonCommandRepository implements LessonCommandRepository {
@@ -16,28 +21,42 @@ export class PrismaLessonCommandRepository implements LessonCommandRepository {
 
   async save(lesson: Lesson): Promise<void> {
     const data = this.mapper.toPersistence(lesson);
-    await this.prisma.$transaction(async (tx) => {
-      await tx.lesson.upsert({
-        where: { id: lesson.id },
-        update: data,
-        create: data,
-      });
-      const attachmentIds = lesson.attachments.map((a) => a.id);
-      await tx.attachment.deleteMany({
-        where: {
-          lessonId: lesson.id,
-          id: { notIn: attachmentIds },
-        },
-      });
-      for (const attachment of lesson.attachments) {
-        const attachmentData = this.attachmentMapper.toPersistence(attachment);
-        await tx.attachment.upsert({
-          where: { id: attachment.id },
-          update: attachmentData,
-          create: attachmentData,
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        await tx.lesson.upsert({
+          where: { id: lesson.id },
+          update: data,
+          create: data,
         });
+        const attachmentIds = lesson.attachments.map((a) => a.id);
+        await tx.attachment.deleteMany({
+          where: {
+            lessonId: lesson.id,
+            id: { notIn: attachmentIds },
+          },
+        });
+        for (const attachment of lesson.attachments) {
+          const attachmentData =
+            this.attachmentMapper.toPersistence(attachment);
+          await tx.attachment.upsert({
+            where: { id: attachment.id },
+            update: attachmentData,
+            create: attachmentData,
+          });
+        }
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          throw new NotFoundException(
+            `Validation failed: One of the related entities (e.g., Category, Instructor, or Course reference) does not exist.`,
+          );
+        }
       }
-    });
+      throw new InternalServerErrorException(
+        `Database operation failed while saving course aggregate: ${error}`,
+      );
+    }
   }
 
   async delete(id: string): Promise<void> {

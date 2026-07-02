@@ -12,23 +12,24 @@ export class DemoFactory {
     ownerId: string,
     imagePath: string,
     description: string,
-    plan: PlanTier,
   ): Demo {
     const now = new Date();
     const nameVo = Name.create(name);
 
-    const subscriptionStatus =
-      plan === PlanTier.STARTER ? undefined : SubscriptionStatus.INACTIVE;
+    const trialDays = 14;
+    const currentPeriodEnd = new Date(
+      now.getTime() + trialDays * 24 * 60 * 60 * 1000,
+    );
 
     return new Demo(uuidv7(), {
       name: nameVo,
       imagePath,
       description,
       ownerId,
-      plan,
-      subscriptionStatus,
+      subscriptionStatus: SubscriptionStatus.TRIALING,
+      plan: PlanTier.FREE,
       stripeSubscriptionId: undefined,
-      currentPeriodEnd: undefined,
+      currentPeriodEnd: currentPeriodEnd,
       departments: [],
       createdAt: now,
       updatedAt: now,
