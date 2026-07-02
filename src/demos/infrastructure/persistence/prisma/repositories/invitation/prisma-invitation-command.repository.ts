@@ -3,6 +3,7 @@ import { InvitationCommandRepository } from 'src/demos/application/ports/invitat
 import { Invitation } from 'src/demos/domain/invitation';
 import { PrismaInvitationMapper } from '../../mappers/prisma-invitation.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { InvitationStatus } from 'src/generated/prisma/enums';
 
 @Injectable()
 export class PrismaInvitationCommandRepository implements InvitationCommandRepository {
@@ -36,7 +37,7 @@ export class PrismaInvitationCommandRepository implements InvitationCommandRepos
     receiverId: string,
   ): Promise<Invitation | null> {
     const invitation = await this.prisma.invitation.findFirst({
-      where: { demoId, receiverId, status: 'PENDING' },
+      where: { demoId, receiverId, status: InvitationStatus.PENDING },
     });
     return invitation ? this.mapper.toDomain(invitation) : null;
   }

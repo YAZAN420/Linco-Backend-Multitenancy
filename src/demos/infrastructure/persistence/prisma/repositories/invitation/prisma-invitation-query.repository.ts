@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Invitation } from 'src/generated/prisma/client';
+import { Invitation, InvitationStatus } from 'src/generated/prisma/client';
 
 import { InvitationQueryRepository } from 'src/demos/application/ports/invitation/invitation-query.repository';
 import { FindCursorQuery } from 'src/common/interfaces/find.query';
@@ -24,6 +24,7 @@ export class PrismaInvitationQueryRepository implements InvitationQueryRepositor
       orderBy: [{ id: 'desc' }],
       where: {
         receiverId,
+        status: InvitationStatus.PENDING,
       },
     });
 

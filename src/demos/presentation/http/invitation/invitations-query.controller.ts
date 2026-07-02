@@ -25,7 +25,7 @@ export class InvitationsQueryController {
     );
 
     return {
-      message: 'Invitations fetched successfully (Cursor)',
+      message: 'Invitations fetched successfully',
       data: this.invitationResponseMapper.toResponseManyFromPrisma(
         invitations.data,
       ),
