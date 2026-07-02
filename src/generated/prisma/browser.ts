@@ -103,6 +103,11 @@ export type DiscussionQuestion = Prisma.DiscussionQuestionModel
  */
 export type DiscussionAnswer = Prisma.DiscussionAnswerModel
 /**
+ * Model Invitation
+ * 
+ */
+export type Invitation = Prisma.InvitationModel
+/**
  * Model Payment
  * 
  */

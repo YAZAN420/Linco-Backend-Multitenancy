@@ -16,6 +16,11 @@ import { PrismaDepartmentMemberQueryRepository } from './repositories/department
 import { DepartmentMemberCommandRepository } from 'src/demos/application/ports/department-member/department-member-command.repository';
 import { PrismaDepartmentMemberCommandRepository } from './repositories/department-member/prisma-department-member-command.repository';
 import { PrismaDepartmentMemberMapper } from './mappers/prisma-department-member.mapper';
+import { InvitationCommandRepository } from 'src/demos/application/ports/invitation/invitation-command.repository';
+import { PrismaInvitationCommandRepository } from './repositories/invitation/prisma-invitation-command.repository';
+import { InvitationQueryRepository } from 'src/demos/application/ports/invitation/invitation-query.repository';
+import { PrismaInvitationQueryRepository } from './repositories/invitation/prisma-invitation-query.repository';
+import { PrismaInvitationMapper } from './mappers/prisma-invitation.mapper';
 
 @Module({
   providers: [
@@ -23,6 +28,7 @@ import { PrismaDepartmentMemberMapper } from './mappers/prisma-department-member
     PrismaDepartmentMapper,
     PrismaDemoMemberMapper,
     PrismaDepartmentMemberMapper,
+    PrismaInvitationMapper,
     {
       provide: DemoCommandRepository,
       useClass: PrismaDemoCommandRepository,
@@ -47,6 +53,14 @@ import { PrismaDepartmentMemberMapper } from './mappers/prisma-department-member
       provide: DepartmentMemberCommandRepository,
       useClass: PrismaDepartmentMemberCommandRepository,
     },
+    {
+      provide: InvitationCommandRepository,
+      useClass: PrismaInvitationCommandRepository,
+    },
+    {
+      provide: InvitationQueryRepository,
+      useClass: PrismaInvitationQueryRepository,
+    },
   ],
   exports: [
     DemoCommandRepository,
@@ -55,6 +69,8 @@ import { PrismaDepartmentMemberMapper } from './mappers/prisma-department-member
     DemoMemberQueryRepository,
     DepartmentMemberQueryRepository,
     DepartmentMemberCommandRepository,
+    InvitationCommandRepository,
+    InvitationQueryRepository,
   ],
 })
 export class PrismaPersistenceModule {}

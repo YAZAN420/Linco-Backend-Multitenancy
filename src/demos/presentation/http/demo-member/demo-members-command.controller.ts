@@ -1,6 +1,5 @@
-import { Controller, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Patch, Delete, Body, Param } from '@nestjs/common';
 
-import { CreateDemoMemberDto } from '../dto/demo-member/create-demo-member.dto';
 import { UpdateDemoMemberDto } from '../dto/demo-member/update-demo-member.dto';
 import { DemoMembersCommandService } from 'src/demos/application/demo-member/demo-members-command.service';
 
@@ -9,22 +8,6 @@ export class DemoMembersCommandController {
   constructor(
     private readonly demoMembersCommandService: DemoMembersCommandService,
   ) {}
-
-  @Post()
-  async addMember(
-    @Param('demoId') demoId: string,
-    @Body() dto: CreateDemoMemberDto,
-  ) {
-    await this.demoMembersCommandService.addMember(demoId, {
-      userId: dto.userId,
-      role: dto.role,
-    });
-
-    return {
-      message: 'Member added successfully',
-      data: null,
-    };
-  }
 
   @Patch(':memberId')
   async updateMemberRole(

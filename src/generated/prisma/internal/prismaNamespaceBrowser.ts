@@ -68,6 +68,7 @@ export const ModelName = {
   DepartmentCourse: 'DepartmentCourse',
   DiscussionQuestion: 'DiscussionQuestion',
   DiscussionAnswer: 'DiscussionAnswer',
+  Invitation: 'Invitation',
   Payment: 'Payment',
   Tag: 'Tag'
 } as const
@@ -316,6 +317,20 @@ export const DiscussionAnswerScalarFieldEnum = {
 } as const
 
 export type DiscussionAnswerScalarFieldEnum = (typeof DiscussionAnswerScalarFieldEnum)[keyof typeof DiscussionAnswerScalarFieldEnum]
+
+
+export const InvitationScalarFieldEnum = {
+  id: 'id',
+  demoId: 'demoId',
+  receiverId: 'receiverId',
+  senderId: 'senderId',
+  role: 'role',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
 
 
 export const PaymentScalarFieldEnum = {

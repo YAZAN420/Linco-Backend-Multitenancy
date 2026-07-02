@@ -30,7 +30,7 @@ export class CoursesCommandController {
     };
   }
 
-  @Patch('courseId')
+  @Patch(':courseId')
   async update(
     @Param('courseId') courseId: string,
     @Body() dto: UpdateCourseDto,

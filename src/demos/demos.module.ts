@@ -29,6 +29,12 @@ import { DepartmentMembersQueryController } from './presentation/http/department
 import { DepartmentMembersCommandController } from './presentation/http/department-member/department-members-command.controller';
 import { DemoEventsListener } from './presentation/events/demo.listener';
 import { DemosCron } from './presentation/cron/demos.cron';
+import { InvitationsCommandController } from './presentation/http/invitation/invitations-command.controller';
+import { InvitationsQueryController } from './presentation/http/invitation/invitations-query.controller';
+import { InvitationsCommandService } from './application/invitation/invitations-command.service';
+import { InvitationsQueryService } from './application/invitation/invitations-query.service';
+import { InvitationFactory } from './domain/factories/invitation.factory';
+import { InvitationResponseMapper } from './presentation/http/mappers/invitation-response.mapper';
 
 @Global()
 @Module({
@@ -43,6 +49,8 @@ import { DemosCron } from './presentation/cron/demos.cron';
     DemoMembersQueryController,
     DepartmentMembersCommandController,
     DepartmentMembersQueryController,
+    InvitationsCommandController,
+    InvitationsQueryController,
   ],
   providers: [
     DemosCron,
@@ -63,6 +71,10 @@ import { DemosCron } from './presentation/cron/demos.cron';
     DepartmentMembersQueryService,
     DepartmentMemberFactory,
     DepartmentMemberResponseMapper,
+    InvitationsCommandService,
+    InvitationsQueryService,
+    InvitationFactory,
+    InvitationResponseMapper,
   ],
   exports: [
     DemosCommandService,
@@ -79,6 +91,10 @@ import { DemosCron } from './presentation/cron/demos.cron';
     DepartmentMembersQueryService,
     DepartmentMemberFactory,
     DepartmentMemberResponseMapper,
+    InvitationsCommandService,
+    InvitationsQueryService,
+    InvitationFactory,
+    InvitationResponseMapper,
   ],
 })
 export class DemosModule {

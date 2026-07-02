@@ -57,6 +57,12 @@ enum PlanTier {
 }
 
 
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 enum SubscriptionStatus {
   TRIALING
   EXPIRED
@@ -85,9 +91,12 @@ model User {
   passwordResetToken    String?
   passwordResetExpires  DateTime?
   stripeCustomerId       String?   @unique
+
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
 
+  receivedInvitations Invitation[] @relation("ReceivedInvitations")
+  sentInvitations     Invitation[] @relation("SentInvitations")
   demoMemberships       DemoMember[]
   ownedDemos            Demo[]                 @relation("DemoOwner")
   payments              Payment[]
@@ -164,7 +173,7 @@ model Demo {
 
   departments  Department[]
   members      DemoMember[]
-
+  invitations  Invitation[]
   owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
 
   payments  Payment[]
@@ -263,7 +272,7 @@ model Exam {
 }
 
 model QuestionsBank {
-  id          String            @id @default(cuid())
+  id          String            @id 
   sectionId   String
   text        String
 
@@ -275,7 +284,7 @@ model QuestionsBank {
 }
 
 model QuestionChoice {
-  id          String            @id @default(cuid())
+  id          String            @id 
   questionId  String
   text        String
   isCorrect   Boolean
@@ -287,7 +296,7 @@ model QuestionChoice {
 }
 
 model ExamAttempt {
-  id          String            @id @default(cuid())
+  id          String            @id 
   userId      String
   examId      String
   score       Int               @default(0)
@@ -331,7 +340,7 @@ model DepartmentCourse {
 
 
 model DiscussionQuestion {
-  id           String             @id @default(uuid())
+  id           String             @id
   lessonId     String             
   demoMemberId String             
   content      String             @db.Text 
@@ -346,7 +355,7 @@ model DiscussionQuestion {
 }
 
 model DiscussionAnswer {
-  id           String             @id @default(uuid())
+  id           String             @id 
   discussionId String             
   demoMemberId String             
   content      String             @db.Text 
@@ -359,9 +368,26 @@ model DiscussionAnswer {
   @@index([discussionId]) 
 }
 
+model Invitation {
+  id         String           @id 
+  demoId     String
+  receiverId String 
+  senderId   String 
+  role       DemoMemberRole   @default(TRAINER)
+  status     InvitationStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  demo     Demo @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedInvitations", fields: [receiverId], references: [id], onDelete: Cascade)
+  sender   User @relation("SentInvitations", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@unique([demoId, receiverId, status]) 
+  @@index([receiverId])
+}
 
 model Payment {
-  id                     String    @id @default(uuid())
+  id                     String    @id 
   amount                 Int    
   currency               String    @default("USD")
   type PaymentType @default(SUBSCRIPTION)
@@ -385,7 +411,7 @@ model Payment {
 }
 
 model Tag {
-  id        String   @id @default(cuid())
+  id        String   @id 
   name      String   @unique 
   courses   Course[] 
 

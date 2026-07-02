@@ -232,6 +232,7 @@ export type DemoWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
   members?: Prisma.DemoMemberListRelationFilter
+  invitations?: Prisma.InvitationListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   payments?: Prisma.PaymentListRelationFilter
   courses?: Prisma.CourseListRelationFilter
@@ -252,6 +253,7 @@ export type DemoOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   departments?: Prisma.DepartmentOrderByRelationAggregateInput
   members?: Prisma.DemoMemberOrderByRelationAggregateInput
+  invitations?: Prisma.InvitationOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
@@ -275,6 +277,7 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Demo"> | Date | string
   departments?: Prisma.DepartmentListRelationFilter
   members?: Prisma.DemoMemberListRelationFilter
+  invitations?: Prisma.InvitationListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   payments?: Prisma.PaymentListRelationFilter
   courses?: Prisma.CourseListRelationFilter
@@ -328,6 +331,7 @@ export type DemoCreateInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
@@ -348,6 +352,7 @@ export type DemoUncheckedCreateInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
@@ -366,6 +371,7 @@ export type DemoUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
@@ -386,6 +392,7 @@ export type DemoUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
@@ -600,6 +607,20 @@ export type DemoUpdateOneRequiredWithoutAssetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutAssetsInput, Prisma.DemoUpdateWithoutAssetsInput>, Prisma.DemoUncheckedUpdateWithoutAssetsInput>
 }
 
+export type DemoCreateNestedOneWithoutInvitationsInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutInvitationsInput, Prisma.DemoUncheckedCreateWithoutInvitationsInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutInvitationsInput
+  connect?: Prisma.DemoWhereUniqueInput
+}
+
+export type DemoUpdateOneRequiredWithoutInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoCreateWithoutInvitationsInput, Prisma.DemoUncheckedCreateWithoutInvitationsInput>
+  connectOrCreate?: Prisma.DemoCreateOrConnectWithoutInvitationsInput
+  upsert?: Prisma.DemoUpsertWithoutInvitationsInput
+  connect?: Prisma.DemoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoUpdateToOneWithWhereWithoutInvitationsInput, Prisma.DemoUpdateWithoutInvitationsInput>, Prisma.DemoUncheckedUpdateWithoutInvitationsInput>
+}
+
 export type DemoCreateNestedOneWithoutPaymentsInput = {
   create?: Prisma.XOR<Prisma.DemoCreateWithoutPaymentsInput, Prisma.DemoUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.DemoCreateOrConnectWithoutPaymentsInput
@@ -629,6 +650,7 @@ export type DemoCreateWithoutOwnerInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
@@ -647,6 +669,7 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
@@ -707,6 +730,7 @@ export type DemoCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
@@ -726,6 +750,7 @@ export type DemoUncheckedCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
@@ -759,6 +784,7 @@ export type DemoUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
@@ -778,6 +804,7 @@ export type DemoUncheckedUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
@@ -795,6 +822,7 @@ export type DemoCreateWithoutDepartmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
@@ -814,6 +842,7 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
@@ -847,6 +876,7 @@ export type DemoUpdateWithoutDepartmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
@@ -866,6 +896,7 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
@@ -884,6 +915,7 @@ export type DemoCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
@@ -903,6 +935,7 @@ export type DemoUncheckedCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -936,6 +969,7 @@ export type DemoUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
@@ -955,6 +989,7 @@ export type DemoUncheckedUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -972,6 +1007,7 @@ export type DemoCreateWithoutAssetsInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
@@ -991,6 +1027,7 @@ export type DemoUncheckedCreateWithoutAssetsInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -1024,6 +1061,7 @@ export type DemoUpdateWithoutAssetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
@@ -1043,8 +1081,101 @@ export type DemoUncheckedUpdateWithoutAssetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
+}
+
+export type DemoCreateWithoutInvitationsInput = {
+  id: string
+  name: string
+  imagePath: string
+  description: string
+  plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutDemoInput
+  courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
+  assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
+}
+
+export type DemoUncheckedCreateWithoutInvitationsInput = {
+  id: string
+  name: string
+  imagePath: string
+  description: string
+  plan?: $Enums.PlanTier
+  stripeSubscriptionId?: string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  currentPeriodEnd: Date | string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
+  members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutDemoInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
+}
+
+export type DemoCreateOrConnectWithoutInvitationsInput = {
+  where: Prisma.DemoWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoCreateWithoutInvitationsInput, Prisma.DemoUncheckedCreateWithoutInvitationsInput>
+}
+
+export type DemoUpsertWithoutInvitationsInput = {
+  update: Prisma.XOR<Prisma.DemoUpdateWithoutInvitationsInput, Prisma.DemoUncheckedUpdateWithoutInvitationsInput>
+  create: Prisma.XOR<Prisma.DemoCreateWithoutInvitationsInput, Prisma.DemoUncheckedCreateWithoutInvitationsInput>
+  where?: Prisma.DemoWhereInput
+}
+
+export type DemoUpdateToOneWithWhereWithoutInvitationsInput = {
+  where?: Prisma.DemoWhereInput
+  data: Prisma.XOR<Prisma.DemoUpdateWithoutInvitationsInput, Prisma.DemoUncheckedUpdateWithoutInvitationsInput>
+}
+
+export type DemoUpdateWithoutInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
+}
+
+export type DemoUncheckedUpdateWithoutInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
+  members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
 
 export type DemoCreateWithoutPaymentsInput = {
@@ -1060,6 +1191,7 @@ export type DemoCreateWithoutPaymentsInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutDemoInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedDemosInput
   courses?: Prisma.CourseCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetCreateNestedManyWithoutDemoInput
@@ -1079,6 +1211,7 @@ export type DemoUncheckedCreateWithoutPaymentsInput = {
   updatedAt?: Date | string
   departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutDemoInput
   members?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutDemoInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutDemoInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDemoInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutDemoInput
 }
@@ -1112,6 +1245,7 @@ export type DemoUpdateWithoutPaymentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedDemosNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
@@ -1131,6 +1265,7 @@ export type DemoUncheckedUpdateWithoutPaymentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
 }
@@ -1161,6 +1296,7 @@ export type DemoUpdateWithoutOwnerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUpdateManyWithoutDemoNestedInput
@@ -1179,6 +1315,7 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutDemoNestedInput
   members?: Prisma.DemoMemberUncheckedUpdateManyWithoutDemoNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutDemoNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutDemoNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDemoNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutDemoNestedInput
@@ -1205,6 +1342,7 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
 export type DemoCountOutputType = {
   departments: number
   members: number
+  invitations: number
   payments: number
   courses: number
   assets: number
@@ -1213,6 +1351,7 @@ export type DemoCountOutputType = {
 export type DemoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | DemoCountOutputTypeCountDepartmentsArgs
   members?: boolean | DemoCountOutputTypeCountMembersArgs
+  invitations?: boolean | DemoCountOutputTypeCountInvitationsArgs
   payments?: boolean | DemoCountOutputTypeCountPaymentsArgs
   courses?: boolean | DemoCountOutputTypeCountCoursesArgs
   assets?: boolean | DemoCountOutputTypeCountAssetsArgs
@@ -1240,6 +1379,13 @@ export type DemoCountOutputTypeCountDepartmentsArgs<ExtArgs extends runtime.Type
  */
 export type DemoCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DemoMemberWhereInput
+}
+
+/**
+ * DemoCountOutputType without action
+ */
+export type DemoCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InvitationWhereInput
 }
 
 /**
@@ -1278,6 +1424,7 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
+  invitations?: boolean | Prisma.Demo$invitationsArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Demo$paymentsArgs<ExtArgs>
   courses?: boolean | Prisma.Demo$coursesArgs<ExtArgs>
@@ -1333,6 +1480,7 @@ export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
+  invitations?: boolean | Prisma.Demo$invitationsArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Demo$paymentsArgs<ExtArgs>
   courses?: boolean | Prisma.Demo$coursesArgs<ExtArgs>
@@ -1351,6 +1499,7 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     departments: Prisma.$DepartmentPayload<ExtArgs>[]
     members: Prisma.$DemoMemberPayload<ExtArgs>[]
+    invitations: Prisma.$InvitationPayload<ExtArgs>[]
     owner: Prisma.$UserPayload<ExtArgs>
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     courses: Prisma.$CoursePayload<ExtArgs>[]
@@ -1764,6 +1913,7 @@ export interface Prisma__DemoClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   departments<T extends Prisma.Demo$departmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Demo$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  invitations<T extends Prisma.Demo$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.Demo$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.Demo$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Demo$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2254,6 +2404,30 @@ export type Demo$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.DemoMemberScalarFieldEnum | Prisma.DemoMemberScalarFieldEnum[]
+}
+
+/**
+ * Demo.invitations
+ */
+export type Demo$invitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Invitation
+   */
+  select?: Prisma.InvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Invitation
+   */
+  omit?: Prisma.InvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvitationInclude<ExtArgs> | null
+  where?: Prisma.InvitationWhereInput
+  orderBy?: Prisma.InvitationOrderByWithRelationInput | Prisma.InvitationOrderByWithRelationInput[]
+  cursor?: Prisma.InvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InvitationScalarFieldEnum | Prisma.InvitationScalarFieldEnum[]
 }
 
 /**

@@ -28,7 +28,6 @@ import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastr
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
 
-
 @Module({})
 export class AppModule {
   static register(): DynamicModule {
