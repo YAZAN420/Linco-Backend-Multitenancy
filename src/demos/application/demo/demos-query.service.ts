@@ -27,8 +27,8 @@ export class DemosQueryService {
     return this.demoQueryRepository.findAllForMe(options, id);
   }
 
-  async findById(id: string): Promise<DemoWithOwnership> {
-    const demo = await this.demoQueryRepository.findById(id);
+  async findById(userId: string, id: string): Promise<DemoWithOwnership> {
+    const demo = await this.demoQueryRepository.findById(userId, id);
     if (!demo) throw new NotFoundException('Demo not found');
     return demo;
   }

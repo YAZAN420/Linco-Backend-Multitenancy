@@ -29,8 +29,8 @@ export class DemosQueryController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const demo = await this.demoQueryService.findById(id);
+  async findOne(@ActiveUser() user: ActiveUserData, @Param('id') id: string) {
+    const demo = await this.demoQueryService.findById(user.id, id);
     return {
       message: 'Demo retrieved successfully',
       data: this.demoResponseMapper.toResponseFromPrisma(demo),

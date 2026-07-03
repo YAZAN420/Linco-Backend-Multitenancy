@@ -96,8 +96,8 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
   }
 
   async findById(
+    userId: string,
     id: string,
-    userId?: string,
   ): Promise<DemoWithOwnership | null> {
     const demo = await this.prisma.demo.findUnique({
       where: { id },
@@ -113,7 +113,6 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         },
       },
     });
-
     if (!demo) return null;
 
     return {
