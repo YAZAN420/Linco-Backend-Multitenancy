@@ -22,9 +22,22 @@ export class CoursesCommandService {
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
+    const ext = fileName.split('.').pop()?.toLowerCase() || '';
+
+    const mimeTypes: Record<string, string> = {
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      webp: 'image/webp',
+      gif: 'image/gif',
+      svg: 'image/svg+xml',
+    };
+
+    const contentType = mimeTypes[ext] || 'application/octet-stream';
+
     return await this.spacesService.generateUploadUrl(
       fileName,
-      'image/png',
+      contentType,
       true,
       'courses',
     );
