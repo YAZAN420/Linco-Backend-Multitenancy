@@ -1,71 +1,107 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
 import type { ConfigType } from '@nestjs/config';
 import storageConfig from 'src/common/config/storage.config';
 import { GenerateUploadUrl } from './interfaces/generate-upload-url.interface';
-import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
+import {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+  generateBlobSASQueryParameters,
+  BlobSASPermissions,
+} from '@azure/storage-blob';
+import { StoragePort } from './storage.port';
+
 @Injectable()
-export class SpacesService {
-  private s3Client: S3Client;
+export class SpacesService implements StoragePort {
+  private blobServiceClient: BlobServiceClient;
+  private sharedKeyCredential: StorageSharedKeyCredential;
 
   constructor(
     @Inject(storageConfig.KEY)
     private readonly config: ConfigType<typeof storageConfig>,
   ) {
-    this.s3Client = new S3Client({
-      endpoint: this.config.originEndpoint!,
-      region: this.config.region!,
-      forcePathStyle: true,
-      credentials: {
-        accessKeyId: this.config.accessKey!,
-        secretAccessKey: this.config.secretKey!,
-      },
-    });
+    this.sharedKeyCredential = new StorageSharedKeyCredential(
+      this.config.accountName!,
+      this.config.accountKey!,
+    );
+
+    this.blobServiceClient = new BlobServiceClient(
+      `https://${this.config.accountName}.blob.core.windows.net`,
+      this.sharedKeyCredential,
+    );
   }
 
-  async generateUploadUrl(
+  generateUploadUrl(
     fileName: string,
     contentType: string,
     isPublic: boolean,
     folder?: string,
   ): Promise<GenerateUploadUrl> {
     const ext = fileName.split('.').pop();
+    const generatedKey = folder
+      ? `${folder}/${uuidv4()}.${ext}`
+      : `${uuidv4()}.${ext}`;
 
-    const fileKey = `${folder}/${uuidv4()}.${ext}`;
+    const containerName = isPublic
+      ? this.config.containerName!
+      : 'private-uploads';
 
-    const { url, fields } = await createPresignedPost(this.s3Client, {
-      Bucket: this.config.bucketName!,
-      Key: fileKey,
-      Conditions: [
-        ['eq', '$acl', isPublic ? 'public-read' : 'private'],
-        ['eq', '$Content-Type', contentType],
-      ],
-      Fields: {
-        acl: isPublic ? 'public-read' : 'private',
-        'Content-Type': contentType,
+    const containerClient =
+      this.blobServiceClient.getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(generatedKey);
+
+    const startsOn = new Date();
+    const expiresOn = new Date(startsOn.valueOf() + 900 * 1000);
+
+    const sasToken = generateBlobSASQueryParameters(
+      {
+        containerName,
+        blobName: generatedKey,
+        permissions: BlobSASPermissions.parse('cw'),
+        startsOn,
+        expiresOn,
+        contentType,
       },
-      Expires: 900,
-    });
+      this.sharedKeyCredential,
+    ).toString();
 
-    return {
-      uploadUrl: url,
-      fields,
-      fileKey,
+    const uploadUrl = `${blockBlobClient.url}?${sasToken}`;
+    const nativeAzureUrl = `https://${this.config.accountName}.blob.core.windows.net/${containerName}/${generatedKey}`;
+    const cdnUrl = isPublic ? this.config.cdnEndpoint || nativeAzureUrl : null;
+
+    return Promise.resolve({
+      uploadUrl,
+      fileKey: generatedKey,
       isPublic,
-      cdnUrl: isPublic ? `${this.config.cdnEndpoint}/${fileKey}` : null,
-    };
+      cdnUrl,
+    });
   }
 
-  async generateDownloadUrl(fileKey: string) {
-    const command = new GetObjectCommand({
-      Bucket: this.config.bucketName,
-      Key: fileKey,
-    });
+  generateDownloadUrl(
+    fileKey: string,
+    isPublic: boolean = false,
+  ): Promise<string> {
+    const containerName = isPublic
+      ? this.config.containerName!
+      : 'private-uploads';
+    const containerClient =
+      this.blobServiceClient.getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(fileKey);
 
-    return await getSignedUrl(this.s3Client, command, {
-      expiresIn: 300,
-    });
+    const startsOn = new Date();
+    const expiresOn = new Date(startsOn.valueOf() + 300 * 1000);
+
+    const sasToken = generateBlobSASQueryParameters(
+      {
+        containerName,
+        blobName: fileKey,
+        permissions: BlobSASPermissions.parse('r'),
+        startsOn,
+        expiresOn,
+      },
+      this.sharedKeyCredential,
+    ).toString();
+
+    return Promise.resolve(`${blockBlobClient.url}?${sasToken}`);
   }
 }

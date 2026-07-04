@@ -10,7 +10,7 @@ export class ResendMailAdapter implements MailPort {
   private readonly logger = new Logger(ResendMailAdapter.name);
 
   private readonly mascotImageUrl =
-    'https://storage.lincolms.me/EmailPhoto.png';
+    'https://lincostorage.blob.core.windows.net/uploads/EmailPhoto.png';
 
   constructor(
     @Inject(mailConfig.KEY)
