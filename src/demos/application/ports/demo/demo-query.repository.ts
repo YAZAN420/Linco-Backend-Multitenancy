@@ -19,8 +19,8 @@ export abstract class DemoQueryRepository {
     userId: string,
   ): Promise<CursorPageDto<DemoWithOwnership>>;
   abstract findById(
-    userId: string,
     id: string,
+    userId?: string,
   ): Promise<DemoWithOwnership | null>;
   abstract findDepartments(
     options: FindDepartmentCursorQuery,

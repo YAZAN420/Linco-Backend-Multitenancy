@@ -24,6 +24,7 @@
     "@aws-sdk/client-s3": "^3.1073.0",
     "@aws-sdk/s3-presigned-post": "^3.1075.0",
     "@aws-sdk/s3-request-presigner": "^3.1073.0",
+    "@azure/storage-blob": "^12.33.0",
     "@casl/ability": "^6.8.0",
     "@casl/prisma": "^1.6.2",
     "@nestjs/bullmq": "^11.0.4",
