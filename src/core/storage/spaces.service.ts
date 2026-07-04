@@ -67,7 +67,12 @@ export class SpacesService implements StoragePort {
 
     const uploadUrl = `${blockBlobClient.url}?${sasToken}`;
     const nativeAzureUrl = `https://${this.config.accountName}.blob.core.windows.net/${containerName}/${generatedKey}`;
-    const cdnUrl = isPublic ? this.config.cdnEndpoint || nativeAzureUrl : null;
+    const baseCdn = this.config.cdnEndpoint?.replace(/\/$/, '');
+    const cdnUrl = isPublic
+      ? baseCdn
+        ? `${baseCdn}/${containerName}/${generatedKey}`
+        : nativeAzureUrl
+      : null;
 
     return Promise.resolve({
       uploadUrl,
