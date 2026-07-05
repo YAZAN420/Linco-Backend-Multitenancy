@@ -241,7 +241,7 @@ export type QuestionChoiceScalarWhereWithAggregatesInput = {
 }
 
 export type QuestionChoiceCreateInput = {
-  id?: string
+  id: string
   text: string
   isCorrect: boolean
   createdAt?: Date | string
@@ -250,7 +250,7 @@ export type QuestionChoiceCreateInput = {
 }
 
 export type QuestionChoiceUncheckedCreateInput = {
-  id?: string
+  id: string
   questionId: string
   text: string
   isCorrect: boolean
@@ -277,7 +277,7 @@ export type QuestionChoiceUncheckedUpdateInput = {
 }
 
 export type QuestionChoiceCreateManyInput = {
-  id?: string
+  id: string
   questionId: string
   text: string
   isCorrect: boolean
@@ -382,7 +382,7 @@ export type QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput = {
 }
 
 export type QuestionChoiceCreateWithoutQuestionInput = {
-  id?: string
+  id: string
   text: string
   isCorrect: boolean
   createdAt?: Date | string
@@ -390,7 +390,7 @@ export type QuestionChoiceCreateWithoutQuestionInput = {
 }
 
 export type QuestionChoiceUncheckedCreateWithoutQuestionInput = {
-  id?: string
+  id: string
   text: string
   isCorrect: boolean
   createdAt?: Date | string
@@ -436,7 +436,7 @@ export type QuestionChoiceScalarWhereInput = {
 }
 
 export type QuestionChoiceCreateManyQuestionInput = {
-  id?: string
+  id: string
   text: string
   isCorrect: boolean
   createdAt?: Date | string

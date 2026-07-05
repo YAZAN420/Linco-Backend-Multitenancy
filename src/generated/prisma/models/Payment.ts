@@ -367,7 +367,7 @@ export type PaymentScalarWhereWithAggregatesInput = {
 }
 
 export type PaymentCreateInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -383,7 +383,7 @@ export type PaymentCreateInput = {
 }
 
 export type PaymentUncheckedCreateInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -431,7 +431,7 @@ export type PaymentUncheckedUpdateInput = {
 }
 
 export type PaymentCreateManyInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -680,7 +680,7 @@ export type EnumPaymentStatusFieldUpdateOperationsInput = {
 }
 
 export type PaymentCreateWithoutUserInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -695,7 +695,7 @@ export type PaymentCreateWithoutUserInput = {
 }
 
 export type PaymentUncheckedCreateWithoutUserInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -755,7 +755,7 @@ export type PaymentScalarWhereInput = {
 }
 
 export type PaymentCreateWithoutDemoInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -770,7 +770,7 @@ export type PaymentCreateWithoutDemoInput = {
 }
 
 export type PaymentUncheckedCreateWithoutDemoInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -811,7 +811,7 @@ export type PaymentUpdateManyWithWhereWithoutDemoInput = {
 }
 
 export type PaymentCreateWithoutCourseInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -826,7 +826,7 @@ export type PaymentCreateWithoutCourseInput = {
 }
 
 export type PaymentUncheckedCreateWithoutCourseInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -867,7 +867,7 @@ export type PaymentUpdateManyWithWhereWithoutCourseInput = {
 }
 
 export type PaymentCreateManyUserInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -927,7 +927,7 @@ export type PaymentUncheckedUpdateManyWithoutUserInput = {
 }
 
 export type PaymentCreateManyDemoInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType
@@ -987,7 +987,7 @@ export type PaymentUncheckedUpdateManyWithoutDemoInput = {
 }
 
 export type PaymentCreateManyCourseInput = {
-  id?: string
+  id: string
   amount: number
   currency?: string
   type?: $Enums.PaymentType

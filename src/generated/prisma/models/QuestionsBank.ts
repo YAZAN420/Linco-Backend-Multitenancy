@@ -232,7 +232,7 @@ export type QuestionsBankScalarWhereWithAggregatesInput = {
 }
 
 export type QuestionsBankCreateInput = {
-  id?: string
+  id: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -241,7 +241,7 @@ export type QuestionsBankCreateInput = {
 }
 
 export type QuestionsBankUncheckedCreateInput = {
-  id?: string
+  id: string
   sectionId: string
   text: string
   createdAt?: Date | string
@@ -268,7 +268,7 @@ export type QuestionsBankUncheckedUpdateInput = {
 }
 
 export type QuestionsBankCreateManyInput = {
-  id?: string
+  id: string
   sectionId: string
   text: string
   createdAt?: Date | string
@@ -386,7 +386,7 @@ export type QuestionsBankUpdateOneRequiredWithoutChoicesNestedInput = {
 }
 
 export type QuestionsBankCreateWithoutSectionInput = {
-  id?: string
+  id: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -394,7 +394,7 @@ export type QuestionsBankCreateWithoutSectionInput = {
 }
 
 export type QuestionsBankUncheckedCreateWithoutSectionInput = {
-  id?: string
+  id: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -439,7 +439,7 @@ export type QuestionsBankScalarWhereInput = {
 }
 
 export type QuestionsBankCreateWithoutChoicesInput = {
-  id?: string
+  id: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -447,7 +447,7 @@ export type QuestionsBankCreateWithoutChoicesInput = {
 }
 
 export type QuestionsBankUncheckedCreateWithoutChoicesInput = {
-  id?: string
+  id: string
   sectionId: string
   text: string
   createdAt?: Date | string
@@ -487,7 +487,7 @@ export type QuestionsBankUncheckedUpdateWithoutChoicesInput = {
 }
 
 export type QuestionsBankCreateManySectionInput = {
-  id?: string
+  id: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string

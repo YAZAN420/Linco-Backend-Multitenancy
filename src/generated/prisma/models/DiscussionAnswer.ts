@@ -244,7 +244,7 @@ export type DiscussionAnswerScalarWhereWithAggregatesInput = {
 }
 
 export type DiscussionAnswerCreateInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -253,7 +253,7 @@ export type DiscussionAnswerCreateInput = {
 }
 
 export type DiscussionAnswerUncheckedCreateInput = {
-  id?: string
+  id: string
   discussionId: string
   demoMemberId: string
   content: string
@@ -280,7 +280,7 @@ export type DiscussionAnswerUncheckedUpdateInput = {
 }
 
 export type DiscussionAnswerCreateManyInput = {
-  id?: string
+  id: string
   discussionId: string
   demoMemberId: string
   content: string
@@ -426,7 +426,7 @@ export type DiscussionAnswerUncheckedUpdateManyWithoutDiscussionNestedInput = {
 }
 
 export type DiscussionAnswerCreateWithoutDemoMemberInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -434,7 +434,7 @@ export type DiscussionAnswerCreateWithoutDemoMemberInput = {
 }
 
 export type DiscussionAnswerUncheckedCreateWithoutDemoMemberInput = {
-  id?: string
+  id: string
   discussionId: string
   content: string
   createdAt?: Date | string
@@ -480,7 +480,7 @@ export type DiscussionAnswerScalarWhereInput = {
 }
 
 export type DiscussionAnswerCreateWithoutDiscussionInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -488,7 +488,7 @@ export type DiscussionAnswerCreateWithoutDiscussionInput = {
 }
 
 export type DiscussionAnswerUncheckedCreateWithoutDiscussionInput = {
-  id?: string
+  id: string
   demoMemberId: string
   content: string
   createdAt?: Date | string
@@ -522,7 +522,7 @@ export type DiscussionAnswerUpdateManyWithWhereWithoutDiscussionInput = {
 }
 
 export type DiscussionAnswerCreateManyDemoMemberInput = {
-  id?: string
+  id: string
   discussionId: string
   content: string
   createdAt?: Date | string
@@ -554,7 +554,7 @@ export type DiscussionAnswerUncheckedUpdateManyWithoutDemoMemberInput = {
 }
 
 export type DiscussionAnswerCreateManyDiscussionInput = {
-  id?: string
+  id: string
   demoMemberId: string
   content: string
   createdAt?: Date | string

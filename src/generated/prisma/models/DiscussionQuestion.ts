@@ -247,7 +247,7 @@ export type DiscussionQuestionScalarWhereWithAggregatesInput = {
 }
 
 export type DiscussionQuestionCreateInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -257,7 +257,7 @@ export type DiscussionQuestionCreateInput = {
 }
 
 export type DiscussionQuestionUncheckedCreateInput = {
-  id?: string
+  id: string
   lessonId: string
   demoMemberId: string
   content: string
@@ -287,7 +287,7 @@ export type DiscussionQuestionUncheckedUpdateInput = {
 }
 
 export type DiscussionQuestionCreateManyInput = {
-  id?: string
+  id: string
   lessonId: string
   demoMemberId: string
   content: string
@@ -452,7 +452,7 @@ export type DiscussionQuestionUpdateOneRequiredWithoutAnswersNestedInput = {
 }
 
 export type DiscussionQuestionCreateWithoutDemoMemberInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -461,7 +461,7 @@ export type DiscussionQuestionCreateWithoutDemoMemberInput = {
 }
 
 export type DiscussionQuestionUncheckedCreateWithoutDemoMemberInput = {
-  id?: string
+  id: string
   lessonId: string
   content: string
   createdAt?: Date | string
@@ -508,7 +508,7 @@ export type DiscussionQuestionScalarWhereInput = {
 }
 
 export type DiscussionQuestionCreateWithoutLessonInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -517,7 +517,7 @@ export type DiscussionQuestionCreateWithoutLessonInput = {
 }
 
 export type DiscussionQuestionUncheckedCreateWithoutLessonInput = {
-  id?: string
+  id: string
   demoMemberId: string
   content: string
   createdAt?: Date | string
@@ -552,7 +552,7 @@ export type DiscussionQuestionUpdateManyWithWhereWithoutLessonInput = {
 }
 
 export type DiscussionQuestionCreateWithoutAnswersInput = {
-  id?: string
+  id: string
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -561,7 +561,7 @@ export type DiscussionQuestionCreateWithoutAnswersInput = {
 }
 
 export type DiscussionQuestionUncheckedCreateWithoutAnswersInput = {
-  id?: string
+  id: string
   lessonId: string
   demoMemberId: string
   content: string
@@ -604,7 +604,7 @@ export type DiscussionQuestionUncheckedUpdateWithoutAnswersInput = {
 }
 
 export type DiscussionQuestionCreateManyDemoMemberInput = {
-  id?: string
+  id: string
   lessonId: string
   content: string
   createdAt?: Date | string
@@ -638,7 +638,7 @@ export type DiscussionQuestionUncheckedUpdateManyWithoutDemoMemberInput = {
 }
 
 export type DiscussionQuestionCreateManyLessonInput = {
-  id?: string
+  id: string
   demoMemberId: string
   content: string
   createdAt?: Date | string

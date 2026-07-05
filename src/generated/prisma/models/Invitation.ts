@@ -272,7 +272,7 @@ export type InvitationScalarWhereWithAggregatesInput = {
 }
 
 export type InvitationCreateInput = {
-  id?: string
+  id: string
   role?: $Enums.DemoMemberRole
   status?: $Enums.InvitationStatus
   createdAt?: Date | string
@@ -283,7 +283,7 @@ export type InvitationCreateInput = {
 }
 
 export type InvitationUncheckedCreateInput = {
-  id?: string
+  id: string
   demoId: string
   receiverId: string
   senderId: string
@@ -316,7 +316,7 @@ export type InvitationUncheckedUpdateInput = {
 }
 
 export type InvitationCreateManyInput = {
-  id?: string
+  id: string
   demoId: string
   receiverId: string
   senderId: string
@@ -525,7 +525,7 @@ export type EnumInvitationStatusFieldUpdateOperationsInput = {
 }
 
 export type InvitationCreateWithoutReceiverInput = {
-  id?: string
+  id: string
   role?: $Enums.DemoMemberRole
   status?: $Enums.InvitationStatus
   createdAt?: Date | string
@@ -535,7 +535,7 @@ export type InvitationCreateWithoutReceiverInput = {
 }
 
 export type InvitationUncheckedCreateWithoutReceiverInput = {
-  id?: string
+  id: string
   demoId: string
   senderId: string
   role?: $Enums.DemoMemberRole
@@ -555,7 +555,7 @@ export type InvitationCreateManyReceiverInputEnvelope = {
 }
 
 export type InvitationCreateWithoutSenderInput = {
-  id?: string
+  id: string
   role?: $Enums.DemoMemberRole
   status?: $Enums.InvitationStatus
   createdAt?: Date | string
@@ -565,7 +565,7 @@ export type InvitationCreateWithoutSenderInput = {
 }
 
 export type InvitationUncheckedCreateWithoutSenderInput = {
-  id?: string
+  id: string
   demoId: string
   receiverId: string
   role?: $Enums.DemoMemberRole
@@ -631,7 +631,7 @@ export type InvitationUpdateManyWithWhereWithoutSenderInput = {
 }
 
 export type InvitationCreateWithoutDemoInput = {
-  id?: string
+  id: string
   role?: $Enums.DemoMemberRole
   status?: $Enums.InvitationStatus
   createdAt?: Date | string
@@ -641,7 +641,7 @@ export type InvitationCreateWithoutDemoInput = {
 }
 
 export type InvitationUncheckedCreateWithoutDemoInput = {
-  id?: string
+  id: string
   receiverId: string
   senderId: string
   role?: $Enums.DemoMemberRole
@@ -677,7 +677,7 @@ export type InvitationUpdateManyWithWhereWithoutDemoInput = {
 }
 
 export type InvitationCreateManyReceiverInput = {
-  id?: string
+  id: string
   demoId: string
   senderId: string
   role?: $Enums.DemoMemberRole
@@ -687,7 +687,7 @@ export type InvitationCreateManyReceiverInput = {
 }
 
 export type InvitationCreateManySenderInput = {
-  id?: string
+  id: string
   demoId: string
   receiverId: string
   role?: $Enums.DemoMemberRole
@@ -757,7 +757,7 @@ export type InvitationUncheckedUpdateManyWithoutSenderInput = {
 }
 
 export type InvitationCreateManyDemoInput = {
-  id?: string
+  id: string
   receiverId: string
   senderId: string
   role?: $Enums.DemoMemberRole

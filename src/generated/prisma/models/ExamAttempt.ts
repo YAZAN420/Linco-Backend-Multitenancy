@@ -281,7 +281,7 @@ export type ExamAttemptScalarWhereWithAggregatesInput = {
 }
 
 export type ExamAttemptCreateInput = {
-  id?: string
+  id: string
   score?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -290,7 +290,7 @@ export type ExamAttemptCreateInput = {
 }
 
 export type ExamAttemptUncheckedCreateInput = {
-  id?: string
+  id: string
   userId: string
   examId: string
   score?: number
@@ -317,7 +317,7 @@ export type ExamAttemptUncheckedUpdateInput = {
 }
 
 export type ExamAttemptCreateManyInput = {
-  id?: string
+  id: string
   userId: string
   examId: string
   score?: number
@@ -476,7 +476,7 @@ export type ExamAttemptUncheckedUpdateManyWithoutExamNestedInput = {
 }
 
 export type ExamAttemptCreateWithoutUserInput = {
-  id?: string
+  id: string
   score?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -484,7 +484,7 @@ export type ExamAttemptCreateWithoutUserInput = {
 }
 
 export type ExamAttemptUncheckedCreateWithoutUserInput = {
-  id?: string
+  id: string
   examId: string
   score?: number
   createdAt?: Date | string
@@ -530,7 +530,7 @@ export type ExamAttemptScalarWhereInput = {
 }
 
 export type ExamAttemptCreateWithoutExamInput = {
-  id?: string
+  id: string
   score?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -538,7 +538,7 @@ export type ExamAttemptCreateWithoutExamInput = {
 }
 
 export type ExamAttemptUncheckedCreateWithoutExamInput = {
-  id?: string
+  id: string
   userId: string
   score?: number
   createdAt?: Date | string
@@ -572,7 +572,7 @@ export type ExamAttemptUpdateManyWithWhereWithoutExamInput = {
 }
 
 export type ExamAttemptCreateManyUserInput = {
-  id?: string
+  id: string
   examId: string
   score?: number
   createdAt?: Date | string
@@ -604,7 +604,7 @@ export type ExamAttemptUncheckedUpdateManyWithoutUserInput = {
 }
 
 export type ExamAttemptCreateManyExamInput = {
-  id?: string
+  id: string
   userId: string
   score?: number
   createdAt?: Date | string
