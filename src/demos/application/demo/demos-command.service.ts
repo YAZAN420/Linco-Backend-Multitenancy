@@ -59,17 +59,14 @@ export class DemosCommandService {
   }
 
   async create(input: CreateDemoInput): Promise<Demo> {
-    const existingDemo = await this.demoCommandRepository.findById(
+    const existingDemo = await this.demoCommandRepository.findByOwnerId(
       input.ownerId,
     );
-
-    console.log('Existing demo:', existingDemo);
 
     if (existingDemo) {
       throw new DomainException('You have already used your free trial limit.');
     }
 
-    console.log('aaa');
     const demo = this.demoFactory.createNew(
       input.name,
       input.ownerId,
