@@ -49,7 +49,7 @@ export class DemosCommandService {
     stripeSubscriptionId: string,
     currentPeriodEnd: Date,
   ) {
-    const demo = await this.demoCommandRepository.findByOwnerId(demoId);
+    const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo workspace with ID ${demoId} not found`);
     }
