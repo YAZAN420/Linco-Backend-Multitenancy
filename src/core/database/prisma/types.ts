@@ -63,6 +63,14 @@ export type CourseWithDemo = Prisma.CourseGetPayload<{
   };
 }>;
 
+export type CourseWithStats = CourseWithDemo & {
+  _count?: {
+    sections: number;
+  };
+  totalLessons: number;
+  totalDuration: number;
+};
+
 export type DepartmentWithCounts = Prisma.DepartmentGetPayload<{
   include: {
     _count: { select: { members: true; courses: true } };

@@ -11,16 +11,16 @@ import {
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
 import { Section } from 'src/generated/prisma/client';
-import { CourseWithDemo } from 'src/core/database/prisma/types';
+import { CourseWithStats } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(options: FindCoursesQuery): Promise<PageDto<CourseWithDemo>> {
+  async findAll(options: FindCoursesQuery): Promise<PageDto<CourseWithStats>> {
     const skip = (options.page - 1) * options.take;
 
-    const [items, itemCount] = await Promise.all([
+    const [rawItems, itemCount] = await Promise.all([
       this.prisma.course.findMany({
         skip,
         take: options.take,
@@ -28,11 +28,37 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         include: {
           demo: true,
           tags: true,
+          _count: {
+            select: { sections: true },
+          },
+          sections: {
+            select: {
+              _count: { select: { lessons: true } },
+              lessons: { select: { duration: true } },
+            },
+          },
         },
       }),
       this.prisma.course.count(),
     ]);
+    const items = rawItems.map((item) => {
+      let totalLessons = 0;
+      let totalDuration = 0;
 
+      item.sections.forEach((section) => {
+        totalLessons += section._count.lessons;
+        section.lessons.forEach((lesson) => {
+          totalDuration += lesson.duration;
+        });
+      });
+
+      const { sections: _sections, ...courseData } = item;
+      return {
+        ...courseData,
+        totalLessons,
+        totalDuration,
+      };
+    });
     return new PageDto(
       items,
       new PageMetaDto({ itemCount, pageOptionsDto: options }),
@@ -41,10 +67,10 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
 
   async findAllCursor(
     options: FindCoursesCursorQuery,
-  ): Promise<CursorPageDto<CourseWithDemo>> {
+  ): Promise<CursorPageDto<CourseWithStats>> {
     const { cursor, take } = options;
 
-    const items = await this.prisma.course.findMany({
+    const rawItems = await this.prisma.course.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
@@ -52,13 +78,42 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       include: {
         demo: true,
         tags: true,
+        _count: {
+          select: { sections: true },
+        },
+        sections: {
+          select: {
+            _count: { select: { lessons: true } },
+            lessons: { select: { duration: true } },
+          },
+        },
       },
     });
 
-    const hasNextPage = items.length > take;
-    if (hasNextPage) items.pop();
+    const hasNextPage = rawItems.length > take;
+    if (hasNextPage) rawItems.pop();
 
-    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+    const endCursor =
+      rawItems.length > 0 ? rawItems[rawItems.length - 1].id : null;
+
+    const items = rawItems.map((item) => {
+      let totalLessons = 0;
+      let totalDuration = 0;
+
+      item.sections.forEach((section) => {
+        totalLessons += section._count.lessons;
+        section.lessons.forEach((lesson) => {
+          totalDuration += lesson.duration;
+        });
+      });
+
+      const { sections: _sections, ...courseData } = item;
+      return {
+        ...courseData,
+        totalLessons,
+        totalDuration,
+      };
+    });
 
     return new CursorPageDto(
       items,
@@ -66,16 +121,30 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<CourseWithDemo | null> {
-    return this.prisma.course.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        demo: true,
-        tags: true,
-      },
-    });
+  async findById(id: string): Promise<CourseWithStats | null> {
+    const [course, lessonStats] = await Promise.all([
+      this.prisma.course.findUnique({
+        where: { id },
+        include: {
+          demo: true,
+          tags: true,
+          _count: { select: { sections: true } },
+        },
+      }),
+      this.prisma.lesson.aggregate({
+        where: { section: { courseId: id } },
+        _count: true,
+        _sum: { duration: true },
+      }),
+    ]);
+
+    if (!course) return null;
+
+    return {
+      ...course,
+      totalLessons: lessonStats._count,
+      totalDuration: lessonStats._sum.duration || 0,
+    };
   }
 
   async findSectionsCursor(

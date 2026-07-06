@@ -9,7 +9,7 @@ import {
 } from './interfaces/find-courses.query';
 
 import { CourseQueryRepository } from './ports/course-query.repository';
-import { CourseWithDemo } from 'src/core/database/prisma/types';
+import { CourseWithStats } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class CoursesQueryService {
@@ -17,17 +17,17 @@ export class CoursesQueryService {
 
   async findAll(
     pageOptionsDto: FindCoursesQuery,
-  ): Promise<PageDto<CourseWithDemo>> {
+  ): Promise<PageDto<CourseWithStats>> {
     return this.courseQueryRepository.findAll(pageOptionsDto);
   }
 
   async findAllCursor(
     options: FindCoursesCursorQuery,
-  ): Promise<CursorPageDto<CourseWithDemo>> {
+  ): Promise<CursorPageDto<CourseWithStats>> {
     return this.courseQueryRepository.findAllCursor(options);
   }
 
-  async findById(courseId: string): Promise<CourseWithDemo> {
+  async findById(courseId: string): Promise<CourseWithStats> {
     const course = await this.courseQueryRepository.findById(courseId);
     if (!course) throw new NotFoundException('Course not found');
     return course;

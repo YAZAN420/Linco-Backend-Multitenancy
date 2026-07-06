@@ -12,6 +12,9 @@ export class CourseResponseDto {
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly tags: TagResponseDto[],
-    readonly demo?: DemoResponseDto,
+    readonly sectionsCount: number,
+    readonly lessonCount: number,
+    readonly totalDuration: number,
+    readonly demo: DemoResponseDto,
   ) {}
 }
