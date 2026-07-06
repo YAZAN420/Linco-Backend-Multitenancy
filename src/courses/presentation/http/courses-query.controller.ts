@@ -18,6 +18,7 @@ export class CoursesQueryController {
   @Get()
   async findAll(@Query() options: PageOptionsDto) {
     const courses = await this.courseQueryService.findAll(options);
+
     return {
       message: 'Courses fetched successfully',
       data: this.courseResponseMapper.toResponseManyFromPrisma(courses.data),

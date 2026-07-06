@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { AssetResponseDto } from '../dto/asset-response.dto';
-import { Asset as DomainAsset } from 'src/assets/domain/asset';
 import { CourseResponseMapper } from 'src/courses/presentation/http/mappers/course-response.mapper';
 import { AssetWithCourse } from 'src/core/database/prisma/types';
 
@@ -17,16 +16,6 @@ export class AssetResponseMapper {
       asset.course
         ? this.courseResponseMapper.toResponseFromPrisma(asset.course)
         : undefined,
-    );
-  }
-
-  toResponseFromDomain(asset: DomainAsset): AssetResponseDto {
-    return new AssetResponseDto(
-      asset.id,
-      asset.demoId,
-      asset.accessMethod,
-      asset.acquiredAt,
-      asset.updatedAt,
     );
   }
 

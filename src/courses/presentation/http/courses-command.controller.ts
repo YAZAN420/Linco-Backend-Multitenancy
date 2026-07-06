@@ -5,11 +5,13 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { CourseResponseMapper } from './mappers/course-response.mapper';
 import { CoursesCommandService } from 'src/courses/application/courses-command.service';
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
+import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 
 @Controller('courses')
 export class CoursesCommandController {
   constructor(
     private readonly courseCommandService: CoursesCommandService,
+    private readonly courseQueryService: CoursesQueryService,
     private readonly courseResponseMapper: CourseResponseMapper,
   ) {}
 
@@ -22,11 +24,11 @@ export class CoursesCommandController {
 
   @Post()
   async create(@Body() dto: CreateCourseDto) {
-    const course = await this.courseCommandService.create(dto);
-
+    const createdCourse = await this.courseCommandService.create(dto);
+    const course = await this.courseQueryService.findById(createdCourse.id);
     return {
       message: 'Course created successfully',
-      data: this.courseResponseMapper.toResponseFromDomain(course),
+      data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }
 
@@ -35,11 +37,11 @@ export class CoursesCommandController {
     @Param('courseId') courseId: string,
     @Body() dto: UpdateCourseDto,
   ) {
-    const course = await this.courseCommandService.update(courseId, dto);
-
+    const updatedCourse = await this.courseCommandService.update(courseId, dto);
+    const course = await this.courseQueryService.findById(updatedCourse.id);
     return {
       message: 'Course updated successfully',
-      data: this.courseResponseMapper.toResponseFromDomain(course),
+      data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }
 

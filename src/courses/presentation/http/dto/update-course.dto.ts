@@ -1,4 +1,10 @@
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 import { UpdateCourseInput } from 'src/courses/application/interfaces/update-course-input.interface';
 
@@ -22,4 +28,9 @@ export class UpdateCourseDto implements UpdateCourseInput {
   @IsNumber()
   @IsOptional()
   price?: number;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  tagIds?: string[];
 }

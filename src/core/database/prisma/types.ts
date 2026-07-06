@@ -5,7 +5,7 @@ export type LessonWithAttachments = Prisma.LessonGetPayload<{
 }>;
 
 export type CourseWithSections = Prisma.CourseGetPayload<{
-  include: { sections: true };
+  include: { sections: true; tags: true };
 }>;
 
 export type QuestionsBankWithQuestionChoices = Prisma.QuestionsBankGetPayload<{
@@ -34,6 +34,7 @@ export type AssetWithCourse = Prisma.AssetGetPayload<{
     course: {
       include: {
         demo: true;
+        tags: true;
       };
     };
   };
@@ -47,6 +48,7 @@ export type DepartmentCourseWithAssetWithCourse =
           course: {
             include: {
               demo: true;
+              tags: true;
             };
           };
         };
@@ -57,6 +59,7 @@ export type DepartmentCourseWithAssetWithCourse =
 export type CourseWithDemo = Prisma.CourseGetPayload<{
   include: {
     demo: true;
+    tags: true;
   };
 }>;
 

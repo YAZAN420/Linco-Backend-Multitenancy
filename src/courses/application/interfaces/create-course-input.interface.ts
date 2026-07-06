@@ -7,4 +7,5 @@ export interface CreateCourseInput {
   description: string;
   imagePath: string;
   price?: number | null;
+  tagIds?: string[];
 }

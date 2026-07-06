@@ -54,6 +54,7 @@ export class CoursesCommandService {
       input.description,
       input.imagePath,
       input.price,
+      input.tagIds,
     );
 
     await this.courseCommandRepository.save(course);
@@ -89,6 +90,11 @@ export class CoursesCommandService {
     if (input.visibility !== undefined && input.visibility !== null) {
       course.updateVisibility(input.visibility);
     }
+
+    if (input.tagIds !== undefined) {
+      course.updateTags(input.tagIds);
+    }
+
     await this.courseCommandRepository.save(course);
     return course;
   }

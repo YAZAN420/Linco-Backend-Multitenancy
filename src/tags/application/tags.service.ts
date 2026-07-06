@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TagRepository } from './ports/tag.repository';
-import { Tag } from '../domain/tag.entity';
+import { Tag } from '../domain/tag';
 
 @Injectable()
 export class TagsService {

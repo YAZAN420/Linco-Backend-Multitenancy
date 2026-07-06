@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -32,4 +33,9 @@ export class CreateCourseDto implements CreateCourseInput {
   @IsNumber()
   @IsOptional()
   price?: number;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  tagIds?: string[];
 }

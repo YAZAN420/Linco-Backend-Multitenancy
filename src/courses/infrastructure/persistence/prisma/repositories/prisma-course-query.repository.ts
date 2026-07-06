@@ -27,6 +27,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         orderBy: [{ createdAt: 'desc' }],
         include: {
           demo: true,
+          tags: true,
         },
       }),
       this.prisma.course.count(),
@@ -50,6 +51,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       orderBy: [{ id: 'desc' }],
       include: {
         demo: true,
+        tags: true,
       },
     });
 
@@ -71,6 +73,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       },
       include: {
         demo: true,
+        tags: true,
       },
     });
   }

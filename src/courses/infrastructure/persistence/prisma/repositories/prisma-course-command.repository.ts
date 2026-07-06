@@ -20,13 +20,19 @@ export class PrismaCourseCommandRepository implements CourseCommandRepository {
 
   async save(course: Course): Promise<void> {
     const data = this.mapper.toPersistence(course);
-
+    const tagsConnection = course.tagIds.map((id) => ({ id }));
     try {
       await this.prisma.$transaction(async (tx) => {
         await tx.course.upsert({
           where: { id: course.id },
-          update: data,
-          create: data,
+          update: {
+            ...data,
+            tags: { set: tagsConnection },
+          },
+          create: {
+            ...data,
+            tags: { connect: tagsConnection },
+          },
         });
 
         const sectionIds = course.sections.map((s) => s.id);
@@ -66,7 +72,7 @@ export class PrismaCourseCommandRepository implements CourseCommandRepository {
   async findById(id: string): Promise<Course | null> {
     const course = await this.prisma.course.findUnique({
       where: { id },
-      include: { sections: true },
+      include: { sections: true, tags: true },
     });
     return course ? this.mapper.toDomain(course) : null;
   }

@@ -414,7 +414,4 @@ model Tag {
   id        String   @id 
   name      String   @unique 
   courses   Course[] 
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

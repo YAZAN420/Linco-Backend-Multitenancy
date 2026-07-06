@@ -34,6 +34,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
           course: {
             include: {
               demo: true,
+              tags: true,
             },
           },
         },
@@ -65,6 +66,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
         course: {
           include: {
             demo: true,
+            tags: true,
           },
         },
       },
@@ -88,6 +90,7 @@ export class PrismaAssetQueryRepository implements AssetQueryRepository {
         course: {
           include: {
             demo: true,
+            tags: true,
           },
         },
       },

@@ -14,6 +14,7 @@ export class CourseFactory {
     description: string,
     imagePath: string,
     price?: number | null,
+    tagIds: string[] = [],
   ): Course {
     const now = new Date();
     const titleVo = Title.create(title);
@@ -23,6 +24,7 @@ export class CourseFactory {
       visibility,
       imagePath,
       description,
+      tagIds,
       price: priceVo,
       demoId: demoId ?? null,
       sections: [],

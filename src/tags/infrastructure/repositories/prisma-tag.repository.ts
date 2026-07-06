@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { TagRepository } from '../../application/ports/tag.repository';
-import { Tag } from '../../domain/tag.entity';
+import { Tag } from '../../domain/tag';
 import { v7 as uuidv7 } from 'uuid';
 
 @Injectable()

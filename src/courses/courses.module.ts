@@ -11,10 +11,11 @@ import { SectionsCommandService } from './application/sections-command.service';
 import { SectionsQueryService } from './application/sections-query.service';
 import { SectionFactory } from './domain/factories/section.factory';
 import { SectionResponseMapper } from './presentation/http/mappers/section-response.mapper';
+import { TagsModule } from 'src/tags/tags.module';
 
 @Global()
 @Module({
-  imports: [],
+  imports: [TagsModule],
   controllers: [
     CoursesCommandController,
     CoursesQueryController,

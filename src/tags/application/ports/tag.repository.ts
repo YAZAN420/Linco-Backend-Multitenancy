@@ -1,4 +1,4 @@
-import { Tag } from '../../domain/tag.entity';
+import { Tag } from '../../domain/tag';
 
 export abstract class TagRepository {
   abstract findAll(): Promise<Tag[]>;

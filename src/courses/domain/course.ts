@@ -20,6 +20,10 @@ export class Course {
     return this.props.imagePath;
   }
 
+  get tagIds(): string[] {
+    return this.props.tagIds;
+  }
+
   get description(): string {
     return this.props.description;
   }
@@ -69,6 +73,11 @@ export class Course {
   updateTitle(newTitle: Title) {
     if (this.props.title.equals(newTitle)) return;
     this.props.title = newTitle;
+    this.touch();
+  }
+
+  updateTags(tagIds: string[]): void {
+    this.props.tagIds = tagIds;
     this.touch();
   }
 

@@ -6,4 +6,5 @@ export interface UpdateCourseInput {
   description?: string;
   imagePath?: string;
   visibility?: CourseVisibility;
+  tagIds?: string[];
 }

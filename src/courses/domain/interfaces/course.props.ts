@@ -11,6 +11,7 @@ export interface CourseProps {
   demoId: string;
   price: Price;
   sections: Section[];
+  tagIds: string[];
   createdAt: Date;
   updatedAt: Date;
 }
