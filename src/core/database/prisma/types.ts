@@ -41,7 +41,7 @@ export type AssetWithCourse = Prisma.AssetGetPayload<{
     course: true;
   };
 }> & {
-  course: CourseWithDemo;
+  course: CourseWithStats;
 };
 
 export type DepartmentCourseWithAssetWithCourse =
