@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -26,6 +27,9 @@ export class PrismaDepartmentCourseCommandRepository implements DepartmentCourse
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ConflictException('DepartmentCourse already exists');
+        }
         if (error.code === 'P2003') {
           throw new NotFoundException(`DepartmentCourse Not Found`);
         }

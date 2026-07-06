@@ -3,11 +3,13 @@ import { CreateDepartmentCourseDto } from './dto/create-departmentCourse.dto';
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
 import { DepartmentCoursesCommandService } from 'src/departmentCourses/application/departmentCourses-command.service';
+import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
 
 @Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesCommandController {
   constructor(
     private readonly departmentCourseCommandService: DepartmentCoursesCommandService,
+    private readonly departmentCourseQueryService: DepartmentCoursesQueryService,
     private readonly departmentCourseResponseMapper: DepartmentCourseResponseMapper,
   ) {}
 
@@ -16,14 +18,15 @@ export class DepartmentCoursesCommandController {
     @Param('departmentId') departmentId: string,
     @Body() dto: CreateDepartmentCourseDto,
   ) {
-    const departmentCourse = await this.departmentCourseCommandService.create(
+    const createdDepartmentCourse =
+      await this.departmentCourseCommandService.create(departmentId, dto);
+    const departmentCourse = await this.departmentCourseQueryService.findById(
       departmentId,
-      dto,
+      createdDepartmentCourse.id,
     );
-
     return {
       message: 'DepartmentCourse created successfully',
-      data: this.departmentCourseResponseMapper.toResponseFromDomain(
+      data: this.departmentCourseResponseMapper.toResponseFromPrisma(
         departmentCourse,
       ),
     };

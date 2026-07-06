@@ -32,6 +32,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
               course: {
                 include: {
                   demo: true,
+                  tags: true,
                 },
               },
             },
@@ -63,6 +64,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
             course: {
               include: {
                 demo: true,
+                tags: true,
               },
             },
           },
@@ -92,6 +94,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
             course: {
               include: {
                 demo: true,
+                tags: true,
               },
             },
           },
