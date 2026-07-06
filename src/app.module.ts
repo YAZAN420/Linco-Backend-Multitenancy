@@ -16,6 +16,7 @@ import { LessonsModule } from './lessons/lessons.module';
 import { LessonsInfrastructureModule } from './lessons/infrastructure/lessons-infrastructure.module';
 import { AssetsModule } from './assets/assets.module';
 import { AssetsInfrastructureModule } from './assets/infrastructure/assets-infrastructure.module';
+import { TagsModule } from './tags/tags.module';
 
 import { DepartmentCoursesModule } from './departmentCourses/departmentCourses.module';
 import { DepartmentCoursesInfrastructureModule } from './departmentCourses/infrastructure/departmentCourses-infrastructure.module';
@@ -36,6 +37,7 @@ export class AppModule {
       imports: [
         GoogleAuthModule,
         IamModule,
+        TagsModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
