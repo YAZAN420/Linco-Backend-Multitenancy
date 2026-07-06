@@ -29,39 +29,29 @@ export type DemoWithMemberCount = Prisma.DemoGetPayload<{
 
 export type DemoWithOwnership = DemoWithMemberCount & { isOwner: boolean };
 
-export type AssetWithCourse = Prisma.AssetGetPayload<{
-  include: {
-    course: {
-      include: {
-        demo: true;
-        tags: true;
-      };
-    };
-  };
-}>;
-
-export type DepartmentCourseWithAssetWithCourse =
-  Prisma.DepartmentCourseGetPayload<{
-    include: {
-      asset: {
-        include: {
-          course: {
-            include: {
-              demo: true;
-              tags: true;
-            };
-          };
-        };
-      };
-    };
-  }>;
-
 export type CourseWithDemo = Prisma.CourseGetPayload<{
   include: {
     demo: true;
     tags: true;
   };
 }>;
+
+export type AssetWithCourse = Prisma.AssetGetPayload<{
+  include: {
+    course: true;
+  };
+}> & {
+  course: CourseWithDemo;
+};
+
+export type DepartmentCourseWithAssetWithCourse =
+  Prisma.DepartmentCourseGetPayload<{
+    include: {
+      asset: true;
+    };
+  }> & {
+    asset: AssetWithCourse;
+  };
 
 export type CourseWithStats = CourseWithDemo & {
   _count?: {

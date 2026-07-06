@@ -11,7 +11,6 @@ export class CourseResponseMapper {
     private readonly tagResponseMapper: TagResponseMapper,
   ) {}
   toResponseFromPrisma(course: CourseWithStats): CourseResponseDto {
-    console.log(course);
     return new CourseResponseDto(
       course.id,
       course.title,
@@ -21,10 +20,10 @@ export class CourseResponseMapper {
       course.imagePath,
       course.createdAt,
       course.updatedAt,
-      this.tagResponseMapper.toResponseManyFromPrisma(course.tags),
       course._count?.sections ?? 0,
       course.totalLessons,
       course.totalDuration,
+      this.tagResponseMapper.toResponseManyFromPrisma(course.tags),
       this.demoResponseMapper.toSimpleResponseFromPrisma(course.demo),
     );
   }

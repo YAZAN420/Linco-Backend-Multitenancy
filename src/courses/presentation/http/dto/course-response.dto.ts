@@ -11,10 +11,10 @@ export class CourseResponseDto {
     readonly imagePath: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,
-    readonly tags: TagResponseDto[],
     readonly sectionsCount: number,
     readonly lessonCount: number,
     readonly totalDuration: number,
+    readonly tags: TagResponseDto[],
     readonly demo: DemoResponseDto,
   ) {}
 }
