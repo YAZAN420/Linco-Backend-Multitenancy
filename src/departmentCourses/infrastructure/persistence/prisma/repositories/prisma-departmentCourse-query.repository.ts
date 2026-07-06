@@ -11,6 +11,10 @@ import {
 } from 'src/departmentCourses/application/interfaces/find-departmentCourses.query';
 import { DepartmentCourseQueryRepository } from 'src/departmentCourses/application/ports/departmentCourse-query.repository';
 import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
+import {
+  courseWithStatsInclude,
+  mapDepartmentCourse,
+} from 'src/core/database/prisma/utils/course-mapper.util';
 
 @Injectable()
 export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQueryRepository {
@@ -21,7 +25,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
   ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>> {
     const skip = (options.page - 1) * options.take;
 
-    const [items, itemCount] = await Promise.all([
+    const [rawItems, itemCount] = await Promise.all([
       this.prisma.departmentCourse.findMany({
         skip,
         take: options.take,
@@ -30,10 +34,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
           asset: {
             include: {
               course: {
-                include: {
-                  demo: true,
-                  tags: true,
-                },
+                include: courseWithStatsInclude,
               },
             },
           },
@@ -41,6 +42,8 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
       }),
       this.prisma.departmentCourse.count(),
     ]);
+
+    const items = rawItems.map(mapDepartmentCourse);
 
     return new PageDto(
       items,
@@ -53,7 +56,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
   ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>> {
     const { cursor, take } = options;
 
-    const items = await this.prisma.departmentCourse.findMany({
+    const rawItems = await this.prisma.departmentCourse.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
@@ -62,20 +65,20 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
         asset: {
           include: {
             course: {
-              include: {
-                demo: true,
-                tags: true,
-              },
+              include: courseWithStatsInclude,
             },
           },
         },
       },
     });
 
-    const hasNextPage = items.length > take;
-    if (hasNextPage) items.pop();
+    const hasNextPage = rawItems.length > take;
+    if (hasNextPage) rawItems.pop();
 
-    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+    const endCursor =
+      rawItems.length > 0 ? rawItems[rawItems.length - 1].id : null;
+
+    const items = rawItems.map(mapDepartmentCourse);
 
     return new CursorPageDto(
       items,
@@ -86,20 +89,18 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
   async findById(
     id: string,
   ): Promise<DepartmentCourseWithAssetWithCourse | null> {
-    return this.prisma.departmentCourse.findUnique({
+    const departmentCourse = await this.prisma.departmentCourse.findUnique({
       where: { id },
       include: {
         asset: {
           include: {
             course: {
-              include: {
-                demo: true,
-                tags: true,
-              },
+              include: courseWithStatsInclude,
             },
           },
         },
       },
     });
+    return departmentCourse ? mapDepartmentCourse(departmentCourse) : null;
   }
 }

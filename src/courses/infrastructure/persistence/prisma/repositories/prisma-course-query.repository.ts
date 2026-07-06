@@ -12,6 +12,10 @@ import { CourseQueryRepository } from 'src/courses/application/ports/course-quer
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
 import { Section } from 'src/generated/prisma/client';
 import { CourseWithStats } from 'src/core/database/prisma/types';
+import {
+  courseWithStatsInclude,
+  mapCourseToCourseWithStats,
+} from 'src/core/database/prisma/utils/course-mapper.util';
 
 @Injectable()
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
@@ -25,40 +29,11 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         skip,
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
-        include: {
-          demo: true,
-          tags: true,
-          _count: {
-            select: { sections: true },
-          },
-          sections: {
-            select: {
-              _count: { select: { lessons: true } },
-              lessons: { select: { duration: true } },
-            },
-          },
-        },
+        include: courseWithStatsInclude,
       }),
       this.prisma.course.count(),
     ]);
-    const items = rawItems.map((item) => {
-      let totalLessons = 0;
-      let totalDuration = 0;
-
-      item.sections.forEach((section) => {
-        totalLessons += section._count.lessons;
-        section.lessons.forEach((lesson) => {
-          totalDuration += lesson.duration;
-        });
-      });
-
-      const { sections: _sections, ...courseData } = item;
-      return {
-        ...courseData,
-        totalLessons,
-        totalDuration,
-      };
-    });
+    const items = rawItems.map(mapCourseToCourseWithStats);
     return new PageDto(
       items,
       new PageMetaDto({ itemCount, pageOptionsDto: options }),
@@ -75,19 +50,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
-      include: {
-        demo: true,
-        tags: true,
-        _count: {
-          select: { sections: true },
-        },
-        sections: {
-          select: {
-            _count: { select: { lessons: true } },
-            lessons: { select: { duration: true } },
-          },
-        },
-      },
+      include: courseWithStatsInclude,
     });
 
     const hasNextPage = rawItems.length > take;
@@ -96,24 +59,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     const endCursor =
       rawItems.length > 0 ? rawItems[rawItems.length - 1].id : null;
 
-    const items = rawItems.map((item) => {
-      let totalLessons = 0;
-      let totalDuration = 0;
-
-      item.sections.forEach((section) => {
-        totalLessons += section._count.lessons;
-        section.lessons.forEach((lesson) => {
-          totalDuration += lesson.duration;
-        });
-      });
-
-      const { sections: _sections, ...courseData } = item;
-      return {
-        ...courseData,
-        totalLessons,
-        totalDuration,
-      };
-    });
+    const items = rawItems.map(mapCourseToCourseWithStats);
 
     return new CursorPageDto(
       items,
@@ -122,29 +68,12 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   }
 
   async findById(id: string): Promise<CourseWithStats | null> {
-    const [course, lessonStats] = await Promise.all([
-      this.prisma.course.findUnique({
-        where: { id },
-        include: {
-          demo: true,
-          tags: true,
-          _count: { select: { sections: true } },
-        },
-      }),
-      this.prisma.lesson.aggregate({
-        where: { section: { courseId: id } },
-        _count: true,
-        _sum: { duration: true },
-      }),
-    ]);
+    const course = await this.prisma.course.findUnique({
+      where: { id },
+      include: courseWithStatsInclude,
+    });
 
-    if (!course) return null;
-
-    return {
-      ...course,
-      totalLessons: lessonStats._count,
-      totalDuration: lessonStats._sum.duration || 0,
-    };
+    return course ? mapCourseToCourseWithStats(course) : null;
   }
 
   async findSectionsCursor(
