@@ -56,7 +56,7 @@ export class PaymentsCommandController {
       user.email,
     );
 
-    return { url };
+    return url;
   }
 
   @Get('checkout/status')

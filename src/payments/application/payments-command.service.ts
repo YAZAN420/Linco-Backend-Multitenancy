@@ -92,7 +92,10 @@ export class PaymentsCommandService {
         demoId: demoId,
         isFree: true,
       });
-      return { message: 'Free course added to assets successfully' };
+      return {
+        message: 'Free course added to assets successfully',
+        data: null,
+      };
     }
 
     const payment = this.paymentFactory.createNew(
@@ -117,7 +120,12 @@ export class PaymentsCommandService {
       customerEmail: userEmail,
     });
 
-    return { url: result.url };
+    return {
+      data: {
+        url: result.url,
+      },
+      message: 'Checkout session created successfully',
+    };
   }
 
   async processWebhookEvent(event: Stripe.Event) {
