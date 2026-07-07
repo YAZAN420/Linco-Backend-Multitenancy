@@ -6,6 +6,7 @@ export abstract class StoragePort {
     contentType: string,
     isPublic: boolean,
     folder?: string,
+    expiresInMinutes?: number,
   ): Promise<GenerateUploadUrl>;
 
   abstract generateDownloadUrl(

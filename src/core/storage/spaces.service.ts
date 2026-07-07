@@ -35,7 +35,8 @@ export class SpacesService implements StoragePort {
     fileName: string,
     contentType: string,
     isPublic: boolean,
-    folder?: string,
+    folder: string,
+    expiresInMinutes: number = 15,
   ): Promise<GenerateUploadUrl> {
     const ext = fileName.split('.').pop();
     const generatedKey = folder
@@ -51,7 +52,10 @@ export class SpacesService implements StoragePort {
     const blockBlobClient = containerClient.getBlockBlobClient(generatedKey);
 
     const startsOn = new Date();
-    const expiresOn = new Date(startsOn.valueOf() + 900 * 1000);
+    startsOn.setUTCMinutes(startsOn.getUTCMinutes() - 5);
+    const expiresOn = new Date(
+      startsOn.valueOf() + expiresInMinutes * 60 * 1000,
+    );
 
     const sasToken = generateBlobSASQueryParameters(
       {

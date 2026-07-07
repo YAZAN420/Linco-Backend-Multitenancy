@@ -13,6 +13,7 @@ import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { LessonsCommandService } from 'src/lessons/application/lessons-command.service';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
+import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 
 @Controller('sections/:sectionId/lessons')
 export class LessonsCommandController {
@@ -21,6 +22,13 @@ export class LessonsCommandController {
     private readonly sectionQueryService: SectionsQueryService,
     private readonly lessonResponseMapper: LessonResponseMapper,
   ) {}
+
+  @Post('upload-url')
+  async getUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    return await this.lessonCommandService.generateLessonVideoUploadUrl(
+      dto.fileName,
+    );
+  }
 
   @Post()
   async create(
