@@ -6,6 +6,9 @@ import { DepartmentFactory } from 'src/demos/domain/factories/department.factory
 import { CreateDepartmentInput } from './interfaces/create-department-input.interface';
 import { UpdateDepartmentInput } from './interfaces/update-department-input.interface';
 import { Name } from 'src/demos/domain/value-objects/name.vo';
+import { DepartmentMemberFactory } from 'src/demos/domain/factories/department-member.factory';
+import { DepartmentMemberCommandRepository } from '../ports/department-member/department-member-command.repository';
+import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
 
 @Injectable()
 export class DepartmentsCommandService {
@@ -13,6 +16,8 @@ export class DepartmentsCommandService {
     private readonly demoCommandRepository: DemoCommandRepository,
     private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
     private readonly departmentFactory: DepartmentFactory,
+    private readonly departmentMemberFactory: DepartmentMemberFactory,
+    private readonly departmentCommandRepository: DepartmentMemberCommandRepository,
   ) {}
 
   async addDepartment(
@@ -43,6 +48,14 @@ export class DepartmentsCommandService {
     demo.addDepartment(newDepartment);
 
     await this.demoCommandRepository.save(demo);
+
+    const departmentMember = this.departmentMemberFactory.createNew(
+      newDepartment.id,
+      input.managerId,
+      JobTitle.SENIOR,
+    );
+
+    await this.departmentCommandRepository.save(departmentMember);
   }
 
   async updateDepartment(
