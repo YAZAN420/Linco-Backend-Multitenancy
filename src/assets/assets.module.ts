@@ -6,6 +6,7 @@ import { AssetsCommandService } from './application/assets-command.service';
 import { AssetsQueryService } from './application/assets-query.service';
 import { AssetResponseMapper } from './presentation/http/mappers/asset-response.mapper';
 import { AssetsEventListener } from './application/listeners/assets-event.listener';
+import { CoursePurchaseListener } from './presentation/events/course.listener';
 
 @Global()
 @Module({
@@ -17,6 +18,7 @@ import { AssetsEventListener } from './application/listeners/assets-event.listen
     AssetFactory,
     AssetResponseMapper,
     AssetsEventListener,
+    CoursePurchaseListener,
   ],
   exports: [
     AssetsCommandService,

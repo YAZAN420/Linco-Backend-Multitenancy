@@ -14,11 +14,13 @@ import Stripe from 'stripe';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { PaymentType } from '../domain/enums/payment-type.enum';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
+import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
 
 @Injectable()
 export class PaymentsCommandService {
   constructor(
     private readonly paymentCommandRepository: PaymentCommandRepository,
+    private readonly courseCommandRepository: CourseCommandRepository,
     private readonly paymentFactory: PaymentFactory,
     @Inject(stripeConfig.KEY)
     private readonly stripeConfiguration: ConfigType<typeof stripeConfig>,
@@ -75,31 +77,47 @@ export class PaymentsCommandService {
   async initiateCoursePurchase(
     userId: string,
     courseId: string,
+    demoId: string,
     userEmail: string,
   ) {
+    const course = await this.courseCommandRepository.findById(courseId);
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
+
+    if (course.price === 0) {
+      this.eventEmitter.emit('course.purchased', {
+        userId: userId,
+        courseId: courseId,
+        demoId: demoId,
+        isFree: true,
+      });
+      return { url: null, message: 'Free course added to assets successfully' };
+    }
+
     const payment = this.paymentFactory.createNew(
-      11,
+      course.price,
       'usd',
       userId,
       PaymentType.COURSE,
       undefined,
-      undefined,
+      demoId,
       courseId,
     );
 
     await this.paymentCommandRepository.save(payment);
 
     const result = await this.paymentGateway.createOneTimeCheckoutSession({
-      amount: 11,
+      amount: course.price,
       currency: 'usd',
-      courseTitle: 'Temp',
+      courseTitle: course.title,
       paymentId: payment.id,
       courseId: courseId,
       userId: userId,
       customerEmail: userEmail,
     });
 
-    return result.url;
+    return { url: result.url, message: 'Redirect to checkout' };
   }
 
   async processWebhookEvent(event: Stripe.Event) {
@@ -154,6 +172,8 @@ export class PaymentsCommandService {
       this.eventEmitter.emit('course.purchased', {
         userId: payment.userId,
         courseId: payment.courseId,
+        demoId: payment.demoId,
+        isFree: false,
       });
     } else if (type === 'subscription') {
       this.eventEmitter.emit('demo.subscribed', {

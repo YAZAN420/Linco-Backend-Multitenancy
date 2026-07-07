@@ -16,13 +16,6 @@ export class PaymentFactory {
     demoId?: string,
     courseId?: string,
   ): Payment {
-    if (demoId && courseId) {
-      throw new Error('Payment cannot belong to both demo and course');
-    }
-    if (!demoId && !courseId) {
-      throw new Error('Payment must belong to demo or course');
-    }
-
     const now = new Date();
     return new Payment(uuidv7(), {
       amount,

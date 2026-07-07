@@ -16,4 +16,8 @@ export class BuyCourseDto {
   @IsNotEmpty()
   @IsString()
   courseId!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  demoId!: string;
 }

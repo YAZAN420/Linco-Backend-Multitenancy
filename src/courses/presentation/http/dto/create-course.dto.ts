@@ -31,8 +31,8 @@ export class CreateCourseDto implements CreateCourseInput {
   imagePath!: string;
 
   @IsNumber()
-  @IsOptional()
-  price?: number;
+  @IsNotEmpty()
+  price!: number;
 
   @IsArray()
   @IsString({ each: true })

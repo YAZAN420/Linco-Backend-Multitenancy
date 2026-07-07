@@ -7,16 +7,7 @@ export class Payment {
   constructor(
     public readonly id: string,
     private readonly props: PaymentProps,
-  ) {
-    const hasDemo = !!props.demoId;
-    const hasCourse = !!props.courseId;
-    if (hasDemo && hasCourse) {
-      throw new Error('Payment cannot belong to both demo and course');
-    }
-    if (!hasDemo && !hasCourse) {
-      throw new Error('Payment must belong to either demo or course');
-    }
-  }
+  ) {}
 
   get amount(): number {
     return this.props.amount;

@@ -2,7 +2,7 @@ import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enu
 
 export interface UpdateCourseInput {
   title?: string;
-  price?: number | null;
+  price?: number;
   description?: string;
   imagePath?: string;
   visibility?: CourseVisibility;

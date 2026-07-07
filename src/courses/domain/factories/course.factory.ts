@@ -13,12 +13,12 @@ export class CourseFactory {
     demoId: string,
     description: string,
     imagePath: string,
-    price?: number | null,
+    price: number,
     tagIds: string[] = [],
   ): Course {
     const now = new Date();
     const titleVo = Title.create(title);
-    const priceVo = Price.create(price ?? null);
+    const priceVo = Price.create(price);
     return new Course(uuidv7(), {
       title: titleVo,
       visibility,

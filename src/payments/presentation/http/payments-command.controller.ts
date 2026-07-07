@@ -42,7 +42,6 @@ export class PaymentsCommandController {
     return { url };
   }
 
-  @Public()
   @Post('checkout/course')
   async buyCourse(
     @ActiveUser() user: ActiveUserData,
@@ -53,6 +52,7 @@ export class PaymentsCommandController {
     const url = await this.paymentCommandService.initiateCoursePurchase(
       userId,
       body.courseId,
+      body.demoId,
       user.email,
     );
 

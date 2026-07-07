@@ -6,6 +6,6 @@ export interface CreateCourseInput {
   demoId: string;
   description: string;
   imagePath: string;
-  price?: number | null;
+  price: number;
   tagIds?: string[];
 }

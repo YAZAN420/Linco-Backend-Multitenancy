@@ -40,7 +40,7 @@ export class Course {
     return this.props.visibility;
   }
 
-  get price(): number | null {
+  get price(): number {
     return this.props.price.value;
   }
 

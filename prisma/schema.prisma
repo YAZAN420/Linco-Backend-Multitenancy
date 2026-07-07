@@ -187,7 +187,7 @@ model Course {
   imagePath String
   description String
   visibility CourseVisibility @default(PRIVATE)
-  price      Float?          
+  price      Float         
 
   demoId     String
   demo       Demo             @relation(fields: [demoId], references: [id], onDelete: Cascade)
