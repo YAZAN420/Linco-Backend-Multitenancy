@@ -21,7 +21,7 @@ export class PrismaTagRepository implements TagRepository {
   async create(name: string): Promise<Tag> {
     const tag = await this.prisma.tag.upsert({
       where: { name },
-      update: {},
+      update: { name },
       create: {
         id: uuidv7(),
         name,
