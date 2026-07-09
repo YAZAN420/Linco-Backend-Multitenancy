@@ -24,17 +24,17 @@ export class TagsController {
     return this.tagsService.getById(id);
   }
 
-  @Post('admin')
+  @Post()
   async create(@Body() dto: CreateTagDto) {
     return this.tagsService.create(dto.name);
   }
 
-  @Patch('admin/:id')
+  @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: CreateTagDto) {
     return this.tagsService.update(id, dto.name);
   }
 
-  @Delete('admin/:id')
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.tagsService.delete(id);
   }
