@@ -6,7 +6,7 @@ import { InvitationResponseMapper } from '../mappers/invitation-response.mapper'
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
-@Controller('demos/:demoId/invitations')
+@Controller('invitations')
 export class InvitationsQueryController {
   constructor(
     private readonly invitationQueryService: InvitationsQueryService,
@@ -16,7 +16,6 @@ export class InvitationsQueryController {
   @Get('cursor')
   async findWithCursor(
     @ActiveUser() user: ActiveUserData,
-    @Param('demoId') demoId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const invitations = await this.invitationQueryService.findAllCursor(
@@ -34,10 +33,7 @@ export class InvitationsQueryController {
   }
 
   @Get(':invitationId')
-  async findOne(
-    @Param('demoId') demoId: string,
-    @Param('invitationId') invitationId: string,
-  ) {
+  async findOne(@Param('invitationId') invitationId: string) {
     const invitation = await this.invitationQueryService.findById(invitationId);
 
     return {

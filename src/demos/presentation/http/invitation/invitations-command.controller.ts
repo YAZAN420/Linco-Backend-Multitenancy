@@ -6,7 +6,7 @@ import { CreateInvitationDto } from '../dto/invitation/create-invitation.dto';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
-@Controller('demos/:demoId/invitations')
+@Controller('invitations')
 export class InvitationsCommandController {
   constructor(
     private readonly invitationCommandService: InvitationsCommandService,
@@ -15,11 +15,10 @@ export class InvitationsCommandController {
 
   @Post()
   async create(
-    @Param('demoId') demoId: string,
     @ActiveUser() user: ActiveUserData,
     @Body() dto: CreateInvitationDto,
   ) {
-    const invitation = await this.invitationCommandService.create(demoId, {
+    const invitation = await this.invitationCommandService.create({
       senderId: user.id,
       ...dto,
     });
@@ -49,10 +48,7 @@ export class InvitationsCommandController {
   }
 
   @Delete(':invitationId')
-  async remove(
-    @Param('demoId') demoId: string,
-    @Param('invitationId') invitationId: string,
-  ) {
+  async remove(@Param('invitationId') invitationId: string) {
     await this.invitationCommandService.remove(invitationId);
 
     return {

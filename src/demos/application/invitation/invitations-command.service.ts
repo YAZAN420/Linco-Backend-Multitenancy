@@ -21,20 +21,17 @@ export class InvitationsCommandService {
     private readonly demoMemberFactory: DemoMemberFactory,
   ) {}
 
-  async create(
-    demoId: string,
-    input: CreateInvitationInput,
-  ): Promise<Invitation> {
+  async create(input: CreateInvitationInput): Promise<Invitation> {
     const existingMember =
       await this.demoMemberCommandRepository.findByDemoAndUser(
-        demoId,
+        input.demoId,
         input.receiverId,
       );
     if (existingMember)
       throw new ConflictException('User is already a member of this demo');
 
     const existingPending = await this.invitationCommandRepository.findPending(
-      demoId,
+      input.demoId,
       input.receiverId,
     );
     if (existingPending)
@@ -43,7 +40,7 @@ export class InvitationsCommandService {
       );
 
     const invitation = this.invitationFactory.createNew(
-      demoId,
+      input.demoId,
       input.senderId,
       input.receiverId,
       input.role,
