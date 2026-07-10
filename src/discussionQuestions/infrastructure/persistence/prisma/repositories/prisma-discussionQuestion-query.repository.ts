@@ -27,6 +27,17 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
             user: true,
           },
         },
+        answers: {
+          take: 3,
+          orderBy: { createdAt: 'asc' },
+          include: {
+            demoMember: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -48,6 +59,17 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
         demoMember: {
           include: {
             user: true,
+          },
+        },
+        answers: {
+          take: 3,
+          orderBy: { createdAt: 'asc' },
+          include: {
+            demoMember: {
+              include: {
+                user: true,
+              },
+            },
           },
         },
       },

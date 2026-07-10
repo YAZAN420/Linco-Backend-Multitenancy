@@ -1,4 +1,5 @@
 import { DemoMemberResponseDto } from 'src/demos/presentation/http/dto/demo-member/demo-member-response.dto';
+import { DiscussionAnswerResponseDto } from './discussionAnswer-response.dto';
 
 export class DiscussionQuestionResponseDto {
   constructor(
@@ -8,5 +9,6 @@ export class DiscussionQuestionResponseDto {
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly demoMember: DemoMemberResponseDto,
+    readonly answers: DiscussionAnswerResponseDto[],
   ) {}
 }

@@ -96,6 +96,15 @@ export type DiscussionQuestionWithDemoMember =
           user: true;
         };
       };
+      answers: {
+        include: {
+          demoMember: {
+            include: {
+              user: true;
+            };
+          };
+        };
+      };
     };
   }>;
 
