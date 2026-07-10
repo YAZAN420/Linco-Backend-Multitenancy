@@ -4,7 +4,11 @@ import { QuestionChoice } from '../question-choice';
 
 @Injectable()
 export class QuestionChoiceFactory {
-  public createNew(questionId: string, text: string, isCorrect: boolean): QuestionChoice {
+  public createNew(
+    questionId: string,
+    text: string,
+    isCorrect: boolean,
+  ): QuestionChoice {
     const now = new Date();
     return new QuestionChoice(uuidv7(), {
       questionId: questionId,
