@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { DiscussionQuestion } from 'src/generated/prisma/client';
 
 import { FindDiscussionQuestionsCursorQuery } from 'src/discussionQuestions/application/interfaces/find-discussionQuestions.query';
 import { DiscussionQuestionQueryRepository } from 'src/discussionQuestions/application/ports/discussionQuestion-query.repository';
+import { DiscussionQuestionWithDemoMember } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuestionQueryRepository {
@@ -13,7 +13,7 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
 
   async findAllCursor(
     options: FindDiscussionQuestionsCursorQuery,
-  ): Promise<CursorPageDto<DiscussionQuestion>> {
+  ): Promise<CursorPageDto<DiscussionQuestionWithDemoMember>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.discussionQuestion.findMany({
@@ -21,6 +21,13 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      include: {
+        demoMember: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -34,9 +41,16 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
     );
   }
 
-  async findById(id: string): Promise<DiscussionQuestion | null> {
+  async findById(id: string): Promise<DiscussionQuestionWithDemoMember | null> {
     return this.prisma.discussionQuestion.findUnique({
       where: { id },
+      include: {
+        demoMember: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
   }
 }

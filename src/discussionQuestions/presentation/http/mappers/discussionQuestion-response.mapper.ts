@@ -1,38 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { DiscussionQuestionResponseDto } from '../dto/discussionQuestion-response.dto';
-import { DiscussionQuestion as PrismaDiscussionQuestion } from 'src/generated/prisma/client';
-import { DiscussionQuestion as DomainDiscussionQuestion } from 'src/discussionQuestions/domain/discussionQuestion';
+import { DiscussionQuestionWithDemoMember } from 'src/core/database/prisma/types';
+import { DemoMemberResponseMapper } from 'src/demos/presentation/http/mappers/demo-member-response.mapper';
 
 @Injectable()
 export class DiscussionQuestionResponseMapper {
+  constructor(
+    private readonly demoMemberResponseMapper: DemoMemberResponseMapper,
+  ) {}
   toResponseFromPrisma(
-    discussionQuestion: PrismaDiscussionQuestion,
+    discussionQuestion: DiscussionQuestionWithDemoMember,
   ): DiscussionQuestionResponseDto {
     return new DiscussionQuestionResponseDto(
       discussionQuestion.id,
       discussionQuestion.content,
       discussionQuestion.lessonId,
-      discussionQuestion.demoMemberId,
       discussionQuestion.createdAt,
       discussionQuestion.updatedAt,
-    );
-  }
-
-  toResponseFromDomain(
-    discussionQuestion: DomainDiscussionQuestion,
-  ): DiscussionQuestionResponseDto {
-    return new DiscussionQuestionResponseDto(
-      discussionQuestion.id,
-      discussionQuestion.content,
-      discussionQuestion.lessonId,
-      discussionQuestion.demoMemberId,
-      discussionQuestion.createdAt,
-      discussionQuestion.updatedAt,
+      this.demoMemberResponseMapper.toResponseFromPrisma(
+        discussionQuestion.demoMember,
+      ),
     );
   }
 
   toResponseManyFromPrisma(
-    discussionQuestions: PrismaDiscussionQuestion[],
+    discussionQuestions: DiscussionQuestionWithDemoMember[],
   ): DiscussionQuestionResponseDto[] {
     return discussionQuestions.map((discussionQuestion) =>
       this.toResponseFromPrisma(discussionQuestion),

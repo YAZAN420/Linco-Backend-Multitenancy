@@ -32,4 +32,23 @@ export class DiscussionQuestionsQueryController {
       meta: discussionQuestions.meta,
     };
   }
+
+  @Get(':discussionQuestionId')
+  async findById(
+    @Param('lessonId') lessonId: string,
+    @Param('discussionQuestionId') discussionQuestionId: string,
+  ) {
+    const discussionQuestion =
+      await this.discussionQuestionQueryService.findById(
+        lessonId,
+        discussionQuestionId,
+      );
+
+    return {
+      message: 'DiscussionQuestion fetched successfully',
+      data: this.discussionQuestionResponseMapper.toResponseFromPrisma(
+        discussionQuestion,
+      ),
+    };
+  }
 }

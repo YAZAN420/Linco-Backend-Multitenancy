@@ -87,3 +87,14 @@ export type InvitationWithUserAndDemo = Prisma.InvitationGetPayload<{
     demo: true;
   };
 }>;
+
+export type DiscussionQuestionWithDemoMember =
+  Prisma.DiscussionQuestionGetPayload<{
+    include: {
+      demoMember: {
+        include: {
+          user: true;
+        };
+      };
+    };
+  }>;
