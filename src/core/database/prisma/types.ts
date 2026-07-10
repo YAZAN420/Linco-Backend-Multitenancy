@@ -98,3 +98,13 @@ export type DiscussionQuestionWithDemoMember =
       };
     };
   }>;
+
+export type DiscussionAnswerWithDemoMember = Prisma.DiscussionAnswerGetPayload<{
+  include: {
+    demoMember: {
+      include: {
+        user: true;
+      };
+    };
+  };
+}>;

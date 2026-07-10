@@ -6,23 +6,43 @@ import { DiscussionQuestionsCommandService } from './application/discussionQuest
 import { DiscussionQuestionsQueryService } from './application/discussionQuestions-query.service';
 import { DiscussionQuestionResponseMapper } from './presentation/http/mappers/discussionQuestion-response.mapper';
 
+import { DiscussionAnswersCommandController } from './presentation/http/discussionAnswers-command.controller';
+import { DiscussionAnswersQueryController } from './presentation/http/discussionAnswers-query.controller';
+import { DiscussionAnswerFactory } from './domain/factories/discussionAnswer.factory';
+import { DiscussionAnswersCommandService } from './application/discussionAnswers-command.service';
+import { DiscussionAnswersQueryService } from './application/discussionAnswers-query.service';
+import { DiscussionAnswerResponseMapper } from './presentation/http/mappers/discussionAnswer-response.mapper';
+
 @Module({
   imports: [],
   controllers: [
     DiscussionQuestionsCommandController,
     DiscussionQuestionsQueryController,
+
+    DiscussionAnswersCommandController,
+    DiscussionAnswersQueryController,
   ],
   providers: [
     DiscussionQuestionsCommandService,
     DiscussionQuestionsQueryService,
     DiscussionQuestionFactory,
     DiscussionQuestionResponseMapper,
+
+    DiscussionAnswersCommandService,
+    DiscussionAnswersQueryService,
+    DiscussionAnswerFactory,
+    DiscussionAnswerResponseMapper,
   ],
   exports: [
     DiscussionQuestionsCommandService,
     DiscussionQuestionsQueryService,
     DiscussionQuestionFactory,
     DiscussionQuestionResponseMapper,
+
+    DiscussionAnswersCommandService,
+    DiscussionAnswersQueryService,
+    DiscussionAnswerFactory,
+    DiscussionAnswerResponseMapper,
   ],
 })
 export class DiscussionQuestionsModule {
