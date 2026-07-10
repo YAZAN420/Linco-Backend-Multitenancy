@@ -1,9 +1,19 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
 import { AttachmentCommandService } from 'src/lessons/application/attachment-command.service';
 import { AttachmentResponseMapper } from './mappers/attachment-response.mapper';
+import { GenerateMultipleUploadUrlsDto } from 'src/common/dtos/generate-upload-url.dto';
 
 @Controller('lessons/:lessonId/attachments')
 export class AttachmentsCommandController {
@@ -11,6 +21,12 @@ export class AttachmentsCommandController {
     private readonly attachmentCommandService: AttachmentCommandService,
     private readonly attachmentResponseMapper: AttachmentResponseMapper,
   ) {}
+
+  @Post('upload-url')
+  @HttpCode(HttpStatus.OK)
+  async generateMultipleUrls(@Body() dto: GenerateMultipleUploadUrlsDto) {
+    return this.attachmentCommandService.generateAttachmentUrls(dto.files);
+  }
 
   @Post()
   async create(
