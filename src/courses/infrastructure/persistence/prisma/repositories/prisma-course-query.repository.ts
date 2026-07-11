@@ -80,9 +80,18 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<CourseWithStats | null> {
+  async findById(
+    id: string,
+    checkVisibility = true,
+  ): Promise<CourseWithStats | null> {
     const course = await this.prisma.course.findFirst({
-      where: { id, isPublished: true, visibility: CourseVisibility.PUBLIC },
+      where: {
+        id,
+        ...(checkVisibility && {
+          isPublished: true,
+          visibility: CourseVisibility.PUBLIC,
+        }),
+      },
       include: courseWithStatsInclude,
     });
 

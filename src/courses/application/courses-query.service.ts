@@ -27,8 +27,14 @@ export class CoursesQueryService {
     return this.courseQueryRepository.findAllCursor(options);
   }
 
-  async findById(courseId: string): Promise<CourseWithStats> {
-    const course = await this.courseQueryRepository.findById(courseId);
+  async findById(
+    courseId: string,
+    checkVisibility = true,
+  ): Promise<CourseWithStats> {
+    const course = await this.courseQueryRepository.findById(
+      courseId,
+      checkVisibility,
+    );
     if (!course) throw new NotFoundException('Course not found');
     return course;
   }

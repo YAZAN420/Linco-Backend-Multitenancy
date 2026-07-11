@@ -25,7 +25,10 @@ export class CoursesCommandController {
   @Post(':courseId/publish')
   async publish(@Param('courseId') courseId: string) {
     const publishedCourse = await this.courseCommandService.publish(courseId);
-    const course = await this.courseQueryService.findById(publishedCourse.id);
+    const course = await this.courseQueryService.findById(
+      publishedCourse.id,
+      false,
+    );
     return {
       message: 'Course published successfully',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
@@ -35,7 +38,10 @@ export class CoursesCommandController {
   @Post()
   async create(@Body() dto: CreateCourseDto) {
     const createdCourse = await this.courseCommandService.create(dto);
-    const course = await this.courseQueryService.findById(createdCourse.id);
+    const course = await this.courseQueryService.findById(
+      createdCourse.id,
+      false,
+    );
     return {
       message: 'Course created successfully',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
@@ -48,7 +54,10 @@ export class CoursesCommandController {
     @Body() dto: UpdateCourseDto,
   ) {
     const updatedCourse = await this.courseCommandService.update(courseId, dto);
-    const course = await this.courseQueryService.findById(updatedCourse.id);
+    const course = await this.courseQueryService.findById(
+      updatedCourse.id,
+      false,
+    );
     return {
       message: 'Course updated successfully',
       data: this.courseResponseMapper.toResponseFromPrisma(course),

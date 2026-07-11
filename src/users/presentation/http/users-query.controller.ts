@@ -45,7 +45,7 @@ export class UsersQueryController {
     const users = await this.userQueryService.findAllCursor(options);
 
     return {
-      message: 'Users fetched successfully (Cursor)',
+      message: 'Users fetched successfully',
       data: this.userResponseMapper.toResponseManyFromPrisma(
         users.data,
         activeUser.role,

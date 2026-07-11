@@ -42,7 +42,7 @@ export class ExamsAttemptQueryController {
     );
 
     return {
-      message: 'Exams fetched successfully (Cursor)',
+      message: 'Exams fetched successfully ',
       data: this.examAttemptResponseMapper.toResponseManyFromPrisma(exams.data),
       meta: exams.meta,
     };
