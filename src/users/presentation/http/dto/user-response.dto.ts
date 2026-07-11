@@ -4,6 +4,7 @@ export class UserPublicResponseDto {
   readonly id!: string;
   readonly firstName!: string;
   readonly lastName!: string;
+  readonly email!: string;
   readonly imagePath!: string | null;
 
   constructor(partial: Partial<UserPublicResponseDto>) {
@@ -12,7 +13,6 @@ export class UserPublicResponseDto {
 }
 
 export class UserResponseDto extends UserPublicResponseDto {
-  readonly email!: string;
   readonly birthDate!: Date | null;
   readonly role!: Role;
   readonly isEmailVerified!: boolean;

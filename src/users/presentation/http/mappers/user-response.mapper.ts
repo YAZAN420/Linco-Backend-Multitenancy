@@ -6,6 +6,7 @@ import {
 import { User as PrismaUser } from 'src/generated/prisma/client';
 import { User as DomainUser } from 'src/users/domain/user';
 import { Role } from 'src/users/domain/enums/role.enum';
+import { maskEmail } from 'src/common/utils/string.util';
 
 @Injectable()
 export class UserResponseMapper {
@@ -30,6 +31,7 @@ export class UserResponseMapper {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
+      email: maskEmail(user.email),
       imagePath: user.imagePath,
     });
   }
