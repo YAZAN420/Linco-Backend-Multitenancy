@@ -4,10 +4,8 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
+import { PageOptionsDto } from 'src/common/dtos/pagination';
+import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
 
 @Controller('users')
 export class UsersQueryController {
@@ -27,7 +25,7 @@ export class UsersQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+  async findWithCursor(@Query() options: UsersCursorQueryDto) {
     const users = await this.userQueryService.findAllCursor(options);
 
     return {

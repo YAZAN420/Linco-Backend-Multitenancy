@@ -4,7 +4,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { User } from 'src/generated/prisma/client';
+import { Prisma, User } from 'src/generated/prisma/client';
 import {
   FindUsersCursorQuery,
   FindUsersQuery,
@@ -15,12 +15,44 @@ import { UserQueryRepository } from 'src/users/application/ports/user-query.repo
 export class PrismaUserQueryRepository implements UserQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  private buildWhereClause(
+    options: FindUsersQuery | FindUsersCursorQuery,
+  ): Prisma.UserWhereInput {
+    const { search, createdAt } = options;
+    const where: Prisma.UserWhereInput = {};
+
+    if (createdAt) {
+      where.createdAt = createdAt;
+    }
+
+    if (search) {
+      const searchString = search.trim();
+      const parts = searchString.split(/\s+/);
+
+      if (parts.length > 1) {
+        where.firstName = { contains: parts[0], mode: 'insensitive' };
+        where.lastName = {
+          contains: parts[parts.length - 1],
+          mode: 'insensitive',
+        };
+      } else {
+        where.OR = [
+          { firstName: { contains: searchString, mode: 'insensitive' } },
+          { lastName: { contains: searchString, mode: 'insensitive' } },
+        ];
+      }
+    }
+
+    return where;
+  }
+
   async findAll(options: FindUsersQuery): Promise<PageDto<User>> {
     const skip = (options.page - 1) * options.take;
-
+    const where = this.buildWhereClause(options);
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
+        where,
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
@@ -37,10 +69,11 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
     const { cursor, take } = options;
-
+    const where = this.buildWhereClause(options);
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
+      where,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
     });
