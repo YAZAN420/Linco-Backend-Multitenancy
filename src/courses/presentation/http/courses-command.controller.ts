@@ -22,7 +22,7 @@ export class CoursesCommandController {
     );
   }
 
-  @Post('publish/:courseId')
+  @Post(':courseId/publish')
   async publish(@Param('courseId') courseId: string) {
     const publishedCourse = await this.courseCommandService.publish(courseId);
     const course = await this.courseQueryService.findById(publishedCourse.id);
