@@ -10,7 +10,7 @@ import {
 } from 'src/courses/application/interfaces/find-courses.query';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
-import { Section } from 'src/generated/prisma/client';
+import { CourseVisibility, Section } from 'src/generated/prisma/client';
 import { CourseWithStats } from 'src/core/database/prisma/types';
 import {
   courseWithStatsInclude,
@@ -30,8 +30,17 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
         include: courseWithStatsInclude,
+        where: {
+          isPublished: true,
+          visibility: CourseVisibility.PUBLIC,
+        },
       }),
-      this.prisma.course.count(),
+      this.prisma.course.count({
+        where: {
+          isPublished: true,
+          visibility: CourseVisibility.PUBLIC,
+        },
+      }),
     ]);
     const items = rawItems.map(mapCourseToCourseWithStats);
     return new PageDto(
@@ -50,6 +59,10 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      where: {
+        isPublished: true,
+        visibility: CourseVisibility.PUBLIC,
+      },
       include: courseWithStatsInclude,
     });
 
@@ -68,8 +81,8 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   }
 
   async findById(id: string): Promise<CourseWithStats | null> {
-    const course = await this.prisma.course.findUnique({
-      where: { id },
+    const course = await this.prisma.course.findFirst({
+      where: { id, isPublished: true, visibility: CourseVisibility.PUBLIC },
       include: courseWithStatsInclude,
     });
 

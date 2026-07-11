@@ -67,6 +67,15 @@ export class CoursesCommandService {
     return course;
   }
 
+  async publish(courseId: string): Promise<Course> {
+    const course = await this.findById(courseId);
+
+    course.publish();
+
+    await this.courseCommandRepository.save(course);
+    return course;
+  }
+
   async update(courseId: string, input: UpdateCourseInput): Promise<Course> {
     const course = await this.findById(courseId);
     if (input.title !== undefined && input.title !== null) {

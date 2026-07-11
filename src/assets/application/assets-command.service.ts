@@ -6,15 +6,15 @@ import { Asset } from '../domain/asset';
 import { CreateAssetInput } from './interfaces/create-asset-input.interface';
 import { UpdateAssetInput } from './interfaces/update-asset-input.interface';
 
-import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
+import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
 
 @Injectable()
 export class AssetsCommandService {
   constructor(
     private readonly assetCommandRepository: AssetCommandRepository,
     private readonly demoQueryRepository: DemoQueryRepository,
-    private readonly courseQueryRepository: CourseQueryRepository,
+    private readonly courseCommandRepository: CourseCommandRepository,
     private readonly assetFactory: AssetFactory,
   ) {}
 
@@ -22,7 +22,7 @@ export class AssetsCommandService {
     const demo = await this.demoQueryRepository.demoExists(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 
-    const course = await this.courseQueryRepository.findById(input.courseId);
+    const course = await this.courseCommandRepository.findById(input.courseId);
     if (!course) throw new NotFoundException('Course not found');
 
     const asset = this.assetFactory.createNew(

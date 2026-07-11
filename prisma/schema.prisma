@@ -188,6 +188,7 @@ model Course {
   description String
   visibility CourseVisibility @default(PRIVATE)
   price      Float         
+  isPublished Boolean @default(false)
 
   demoId     String
   demo       Demo             @relation(fields: [demoId], references: [id], onDelete: Cascade)

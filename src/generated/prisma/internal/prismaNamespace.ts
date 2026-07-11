@@ -2028,6 +2028,7 @@ export const CourseScalarFieldEnum = {
   description: 'description',
   visibility: 'visibility',
   price: 'price',
+  isPublished: 'isPublished',
   demoId: 'demoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

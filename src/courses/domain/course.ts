@@ -36,6 +36,10 @@ export class Course {
     return this.props.title.value;
   }
 
+  get isPublished(): boolean {
+    return this.props.isPublished;
+  }
+
   get visibility(): CourseVisibility {
     return this.props.visibility;
   }
@@ -50,6 +54,12 @@ export class Course {
 
   get sections(): Section[] {
     return this.props.sections;
+  }
+
+  publish(): void {
+    if (this.props.isPublished) return;
+    this.props.isPublished = true;
+    this.touch();
   }
 
   updateDescription(newDescription: string) {

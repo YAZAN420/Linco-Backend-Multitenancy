@@ -22,6 +22,16 @@ export class CoursesCommandController {
     );
   }
 
+  @Post('publish/:courseId')
+  async publish(@Param('courseId') courseId: string) {
+    const publishedCourse = await this.courseCommandService.publish(courseId);
+    const course = await this.courseQueryService.findById(publishedCourse.id);
+    return {
+      message: 'Course published successfully',
+      data: this.courseResponseMapper.toResponseFromPrisma(course),
+    };
+  }
+
   @Post()
   async create(@Body() dto: CreateCourseDto) {
     const createdCourse = await this.courseCommandService.create(dto);

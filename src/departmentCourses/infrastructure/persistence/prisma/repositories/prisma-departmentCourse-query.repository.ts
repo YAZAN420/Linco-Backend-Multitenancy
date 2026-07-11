@@ -30,6 +30,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
         skip,
         take: options.take,
         orderBy: [{ assignedAt: 'desc' }],
+        where: {
+          asset: {
+            course: {
+              isPublished: true,
+            },
+          },
+        },
         include: {
           asset: {
             include: {
@@ -40,7 +47,15 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
           },
         },
       }),
-      this.prisma.departmentCourse.count(),
+      this.prisma.departmentCourse.count({
+        where: {
+          asset: {
+            course: {
+              isPublished: true,
+            },
+          },
+        },
+      }),
     ]);
 
     const items = rawItems.map(mapDepartmentCourse);
@@ -61,6 +76,13 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      where: {
+        asset: {
+          course: {
+            isPublished: true,
+          },
+        },
+      },
       include: {
         asset: {
           include: {
@@ -90,7 +112,15 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
     id: string,
   ): Promise<DepartmentCourseWithAssetWithCourse | null> {
     const departmentCourse = await this.prisma.departmentCourse.findUnique({
-      where: { id },
+      where: {
+        id,
+        asset: {
+          course: {
+            isPublished: true,
+          },
+        },
+      },
+
       include: {
         asset: {
           include: {
