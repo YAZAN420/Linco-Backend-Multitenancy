@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -8,7 +16,9 @@ import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 import { ClearCache } from 'src/common/decorators/clear-cache.decorator';
 import { UsersQueryService } from 'src/users/application/users-query.service';
+import { ClearCacheInterceptor } from 'src/common/interceptors/clear-cache.interceptor';
 
+@UseInterceptors(ClearCacheInterceptor)
 @Controller('users')
 export class UsersCommandController {
   constructor(

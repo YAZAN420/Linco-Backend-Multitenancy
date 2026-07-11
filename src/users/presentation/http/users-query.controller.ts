@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
 
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
@@ -9,6 +9,9 @@ import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
 import { CachePublic } from 'src/common/decorators/cache-public.decorator';
 import { Role } from 'src/users/domain/enums/role.enum';
 
+import { HttpCacheInterceptor } from 'src/common/interceptors/http-cache.interceptor';
+
+@UseInterceptors(HttpCacheInterceptor)
 @Controller('users')
 export class UsersQueryController {
   constructor(
