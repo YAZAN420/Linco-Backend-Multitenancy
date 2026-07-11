@@ -54,9 +54,11 @@ export class UserResponseMapper {
     users: PrismaUser[],
     role: Role,
   ): UserPublicResponseDto[] | UserResponseDto[] {
+    console.log(role, role === Role.ADMIN);
     if (role === Role.ADMIN) {
       return users.map((user) => this.toResponseFromPrisma(user));
     }
+    console.log('aaa');
     return users.map((user) => this.toPublicResponseFromPrisma(user));
   }
 }
