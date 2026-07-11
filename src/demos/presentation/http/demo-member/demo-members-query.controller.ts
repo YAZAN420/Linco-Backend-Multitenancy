@@ -16,6 +16,7 @@ export class DemoMembersQueryController {
     @Param('demoId') demoId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
+    console.log(options);
     const members = await this.demoMembersQueryService.findAllByDemo(
       demoId,
       options,

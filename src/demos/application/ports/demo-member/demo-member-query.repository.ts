@@ -1,7 +1,7 @@
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 import { DemoMember } from 'src/generated/prisma/client';
-import { FindDemoMembersCursorQuery } from '../../demo/interfaces/find-demos.query';
+import { FindDemoMembersCursorQuery } from '../../demo-member/interfaces/find-demo-members.query';
 
 export abstract class DemoMemberQueryRepository {
   abstract findAllByDemo(

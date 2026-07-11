@@ -3,10 +3,10 @@ import { PrismaService } from 'src/core/database/prisma/prisma.service';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
-import { FindDemoMembersCursorQuery } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 import { DemoMember, Prisma } from 'src/generated/prisma/client';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
+import { FindDemoMembersCursorQuery } from 'src/demos/application/demo-member/interfaces/find-demo-members.query';
 
 @Injectable()
 export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepository {

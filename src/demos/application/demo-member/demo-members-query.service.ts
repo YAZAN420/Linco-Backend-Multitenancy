@@ -5,7 +5,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { DemoMemberWithUser } from 'src/core/database/prisma/types';
 import { DemoMemberQueryRepository } from '../ports/demo-member/demo-member-query.repository';
 import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
-import { FindDemoMembersCursorQuery } from '../demo/interfaces/find-demos.query';
+import { FindDemoMembersCursorQuery } from './interfaces/find-demo-members.query';
 
 @Injectable()
 export class DemoMembersQueryService {

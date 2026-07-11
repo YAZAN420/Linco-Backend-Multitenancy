@@ -1,6 +1,5 @@
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
-  IsArray,
   IsInt,
   IsObject,
   IsOptional,
@@ -25,15 +24,4 @@ export class CursorPageOptionsDto {
   @IsOptional()
   @IsObject()
   orderBy?: OrderByInput;
-
-  @IsArray()
-  @IsString({ each: true })
-  @IsOptional()
-  @Transform(({ value }: { value: unknown }): string[] | undefined => {
-    if (typeof value === 'string') {
-      return value.split(',').map((v) => v.trim());
-    }
-    return undefined;
-  })
-  readonly with?: string[];
 }
