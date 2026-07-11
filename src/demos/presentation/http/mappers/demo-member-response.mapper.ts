@@ -16,7 +16,7 @@ export class DemoMemberResponseMapper {
       member.role as DemoMemberRole,
       member.joinedAt,
       member.updatedAt,
-      this.userResponseMapper.toResponseFromPrisma(member.user),
+      this.userResponseMapper.toPublicResponseFromPrisma(member.user),
     );
   }
 

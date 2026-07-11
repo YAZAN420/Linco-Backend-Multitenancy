@@ -28,8 +28,8 @@ import { ExamsModule } from './exams/exams.module';
 import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
-import { ClearCacheInterceptor } from './common/interceptors/clear-cache.interceptor';
-import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
+// import { ClearCacheInterceptor } from './common/interceptors/clear-cache.interceptor';
+// import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
 
 @Module({})
 export class AppModule {
@@ -59,11 +59,11 @@ export class AppModule {
         PaymentsModule.withInfrastructure(PaymentsInfrastructureModule.use()),
       ],
       providers: [
-        { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
-        {
-          provide: APP_INTERCEPTOR,
-          useClass: ClearCacheInterceptor,
-        },
+        // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
+        // {
+        //   provide: APP_INTERCEPTOR,
+        //   useClass: ClearCacheInterceptor,
+        // },
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
         { provide: APP_FILTER, useClass: GlobalExceptionFilter },
         { provide: APP_GUARD, useClass: ThrottlerGuard },

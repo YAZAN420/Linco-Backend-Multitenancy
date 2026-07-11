@@ -1,5 +1,5 @@
 import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
-import { UserResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
+import { UserPublicResponseDto } from 'src/users/presentation/http/dto/user-response.dto';
 
 export class DemoMemberResponseDto {
   constructor(
@@ -9,6 +9,6 @@ export class DemoMemberResponseDto {
     readonly role: DemoMemberRole,
     readonly joinedAt: Date,
     readonly updatedAt: Date,
-    readonly user: UserResponseDto,
+    readonly user: UserPublicResponseDto,
   ) {}
 }
