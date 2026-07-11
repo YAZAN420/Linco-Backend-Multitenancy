@@ -6,6 +6,8 @@ import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.dec
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { PageOptionsDto } from 'src/common/dtos/pagination';
 import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
+import { CachePublic } from 'src/common/decorators/cache-public.decorator';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @Controller('users')
 export class UsersQueryController {
@@ -15,22 +17,36 @@ export class UsersQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
+  @CachePublic()
+  async findAll(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @ActiveUser() activeUser: ActiveUserData,
+  ) {
     const users = await this.userQueryService.findAll(pageOptionsDto);
     return {
       message: 'Users fetched successfully',
-      data: this.userResponseMapper.toResponseManyFromPrisma(users.data),
+      data: this.userResponseMapper.toResponseManyFromPrisma(
+        users.data,
+        activeUser.role,
+      ),
       meta: users.meta,
     };
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: UsersCursorQueryDto) {
+  @CachePublic()
+  async findWithCursor(
+    @Query() options: UsersCursorQueryDto,
+    @ActiveUser() activeUser: ActiveUserData,
+  ) {
     const users = await this.userQueryService.findAllCursor(options);
 
     return {
       message: 'Users fetched successfully (Cursor)',
-      data: this.userResponseMapper.toResponseManyFromPrisma(users.data),
+      data: this.userResponseMapper.toResponseManyFromPrisma(
+        users.data,
+        activeUser.role,
+      ),
       meta: users.meta,
     };
   }
@@ -46,12 +62,21 @@ export class UsersQueryController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @CachePublic()
+  async findOne(
+    @Param('id') id: string,
+    @ActiveUser() activeUser: ActiveUserData,
+  ) {
     const user = await this.userQueryService.findById(id);
+
+    const data =
+      activeUser.role === Role.ADMIN
+        ? this.userResponseMapper.toResponseFromPrisma(user)
+        : this.userResponseMapper.toPublicResponseFromPrisma(user);
 
     return {
       message: 'User retrieved successfully',
-      data: this.userResponseMapper.toResponseFromPrisma(user),
+      data: data,
     };
   }
 }

@@ -1,17 +1,27 @@
 import { Role } from 'src/users/domain/enums/role.enum';
 
-export class UserResponseDto {
-  constructor(
-    readonly id: string,
-    readonly firstName: string,
-    readonly lastName: string,
-    readonly email: string,
-    readonly birthDate: Date | null,
-    readonly imagePath: string | null,
-    readonly role: Role,
-    readonly isEmailVerified: boolean,
-    readonly isTwoFactorEnabled: boolean,
-    readonly createdAt: Date,
-    readonly updatedAt: Date,
-  ) {}
+export class UserPublicResponseDto {
+  readonly id!: string;
+  readonly firstName!: string;
+  readonly lastName!: string;
+  readonly imagePath!: string | null;
+
+  constructor(partial: Partial<UserPublicResponseDto>) {
+    Object.assign(this, partial);
+  }
+}
+
+export class UserResponseDto extends UserPublicResponseDto {
+  readonly email!: string;
+  readonly birthDate!: Date | null;
+  readonly role!: Role;
+  readonly isEmailVerified!: boolean;
+  readonly isTwoFactorEnabled!: boolean;
+  readonly createdAt!: Date;
+  readonly updatedAt!: Date;
+
+  constructor(partial: Partial<UserResponseDto>) {
+    super(partial);
+    Object.assign(this, partial);
+  }
 }
