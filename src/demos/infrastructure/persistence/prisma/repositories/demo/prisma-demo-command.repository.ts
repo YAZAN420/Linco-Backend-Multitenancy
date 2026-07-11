@@ -5,6 +5,7 @@ import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { PrismaDemoMapper } from '../../mappers/prisma-demo.mapper';
 import { PrismaDepartmentMapper } from '../../mappers/prisma-department.mapper';
 import { SubscriptionStatus } from 'src/demos/domain/enums/subscription-status.enum';
+import { PlanTier } from 'src/generated/prisma/enums';
 
 @Injectable()
 export class PrismaDemoCommandRepository implements DemoCommandRepository {
@@ -60,7 +61,7 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
 
   async findByOwnerId(ownerId: string): Promise<Demo | null> {
     const demo = await this.prisma.demo.findFirst({
-      where: { ownerId },
+      where: { ownerId, plan: PlanTier.FREE },
       include: { departments: true },
     });
     return demo ? this.mapper.toDomain(demo) : null;
