@@ -15,7 +15,6 @@ import {
   InvalidVerificationTokenException,
 } from '../domain/exceptions';
 import { StoragePort } from 'src/core/storage/storage.port';
-import { CachePort } from 'src/core/cache/cache.port';
 
 @Injectable()
 export class UsersCommandService {
@@ -24,7 +23,6 @@ export class UsersCommandService {
     private readonly userCommandRepository: UserCommandRepository,
     private readonly userFactory: UserFactory,
     private readonly spacesService: StoragePort,
-    private readonly cachePort: CachePort,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
@@ -81,18 +79,12 @@ export class UsersCommandService {
 
     await this.userCommandRepository.save(user);
 
-    await this.cachePort.delete(`GET:/users/me:${id}`);
-    await this.cachePort.deleteByPattern(`GET:/users/${id}*`);
-
     return user;
   }
 
   async remove(id: string): Promise<void> {
     await this.findById(id);
     await this.userCommandRepository.delete(id);
-
-    await this.cachePort.delete(`GET:/users/me:${id}`);
-    await this.cachePort.deleteByPattern(`GET:/users/${id}*`);
   }
 
   async updateRefreshToken(

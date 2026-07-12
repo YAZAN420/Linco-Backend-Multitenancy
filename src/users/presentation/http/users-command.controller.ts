@@ -36,7 +36,7 @@ export class UsersCommandController {
   }
 
   @Post()
-  @ClearCache(['GET:/users', 'GET:/users?*', 'GET:/users/cursor*'])
+  @ClearCache(['GET:/users:ROLE:*', 'GET:/users?*', 'GET:/users/cursor*'])
   async create(@Body() dto: CreateUserDto) {
     const createdUser = await this.userCommandService.create(dto);
     const user = await this.userQueryService.findById(createdUser.id);
@@ -47,7 +47,13 @@ export class UsersCommandController {
   }
 
   @Patch(':id')
-  @ClearCache(['GET:/users', 'GET:/users?*', 'GET:/users/cursor*'])
+  @ClearCache([
+    'GET:/users:ROLE:*',
+    'GET:/users?*',
+    'GET:/users/cursor*',
+    'GET:/users/:id*',
+    'GET:/users/me::id',
+  ])
   async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
     const updatedUser = await this.userCommandService.update(id, dto);
     const user = await this.userQueryService.findById(updatedUser.id);
@@ -59,7 +65,13 @@ export class UsersCommandController {
   }
 
   @Delete(':id')
-  @ClearCache(['GET:/users', 'GET:/users?*', 'GET:/users/cursor*'])
+  @ClearCache([
+    'GET:/users:ROLE:*',
+    'GET:/users?*',
+    'GET:/users/:id*',
+    'GET:/users/cursor*',
+    'GET:/users/me::id',
+  ])
   async remove(@Param('id') id: string) {
     await this.userCommandService.remove(id);
 
