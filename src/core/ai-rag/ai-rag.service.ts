@@ -43,7 +43,15 @@ export class AiRagService {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.log(
+          '🔥 FLASK ERROR DATA:',
+          JSON.stringify(error.response.data, null, 2),
+        );
+        console.log('🔥 FLASK STATUS CODE:', error.response.status);
+      } else {
+        console.log('🔥 AXIOS REQUEST ERROR:', error.message);
+      }
       throw new InternalServerErrorException('Failed to create course in AI');
     }
   }
