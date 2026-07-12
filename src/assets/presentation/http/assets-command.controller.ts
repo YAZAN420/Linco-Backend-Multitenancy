@@ -1,9 +1,7 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateAssetDto } from './dto/create-asset.dto';
+import { Controller, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 import { AssetsCommandService } from 'src/assets/application/assets-command.service';
-import { AccessMethod } from 'src/assets/domain/enums/access-method.enum';
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 
 @Controller('demos/:demoId/assets')
@@ -13,22 +11,6 @@ export class AssetsCommandController {
     private readonly assetQueryService: AssetsQueryService,
     private readonly assetResponseMapper: AssetResponseMapper,
   ) {}
-
-  @Post()
-  async create(@Param('demoId') demoId: string, @Body() dto: CreateAssetDto) {
-    const createdAsset = await this.assetCommandService.create(demoId, {
-      ...dto,
-      accessMethod: AccessMethod.PURCHASED,
-    });
-    const asset = await this.assetQueryService.findById(
-      demoId,
-      createdAsset.id,
-    );
-    return {
-      message: 'Asset created successfully',
-      data: this.assetResponseMapper.toResponseFromPrisma(asset),
-    };
-  }
 
   @Patch(':assetId')
   async update(
