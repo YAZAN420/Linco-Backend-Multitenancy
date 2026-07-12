@@ -28,8 +28,7 @@ import { ExamsModule } from './exams/exams.module';
 import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
-// import { ClearCacheInterceptor } from './common/interceptors/clear-cache.interceptor';
-// import { HttpCacheInterceptor } from './common/interceptors/http-cache.interceptor';
+import { JitsiModule } from './jitsi/jitsi.module';
 
 @Module({})
 export class AppModule {
@@ -40,6 +39,7 @@ export class AppModule {
         GoogleAuthModule,
         IamModule,
         TagsModule,
+        JitsiModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
@@ -59,11 +59,6 @@ export class AppModule {
         PaymentsModule.withInfrastructure(PaymentsInfrastructureModule.use()),
       ],
       providers: [
-        // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },
-        // {
-        //   provide: APP_INTERCEPTOR,
-        //   useClass: ClearCacheInterceptor,
-        // },
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
         { provide: APP_FILTER, useClass: GlobalExceptionFilter },
         { provide: APP_GUARD, useClass: ThrottlerGuard },
