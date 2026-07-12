@@ -29,6 +29,8 @@ import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastr
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
 import { JitsiModule } from './jitsi/jitsi.module';
+import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
+import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -57,6 +59,9 @@ export class AppModule {
         ),
         ExamsModule.withInfrastructure(ExamsInfrastructureModule.use()),
         PaymentsModule.withInfrastructure(PaymentsInfrastructureModule.use()),
+        CourseFaqsModule.withInfrastructure(
+          CourseFaqsInfrastructureModule.use(),
+        ),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },

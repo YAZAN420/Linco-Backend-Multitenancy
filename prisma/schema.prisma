@@ -200,10 +200,10 @@ model Course {
   tags        Tag[]
   assets     Asset[]
   sections   Section[]
-  faqs        CourseFAQ[]
+  faqs        CourseFaq[]
 }
 
-model CourseFAQ {
+model CourseFaq {
   id        String   @id 
   question  String   @db.Text
   answer    String   @db.Text
