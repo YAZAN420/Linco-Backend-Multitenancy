@@ -11,15 +11,13 @@ import {
 
 @Injectable()
 export class AiRagService {
-  private readonly flaskBaseUrl = process.env.RagBaseUrl;
-
   constructor(private readonly httpService: HttpService) {}
 
   async getCourseStatus(courseName: string): Promise<AiStatusResponse> {
     try {
       const response = await lastValueFrom(
         this.httpService.get<AiStatusResponse>(
-          `${this.flaskBaseUrl}/courses/${courseName}/status`,
+          `${process.env.RagBaseUrl}/courses/${courseName}/status`,
         ),
       );
       return response.data;
@@ -37,7 +35,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiCourseResponse>(
-          `${this.flaskBaseUrl}/courses`,
+          `${process.env.RagBaseUrl}/courses`,
           courseData,
         ),
       );
@@ -63,7 +61,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiAnswerResponse>(
-          `${this.flaskBaseUrl}/courses/${courseName}/ask`,
+          `${process.env.RagBaseUrl}/courses/${courseName}/ask`,
           { question },
         ),
       );
@@ -78,7 +76,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiQuizResponse>(
-          `${this.flaskBaseUrl}/courses/${courseName}/quiz`,
+          `${process.env.RagBaseUrl}/courses/${courseName}/quiz`,
           {},
         ),
       );
@@ -93,7 +91,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.get<AiQuizResponse>(
-          `${this.flaskBaseUrl}/courses/${courseName}/random-quiz`,
+          `${process.env.RagBaseUrl}/courses/${courseName}/random-quiz`,
         ),
       );
       return response.data;
