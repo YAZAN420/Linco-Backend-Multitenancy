@@ -12,11 +12,11 @@ import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { StoragePort } from 'src/core/storage/storage.port';
 import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
-import { CourseQueryRepository } from './ports/course-query.repository';
+import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
 @Injectable()
 export class CoursesCommandService {
   constructor(
-    private readonly courseQueryRepository: CourseQueryRepository,
+    private readonly lessonQueryRepository: LessonQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
     private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
@@ -78,7 +78,18 @@ export class CoursesCommandService {
 
     await this.courseCommandRepository.save(course);
 
-    // await this.aiRagService.createCourse([]);
+    const videos = await this.lessonQueryRepository.findAllByCourseId(courseId);
+
+    const formattedVideos = videos.map((lesson) => ({
+      video_name: lesson.title,
+      video_url: lesson.videoUrl,
+    }));
+
+    const rag = await this.aiRagService.createCourse({
+      course_name: course.title,
+      videos: formattedVideos,
+    });
+    console.log(rag);
     return course;
   }
 

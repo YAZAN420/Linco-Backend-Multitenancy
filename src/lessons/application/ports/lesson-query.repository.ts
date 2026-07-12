@@ -8,6 +8,9 @@ export abstract class LessonQueryRepository {
     options: FindCursorQuery,
   ): Promise<CursorPageDto<Lesson>>;
   abstract findById(id: string): Promise<Lesson | null>;
+  abstract findAllByCourseId(
+    courseId: string,
+  ): Promise<Pick<Lesson, 'title' | 'videoUrl'>[]>;
   abstract findAttachmentsCursor(
     lessonId: string,
     options: FindCursorQuery,
