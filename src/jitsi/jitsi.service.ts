@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import jitsiConfig from 'src/common/config/jitsi.config';
@@ -8,6 +12,7 @@ import { Role } from 'src/users/domain/enums/role.enum';
 @Injectable()
 export class JitsiService {
   constructor(
+    @Inject(jitsiConfig.KEY)
     private readonly jitsiConfigration: ConfigType<typeof jitsiConfig>,
   ) {}
   generateJitsiToken(user: ActiveUserData, roomName: string) {
