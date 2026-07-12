@@ -13,6 +13,7 @@ import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query
 import { StoragePort } from 'src/core/storage/storage.port';
 import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
+import { CreateCourseQuizInput } from './interfaces/create-course-quiz.input';
 @Injectable()
 export class CoursesCommandService {
   constructor(
@@ -134,5 +135,19 @@ export class CoursesCommandService {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('course not found');
     return course;
+  }
+
+  async askQuestionAboutCourse(courseId: string, question: string) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.askQuestion(course.title, question);
+  }
+
+  async generateQuizForCourse(courseId: string, dto: CreateCourseQuizInput) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.generateQuiz(
+      course.title,
+      dto.topic,
+      dto.questionCount,
+    );
   }
 }

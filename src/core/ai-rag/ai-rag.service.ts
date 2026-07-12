@@ -41,15 +41,7 @@ export class AiRagService {
       );
       return response.data;
     } catch (error) {
-      if (error.response) {
-        console.log(
-          '🔥 FLASK ERROR DATA:',
-          JSON.stringify(error.response.data, null, 2),
-        );
-        console.log('🔥 FLASK STATUS CODE:', error.response.status);
-      } else {
-        console.log('🔥 AXIOS REQUEST ERROR:', error.message);
-      }
+      console.log(error);
       throw new InternalServerErrorException('Failed to create course in AI');
     }
   }
@@ -72,12 +64,19 @@ export class AiRagService {
     }
   }
 
-  async generateQuiz(courseName: string): Promise<AiQuizResponse> {
+  async generateQuiz(
+    courseName: string,
+    topic: string,
+    questionCount: number,
+  ): Promise<AiQuizResponse> {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiQuizResponse>(
           `${process.env.RagBaseUrl}/courses/${courseName}/quiz`,
-          {},
+          {
+            topic,
+            question_count: questionCount,
+          },
         ),
       );
       return response.data;

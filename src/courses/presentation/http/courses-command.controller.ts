@@ -6,6 +6,7 @@ import { CourseResponseMapper } from './mappers/course-response.mapper';
 import { CoursesCommandService } from 'src/courses/application/courses-command.service';
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
+import { CreateCourseQuizDto } from './dto/create-course-quiz.dto';
 
 @Controller('courses')
 export class CoursesCommandController {
@@ -72,5 +73,24 @@ export class CoursesCommandController {
       message: 'Course deleted successfully',
       data: null,
     };
+  }
+
+  @Post(':id/ask')
+  async askQuestion(
+    @Param('id') courseId: string,
+    @Body('question') question: string,
+  ) {
+    return await this.courseCommandService.askQuestionAboutCourse(
+      courseId,
+      question,
+    );
+  }
+
+  @Post(':id/quiz/generate')
+  async generateQuiz(
+    @Param('id') courseId: string,
+    @Body() dto: CreateCourseQuizDto,
+  ) {
+    return await this.courseCommandService.generateQuizForCourse(courseId, dto);
   }
 }
