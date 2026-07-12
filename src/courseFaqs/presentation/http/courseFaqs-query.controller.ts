@@ -34,7 +34,7 @@ export class CourseFaqsQueryController {
 
   @Get(':courseFaqId')
   async findOne(
-    @Param(':courseId') courseId: string,
+    @Param('courseId') courseId: string,
     @Param('courseFaqId') courseFaqId: string,
   ) {
     const courseFaq = await this.courseFaqQueryService.findById(
