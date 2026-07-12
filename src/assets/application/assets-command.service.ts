@@ -31,6 +31,19 @@ export class AssetsCommandService {
     const course = await this.courseCommandRepository.findById(input.courseId);
     if (!course) throw new NotFoundException('Course not found');
 
+    const assetExist =
+      await this.assetCommandRepository.findByCourseIdAndDemoId(
+        course.id,
+        demoId,
+      );
+    if (assetExist) {
+      const message =
+        input.accessMethod === AccessMethod.CREATED
+          ? 'Course is already assigned to this demo'
+          : 'You already own this course';
+      throw new BadRequestException(message);
+    }
+
     if (input.accessMethod === AccessMethod.PURCHASED) {
       if (!course.isPublished) {
         throw new BadRequestException('Cannot purchase an unpublished course');
