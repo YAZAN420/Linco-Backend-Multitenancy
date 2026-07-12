@@ -11,14 +11,18 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { StoragePort } from 'src/core/storage/storage.port';
+import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
+import { CourseQueryRepository } from './ports/course-query.repository';
 @Injectable()
 export class CoursesCommandService {
   constructor(
+    private readonly courseQueryRepository: CourseQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
     private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
     private readonly spacesService: StoragePort,
+    private readonly aiRagService: AiRagService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
@@ -73,6 +77,8 @@ export class CoursesCommandService {
     course.publish();
 
     await this.courseCommandRepository.save(course);
+
+    // await this.aiRagService.createCourse([]);
     return course;
   }
 

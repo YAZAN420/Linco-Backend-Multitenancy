@@ -12,6 +12,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { StorageModule } from './storage/storage.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GeminiModule } from './gemini/gemini.module';
+import { AiRagModule } from './ai-rag/ai-rag.module';
 
 @Global()
 @Module({})
@@ -21,6 +22,7 @@ export class CoreModule {
       module: CoreModule,
       imports: [
         GeminiModule,
+        AiRagModule,
         ScheduleModule.forRoot(),
         EventEmitterModule.forRoot(),
         DatabaseModule.use(),

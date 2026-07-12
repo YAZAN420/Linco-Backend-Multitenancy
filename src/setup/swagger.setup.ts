@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
-    .setTitle('NestJS Server API')
+    .setTitle('Linco API')
     .setDescription('The helper API description')
     .setVersion('1.0')
     .addBearerAuth(
