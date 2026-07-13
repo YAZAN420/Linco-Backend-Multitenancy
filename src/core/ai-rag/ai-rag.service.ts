@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
 import {
@@ -11,18 +15,21 @@ import {
 
 @Injectable()
 export class AiRagService {
+  private readonly logger = new Logger(AiRagService.name);
+  private readonly baseUrl = process.env.RagBaseUrl;
+
   constructor(private readonly httpService: HttpService) {}
 
   async getCourseStatus(courseName: string): Promise<AiStatusResponse> {
     try {
       const response = await lastValueFrom(
         this.httpService.get<AiStatusResponse>(
-          `${process.env.RagBaseUrl}/courses/${courseName}/status`,
+          `${this.baseUrl}/courses/${courseName}/status`,
         ),
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      this.logError('getCourseStatus', error);
       throw new InternalServerErrorException(
         'Failed to get course status from AI',
       );
@@ -35,13 +42,13 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiCourseResponse>(
-          `${process.env.RagBaseUrl}/courses`,
+          `${this.baseUrl}/courses`,
           courseData,
         ),
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      this.logError('createCourse', error);
       throw new InternalServerErrorException('Failed to create course in AI');
     }
   }
@@ -51,15 +58,16 @@ export class AiRagService {
     question: string,
   ): Promise<AiAnswerResponse> {
     try {
+      const encodedName = encodeURIComponent(courseName);
       const response = await lastValueFrom(
         this.httpService.post<AiAnswerResponse>(
-          `${process.env.RagBaseUrl}/courses/${courseName}/ask`,
+          `${this.baseUrl}/courses/${encodedName}/ask`,
           { question },
         ),
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      this.logError('askQuestion', error);
       throw new InternalServerErrorException('Failed to get answer from AI');
     }
   }
@@ -72,7 +80,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiQuizResponse>(
-          `${process.env.RagBaseUrl}/courses/${courseName}/quiz`,
+          `${this.baseUrl}/courses/${courseName}/quiz`,
           {
             topic,
             num_questions: questionCount,
@@ -81,7 +89,7 @@ export class AiRagService {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      this.logError('generateQuiz', error);
       throw new InternalServerErrorException('Failed to generate quiz from AI');
     }
   }
@@ -93,7 +101,7 @@ export class AiRagService {
     try {
       const response = await lastValueFrom(
         this.httpService.post<AiQuizResponse>(
-          `${process.env.RagBaseUrl}/courses/${courseName}/random-quiz`,
+          `${this.baseUrl}/courses/${courseName}/random-quiz`,
           {
             num_questions: questionCount,
           },
@@ -101,10 +109,14 @@ export class AiRagService {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      this.logError('generateRandomQuiz', error);
       throw new InternalServerErrorException(
         'Failed to get random quiz from AI',
       );
     }
+  }
+
+  private logError(methodName: string, error: any) {
+    this.logger.error(`Error in ${methodName}:`, JSON.stringify(error));
   }
 }
