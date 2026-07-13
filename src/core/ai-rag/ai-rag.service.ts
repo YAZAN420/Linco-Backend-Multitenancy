@@ -75,7 +75,7 @@ export class AiRagService {
           `${process.env.RagBaseUrl}/courses/${courseName}/quiz`,
           {
             topic,
-            question_count: questionCount,
+            num_questions: questionCount,
           },
         ),
       );
@@ -95,7 +95,7 @@ export class AiRagService {
         this.httpService.post<AiQuizResponse>(
           `${process.env.RagBaseUrl}/courses/${courseName}/random-quiz`,
           {
-            questionCount,
+            num_questions: questionCount,
           },
         ),
       );
