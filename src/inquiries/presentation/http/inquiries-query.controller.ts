@@ -19,7 +19,7 @@ export class InquiriesQueryController {
   @Get()
   async findAll(
     @Query() options: PageOptionsDto,
-    @Param('demoId') demoId: string
+    @Param('demoId') demoId: string,
   ) {
     const inquiries = await this.inquiryQueryService.findAll(options, demoId);
     return {
@@ -32,9 +32,12 @@ export class InquiriesQueryController {
   @Get('cursor')
   async findWithCursor(
     @Query() options: CursorPageOptionsDto,
-    @Param('demoId') demoId: string
+    @Param('demoId') demoId: string,
   ) {
-    const inquiries = await this.inquiryQueryService.findAllCursor(options, demoId);
+    const inquiries = await this.inquiryQueryService.findAllCursor(
+      options,
+      demoId,
+    );
 
     return {
       message: 'Inquiries fetched successfully (Cursor)',
@@ -46,7 +49,7 @@ export class InquiriesQueryController {
   @Get(':inquiryId')
   async findOne(
     @Param('inquiryId') inquiryId: string,
-    @Param('demoId') demoId: string
+    @Param('demoId') demoId: string,
   ) {
     const inquiry = await this.inquiryQueryService.findById(inquiryId, demoId);
 

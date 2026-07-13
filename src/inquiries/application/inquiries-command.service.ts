@@ -19,24 +19,33 @@ export class InquiriesCommandService {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 
-    const inquiry = this.inquiryFactory.createNew(input.subject, input.recipientId, input.creatorId, demoId);
+    const inquiry = this.inquiryFactory.createNew(
+      input.subject,
+      input.recipientId,
+      input.creatorId,
+      demoId,
+    );
     await this.inquiryCommandRepository.save(inquiry);
     return inquiry;
   }
 
-  async update(inquiryId: string, input: UpdateInquiryInput, demoId: string): Promise<Inquiry> {
+  async update(
+    inquiryId: string,
+    input: UpdateInquiryInput,
+    demoId: string,
+  ): Promise<Inquiry> {
     const inquiry = await this.findById(inquiryId, demoId);
 
     if (input.subject !== undefined) {
       inquiry.updateSubject(input.subject);
     }
-    if(input.creatorId !== undefined) {
+    if (input.creatorId !== undefined) {
       inquiry.updateCreatorId(input.creatorId);
     }
-    if(input.recipientId !== undefined) {
+    if (input.recipientId !== undefined) {
       inquiry.updateRecipientId(input.recipientId);
     }
-    if(input.status !== undefined) {
+    if (input.status !== undefined) {
       inquiry.updateStatus(input.status);
     }
 
@@ -44,12 +53,12 @@ export class InquiriesCommandService {
     return inquiry;
   }
 
-  async remove(inquiryId: string, demoId): Promise<void> {
+  async remove(inquiryId: string, demoId: string): Promise<void> {
     await this.findById(inquiryId, demoId);
     await this.inquiryCommandRepository.delete(inquiryId);
   }
 
-  async findById(inquiryId: string, demoId): Promise<Inquiry> {
+  async findById(inquiryId: string, demoId: string): Promise<Inquiry> {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 

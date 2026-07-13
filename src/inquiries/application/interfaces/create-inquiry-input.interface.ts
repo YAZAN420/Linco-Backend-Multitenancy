@@ -1,5 +1,5 @@
 export interface CreateInquiryInput {
-    subject: string;
-    creatorId: string;
-    recipientId: string;
+  subject: string;
+  creatorId: string;
+  recipientId: string;
 }

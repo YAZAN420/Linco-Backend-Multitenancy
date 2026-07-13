@@ -5,23 +5,22 @@ import { InquiryFactory } from './domain/factories/inquiry.factory';
 import { InquiriesCommandService } from './application/inquiries-command.service';
 import { InquiriesQueryService } from './application/inquiries-query.service';
 import { InquiryResponseMapper } from './presentation/http/mappers/inquiry-response.mapper';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [InquiriesCommandController, InquiriesQueryController],
   providers: [
     InquiriesCommandService,
     InquiriesQueryService,
-    InquiryFactory, 
-    InquiryResponseMapper,    
-    ],
+    InquiryFactory,
+    InquiryResponseMapper,
+  ],
   exports: [
     InquiriesCommandService,
     InquiriesQueryService,
     InquiryFactory,
-    InquiryResponseMapper
-    ],
+    InquiryResponseMapper,
+  ],
 })
 export class InquiriesModule {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InquiryResponseDto } from '../dto/inquiry-response.dto';
 import { Inquiry as PrismaInquiry } from 'src/generated/prisma/client';
-import { Inquiry as DomainInquiry } from 'src/inquiries/domain/inquiry';
+import { InquiryStatus } from 'src/inquiries/domain/enums/inqurity-status.enum';
 
 @Injectable()
 export class InquiryResponseMapper {
@@ -12,20 +12,7 @@ export class InquiryResponseMapper {
       inquiry.demoId,
       inquiry.creatorId,
       inquiry.recipientId,
-      inquiry.status,
-      inquiry.createdAt,
-      inquiry.updatedAt,
-    );
-  }
-
-  toResponseFromDomain(inquiry: DomainInquiry): InquiryResponseDto {
-    return new InquiryResponseDto(
-      inquiry.id,
-      inquiry.subject,
-      inquiry.demoId,
-      inquiry.creatorId,
-      inquiry.recipientId,
-      inquiry.status,
+      inquiry.status as InquiryStatus,
       inquiry.createdAt,
       inquiry.updatedAt,
     );

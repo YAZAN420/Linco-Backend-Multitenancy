@@ -1,4 +1,4 @@
-import { InquiryStatus } from "src/generated/prisma/enums";
+import { InquiryStatus } from 'src/inquiries/domain/enums/inqurity-status.enum';
 
 export class InquiryResponseDto {
   constructor(

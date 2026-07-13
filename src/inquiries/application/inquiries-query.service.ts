@@ -15,10 +15,13 @@ import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query
 export class InquiriesQueryService {
   constructor(
     private readonly inquiryQueryRepository: InquiryQueryRepository,
-    private readonly demoQueryRepository: DemoQueryRepository
+    private readonly demoQueryRepository: DemoQueryRepository,
   ) {}
 
-  async findAll(pageOptionsDto: FindInquiriesQuery, demoId: string): Promise<PageDto<Inquiry>> {
+  async findAll(
+    pageOptionsDto: FindInquiriesQuery,
+    demoId: string,
+  ): Promise<PageDto<Inquiry>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
       throw new NotFoundException(`Demo with ID ${demoId} not found`);
@@ -28,7 +31,7 @@ export class InquiriesQueryService {
 
   async findAllCursor(
     options: FindInquiriesCursorQuery,
-    demoId: string
+    demoId: string,
   ): Promise<CursorPageDto<Inquiry>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {

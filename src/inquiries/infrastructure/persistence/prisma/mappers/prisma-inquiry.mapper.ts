@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import type { Inquiry as PrismaInquiry} from 'src/generated/prisma/client';
+import { InquiryStatus } from 'src/inquiries/domain/enums/inqurity-status.enum';
+import type { Inquiry as PrismaInquiry } from 'src/generated/prisma/client';
 import { Inquiry } from 'src/inquiries/domain/inquiry';
-
 
 @Injectable()
 export class PrismaInquiryMapper {
@@ -11,7 +11,7 @@ export class PrismaInquiryMapper {
       creatorId: raw.creatorId,
       demoId: raw.demoId,
       recipientId: raw.recipientId,
-      status: raw.status,
+      status: raw.status as InquiryStatus,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -21,7 +21,7 @@ export class PrismaInquiryMapper {
     return {
       id: inquiry.id,
       demoId: inquiry.demoId,
-      status: inquiry.status, 
+      status: inquiry.status,
       subject: inquiry.subject,
       recipientId: inquiry.recipientId,
       creatorId: inquiry.creatorId,

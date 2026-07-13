@@ -1,4 +1,4 @@
-import { InquiryStatus } from 'src/generated/prisma/enums';
+import { InquiryStatus } from './enums/inqurity-status.enum';
 import { InquiryProps } from './interfaces/inquiry.props';
 
 export class Inquiry {
@@ -40,19 +40,19 @@ export class Inquiry {
   }
 
   updateCreatorId(newCreatorId: string): void {
-    if(this.props.creatorId == newCreatorId) return;
+    if (this.props.creatorId == newCreatorId) return;
     this.props.creatorId = newCreatorId;
     this.touch();
   }
 
   updateSubject(newSubject: string): void {
-    if(this.props.subject == newSubject) return;
+    if (this.props.subject == newSubject) return;
     this.props.subject = newSubject;
     this.touch();
   }
 
   updateDemoId(newDemoId: string): void {
-    if(this.props.demoId == newDemoId) return;
+    if (this.props.demoId == newDemoId) return;
     this.props.demoId = newDemoId;
     this.touch();
   }

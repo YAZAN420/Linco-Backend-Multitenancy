@@ -1,16 +1,16 @@
-import { IsNotEmpty, isString, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { CreateInquiryInput } from 'src/inquiries/application/interfaces/create-inquiry-input.interface';
 
 export class CreateInquiryDto implements CreateInquiryInput {
-    @IsString()
-    @IsNotEmpty()
-    subject!: string;
+  @IsString()
+  @IsNotEmpty()
+  subject!: string;
 
-    @IsString()
-    @IsNotEmpty()
-    recipientId!: string;
+  @IsString()
+  @IsNotEmpty()
+  recipientId!: string;
 
-    @IsString()
-    @IsNotEmpty()
-    creatorId!: string;
+  @IsString()
+  @IsNotEmpty()
+  creatorId!: string;
 }

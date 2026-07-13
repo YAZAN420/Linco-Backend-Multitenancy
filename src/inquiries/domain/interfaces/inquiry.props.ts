@@ -1,4 +1,4 @@
-import { InquiryStatus } from "src/generated/prisma/enums";
+import { InquiryStatus } from '../enums/inqurity-status.enum';
 
 export interface InquiryProps {
   subject: string;

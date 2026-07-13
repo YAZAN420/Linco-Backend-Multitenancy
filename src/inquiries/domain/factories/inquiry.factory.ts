@@ -5,9 +5,14 @@ import { InquiryStatus } from '../enums/inqurity-status.enum';
 
 @Injectable()
 export class InquiryFactory {
-  public createNew(subject: string, recipientId: string, creatorId: string, demoId: string): Inquiry {
+  public createNew(
+    subject: string,
+    recipientId: string,
+    creatorId: string,
+    demoId: string,
+  ): Inquiry {
     const now = new Date();
-    return new Inquiry(uuidv7(),{
+    return new Inquiry(uuidv7(), {
       subject: subject,
       demoId: demoId,
       creatorId: creatorId,
