@@ -87,7 +87,7 @@ export class CoursesCommandController {
     );
     return {
       message: 'Question asked successfully',
-      data: data,
+      data: data.answer,
     };
   }
 
