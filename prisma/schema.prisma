@@ -14,8 +14,8 @@ enum UserRole {
 
 enum DemoMemberRole {
   OWNER
-  MANAGER
-  TRAINER
+  ADMIN
+  MEMBER
 }
 
 enum CourseVisibility {
@@ -115,7 +115,7 @@ model DemoMember {
   id        String   @id
   userId    String
   demoId    String
-  role      DemoMemberRole   @default(TRAINER) 
+  role      DemoMemberRole   @default(MEMBER) 
   joinedAt  DateTime @default(now())
   updatedAt             DateTime               @updatedAt
 
@@ -398,7 +398,7 @@ model Invitation {
   demoId     String
   receiverId String 
   senderId   String 
-  role       DemoMemberRole   @default(TRAINER)
+  role       DemoMemberRole   @default(MEMBER)
   status     InvitationStatus @default(PENDING)
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt

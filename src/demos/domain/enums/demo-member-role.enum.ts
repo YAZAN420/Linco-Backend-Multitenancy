@@ -1,5 +1,5 @@
 export enum DemoMemberRole {
   OWNER = 'OWNER',
-  TRAINER = 'TRAINER',
-  MANAGER = 'MANAGER',
+  ADMIN = 'ADMIN',
+  MEMBER = 'MEMBER',
 }
