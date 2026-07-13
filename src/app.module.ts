@@ -28,6 +28,9 @@ import { ExamsModule } from './exams/exams.module';
 import { ExamsInfrastructureModule } from './exams/infrastructure/exams-infrastructure.module';
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
+import { InquiriesModule } from './inquiries/inquiries.module';
+import { InquiriesInfrastructureModule } from './inquiries/infrastructure/inquiries-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -55,6 +58,7 @@ export class AppModule {
         ),
         ExamsModule.withInfrastructure(ExamsInfrastructureModule.use()),
         PaymentsModule.withInfrastructure(PaymentsInfrastructureModule.use()),
+        InquiriesModule.withInfrastructure(InquiriesInfrastructureModule.use()),
       ],
       providers: [
         // { provide: APP_INTERCEPTOR, useClass: HttpCacheInterceptor },

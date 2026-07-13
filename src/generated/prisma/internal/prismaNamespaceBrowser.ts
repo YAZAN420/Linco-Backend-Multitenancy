@@ -70,7 +70,9 @@ export const ModelName = {
   DiscussionAnswer: 'DiscussionAnswer',
   Invitation: 'Invitation',
   Payment: 'Payment',
-  Tag: 'Tag'
+  Tag: 'Tag',
+  Inquiry: 'Inquiry',
+  InquiryMessage: 'InquiryMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -358,6 +360,31 @@ export const TagScalarFieldEnum = {
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const InquiryScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject',
+  creatorId: 'creatorId',
+  demoId: 'demoId',
+  recipientId: 'recipientId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InquiryScalarFieldEnum = (typeof InquiryScalarFieldEnum)[keyof typeof InquiryScalarFieldEnum]
+
+
+export const InquiryMessageScalarFieldEnum = {
+  id: 'id',
+  inquiryId: 'inquiryId',
+  senderId: 'senderId',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]
 
 
 export const SortOrder = {

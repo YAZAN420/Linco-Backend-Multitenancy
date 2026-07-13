@@ -1,0 +1,60 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InquiryCommandRepository } from './ports/inquiry-command.repository';
+import { InquiryFactory } from '../domain/factories/inquiry.factory';
+import { Inquiry } from '../domain/inquiry';
+
+import { CreateInquiryInput } from './interfaces/create-inquiry-input.interface';
+import { UpdateInquiryInput } from './interfaces/update-inquiry-input.interface';
+import { DemoCommandRepository } from 'src/demos/application/ports/demo/demo-command.repository';
+
+@Injectable()
+export class InquiriesCommandService {
+  constructor(
+    private readonly demoCommandRepository: DemoCommandRepository,
+    private readonly inquiryCommandRepository: InquiryCommandRepository,
+    private readonly inquiryFactory: InquiryFactory,
+  ) {}
+
+  async create(input: CreateInquiryInput, demoId: string): Promise<Inquiry> {
+    const demo = await this.demoCommandRepository.findById(demoId);
+    if (!demo) throw new NotFoundException('Demo not found');
+
+    const inquiry = this.inquiryFactory.createNew(input.subject, input.recipientId, input.creatorId, demoId);
+    await this.inquiryCommandRepository.save(inquiry);
+    return inquiry;
+  }
+
+  async update(inquiryId: string, input: UpdateInquiryInput, demoId: string): Promise<Inquiry> {
+    const inquiry = await this.findById(inquiryId, demoId);
+
+    if (input.subject !== undefined) {
+      inquiry.updateSubject(input.subject);
+    }
+    if(input.creatorId !== undefined) {
+      inquiry.updateCreatorId(input.creatorId);
+    }
+    if(input.recipientId !== undefined) {
+      inquiry.updateRecipientId(input.recipientId);
+    }
+    if(input.status !== undefined) {
+      inquiry.updateStatus(input.status);
+    }
+
+    await this.inquiryCommandRepository.save(inquiry);
+    return inquiry;
+  }
+
+  async remove(inquiryId: string, demoId): Promise<void> {
+    await this.findById(inquiryId, demoId);
+    await this.inquiryCommandRepository.delete(inquiryId);
+  }
+
+  async findById(inquiryId: string, demoId): Promise<Inquiry> {
+    const demo = await this.demoCommandRepository.findById(demoId);
+    if (!demo) throw new NotFoundException('Demo not found');
+
+    const inquiry = await this.inquiryCommandRepository.findById(inquiryId);
+    if (!inquiry) throw new NotFoundException('inquiry not found');
+    return inquiry;
+  }
+}

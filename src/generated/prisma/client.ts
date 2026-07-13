@@ -139,3 +139,13 @@ export type Payment = Prisma.PaymentModel
  * 
  */
 export type Tag = Prisma.TagModel
+/**
+ * Model Inquiry
+ * 
+ */
+export type Inquiry = Prisma.InquiryModel
+/**
+ * Model InquiryMessage
+ * 
+ */
+export type InquiryMessage = Prisma.InquiryMessageModel
