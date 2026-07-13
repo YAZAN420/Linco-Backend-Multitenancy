@@ -58,10 +58,9 @@ export class AiRagService {
     question: string,
   ): Promise<AiAnswerResponse> {
     try {
-      const encodedName = encodeURIComponent(courseName);
       const response = await lastValueFrom(
         this.httpService.post<AiAnswerResponse>(
-          `${this.baseUrl}/courses/${encodedName}/ask`,
+          `${this.baseUrl}/courses/${courseName}/ask`,
           { question },
         ),
       );
