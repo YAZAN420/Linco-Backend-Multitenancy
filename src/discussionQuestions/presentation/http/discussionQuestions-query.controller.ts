@@ -25,7 +25,7 @@ export class DiscussionQuestionsQueryController {
       );
 
     return {
-      message: 'DiscussionQuestions fetched successfully (Cursor)',
+      message: 'DiscussionQuestions fetched successfully ',
       data: this.discussionQuestionResponseMapper.toResponseManyFromPrisma(
         discussionQuestions.data,
       ),

@@ -45,6 +45,16 @@ export class PrismaLessonQueryRepository implements LessonQueryRepository {
     });
   }
 
+  async findAllByCourseId(
+    courseId: string,
+  ): Promise<Pick<Lesson, 'title' | 'videoUrl'>[]> {
+    return this.prisma.lesson.findMany({
+      where: { section: { courseId } },
+      orderBy: [{ order: 'asc' }],
+      select: { videoUrl: true, title: true },
+    });
+  }
+
   async findAttachmentsCursor(
     lessonId: string,
     options: FindCursorQuery,

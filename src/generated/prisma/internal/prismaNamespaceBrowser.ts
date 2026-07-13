@@ -57,6 +57,7 @@ export const ModelName = {
   Department: 'Department',
   Demo: 'Demo',
   Course: 'Course',
+  CourseFaq: 'CourseFaq',
   Section: 'Section',
   Lesson: 'Lesson',
   Attachment: 'Attachment',
@@ -177,12 +178,25 @@ export const CourseScalarFieldEnum = {
   description: 'description',
   visibility: 'visibility',
   price: 'price',
+  isPublished: 'isPublished',
   demoId: 'demoId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const CourseFaqScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourseFaqScalarFieldEnum = (typeof CourseFaqScalarFieldEnum)[keyof typeof CourseFaqScalarFieldEnum]
 
 
 export const SectionScalarFieldEnum = {

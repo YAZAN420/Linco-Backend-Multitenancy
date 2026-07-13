@@ -73,4 +73,7 @@ export class RedisCacheAdapter
       }
     }
   }
+  async increment(key: string): Promise<number> {
+    return await this.redisClient.incr(key);
+  }
 }

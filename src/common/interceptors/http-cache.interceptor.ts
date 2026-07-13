@@ -50,8 +50,12 @@ export class HttpCacheInterceptor implements NestInterceptor {
 
     const user = this.cls.get<ActiveUserData>(CLS_KEYS.USER);
 
-    if (user && user.id && !isPublic) {
-      cacheKey = `${cacheKey}:${user.id}`;
+    if (user) {
+      if (isPublic) {
+        cacheKey = `${cacheKey}:ROLE:${user.role}`;
+      } else if (user.id) {
+        cacheKey = `${cacheKey}:${user.id}`;
+      }
     }
 
     const cachedData = await this.cachePort.get(cacheKey);

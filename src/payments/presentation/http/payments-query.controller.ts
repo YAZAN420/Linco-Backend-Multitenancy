@@ -31,7 +31,7 @@ export class PaymentsQueryController {
     const payments = await this.paymentQueryService.findAllCursor(options);
 
     return {
-      message: 'Payments fetched successfully (Cursor)',
+      message: 'Payments fetched successfully ',
       data: this.paymentResponseMapper.toResponseManyFromPrisma(payments.data),
       meta: payments.meta,
     };

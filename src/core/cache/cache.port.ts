@@ -3,4 +3,5 @@ export abstract class CachePort {
   abstract set<T>(key: string, value: T, ttlSeconds?: number): Promise<void>;
   abstract delete(key: string): Promise<void>;
   abstract deleteByPattern(pattern: string): Promise<void>;
+  abstract increment(key: string): Promise<number>;
 }

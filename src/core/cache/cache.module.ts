@@ -13,6 +13,7 @@ import { CacheBootstrapService } from './cache-bootstrap.service';
       provide: CachePort,
       useClass: RedisCacheAdapter,
     },
+
     CacheBootstrapService,
   ],
   exports: [CachePort],

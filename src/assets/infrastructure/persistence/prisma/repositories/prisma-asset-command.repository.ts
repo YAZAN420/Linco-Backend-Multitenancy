@@ -43,4 +43,14 @@ export class PrismaAssetCommandRepository implements AssetCommandRepository {
     const asset = await this.prisma.asset.findUnique({ where: { id } });
     return asset ? this.mapper.toDomain(asset) : null;
   }
+
+  async findByCourseIdAndDemoId(
+    courseId: string,
+    demoId: string,
+  ): Promise<Asset | null> {
+    const asset = await this.prisma.asset.findFirst({
+      where: { courseId, demoId },
+    });
+    return asset ? this.mapper.toDomain(asset) : null;
+  }
 }

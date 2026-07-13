@@ -8,6 +8,7 @@ export interface CourseProps {
   visibility: CourseVisibility;
   imagePath: string;
   description: string;
+  isPublished: boolean;
   demoId: string;
   price: Price;
   sections: Section[];

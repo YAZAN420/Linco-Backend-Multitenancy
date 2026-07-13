@@ -25,7 +25,7 @@ export class TwoFactorAuthService {
 
     const otpauthUrl = this.otp.generateURI({
       label: userEmail,
-      issuer: 'NestJS Server',
+      issuer: 'Linco',
       secret,
     });
 

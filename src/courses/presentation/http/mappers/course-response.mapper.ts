@@ -18,6 +18,7 @@ export class CourseResponseMapper {
       course.price,
       course.description,
       course.imagePath,
+      course.isPublished,
       course.createdAt,
       course.updatedAt,
       course._count?.sections ?? 0,

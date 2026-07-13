@@ -37,7 +37,7 @@ export class ExamsQueryController {
     const exams = await this.examQueryService.findAllCursor(sectionId, options);
 
     return {
-      message: 'Exams fetched successfully (Cursor)',
+      message: 'Exams fetched successfully ',
       data: this.examResponseMapper.toResponseManyFromPrisma(exams.data),
       meta: exams.meta,
     };

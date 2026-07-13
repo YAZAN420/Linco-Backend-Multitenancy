@@ -17,16 +17,19 @@ export class TagsService {
   }
 
   async create(name: string): Promise<Tag> {
-    return this.tagRepository.create(name);
+    const tag = await this.tagRepository.create(name);
+    return tag;
   }
 
   async update(id: string, name: string): Promise<Tag> {
     await this.getById(id);
-    return this.tagRepository.update(id, name);
+    const tag = await this.tagRepository.update(id, name);
+    return tag;
   }
 
   async delete(id: string): Promise<void> {
     await this.getById(id);
-    return this.tagRepository.delete(id);
+    const tag = await this.tagRepository.delete(id);
+    return tag;
   }
 }

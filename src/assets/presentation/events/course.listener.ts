@@ -24,6 +24,7 @@ export class CoursePurchaseListener {
       );
     } catch (error) {
       console.error(`Failed to automatically add course to assets: ${error}`);
+      throw error;
     }
   }
 }

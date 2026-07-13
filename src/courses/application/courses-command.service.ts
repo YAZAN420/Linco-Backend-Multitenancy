@@ -11,14 +11,19 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { StoragePort } from 'src/core/storage/storage.port';
+import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
+import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
+import { CreateCourseQuizInput } from './interfaces/create-course-quiz.input';
 @Injectable()
 export class CoursesCommandService {
   constructor(
+    private readonly lessonQueryRepository: LessonQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
     private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
     private readonly spacesService: StoragePort,
+    private readonly aiRagService: AiRagService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
@@ -67,6 +72,28 @@ export class CoursesCommandService {
     return course;
   }
 
+  async publish(courseId: string): Promise<Course> {
+    const course = await this.findById(courseId);
+
+    course.publish();
+
+    await this.courseCommandRepository.save(course);
+
+    const videos = await this.lessonQueryRepository.findAllByCourseId(courseId);
+
+    const formattedVideos = videos.map((lesson) => ({
+      video_name: lesson.title,
+      video_url: lesson.videoUrl,
+    }));
+
+    const rag = await this.aiRagService.createCourse({
+      course_name: course.title,
+      videos: formattedVideos,
+    });
+    console.log(rag);
+    return course;
+  }
+
   async update(courseId: string, input: UpdateCourseInput): Promise<Course> {
     const course = await this.findById(courseId);
     if (input.title !== undefined && input.title !== null) {
@@ -108,5 +135,26 @@ export class CoursesCommandService {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('course not found');
     return course;
+  }
+
+  async askQuestionAboutCourse(courseId: string, question: string) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.askQuestion(course.title, question);
+  }
+
+  async generateQuizForCourse(courseId: string, dto: CreateCourseQuizInput) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.generateQuiz(
+      course.title,
+      dto.topic,
+      dto.questionCount,
+    );
+  }
+  async generateRandomQuizForCourse(courseId: string, questionCount: number) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.generateRandomQuiz(
+      course.title,
+      questionCount,
+    );
   }
 }

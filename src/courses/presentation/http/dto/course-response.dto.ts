@@ -9,6 +9,7 @@ export class CourseResponseDto {
     readonly price: number | null,
     readonly description: string,
     readonly imagePath: string,
+    readonly isPublished: boolean,
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly sectionsCount: number,

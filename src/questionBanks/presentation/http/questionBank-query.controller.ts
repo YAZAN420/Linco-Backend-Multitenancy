@@ -44,7 +44,7 @@ export class QuestionsBanksQueryController {
     );
 
     return {
-      message: 'QuestionBank fetched successfully (Cursor)',
+      message: 'QuestionBank fetched successfully ',
       data: this.questionsBankResponseMapper.toResponseManyFromPrisma(
         questionsBank.data,
       ),

@@ -197,6 +197,7 @@ model Course {
   description String
   visibility CourseVisibility @default(PRIVATE)
   price      Float         
+  isPublished Boolean @default(false)
 
   demoId     String
   demo       Demo             @relation(fields: [demoId], references: [id], onDelete: Cascade)
@@ -208,6 +209,21 @@ model Course {
   tags        Tag[]
   assets     Asset[]
   sections   Section[]
+  faqs        CourseFaq[]
+}
+
+model CourseFaq {
+  id        String   @id 
+  question  String   @db.Text
+  answer    String   @db.Text
+  courseId  String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
 }
 
 model Section {

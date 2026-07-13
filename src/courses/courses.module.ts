@@ -12,10 +12,15 @@ import { SectionsQueryService } from './application/sections-query.service';
 import { SectionFactory } from './domain/factories/section.factory';
 import { SectionResponseMapper } from './presentation/http/mappers/section-response.mapper';
 import { TagsModule } from 'src/tags/tags.module';
+import { LessonsModule } from 'src/lessons/lessons.module';
+import { LessonsInfrastructureModule } from 'src/lessons/infrastructure/lessons-infrastructure.module';
 
 @Global()
 @Module({
-  imports: [TagsModule],
+  imports: [
+    TagsModule,
+    LessonsModule.withInfrastructure(LessonsInfrastructureModule.use()),
+  ],
   controllers: [
     CoursesCommandController,
     CoursesQueryController,

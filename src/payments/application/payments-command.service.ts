@@ -15,6 +15,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { PaymentType } from '../domain/enums/payment-type.enum';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
+import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 
 @Injectable()
 export class PaymentsCommandService {
@@ -84,9 +85,18 @@ export class PaymentsCommandService {
     if (!course) {
       throw new NotFoundException('Course not found');
     }
+    if (!course.isPublished) {
+      throw new BadRequestException('Cannot purchase an unpublished course');
+    }
+
+    if (course.visibility === CourseVisibility.PRIVATE) {
+      throw new BadRequestException(
+        'Cannot purchase a private course from the marketplace',
+      );
+    }
 
     if (course.price === 0) {
-      this.eventEmitter.emit('course.purchased', {
+      await this.eventEmitter.emitAsync('course.purchased', {
         userId: userId,
         courseId: courseId,
         demoId: demoId,

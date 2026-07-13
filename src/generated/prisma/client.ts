@@ -70,6 +70,11 @@ export type Demo = Prisma.DemoModel
  */
 export type Course = Prisma.CourseModel
 /**
+ * Model CourseFaq
+ * 
+ */
+export type CourseFaq = Prisma.CourseFaqModel
+/**
  * Model Section
  * 
  */

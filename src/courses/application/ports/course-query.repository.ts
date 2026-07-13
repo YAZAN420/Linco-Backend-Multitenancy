@@ -14,7 +14,10 @@ export abstract class CourseQueryRepository {
   abstract findAllCursor(
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<CourseWithStats>>;
-  abstract findById(id: string): Promise<CourseWithStats | null>;
+  abstract findById(
+    id: string,
+    checkVisibility?: boolean,
+  ): Promise<CourseWithStats | null>;
   abstract findSectionsCursor(
     courseId: string,
     options: FindSectionsCursorQuery,

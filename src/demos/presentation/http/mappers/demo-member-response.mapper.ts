@@ -12,11 +12,10 @@ export class DemoMemberResponseMapper {
     return new DemoMemberResponseDto(
       member.id,
       member.demoId,
-      member.userId,
       member.role as DemoMemberRole,
       member.joinedAt,
       member.updatedAt,
-      this.userResponseMapper.toResponseFromPrisma(member.user),
+      this.userResponseMapper.toPublicResponseFromPrisma(member.user),
     );
   }
 

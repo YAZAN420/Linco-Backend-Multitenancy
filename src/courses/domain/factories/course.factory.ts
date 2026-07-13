@@ -25,6 +25,7 @@ export class CourseFactory {
       imagePath,
       description,
       tagIds,
+      isPublished: false,
       price: priceVo,
       demoId: demoId ?? null,
       sections: [],

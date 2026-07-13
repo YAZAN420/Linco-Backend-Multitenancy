@@ -31,7 +31,7 @@ export class CoursesQueryController {
     const courses = await this.courseQueryService.findAllCursor(options);
 
     return {
-      message: 'Courses fetched successfully (Cursor)',
+      message: 'Courses fetched successfully ',
       data: this.courseResponseMapper.toResponseManyFromPrisma(courses.data),
       meta: courses.meta,
     };

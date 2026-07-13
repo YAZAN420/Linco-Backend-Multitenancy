@@ -7,6 +7,7 @@ import bullConfig from 'src/common/config/bull.config';
 import { validate } from 'src/common/config/env.validation';
 import storageConfig from 'src/common/config/storage.config';
 import stripeConfig from 'src/common/config/stripe.config';
+import jitsiConfig from 'src/common/config/jitsi.config';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import stripeConfig from 'src/common/config/stripe.config';
         bullConfig,
         storageConfig,
         stripeConfig,
+        jitsiConfig,
       ],
       validate: validate,
     }),

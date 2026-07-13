@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -6,11 +14,16 @@ import { UserResponseMapper } from './mappers/user-response.mapper';
 import { UsersCommandService } from 'src/users/application/users-command.service';
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
+import { ClearCache } from 'src/common/decorators/clear-cache.decorator';
+import { UsersQueryService } from 'src/users/application/users-query.service';
+import { ClearCacheInterceptor } from 'src/common/interceptors/clear-cache.interceptor';
 
+@UseInterceptors(ClearCacheInterceptor)
 @Controller('users')
 export class UsersCommandController {
   constructor(
     private readonly userCommandService: UsersCommandService,
+    private readonly userQueryService: UsersQueryService,
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
@@ -23,26 +36,42 @@ export class UsersCommandController {
   }
 
   @Post()
+  @ClearCache(['GET:/users:ROLE:*', 'GET:/users?*', 'GET:/users/cursor*'])
   async create(@Body() dto: CreateUserDto) {
-    const user = await this.userCommandService.create(dto);
-
+    const createdUser = await this.userCommandService.create(dto);
+    const user = await this.userQueryService.findById(createdUser.id);
     return {
       message: 'User created successfully',
-      data: this.userResponseMapper.toResponseFromDomain(user),
+      data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
 
   @Patch(':id')
+  @ClearCache([
+    'GET:/users:ROLE:*',
+    'GET:/users?*',
+    'GET:/users/cursor*',
+    'GET:/users/:id*',
+    'GET:/users/me::id',
+  ])
   async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    const user = await this.userCommandService.update(id, dto);
+    const updatedUser = await this.userCommandService.update(id, dto);
+    const user = await this.userQueryService.findById(updatedUser.id);
 
     return {
       message: 'User updated successfully',
-      data: this.userResponseMapper.toResponseFromDomain(user),
+      data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
 
   @Delete(':id')
+  @ClearCache([
+    'GET:/users:ROLE:*',
+    'GET:/users?*',
+    'GET:/users/:id*',
+    'GET:/users/cursor*',
+    'GET:/users/me::id',
+  ])
   async remove(@Param('id') id: string) {
     await this.userCommandService.remove(id);
 

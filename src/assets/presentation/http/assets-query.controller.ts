@@ -34,7 +34,7 @@ export class AssetsQueryController {
     const assets = await this.assetQueryService.findAllCursor(demoId, options);
 
     return {
-      message: 'Assets fetched successfully (Cursor)',
+      message: 'Assets fetched successfully',
       data: this.assetResponseMapper.toResponseManyFromPrisma(assets.data),
       meta: assets.meta,
     };
