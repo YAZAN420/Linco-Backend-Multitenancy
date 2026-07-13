@@ -150,4 +150,11 @@ export class CoursesCommandService {
       dto.questionCount,
     );
   }
+  async generateRandomQuizForCourse(courseId: string, questionCount: number) {
+    const course = await this.findById(courseId);
+    return await this.aiRagService.generateRandomQuiz(
+      course.title,
+      questionCount,
+    );
+  }
 }

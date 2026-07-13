@@ -7,6 +7,6 @@ export class CreateCourseQuizDto {
 
   @IsInt()
   @Min(1)
-  @Max(10)
+  @Max(3)
   questionCount!: number;
 }

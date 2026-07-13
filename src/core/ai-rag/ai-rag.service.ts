@@ -86,11 +86,17 @@ export class AiRagService {
     }
   }
 
-  async getRandomQuiz(courseName: string): Promise<AiQuizResponse> {
+  async generateRandomQuiz(
+    courseName: string,
+    questionCount: number,
+  ): Promise<AiQuizResponse> {
     try {
       const response = await lastValueFrom(
-        this.httpService.get<AiQuizResponse>(
+        this.httpService.post<AiQuizResponse>(
           `${process.env.RagBaseUrl}/courses/${courseName}/random-quiz`,
+          {
+            questionCount,
+          },
         ),
       );
       return response.data;

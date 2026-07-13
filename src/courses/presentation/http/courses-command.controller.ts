@@ -7,6 +7,7 @@ import { CoursesCommandService } from 'src/courses/application/courses-command.s
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 import { CreateCourseQuizDto } from './dto/create-course-quiz.dto';
+import { CreateCourseRandomQuizDto } from './dto/create-course-random-quiz.dto';
 
 @Controller('courses')
 export class CoursesCommandController {
@@ -80,10 +81,14 @@ export class CoursesCommandController {
     @Param('id') courseId: string,
     @Body('question') question: string,
   ) {
-    return await this.courseCommandService.askQuestionAboutCourse(
+    const data = await this.courseCommandService.askQuestionAboutCourse(
       courseId,
       question,
     );
+    return {
+      message: 'Question asked successfully',
+      data: data,
+    };
   }
 
   @Post(':id/quiz/generate')
@@ -91,6 +96,28 @@ export class CoursesCommandController {
     @Param('id') courseId: string,
     @Body() dto: CreateCourseQuizDto,
   ) {
-    return await this.courseCommandService.generateQuizForCourse(courseId, dto);
+    const data = await this.courseCommandService.generateQuizForCourse(
+      courseId,
+      dto,
+    );
+    return {
+      message: 'Quiz generated successfully',
+      data: data.quiz,
+    };
+  }
+
+  @Post(':id/random-quiz/generate')
+  async generateRandomQuiz(
+    @Param('id') courseId: string,
+    @Body() dto: CreateCourseRandomQuizDto,
+  ) {
+    const data = await this.courseCommandService.generateRandomQuizForCourse(
+      courseId,
+      dto.questionCount,
+    );
+    return {
+      message: ' Random quiz generated successfully',
+      data: data.quiz,
+    };
   }
 }
