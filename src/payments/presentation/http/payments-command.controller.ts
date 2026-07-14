@@ -19,10 +19,6 @@ import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 import { SkipThrottle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 
-interface RawBodyRequest extends Request {
-  rawBody?: Buffer;
-}
-
 @ApiTags('Payment')
 @Controller('payments')
 export class PaymentsCommandController {
@@ -79,16 +75,12 @@ export class PaymentsCommandController {
   @Post('webhook')
   async handleWebhook(
     @Headers('stripe-signature') signature: string,
-    @Req() req: RawBodyRequest,
+    @Req() req: Request,
   ) {
-    if (!req.rawBody) {
-      throw new BadRequestException('Raw body is unavailable');
-    }
+    const rawBody = req.body as Buffer;
+
     try {
-      const event = this.paymentGateway.verifyWebhookEvent(
-        req.rawBody,
-        signature,
-      );
+      const event = this.paymentGateway.verifyWebhookEvent(rawBody, signature);
 
       await this.paymentCommandService.processWebhookEvent(event);
 
