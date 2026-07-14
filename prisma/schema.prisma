@@ -18,6 +18,12 @@ enum DemoMemberRole {
   MEMBER
 }
 
+enum DepartmentMemberRole {
+  MANAGER
+  MEMBER
+}
+
+
 enum CourseVisibility {
   PUBLIC   
   PRIVATE  
@@ -137,6 +143,7 @@ model DepartmentMember {
   demoMemberId String
 
   jobTitle     JobTitle   @default(JUNIOR)
+  role DepartmentMemberRole @default(MEMBER)
   assignedAt   DateTime   @default(now())
   updatedAt  DateTime @updatedAt
 

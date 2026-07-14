@@ -1,3 +1,4 @@
+import { DepartmentMemberRole } from './enums/department-member-role.enum copy';
 import { JobTitle } from './enums/job-title.enum';
 import { DepartmentMemberProps } from './interfaces/department-member.props';
 
@@ -13,6 +14,10 @@ export class DepartmentMember {
 
   get demoMemberId(): string {
     return this.props.demoMemberId;
+  }
+
+  get role(): DepartmentMemberRole {
+    return this.props.role;
   }
 
   get jobTitle(): JobTitle {

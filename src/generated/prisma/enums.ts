@@ -26,6 +26,14 @@ export const DemoMemberRole = {
 export type DemoMemberRole = (typeof DemoMemberRole)[keyof typeof DemoMemberRole]
 
 
+export const DepartmentMemberRole = {
+  MANAGER: 'MANAGER',
+  MEMBER: 'MEMBER'
+} as const
+
+export type DepartmentMemberRole = (typeof DepartmentMemberRole)[keyof typeof DepartmentMemberRole]
+
+
 export const CourseVisibility = {
   PUBLIC: 'PUBLIC',
   PRIVATE: 'PRIVATE'

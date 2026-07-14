@@ -9,6 +9,7 @@ import { Name } from 'src/demos/domain/value-objects/name.vo';
 import { DepartmentMemberFactory } from 'src/demos/domain/factories/department-member.factory';
 import { DepartmentMemberCommandRepository } from '../ports/department-member/department-member-command.repository';
 import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
+import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum copy';
 
 @Injectable()
 export class DepartmentsCommandService {
@@ -52,6 +53,7 @@ export class DepartmentsCommandService {
     const departmentMember = this.departmentMemberFactory.createNew(
       newDepartment.id,
       input.managerId,
+      DepartmentMemberRole.MANAGER,
       JobTitle.SENIOR,
     );
 

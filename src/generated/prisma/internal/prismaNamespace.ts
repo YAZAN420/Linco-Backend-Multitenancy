@@ -2209,6 +2209,7 @@ export const DepartmentMemberScalarFieldEnum = {
   departmentId: 'departmentId',
   demoMemberId: 'demoMemberId',
   jobTitle: 'jobTitle',
+  role: 'role',
   assignedAt: 'assignedAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2580,6 +2581,20 @@ export type EnumJobTitleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'JobTitle[]'
  */
 export type ListEnumJobTitleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobTitle[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DepartmentMemberRole'
+ */
+export type EnumDepartmentMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DepartmentMemberRole'>
+    
+
+
+/**
+ * Reference to a field of type 'DepartmentMemberRole[]'
+ */
+export type ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DepartmentMemberRole[]'>
     
 
 

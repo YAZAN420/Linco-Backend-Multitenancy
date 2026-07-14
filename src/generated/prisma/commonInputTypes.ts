@@ -189,6 +189,13 @@ export type EnumJobTitleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobTitleFilter<$PrismaModel> | $Enums.JobTitle
 }
 
+export type EnumDepartmentMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentMemberRole | Prisma.EnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel> | $Enums.DepartmentMemberRole
+}
+
 export type EnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
   in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
@@ -197,6 +204,16 @@ export type EnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
+}
+
+export type EnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentMemberRole | Prisma.EnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
 }
 
 export type EnumPlanTierFilter<$PrismaModel = never> = {
@@ -594,6 +611,13 @@ export type NestedEnumJobTitleFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobTitleFilter<$PrismaModel> | $Enums.JobTitle
 }
 
+export type NestedEnumDepartmentMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentMemberRole | Prisma.EnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel> | $Enums.DepartmentMemberRole
+}
+
 export type NestedEnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.JobTitle | Prisma.EnumJobTitleFieldRefInput<$PrismaModel>
   in?: $Enums.JobTitle[] | Prisma.ListEnumJobTitleFieldRefInput<$PrismaModel>
@@ -602,6 +626,16 @@ export type NestedEnumJobTitleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumJobTitleFilter<$PrismaModel>
+}
+
+export type NestedEnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DepartmentMemberRole | Prisma.EnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DepartmentMemberRole[] | Prisma.ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
 }
 
 export type NestedEnumPlanTierFilter<$PrismaModel = never> = {
