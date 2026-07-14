@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
@@ -6,12 +6,9 @@ import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.dec
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { PageOptionsDto } from 'src/common/dtos/pagination';
 import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
-import { CachePublic } from 'src/common/decorators/cache-public.decorator';
+
 import { Role } from 'src/users/domain/enums/role.enum';
 
-import { HttpCacheInterceptor } from 'src/common/interceptors/http-cache.interceptor';
-
-@UseInterceptors(HttpCacheInterceptor)
 @Controller('users')
 export class UsersQueryController {
   constructor(
@@ -20,7 +17,6 @@ export class UsersQueryController {
   ) {}
 
   @Get()
-  @CachePublic()
   async findAll(
     @Query() pageOptionsDto: PageOptionsDto,
     @ActiveUser() activeUser: ActiveUserData,
@@ -37,7 +33,6 @@ export class UsersQueryController {
   }
 
   @Get('cursor')
-  @CachePublic()
   async findWithCursor(
     @Query() options: UsersCursorQueryDto,
     @ActiveUser() activeUser: ActiveUserData,
@@ -65,7 +60,6 @@ export class UsersQueryController {
   }
 
   @Get(':id')
-  @CachePublic()
   async findOne(
     @Param('id') id: string,
     @ActiveUser() activeUser: ActiveUserData,
