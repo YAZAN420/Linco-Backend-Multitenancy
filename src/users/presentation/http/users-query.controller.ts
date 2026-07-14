@@ -23,7 +23,10 @@ export class UsersQueryController {
     @Query() pageOptionsDto: PageOptionsDto,
     @ActiveUser() activeUser: ActiveUserData,
   ) {
-    const users = await this.userQueryService.findAll(pageOptionsDto);
+    const users = await this.userQueryService.findAll(
+      activeUser.id,
+      pageOptionsDto,
+    );
     return {
       message: 'Users fetched successfully',
       data: this.userResponseMapper.toResponseManyFromPrisma(
@@ -39,7 +42,10 @@ export class UsersQueryController {
     @Query() options: UsersCursorQueryDto,
     @ActiveUser() activeUser: ActiveUserData,
   ) {
-    const users = await this.userQueryService.findAllCursor(options);
+    const users = await this.userQueryService.findAllCursor(
+      activeUser.id,
+      options,
+    );
 
     return {
       message: 'Users fetched successfully',

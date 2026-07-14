@@ -16,6 +16,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   private buildWhereClause(
+    currentUserId: string,
     options: FindUsersQuery | FindUsersCursorQuery,
   ): Prisma.UserWhereInput {
     const { search, createdAt } = options;
@@ -24,6 +25,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     if (createdAt) {
       where.createdAt = createdAt;
     }
+    where.id = { not: currentUserId };
 
     if (search) {
       const searchString = search.trim();
@@ -46,9 +48,12 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     return where;
   }
 
-  async findAll(options: FindUsersQuery): Promise<PageDto<User>> {
+  async findAll(
+    currentUserId: string,
+    options: FindUsersQuery,
+  ): Promise<PageDto<User>> {
     const skip = (options.page - 1) * options.take;
-    const where = this.buildWhereClause(options);
+    const where = this.buildWhereClause(currentUserId, options);
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
@@ -56,7 +61,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
-      this.prisma.user.count(),
+      this.prisma.user.count({ where }),
     ]);
 
     return new PageDto(
@@ -66,10 +71,11 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
   }
 
   async findAllCursor(
+    currentUserId: string,
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
     const { cursor, take } = options;
-    const where = this.buildWhereClause(options);
+    const where = this.buildWhereClause(currentUserId, options);
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,

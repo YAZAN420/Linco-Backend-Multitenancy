@@ -6,8 +6,12 @@ import {
 import { User } from 'src/generated/prisma/client';
 
 export abstract class UserQueryRepository {
-  abstract findAll(options: FindUsersQuery): Promise<PageDto<User>>;
+  abstract findAll(
+    currentUserId: string,
+    options: FindUsersQuery,
+  ): Promise<PageDto<User>>;
   abstract findAllCursor(
+    currentUserId: string,
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>>;
   abstract findById(id: string): Promise<User | null>;

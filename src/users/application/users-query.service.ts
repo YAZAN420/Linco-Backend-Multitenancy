@@ -14,14 +14,18 @@ import { UserQueryRepository } from './ports/user-query.repository';
 export class UsersQueryService {
   constructor(private readonly userQueryRepository: UserQueryRepository) {}
 
-  async findAll(pageOptionsDto: FindUsersQuery): Promise<PageDto<User>> {
-    return this.userQueryRepository.findAll(pageOptionsDto);
+  async findAll(
+    currentUserId: string,
+    pageOptionsDto: FindUsersQuery,
+  ): Promise<PageDto<User>> {
+    return this.userQueryRepository.findAll(currentUserId, pageOptionsDto);
   }
 
   async findAllCursor(
+    currentUserId: string,
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>> {
-    return this.userQueryRepository.findAllCursor(options);
+    return this.userQueryRepository.findAllCursor(currentUserId, options);
   }
 
   async findById(id: string): Promise<User> {
