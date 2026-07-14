@@ -15,11 +15,7 @@ export function setupApp(app: INestApplication): void {
     credentials: true,
   });
   app.use(cookieParser());
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    }),
-  );
+  app.use(helmet());
 
   app.useGlobalPipes(
     new ValidationPipe({

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
@@ -15,16 +15,16 @@ export class AttachmentQueryService {
     options: FindCursorQuery,
   ): Promise<CursorPageDto<Attachment>> {
     const lesson = await this.lessonQueryRepository.findById(lessonId);
-    if (!lesson) throw new Error('Lesson not found');
+    if (!lesson) throw new NotFoundException('Lesson not found');
     return this.lessonQueryRepository.findAttachmentsCursor(lessonId, options);
   }
 
   async findById(lessonId: string, attachmentId: string): Promise<Attachment> {
     const lesson = await this.lessonQueryRepository.findById(lessonId);
-    if (!lesson) throw new Error('Lesson not found');
+    if (!lesson) throw new NotFoundException('Lesson not found');
     const attachment =
       await this.lessonQueryRepository.findAttachmentById(attachmentId);
-    if (!attachment) throw new Error('Attachment not found');
+    if (!attachment) throw new NotFoundException('Attachment not found');
     return attachment;
   }
 
