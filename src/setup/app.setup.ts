@@ -1,7 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import * as bodyParser from 'body-parser';
 
 export function setupApp(app: INestApplication): void {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -9,7 +8,6 @@ export function setupApp(app: INestApplication): void {
     .split(',')
     .map((origin) => origin.trim())
     .filter((origin) => origin.length > 0);
-  app.use('/payments/webhook', bodyParser.raw({ type: 'application/json' }));
   app.enableCors({
     origin: corsOrigins.length > 0 ? corsOrigins : !isProduction,
     credentials: true,

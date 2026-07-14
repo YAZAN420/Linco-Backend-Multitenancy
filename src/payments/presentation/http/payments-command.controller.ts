@@ -7,6 +7,7 @@ import {
   BadRequestException,
   Get,
   Query,
+  RawBodyRequest,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
@@ -75,9 +76,13 @@ export class PaymentsCommandController {
   @Post('webhook')
   async handleWebhook(
     @Headers('stripe-signature') signature: string,
-    @Req() req: Request,
+    @Req() req: RawBodyRequest<Request>,
   ) {
-    const rawBody = req.body as Buffer;
+    const rawBody = req.rawBody;
+
+    if (!rawBody) {
+      throw new BadRequestException('Raw body is unavailable');
+    }
 
     try {
       const event = this.paymentGateway.verifyWebhookEvent(rawBody, signature);
