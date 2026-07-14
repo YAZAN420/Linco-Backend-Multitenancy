@@ -13,7 +13,6 @@ import { ActiveUserData } from '../../../domain/interfaces/active-user-data.inte
 import { PolicyHandler } from '../interfaces/policy-handler.interface';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
-import { Socket } from 'socket.io';
 
 @Injectable()
 export class PoliciesGuard implements CanActivate {
@@ -39,18 +38,13 @@ export class PoliciesGuard implements CanActivate {
     if (this.cls.isActive()) {
       user = this.cls.get<ActiveUserData>(CLS_KEYS.USER);
     }
+
     if (!user) {
-      const type = context.getType<'http' | 'ws' | 'graphql'>();
-      if (type === 'ws') {
-        const client = context
-          .switchToWs()
-          .getClient<Socket & { user?: ActiveUserData }>();
-        user = client.user;
-      }
+      throw new ForbiddenException('User not authenticated');
     }
 
     const isAllowed = policyHandlers.every((handler) =>
-      this.execPolicyHandler(handler, user as ActiveUserData),
+      this.execPolicyHandler(handler, user),
     );
 
     if (!isAllowed) {
