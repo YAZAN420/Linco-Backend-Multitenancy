@@ -11,10 +11,12 @@ import { Invitation } from 'src/demos/domain/invitation';
 import { InvitationStatus } from 'src/demos/domain/enums/invitation-status.enum';
 import { DemoMemberCommandRepository } from '../ports/demo-member/demo-member-command.repository';
 import { DemoMemberFactory } from 'src/demos/domain/factories/demo-member.factory';
+import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
 
 @Injectable()
 export class InvitationsCommandService {
   constructor(
+    private readonly demoCommandRepository: DemoCommandRepository,
     private readonly invitationCommandRepository: InvitationCommandRepository,
     private readonly invitationFactory: InvitationFactory,
     private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
@@ -22,6 +24,12 @@ export class InvitationsCommandService {
   ) {}
 
   async create(input: CreateInvitationInput): Promise<Invitation> {
+    const demoExists = await this.demoCommandRepository.findById(input.demoId);
+    if (!demoExists) {
+      throw new NotFoundException(
+        `Demo with ID ${input.demoId} does not exist`,
+      );
+    }
     const existingMember =
       await this.demoMemberCommandRepository.findByDemoAndUser(
         input.demoId,
