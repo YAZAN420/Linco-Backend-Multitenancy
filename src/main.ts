@@ -30,7 +30,7 @@ async function bootstrap() {
     await app.listen(port, '0.0.0.0');
 
     logger.log(`🚀 Application is running on: https://api.lincolms.me`);
-    logger.log(`📚 Swagger documentation at: https://api.lincolms.me/docs`);
+    logger.log(`📚 Scalar documentation at: https://api.lincolms.me/docs`);
   } catch (error) {
     const trace = error instanceof Error ? error.stack : undefined;
     bootstrapLogger.error('Application failed to start', trace);
