@@ -2,7 +2,9 @@ import { Controller, Post, Patch, Delete, Body, Param } from '@nestjs/common';
 import { DepartmentMembersCommandService } from 'src/demos/application/department-member/department-members-command.service';
 import { CreateDepartmentMemberDto } from '../dto/department-member/create-department-member.dto';
 import { UpdateDepartmentMemberDto } from '../dto/department-member/update-department-member.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DepartmentMember')
 @Controller('departments/:departmentId/members')
 export class DepartmentMembersCommandController {
   constructor(

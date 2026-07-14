@@ -17,7 +17,9 @@ import { PaymentGatewayPort } from 'src/payments/application/ports/payment-gatew
 import { BuyCourseDto, SubscribeToDemoDto } from './dto/checkout.dto';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 import { SkipThrottle } from '@nestjs/throttler';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Payment')
 @Controller('payments')
 export class PaymentsCommandController {
   constructor(

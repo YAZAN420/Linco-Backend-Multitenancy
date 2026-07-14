@@ -4,7 +4,9 @@ import { ExamAttemptCommandService } from 'src/exams/application/exams-attempts-
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('ExamAttempts')
 @Controller('examAttempts')
 export class ExamsAttemptCommandController {
   constructor(

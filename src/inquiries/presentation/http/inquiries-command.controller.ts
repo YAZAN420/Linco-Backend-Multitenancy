@@ -5,7 +5,9 @@ import { UpdateInquiryDto } from './dto/update-inquiry.dto';
 import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { InquiriesCommandService } from 'src/inquiries/application/inquiries-command.service';
 import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Inquiry')
 @Controller('demo/:demoId/inquiries')
 export class InquiriesCommandController {
   constructor(

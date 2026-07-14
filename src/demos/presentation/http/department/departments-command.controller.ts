@@ -4,7 +4,9 @@ import { CreateDepartmentDto } from '../dto/department/create-department.dto';
 import { UpdateDepartmentDto } from '../dto/department/update-department.dto';
 import { DepartmentsCommandService } from 'src/demos/application/department/departments-command.service';
 import { GeminiService } from 'src/core/gemini/gemini.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Department')
 @Controller('demos/:demoId/departments')
 export class DepartmentsCommandController {
   constructor(

@@ -5,7 +5,9 @@ import {
 } from 'src/common/dtos/pagination';
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Asset')
 @Controller('demos/:demoId/assets')
 export class AssetsQueryController {
   constructor(

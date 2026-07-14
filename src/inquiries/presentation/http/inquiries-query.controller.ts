@@ -8,7 +8,9 @@ import {
 import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query.service';
 
 import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Inquiry')
 @Controller('demo/:demoId/inquiries')
 export class InquiriesQueryController {
   constructor(

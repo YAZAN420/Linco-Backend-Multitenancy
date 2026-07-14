@@ -8,7 +8,9 @@ import { PageOptionsDto } from 'src/common/dtos/pagination';
 import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
 
 import { Role } from 'src/users/domain/enums/role.enum';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('users')
 export class UsersQueryController {
   constructor(

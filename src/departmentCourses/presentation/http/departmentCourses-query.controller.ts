@@ -7,7 +7,9 @@ import {
   CursorPageOptionsDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DepartmentCourse')
 @Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesQueryController {
   constructor(

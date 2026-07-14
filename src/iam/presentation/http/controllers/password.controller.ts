@@ -5,7 +5,9 @@ import { ForgotPasswordDto } from '../dto/forgot-password.dto';
 import { ResetPasswordDto } from '../dto/reset-password.dto';
 import { ActiveUser } from '../decorators/active-user.decorator';
 import { ChangePasswordDto } from '../dto/change-password.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller('authentication')
 export class PasswordController {
   constructor(private readonly passwordService: PasswordManagementService) {}

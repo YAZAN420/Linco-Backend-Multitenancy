@@ -8,7 +8,9 @@ import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 
 import { UsersQueryService } from 'src/users/application/users-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('users')
 export class UsersCommandController {
   constructor(

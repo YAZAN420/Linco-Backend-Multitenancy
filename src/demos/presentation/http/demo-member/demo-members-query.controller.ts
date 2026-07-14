@@ -3,7 +3,9 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { DemoMemberResponseMapper } from '../mappers/demo-member-response.mapper';
 import { DemoMembersQueryService } from 'src/demos/application/demo-member/demo-members-query.service';
 import { DemoMembersQueryDto } from '../dto/demo-member/demo-members-query.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DemoMember')
 @Controller('demos/:demoId/members')
 export class DemoMembersQueryController {
   constructor(

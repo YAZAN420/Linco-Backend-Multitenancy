@@ -7,7 +7,9 @@ import { DiscussionQuestionsCommandService } from 'src/discussionQuestions/appli
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { DiscussionQuestionsQueryService } from 'src/discussionQuestions/application/discussionQuestions-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Qa-Question')
 @Controller('lessons/:lessonId/discussionQuestions')
 export class DiscussionQuestionsCommandController {
   constructor(

@@ -3,7 +3,9 @@ import { RegistrationService } from '../../../application/services/registration.
 import { Public } from '../decorators/public.decorator';
 import { VerifyEmailDto } from '../dto/verify-email.dto';
 import { ResendVerificationEmailDto } from '../dto/resend-verification-email.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller('authentication')
 export class EmailVerificationController {
   constructor(private readonly registrationService: RegistrationService) {}

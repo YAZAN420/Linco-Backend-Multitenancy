@@ -32,7 +32,9 @@ import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Verify2FADto } from '../dto/verify-2fa.dto';
 import { SignInDto } from '../dto/sign-in.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller('authentication')
 export class AuthenticationController {
   constructor(

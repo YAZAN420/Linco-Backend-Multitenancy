@@ -5,7 +5,9 @@ import { DiscussionQuestionsQueryService } from 'src/discussionQuestions/applica
 import { DiscussionQuestionResponseMapper } from './mappers/discussionQuestion-response.mapper';
 
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Qa-Question')
 @Controller('lessons/:lessonId/discussionQuestions')
 export class DiscussionQuestionsQueryController {
   constructor(

@@ -5,7 +5,9 @@ import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-p
 import { DepartmentsQueryService } from 'src/demos/application/department/departments-query.service';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Department')
 @Controller('demos/:demoId/departments')
 export class DepartmentsQueryController {
   constructor(

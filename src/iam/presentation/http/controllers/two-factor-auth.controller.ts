@@ -3,7 +3,9 @@ import { TwoFactorAuthService } from '../../../application/services/two-factor-a
 import { ActiveUser } from '../decorators/active-user.decorator';
 import type { ActiveUserData } from '../../../domain/interfaces/active-user-data.interface';
 import { TurnOn2FADto } from '../dto/turn-on-2fa.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller('authentication/2fa')
 export class TwoFactorAuthController {
   constructor(private readonly twoFactorService: TwoFactorAuthService) {}

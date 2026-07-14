@@ -4,7 +4,7 @@ import { DemosQueryController } from './presentation/http/demo/demo-query.contro
 import { DemoFactory } from './domain/factories/demo.factory';
 
 import { DemoResponseMapper } from './presentation/http/mappers/demo-response.mapper';
-import { AdminDemosQueryController } from './presentation/http/demo/admin-demo-query.controller';
+
 import { DepartmentFactory } from './domain/factories/department.factory';
 import { DepartmentResponseMapper } from './presentation/http/mappers/department-response.mapper';
 import { DepartmentsCommandController } from './presentation/http/department/departments-command.controller';
@@ -43,7 +43,6 @@ import { UsersModule } from 'src/users/users.module';
   controllers: [
     DemosCommandController,
     DemosQueryController,
-    AdminDemosQueryController,
     DepartmentsCommandController,
     DepartmentsQueryController,
     DemoMembersCommandController,

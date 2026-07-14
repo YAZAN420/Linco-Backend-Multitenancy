@@ -5,7 +5,9 @@ import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { CourseFaqsQueryService } from 'src/courseFaqs/application/courseFaqs-query.service';
 
 import { CourseFaqResponseMapper } from './mappers/courseFaq-response.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('CourseFaq')
 @Controller('courses/:courseId/courseFaqs')
 export class CourseFaqsQueryController {
   constructor(

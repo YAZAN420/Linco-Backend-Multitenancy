@@ -5,7 +5,9 @@ import { InvitationResponseMapper } from '../mappers/invitation-response.mapper'
 import { CreateInvitationDto } from '../dto/invitation/create-invitation.dto';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Invitation')
 @Controller('invitations')
 export class InvitationsCommandController {
   constructor(

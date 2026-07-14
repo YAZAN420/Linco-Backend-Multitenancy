@@ -2,7 +2,9 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SectionResponseMapper } from './mappers/section-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Section')
 @Controller('courses/:courseId/sections')
 export class SectionsQueryController {
   constructor(

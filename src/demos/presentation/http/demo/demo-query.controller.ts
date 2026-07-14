@@ -6,7 +6,9 @@ import { DemosQueryService } from 'src/demos/application/demo/demos-query.servic
 import { DemoResponseMapper } from '../mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Demo')
 @Controller('demos')
 export class DemosQueryController {
   constructor(

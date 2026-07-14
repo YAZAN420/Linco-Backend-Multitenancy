@@ -3,7 +3,9 @@ import { SectionsCommandService } from 'src/courses/application/sections-command
 import { SectionResponseMapper } from './mappers/section-response.mapper';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Section')
 @Controller('courses/:courseId/sections')
 export class SectionsCommandController {
   constructor(

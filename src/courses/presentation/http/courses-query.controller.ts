@@ -7,7 +7,9 @@ import {
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 
 import { CourseResponseMapper } from './mappers/course-response.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Course')
 @Controller('courses')
 export class CoursesQueryController {
   constructor(

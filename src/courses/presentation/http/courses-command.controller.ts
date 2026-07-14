@@ -8,7 +8,9 @@ import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 import { CreateCourseQuizDto } from './dto/create-course-quiz.dto';
 import { CreateCourseRandomQuizDto } from './dto/create-course-random-quiz.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Course')
 @Controller('courses')
 export class CoursesCommandController {
   constructor(

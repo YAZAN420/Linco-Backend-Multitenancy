@@ -3,7 +3,9 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 import { AssetsCommandService } from 'src/assets/application/assets-command.service';
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Asset')
 @Controller('demos/:demoId/assets')
 export class AssetsCommandController {
   constructor(

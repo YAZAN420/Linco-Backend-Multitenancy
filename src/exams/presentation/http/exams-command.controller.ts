@@ -4,7 +4,9 @@ import { UpdateExamDto } from './dto/update-exam.dto';
 
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
 import { ExamsCommandService } from 'src/exams/application/exams-command.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Exam')
 @Controller('sections/:sectionId/exams')
 export class ExamsCommandController {
   constructor(

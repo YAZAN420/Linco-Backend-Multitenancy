@@ -7,7 +7,9 @@ import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.dec
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { DemosCommandService } from 'src/demos/application/demo/demos-command.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Demo')
 @Controller('demos')
 export class DemosCommandController {
   constructor(

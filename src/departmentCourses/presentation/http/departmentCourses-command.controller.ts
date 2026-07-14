@@ -4,7 +4,9 @@ import { CreateDepartmentCourseDto } from './dto/create-departmentCourse.dto';
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
 import { DepartmentCoursesCommandService } from 'src/departmentCourses/application/departmentCourses-command.service';
 import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DepartmentCourse')
 @Controller('department/:departmentId/departmentCourses')
 export class DepartmentCoursesCommandController {
   constructor(

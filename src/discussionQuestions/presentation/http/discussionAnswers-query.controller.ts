@@ -2,7 +2,9 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { DiscussionAnswersQueryService } from 'src/discussionQuestions/application/discussionAnswers-query.service';
 import { DiscussionAnswerResponseMapper } from './mappers/discussionAnswer-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Qa-Answer')
 @Controller('discussionQuestions/:discussionQuestionId/answers')
 export class DiscussionAnswersQueryController {
   constructor(

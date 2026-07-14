@@ -14,7 +14,9 @@ import { UpdateAttachmentDto } from './dto/update-attachment.dto';
 import { AttachmentCommandService } from 'src/lessons/application/attachment-command.service';
 import { AttachmentResponseMapper } from './mappers/attachment-response.mapper';
 import { GenerateMultipleUploadUrlsDto } from 'src/common/dtos/generate-upload-url.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('ِAttachment')
 @Controller('lessons/:lessonId/attachments')
 export class AttachmentsCommandController {
   constructor(

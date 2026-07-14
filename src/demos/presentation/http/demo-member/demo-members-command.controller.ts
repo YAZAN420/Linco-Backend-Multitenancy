@@ -2,7 +2,9 @@ import { Controller, Patch, Delete, Body, Param } from '@nestjs/common';
 
 import { UpdateDemoMemberDto } from '../dto/demo-member/update-demo-member.dto';
 import { DemoMembersCommandService } from 'src/demos/application/demo-member/demo-members-command.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DemoMember')
 @Controller('demos/:demoId/members')
 export class DemoMembersCommandController {
   constructor(

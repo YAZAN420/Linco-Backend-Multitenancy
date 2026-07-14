@@ -2,7 +2,9 @@ import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
 import { CreateQuestionBankDto } from './dto/create-questionsBank.dto';
 import { QuestionsBankResponseMapper } from './mappers/questionBank-response.mapper';
 import { QuestionsBanksCommandService } from 'src/questionBanks/application/questionsBank-command.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('QuestionsBank')
 @Controller('sections/:sectionId/questionsBank')
 export class QuestionsBanksCommandController {
   constructor(

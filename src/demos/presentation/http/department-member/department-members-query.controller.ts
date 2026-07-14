@@ -2,7 +2,9 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DepartmentMembersQueryService } from 'src/demos/application/department-member/department-members-query.service';
 import { DepartmentMemberResponseMapper } from '../mappers/department-member-response.mapper copy';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DepartmentMember')
 @Controller('departments/:departmentId/members')
 export class DepartmentMembersQueryController {
   constructor(

@@ -4,7 +4,9 @@ import { CreateCourseFaqDto } from './dto/create-courseFaq.dto';
 import { CourseFaqResponseMapper } from './mappers/courseFaq-response.mapper';
 import { CourseFaqsCommandService } from 'src/courseFaqs/application/courseFaqs-command.service';
 import { CourseFaqsQueryService } from 'src/courseFaqs/application/courseFaqs-query.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('CourseFaq')
 @Controller('courses/:courseId/courseFaqs')
 export class CourseFaqsCommandController {
   constructor(

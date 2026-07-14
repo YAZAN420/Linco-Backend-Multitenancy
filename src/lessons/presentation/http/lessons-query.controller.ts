@@ -11,7 +11,9 @@ import { LessonsQueryService } from 'src/lessons/application/lessons-query.servi
 import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Lesson')
 @Controller('sections/:sectionId/lessons')
 export class LessonsQueryController {
   constructor(

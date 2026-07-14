@@ -8,7 +8,9 @@ import {
 import { PaymentsQueryService } from 'src/payments/application/payments-query.service';
 
 import { PaymentResponseMapper } from './mappers/payment-response.mapper';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Payment')
 @Controller('payments')
 export class PaymentsQueryController {
   constructor(

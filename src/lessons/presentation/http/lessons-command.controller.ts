@@ -14,7 +14,9 @@ import { LessonResponseMapper } from './mappers/lesson-response.mapper';
 import { LessonsCommandService } from 'src/lessons/application/lessons-command.service';
 import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Lesson')
 @Controller('sections/:sectionId/lessons')
 export class LessonsCommandController {
   constructor(
