@@ -7,6 +7,7 @@ import jwtConfig from 'src/common/config/jwt.config';
 import { IamApplicationModule } from './application/application.module';
 import { IamPresentationModule } from './presentation/presentation.module';
 import { CaslModule } from './infrastructure/authorization/casl/casl.module';
+import { AuthorizationModule } from './infrastructure/authorization/authorization.module';
 
 @Global()
 @Module({
@@ -25,9 +26,10 @@ import { CaslModule } from './infrastructure/authorization/casl/casl.module';
       inject: [jwtConfig.KEY],
     }),
     CaslModule,
+    AuthorizationModule,
     IamApplicationModule,
     IamPresentationModule,
   ],
-  exports: [IamApplicationModule, CaslModule, JwtModule],
+  exports: [IamApplicationModule, CaslModule, AuthorizationModule, JwtModule],
 })
 export class IamModule {}

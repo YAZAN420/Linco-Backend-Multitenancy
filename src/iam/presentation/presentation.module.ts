@@ -18,6 +18,8 @@ import { EmailVerificationController } from './http/controllers/email-verificati
 
 import { AccessTokenGuard } from './http/guards/access-token.guard';
 import { RolesGuard } from './http/guards/roles.guard';
+import { DemoRolesGuard } from './http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from './http/guards/department-roles.guard';
 import { AuthCookieService } from './http/services/auth-cookie.service';
 
 @Module({
@@ -38,6 +40,8 @@ import { AuthCookieService } from './http/services/auth-cookie.service';
     LocalStrategy,
     GoogleStrategy,
     AuthCookieService,
+    DemoRolesGuard,
+    DepartmentRolesGuard,
     { provide: APP_GUARD, useClass: AccessTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],

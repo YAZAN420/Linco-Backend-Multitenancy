@@ -27,12 +27,29 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: jwtConfiguration.secret!,
       issuer: jwtConfiguration.issuer,
       audience: jwtConfiguration.audience,
+      passReqToCallback: true,
     });
   }
 
-  validate(payload: ActiveUserData) {
+  validate(req: JwtRequest, payload: ActiveUserData) {
     if (this.cls.isActive()) {
       this.cls.set(CLS_KEYS.USER, payload);
+
+      const demoId = req.headers['x-demo-id'];
+      if (demoId) {
+        this.cls.set(
+          CLS_KEYS.DEMO_ID,
+          Array.isArray(demoId) ? demoId[0] : demoId,
+        );
+      }
+
+      const departmentId = req.headers['x-department-id'];
+      if (departmentId) {
+        this.cls.set(
+          CLS_KEYS.DEPARTMENT_ID,
+          Array.isArray(departmentId) ? departmentId[0] : departmentId,
+        );
+      }
     }
     return payload;
   }
