@@ -1,40 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Inquiry } from 'src/generated/prisma/client';
 
-import {
-  FindInquiriesCursorQuery,
-  FindInquiriesQuery,
-} from 'src/inquiries/application/interfaces/find-inquiries.query';
+import { FindInquiriesCursorQuery } from 'src/inquiries/application/interfaces/find-inquiries.query';
 import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
 
 @Injectable()
 export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(options: FindInquiriesQuery): Promise<PageDto<Inquiry>> {
-    const skip = (options.page - 1) * options.take;
-
-    const [items, itemCount] = await Promise.all([
-      this.prisma.inquiry.findMany({
-        skip,
-        take: options.take,
-        orderBy: [{ createdAt: 'desc' }],
-      }),
-      this.prisma.inquiry.count(),
-    ]);
-
-    return new PageDto(
-      items,
-      new PageMetaDto({ itemCount, pageOptionsDto: options }),
-    );
-  }
-
   async findAllCursor(
+    demoId: string,
     options: FindInquiriesCursorQuery,
   ): Promise<CursorPageDto<Inquiry>> {
     const { cursor, take } = options;
@@ -44,6 +22,9 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      where: {
+        demoId,
+      },
     });
 
     const hasNextPage = items.length > take;

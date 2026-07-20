@@ -1,12 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import {
-  FindInquiriesCursorQuery,
-  FindInquiriesQuery,
-} from './interfaces/find-inquiries.query';
+import { FindInquiriesCursorQuery } from './interfaces/find-inquiries.query';
 import { Inquiry } from 'src/generated/prisma/client';
 import { InquiryQueryRepository } from './ports/inquiry-query.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
@@ -18,17 +14,6 @@ export class InquiriesQueryService {
     private readonly demoQueryRepository: DemoQueryRepository,
   ) {}
 
-  async findAll(
-    pageOptionsDto: FindInquiriesQuery,
-    demoId: string,
-  ): Promise<PageDto<Inquiry>> {
-    const demo = await this.demoQueryRepository.findById(demoId);
-    if (!demo) {
-      throw new NotFoundException(`Demo with ID ${demoId} not found`);
-    }
-    return this.inquiryQueryRepository.findAll(pageOptionsDto);
-  }
-
   async findAllCursor(
     options: FindInquiriesCursorQuery,
     demoId: string,
@@ -37,7 +22,7 @@ export class InquiriesQueryService {
     if (!demo) {
       throw new NotFoundException(`Demo with ID ${demoId} not found`);
     }
-    return this.inquiryQueryRepository.findAllCursor(options);
+    return this.inquiryQueryRepository.findAllCursor(demo.id, options);
   }
 
   async findById(id: string, demoId: string): Promise<Inquiry> {

@@ -15,13 +15,17 @@ export class InquiriesCommandService {
     private readonly inquiryFactory: InquiryFactory,
   ) {}
 
-  async create(input: CreateInquiryInput, demoId: string): Promise<Inquiry> {
+  async create(
+    input: CreateInquiryInput,
+    demoId: string,
+    userId: string,
+  ): Promise<Inquiry> {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 
     const inquiry = this.inquiryFactory.createNew(
       input.subject,
-      input.creatorId,
+      userId,
       demoId,
     );
     await this.inquiryCommandRepository.save(inquiry);
@@ -37,9 +41,6 @@ export class InquiriesCommandService {
 
     if (input.subject !== undefined) {
       inquiry.updateSubject(input.subject);
-    }
-    if (input.creatorId !== undefined) {
-      inquiry.updateCreatorId(input.creatorId);
     }
     if (input.status !== undefined) {
       inquiry.updateStatus(input.status);

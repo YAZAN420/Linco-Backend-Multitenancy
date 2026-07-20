@@ -6,6 +6,8 @@ import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { InquiriesCommandService } from 'src/inquiries/application/inquiries-command.service';
 import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query.service';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @ApiTags('Inquiry')
 @Controller('demo/:demoId/inquiries')
@@ -17,8 +19,16 @@ export class InquiriesCommandController {
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateInquiryDto, @Param('demoId') demoId: string) {
-    const createdInquiry = await this.inquiryCommandService.create(dto, demoId);
+  async create(
+    @ActiveUser() user: ActiveUserData,
+    @Body() dto: CreateInquiryDto,
+    @Param('demoId') demoId: string,
+  ) {
+    const createdInquiry = await this.inquiryCommandService.create(
+      dto,
+      demoId,
+      user.id,
+    );
     const inquiry = await this.inquiryQueryService.findById(
       createdInquiry.id,
       demoId,

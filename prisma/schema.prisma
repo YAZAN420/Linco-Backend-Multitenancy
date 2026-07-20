@@ -112,8 +112,6 @@ model User {
   ownedDemos            Demo[]                 @relation("DemoOwner")
   payments              Payment[]
   examAttempts          ExamAttempt[]
-  createdInquiries      Inquiry[] @relation("CreatedInquiries")  
-  inquiryMessages       InquiryMessage[]
 }
 
 model DemoMember {
@@ -132,6 +130,8 @@ model DemoMember {
   discussionAnswers   DiscussionAnswer[]
 
   accessibleDepartments DepartmentMember[]
+  createdInquiries      Inquiry[] 
+  inquiryMessages       InquiryMessage[]
 
   @@unique([userId, demoId])
 }
@@ -448,14 +448,14 @@ model Tag {
 }
 
 model Inquiry {
-  id            String  @id @default(cuid())
+  id            String  @id 
 
   subject       String
 
   creatorId     String
   demoId        String
 
-  creator       User    @relation("CreatedInquiries", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator       DemoMember    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   demo          Demo    @relation(fields: [demoId], references: [id], onDelete: Cascade)
 
   status        InquiryStatus @default(PENDING)
@@ -464,19 +464,24 @@ model Inquiry {
 
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@index([demoId])
+  @@index([creatorId])
 }
 
 model InquiryMessage {
-  id String @id @default(cuid())
+  id String @id 
 
   inquiryId String
   inquiry   Inquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
 
   senderId String
-  sender   User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  sender   DemoMember @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
   message String
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt     DateTime @updatedAt
+  
+  @@index([inquiryId])
 }
