@@ -1,4 +1,4 @@
-import { QuestionsBankResponseDto } from "src/questionBanks/presentation/http/dto/questionsBank-response.dto";
+import { QuestionsBankResponseDto } from 'src/questionBanks/presentation/http/dto/questionsBank-response.dto';
 
 export class RandomExamResponseDto {
   constructor(

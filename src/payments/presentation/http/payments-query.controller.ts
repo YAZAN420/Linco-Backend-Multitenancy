@@ -9,6 +9,8 @@ import { PaymentsQueryService } from 'src/payments/application/payments-query.se
 
 import { PaymentResponseMapper } from './mappers/payment-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @ApiTags('Payment')
 @Controller('payments')
@@ -29,8 +31,14 @@ export class PaymentsQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
-    const payments = await this.paymentQueryService.findAllCursor(options);
+  async findWithCursor(
+    @ActiveUser() user: ActiveUserData,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const payments = await this.paymentQueryService.findAllCursor(
+      user.id,
+      options,
+    );
 
     return {
       message: 'Payments fetched successfully ',

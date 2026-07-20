@@ -7,6 +7,7 @@ import {
   Min,
   IsOptional,
   IsBoolean,
+  IsUrl,
 } from 'class-validator';
 
 enum Environment {
@@ -50,6 +51,65 @@ class EnvironmentVariables {
 
   @IsString()
   GOOGLE_CALLBACK_URL!: string;
+
+  @IsString()
+  DATABASE_URL!: string;
+
+  @IsString()
+  RESEND_API_KEY!: string;
+
+  @IsString()
+  MAIL_FROM_ADDRESS!: string;
+
+  @IsUrl({ require_tld: false })
+  FRONTEND_URL!: string;
+
+  @IsString()
+  AZURE_STORAGE_ACCOUNT_NAME!: string;
+
+  @IsString()
+  AZURE_STORAGE_ACCOUNT_KEY!: string;
+
+  @IsString()
+  AZURE_STORAGE_CONTAINER_NAME!: string;
+
+  @IsUrl({ require_tld: false })
+  @IsOptional()
+  AZURE_STORAGE_CDN_ENDPOINT?: string;
+
+  @IsString()
+  STRIPE_SECRET_KEY!: string;
+
+  @IsString()
+  STRIPE_WEBHOOK_SECRET!: string;
+
+  @IsString()
+  STRIPE_STARTER_PRICE_ID!: string;
+
+  @IsString()
+  STRIPE_PRO_PRICE_ID!: string;
+
+  @IsString()
+  STRIPE_ENTERPRISE_PRICE_ID!: string;
+
+  @IsString()
+  GEMINI_API_KEY!: string;
+
+  @IsUrl({ require_tld: false })
+  RagBaseUrl!: string;
+
+  @IsString()
+  JITSI_APP_ID!: string;
+
+  @IsString()
+  JITSI_KEY_ID!: string;
+
+  @IsString()
+  JITSI_PRIVATE_KEY!: string;
+
+  @IsString()
+  @IsOptional()
+  CORS_ORIGINS?: string;
 
   @IsString()
   @IsOptional()
