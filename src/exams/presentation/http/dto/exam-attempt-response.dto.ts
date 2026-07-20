@@ -1,5 +1,3 @@
-import { QuestionsBankResponseDto } from "src/questionBanks/presentation/http/dto/questionsBank-response.dto";
-
 export class ExamAttemptResponseDto {
   constructor(
     readonly id: string,
