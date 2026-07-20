@@ -1,42 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { InquiryMessage } from 'src/generated/prisma/client';
 
-import {
-  FindInquiryMessagesCursorQuery,
-  FindInquiryMessagesQuery,
-} from 'src/inquiryMessages/application/interfaces/find-inquiryMessages.query';
+import { FindInquiryMessagesCursorQuery } from 'src/inquiryMessages/application/interfaces/find-inquiryMessages.query';
 import { InquiryMessageQueryRepository } from 'src/inquiryMessages/application/ports/inquiryMessage-query.repository';
 
 @Injectable()
 export class PrismaInquiryMessageQueryRepository implements InquiryMessageQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(
-    options: FindInquiryMessagesQuery,
-  ): Promise<PageDto<InquiryMessage>> {
-    const skip = (options.page - 1) * options.take;
-
-    const [items, itemCount] = await Promise.all([
-      this.prisma.inquiryMessage.findMany({
-        skip,
-        take: options.take,
-        orderBy: [{ createdAt: 'desc' }],
-      }),
-      this.prisma.inquiryMessage.count(),
-    ]);
-
-    return new PageDto(
-      items,
-      new PageMetaDto({ itemCount, pageOptionsDto: options }),
-    );
-  }
-
   async findAllCursor(
+    inquiryId: string,
     options: FindInquiryMessagesCursorQuery,
   ): Promise<CursorPageDto<InquiryMessage>> {
     const { cursor, take } = options;
@@ -46,6 +22,7 @@ export class PrismaInquiryMessageQueryRepository implements InquiryMessageQueryR
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      where: { inquiryId },
     });
 
     const hasNextPage = items.length > take;

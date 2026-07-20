@@ -6,12 +6,14 @@ import { Inquiry } from '../domain/inquiry';
 import { CreateInquiryInput } from './interfaces/create-inquiry-input.interface';
 import { UpdateInquiryInput } from './interfaces/update-inquiry-input.interface';
 import { DemoCommandRepository } from 'src/demos/application/ports/demo/demo-command.repository';
+import { DemoMemberCommandRepository } from 'src/demos/application/ports/demo-member/demo-member-command.repository';
 
 @Injectable()
 export class InquiriesCommandService {
   constructor(
     private readonly demoCommandRepository: DemoCommandRepository,
     private readonly inquiryCommandRepository: InquiryCommandRepository,
+    private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
     private readonly inquiryFactory: InquiryFactory,
   ) {}
 
@@ -23,9 +25,15 @@ export class InquiriesCommandService {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) throw new NotFoundException('Demo not found');
 
+    const demoMember = await this.demoMemberCommandRepository.findByDemoAndUser(
+      demoId,
+      userId,
+    );
+    if (!demoMember) throw new NotFoundException('DemoMemberNotFound');
+
     const inquiry = this.inquiryFactory.createNew(
       input.subject,
-      userId,
+      demoMember.id,
       demoId,
     );
     await this.inquiryCommandRepository.save(inquiry);

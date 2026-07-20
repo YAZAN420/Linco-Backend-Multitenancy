@@ -5,15 +5,5 @@ export class UpdateInquiryMessageDto implements UpdateInquiryMessageInput {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  senderId!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  inquiryId!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
   message!: string;
 }

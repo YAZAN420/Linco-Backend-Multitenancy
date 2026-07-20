@@ -6,17 +6,27 @@ import { InquiryMessage } from '../domain/inquiryMessage';
 import { CreateInquiryMessageInput } from './interfaces/create-inquiryMessage-input.interface';
 import { UpdateInquiryMessageInput } from './interfaces/update-inquiryMessage-input.interface';
 
+import { InquiryCommandRepository } from 'src/inquiries/application/ports/inquiry-command.repository';
+
 @Injectable()
 export class InquiryMessagesCommandService {
   constructor(
     private readonly inquiryMessageCommandRepository: InquiryMessageCommandRepository,
     private readonly inquiryMessageFactory: InquiryMessageFactory,
+    private readonly inquiryCommandRepository: InquiryCommandRepository,
   ) {}
 
-  async create(input: CreateInquiryMessageInput): Promise<InquiryMessage> {
+  async create(
+    inquiryId: string,
+    userId: string,
+    input: CreateInquiryMessageInput,
+  ): Promise<InquiryMessage> {
+    const inquiry = await this.inquiryCommandRepository.findById(inquiryId);
+    if (!inquiry) throw new NotFoundException('Inquiry Not Found');
+
     const inquiryMessage = this.inquiryMessageFactory.createNew(
-      input.senderId,
-      input.inquiryId,
+      userId,
+      inquiryId,
       input.message,
     );
     await this.inquiryMessageCommandRepository.save(inquiryMessage);
@@ -24,19 +34,14 @@ export class InquiryMessagesCommandService {
   }
 
   async update(
+    inquiryId: string,
     inquiryMessageId: string,
     input: UpdateInquiryMessageInput,
   ): Promise<InquiryMessage> {
-    console.log(input);
+    const inquiry = await this.inquiryCommandRepository.findById(inquiryId);
+    if (!inquiry) throw new NotFoundException('Inquiry Not Found');
+
     const inquiryMessage = await this.findById(inquiryMessageId);
-
-    if (input.inquiryId != undefined) {
-      inquiryMessage.updateInquiryId(input.inquiryId);
-    }
-
-    if (input.senderId != undefined) {
-      inquiryMessage.updateSenderId(input.senderId);
-    }
 
     if (input.message != undefined) {
       inquiryMessage.updateMessage(input.message);

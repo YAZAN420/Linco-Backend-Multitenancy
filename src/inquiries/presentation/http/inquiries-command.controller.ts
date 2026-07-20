@@ -10,7 +10,7 @@ import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.dec
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @ApiTags('Inquiry')
-@Controller('demo/:demoId/inquiries')
+@Controller('demos/:demoId/inquiries')
 export class InquiriesCommandController {
   constructor(
     private readonly inquiryCommandService: InquiriesCommandService,

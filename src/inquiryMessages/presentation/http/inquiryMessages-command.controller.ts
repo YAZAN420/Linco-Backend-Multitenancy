@@ -4,8 +4,10 @@ import { UpdateInquiryMessageDto } from './dto/update-inquiryMessage.dto';
 
 import { InquiryMessageResponseMapper } from './mappers/inquiryMessage-response.mapper';
 import { InquiryMessagesCommandService } from 'src/inquiryMessages/application/inquiryMessages-command.service';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
-@Controller('inquiryMessages')
+@Controller('inquiries/:inquiryId/inquiryMessages')
 export class InquiryMessagesCommandController {
   constructor(
     private readonly inquiryMessageCommandService: InquiryMessagesCommandService,
@@ -13,8 +15,16 @@ export class InquiryMessagesCommandController {
   ) {}
 
   @Post()
-  async create(@Body() dto: CreateInquiryMessageDto) {
-    const inquiryMessage = await this.inquiryMessageCommandService.create(dto);
+  async create(
+    @ActiveUser() user: ActiveUserData,
+    @Param('inquiryId') inquiryId: string,
+    @Body() dto: CreateInquiryMessageDto,
+  ) {
+    const inquiryMessage = await this.inquiryMessageCommandService.create(
+      inquiryId,
+      user.id,
+      dto,
+    );
 
     return {
       message: 'InquiryMessage created successfully',
@@ -26,10 +36,12 @@ export class InquiryMessagesCommandController {
 
   @Patch(':inquiryMessageId')
   async update(
+    @Param('inquiryId') inquiryId: string,
     @Param('inquiryMessageId') inquiryMessageId: string,
     @Body() dto: UpdateInquiryMessageDto,
   ) {
     const inquiryMessage = await this.inquiryMessageCommandService.update(
+      inquiryId,
       inquiryMessageId,
       dto,
     );
