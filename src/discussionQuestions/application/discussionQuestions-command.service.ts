@@ -21,7 +21,7 @@ export class DiscussionQuestionsCommandService {
     input: CreateDiscussionQuestionInput,
   ): Promise<DiscussionQuestion> {
     const demoMember =
-      await this.demoMemberQueryRepository.findDemoMemberByUserId(userId);
+      await this.demoMemberQueryRepository.findDemoMemberByUserId('1', userId);
     if (!demoMember) throw new NotFoundException('Not member in this demo');
 
     const discussionQuestion = this.discussionQuestionFactory.createNew(

@@ -9,10 +9,10 @@ export abstract class DemoMemberQueryRepository {
     options: FindDemoMembersCursorQuery,
   ): Promise<CursorPageDto<DemoMemberWithUser>>;
 
-  abstract findById(
-    demoId: string,
-    memberId: string,
-  ): Promise<DemoMemberWithUser | null>;
+  abstract findById(memberId: string): Promise<DemoMemberWithUser | null>;
 
-  abstract findDemoMemberByUserId(userId: string): Promise<DemoMember | null>;
+  abstract findDemoMemberByUserId(
+    demoId: string,
+    userId: string,
+  ): Promise<DemoMember | null>;
 }

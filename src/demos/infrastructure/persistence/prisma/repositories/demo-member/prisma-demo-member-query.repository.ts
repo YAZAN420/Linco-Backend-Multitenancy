@@ -72,21 +72,21 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
     );
   }
 
-  async findById(
-    demoId: string,
-    memberId: string,
-  ): Promise<DemoMemberWithUser | null> {
+  async findById(memberId: string): Promise<DemoMemberWithUser | null> {
     return this.prisma.demoMember.findFirst({
-      where: { id: memberId, demoId },
+      where: { id: memberId },
       include: {
         user: true,
       },
     });
   }
 
-  async findDemoMemberByUserId(userId: string): Promise<DemoMember | null> {
+  async findDemoMemberByUserId(
+    demoId: string,
+    userId: string,
+  ): Promise<DemoMember | null> {
     return this.prisma.demoMember.findFirst({
-      where: { userId: userId },
+      where: { demoId: demoId, userId: userId },
     });
   }
 }

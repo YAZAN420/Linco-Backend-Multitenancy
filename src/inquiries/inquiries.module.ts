@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Type } from '@nestjs/common';
+import { DynamicModule, Global, Module, Type } from '@nestjs/common';
 import { InquiriesCommandController } from './presentation/http/inquiries-command.controller';
 import { InquiriesQueryController } from './presentation/http/inquiries-query.controller';
 import { InquiryFactory } from './domain/factories/inquiry.factory';
@@ -6,6 +6,7 @@ import { InquiriesCommandService } from './application/inquiries-command.service
 import { InquiriesQueryService } from './application/inquiries-query.service';
 import { InquiryResponseMapper } from './presentation/http/mappers/inquiry-response.mapper';
 
+@Global()
 @Module({
   imports: [],
   controllers: [InquiriesCommandController, InquiriesQueryController],

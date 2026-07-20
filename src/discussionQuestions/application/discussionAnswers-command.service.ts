@@ -22,7 +22,7 @@ export class DiscussionAnswersCommandService {
     input: CreateDiscussionAnswerInput,
   ): Promise<DiscussionAnswer> {
     const demoMember =
-      await this.demoMemberQueryRepository.findDemoMemberByUserId(userId);
+      await this.demoMemberQueryRepository.findDemoMemberByUserId('', userId);
     if (!demoMember) throw new NotFoundException('Not member in this demo');
 
     const question =

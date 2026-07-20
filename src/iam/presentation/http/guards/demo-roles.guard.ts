@@ -7,17 +7,20 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
-import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
-import { AuthorizationQueryRepository } from '../../../application/ports/authorization-query.repository';
-import { DemoMemberRole } from 'src/generated/prisma/client';
+
 import { DemoRoles } from '../decorators/demo-roles.decorator';
+import { Request } from 'express';
+import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
+import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
+import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 
 @Injectable()
 export class DemoRolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
-    private readonly authorizationQueryRepository: AuthorizationQueryRepository,
+    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -26,36 +29,39 @@ export class DemoRolesGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
-    if (!requiredRoles || requiredRoles.length === 0) {
-      return true;
-    }
+    if (!requiredRoles || requiredRoles.length === 0) return true;
+    const request = context.switchToHttp().getRequest<Request>();
 
-    if (!this.cls.isActive()) {
-      throw new ForbiddenException('No active request context');
-    }
-
-    const user = this.cls.get(CLS_KEYS.USER);
-    const demoId = this.cls.get(CLS_KEYS.DEMO_ID);
-
-    if (!user) {
-      throw new ForbiddenException('User is not authenticated');
-    }
+    const demoIdRaw = request.headers['x-demo-id'];
+    const demoId = Array.isArray(demoIdRaw) ? demoIdRaw[0] : demoIdRaw;
 
     if (!demoId) {
       throw new ForbiddenException('Workspace context (x-demo-id) is missing');
     }
 
-    const userRole = await this.authorizationQueryRepository.findDemoRole(
-      user.id,
-      demoId,
-    );
+    const user = this.cls.get(CLS_KEYS.USER);
+    if (!user) throw new ForbiddenException('User is not authenticated');
 
-    if (!userRole) {
+    const demoMember =
+      await this.demoMemberQueryRepository.findDemoMemberByUserId(
+        demoId,
+        user.id,
+      );
+
+    if (!demoMember) {
       throw new ForbiddenException('User is not a member of this workspace');
     }
 
-    const hasRole = requiredRoles.includes(userRole);
-    if (!hasRole) {
+    const activeDemoMember: ActiveDemoMemberData = {
+      id: demoMember.id,
+      userId: user.id,
+      demoId: demoId,
+      role: demoMember.role as DemoMemberRole,
+    };
+
+    this.cls.set(CLS_KEYS.DEMO_MEMBER, activeDemoMember);
+
+    if (!requiredRoles.includes(activeDemoMember.role)) {
       throw new ForbiddenException('Insufficient workspace permissions');
     }
 
