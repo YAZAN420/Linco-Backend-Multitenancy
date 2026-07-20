@@ -32,11 +32,13 @@ export class PrismaPaymentQueryRepository implements PaymentQueryRepository {
   }
 
   async findAllCursor(
+    userId: string,
     options: FindCursorQuery,
   ): Promise<CursorPageDto<Payment>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.payment.findMany({
+      where: { userId },
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,

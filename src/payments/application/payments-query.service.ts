@@ -18,9 +18,10 @@ export class PaymentsQueryService {
   }
 
   async findAllCursor(
+    userId: string,
     options: FindCursorQuery,
   ): Promise<CursorPageDto<Payment>> {
-    return this.paymentQueryRepository.findAllCursor(options);
+    return this.paymentQueryRepository.findAllCursor(userId, options);
   }
 
   async findById(id: string): Promise<Payment> {
