@@ -301,7 +301,6 @@ export type UserWhereInput = {
   payments?: Prisma.PaymentListRelationFilter
   examAttempts?: Prisma.ExamAttemptListRelationFilter
   createdInquiries?: Prisma.InquiryListRelationFilter
-  receivedInquiries?: Prisma.InquiryListRelationFilter
   inquiryMessages?: Prisma.InquiryMessageListRelationFilter
 }
 
@@ -332,7 +331,6 @@ export type UserOrderByWithRelationInput = {
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   examAttempts?: Prisma.ExamAttemptOrderByRelationAggregateInput
   createdInquiries?: Prisma.InquiryOrderByRelationAggregateInput
-  receivedInquiries?: Prisma.InquiryOrderByRelationAggregateInput
   inquiryMessages?: Prisma.InquiryMessageOrderByRelationAggregateInput
 }
 
@@ -366,7 +364,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   payments?: Prisma.PaymentListRelationFilter
   examAttempts?: Prisma.ExamAttemptListRelationFilter
   createdInquiries?: Prisma.InquiryListRelationFilter
-  receivedInquiries?: Prisma.InquiryListRelationFilter
   inquiryMessages?: Prisma.InquiryMessageListRelationFilter
 }, "id" | "email" | "stripeCustomerId">
 
@@ -447,7 +444,6 @@ export type UserCreateInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -478,7 +474,6 @@ export type UserUncheckedCreateInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -509,7 +504,6 @@ export type UserUpdateInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -540,7 +534,6 @@ export type UserUncheckedUpdateInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -795,26 +788,12 @@ export type UserCreateNestedOneWithoutCreatedInquiriesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutReceivedInquiriesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedInquiriesInput, Prisma.UserUncheckedCreateWithoutReceivedInquiriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedInquiriesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
 export type UserUpdateOneRequiredWithoutCreatedInquiriesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedInquiriesInput, Prisma.UserUncheckedCreateWithoutCreatedInquiriesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedInquiriesInput
   upsert?: Prisma.UserUpsertWithoutCreatedInquiriesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedInquiriesInput, Prisma.UserUpdateWithoutCreatedInquiriesInput>, Prisma.UserUncheckedUpdateWithoutCreatedInquiriesInput>
-}
-
-export type UserUpdateOneRequiredWithoutReceivedInquiriesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedInquiriesInput, Prisma.UserUncheckedCreateWithoutReceivedInquiriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedInquiriesInput
-  upsert?: Prisma.UserUpsertWithoutReceivedInquiriesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedInquiriesInput, Prisma.UserUpdateWithoutReceivedInquiriesInput>, Prisma.UserUncheckedUpdateWithoutReceivedInquiriesInput>
 }
 
 export type UserCreateNestedOneWithoutInquiryMessagesInput = {
@@ -857,7 +836,6 @@ export type UserCreateWithoutDemoMembershipsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -887,7 +865,6 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -933,7 +910,6 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -963,7 +939,6 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -993,7 +968,6 @@ export type UserCreateWithoutOwnedDemosInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1023,7 +997,6 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1069,7 +1042,6 @@ export type UserUpdateWithoutOwnedDemosInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1099,7 +1071,6 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1129,7 +1100,6 @@ export type UserCreateWithoutExamAttemptsInput = {
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1159,7 +1129,6 @@ export type UserUncheckedCreateWithoutExamAttemptsInput = {
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1205,7 +1174,6 @@ export type UserUpdateWithoutExamAttemptsInput = {
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1235,7 +1203,6 @@ export type UserUncheckedUpdateWithoutExamAttemptsInput = {
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1265,7 +1232,6 @@ export type UserCreateWithoutReceivedInvitationsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1295,7 +1261,6 @@ export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1330,7 +1295,6 @@ export type UserCreateWithoutSentInvitationsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1360,7 +1324,6 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1406,7 +1369,6 @@ export type UserUpdateWithoutReceivedInvitationsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1436,7 +1398,6 @@ export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1477,7 +1438,6 @@ export type UserUpdateWithoutSentInvitationsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1507,7 +1467,6 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1537,7 +1496,6 @@ export type UserCreateWithoutPaymentsInput = {
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1567,7 +1525,6 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1613,7 +1570,6 @@ export type UserUpdateWithoutPaymentsInput = {
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1643,7 +1599,6 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1673,7 +1628,6 @@ export type UserCreateWithoutCreatedInquiriesInput = {
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
 }
 
@@ -1703,78 +1657,12 @@ export type UserUncheckedCreateWithoutCreatedInquiriesInput = {
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
 export type UserCreateOrConnectWithoutCreatedInquiriesInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutCreatedInquiriesInput, Prisma.UserUncheckedCreateWithoutCreatedInquiriesInput>
-}
-
-export type UserCreateWithoutReceivedInquiriesInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password?: string | null
-  birthDate?: Date | string | null
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.UserRole
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  emailVerificationExpires?: Date | string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  stripeCustomerId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
-  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
-  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
-  createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
-}
-
-export type UserUncheckedCreateWithoutReceivedInquiriesInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password?: string | null
-  birthDate?: Date | string | null
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.UserRole
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  emailVerificationExpires?: Date | string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  stripeCustomerId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
-  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
-  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
-  createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
-}
-
-export type UserCreateOrConnectWithoutReceivedInquiriesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedInquiriesInput, Prisma.UserUncheckedCreateWithoutReceivedInquiriesInput>
 }
 
 export type UserUpsertWithoutCreatedInquiriesInput = {
@@ -1814,7 +1702,6 @@ export type UserUpdateWithoutCreatedInquiriesInput = {
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
 }
 
@@ -1844,78 +1731,6 @@ export type UserUncheckedUpdateWithoutCreatedInquiriesInput = {
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
-  inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
-}
-
-export type UserUpsertWithoutReceivedInquiriesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedInquiriesInput, Prisma.UserUncheckedUpdateWithoutReceivedInquiriesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedInquiriesInput, Prisma.UserUncheckedCreateWithoutReceivedInquiriesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutReceivedInquiriesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedInquiriesInput, Prisma.UserUncheckedUpdateWithoutReceivedInquiriesInput>
-}
-
-export type UserUpdateWithoutReceivedInquiriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
-  sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
-  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
-  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
-  createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
-}
-
-export type UserUncheckedUpdateWithoutReceivedInquiriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
-  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
-  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
-  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
-  createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1946,7 +1761,6 @@ export type UserCreateWithoutInquiryMessagesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryCreateNestedManyWithoutRecipientInput
 }
 
 export type UserUncheckedCreateWithoutInquiryMessagesInput = {
@@ -1976,7 +1790,6 @@ export type UserUncheckedCreateWithoutInquiryMessagesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
-  receivedInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutRecipientInput
 }
 
 export type UserCreateOrConnectWithoutInquiryMessagesInput = {
@@ -2022,7 +1835,6 @@ export type UserUpdateWithoutInquiryMessagesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUpdateManyWithoutRecipientNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInquiryMessagesInput = {
@@ -2052,7 +1864,6 @@ export type UserUncheckedUpdateWithoutInquiryMessagesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
-  receivedInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutRecipientNestedInput
 }
 
 
@@ -2068,7 +1879,6 @@ export type UserCountOutputType = {
   payments: number
   examAttempts: number
   createdInquiries: number
-  receivedInquiries: number
   inquiryMessages: number
 }
 
@@ -2080,7 +1890,6 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
   examAttempts?: boolean | UserCountOutputTypeCountExamAttemptsArgs
   createdInquiries?: boolean | UserCountOutputTypeCountCreatedInquiriesArgs
-  receivedInquiries?: boolean | UserCountOutputTypeCountReceivedInquiriesArgs
   inquiryMessages?: boolean | UserCountOutputTypeCountInquiryMessagesArgs
 }
 
@@ -2146,13 +1955,6 @@ export type UserCountOutputTypeCountCreatedInquiriesArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountReceivedInquiriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.InquiryWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountInquiryMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.InquiryMessageWhereInput
 }
@@ -2185,7 +1987,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   examAttempts?: boolean | Prisma.User$examAttemptsArgs<ExtArgs>
   createdInquiries?: boolean | Prisma.User$createdInquiriesArgs<ExtArgs>
-  receivedInquiries?: boolean | Prisma.User$receivedInquiriesArgs<ExtArgs>
   inquiryMessages?: boolean | Prisma.User$inquiryMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -2265,7 +2066,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   examAttempts?: boolean | Prisma.User$examAttemptsArgs<ExtArgs>
   createdInquiries?: boolean | Prisma.User$createdInquiriesArgs<ExtArgs>
-  receivedInquiries?: boolean | Prisma.User$receivedInquiriesArgs<ExtArgs>
   inquiryMessages?: boolean | Prisma.User$inquiryMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -2282,7 +2082,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     examAttempts: Prisma.$ExamAttemptPayload<ExtArgs>[]
     createdInquiries: Prisma.$InquiryPayload<ExtArgs>[]
-    receivedInquiries: Prisma.$InquiryPayload<ExtArgs>[]
     inquiryMessages: Prisma.$InquiryMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2706,7 +2505,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   examAttempts<T extends Prisma.User$examAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$examAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdInquiries<T extends Prisma.User$createdInquiriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdInquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  receivedInquiries<T extends Prisma.User$receivedInquiriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedInquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inquiryMessages<T extends Prisma.User$inquiryMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inquiryMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3296,30 +3094,6 @@ export type User$examAttemptsArgs<ExtArgs extends runtime.Types.Extensions.Inter
  * User.createdInquiries
  */
 export type User$createdInquiriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Inquiry
-   */
-  select?: Prisma.InquirySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Inquiry
-   */
-  omit?: Prisma.InquiryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InquiryInclude<ExtArgs> | null
-  where?: Prisma.InquiryWhereInput
-  orderBy?: Prisma.InquiryOrderByWithRelationInput | Prisma.InquiryOrderByWithRelationInput[]
-  cursor?: Prisma.InquiryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.InquiryScalarFieldEnum | Prisma.InquiryScalarFieldEnum[]
-}
-
-/**
- * User.receivedInquiries
- */
-export type User$receivedInquiriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Inquiry
    */

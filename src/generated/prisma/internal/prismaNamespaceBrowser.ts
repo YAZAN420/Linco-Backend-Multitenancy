@@ -382,7 +382,6 @@ export const InquiryScalarFieldEnum = {
   subject: 'subject',
   creatorId: 'creatorId',
   demoId: 'demoId',
-  recipientId: 'recipientId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -396,7 +395,8 @@ export const InquiryMessageScalarFieldEnum = {
   inquiryId: 'inquiryId',
   senderId: 'senderId',
   message: 'message',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]

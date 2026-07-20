@@ -30,6 +30,7 @@ export type InquiryMessageMinAggregateOutputType = {
   senderId: string | null
   message: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type InquiryMessageMaxAggregateOutputType = {
@@ -38,6 +39,7 @@ export type InquiryMessageMaxAggregateOutputType = {
   senderId: string | null
   message: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type InquiryMessageCountAggregateOutputType = {
@@ -46,6 +48,7 @@ export type InquiryMessageCountAggregateOutputType = {
   senderId: number
   message: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +59,7 @@ export type InquiryMessageMinAggregateInputType = {
   senderId?: true
   message?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type InquiryMessageMaxAggregateInputType = {
@@ -64,6 +68,7 @@ export type InquiryMessageMaxAggregateInputType = {
   senderId?: true
   message?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type InquiryMessageCountAggregateInputType = {
@@ -72,6 +77,7 @@ export type InquiryMessageCountAggregateInputType = {
   senderId?: true
   message?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -153,6 +159,7 @@ export type InquiryMessageGroupByOutputType = {
   senderId: string
   message: string
   createdAt: Date
+  updatedAt: Date
   _count: InquiryMessageCountAggregateOutputType | null
   _min: InquiryMessageMinAggregateOutputType | null
   _max: InquiryMessageMaxAggregateOutputType | null
@@ -182,6 +189,7 @@ export type InquiryMessageWhereInput = {
   senderId?: Prisma.StringFilter<"InquiryMessage"> | string
   message?: Prisma.StringFilter<"InquiryMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
   inquiry?: Prisma.XOR<Prisma.InquiryScalarRelationFilter, Prisma.InquiryWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -192,6 +200,7 @@ export type InquiryMessageOrderByWithRelationInput = {
   senderId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   inquiry?: Prisma.InquiryOrderByWithRelationInput
   sender?: Prisma.UserOrderByWithRelationInput
 }
@@ -205,6 +214,7 @@ export type InquiryMessageWhereUniqueInput = Prisma.AtLeast<{
   senderId?: Prisma.StringFilter<"InquiryMessage"> | string
   message?: Prisma.StringFilter<"InquiryMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
   inquiry?: Prisma.XOR<Prisma.InquiryScalarRelationFilter, Prisma.InquiryWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
@@ -215,6 +225,7 @@ export type InquiryMessageOrderByWithAggregationInput = {
   senderId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.InquiryMessageCountOrderByAggregateInput
   _max?: Prisma.InquiryMessageMaxOrderByAggregateInput
   _min?: Prisma.InquiryMessageMinOrderByAggregateInput
@@ -229,12 +240,14 @@ export type InquiryMessageScalarWhereWithAggregatesInput = {
   senderId?: Prisma.StringWithAggregatesFilter<"InquiryMessage"> | string
   message?: Prisma.StringWithAggregatesFilter<"InquiryMessage"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InquiryMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"InquiryMessage"> | Date | string
 }
 
 export type InquiryMessageCreateInput = {
   id?: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   inquiry: Prisma.InquiryCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutInquiryMessagesInput
 }
@@ -245,12 +258,14 @@ export type InquiryMessageUncheckedCreateInput = {
   senderId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inquiry?: Prisma.InquiryUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutInquiryMessagesNestedInput
 }
@@ -261,6 +276,7 @@ export type InquiryMessageUncheckedUpdateInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageCreateManyInput = {
@@ -269,12 +285,14 @@ export type InquiryMessageCreateManyInput = {
   senderId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageUncheckedUpdateManyInput = {
@@ -283,6 +301,7 @@ export type InquiryMessageUncheckedUpdateManyInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageListRelationFilter = {
@@ -301,6 +320,7 @@ export type InquiryMessageCountOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InquiryMessageMaxOrderByAggregateInput = {
@@ -309,6 +329,7 @@ export type InquiryMessageMaxOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InquiryMessageMinOrderByAggregateInput = {
@@ -317,6 +338,7 @@ export type InquiryMessageMinOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type InquiryMessageCreateNestedManyWithoutSenderInput = {
@@ -407,6 +429,7 @@ export type InquiryMessageCreateWithoutSenderInput = {
   id?: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   inquiry: Prisma.InquiryCreateNestedOneWithoutMessagesInput
 }
 
@@ -415,6 +438,7 @@ export type InquiryMessageUncheckedCreateWithoutSenderInput = {
   inquiryId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageCreateOrConnectWithoutSenderInput = {
@@ -452,12 +476,14 @@ export type InquiryMessageScalarWhereInput = {
   senderId?: Prisma.StringFilter<"InquiryMessage"> | string
   message?: Prisma.StringFilter<"InquiryMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InquiryMessage"> | Date | string
 }
 
 export type InquiryMessageCreateWithoutInquiryInput = {
   id?: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   sender: Prisma.UserCreateNestedOneWithoutInquiryMessagesInput
 }
 
@@ -466,6 +492,7 @@ export type InquiryMessageUncheckedCreateWithoutInquiryInput = {
   senderId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageCreateOrConnectWithoutInquiryInput = {
@@ -499,12 +526,14 @@ export type InquiryMessageCreateManySenderInput = {
   inquiryId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inquiry?: Prisma.InquiryUpdateOneRequiredWithoutMessagesNestedInput
 }
 
@@ -513,6 +542,7 @@ export type InquiryMessageUncheckedUpdateWithoutSenderInput = {
   inquiryId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageUncheckedUpdateManyWithoutSenderInput = {
@@ -520,6 +550,7 @@ export type InquiryMessageUncheckedUpdateManyWithoutSenderInput = {
   inquiryId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageCreateManyInquiryInput = {
@@ -527,12 +558,14 @@ export type InquiryMessageCreateManyInquiryInput = {
   senderId: string
   message: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type InquiryMessageUpdateWithoutInquiryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sender?: Prisma.UserUpdateOneRequiredWithoutInquiryMessagesNestedInput
 }
 
@@ -541,6 +574,7 @@ export type InquiryMessageUncheckedUpdateWithoutInquiryInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InquiryMessageUncheckedUpdateManyWithoutInquiryInput = {
@@ -548,6 +582,7 @@ export type InquiryMessageUncheckedUpdateManyWithoutInquiryInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -558,6 +593,7 @@ export type InquiryMessageSelect<ExtArgs extends runtime.Types.Extensions.Intern
   senderId?: boolean
   message?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   inquiry?: boolean | Prisma.InquiryDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inquiryMessage"]>
@@ -568,6 +604,7 @@ export type InquiryMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   senderId?: boolean
   message?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   inquiry?: boolean | Prisma.InquiryDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inquiryMessage"]>
@@ -578,6 +615,7 @@ export type InquiryMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   senderId?: boolean
   message?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   inquiry?: boolean | Prisma.InquiryDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inquiryMessage"]>
@@ -588,9 +626,10 @@ export type InquiryMessageSelectScalar = {
   senderId?: boolean
   message?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type InquiryMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inquiryId" | "senderId" | "message" | "createdAt", ExtArgs["result"]["inquiryMessage"]>
+export type InquiryMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inquiryId" | "senderId" | "message" | "createdAt" | "updatedAt", ExtArgs["result"]["inquiryMessage"]>
 export type InquiryMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   inquiry?: boolean | Prisma.InquiryDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -616,6 +655,7 @@ export type $InquiryMessagePayload<ExtArgs extends runtime.Types.Extensions.Inte
     senderId: string
     message: string
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["inquiryMessage"]>
   composites: {}
 }
@@ -1046,6 +1086,7 @@ export interface InquiryMessageFieldRefs {
   readonly senderId: Prisma.FieldRef<"InquiryMessage", 'String'>
   readonly message: Prisma.FieldRef<"InquiryMessage", 'String'>
   readonly createdAt: Prisma.FieldRef<"InquiryMessage", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"InquiryMessage", 'DateTime'>
 }
     
 

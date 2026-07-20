@@ -33,6 +33,9 @@ import { InquiriesInfrastructureModule } from './inquiries/infrastructure/inquir
 import { JitsiModule } from './jitsi/jitsi.module';
 import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
 import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
+import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module';
+import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -65,6 +68,7 @@ export class AppModule {
         CourseFaqsModule.withInfrastructure(
           CourseFaqsInfrastructureModule.use(),
         ),
+        InquiryMessagesModule.withInfrastructure(InquiryMessagesInfrastructureModule.use()),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },

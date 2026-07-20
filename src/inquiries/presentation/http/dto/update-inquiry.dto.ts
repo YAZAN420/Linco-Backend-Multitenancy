@@ -11,11 +11,6 @@ export class UpdateInquiryDto implements UpdateInquiryInput {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  recipientId!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
   creatorId!: string;
 
   @IsString()

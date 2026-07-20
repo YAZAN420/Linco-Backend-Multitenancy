@@ -11,7 +11,6 @@ export class InquiryResponseMapper {
       inquiry.subject,
       inquiry.demoId,
       inquiry.creatorId,
-      inquiry.recipientId,
       inquiry.status as InquiryStatus,
       inquiry.createdAt,
       inquiry.updatedAt,

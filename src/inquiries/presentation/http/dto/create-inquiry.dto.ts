@@ -8,9 +8,5 @@ export class CreateInquiryDto implements CreateInquiryInput {
 
   @IsString()
   @IsNotEmpty()
-  recipientId!: string;
-
-  @IsString()
-  @IsNotEmpty()
   creatorId!: string;
 }

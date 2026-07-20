@@ -19,10 +19,6 @@ export class Inquiry {
     return this.props.creatorId;
   }
 
-  get recipientId(): string {
-    return this.props.recipientId;
-  }
-
   get status(): InquiryStatus {
     return this.props.status;
   }
@@ -30,12 +26,6 @@ export class Inquiry {
   updateStatus(newStatus: InquiryStatus): void {
     if (this.props.status === newStatus) return;
     this.props.status = newStatus;
-    this.touch();
-  }
-
-  updateRecipientId(newRecipientId: string): void {
-    if (this.props.recipientId === newRecipientId) return;
-    this.props.recipientId = newRecipientId;
     this.touch();
   }
 

@@ -21,7 +21,6 @@ export class InquiriesCommandService {
 
     const inquiry = this.inquiryFactory.createNew(
       input.subject,
-      input.recipientId,
       input.creatorId,
       demoId,
     );
@@ -41,9 +40,6 @@ export class InquiriesCommandService {
     }
     if (input.creatorId !== undefined) {
       inquiry.updateCreatorId(input.creatorId);
-    }
-    if (input.recipientId !== undefined) {
-      inquiry.updateRecipientId(input.recipientId);
     }
     if (input.status !== undefined) {
       inquiry.updateStatus(input.status);

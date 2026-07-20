@@ -7,7 +7,6 @@ import { InquiryStatus } from '../enums/inqurity-status.enum';
 export class InquiryFactory {
   public createNew(
     subject: string,
-    recipientId: string,
     creatorId: string,
     demoId: string,
   ): Inquiry {
@@ -16,7 +15,6 @@ export class InquiryFactory {
       subject: subject,
       demoId: demoId,
       creatorId: creatorId,
-      recipientId: recipientId,
       status: InquiryStatus.PENDING,
       createdAt: now,
       updatedAt: now,
