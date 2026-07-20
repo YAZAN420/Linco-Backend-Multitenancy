@@ -16,7 +16,9 @@ import { InquiryMessageQueryRepository } from 'src/inquiryMessages/application/p
 export class PrismaInquiryMessageQueryRepository implements InquiryMessageQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(options: FindInquiryMessagesQuery): Promise<PageDto<InquiryMessage>> {
+  async findAll(
+    options: FindInquiryMessagesQuery,
+  ): Promise<PageDto<InquiryMessage>> {
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { InquiryMessage as PrismaInquiryMessage} from 'src/generated/prisma/client';
+import type { InquiryMessage as PrismaInquiryMessage } from 'src/generated/prisma/client';
 import { InquiryMessage } from 'src/inquiryMessages/domain/inquiryMessage';
-
 
 @Injectable()
 export class PrismaInquiryMessageMapper {

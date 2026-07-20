@@ -14,24 +14,31 @@ export class InquiryMessagesCommandService {
   ) {}
 
   async create(input: CreateInquiryMessageInput): Promise<InquiryMessage> {
-    const inquiryMessage = this.inquiryMessageFactory.createNew(input.senderId, input.inquiryId, input.message);
+    const inquiryMessage = this.inquiryMessageFactory.createNew(
+      input.senderId,
+      input.inquiryId,
+      input.message,
+    );
     await this.inquiryMessageCommandRepository.save(inquiryMessage);
     return inquiryMessage;
   }
 
-  async update(inquiryMessageId: string, input: UpdateInquiryMessageInput): Promise<InquiryMessage> {
+  async update(
+    inquiryMessageId: string,
+    input: UpdateInquiryMessageInput,
+  ): Promise<InquiryMessage> {
     console.log(input);
     const inquiryMessage = await this.findById(inquiryMessageId);
 
-    if(input.inquiryId != undefined) {
+    if (input.inquiryId != undefined) {
       inquiryMessage.updateInquiryId(input.inquiryId);
     }
 
-    if(input.senderId != undefined) {
+    if (input.senderId != undefined) {
       inquiryMessage.updateSenderId(input.senderId);
     }
-    
-    if(input.message != undefined) {
+
+    if (input.message != undefined) {
       inquiryMessage.updateMessage(input.message);
     }
 
@@ -45,8 +52,10 @@ export class InquiryMessagesCommandService {
   }
 
   async findById(inquiryMessageId: string): Promise<InquiryMessage> {
-    const inquiryMessage = await this.inquiryMessageCommandRepository.findById(inquiryMessageId);
-    if (!inquiryMessage) throw new NotFoundException('inquiryMessage not found');
+    const inquiryMessage =
+      await this.inquiryMessageCommandRepository.findById(inquiryMessageId);
+    if (!inquiryMessage)
+      throw new NotFoundException('inquiryMessage not found');
     return inquiryMessage;
   }
 }

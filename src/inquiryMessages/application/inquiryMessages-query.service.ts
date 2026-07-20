@@ -12,9 +12,13 @@ import { InquiryMessageQueryRepository } from './ports/inquiryMessage-query.repo
 
 @Injectable()
 export class InquiryMessagesQueryService {
-  constructor(private readonly inquiryMessageQueryRepository: InquiryMessageQueryRepository) {}
+  constructor(
+    private readonly inquiryMessageQueryRepository: InquiryMessageQueryRepository,
+  ) {}
 
-  async findAll(pageOptionsDto: FindInquiryMessagesQuery): Promise<PageDto<InquiryMessage>> {
+  async findAll(
+    pageOptionsDto: FindInquiryMessagesQuery,
+  ): Promise<PageDto<InquiryMessage>> {
     return this.inquiryMessageQueryRepository.findAll(pageOptionsDto);
   }
 
@@ -25,8 +29,10 @@ export class InquiryMessagesQueryService {
   }
 
   async findById(id: string): Promise<InquiryMessage> {
-    const inquiryMessage = await this.inquiryMessageQueryRepository.findById(id);
-    if (!inquiryMessage) throw new NotFoundException('InquiryMessage not found');
+    const inquiryMessage =
+      await this.inquiryMessageQueryRepository.findById(id);
+    if (!inquiryMessage)
+      throw new NotFoundException('InquiryMessage not found');
     return inquiryMessage;
   }
 }

@@ -18,17 +18,27 @@ export class InquiryMessagesCommandController {
 
     return {
       message: 'InquiryMessage created successfully',
-      data: this.inquiryMessageResponseMapper.toResponseFromDomain(inquiryMessage),
+      data: this.inquiryMessageResponseMapper.toResponseFromDomain(
+        inquiryMessage,
+      ),
     };
   }
 
   @Patch(':inquiryMessageId')
-  async update(@Param('inquiryMessageId') inquiryMessageId: string, @Body() dto: UpdateInquiryMessageDto) {
-    const inquiryMessage = await this.inquiryMessageCommandService.update(inquiryMessageId, dto);
+  async update(
+    @Param('inquiryMessageId') inquiryMessageId: string,
+    @Body() dto: UpdateInquiryMessageDto,
+  ) {
+    const inquiryMessage = await this.inquiryMessageCommandService.update(
+      inquiryMessageId,
+      dto,
+    );
 
     return {
       message: 'InquiryMessage updated successfully',
-      data: this.inquiryMessageResponseMapper.toResponseFromDomain(inquiryMessage),
+      data: this.inquiryMessageResponseMapper.toResponseFromDomain(
+        inquiryMessage,
+      ),
     };
   }
 

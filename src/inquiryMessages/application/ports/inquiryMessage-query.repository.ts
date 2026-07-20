@@ -6,7 +6,9 @@ import {
 import { InquiryMessage } from 'src/generated/prisma/client';
 
 export abstract class InquiryMessageQueryRepository {
-  abstract findAll(options: FindInquiryMessagesQuery): Promise<PageDto<InquiryMessage>>;
+  abstract findAll(
+    options: FindInquiryMessagesQuery,
+  ): Promise<PageDto<InquiryMessage>>;
   abstract findAllCursor(
     options: FindInquiryMessagesCursorQuery,
   ): Promise<CursorPageDto<InquiryMessage>>;

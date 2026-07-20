@@ -7,20 +7,23 @@ import { InquiryMessagesQueryService } from './application/inquiryMessages-query
 import { InquiryMessageResponseMapper } from './presentation/http/mappers/inquiryMessage-response.mapper';
 
 @Module({
-  imports: [], 
-  controllers: [InquiryMessagesCommandController, InquiryMessagesQueryController],
+  imports: [],
+  controllers: [
+    InquiryMessagesCommandController,
+    InquiryMessagesQueryController,
+  ],
   providers: [
     InquiryMessagesCommandService,
     InquiryMessagesQueryService,
-    InquiryMessageFactory, 
-    InquiryMessageResponseMapper
-    ],
+    InquiryMessageFactory,
+    InquiryMessageResponseMapper,
+  ],
   exports: [
     InquiryMessagesCommandService,
     InquiryMessagesQueryService,
     InquiryMessageFactory,
-    InquiryMessageResponseMapper
-    ],
+    InquiryMessageResponseMapper,
+  ],
 })
 export class InquiryMessagesModule {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

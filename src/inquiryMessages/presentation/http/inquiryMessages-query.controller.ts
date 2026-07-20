@@ -18,34 +18,41 @@ export class InquiryMessagesQueryController {
 
   @Get()
   async findAll(@Query() options: PageOptionsDto) {
-    const inquiryMessages = await this.inquiryMessageQueryService.findAll(options);
+    const inquiryMessages =
+      await this.inquiryMessageQueryService.findAll(options);
     return {
       message: 'InquiryMessages fetched successfully',
-      data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(inquiryMessages.data),
+      data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(
+        inquiryMessages.data,
+      ),
       meta: inquiryMessages.meta,
     };
   }
 
   @Get('cursor')
   async findWithCursor(@Query() options: CursorPageOptionsDto) {
-    const inquiryMessages = await this.inquiryMessageQueryService.findAllCursor(options);
+    const inquiryMessages =
+      await this.inquiryMessageQueryService.findAllCursor(options);
 
     return {
       message: 'InquiryMessages fetched successfully (Cursor)',
-      data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(inquiryMessages.data),
+      data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(
+        inquiryMessages.data,
+      ),
       meta: inquiryMessages.meta,
     };
   }
 
   @Get(':inquiryMessageId')
-  async findOne(
-    @Param('inquiryMessageId') inquiryMessageId: string,
-  ) {
-    const inquiryMessage = await this.inquiryMessageQueryService.findById(inquiryMessageId);
+  async findOne(@Param('inquiryMessageId') inquiryMessageId: string) {
+    const inquiryMessage =
+      await this.inquiryMessageQueryService.findById(inquiryMessageId);
 
     return {
       message: 'InquiryMessage retrieved successfully',
-      data: this.inquiryMessageResponseMapper.toResponseFromPrisma(inquiryMessage),
+      data: this.inquiryMessageResponseMapper.toResponseFromPrisma(
+        inquiryMessage,
+      ),
     };
   }
 }

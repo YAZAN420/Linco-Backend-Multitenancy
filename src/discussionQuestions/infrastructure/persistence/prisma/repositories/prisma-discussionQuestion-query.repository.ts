@@ -15,7 +15,6 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
     options: FindDiscussionQuestionsCursorQuery,
   ): Promise<CursorPageDto<DiscussionQuestionWithDemoMember>> {
     const { cursor, take } = options;
-
     const items = await this.prisma.discussionQuestion.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,

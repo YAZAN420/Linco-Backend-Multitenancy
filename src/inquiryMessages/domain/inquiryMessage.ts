@@ -1,4 +1,3 @@
-import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
 import { InquiryMessageProps } from './interfaces/inquiryMessage.props';
 
 export class InquiryMessage {
@@ -16,11 +15,11 @@ export class InquiryMessage {
   }
 
   get message(): string {
-    return this.props.message
+    return this.props.message;
   }
 
   get senderId(): string {
-    return this.props.senderId
+    return this.props.senderId;
   }
 
   get updatedAt(): Date {
@@ -40,7 +39,7 @@ export class InquiryMessage {
   }
 
   updateMessage(newMessage: string): void {
-    if(this.props.message == newMessage) return;
+    if (this.props.message == newMessage) return;
     this.props.message = newMessage;
     this.touch();
   }

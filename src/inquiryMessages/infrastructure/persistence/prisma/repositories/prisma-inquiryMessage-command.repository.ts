@@ -25,7 +25,9 @@ export class PrismaInquiryMessageCommandRepository implements InquiryMessageComm
   }
 
   async findById(id: string): Promise<InquiryMessage | null> {
-    const inquiryMessage = await this.prisma.inquiryMessage.findUnique({ where: { id } });
+    const inquiryMessage = await this.prisma.inquiryMessage.findUnique({
+      where: { id },
+    });
     return inquiryMessage ? this.mapper.toDomain(inquiryMessage) : null;
   }
 }

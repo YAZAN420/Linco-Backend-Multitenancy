@@ -5,7 +5,9 @@ import { InquiryMessage as DomainInquiryMessage } from 'src/inquiryMessages/doma
 
 @Injectable()
 export class InquiryMessageResponseMapper {
-  toResponseFromPrisma(inquiryMessage: PrismaInquiryMessage): InquiryMessageResponseDto {
+  toResponseFromPrisma(
+    inquiryMessage: PrismaInquiryMessage,
+  ): InquiryMessageResponseDto {
     return new InquiryMessageResponseDto(
       inquiryMessage.id,
       inquiryMessage.senderId,
@@ -16,10 +18,12 @@ export class InquiryMessageResponseMapper {
     );
   }
 
-  toResponseFromDomain(inquiryMessage: DomainInquiryMessage): InquiryMessageResponseDto {
+  toResponseFromDomain(
+    inquiryMessage: DomainInquiryMessage,
+  ): InquiryMessageResponseDto {
     return new InquiryMessageResponseDto(
       inquiryMessage.id,
-      inquiryMessage.senderId, 
+      inquiryMessage.senderId,
       inquiryMessage.message,
       inquiryMessage.inquiryId,
       inquiryMessage.createdAt,
@@ -27,7 +31,11 @@ export class InquiryMessageResponseMapper {
     );
   }
 
-  toResponseManyFromPrisma(inquiryMessages: PrismaInquiryMessage[]): InquiryMessageResponseDto[] {
-    return inquiryMessages.map((inquiryMessage) => this.toResponseFromPrisma(inquiryMessage));
+  toResponseManyFromPrisma(
+    inquiryMessages: PrismaInquiryMessage[],
+  ): InquiryMessageResponseDto[] {
+    return inquiryMessages.map((inquiryMessage) =>
+      this.toResponseFromPrisma(inquiryMessage),
+    );
   }
 }
