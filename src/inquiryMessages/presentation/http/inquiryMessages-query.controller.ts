@@ -14,12 +14,17 @@ export class InquiryMessagesQueryController {
   ) {}
 
   @Get('cursor')
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
-    const inquiryMessages =
-      await this.inquiryMessageQueryService.findAllCursor(options);
+  async findWithCursor(
+    @Param('inquiryId') inquiryId: string,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const inquiryMessages = await this.inquiryMessageQueryService.findAllCursor(
+      inquiryId,
+      options,
+    );
 
     return {
-      message: 'InquiryMessages fetched successfully (Cursor)',
+      message: 'InquiryMessages fetched successfully',
       data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(
         inquiryMessages.data,
       ),
