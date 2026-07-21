@@ -1,13 +1,25 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 
 import { CreateDepartmentDto } from '../dto/department/create-department.dto';
 import { UpdateDepartmentDto } from '../dto/department/update-department.dto';
 import { DepartmentsCommandService } from 'src/demos/application/department/departments-command.service';
 import { GeminiService } from 'src/core/gemini/gemini.service';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Department')
-@Controller('demos/:demoId/departments')
+@UseGuards(DemoRolesGuard)
+@Controller('departments')
 export class DepartmentsCommandController {
   constructor(
     private readonly departmentsCommandService: DepartmentsCommandService,
@@ -16,7 +28,7 @@ export class DepartmentsCommandController {
 
   @Post()
   async addDepartment(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Body() dto: CreateDepartmentDto,
   ) {
     await this.departmentsCommandService.addDepartment(demoId, dto);
@@ -28,7 +40,7 @@ export class DepartmentsCommandController {
 
   @Patch(':departmentId')
   async updateDepartment(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('departmentId') departmentId: string,
     @Body() dto: UpdateDepartmentDto,
   ) {
@@ -45,7 +57,7 @@ export class DepartmentsCommandController {
 
   @Delete(':departmentId')
   async removeDepartment(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('departmentId') departmentId: string,
   ) {
     await this.departmentsCommandService.removeDepartment(demoId, departmentId);
@@ -56,6 +68,7 @@ export class DepartmentsCommandController {
   }
 
   @Post('generate-roadmap')
+  @UseGuards(DepartmentRolesGuard)
   async createRoadmap(@Body('title') title: string) {
     const roadmap = await this.aiRoadmapService.generateRoadmap(title);
     return {

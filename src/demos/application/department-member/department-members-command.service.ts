@@ -4,7 +4,7 @@ import { DepartmentMemberCommandRepository } from '../ports/department-member/de
 import { CreateDepartmentMemberInput } from './interfaces/create-department-member-input.interface';
 import { UpdateDepartmentMemberInput } from './interfaces/update-department-member-input.interface';
 import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
-import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum copy';
+import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 
 @Injectable()
 export class DepartmentMembersCommandService {

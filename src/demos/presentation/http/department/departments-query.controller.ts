@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { DepartmentResponseMapper } from '../mappers/department-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination/cursor/cursor-page-options.dto';
@@ -6,9 +6,13 @@ import { DepartmentsQueryService } from 'src/demos/application/department/depart
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
 
 @ApiTags('Department')
-@Controller('demos/:demoId/departments')
+@UseGuards(DemoRolesGuard)
+@Controller('/departments')
 export class DepartmentsQueryController {
   constructor(
     private readonly departmentsQueryService: DepartmentsQueryService,
@@ -17,7 +21,7 @@ export class DepartmentsQueryController {
 
   @Get()
   async findDepartments(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @ActiveUser() user: ActiveUserData,
     @Query() options: CursorPageOptionsDto,
   ) {
@@ -37,8 +41,9 @@ export class DepartmentsQueryController {
   }
 
   @Get(':deptId')
+  @UseGuards(DepartmentRolesGuard)
   async findDepartment(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('deptId') deptId: string,
     @ActiveUser() user: ActiveUserData,
   ) {

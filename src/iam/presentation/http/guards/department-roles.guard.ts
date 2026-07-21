@@ -8,18 +8,60 @@ import { Reflector } from '@nestjs/core';
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
+import { Request } from 'express';
 
-import { DepartmentMemberRole } from 'src/generated/prisma/client';
 import { DepartmentRoles } from '../decorators/department-roles.decorator';
+
+import { DepartmentMemberQueryRepository } from 'src/demos/application/ports/department-member/department-member-query.repository';
+import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
+import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
 
 @Injectable()
 export class DepartmentRolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
+    private readonly departmentMemberQueryRepository: DepartmentMemberQueryRepository,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest<Request>();
+
+    const activeDemoMember = this.cls.get(CLS_KEYS.DEMO_MEMBER);
+    if (!activeDemoMember) {
+      throw new ForbiddenException('Workspace context is missing or invalid');
+    }
+    const departmentIdRaw = request.headers['x-department-id'];
+
+    const departmentId = Array.isArray(departmentIdRaw)
+      ? departmentIdRaw[0]
+      : departmentIdRaw;
+
+    if (!activeDemoMember.demoId || !departmentId) {
+      throw new ForbiddenException(
+        'Workspace and Department context are required',
+      );
+    }
+
+    const deptMember = await this.departmentMemberQueryRepository.findById(
+      departmentId,
+      activeDemoMember.id,
+    );
+
+    if (!deptMember) {
+      throw new ForbiddenException('User is not a member of this department');
+    }
+
+    const activeDeptMember: ActiveDepartmentMemberData = {
+      id: deptMember.id,
+      userId: activeDemoMember.userId,
+      demoId: activeDemoMember.demoId,
+      departmentId: departmentId,
+      role: deptMember.role as DepartmentMemberRole,
+    };
+
+    this.cls.set(CLS_KEYS.DEPARTMENT_MEMBER, activeDeptMember);
+
     const requiredRoles = this.reflector.getAllAndOverride<
       DepartmentMemberRole[]
     >(DepartmentRoles, [context.getHandler(), context.getClass()]);
@@ -28,27 +70,10 @@ export class DepartmentRolesGuard implements CanActivate {
       return true;
     }
 
-    if (!this.cls.isActive()) {
-      throw new ForbiddenException('No active request context');
+    if (!requiredRoles.includes(activeDeptMember.role)) {
+      throw new ForbiddenException('Insufficient department permissions');
     }
 
-    const user = this.cls.get(CLS_KEYS.USER);
-    const demoId = this.cls.get(CLS_KEYS.DEMO_ID);
-    const departmentId = this.cls.get(CLS_KEYS.DEPARTMENT_ID);
-
-    if (!user) {
-      throw new ForbiddenException('User is not authenticated');
-    }
-
-    if (!demoId) {
-      throw new ForbiddenException('Workspace context (x-demo-id) is missing');
-    }
-
-    if (!departmentId) {
-      throw new ForbiddenException(
-        'Department context (x-department-id) is missing',
-      );
-    }
-    return Promise.resolve(true);
+    return true;
   }
 }

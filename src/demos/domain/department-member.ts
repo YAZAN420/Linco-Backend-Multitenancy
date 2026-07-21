@@ -1,4 +1,4 @@
-import { DepartmentMemberRole } from './enums/department-member-role.enum copy';
+import { DepartmentMemberRole } from './enums/department-member-role.enum';
 import { JobTitle } from './enums/job-title.enum';
 import { DepartmentMemberProps } from './interfaces/department-member.props';
 

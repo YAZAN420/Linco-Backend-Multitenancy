@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { DepartmentMember } from '../department-member';
 import { JobTitle } from '../enums/job-title.enum';
-import { DepartmentMemberRole } from '../enums/department-member-role.enum copy';
+import { DepartmentMemberRole } from '../enums/department-member-role.enum';
 
 @Injectable()
 export class DepartmentMemberFactory {

@@ -2,7 +2,7 @@ import { ClsStore } from 'nestjs-cls';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { CLS_KEYS } from '../constants/cls-keys.constant';
 import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
-import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface copy';
+import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
 
 export interface AppClsStore extends ClsStore {
   [CLS_KEYS.USER]?: ActiveUserData;

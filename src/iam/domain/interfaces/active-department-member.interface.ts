@@ -1,4 +1,4 @@
-import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum copy';
+import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 
 export interface ActiveDepartmentMemberData {
   id: string;

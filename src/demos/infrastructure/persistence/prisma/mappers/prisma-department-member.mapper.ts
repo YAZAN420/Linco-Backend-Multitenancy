@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DepartmentMember } from 'src/demos/domain/department-member';
-import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum copy';
+import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
 import { DepartmentMember as PrismaDepartmentMember } from 'src/generated/prisma/client';
 
