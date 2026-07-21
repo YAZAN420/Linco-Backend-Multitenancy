@@ -24,8 +24,10 @@ export class PrismaInquiryCommandRepository implements InquiryCommandRepository 
     await this.prisma.inquiry.delete({ where: { id } });
   }
 
-  async findById(id: string): Promise<Inquiry | null> {
-    const inquiry = await this.prisma.inquiry.findUnique({ where: { id } });
+  async findById(id: string, demoId: string): Promise<Inquiry | null> {
+    const inquiry = await this.prisma.inquiry.findFirst({
+      where: { id, demoId },
+    });
     return inquiry ? this.mapper.toDomain(inquiry) : null;
   }
 }

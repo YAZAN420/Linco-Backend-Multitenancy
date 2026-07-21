@@ -2,13 +2,13 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { ClsServiceManager } from 'nestjs-cls';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 
-export const ActiveUser = createParamDecorator(
-  (field: keyof ActiveUserData | undefined, _ctx: ExecutionContext) => {
+export const ActiveDemoMember = createParamDecorator(
+  (field: keyof ActiveDemoMemberData | undefined, _ctx: ExecutionContext) => {
     const cls = ClsServiceManager.getClsService<AppClsStore>();
-    const user = cls.get(CLS_KEYS.USER);
+    const member = cls.get(CLS_KEYS.DEMO_MEMBER);
 
-    return field ? user?.[field] : user;
+    return field ? member?.[field] : member;
   },
 );

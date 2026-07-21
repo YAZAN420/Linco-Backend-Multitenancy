@@ -7,5 +7,5 @@ export abstract class InquiryQueryRepository {
     demoId: string,
     options: FindInquiriesCursorQuery,
   ): Promise<CursorPageDto<Inquiry>>;
-  abstract findById(id: string): Promise<Inquiry | null>;
+  abstract findById(id: string, demoId: string): Promise<Inquiry | null>;
 }

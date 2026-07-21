@@ -38,9 +38,9 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
     );
   }
 
-  async findById(id: string): Promise<Inquiry | null> {
-    return this.prisma.inquiry.findUnique({
-      where: { id },
+  async findById(id: string, demoId: string): Promise<Inquiry | null> {
+    return this.prisma.inquiry.findFirst({
+      where: { id, demoId },
     });
   }
 }

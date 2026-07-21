@@ -18,14 +18,14 @@ export class InquiryMessagesCommandService {
 
   async create(
     inquiryId: string,
-    userId: string,
+    demoMemberId: string,
     input: CreateInquiryMessageInput,
   ): Promise<InquiryMessage> {
     const inquiry = await this.inquiryCommandRepository.findById(inquiryId);
     if (!inquiry) throw new NotFoundException('Inquiry Not Found');
 
     const inquiryMessage = this.inquiryMessageFactory.createNew(
-      userId,
+      demoMemberId,
       inquiryId,
       input.message,
     );

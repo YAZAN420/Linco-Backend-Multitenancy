@@ -33,10 +33,7 @@ export class DemoMembersQueryService {
     if (!demo) {
       throw new NotFoundException('Demo not found');
     }
-    const member = await this.demoMemberQueryRepository.findById(
-      demoId,
-      memberId,
-    );
+    const member = await this.demoMemberQueryRepository.findById(memberId);
     if (!member) {
       throw new NotFoundException('Member not found in this demo');
     }

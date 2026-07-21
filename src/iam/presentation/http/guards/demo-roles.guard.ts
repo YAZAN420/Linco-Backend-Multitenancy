@@ -7,13 +7,12 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
-
-import { DemoRoles } from '../decorators/demo-roles.decorator';
 import { Request } from 'express';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
 import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
 import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
+import { DemoRoles } from '../decorators/demo-roles.decorator';
 
 @Injectable()
 export class DemoRolesGuard implements CanActivate {
@@ -24,12 +23,6 @@ export class DemoRolesGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const requiredRoles = this.reflector.getAllAndOverride<DemoMemberRole[]>(
-      DemoRoles,
-      [context.getHandler(), context.getClass()],
-    );
-
-    if (!requiredRoles || requiredRoles.length === 0) return true;
     const request = context.switchToHttp().getRequest<Request>();
 
     const demoIdRaw = request.headers['x-demo-id'];
@@ -60,6 +53,15 @@ export class DemoRolesGuard implements CanActivate {
     };
 
     this.cls.set(CLS_KEYS.DEMO_MEMBER, activeDemoMember);
+
+    const requiredRoles = this.reflector.getAllAndOverride<DemoMemberRole[]>(
+      DemoRoles,
+      [context.getHandler(), context.getClass()],
+    );
+
+    if (!requiredRoles || requiredRoles.length === 0) {
+      return true;
+    }
 
     if (!requiredRoles.includes(activeDemoMember.role)) {
       throw new ForbiddenException('Insufficient workspace permissions');

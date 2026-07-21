@@ -36,7 +36,6 @@ import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/cour
 import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module';
 import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
 
-
 @Module({})
 export class AppModule {
   static register(): DynamicModule {
@@ -68,7 +67,9 @@ export class AppModule {
         CourseFaqsModule.withInfrastructure(
           CourseFaqsInfrastructureModule.use(),
         ),
-        InquiryMessagesModule.withInfrastructure(InquiryMessagesInfrastructureModule.use()),
+        InquiryMessagesModule.withInfrastructure(
+          InquiryMessagesInfrastructureModule.use(),
+        ),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },

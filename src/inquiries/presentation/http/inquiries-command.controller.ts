@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
 import { UpdateInquiryDto } from './dto/update-inquiry.dto';
 
@@ -6,11 +14,14 @@ import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { InquiriesCommandService } from 'src/inquiries/application/inquiries-command.service';
 import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query.service';
 import { ApiTags } from '@nestjs/swagger';
-import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Inquiry')
-@Controller('demos/:demoId/inquiries')
+@UseGuards(DemoRolesGuard)
+@Controller('inquiries')
 export class InquiriesCommandController {
   constructor(
     private readonly inquiryCommandService: InquiriesCommandService,
@@ -20,18 +31,17 @@ export class InquiriesCommandController {
 
   @Post()
   async create(
-    @ActiveUser() user: ActiveUserData,
+    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
     @Body() dto: CreateInquiryDto,
-    @Param('demoId') demoId: string,
   ) {
     const createdInquiry = await this.inquiryCommandService.create(
       dto,
-      demoId,
-      user.id,
+      demoMember.demoId,
+      demoMember.id,
     );
     const inquiry = await this.inquiryQueryService.findById(
       createdInquiry.id,
-      demoId,
+      demoMember.demoId,
     );
     return {
       message: 'Inquiry created successfully',
@@ -41,14 +51,14 @@ export class InquiriesCommandController {
 
   @Patch(':inquiryId')
   async update(
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('inquiryId') inquiryId: string,
     @Body() dto: UpdateInquiryDto,
-    @Param('demoId') demoId: string,
   ) {
     const updatedInquiry = await this.inquiryCommandService.update(
+      demoId,
       inquiryId,
       dto,
-      demoId,
     );
     const inquiry = await this.inquiryQueryService.findById(
       updatedInquiry.id,
@@ -63,10 +73,10 @@ export class InquiriesCommandController {
 
   @Delete(':inquiryId')
   async remove(
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('inquiryId') inquiryId: string,
-    @Param('demoId') demoId: string,
   ) {
-    await this.inquiryCommandService.remove(inquiryId, demoId);
+    await this.inquiryCommandService.remove(demoId, inquiryId);
 
     return {
       message: 'Inquiry deleted successfully',

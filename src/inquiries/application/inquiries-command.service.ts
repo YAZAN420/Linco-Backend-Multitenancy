@@ -5,35 +5,22 @@ import { Inquiry } from '../domain/inquiry';
 
 import { CreateInquiryInput } from './interfaces/create-inquiry-input.interface';
 import { UpdateInquiryInput } from './interfaces/update-inquiry-input.interface';
-import { DemoCommandRepository } from 'src/demos/application/ports/demo/demo-command.repository';
-import { DemoMemberCommandRepository } from 'src/demos/application/ports/demo-member/demo-member-command.repository';
 
 @Injectable()
 export class InquiriesCommandService {
   constructor(
-    private readonly demoCommandRepository: DemoCommandRepository,
     private readonly inquiryCommandRepository: InquiryCommandRepository,
-    private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
     private readonly inquiryFactory: InquiryFactory,
   ) {}
 
   async create(
     input: CreateInquiryInput,
     demoId: string,
-    userId: string,
+    demoMemberId: string,
   ): Promise<Inquiry> {
-    const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
-
-    const demoMember = await this.demoMemberCommandRepository.findByDemoAndUser(
-      demoId,
-      userId,
-    );
-    if (!demoMember) throw new NotFoundException('DemoMemberNotFound');
-
     const inquiry = this.inquiryFactory.createNew(
       input.subject,
-      demoMember.id,
+      demoMemberId,
       demoId,
     );
     await this.inquiryCommandRepository.save(inquiry);
@@ -41,9 +28,9 @@ export class InquiriesCommandService {
   }
 
   async update(
+    demoId: string,
     inquiryId: string,
     input: UpdateInquiryInput,
-    demoId: string,
   ): Promise<Inquiry> {
     const inquiry = await this.findById(inquiryId, demoId);
 
@@ -58,16 +45,16 @@ export class InquiriesCommandService {
     return inquiry;
   }
 
-  async remove(inquiryId: string, demoId: string): Promise<void> {
+  async remove(demoId: string, inquiryId: string): Promise<void> {
     await this.findById(inquiryId, demoId);
     await this.inquiryCommandRepository.delete(inquiryId);
   }
 
   async findById(inquiryId: string, demoId: string): Promise<Inquiry> {
-    const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
-
-    const inquiry = await this.inquiryCommandRepository.findById(inquiryId);
+    const inquiry = await this.inquiryCommandRepository.findById(
+      inquiryId,
+      demoId,
+    );
     if (!inquiry) throw new NotFoundException('inquiry not found');
     return inquiry;
   }

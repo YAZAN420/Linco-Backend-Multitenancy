@@ -4,8 +4,8 @@ import { UpdateInquiryMessageDto } from './dto/update-inquiryMessage.dto';
 
 import { InquiryMessageResponseMapper } from './mappers/inquiryMessage-response.mapper';
 import { InquiryMessagesCommandService } from 'src/inquiryMessages/application/inquiryMessages-command.service';
-import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 
 @Controller('inquiries/:inquiryId/inquiryMessages')
 export class InquiryMessagesCommandController {
@@ -16,13 +16,13 @@ export class InquiryMessagesCommandController {
 
   @Post()
   async create(
-    @ActiveUser() user: ActiveUserData,
+    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
     @Param('inquiryId') inquiryId: string,
     @Body() dto: CreateInquiryMessageDto,
   ) {
     const inquiryMessage = await this.inquiryMessageCommandService.create(
       inquiryId,
-      user.id,
+      demoMember.id,
       dto,
     );
 

@@ -6,9 +6,10 @@ import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query
 
 import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Inquiry')
-@Controller('demos/:demoId/inquiries')
+@Controller('inquiries')
 export class InquiriesQueryController {
   constructor(
     private readonly inquiryQueryService: InquiriesQueryService,
@@ -17,8 +18,8 @@ export class InquiriesQueryController {
 
   @Get('cursor')
   async findWithCursor(
+    @ActiveDemoMember('demoId') demoId: string,
     @Query() options: CursorPageOptionsDto,
-    @Param('demoId') demoId: string,
   ) {
     const inquiries = await this.inquiryQueryService.findAllCursor(
       options,
@@ -34,8 +35,8 @@ export class InquiriesQueryController {
 
   @Get(':inquiryId')
   async findOne(
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('inquiryId') inquiryId: string,
-    @Param('demoId') demoId: string,
   ) {
     const inquiry = await this.inquiryQueryService.findById(inquiryId, demoId);
 
