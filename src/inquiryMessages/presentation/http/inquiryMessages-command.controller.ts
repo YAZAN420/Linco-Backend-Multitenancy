@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateInquiryMessageDto } from './dto/create-inquiryMessage.dto';
 import { UpdateInquiryMessageDto } from './dto/update-inquiryMessage.dto';
 
@@ -6,7 +14,9 @@ import { InquiryMessageResponseMapper } from './mappers/inquiryMessage-response.
 import { InquiryMessagesCommandService } from 'src/inquiryMessages/application/inquiryMessages-command.service';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
+@UseGuards(DemoRolesGuard)
 @Controller('inquiries/:inquiryId/inquiryMessages')
 export class InquiryMessagesCommandController {
   constructor(

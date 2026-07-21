@@ -1,11 +1,13 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 
 import { InquiryMessagesQueryService } from 'src/inquiryMessages/application/inquiryMessages-query.service';
 
 import { InquiryMessageResponseMapper } from './mappers/inquiryMessage-response.mapper';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
+@UseGuards(DemoRolesGuard)
 @Controller('inquiries/:inquiryId/inquiryMessages')
 export class InquiryMessagesQueryController {
   constructor(

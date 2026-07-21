@@ -5,9 +5,6 @@ import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 export class CreateInvitationDto {
   @IsString()
   @IsNotEmpty()
-  demoId!: string;
-  @IsString()
-  @IsNotEmpty()
   receiverId!: string;
   @IsNotEmpty()
   @IsEnum(DemoMemberRole)

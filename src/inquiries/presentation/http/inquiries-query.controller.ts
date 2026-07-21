@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 
@@ -7,8 +7,10 @@ import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query
 import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @ApiTags('Inquiry')
+@UseGuards(DemoRolesGuard)
 @Controller('inquiries')
 export class InquiriesQueryController {
   constructor(

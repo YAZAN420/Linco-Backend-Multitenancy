@@ -1,12 +1,15 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { DemoMemberResponseMapper } from '../mappers/demo-member-response.mapper';
 import { DemoMembersQueryService } from 'src/demos/application/demo-member/demo-members-query.service';
 import { DemoMembersQueryDto } from '../dto/demo-member/demo-members-query.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @ApiTags('DemoMember')
-@Controller('demos/:demoId/members')
+@UseGuards(DemoRolesGuard)
+@Controller('/members')
 export class DemoMembersQueryController {
   constructor(
     private readonly demoMembersQueryService: DemoMembersQueryService,
@@ -15,7 +18,7 @@ export class DemoMembersQueryController {
 
   @Get()
   async findAllByDemo(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Query() options: DemoMembersQueryDto,
   ) {
     const members = await this.demoMembersQueryService.findAllByDemo(
@@ -34,7 +37,7 @@ export class DemoMembersQueryController {
 
   @Get(':memberId')
   async findMember(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('memberId') memberId: string,
   ) {
     const member = await this.demoMembersQueryService.findById(

@@ -27,7 +27,7 @@ export class DemoRolesGuard implements CanActivate {
 
     const demoIdRaw = request.headers['x-demo-id'];
     const demoId = Array.isArray(demoIdRaw) ? demoIdRaw[0] : demoIdRaw;
-
+    console.log(demoId);
     if (!demoId) {
       throw new ForbiddenException('Workspace context (x-demo-id) is missing');
     }
