@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
 
@@ -8,9 +8,14 @@ import {
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
 
 @ApiTags('DepartmentCourse')
-@Controller('department/:departmentId/departmentCourses')
+@UseGuards(DemoRolesGuard, DepartmentRolesGuard)
+@Controller('departmentCourses')
 export class DepartmentCoursesQueryController {
   constructor(
     private readonly departmentCourseQueryService: DepartmentCoursesQueryService,
@@ -19,7 +24,7 @@ export class DepartmentCoursesQueryController {
 
   @Get()
   async findAll(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Query() options: PageOptionsDto,
   ) {
     const departmentCourses = await this.departmentCourseQueryService.findAll(
@@ -37,7 +42,7 @@ export class DepartmentCoursesQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const departmentCourses =
@@ -57,7 +62,7 @@ export class DepartmentCoursesQueryController {
 
   @Get(':departmentCourseId')
   async findOne(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('departmentCourseId') departmentCourseId: string,
   ) {
     const departmentCourse = await this.departmentCourseQueryService.findById(

@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateDepartmentCourseDto } from './dto/create-departmentCourse.dto';
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
@@ -6,8 +13,13 @@ import { DepartmentCoursesCommandService } from 'src/departmentCourses/applicati
 import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
 import { ApiTags } from '@nestjs/swagger';
 
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+
 @ApiTags('DepartmentCourse')
-@Controller('department/:departmentId/departmentCourses')
+@UseGuards(DemoRolesGuard, DepartmentRolesGuard)
+@Controller('departmentCourses')
 export class DepartmentCoursesCommandController {
   constructor(
     private readonly departmentCourseCommandService: DepartmentCoursesCommandService,
@@ -17,7 +29,7 @@ export class DepartmentCoursesCommandController {
 
   @Post()
   async create(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Body() dto: CreateDepartmentCourseDto,
   ) {
     const createdDepartmentCourse =
@@ -36,7 +48,7 @@ export class DepartmentCoursesCommandController {
 
   @Delete(':departmentCourseId')
   async remove(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('departmentCourseId') departmentCourseId: string,
   ) {
     await this.departmentCourseCommandService.remove(

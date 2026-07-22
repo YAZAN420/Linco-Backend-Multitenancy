@@ -5,6 +5,7 @@ import { DepartmentMemberResponseMapper } from '../mappers/department-member-res
 import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
 
 @ApiTags('DepartmentMember')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
@@ -17,7 +18,7 @@ export class DepartmentMembersQueryController {
 
   @Get()
   async findAllByDepartment(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const members =
@@ -37,7 +38,7 @@ export class DepartmentMembersQueryController {
 
   @Get(':memberId')
   async findMember(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('memberId') memberId: string,
   ) {
     const member = await this.departmentMembersQueryService.findById(

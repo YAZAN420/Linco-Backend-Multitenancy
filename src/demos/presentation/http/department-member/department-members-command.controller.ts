@@ -13,6 +13,7 @@ import { UpdateDepartmentMemberDto } from '../dto/department-member/update-depar
 import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
 
 @ApiTags('DepartmentMember')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
@@ -24,7 +25,7 @@ export class DepartmentMembersCommandController {
 
   @Post()
   async addMember(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Body() dto: CreateDepartmentMemberDto,
   ) {
     await this.departmentMembersCommandService.addMember(departmentId, {
@@ -40,7 +41,7 @@ export class DepartmentMembersCommandController {
 
   @Patch(':memberId')
   async updateMemberRole(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('memberId') memberId: string,
     @Body() dto: UpdateDepartmentMemberDto,
   ) {
@@ -60,7 +61,7 @@ export class DepartmentMembersCommandController {
 
   @Delete(':memberId')
   async removeMember(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('memberId') memberId: string,
   ) {
     await this.departmentMembersCommandService.removeMember(
