@@ -13,7 +13,7 @@ import { UpdateInquiryMessageDto } from './dto/update-inquiryMessage.dto';
 import { InquiryMessageResponseMapper } from './mappers/inquiryMessage-response.mapper';
 import { InquiryMessagesCommandService } from 'src/inquiryMessages/application/inquiryMessages-command.service';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
-import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
+
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @UseGuards(DemoRolesGuard)
@@ -26,13 +26,13 @@ export class InquiryMessagesCommandController {
 
   @Post()
   async create(
-    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('inquiryId') inquiryId: string,
     @Body() dto: CreateInquiryMessageDto,
   ) {
     const inquiryMessage = await this.inquiryMessageCommandService.create(
       inquiryId,
-      demoMember.id,
+      demoId,
       dto,
     );
 
