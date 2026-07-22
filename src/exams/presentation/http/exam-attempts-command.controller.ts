@@ -15,8 +15,8 @@ export class ExamsAttemptCommandController {
   ) {}
 
   @Delete(':examAttemptId')
-  async remove(@Param('examAttemptId') courseId: string) {
-    await this.examAttemptCommandService.remove(courseId);
+  async remove(@Param('examAttemptId') examAttemptId: string) {
+    await this.examAttemptCommandService.remove(examAttemptId);
     return {
       message: 'Exam Attempt deleted successfully',
       data: null,
