@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
 import { ExamRandomResponseMapper } from './mappers/random-exam-response.mapper';
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
@@ -9,7 +9,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('ExamAttempts')
-@Controller('examAttempts')
+@Controller()
 export class ExamsAttemptQueryController {
   constructor(
     private readonly examAttemptQueryService: ExamAttemptQueryService,
@@ -17,7 +17,7 @@ export class ExamsAttemptQueryController {
     private readonly examRandomResponseMapper: ExamRandomResponseMapper,
   ) {}
 
-  @Get()
+  @Get("/section/:sectionId/examAttempts")
   async findAll(
     @Param('sectionId') sectionId: string,
     @Query() options: PageOptionsDto,
@@ -33,7 +33,7 @@ export class ExamsAttemptQueryController {
     };
   }
 
-  @Get('cursor')
+  @Get('/course/:courseId/examAttempts/cursor')
   async findWithCursor(
     @Param('courseId') courseId: string,
     @Query() options: CursorPageOptionsDto,
@@ -50,7 +50,7 @@ export class ExamsAttemptQueryController {
     };
   }
 
-  @Get(':examAttemptId')
+  @Get('/examAttempts/:examAttemptId')
   async findOne(@Param('examAttemptId') examAttemptId: string) {
     const exam = await this.examAttemptQueryService.findById(examAttemptId);
 
@@ -60,7 +60,7 @@ export class ExamsAttemptQueryController {
     };
   }
 
-  @Get(':examAttemptId')
+  @Get('/generateExam/:examAttemptId')
   async generateExam(@Param('examAttemptId') examAttemptId: string) {
     const exam = await this.examAttemptQueryService.generateExam(examAttemptId);
 

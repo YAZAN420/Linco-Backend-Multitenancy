@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { CreateExamAttemptDto } from './dto/create-exam-attempt.dto';
 import { ExamAttemptCommandService } from 'src/exams/application/exams-attempts-command.service';
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
-import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 
 @ApiTags('ExamAttempts')
 @Controller('examAttempts')
@@ -25,11 +25,11 @@ export class ExamsAttemptCommandController {
 
   @Post()
   async create(
-    @ActiveUser() user: ActiveUserData,
+    @ActiveDemoMember() DemoMember: ActiveDemoMemberData,
     @Body() dto: CreateExamAttemptDto,
   ) {
     const examAttempt = await this.examAttemptCommandService.create(
-      user.id,
+      DemoMember.id,
       dto,
     );
 
