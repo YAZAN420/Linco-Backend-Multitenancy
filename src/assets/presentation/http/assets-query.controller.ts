@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import {
   CursorPageOptionsDto,
   PageOptionsDto,
@@ -6,9 +6,12 @@ import {
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Asset')
-@Controller('demos/:demoId/assets')
+@UseGuards(DemoRolesGuard)
+@Controller('assets')
 export class AssetsQueryController {
   constructor(
     private readonly assetQueryService: AssetsQueryService,
@@ -17,7 +20,7 @@ export class AssetsQueryController {
 
   @Get()
   async findAll(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Query() options: PageOptionsDto,
   ) {
     const assets = await this.assetQueryService.findAll(demoId, options);
@@ -30,7 +33,7 @@ export class AssetsQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const assets = await this.assetQueryService.findAllCursor(demoId, options);
@@ -44,7 +47,7 @@ export class AssetsQueryController {
 
   @Get(':assetId')
   async findOne(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('assetId') assetId: string,
   ) {
     const asset = await this.assetQueryService.findById(demoId, assetId);

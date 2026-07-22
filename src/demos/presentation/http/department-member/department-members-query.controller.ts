@@ -1,11 +1,15 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DepartmentMembersQueryService } from 'src/demos/application/department-member/department-members-query.service';
 import { DepartmentMemberResponseMapper } from '../mappers/department-member-response.mapper copy';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
 
 @ApiTags('DepartmentMember')
-@Controller('departments/:departmentId/members')
+@UseGuards(DemoRolesGuard, DepartmentRolesGuard)
+@Controller('departmentMembers')
 export class DepartmentMembersQueryController {
   constructor(
     private readonly departmentMembersQueryService: DepartmentMembersQueryService,
@@ -14,7 +18,7 @@ export class DepartmentMembersQueryController {
 
   @Get()
   async findAllByDepartment(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const members =
@@ -34,7 +38,7 @@ export class DepartmentMembersQueryController {
 
   @Get(':memberId')
   async findMember(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Param('memberId') memberId: string,
   ) {
     const member = await this.departmentMembersQueryService.findById(

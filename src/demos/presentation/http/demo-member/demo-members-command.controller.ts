@@ -15,7 +15,7 @@ import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-de
 
 @ApiTags('DemoMember')
 @UseGuards(DemoRolesGuard)
-@Controller('/members')
+@Controller('members')
 export class DemoMembersCommandController {
   constructor(
     private readonly demoMembersCommandService: DemoMembersCommandService,
