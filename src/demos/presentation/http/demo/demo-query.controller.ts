@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DemosQueryService } from 'src/demos/application/demo/demos-query.service';
@@ -7,6 +7,7 @@ import { DemoResponseMapper } from '../mappers/demo-response.mapper';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @ApiTags('Demo')
 @Controller('demos')
@@ -31,6 +32,7 @@ export class DemosQueryController {
   }
 
   @Get(':id')
+  @UseGuards(DemoRolesGuard)
   async findOne(@ActiveUser() user: ActiveUserData, @Param('id') id: string) {
     const demo = await this.demoQueryService.findById(user.id, id);
     return {

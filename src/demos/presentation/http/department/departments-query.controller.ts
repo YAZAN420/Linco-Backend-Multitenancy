@@ -12,7 +12,7 @@ import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/departmen
 
 @ApiTags('Department')
 @UseGuards(DemoRolesGuard)
-@Controller('/departments')
+@Controller('departments')
 export class DepartmentsQueryController {
   constructor(
     private readonly departmentsQueryService: DepartmentsQueryService,

@@ -1,12 +1,22 @@
-import { Controller, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetResponseMapper } from './mappers/asset-response.mapper';
 import { AssetsCommandService } from 'src/assets/application/assets-command.service';
 import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Asset')
-@Controller('demos/:demoId/assets')
+@UseGuards(DemoRolesGuard)
+@Controller('assets')
 export class AssetsCommandController {
   constructor(
     private readonly assetCommandService: AssetsCommandService,
@@ -16,7 +26,7 @@ export class AssetsCommandController {
 
   @Patch(':assetId')
   async update(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('assetId') assetId: string,
     @Body() dto: UpdateAssetDto,
   ) {
@@ -37,7 +47,7 @@ export class AssetsCommandController {
 
   @Delete(':assetId')
   async remove(
-    @Param('demoId') demoId: string,
+    @ActiveDemoMember('demoId') demoId: string,
     @Param('assetId') assetId: string,
   ) {
     await this.assetCommandService.remove(demoId, assetId);

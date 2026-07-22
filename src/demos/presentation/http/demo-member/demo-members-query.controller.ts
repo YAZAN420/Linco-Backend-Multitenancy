@@ -9,7 +9,7 @@ import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guar
 
 @ApiTags('DemoMember')
 @UseGuards(DemoRolesGuard)
-@Controller('/members')
+@Controller('members')
 export class DemoMembersQueryController {
   constructor(
     private readonly demoMembersQueryService: DemoMembersQueryService,

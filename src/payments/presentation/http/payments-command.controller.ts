@@ -8,6 +8,7 @@ import {
   Get,
   Query,
   RawBodyRequest,
+  UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
@@ -19,6 +20,8 @@ import { BuyCourseDto, SubscribeToDemoDto } from './dto/checkout.dto';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 import { SkipThrottle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Payment')
 @Controller('payments')
@@ -28,16 +31,18 @@ export class PaymentsCommandController {
     private readonly paymentGateway: PaymentGatewayPort,
   ) {}
 
+  @UseGuards(DemoRolesGuard)
   @Post('checkout/demo')
   async subscribeToDemo(
     @ActiveUser() user: ActiveUserData,
+    @ActiveDemoMember('demoId') demoId: string,
     @Body() body: SubscribeToDemoDto,
   ) {
     const userId = user.id;
 
     const url = await this.paymentCommandService.initiateDemoSubscription(
       userId,
-      body.demoId,
+      demoId,
       user.email,
       body.plan,
     );
@@ -45,17 +50,17 @@ export class PaymentsCommandController {
     return { url };
   }
 
+  @UseGuards(DemoRolesGuard)
   @Post('checkout/course')
   async buyCourse(
     @ActiveUser() user: ActiveUserData,
+    @ActiveDemoMember('demoId') demoId: string,
     @Body() body: BuyCourseDto,
   ) {
-    const userId = user.id;
-
     const url = await this.paymentCommandService.initiateCoursePurchase(
-      userId,
+      user.id,
       body.courseId,
-      body.demoId,
+      demoId,
       user.email,
     );
 

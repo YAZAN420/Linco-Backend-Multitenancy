@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateDemoDto } from '../dto/demo/create-demo.dto';
 import { UpdateDemoDto } from '../dto/demo/update-demo.dto';
 
@@ -8,6 +16,7 @@ import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.inter
 import { GenerateUploadUrlDto } from 'src/common/dtos/generate-upload-url.dto';
 import { DemosCommandService } from 'src/demos/application/demo/demos-command.service';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @ApiTags('Demo')
 @Controller('demos')
@@ -38,6 +47,7 @@ export class DemosCommandController {
   }
 
   @Patch(':id')
+  @UseGuards(DemoRolesGuard)
   async update(@Param('id') id: string, @Body() dto: UpdateDemoDto) {
     const demo = await this.demoCommandService.update(id, { name: dto.name });
 
@@ -48,6 +58,7 @@ export class DemosCommandController {
   }
 
   @Delete(':id')
+  @UseGuards(DemoRolesGuard)
   async remove(@Param('id') id: string) {
     await this.demoCommandService.remove(id);
 
