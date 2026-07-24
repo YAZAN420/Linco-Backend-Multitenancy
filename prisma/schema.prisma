@@ -413,8 +413,8 @@ model Invitation {
   receiver User @relation("ReceivedInvitations", fields: [receiverId], references: [id], onDelete: Cascade)
   sender   User @relation("SentInvitations", fields: [senderId], references: [id], onDelete: Cascade)
 
-  @@unique([demoId, receiverId, status]) 
-  @@index([receiverId])
+  @@index([receiverId]) 
+  @@index([demoId,receiverId])
 }
 
 model Payment {
