@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Query } from '@nestjs/common';
 import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
 import { ExamRandomResponseMapper } from './mappers/random-exam-response.mapper';
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
@@ -17,7 +17,7 @@ export class ExamsAttemptQueryController {
     private readonly examRandomResponseMapper: ExamRandomResponseMapper,
   ) {}
 
-  @Get("/section/:sectionId/examAttempts")
+  @Get('/section/:sectionId/examAttempts')
   async findAll(
     @Param('sectionId') sectionId: string,
     @Query() options: PageOptionsDto,
