@@ -16,12 +16,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { InvitationsQueryService } from 'src/demos/application/invitation/invitations-query.service';
 
 @ApiTags('Invitation')
 @Controller('invitations')
 export class InvitationsCommandController {
   constructor(
     private readonly invitationCommandService: InvitationsCommandService,
+    private readonly invitationQueryService: InvitationsQueryService,
     private readonly invitationResponseMapper: InvitationResponseMapper,
   ) {}
 
@@ -31,15 +33,19 @@ export class InvitationsCommandController {
     @ActiveDemoMember() demoMember: ActiveDemoMemberData,
     @Body() dto: CreateInvitationDto,
   ) {
-    const invitation = await this.invitationCommandService.create({
+    const createdInvitation = await this.invitationCommandService.create({
       senderId: demoMember.userId,
       demoId: demoMember.demoId,
       ...dto,
     });
 
+    const invitation = await this.invitationQueryService.findById(
+      createdInvitation.id,
+    );
+
     return {
       message: 'Invitation created successfully',
-      data: this.invitationResponseMapper.toResponseFromDomain(invitation),
+      data: this.invitationResponseMapper.toResponseFromPrisma(invitation),
     };
   }
 
