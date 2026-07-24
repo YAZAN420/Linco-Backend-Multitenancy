@@ -60,14 +60,24 @@ export class InvitationsCommandService {
   async accept(invitationId: string, currentUserId: string): Promise<void> {
     const invitation = await this.findById(invitationId);
 
-    if (invitation.status !== InvitationStatus.PENDING) {
-      throw new ConflictException('Invitation is no longer pending');
-    }
-
     if (invitation.receiverId !== currentUserId) {
       throw new ForbiddenException(
         'You are not authorized to accept this invitation',
       );
+    }
+
+    if (invitation.status !== InvitationStatus.PENDING) {
+      throw new ConflictException('Invitation is no longer pending');
+    }
+
+    const memberExists =
+      await this.demoMemberCommandRepository.findByDemoAndUser(
+        invitation.demoId,
+        invitation.receiverId,
+      );
+
+    if (memberExists) {
+      throw new ConflictException('User is already a member of this demo.');
     }
 
     invitation.updateStatus(InvitationStatus.ACCEPTED);
