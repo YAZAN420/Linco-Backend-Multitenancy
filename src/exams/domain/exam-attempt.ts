@@ -1,5 +1,3 @@
-import { Exam } from './exam';
-import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
 import { ExamAttemptProps } from './interfaces/exam-attempt.props';
 import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 
