@@ -3,42 +3,36 @@ import { QuestionsBankCommandRepository } from 'src/questionBanks/application/po
 import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
 import { PrismaQuestionsBankMapper } from '../mappers/prisma-questionsBank.mapper';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { PrismaQuestionCoicesMapper } from '../mappers/prisma-question-choices.mapper';
+import { PrismaQuestionChoicesMapper } from '../mappers/prisma-question-choices.mapper';
 
 @Injectable()
 export class PrismaQuestionsBankCommandRepository implements QuestionsBankCommandRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaQuestionsBankMapper,
-    private readonly prismaQuestionCoicesMapper: PrismaQuestionCoicesMapper,
+    private readonly prismaQuestionCoicesMapper: PrismaQuestionChoicesMapper,
   ) {}
 
   async save(questionBank: QuestionsBank): Promise<void> {
     const data = this.mapper.toPersistence(questionBank);
+
     const choicesData = questionBank.choices.map((choice) => {
-      const data = this.prismaQuestionCoicesMapper.toPersistence(choice);
+      const choiceData = this.prismaQuestionCoicesMapper.toPersistence(choice);
       return {
-        id: data.id,
-        text: data.text,
-        isCorrect: data.isCorrect,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
+        id: choiceData.id,
+        text: choiceData.text,
+        isCorrect: choiceData.isCorrect,
+        createdAt: choiceData.createdAt,
+        updatedAt: choiceData.updatedAt,
       };
     });
-    await this.prisma.questionsBank.upsert({
-      where: { id: questionBank.id },
-      include: { choices: true },
-      update: {
+
+    await this.prisma.questionsBank.create({
+      data: {
+        ...data,
         choices: {
           create: choicesData,
         },
-        ...data,
-      },
-      create: {
-        choices: {
-          create: choicesData,
-        },
-        ...data,
       },
     });
   }

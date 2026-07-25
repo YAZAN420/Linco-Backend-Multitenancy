@@ -1,37 +1,26 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import {
-  FindQuestionsBankCursorQuery,
-  FindQuestionsBankQuery,
-} from './interfaces/find-questionsBank.query';
+import { FindQuestionsBankCursorQuery } from './interfaces/find-questionsBank.query';
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
-import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
+
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
+import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 
 @Injectable()
 export class QuestionsBanksQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
-    private readonly sectionsQueryService: PrismaCourseQueryRepository,
+    private readonly sectionsQueryService: CourseQueryRepository,
   ) {}
-
-  async findAll(
-    sectionId: string,
-    pageOptionsDto: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionsBankWithQuestionChoices>> {
-    await this.sectionsQueryService.findSectionById(sectionId);
-    return this.questionsBankQueryRepository.findAll(pageOptionsDto);
-  }
 
   async findAllCursor(
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
     await this.sectionsQueryService.findSectionById(sectionId);
-    return this.questionsBankQueryRepository.findAllCursor(options);
+    return this.questionsBankQueryRepository.findAllCursor(sectionId, options);
   }
 
   async findById(
@@ -39,7 +28,10 @@ export class QuestionsBanksQueryService {
     id: string,
   ): Promise<QuestionsBankWithQuestionChoices> {
     await this.sectionsQueryService.findSectionById(sectionId);
-    const questionsBank = await this.questionsBankQueryRepository.findById(id);
+    const questionsBank = await this.questionsBankQueryRepository.findById(
+      sectionId,
+      id,
+    );
     if (!questionsBank) throw new NotFoundException('QuestionsBank not found');
     return questionsBank;
   }

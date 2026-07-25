@@ -1,20 +1,18 @@
-import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
-import {
-  FindQuestionsBankCursorQuery,
-  FindQuestionsBankQuery,
-} from '../interfaces/find-questionsBank.query';
-import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
+import { CursorPageDto } from 'src/common/dtos/pagination';
+import { FindQuestionsBankCursorQuery } from '../interfaces/find-questionsBank.query';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 export abstract class QuestionsBankQueryRepository {
-  abstract findAll(
-    options: FindQuestionsBankQuery,
-  ): Promise<PageDto<QuestionsBank>>;
   abstract findAllCursor(
+    sectionId: string,
     options: FindQuestionsBankCursorQuery,
-  ): Promise<CursorPageDto<QuestionsBank>>;
-  abstract findById(id: string): Promise<QuestionsBank | null>;
+  ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>>;
   abstract getRandomQuestions(
     sectionId: string,
     numberOfQuestions: number,
-  ): Promise<QuestionsBank[]>;
+  ): Promise<QuestionsBankWithQuestionChoices[]>;
+  abstract findById(
+    sectionId: string,
+    id: string,
+  ): Promise<QuestionsBankWithQuestionChoices | null>;
 }

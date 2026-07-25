@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 import type { QuestionsBank as PrismaQuestionsBank } from 'src/generated/prisma/client';
 import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
-import { PrismaQuestionCoicesMapper } from './prisma-question-choices.mapper';
+import { PrismaQuestionChoicesMapper } from './prisma-question-choices.mapper';
 
 @Injectable()
 export class PrismaQuestionsBankMapper {
   constructor(
-    private readonly prismaQuestionCoicesMapper: PrismaQuestionCoicesMapper,
+    private readonly prismaQuestionCoicesMapper: PrismaQuestionChoicesMapper,
   ) {}
 
   toDomain(raw: QuestionsBankWithQuestionChoices): QuestionsBank {

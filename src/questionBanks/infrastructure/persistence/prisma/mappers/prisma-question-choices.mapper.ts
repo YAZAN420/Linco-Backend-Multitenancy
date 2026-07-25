@@ -3,7 +3,7 @@ import type { QuestionChoice as PrismaQuestionChoice } from 'src/generated/prism
 import { QuestionChoice } from 'src/questionBanks/domain/question-choice';
 
 @Injectable()
-export class PrismaQuestionCoicesMapper {
+export class PrismaQuestionChoicesMapper {
   toDomain(raw: PrismaQuestionChoice): QuestionChoice {
     return new QuestionChoice(raw.id, {
       questionId: raw.questionId,

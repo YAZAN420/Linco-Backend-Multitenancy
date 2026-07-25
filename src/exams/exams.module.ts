@@ -8,7 +8,7 @@ import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persiste
 import { ExamsQueryController } from './presentation/http/exams-query.controller';
 import { PrismaQuestionsBankQueryRepository } from 'src/questionBanks/infrastructure/persistence/prisma/repositories/prisma-questionBank-query.repository';
 import { QuestionsBankResponseMapper } from 'src/questionBanks/presentation/http/mappers/questionBank-response.mapper';
-import { PrismaQuestionCoicesMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
+import { PrismaQuestionChoicesMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
 import { PrismaQuestionsBankMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-questionsBank.mapper';
 import { ExamsAttemptQueryController } from './presentation/http/exam-attempts-query.controller';
 import { ExamAttemptQueryService } from './application/exams-attempts-query.service';
@@ -51,7 +51,7 @@ import { PrismaExamAttemptMapper } from './infrastructure/persistence/prisma/map
     PrismaExamAttemptCommandRepository,
     PrismaExamAttemptQueryRepository,
     PrismaQuestionsBankQueryRepository,
-    PrismaQuestionCoicesMapper,
+    PrismaQuestionChoicesMapper,
   ],
   exports: [
     ExamsCommandService,

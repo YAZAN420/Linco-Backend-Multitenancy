@@ -3,12 +3,14 @@ import { CreateQuestionBankDto } from './dto/create-questionsBank.dto';
 import { QuestionsBankResponseMapper } from './mappers/questionBank-response.mapper';
 import { QuestionsBanksCommandService } from 'src/questionBanks/application/questionsBank-command.service';
 import { ApiTags } from '@nestjs/swagger';
+import { QuestionsBanksQueryService } from 'src/questionBanks/application/questionsBank-query.service';
 
 @ApiTags('QuestionsBank')
 @Controller('sections/:sectionId/questionsBank')
 export class QuestionsBanksCommandController {
   constructor(
     private readonly questionsBankCommandService: QuestionsBanksCommandService,
+    private readonly questionsBankQueryService: QuestionsBanksQueryService,
     private readonly questionsBankResponseMapper: QuestionsBankResponseMapper,
   ) {}
 
@@ -17,14 +19,19 @@ export class QuestionsBanksCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateQuestionBankDto,
   ) {
-    const questionsBank = await this.questionsBankCommandService.create(
+    const createdQuestionsBank = await this.questionsBankCommandService.create(
       sectionId,
       dto,
     );
 
+    const questionsBank = await this.questionsBankQueryService.findById(
+      sectionId,
+      createdQuestionsBank.id,
+    );
+
     return {
       message: 'QuestionsBank created successfully',
-      data: this.questionsBankResponseMapper.toResponseFromDomain(
+      data: this.questionsBankResponseMapper.toResponseFromPrisma(
         questionsBank,
       ),
     };

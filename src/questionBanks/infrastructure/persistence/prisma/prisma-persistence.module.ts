@@ -4,7 +4,7 @@ import { PrismaQuestionsBankCommandRepository } from './repositories/prisma-ques
 import { QuestionsBankQueryRepository } from 'src/questionBanks/application/ports/questionsBank-query.repository';
 import { PrismaQuestionsBankQueryRepository } from './repositories/prisma-questionBank-query.repository';
 import { PrismaQuestionsBankMapper } from './mappers/prisma-questionsBank.mapper';
-import { PrismaQuestionCoicesMapper } from './mappers/prisma-question-choices.mapper';
+import { PrismaQuestionChoicesMapper } from './mappers/prisma-question-choices.mapper';
 
 @Module({
   providers: [
@@ -17,7 +17,7 @@ import { PrismaQuestionCoicesMapper } from './mappers/prisma-question-choices.ma
       provide: QuestionsBankQueryRepository,
       useClass: PrismaQuestionsBankQueryRepository,
     },
-    PrismaQuestionCoicesMapper,
+    PrismaQuestionChoicesMapper,
     PrismaQuestionsBankMapper,
   ],
   exports: [QuestionsBankCommandRepository, QuestionsBankQueryRepository],

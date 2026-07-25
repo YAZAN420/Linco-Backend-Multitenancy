@@ -13,7 +13,7 @@ export class QuestionsBank {
   }
 
   get choices(): QuestionChoice[] {
-    return this.props.choices;
+    return [...this.props.choices];
   }
 
   get text(): string {

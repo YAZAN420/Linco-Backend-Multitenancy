@@ -5,7 +5,7 @@ import { ExamQueryRepository } from 'src/exams/application/ports/exam-query.repo
 import { PrismaExamQueryRepository } from './repositories/prisma-exam-query.repository';
 import { PrismaExamMapper } from './mappers/prisma-exam.mapper';
 import { PrismaQuestionsBankMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-questionsBank.mapper';
-import { PrismaQuestionCoicesMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
+import { PrismaQuestionChoicesMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
 import { ExamAttemptCommandRepository } from 'src/exams/application/ports/exam-attempt-command.repository';
 import { PrismaExamAttemptCommandRepository } from './repositories/prisma-exam-attempt-command.repository';
 import { ExamAttemptQueryRepository } from 'src/exams/application/ports/exam-attempt-query.repository';
@@ -32,9 +32,14 @@ import { PrismaExamAttemptQueryRepository } from './repositories/prisma-exam-att
       useClass: PrismaExamAttemptQueryRepository,
     },
     PrismaQuestionsBankMapper,
-    PrismaQuestionCoicesMapper,
-    PrismaExamAttemptMapper
+    PrismaQuestionChoicesMapper,
+    PrismaExamAttemptMapper,
   ],
-  exports: [ExamCommandRepository, ExamQueryRepository, ExamAttemptCommandRepository, ExamAttemptQueryRepository],
+  exports: [
+    ExamCommandRepository,
+    ExamQueryRepository,
+    ExamAttemptCommandRepository,
+    ExamAttemptQueryRepository,
+  ],
 })
 export class PrismaPersistenceModule {}
