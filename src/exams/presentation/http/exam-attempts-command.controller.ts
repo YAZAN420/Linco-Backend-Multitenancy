@@ -12,6 +12,7 @@ import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mappe
 import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
 
 @ApiTags('ExamAttempts')
 @UseGuards(DemoRolesGuard)
@@ -19,6 +20,7 @@ import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guar
 export class ExamsAttemptCommandController {
   constructor(
     private readonly examAttemptCommandService: ExamAttemptCommandService,
+    private readonly examAttemptQueryService: ExamAttemptQueryService,
     private readonly examAttemptResponseMapper: ExamAttemptResponseMapper,
   ) {}
 
@@ -36,14 +38,17 @@ export class ExamsAttemptCommandController {
     @ActiveDemoMember('id') demoMemberId: string,
     @Body() dto: CreateExamAttemptDto,
   ) {
-    const examAttempt = await this.examAttemptCommandService.create(
+    const createdExamAttempt = await this.examAttemptCommandService.create(
       demoMemberId,
       dto,
+    );
+    const examAttempt = await this.examAttemptQueryService.findById(
+      createdExamAttempt.id,
     );
 
     return {
       message: 'Exam Attempt created successfully',
-      data: this.examAttemptResponseMapper.toResponseFromDomain(examAttempt),
+      data: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
     };
   }
 }

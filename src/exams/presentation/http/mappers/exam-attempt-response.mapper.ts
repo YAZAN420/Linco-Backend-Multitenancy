@@ -1,21 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 import { ExamAttemptResponseDto } from '../dto/exam-attempt-response.dto';
 import { ExamAttempt as PrismaExamAttempt } from 'src/generated/prisma/client';
 
 @Injectable()
 export class ExamAttemptResponseMapper {
-  toResponseFromDomain(examAttempt: ExamAttempt): ExamAttemptResponseDto {
-    return new ExamAttemptResponseDto(
-      examAttempt.id,
-      examAttempt.userId,
-      examAttempt.examId,
-      examAttempt.score,
-      examAttempt.createdAt,
-      examAttempt.updatedAt,
-    );
-  }
-
   toResponseFromPrisma(examAttempt: PrismaExamAttempt): ExamAttemptResponseDto {
     return new ExamAttemptResponseDto(
       examAttempt.id,

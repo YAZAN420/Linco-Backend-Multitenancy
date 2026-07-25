@@ -66,7 +66,7 @@ export class ExamsAttemptQueryController {
 
     return {
       message: 'Exam retrieved successfully',
-      data: this.examRandomResponseMapper.toResponseFromDomain(exam),
+      data: this.examRandomResponseMapper.toResponseFromPrisma(exam),
     };
   }
 }

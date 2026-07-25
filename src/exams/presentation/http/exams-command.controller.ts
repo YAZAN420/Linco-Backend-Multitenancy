@@ -5,12 +5,14 @@ import { UpdateExamDto } from './dto/update-exam.dto';
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
 import { ExamsCommandService } from 'src/exams/application/exams-command.service';
 import { ApiTags } from '@nestjs/swagger';
+import { ExamsQueryService } from 'src/exams/application/exams-query.service';
 
 @ApiTags('Exam')
 @Controller('sections/:sectionId/exams')
 export class ExamsCommandController {
   constructor(
     private readonly examCommandService: ExamsCommandService,
+    private readonly examQueryService: ExamsQueryService,
     private readonly examResponseMapper: ExamResponseMapper,
   ) {}
 
@@ -19,11 +21,16 @@ export class ExamsCommandController {
     @Param('sectionId') sectionId: string,
     @Body() dto: CreateExamDto,
   ) {
-    const exam = await this.examCommandService.create(sectionId, dto);
+    const createdExam = await this.examCommandService.create(sectionId, dto);
+
+    const exam = await this.examQueryService.findById(
+      sectionId,
+      createdExam.id,
+    );
 
     return {
       message: 'Exam created successfully',
-      data: this.examResponseMapper.toResponseFromDomain(exam),
+      data: this.examResponseMapper.toResponseFromPrisma(exam),
     };
   }
 
@@ -33,11 +40,20 @@ export class ExamsCommandController {
     @Param('examId') examId: string,
     @Body() dto: UpdateExamDto,
   ) {
-    const exam = await this.examCommandService.update(sectionId, examId, dto);
+    const createdExam = await this.examCommandService.update(
+      sectionId,
+      examId,
+      dto,
+    );
+
+    const exam = await this.examQueryService.findById(
+      sectionId,
+      createdExam.id,
+    );
 
     return {
       message: 'Exam updated successfully',
-      data: this.examResponseMapper.toResponseFromDomain(exam),
+      data: this.examResponseMapper.toResponseFromPrisma(exam),
     };
   }
 

@@ -1,5 +1,4 @@
 import { ExamAttemptProps } from './interfaces/exam-attempt.props';
-import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 
 export class ExamAttempt {
   constructor(
@@ -24,11 +23,11 @@ export class ExamAttempt {
   }
 
   get score(): number {
-    return this.props.score.value;
+    return this.props.score;
   }
 
-  updateScore(newScore: PositiveInteger): void {
-    if (this.props.score.equals(newScore)) return;
+  updateScore(newScore: number): void {
+    if (this.props.score === newScore) return;
     this.props.score = newScore;
     this.touch();
   }
