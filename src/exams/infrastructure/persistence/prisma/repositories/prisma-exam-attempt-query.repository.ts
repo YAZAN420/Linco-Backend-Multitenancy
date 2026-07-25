@@ -65,7 +65,6 @@ export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryReposit
   }
 
   async findById(id: string): Promise<ExamAttempt | null> {
-    console.log(id);
     const examAttempt = await this.prisma.examAttempt.findUnique({
       where: { id },
     });

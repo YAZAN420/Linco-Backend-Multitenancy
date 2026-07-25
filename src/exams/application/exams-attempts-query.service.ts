@@ -43,9 +43,8 @@ export class ExamAttemptQueryService {
 
   async generateExam(examId: string): Promise<RandomExam> {
     const exam = await this.examQueryRepository.findById(examId);
-    if (exam == null) {
-      throw new NotFoundException(`exam not found`);
-    }
+    if (!exam) throw new NotFoundException('Exam Not Found');
+
     const randomQuestions =
       await this.questionsBankQueryRepository.getRandomQuestions(
         exam.sectionId,

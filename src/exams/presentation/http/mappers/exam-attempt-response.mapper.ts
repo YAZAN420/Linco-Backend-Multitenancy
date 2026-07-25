@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 import { ExamAttemptResponseDto } from '../dto/exam-attempt-response.dto';
-import { ExamAttempt as PrismaExamAttempt} from 'src/generated/prisma/client';
+import { ExamAttempt as PrismaExamAttempt } from 'src/generated/prisma/client';
 
 @Injectable()
 export class ExamAttemptResponseMapper {
@@ -27,7 +27,11 @@ export class ExamAttemptResponseMapper {
     );
   }
 
-  toResponseManyFromPrisma(examAttempts: PrismaExamAttempt[]): ExamAttemptResponseDto[] {
-    return examAttempts.map((examAttempt) => this.toResponseFromPrisma(examAttempt));
+  toResponseManyFromPrisma(
+    examAttempts: PrismaExamAttempt[],
+  ): ExamAttemptResponseDto[] {
+    return examAttempts.map((examAttempt) =>
+      this.toResponseFromPrisma(examAttempt),
+    );
   }
 }

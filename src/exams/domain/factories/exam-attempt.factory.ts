@@ -6,7 +6,7 @@ import { ExamAttempt } from '../exam-attempt';
 @Injectable()
 export class ExamAttemptFactory {
   public createNew(userId: string, examId: string, score: number): ExamAttempt {
-    const scoreVo = PositiveInteger.create(score, "score");
+    const scoreVo = PositiveInteger.create(score, 'score');
     const now = new Date();
     return new ExamAttempt(uuidv7(), {
       userId: userId,

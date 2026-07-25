@@ -22,11 +22,10 @@ export class ExamAttempt {
   get examId(): string {
     return this.props.examId;
   }
-  
+
   get score(): number {
     return this.props.score.value;
   }
-
 
   updateScore(newScore: PositiveInteger): void {
     if (this.props.score.equals(newScore)) return;

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateExamAttemptInput } from './interfaces/create-exam-attempt-input.interface';
 import { ExamAttempt } from '../domain/exam-attempt';
 import { ExamAttemptFactory } from '../domain/factories/exam-attempt.factory';
@@ -8,20 +8,24 @@ import { ExamsQueryService } from './exams-query.service';
 export class ExamAttemptCommandService {
   constructor(
     private readonly examAttemptCommandRepository: ExamAttemptCommandRepository,
-    private readonly examAttemptFactory: ExamAttemptFactory, 
-    private readonly examsQueryService: ExamsQueryService
+    private readonly examAttemptFactory: ExamAttemptFactory,
+    private readonly examsQueryService: ExamsQueryService,
   ) {}
-  
-  async create(userId: string, input: CreateExamAttemptInput): Promise<ExamAttempt> {
-    await this.examsQueryService.exists(input.examId);
+
+  async create(
+    userId: string,
+    input: CreateExamAttemptInput,
+  ): Promise<ExamAttempt> {
+    const exam = await this.examsQueryService.exists(input.examId);
+    if (!exam) throw new NotFoundException('Exam Not Found');
 
     const examAttempt = this.examAttemptFactory.createNew(
       userId,
       input.examId,
-      input.score
+      input.score,
     );
     await this.examAttemptCommandRepository.save(examAttempt);
-    return examAttempt
+    return examAttempt;
   }
 
   async remove(id: string): Promise<void> {

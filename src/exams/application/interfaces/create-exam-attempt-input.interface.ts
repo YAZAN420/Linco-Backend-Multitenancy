@@ -1,4 +1,4 @@
 export interface CreateExamAttemptInput {
-  examId: string,
-  score: number
+  examId: string;
+  score: number;
 }

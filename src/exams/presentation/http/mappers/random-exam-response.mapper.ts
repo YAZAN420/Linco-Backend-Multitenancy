@@ -5,14 +5,18 @@ import { RandomExamResponseDto } from '../dto/random-exam-response.dto';
 
 @Injectable()
 export class ExamRandomResponseMapper {
-  constructor(private readonly questionsBankResponseMapper:QuestionsBankResponseMapper) {}
+  constructor(
+    private readonly questionsBankResponseMapper: QuestionsBankResponseMapper,
+  ) {}
   toResponseFromDomain(examAttempt: RandomExam): RandomExamResponseDto {
     return new RandomExamResponseDto(
       examAttempt.id,
       examAttempt.exam.title,
       examAttempt.exam.numberOfQuestions,
       examAttempt.exam.durationMinutes,
-      examAttempt.questions.map((question) => this.questionsBankResponseMapper.toResponseFromDomain(question)),
+      examAttempt.questions.map((question) =>
+        this.questionsBankResponseMapper.toResponseFromDomain(question),
+      ),
       examAttempt.exam.sectionId,
       examAttempt.createdAt,
       examAttempt.updatedAt,
