@@ -7,13 +7,13 @@ import { UpdateExamInput } from './interfaces/update-exam-input.interface';
 import { ExamFactory } from '../domain/factories/exam.factory';
 import { Title } from '../domain/value-objects/title.vo';
 import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
-import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
+import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 
 @Injectable()
 export class ExamsCommandService {
   constructor(
     private readonly examCommandRepository: ExamCommandRepository,
-    private readonly prismaCourseQueryRepository: PrismaCourseQueryRepository,
+    private readonly courseQueryRepository: CourseQueryRepository,
     private readonly examFactory: ExamFactory,
   ) {}
 
@@ -57,7 +57,7 @@ export class ExamsCommandService {
 
   async findById(sectionId: string, examId: string): Promise<Exam> {
     const exam = await this.examCommandRepository.findById(examId);
-    await this.prismaCourseQueryRepository.findSectionById(sectionId);
+    await this.courseQueryRepository.findSectionById(sectionId);
     if (!exam) throw new NotFoundException('exam not found');
     return exam;
   }

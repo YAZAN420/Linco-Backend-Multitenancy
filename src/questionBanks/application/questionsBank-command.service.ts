@@ -3,14 +3,15 @@ import { QuestionsBankCommandRepository } from './ports/questionsBank-command.re
 import { QuestionsBankFactory } from '../domain/factories/questionsBank.factory';
 import { QuestionsBank } from '../domain/questionsBank';
 import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
-import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persistence/prisma/repositories/prisma-course-query.repository';
+
 import { QuestionChoiceFactory } from '../domain/factories/question-choice.factory';
+import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 
 @Injectable()
 export class QuestionsBanksCommandService {
   constructor(
     private readonly questionsBankCommandRepository: QuestionsBankCommandRepository,
-    private readonly sectionsService: PrismaCourseQueryRepository,
+    private readonly sectionsQueryRepository: CourseQueryRepository,
     private readonly questionsBankFactory: QuestionsBankFactory,
     private readonly questionChoiceFactory: QuestionChoiceFactory,
   ) {}
@@ -19,7 +20,7 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     input: CreateQuestionsBankInput,
   ): Promise<QuestionsBank> {
-    await this.sectionsService.findSectionById(sectionId);
+    await this.sectionsQueryRepository.findSectionById(sectionId);
 
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
@@ -48,7 +49,7 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     questionBankId: string,
   ): Promise<QuestionsBank> {
-    await this.sectionsService.findSectionById(sectionId);
+    await this.sectionsQueryRepository.findSectionById(sectionId);
     const questionsBank =
       await this.questionsBankCommandRepository.findById(questionBankId);
     if (!questionsBank) throw new NotFoundException('QuestionBank not found');
