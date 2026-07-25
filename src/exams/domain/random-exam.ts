@@ -1,6 +1,6 @@
 import { Exam } from './exam';
-import { QuestionsBank } from 'src/questionBanks/domain/questionsBank';
 import { RandomExamProps } from './interfaces/random-exam.props';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 export class RandomExam {
   constructor(
@@ -20,11 +20,11 @@ export class RandomExam {
     return this.props.exam;
   }
 
-  get questions(): QuestionsBank[] {
+  get questions(): QuestionsBankWithQuestionChoices[] {
     return this.props.questions;
   }
 
-  addQuestions(question: QuestionsBank): void {
+  addQuestions(question: QuestionsBankWithQuestionChoices): void {
     this.props.questions.push(question);
     this.touch();
   }
