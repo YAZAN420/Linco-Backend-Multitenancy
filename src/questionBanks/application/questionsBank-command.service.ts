@@ -42,7 +42,7 @@ export class QuestionsBanksCommandService {
 
   async remove(sectionId: string, questionBankId: string): Promise<void> {
     await this.findById(sectionId, questionBankId);
-    await this.questionsBankCommandRepository.delete(questionBankId);
+    await this.questionsBankCommandRepository.delete(sectionId, questionBankId);
   }
 
   async findById(
@@ -50,8 +50,10 @@ export class QuestionsBanksCommandService {
     questionBankId: string,
   ): Promise<QuestionsBank> {
     await this.sectionsQueryRepository.findSectionById(sectionId);
-    const questionsBank =
-      await this.questionsBankCommandRepository.findById(questionBankId);
+    const questionsBank = await this.questionsBankCommandRepository.findById(
+      sectionId,
+      questionBankId,
+    );
     if (!questionsBank) throw new NotFoundException('QuestionBank not found');
     return questionsBank;
   }

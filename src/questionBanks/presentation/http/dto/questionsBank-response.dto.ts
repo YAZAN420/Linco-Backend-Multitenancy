@@ -1,8 +1,10 @@
+import { QuestionChoiceResponseDto } from './questionsChoice-response.dto';
+
 export class QuestionsBankResponseDto {
   constructor(
     readonly id: string,
     readonly sectionId: string,
-    readonly choices: [string, boolean][],
+    readonly choices: QuestionChoiceResponseDto[],
     readonly text: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,

@@ -37,13 +37,13 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
     });
   }
 
-  async delete(id: string): Promise<void> {
-    await this.prisma.questionsBank.delete({ where: { id } });
+  async delete(sectionId: string, id: string): Promise<void> {
+    await this.prisma.questionsBank.delete({ where: { id, sectionId } });
   }
 
-  async findById(id: string): Promise<QuestionsBank | null> {
-    const questionsBank = await this.prisma.questionsBank.findUnique({
-      where: { id },
+  async findById(sectionId: string, id: string): Promise<QuestionsBank | null> {
+    const questionsBank = await this.prisma.questionsBank.findFirst({
+      where: { id, sectionId },
       include: { choices: true },
     });
     return questionsBank ? this.mapper.toDomain(questionsBank) : null;
