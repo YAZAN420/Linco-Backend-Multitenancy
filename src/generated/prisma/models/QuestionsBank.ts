@@ -27,7 +27,7 @@ export type AggregateQuestionsBank = {
 export type QuestionsBankMinAggregateOutputType = {
   id: string | null
   sectionId: string | null
-  text: string | null
+  question: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -35,7 +35,7 @@ export type QuestionsBankMinAggregateOutputType = {
 export type QuestionsBankMaxAggregateOutputType = {
   id: string | null
   sectionId: string | null
-  text: string | null
+  question: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -43,7 +43,7 @@ export type QuestionsBankMaxAggregateOutputType = {
 export type QuestionsBankCountAggregateOutputType = {
   id: number
   sectionId: number
-  text: number
+  question: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -53,7 +53,7 @@ export type QuestionsBankCountAggregateOutputType = {
 export type QuestionsBankMinAggregateInputType = {
   id?: true
   sectionId?: true
-  text?: true
+  question?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -61,7 +61,7 @@ export type QuestionsBankMinAggregateInputType = {
 export type QuestionsBankMaxAggregateInputType = {
   id?: true
   sectionId?: true
-  text?: true
+  question?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -69,7 +69,7 @@ export type QuestionsBankMaxAggregateInputType = {
 export type QuestionsBankCountAggregateInputType = {
   id?: true
   sectionId?: true
-  text?: true
+  question?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -150,7 +150,7 @@ export type QuestionsBankGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type QuestionsBankGroupByOutputType = {
   id: string
   sectionId: string
-  text: string
+  question: string
   createdAt: Date
   updatedAt: Date
   _count: QuestionsBankCountAggregateOutputType | null
@@ -179,7 +179,7 @@ export type QuestionsBankWhereInput = {
   NOT?: Prisma.QuestionsBankWhereInput | Prisma.QuestionsBankWhereInput[]
   id?: Prisma.StringFilter<"QuestionsBank"> | string
   sectionId?: Prisma.StringFilter<"QuestionsBank"> | string
-  text?: Prisma.StringFilter<"QuestionsBank"> | string
+  question?: Prisma.StringFilter<"QuestionsBank"> | string
   createdAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -189,7 +189,7 @@ export type QuestionsBankWhereInput = {
 export type QuestionsBankOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  text?: Prisma.SortOrder
+  question?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
@@ -202,7 +202,7 @@ export type QuestionsBankWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.QuestionsBankWhereInput[]
   NOT?: Prisma.QuestionsBankWhereInput | Prisma.QuestionsBankWhereInput[]
   sectionId?: Prisma.StringFilter<"QuestionsBank"> | string
-  text?: Prisma.StringFilter<"QuestionsBank"> | string
+  question?: Prisma.StringFilter<"QuestionsBank"> | string
   createdAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
@@ -212,7 +212,7 @@ export type QuestionsBankWhereUniqueInput = Prisma.AtLeast<{
 export type QuestionsBankOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  text?: Prisma.SortOrder
+  question?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionsBankCountOrderByAggregateInput
@@ -226,14 +226,14 @@ export type QuestionsBankScalarWhereWithAggregatesInput = {
   NOT?: Prisma.QuestionsBankScalarWhereWithAggregatesInput | Prisma.QuestionsBankScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"QuestionsBank"> | string
   sectionId?: Prisma.StringWithAggregatesFilter<"QuestionsBank"> | string
-  text?: Prisma.StringWithAggregatesFilter<"QuestionsBank"> | string
+  question?: Prisma.StringWithAggregatesFilter<"QuestionsBank"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionsBank"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionsBank"> | Date | string
 }
 
 export type QuestionsBankCreateInput = {
   id: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
@@ -243,7 +243,7 @@ export type QuestionsBankCreateInput = {
 export type QuestionsBankUncheckedCreateInput = {
   id: string
   sectionId: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
@@ -251,7 +251,7 @@ export type QuestionsBankUncheckedCreateInput = {
 
 export type QuestionsBankUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
@@ -261,7 +261,7 @@ export type QuestionsBankUpdateInput = {
 export type QuestionsBankUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
@@ -270,14 +270,14 @@ export type QuestionsBankUncheckedUpdateInput = {
 export type QuestionsBankCreateManyInput = {
   id: string
   sectionId: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type QuestionsBankUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -285,7 +285,7 @@ export type QuestionsBankUpdateManyMutationInput = {
 export type QuestionsBankUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -303,7 +303,7 @@ export type QuestionsBankOrderByRelationAggregateInput = {
 export type QuestionsBankCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  text?: Prisma.SortOrder
+  question?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -311,7 +311,7 @@ export type QuestionsBankCountOrderByAggregateInput = {
 export type QuestionsBankMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  text?: Prisma.SortOrder
+  question?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -319,7 +319,7 @@ export type QuestionsBankMaxOrderByAggregateInput = {
 export type QuestionsBankMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   sectionId?: Prisma.SortOrder
-  text?: Prisma.SortOrder
+  question?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -387,7 +387,7 @@ export type QuestionsBankUpdateOneRequiredWithoutChoicesNestedInput = {
 
 export type QuestionsBankCreateWithoutSectionInput = {
   id: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceCreateNestedManyWithoutQuestionInput
@@ -395,7 +395,7 @@ export type QuestionsBankCreateWithoutSectionInput = {
 
 export type QuestionsBankUncheckedCreateWithoutSectionInput = {
   id: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
   choices?: Prisma.QuestionChoiceUncheckedCreateNestedManyWithoutQuestionInput
@@ -433,14 +433,14 @@ export type QuestionsBankScalarWhereInput = {
   NOT?: Prisma.QuestionsBankScalarWhereInput | Prisma.QuestionsBankScalarWhereInput[]
   id?: Prisma.StringFilter<"QuestionsBank"> | string
   sectionId?: Prisma.StringFilter<"QuestionsBank"> | string
-  text?: Prisma.StringFilter<"QuestionsBank"> | string
+  question?: Prisma.StringFilter<"QuestionsBank"> | string
   createdAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuestionsBank"> | Date | string
 }
 
 export type QuestionsBankCreateWithoutChoicesInput = {
   id: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
   section: Prisma.SectionCreateNestedOneWithoutQuestionsBankInput
@@ -449,7 +449,7 @@ export type QuestionsBankCreateWithoutChoicesInput = {
 export type QuestionsBankUncheckedCreateWithoutChoicesInput = {
   id: string
   sectionId: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -472,7 +472,7 @@ export type QuestionsBankUpdateToOneWithWhereWithoutChoicesInput = {
 
 export type QuestionsBankUpdateWithoutChoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   section?: Prisma.SectionUpdateOneRequiredWithoutQuestionsBankNestedInput
@@ -481,21 +481,21 @@ export type QuestionsBankUpdateWithoutChoicesInput = {
 export type QuestionsBankUncheckedUpdateWithoutChoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionsBankCreateManySectionInput = {
   id: string
-  text: string
+  question: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type QuestionsBankUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUpdateManyWithoutQuestionNestedInput
@@ -503,7 +503,7 @@ export type QuestionsBankUpdateWithoutSectionInput = {
 
 export type QuestionsBankUncheckedUpdateWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   choices?: Prisma.QuestionChoiceUncheckedUpdateManyWithoutQuestionNestedInput
@@ -511,7 +511,7 @@ export type QuestionsBankUncheckedUpdateWithoutSectionInput = {
 
 export type QuestionsBankUncheckedUpdateManyWithoutSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  text?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -550,7 +550,7 @@ export type QuestionsBankCountOutputTypeCountChoicesArgs<ExtArgs extends runtime
 export type QuestionsBankSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   sectionId?: boolean
-  text?: boolean
+  question?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -561,7 +561,7 @@ export type QuestionsBankSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type QuestionsBankSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   sectionId?: boolean
-  text?: boolean
+  question?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -570,7 +570,7 @@ export type QuestionsBankSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type QuestionsBankSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   sectionId?: boolean
-  text?: boolean
+  question?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
@@ -579,12 +579,12 @@ export type QuestionsBankSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type QuestionsBankSelectScalar = {
   id?: boolean
   sectionId?: boolean
-  text?: boolean
+  question?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuestionsBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "text" | "createdAt" | "updatedAt", ExtArgs["result"]["questionsBank"]>
+export type QuestionsBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionId" | "question" | "createdAt" | "updatedAt", ExtArgs["result"]["questionsBank"]>
 export type QuestionsBankInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   choices?: boolean | Prisma.QuestionsBank$choicesArgs<ExtArgs>
@@ -606,7 +606,7 @@ export type $QuestionsBankPayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     sectionId: string
-    text: string
+    question: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["questionsBank"]>
@@ -1036,7 +1036,7 @@ export interface Prisma__QuestionsBankClient<T, Null = never, ExtArgs extends ru
 export interface QuestionsBankFieldRefs {
   readonly id: Prisma.FieldRef<"QuestionsBank", 'String'>
   readonly sectionId: Prisma.FieldRef<"QuestionsBank", 'String'>
-  readonly text: Prisma.FieldRef<"QuestionsBank", 'String'>
+  readonly question: Prisma.FieldRef<"QuestionsBank", 'String'>
   readonly createdAt: Prisma.FieldRef<"QuestionsBank", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"QuestionsBank", 'DateTime'>
 }

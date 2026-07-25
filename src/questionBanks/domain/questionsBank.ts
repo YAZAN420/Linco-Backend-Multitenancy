@@ -16,8 +16,8 @@ export class QuestionsBank {
     return [...this.props.choices];
   }
 
-  get text(): string {
-    return this.props.text;
+  get question(): string {
+    return this.props.question;
   }
 
   get createdAt(): Date {
@@ -34,7 +34,7 @@ export class QuestionsBank {
     }
 
     const isChoiceExists = this.props.choices.some(
-      (s) => s.text === choice.text,
+      (s) => s.choice === choice.choice,
     );
     if (isChoiceExists) {
       throw new DomainException(

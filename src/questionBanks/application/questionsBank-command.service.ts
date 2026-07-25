@@ -20,11 +20,13 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     input: CreateQuestionsBankInput,
   ): Promise<QuestionsBank> {
-    await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section =
+      await this.sectionsQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('Section not found');
 
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
-      input.text,
+      input.question,
     );
 
     input.choices.forEach((element) => {
@@ -49,7 +51,10 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     questionBankId: string,
   ): Promise<QuestionsBank> {
-    await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section =
+      await this.sectionsQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('Section not found');
+
     const questionsBank = await this.questionsBankCommandRepository.findById(
       sectionId,
       questionBankId,

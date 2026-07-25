@@ -1,6 +1,6 @@
 export class QuestionChoiceResponseDto {
   constructor(
-    readonly text: string,
+    readonly choice: string,
     readonly isCorrect: boolean,
   ) {}
 }

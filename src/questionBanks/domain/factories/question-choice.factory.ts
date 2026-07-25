@@ -6,13 +6,13 @@ import { QuestionChoice } from '../question-choice';
 export class QuestionChoiceFactory {
   public createNew(
     questionId: string,
-    text: string,
+    choice: string,
     isCorrect: boolean,
   ): QuestionChoice {
     const now = new Date();
     return new QuestionChoice(uuidv7(), {
       questionId: questionId,
-      text: text,
+      choice: choice,
       isCorrect: isCorrect,
       createdAt: now,
       updatedAt: now,

@@ -2,7 +2,10 @@
 CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "DemoMemberRole" AS ENUM ('OWNER', 'MANAGER', 'TRAINER');
+CREATE TYPE "DemoMemberRole" AS ENUM ('OWNER', 'ADMIN', 'MEMBER');
+
+-- CreateEnum
+CREATE TYPE "DepartmentMemberRole" AS ENUM ('MANAGER', 'MEMBER');
 
 -- CreateEnum
 CREATE TYPE "CourseVisibility" AS ENUM ('PUBLIC', 'PRIVATE');
@@ -30,6 +33,9 @@ CREATE TYPE "InvitationStatus" AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED');
 
 -- CreateEnum
 CREATE TYPE "SubscriptionStatus" AS ENUM ('TRIALING', 'EXPIRED', 'PENDING', 'ACTIVE', 'CANCELED', 'PAST_DUE');
+
+-- CreateEnum
+CREATE TYPE "InquiryStatus" AS ENUM ('PENDING', 'IN_PROGRESS', 'RESOLVED', 'CLOSED');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -61,7 +67,7 @@ CREATE TABLE "DemoMember" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "demoId" TEXT NOT NULL,
-    "role" "DemoMemberRole" NOT NULL DEFAULT 'TRAINER',
+    "role" "DemoMemberRole" NOT NULL DEFAULT 'MEMBER',
     "joinedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -74,6 +80,7 @@ CREATE TABLE "DepartmentMember" (
     "departmentId" TEXT NOT NULL,
     "demoMemberId" TEXT NOT NULL,
     "jobTitle" "JobTitle" NOT NULL DEFAULT 'JUNIOR',
+    "role" "DepartmentMemberRole" NOT NULL DEFAULT 'MEMBER',
     "assignedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -117,12 +124,25 @@ CREATE TABLE "Course" (
     "imagePath" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "visibility" "CourseVisibility" NOT NULL DEFAULT 'PRIVATE',
-    "price" DOUBLE PRECISION,
+    "price" DOUBLE PRECISION NOT NULL,
+    "isPublished" BOOLEAN NOT NULL DEFAULT false,
     "demoId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CourseFaq" (
+    "id" TEXT NOT NULL,
+    "question" TEXT NOT NULL,
+    "answer" TEXT NOT NULL,
+    "courseId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "CourseFaq_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -183,7 +203,7 @@ CREATE TABLE "Exam" (
 CREATE TABLE "QuestionsBank" (
     "id" TEXT NOT NULL,
     "sectionId" TEXT NOT NULL,
-    "text" TEXT NOT NULL,
+    "question" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -267,7 +287,7 @@ CREATE TABLE "Invitation" (
     "demoId" TEXT NOT NULL,
     "receiverId" TEXT NOT NULL,
     "senderId" TEXT NOT NULL,
-    "role" "DemoMemberRole" NOT NULL DEFAULT 'TRAINER',
+    "role" "DemoMemberRole" NOT NULL DEFAULT 'MEMBER',
     "status" "InvitationStatus" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -303,6 +323,31 @@ CREATE TABLE "Tag" (
 );
 
 -- CreateTable
+CREATE TABLE "Inquiry" (
+    "id" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
+    "creatorId" TEXT NOT NULL,
+    "demoId" TEXT NOT NULL,
+    "status" "InquiryStatus" NOT NULL DEFAULT 'PENDING',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Inquiry_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "InquiryMessage" (
+    "id" TEXT NOT NULL,
+    "inquiryId" TEXT NOT NULL,
+    "senderId" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "InquiryMessage_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_CourseToTag" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -330,6 +375,9 @@ CREATE UNIQUE INDEX "DepartmentMember_departmentId_demoMemberId_key" ON "Departm
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Demo_stripeSubscriptionId_key" ON "Demo"("stripeSubscriptionId");
+
+-- CreateIndex
+CREATE INDEX "CourseFaq_courseId_idx" ON "CourseFaq"("courseId");
 
 -- CreateIndex
 CREATE INDEX "Section_courseId_idx" ON "Section"("courseId");
@@ -377,7 +425,7 @@ CREATE INDEX "DiscussionAnswer_discussionId_idx" ON "DiscussionAnswer"("discussi
 CREATE INDEX "Invitation_receiverId_idx" ON "Invitation"("receiverId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Invitation_demoId_receiverId_status_key" ON "Invitation"("demoId", "receiverId", "status");
+CREATE INDEX "Invitation_demoId_receiverId_idx" ON "Invitation"("demoId", "receiverId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Payment_stripeInvoiceId_key" ON "Payment"("stripeInvoiceId");
@@ -387,6 +435,15 @@ CREATE UNIQUE INDEX "Payment_stripePaymentIntentId_key" ON "Payment"("stripePaym
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Tag_name_key" ON "Tag"("name");
+
+-- CreateIndex
+CREATE INDEX "Inquiry_demoId_idx" ON "Inquiry"("demoId");
+
+-- CreateIndex
+CREATE INDEX "Inquiry_creatorId_idx" ON "Inquiry"("creatorId");
+
+-- CreateIndex
+CREATE INDEX "InquiryMessage_inquiryId_idx" ON "InquiryMessage"("inquiryId");
 
 -- CreateIndex
 CREATE INDEX "_CourseToTag_B_index" ON "_CourseToTag"("B");
@@ -414,6 +471,9 @@ ALTER TABLE "Demo" ADD CONSTRAINT "Demo_ownerId_fkey" FOREIGN KEY ("ownerId") RE
 
 -- AddForeignKey
 ALTER TABLE "Course" ADD CONSTRAINT "Course_demoId_fkey" FOREIGN KEY ("demoId") REFERENCES "Demo"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CourseFaq" ADD CONSTRAINT "CourseFaq_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Section" ADD CONSTRAINT "Section_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -480,6 +540,18 @@ ALTER TABLE "Payment" ADD CONSTRAINT "Payment_demoId_fkey" FOREIGN KEY ("demoId"
 
 -- AddForeignKey
 ALTER TABLE "Payment" ADD CONSTRAINT "Payment_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inquiry" ADD CONSTRAINT "Inquiry_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "DemoMember"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inquiry" ADD CONSTRAINT "Inquiry_demoId_fkey" FOREIGN KEY ("demoId") REFERENCES "Demo"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "InquiryMessage" ADD CONSTRAINT "InquiryMessage_inquiryId_fkey" FOREIGN KEY ("inquiryId") REFERENCES "Inquiry"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "InquiryMessage" ADD CONSTRAINT "InquiryMessage_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "DemoMember"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_CourseToTag" ADD CONSTRAINT "_CourseToTag_A_fkey" FOREIGN KEY ("A") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -305,7 +305,7 @@ model Exam {
 model QuestionsBank {
   id          String            @id 
   sectionId   String
-  text        String
+  question        String
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -317,7 +317,7 @@ model QuestionsBank {
 model QuestionChoice {
   id          String            @id 
   questionId  String
-  text        String
+  choice        String
   isCorrect   Boolean
 
   createdAt   DateTime @default(now())

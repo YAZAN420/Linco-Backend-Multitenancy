@@ -7,7 +7,7 @@ export class PrismaQuestionChoicesMapper {
   toDomain(raw: PrismaQuestionChoice): QuestionChoice {
     return new QuestionChoice(raw.id, {
       questionId: raw.questionId,
-      text: raw.text,
+      choice: raw.choice,
       isCorrect: raw.isCorrect,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
@@ -18,7 +18,7 @@ export class PrismaQuestionChoicesMapper {
     return {
       id: choice.id,
       questionId: choice.questionId,
-      text: choice.text,
+      choice: choice.choice,
       isCorrect: choice.isCorrect,
       createdAt: choice.createdAt,
       updatedAt: choice.updatedAt,

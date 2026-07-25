@@ -227,7 +227,6 @@ export type InvitationOrderByWithRelationInput = {
 
 export type InvitationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  demoId_receiverId_status?: Prisma.InvitationDemoIdReceiverIdStatusCompoundUniqueInput
   AND?: Prisma.InvitationWhereInput | Prisma.InvitationWhereInput[]
   OR?: Prisma.InvitationWhereInput[]
   NOT?: Prisma.InvitationWhereInput | Prisma.InvitationWhereInput[]
@@ -241,7 +240,7 @@ export type InvitationWhereUniqueInput = Prisma.AtLeast<{
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
   receiver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "demoId_receiverId_status">
+}, "id">
 
 export type InvitationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -353,12 +352,6 @@ export type InvitationListRelationFilter = {
 
 export type InvitationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type InvitationDemoIdReceiverIdStatusCompoundUniqueInput = {
-  demoId: string
-  receiverId: string
-  status: $Enums.InvitationStatus
 }
 
 export type InvitationCountOrderByAggregateInput = {

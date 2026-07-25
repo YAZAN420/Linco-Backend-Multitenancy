@@ -10,8 +10,8 @@ export class QuestionChoice {
     return this.props.questionId;
   }
 
-  get text(): string {
-    return this.props.text;
+  get choice(): string {
+    return this.props.choice;
   }
 
   get isCorrect(): boolean {

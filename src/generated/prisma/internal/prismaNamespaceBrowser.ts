@@ -257,7 +257,7 @@ export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof Exam
 export const QuestionsBankScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
-  text: 'text',
+  question: 'question',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -268,7 +268,7 @@ export type QuestionsBankScalarFieldEnum = (typeof QuestionsBankScalarFieldEnum)
 export const QuestionChoiceScalarFieldEnum = {
   id: 'id',
   questionId: 'questionId',
-  text: 'text',
+  choice: 'choice',
   isCorrect: 'isCorrect',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

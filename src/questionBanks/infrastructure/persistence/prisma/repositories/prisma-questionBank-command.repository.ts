@@ -20,7 +20,7 @@ export class PrismaQuestionsBankCommandRepository implements QuestionsBankComman
       const choiceData = this.prismaQuestionCoicesMapper.toPersistence(choice);
       return {
         id: choiceData.id,
-        text: choiceData.text,
+        choice: choiceData.choice,
         isCorrect: choiceData.isCorrect,
         createdAt: choiceData.createdAt,
         updatedAt: choiceData.updatedAt,

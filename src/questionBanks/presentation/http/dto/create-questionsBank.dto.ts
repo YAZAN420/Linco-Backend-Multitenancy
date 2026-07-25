@@ -6,7 +6,7 @@ import { ChoiceDto } from './choice.dto';
 export class CreateQuestionBankDto implements CreateQuestionsBankInput {
   @IsString()
   @IsNotEmpty()
-  text!: string;
+  question!: string;
 
   @IsArray()
   @ValidateNested({ each: true })

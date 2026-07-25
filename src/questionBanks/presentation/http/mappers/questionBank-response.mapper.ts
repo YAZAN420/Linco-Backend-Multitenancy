@@ -12,11 +12,11 @@ export class QuestionsBankResponseMapper {
     return new QuestionsBankResponseDto(
       questionsBank.id,
       questionsBank.sectionId,
+      questionsBank.question,
       questionsBank.choices.map(
         (choice) =>
-          new QuestionChoiceResponseDto(choice.text, choice.isCorrect),
+          new QuestionChoiceResponseDto(choice.choice, choice.isCorrect),
       ),
-      questionsBank.text,
       questionsBank.createdAt,
       questionsBank.updatedAt,
     );

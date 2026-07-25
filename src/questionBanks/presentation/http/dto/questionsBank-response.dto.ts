@@ -4,8 +4,8 @@ export class QuestionsBankResponseDto {
   constructor(
     readonly id: string,
     readonly sectionId: string,
+    readonly question: string,
     readonly choices: QuestionChoiceResponseDto[],
-    readonly text: string,
     readonly createdAt: Date,
     readonly updatedAt: Date,
   ) {}

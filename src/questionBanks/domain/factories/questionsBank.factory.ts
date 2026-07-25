@@ -4,11 +4,11 @@ import { v7 as uuidv7 } from 'uuid';
 
 @Injectable()
 export class QuestionsBankFactory {
-  public createNew(sectionId: string, text: string): QuestionsBank {
+  public createNew(sectionId: string, question: string): QuestionsBank {
     const now = new Date();
     return new QuestionsBank(uuidv7(), {
       sectionId: sectionId,
-      text: text,
+      question: question,
       choices: [],
       createdAt: now,
       updatedAt: now,

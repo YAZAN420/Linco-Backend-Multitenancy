@@ -1,6 +1,6 @@
 export interface QuestionChoiceProps {
   questionId: string;
-  text: string;
+  choice: string;
   isCorrect: boolean;
   createdAt: Date;
   updatedAt: Date;

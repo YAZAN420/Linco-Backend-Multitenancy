@@ -12,14 +12,16 @@ import { CourseQueryRepository } from 'src/courses/application/ports/course-quer
 export class QuestionsBanksQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
-    private readonly sectionsQueryService: CourseQueryRepository,
+    private readonly sectionsQueryRepository: CourseQueryRepository,
   ) {}
 
   async findAllCursor(
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
-    await this.sectionsQueryService.findSectionById(sectionId);
+    const section =
+      await this.sectionsQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('Section not found');
     return this.questionsBankQueryRepository.findAllCursor(sectionId, options);
   }
 
@@ -27,7 +29,10 @@ export class QuestionsBanksQueryService {
     sectionId: string,
     id: string,
   ): Promise<QuestionsBankWithQuestionChoices> {
-    await this.sectionsQueryService.findSectionById(sectionId);
+    const section =
+      await this.sectionsQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('Section not found');
+
     const questionsBank = await this.questionsBankQueryRepository.findById(
       sectionId,
       id,

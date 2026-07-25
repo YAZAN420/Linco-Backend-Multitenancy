@@ -2,7 +2,7 @@ import { QuestionChoice } from '../question-choice';
 
 export interface QuestionsBankProps {
   sectionId: string;
-  text: string;
+  question: string;
   choices: QuestionChoice[];
   createdAt: Date;
   updatedAt: Date;
