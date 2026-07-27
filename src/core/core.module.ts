@@ -13,8 +13,6 @@ import { StorageModule } from './storage/storage.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GeminiModule } from './gemini/gemini.module';
 import { AiRagModule } from './ai-rag/ai-rag.module';
-import { HeaderResolver, I18nModule } from 'nestjs-i18n';
-import * as path from 'path';
 
 @Global()
 @Module({})
@@ -38,26 +36,9 @@ export class CoreModule {
         LoggerModule,
         QueueModule,
         StorageModule,
-
-        this.registerI18n(),
       ],
 
-      exports: [
-        CacheModule,
-        DatabaseModule,
-        MailModule,
-        LoggerModule,
-        I18nModule,
-      ],
+      exports: [CacheModule, DatabaseModule, MailModule, LoggerModule],
     };
-  }
-  private static registerI18n(): DynamicModule {
-    return I18nModule.forRoot({
-      fallbackLanguage: 'ar',
-      loaderOptions: {
-        path: path.join(process.cwd(), 'dist/i18n/'),
-      },
-      resolvers: [new HeaderResolver(['accept-language'])],
-    });
   }
 }

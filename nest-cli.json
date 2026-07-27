@@ -5,6 +5,11 @@
   "compilerOptions": {
     "builder": "swc",
     "typeCheck": true,
-    "assets": ["i18n/**/*"]
+    "assets": [
+      {
+        "include": "i18n/**/*",
+        "outDir": "dist"
+      }
+    ]
   }
 }
