@@ -12,8 +12,7 @@ import { PrismaQuestionChoicesMapper } from 'src/questionBanks/infrastructure/pe
 import { PrismaQuestionsBankMapper } from 'src/questionBanks/infrastructure/persistence/prisma/mappers/prisma-questionsBank.mapper';
 import { ExamsAttemptQueryController } from './presentation/http/exam-attempts-query.controller';
 import { ExamAttemptQueryService } from './application/exams-attempts-query.service';
-import { RandomExamFactory } from './domain/factories/random-exam.factory';
-import { ExamRandomResponseMapper } from './presentation/http/mappers/random-exam-response.mapper';
+
 import { ExamAttemptResponseMapper } from './presentation/http/mappers/exam-attempt-response.mapper';
 import { ExamAttemptCommandService } from './application/exams-attempts-command.service';
 import { ExamsAttemptCommandController } from './presentation/http/exam-attempts-command.controller';
@@ -35,18 +34,13 @@ import { PrismaExamAttemptMapper } from './infrastructure/persistence/prisma/map
     ExamsQueryService,
     ExamAttemptQueryService,
     ExamAttemptCommandService,
-
     ExamFactory,
     ExamAttemptFactory,
-    RandomExamFactory,
-
     ExamResponseMapper,
-    ExamRandomResponseMapper,
     ExamAttemptResponseMapper,
     QuestionsBankResponseMapper,
     PrismaQuestionsBankMapper,
     PrismaExamAttemptMapper,
-
     PrismaCourseQueryRepository,
     PrismaExamAttemptCommandRepository,
     PrismaExamAttemptQueryRepository,
@@ -58,12 +52,8 @@ import { PrismaExamAttemptMapper } from './infrastructure/persistence/prisma/map
     ExamsQueryService,
     ExamAttemptQueryService,
     ExamAttemptCommandService,
-
     ExamFactory,
-    RandomExamFactory,
-
     ExamResponseMapper,
-    ExamRandomResponseMapper,
     ExamAttemptResponseMapper,
     QuestionsBankResponseMapper,
     PrismaQuestionsBankMapper,

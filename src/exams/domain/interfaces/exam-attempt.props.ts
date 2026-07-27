@@ -1,5 +1,5 @@
 export interface ExamAttemptProps {
-  userId: string;
+  demoMemberId: string;
   examId: string;
   score: number;
   createdAt: Date;

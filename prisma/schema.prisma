@@ -111,7 +111,6 @@ model User {
   demoMemberships       DemoMember[]
   ownedDemos            Demo[]                 @relation("DemoOwner")
   payments              Payment[]
-  examAttempts          ExamAttempt[]
 }
 
 model DemoMember {
@@ -132,6 +131,7 @@ model DemoMember {
   accessibleDepartments DepartmentMember[]
   createdInquiries      Inquiry[] 
   inquiryMessages       InquiryMessage[]
+  examAttempts          ExamAttempt[]
 
   @@unique([userId, demoId])
 }
@@ -328,7 +328,7 @@ model QuestionChoice {
 
 model ExamAttempt {
   id          String            @id 
-  userId      String
+  demoMemberId      String
   examId      String
   score       Int               @default(0)
 
@@ -336,9 +336,7 @@ model ExamAttempt {
   updatedAt   DateTime @updatedAt
 
   exam         Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
-  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, examId])
+  demoMember        DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 }
 
 model Asset {

@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { PrismaExamAttemptMapper } from '../mappers/prisma-exam-attempt.mapper';
 import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 import { ExamAttemptQueryRepository } from 'src/exams/application/ports/exam-attempt-query.repository';
-import {
-  FindExamAttemptsCursorQuery,
-  FindExamAttemptsQuery,
-} from 'src/exams/application/interfaces/find-exam-attempts.query';
+import { FindExamAttemptsCursorQuery } from 'src/exams/application/interfaces/find-exam-attempts.query';
 
 @Injectable()
 export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryRepository {
@@ -18,27 +13,6 @@ export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryReposit
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaExamAttemptMapper,
   ) {}
-
-  async findAll(
-    courseId: string,
-    options: FindExamAttemptsQuery,
-  ): Promise<PageDto<ExamAttempt>> {
-    const skip = (options.page - 1) * options.take;
-
-    const [items, itemCount] = await Promise.all([
-      this.prisma.examAttempt.findMany({
-        skip,
-        take: options.take,
-        orderBy: [{ createdAt: 'desc' }],
-      }),
-      this.prisma.examAttempt.count(),
-    ]);
-
-    return new PageDto(
-      items.map((item) => this.mapper.toDomain(item)),
-      new PageMetaDto({ itemCount, pageOptionsDto: options }),
-    );
-  }
 
   async findAllCursor(
     sectionId: string,
@@ -68,9 +42,6 @@ export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryReposit
     const examAttempt = await this.prisma.examAttempt.findUnique({
       where: { id },
     });
-    if (examAttempt == null) {
-      return null;
-    }
-    return this.mapper.toDomain(examAttempt);
+    return examAttempt ? this.mapper.toDomain(examAttempt) : null;
   }
 }

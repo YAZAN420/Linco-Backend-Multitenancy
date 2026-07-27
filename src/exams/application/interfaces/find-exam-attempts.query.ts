@@ -1,4 +1,4 @@
-import { ExamAttemptFilter } from "./exam-attempt-filter.interface copy";
+import { ExamAttemptFilter } from './exam-attempt-filter.interface copy';
 
 export interface FindExamAttemptsQuery extends ExamAttemptFilter {
   page: number;

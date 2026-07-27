@@ -279,7 +279,7 @@ export type QuestionChoiceScalarFieldEnum = (typeof QuestionChoiceScalarFieldEnu
 
 export const ExamAttemptScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
+  demoMemberId: 'demoMemberId',
   examId: 'examId',
   score: 'score',
   createdAt: 'createdAt',

@@ -198,6 +198,7 @@ export type DemoMemberWhereInput = {
   accessibleDepartments?: Prisma.DepartmentMemberListRelationFilter
   createdInquiries?: Prisma.InquiryListRelationFilter
   inquiryMessages?: Prisma.InquiryMessageListRelationFilter
+  examAttempts?: Prisma.ExamAttemptListRelationFilter
 }
 
 export type DemoMemberOrderByWithRelationInput = {
@@ -215,6 +216,7 @@ export type DemoMemberOrderByWithRelationInput = {
   accessibleDepartments?: Prisma.DepartmentMemberOrderByRelationAggregateInput
   createdInquiries?: Prisma.InquiryOrderByRelationAggregateInput
   inquiryMessages?: Prisma.InquiryMessageOrderByRelationAggregateInput
+  examAttempts?: Prisma.ExamAttemptOrderByRelationAggregateInput
 }
 
 export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -236,6 +238,7 @@ export type DemoMemberWhereUniqueInput = Prisma.AtLeast<{
   accessibleDepartments?: Prisma.DepartmentMemberListRelationFilter
   createdInquiries?: Prisma.InquiryListRelationFilter
   inquiryMessages?: Prisma.InquiryMessageListRelationFilter
+  examAttempts?: Prisma.ExamAttemptListRelationFilter
 }, "id" | "userId_demoId">
 
 export type DemoMemberOrderByWithAggregationInput = {
@@ -275,6 +278,7 @@ export type DemoMemberCreateInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateInput = {
@@ -290,6 +294,7 @@ export type DemoMemberUncheckedCreateInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUpdateInput = {
@@ -305,6 +310,7 @@ export type DemoMemberUpdateInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateInput = {
@@ -320,6 +326,7 @@ export type DemoMemberUncheckedUpdateInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateManyInput = {
@@ -510,6 +517,20 @@ export type DemoMemberUncheckedUpdateManyWithoutDemoNestedInput = {
   deleteMany?: Prisma.DemoMemberScalarWhereInput | Prisma.DemoMemberScalarWhereInput[]
 }
 
+export type DemoMemberCreateNestedOneWithoutExamAttemptsInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedCreateWithoutExamAttemptsInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutExamAttemptsInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+}
+
+export type DemoMemberUpdateOneRequiredWithoutExamAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedCreateWithoutExamAttemptsInput>
+  connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutExamAttemptsInput
+  upsert?: Prisma.DemoMemberUpsertWithoutExamAttemptsInput
+  connect?: Prisma.DemoMemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DemoMemberUpdateToOneWithWhereWithoutExamAttemptsInput, Prisma.DemoMemberUpdateWithoutExamAttemptsInput>, Prisma.DemoMemberUncheckedUpdateWithoutExamAttemptsInput>
+}
+
 export type DemoMemberCreateNestedOneWithoutDiscussionQuestionsInput = {
   create?: Prisma.XOR<Prisma.DemoMemberCreateWithoutDiscussionQuestionsInput, Prisma.DemoMemberUncheckedCreateWithoutDiscussionQuestionsInput>
   connectOrCreate?: Prisma.DemoMemberCreateOrConnectWithoutDiscussionQuestionsInput
@@ -578,6 +599,7 @@ export type DemoMemberCreateWithoutUserInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutUserInput = {
@@ -592,6 +614,7 @@ export type DemoMemberUncheckedCreateWithoutUserInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutUserInput = {
@@ -644,6 +667,7 @@ export type DemoMemberCreateWithoutAccessibleDepartmentsInput = {
   discussionAnswers?: Prisma.DiscussionAnswerCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutAccessibleDepartmentsInput = {
@@ -658,6 +682,7 @@ export type DemoMemberUncheckedCreateWithoutAccessibleDepartmentsInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutAccessibleDepartmentsInput = {
@@ -688,6 +713,7 @@ export type DemoMemberUpdateWithoutAccessibleDepartmentsInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutAccessibleDepartmentsInput = {
@@ -702,6 +728,7 @@ export type DemoMemberUncheckedUpdateWithoutAccessibleDepartmentsInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateWithoutManagedDepartmentsInput = {
@@ -716,6 +743,7 @@ export type DemoMemberCreateWithoutManagedDepartmentsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -730,6 +758,7 @@ export type DemoMemberUncheckedCreateWithoutManagedDepartmentsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -760,6 +789,7 @@ export type DemoMemberUpdateWithoutManagedDepartmentsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -774,6 +804,7 @@ export type DemoMemberUncheckedUpdateWithoutManagedDepartmentsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateWithoutDemoInput = {
@@ -788,6 +819,7 @@ export type DemoMemberCreateWithoutDemoInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDemoInput = {
@@ -802,6 +834,7 @@ export type DemoMemberUncheckedCreateWithoutDemoInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutDemoInput = {
@@ -830,6 +863,82 @@ export type DemoMemberUpdateManyWithWhereWithoutDemoInput = {
   data: Prisma.XOR<Prisma.DemoMemberUpdateManyMutationInput, Prisma.DemoMemberUncheckedUpdateManyWithoutDemoInput>
 }
 
+export type DemoMemberCreateWithoutExamAttemptsInput = {
+  id: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutDemoMembershipsInput
+  demo: Prisma.DemoCreateNestedOneWithoutMembersInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  discussionQuestions?: Prisma.DiscussionQuestionCreateNestedManyWithoutDemoMemberInput
+  discussionAnswers?: Prisma.DiscussionAnswerCreateNestedManyWithoutDemoMemberInput
+  accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
+  createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
+  inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+}
+
+export type DemoMemberUncheckedCreateWithoutExamAttemptsInput = {
+  id: string
+  userId: string
+  demoId: string
+  role?: $Enums.DemoMemberRole
+  joinedAt?: Date | string
+  updatedAt?: Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  discussionQuestions?: Prisma.DiscussionQuestionUncheckedCreateNestedManyWithoutDemoMemberInput
+  discussionAnswers?: Prisma.DiscussionAnswerUncheckedCreateNestedManyWithoutDemoMemberInput
+  accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
+  createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
+  inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type DemoMemberCreateOrConnectWithoutExamAttemptsInput = {
+  where: Prisma.DemoMemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedCreateWithoutExamAttemptsInput>
+}
+
+export type DemoMemberUpsertWithoutExamAttemptsInput = {
+  update: Prisma.XOR<Prisma.DemoMemberUpdateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedUpdateWithoutExamAttemptsInput>
+  create: Prisma.XOR<Prisma.DemoMemberCreateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedCreateWithoutExamAttemptsInput>
+  where?: Prisma.DemoMemberWhereInput
+}
+
+export type DemoMemberUpdateToOneWithWhereWithoutExamAttemptsInput = {
+  where?: Prisma.DemoMemberWhereInput
+  data: Prisma.XOR<Prisma.DemoMemberUpdateWithoutExamAttemptsInput, Prisma.DemoMemberUncheckedUpdateWithoutExamAttemptsInput>
+}
+
+export type DemoMemberUpdateWithoutExamAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutDemoMembershipsNestedInput
+  demo?: Prisma.DemoUpdateOneRequiredWithoutMembersNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  discussionQuestions?: Prisma.DiscussionQuestionUpdateManyWithoutDemoMemberNestedInput
+  discussionAnswers?: Prisma.DiscussionAnswerUpdateManyWithoutDemoMemberNestedInput
+  accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
+  createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
+  inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+}
+
+export type DemoMemberUncheckedUpdateWithoutExamAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDemoMemberRoleFieldUpdateOperationsInput | $Enums.DemoMemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  discussionQuestions?: Prisma.DiscussionQuestionUncheckedUpdateManyWithoutDemoMemberNestedInput
+  discussionAnswers?: Prisma.DiscussionAnswerUncheckedUpdateManyWithoutDemoMemberNestedInput
+  accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
+  createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
+  inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+}
+
 export type DemoMemberCreateWithoutDiscussionQuestionsInput = {
   id: string
   role?: $Enums.DemoMemberRole
@@ -842,6 +951,7 @@ export type DemoMemberCreateWithoutDiscussionQuestionsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDiscussionQuestionsInput = {
@@ -856,6 +966,7 @@ export type DemoMemberUncheckedCreateWithoutDiscussionQuestionsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutDiscussionQuestionsInput = {
@@ -886,6 +997,7 @@ export type DemoMemberUpdateWithoutDiscussionQuestionsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDiscussionQuestionsInput = {
@@ -900,6 +1012,7 @@ export type DemoMemberUncheckedUpdateWithoutDiscussionQuestionsInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateWithoutDiscussionAnswersInput = {
@@ -914,6 +1027,7 @@ export type DemoMemberCreateWithoutDiscussionAnswersInput = {
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutDiscussionAnswersInput = {
@@ -928,6 +1042,7 @@ export type DemoMemberUncheckedCreateWithoutDiscussionAnswersInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutDiscussionAnswersInput = {
@@ -958,6 +1073,7 @@ export type DemoMemberUpdateWithoutDiscussionAnswersInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDiscussionAnswersInput = {
@@ -972,6 +1088,7 @@ export type DemoMemberUncheckedUpdateWithoutDiscussionAnswersInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateWithoutCreatedInquiriesInput = {
@@ -986,6 +1103,7 @@ export type DemoMemberCreateWithoutCreatedInquiriesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerCreateNestedManyWithoutDemoMemberInput
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   inquiryMessages?: Prisma.InquiryMessageCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutCreatedInquiriesInput = {
@@ -1000,6 +1118,7 @@ export type DemoMemberUncheckedCreateWithoutCreatedInquiriesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedCreateNestedManyWithoutDemoMemberInput
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutSenderInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutCreatedInquiriesInput = {
@@ -1030,6 +1149,7 @@ export type DemoMemberUpdateWithoutCreatedInquiriesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUpdateManyWithoutDemoMemberNestedInput
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutCreatedInquiriesInput = {
@@ -1044,6 +1164,7 @@ export type DemoMemberUncheckedUpdateWithoutCreatedInquiriesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedUpdateManyWithoutDemoMemberNestedInput
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateWithoutInquiryMessagesInput = {
@@ -1058,6 +1179,7 @@ export type DemoMemberCreateWithoutInquiryMessagesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerCreateNestedManyWithoutDemoMemberInput
   accessibleDepartments?: Prisma.DepartmentMemberCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryCreateNestedManyWithoutCreatorInput
+  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberUncheckedCreateWithoutInquiryMessagesInput = {
@@ -1072,6 +1194,7 @@ export type DemoMemberUncheckedCreateWithoutInquiryMessagesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedCreateNestedManyWithoutDemoMemberInput
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDemoMemberInput
   createdInquiries?: Prisma.InquiryUncheckedCreateNestedManyWithoutCreatorInput
+  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutDemoMemberInput
 }
 
 export type DemoMemberCreateOrConnectWithoutInquiryMessagesInput = {
@@ -1102,6 +1225,7 @@ export type DemoMemberUpdateWithoutInquiryMessagesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUpdateManyWithoutDemoMemberNestedInput
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutInquiryMessagesInput = {
@@ -1116,6 +1240,7 @@ export type DemoMemberUncheckedUpdateWithoutInquiryMessagesInput = {
   discussionAnswers?: Prisma.DiscussionAnswerUncheckedUpdateManyWithoutDemoMemberNestedInput
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberCreateManyUserInput = {
@@ -1138,6 +1263,7 @@ export type DemoMemberUpdateWithoutUserInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutUserInput = {
@@ -1152,6 +1278,7 @@ export type DemoMemberUncheckedUpdateWithoutUserInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutUserInput = {
@@ -1182,6 +1309,7 @@ export type DemoMemberUpdateWithoutDemoInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateWithoutDemoInput = {
@@ -1196,6 +1324,7 @@ export type DemoMemberUncheckedUpdateWithoutDemoInput = {
   accessibleDepartments?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDemoMemberNestedInput
   createdInquiries?: Prisma.InquiryUncheckedUpdateManyWithoutCreatorNestedInput
   inquiryMessages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutSenderNestedInput
+  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutDemoMemberNestedInput
 }
 
 export type DemoMemberUncheckedUpdateManyWithoutDemoInput = {
@@ -1218,6 +1347,7 @@ export type DemoMemberCountOutputType = {
   accessibleDepartments: number
   createdInquiries: number
   inquiryMessages: number
+  examAttempts: number
 }
 
 export type DemoMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1227,6 +1357,7 @@ export type DemoMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   accessibleDepartments?: boolean | DemoMemberCountOutputTypeCountAccessibleDepartmentsArgs
   createdInquiries?: boolean | DemoMemberCountOutputTypeCountCreatedInquiriesArgs
   inquiryMessages?: boolean | DemoMemberCountOutputTypeCountInquiryMessagesArgs
+  examAttempts?: boolean | DemoMemberCountOutputTypeCountExamAttemptsArgs
 }
 
 /**
@@ -1281,6 +1412,13 @@ export type DemoMemberCountOutputTypeCountInquiryMessagesArgs<ExtArgs extends ru
   where?: Prisma.InquiryMessageWhereInput
 }
 
+/**
+ * DemoMemberCountOutputType without action
+ */
+export type DemoMemberCountOutputTypeCountExamAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExamAttemptWhereInput
+}
+
 
 export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1297,6 +1435,7 @@ export type DemoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   accessibleDepartments?: boolean | Prisma.DemoMember$accessibleDepartmentsArgs<ExtArgs>
   createdInquiries?: boolean | Prisma.DemoMember$createdInquiriesArgs<ExtArgs>
   inquiryMessages?: boolean | Prisma.DemoMember$inquiryMessagesArgs<ExtArgs>
+  examAttempts?: boolean | Prisma.DemoMember$examAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["demoMember"]>
 
@@ -1341,6 +1480,7 @@ export type DemoMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   accessibleDepartments?: boolean | Prisma.DemoMember$accessibleDepartmentsArgs<ExtArgs>
   createdInquiries?: boolean | Prisma.DemoMember$createdInquiriesArgs<ExtArgs>
   inquiryMessages?: boolean | Prisma.DemoMember$inquiryMessagesArgs<ExtArgs>
+  examAttempts?: boolean | Prisma.DemoMember$examAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.DemoMemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DemoMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1363,6 +1503,7 @@ export type $DemoMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     accessibleDepartments: Prisma.$DepartmentMemberPayload<ExtArgs>[]
     createdInquiries: Prisma.$InquiryPayload<ExtArgs>[]
     inquiryMessages: Prisma.$InquiryMessagePayload<ExtArgs>[]
+    examAttempts: Prisma.$ExamAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1773,6 +1914,7 @@ export interface Prisma__DemoMemberClient<T, Null = never, ExtArgs extends runti
   accessibleDepartments<T extends Prisma.DemoMember$accessibleDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$accessibleDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdInquiries<T extends Prisma.DemoMember$createdInquiriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$createdInquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inquiryMessages<T extends Prisma.DemoMember$inquiryMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$inquiryMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  examAttempts<T extends Prisma.DemoMember$examAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMember$examAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2350,6 +2492,30 @@ export type DemoMember$inquiryMessagesArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.InquiryMessageScalarFieldEnum | Prisma.InquiryMessageScalarFieldEnum[]
+}
+
+/**
+ * DemoMember.examAttempts
+ */
+export type DemoMember$examAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExamAttempt
+   */
+  select?: Prisma.ExamAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExamAttempt
+   */
+  omit?: Prisma.ExamAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExamAttemptInclude<ExtArgs> | null
+  where?: Prisma.ExamAttemptWhereInput
+  orderBy?: Prisma.ExamAttemptOrderByWithRelationInput | Prisma.ExamAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.ExamAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExamAttemptScalarFieldEnum | Prisma.ExamAttemptScalarFieldEnum[]
 }
 
 /**

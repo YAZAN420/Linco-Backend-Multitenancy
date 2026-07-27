@@ -7,7 +7,7 @@ export class PrismaExamAttemptMapper {
   toDomain(raw: PrismaExamAttempt): ExamAttempt {
     return new ExamAttempt(raw.id, {
       examId: raw.examId,
-      userId: raw.userId,
+      demoMemberId: raw.demoMemberId,
       score: raw.score,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
@@ -17,7 +17,7 @@ export class PrismaExamAttemptMapper {
   toPersistence(exam: ExamAttempt): PrismaExamAttempt {
     return {
       id: exam.id,
-      userId: exam.userId,
+      demoMemberId: exam.demoMemberId,
       examId: exam.examId,
       score: exam.score,
       createdAt: exam.createdAt,

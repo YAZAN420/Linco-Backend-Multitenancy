@@ -6,7 +6,6 @@ import { CreateExamInput } from './interfaces/create-exam-input.interface';
 import { UpdateExamInput } from './interfaces/update-exam-input.interface';
 import { ExamFactory } from '../domain/factories/exam.factory';
 import { Title } from '../domain/value-objects/title.vo';
-import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 
 @Injectable()
@@ -37,14 +36,8 @@ export class ExamsCommandService {
 
     const { title, numberOfQuestions, durationMinutes } = input;
     if (title) exam.updateTitle(Title.create(title));
-    if (numberOfQuestions)
-      exam.updateNumberOfQuestions(
-        PositiveInteger.create(numberOfQuestions, 'Number Of Questions'),
-      );
-    if (durationMinutes)
-      exam.updateDurationMinutes(
-        PositiveInteger.create(durationMinutes, 'Duration Minutes'),
-      );
+    if (numberOfQuestions) exam.updateNumberOfQuestions(numberOfQuestions);
+    if (durationMinutes) exam.updateDurationMinutes(durationMinutes);
 
     await this.examCommandRepository.save(exam);
     return exam;

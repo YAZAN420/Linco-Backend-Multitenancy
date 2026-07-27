@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ExamResponseDto } from '../dto/exam-response.dto';
 import { Exam as PrismaExam } from 'src/generated/prisma/client';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class ExamResponseMapper {
@@ -14,6 +15,27 @@ export class ExamResponseMapper {
       exam.createdAt,
       exam.updatedAt,
     );
+  }
+
+  toGeneratedExamResponse(data: {
+    exam: PrismaExam;
+    questions: QuestionsBankWithQuestionChoices[];
+  }) {
+    return {
+      id: data.exam.id,
+      title: data.exam.title,
+      durationMinutes: data.exam.durationMinutes,
+      numberOfQuestions: data.exam.numberOfQuestions,
+      sectionId: data.exam.sectionId,
+      questions: data.questions.map((q) => ({
+        id: q.id,
+        question: q.question,
+        choices: q.choices.map((c) => ({
+          id: c.id,
+          choice: c.choice,
+        })),
+      })),
+    };
   }
 
   toResponseManyFromPrisma(exams: PrismaExam[]): ExamResponseDto[] {

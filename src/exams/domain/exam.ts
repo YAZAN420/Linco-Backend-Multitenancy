@@ -1,4 +1,3 @@
-import { PositiveInteger } from 'src/common/value-objects/positive-integer.vo';
 import { Title } from './value-objects/title.vo';
 import { ExamProps } from './interfaces/exam.props';
 
@@ -21,11 +20,11 @@ export class Exam {
   }
 
   get numberOfQuestions(): number {
-    return this.props.numberOfQuestions.value;
+    return this.props.numberOfQuestions;
   }
 
   get durationMinutes(): number {
-    return this.props.durationMinutes.value;
+    return this.props.durationMinutes;
   }
 
   get sectionId(): string {
@@ -38,14 +37,14 @@ export class Exam {
     this.touch();
   }
 
-  updateDurationMinutes(newDurationMinutes: PositiveInteger): void {
-    if (this.props.durationMinutes.equals(newDurationMinutes)) return;
+  updateDurationMinutes(newDurationMinutes: number): void {
+    if (this.props.durationMinutes === newDurationMinutes) return;
     this.props.durationMinutes = newDurationMinutes;
     this.touch();
   }
 
-  updateNumberOfQuestions(newNumberOfQuestions: PositiveInteger): void {
-    if (this.props.numberOfQuestions.equals(newNumberOfQuestions)) return;
+  updateNumberOfQuestions(newNumberOfQuestions: number): void {
+    if (this.props.numberOfQuestions === newNumberOfQuestions) return;
     this.props.numberOfQuestions = newNumberOfQuestions;
     this.touch();
   }

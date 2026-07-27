@@ -24,15 +24,6 @@ export class ExamsAttemptCommandController {
     private readonly examAttemptResponseMapper: ExamAttemptResponseMapper,
   ) {}
 
-  @Delete(':examAttemptId')
-  async remove(@Param('examAttemptId') examAttemptId: string) {
-    await this.examAttemptCommandService.remove(examAttemptId);
-    return {
-      message: 'Exam Attempt deleted successfully',
-      data: null,
-    };
-  }
-
   @Post()
   async create(
     @ActiveDemoMember('id') demoMemberId: string,
@@ -49,6 +40,15 @@ export class ExamsAttemptCommandController {
     return {
       message: 'Exam Attempt created successfully',
       data: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
+    };
+  }
+
+  @Delete(':examAttemptId')
+  async remove(@Param('examAttemptId') examAttemptId: string) {
+    await this.examAttemptCommandService.remove(examAttemptId);
+    return {
+      message: 'Exam Attempt deleted successfully',
+      data: null,
     };
   }
 }

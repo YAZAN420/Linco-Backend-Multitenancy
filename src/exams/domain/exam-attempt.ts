@@ -14,8 +14,8 @@ export class ExamAttempt {
     return this.props.updatedAt;
   }
 
-  get userId(): string {
-    return this.props.userId;
+  get demoMemberId(): string {
+    return this.props.demoMemberId;
   }
 
   get examId(): string {

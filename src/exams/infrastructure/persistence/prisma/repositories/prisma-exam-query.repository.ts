@@ -1,14 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 
-import {
-  FindExamsCursorQuery,
-  FindExamsQuery,
-} from 'src/exams/application/interfaces/find-exams.query';
+import { FindExamsCursorQuery } from 'src/exams/application/interfaces/find-exams.query';
 import { ExamQueryRepository } from 'src/exams/application/ports/exam-query.repository';
 import { Exam } from 'src/exams/domain/exam';
 import { PrismaExamMapper } from '../mappers/prisma-exam.mapper';
@@ -19,24 +14,6 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaExamMapper,
   ) {}
-
-  async findAll(options: FindExamsQuery): Promise<PageDto<Exam>> {
-    const skip = (options.page - 1) * options.take;
-
-    const [items, itemCount] = await Promise.all([
-      this.prisma.exam.findMany({
-        skip,
-        take: options.take,
-        orderBy: [{ createdAt: 'desc' }],
-      }),
-      this.prisma.exam.count(),
-    ]);
-
-    return new PageDto(
-      items.map((item) => this.mapper.toDomain(item)),
-      new PageMetaDto({ itemCount, pageOptionsDto: options }),
-    );
-  }
 
   async findAllCursor(
     options: FindExamsCursorQuery,
@@ -65,9 +42,7 @@ export class PrismaExamQueryRepository implements ExamQueryRepository {
     const exam = await this.prisma.exam.findUnique({
       where: { id },
     });
-    if (exam == null) {
-      throw new NotFoundException('exam not found');
-    }
-    return this.mapper.toDomain(exam);
+
+    return exam ? this.mapper.toDomain(exam) : null;
   }
 }

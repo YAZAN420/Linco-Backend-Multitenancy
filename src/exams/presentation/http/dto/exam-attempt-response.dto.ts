@@ -1,7 +1,7 @@
 export class ExamAttemptResponseDto {
   constructor(
     readonly id: string,
-    readonly userId: string,
+    readonly demoMemberId: string,
     readonly examId: string,
     readonly score: number,
     readonly createdAt: Date,

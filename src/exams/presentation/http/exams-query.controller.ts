@@ -4,10 +4,7 @@ import { ExamsQueryService } from 'src/exams/application/exams-query.service';
 
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
 
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Exam')
@@ -17,19 +14,6 @@ export class ExamsQueryController {
     private readonly examQueryService: ExamsQueryService,
     private readonly examResponseMapper: ExamResponseMapper,
   ) {}
-
-  @Get()
-  async findAll(
-    @Param('sectionId') sectionId: string,
-    @Query() options: PageOptionsDto,
-  ) {
-    const exams = await this.examQueryService.findAll(sectionId, options);
-    return {
-      message: 'Exams fetched successfully',
-      data: this.examResponseMapper.toResponseManyFromPrisma(exams.data),
-      meta: exams.meta,
-    };
-  }
 
   @Get('cursor')
   async findWithCursor(

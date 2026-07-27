@@ -7,7 +7,7 @@ export class ExamAttemptResponseMapper {
   toResponseFromPrisma(examAttempt: PrismaExamAttempt): ExamAttemptResponseDto {
     return new ExamAttemptResponseDto(
       examAttempt.id,
-      examAttempt.userId,
+      examAttempt.demoMemberId,
       examAttempt.examId,
       examAttempt.score,
       examAttempt.createdAt,

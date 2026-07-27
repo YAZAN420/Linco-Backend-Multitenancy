@@ -4,10 +4,14 @@ import { ExamAttempt } from '../exam-attempt';
 
 @Injectable()
 export class ExamAttemptFactory {
-  public createNew(userId: string, examId: string, score: number): ExamAttempt {
+  public createNew(
+    demoMemberId: string,
+    examId: string,
+    score: number,
+  ): ExamAttempt {
     const now = new Date();
     return new ExamAttempt(uuidv7(), {
-      userId: userId,
+      demoMemberId: demoMemberId,
       examId: examId,
       score: score,
       createdAt: now,

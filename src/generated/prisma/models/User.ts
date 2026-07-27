@@ -299,7 +299,6 @@ export type UserWhereInput = {
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-  examAttempts?: Prisma.ExamAttemptListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -327,7 +326,6 @@ export type UserOrderByWithRelationInput = {
   demoMemberships?: Prisma.DemoMemberOrderByRelationAggregateInput
   ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
-  examAttempts?: Prisma.ExamAttemptOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -358,7 +356,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-  examAttempts?: Prisma.ExamAttemptListRelationFilter
 }, "id" | "email" | "stripeCustomerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -436,7 +433,6 @@ export type UserCreateInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -464,7 +460,6 @@ export type UserUncheckedCreateInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -492,7 +487,6 @@ export type UserUpdateInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -520,7 +514,6 @@ export type UserUncheckedUpdateInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -712,20 +705,6 @@ export type UserUpdateOneRequiredWithoutOwnedDemosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDemosInput, Prisma.UserUpdateWithoutOwnedDemosInput>, Prisma.UserUncheckedUpdateWithoutOwnedDemosInput>
 }
 
-export type UserCreateNestedOneWithoutExamAttemptsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutExamAttemptsInput, Prisma.UserUncheckedCreateWithoutExamAttemptsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExamAttemptsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutExamAttemptsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutExamAttemptsInput, Prisma.UserUncheckedCreateWithoutExamAttemptsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExamAttemptsInput
-  upsert?: Prisma.UserUpsertWithoutExamAttemptsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExamAttemptsInput, Prisma.UserUpdateWithoutExamAttemptsInput>, Prisma.UserUncheckedUpdateWithoutExamAttemptsInput>
-}
-
 export type UserCreateNestedOneWithoutReceivedInvitationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedInvitationsInput, Prisma.UserUncheckedCreateWithoutReceivedInvitationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedInvitationsInput
@@ -792,7 +771,6 @@ export type UserCreateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDemoMembershipsInput = {
@@ -819,7 +797,6 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDemoMembershipsInput = {
@@ -862,7 +839,6 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
@@ -889,7 +865,6 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedDemosInput = {
@@ -916,7 +891,6 @@ export type UserCreateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDemosInput = {
@@ -943,7 +917,6 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDemosInput = {
@@ -986,7 +959,6 @@ export type UserUpdateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDemosInput = {
@@ -1012,131 +984,6 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutExamAttemptsInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password?: string | null
-  birthDate?: Date | string | null
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.UserRole
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  emailVerificationExpires?: Date | string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  stripeCustomerId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
-  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
-  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutExamAttemptsInput = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password?: string | null
-  birthDate?: Date | string | null
-  imagePath: string
-  refreshToken?: string | null
-  role?: $Enums.UserRole
-  twoFactorSecret?: string | null
-  isTwoFactorEnabled?: boolean
-  isEmailVerified?: boolean
-  emailVerificationToken?: string | null
-  emailVerificationExpires?: Date | string | null
-  passwordResetToken?: string | null
-  passwordResetExpires?: Date | string | null
-  stripeCustomerId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
-  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
-  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
-  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutExamAttemptsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutExamAttemptsInput, Prisma.UserUncheckedCreateWithoutExamAttemptsInput>
-}
-
-export type UserUpsertWithoutExamAttemptsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutExamAttemptsInput, Prisma.UserUncheckedUpdateWithoutExamAttemptsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutExamAttemptsInput, Prisma.UserUncheckedCreateWithoutExamAttemptsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutExamAttemptsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutExamAttemptsInput, Prisma.UserUncheckedUpdateWithoutExamAttemptsInput>
-}
-
-export type UserUpdateWithoutExamAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
-  sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
-  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
-  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutExamAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
-  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
-  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
-  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1164,7 +1011,6 @@ export type UserCreateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
@@ -1191,7 +1037,6 @@ export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedInvitationsInput = {
@@ -1223,7 +1068,6 @@ export type UserCreateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentInvitationsInput = {
@@ -1250,7 +1094,6 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentInvitationsInput = {
@@ -1293,7 +1136,6 @@ export type UserUpdateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
@@ -1320,7 +1162,6 @@ export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSentInvitationsInput = {
@@ -1358,7 +1199,6 @@ export type UserUpdateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentInvitationsInput = {
@@ -1385,7 +1225,6 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1412,7 +1251,6 @@ export type UserCreateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
-  examAttempts?: Prisma.ExamAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1439,7 +1277,6 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
-  examAttempts?: Prisma.ExamAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1482,7 +1319,6 @@ export type UserUpdateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
-  examAttempts?: Prisma.ExamAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -1509,7 +1345,6 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
-  examAttempts?: Prisma.ExamAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1523,7 +1358,6 @@ export type UserCountOutputType = {
   demoMemberships: number
   ownedDemos: number
   payments: number
-  examAttempts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1532,7 +1366,6 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   demoMemberships?: boolean | UserCountOutputTypeCountDemoMembershipsArgs
   ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
-  examAttempts?: boolean | UserCountOutputTypeCountExamAttemptsArgs
 }
 
 /**
@@ -1580,13 +1413,6 @@ export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.PaymentWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountExamAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ExamAttemptWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1613,7 +1439,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  examAttempts?: boolean | Prisma.User$examAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1690,7 +1515,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  examAttempts?: boolean | Prisma.User$examAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1704,7 +1528,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     demoMemberships: Prisma.$DemoMemberPayload<ExtArgs>[]
     ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
-    examAttempts: Prisma.$ExamAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2125,7 +1948,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   demoMemberships<T extends Prisma.User$demoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  examAttempts<T extends Prisma.User$examAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$examAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2684,30 +2506,6 @@ export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
-}
-
-/**
- * User.examAttempts
- */
-export type User$examAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ExamAttempt
-   */
-  select?: Prisma.ExamAttemptSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ExamAttempt
-   */
-  omit?: Prisma.ExamAttemptOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ExamAttemptInclude<ExtArgs> | null
-  where?: Prisma.ExamAttemptWhereInput
-  orderBy?: Prisma.ExamAttemptOrderByWithRelationInput | Prisma.ExamAttemptOrderByWithRelationInput[]
-  cursor?: Prisma.ExamAttemptWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ExamAttemptScalarFieldEnum | Prisma.ExamAttemptScalarFieldEnum[]
 }
 
 /**
