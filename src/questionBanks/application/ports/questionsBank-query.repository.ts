@@ -11,6 +11,9 @@ export abstract class QuestionsBankQueryRepository {
     sectionId: string,
     numberOfQuestions: number,
   ): Promise<QuestionsBankWithQuestionChoices[]>;
+  abstract findCorrectChoicesByQuestionIds(
+    questionIds: string[],
+  ): Promise<{ questionId: string; correctChoiceId: string }[]>;
   abstract findById(
     sectionId: string,
     id: string,

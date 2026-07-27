@@ -1,4 +1,6 @@
+import { ExamUserAnswerInput } from './exam-user-answer-input.interface';
+
 export interface CreateExamAttemptInput {
   examId: string;
-  score: number;
+  answers: ExamUserAnswerInput[];
 }

@@ -66,6 +66,26 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     });
   }
 
+  async findCorrectChoicesByQuestionIds(
+    questionIds: string[],
+  ): Promise<{ questionId: string; correctChoiceId: string }[]> {
+    const choices = await this.prisma.questionChoice.findMany({
+      where: {
+        questionId: { in: questionIds },
+        isCorrect: true,
+      },
+      select: {
+        questionId: true,
+        id: true,
+      },
+    });
+
+    return choices.map((c) => ({
+      questionId: c.questionId,
+      correctChoiceId: c.id,
+    }));
+  }
+
   async findById(
     sectionId: string,
     id: string,

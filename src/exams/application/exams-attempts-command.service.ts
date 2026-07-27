@@ -3,27 +3,41 @@ import { CreateExamAttemptInput } from './interfaces/create-exam-attempt-input.i
 import { ExamAttempt } from '../domain/exam-attempt';
 import { ExamAttemptFactory } from '../domain/factories/exam-attempt.factory';
 import { ExamAttemptCommandRepository } from './ports/exam-attempt-command.repository';
-import { ExamsQueryService } from './exams-query.service';
+import { QuestionsBankQueryRepository } from 'src/questionBanks/application/ports/questionsBank-query.repository';
+import { ExamQueryRepository } from './ports/exam-query.repository';
+import { ExamUserAnswerInput } from './interfaces/exam-user-answer-input.interface';
 
 @Injectable()
 export class ExamAttemptCommandService {
   constructor(
     private readonly examAttemptCommandRepository: ExamAttemptCommandRepository,
     private readonly examAttemptFactory: ExamAttemptFactory,
-    private readonly examsQueryService: ExamsQueryService,
+    private readonly examQueryRepository: ExamQueryRepository,
+    private readonly questionBankQueryRepository: QuestionsBankQueryRepository,
   ) {}
 
   async create(
     demoMemberId: string,
     input: CreateExamAttemptInput,
   ): Promise<ExamAttempt> {
-    const exam = await this.examsQueryService.exists(input.examId);
+    const exam = await this.examQueryRepository.findById(input.examId);
     if (!exam) throw new NotFoundException('Exam Not Found');
+
+    const correctChoices =
+      await this.questionBankQueryRepository.findCorrectChoicesByQuestionIds(
+        input.answers.map((a) => a.questionId),
+      );
+
+    const calculatedScore = this.calculateScore(
+      input.answers,
+      correctChoices,
+      exam.numberOfQuestions,
+    );
 
     const examAttempt = this.examAttemptFactory.createNew(
       demoMemberId,
       input.examId,
-      input.score,
+      calculatedScore,
     );
 
     await this.examAttemptCommandRepository.save(examAttempt);
@@ -32,5 +46,23 @@ export class ExamAttemptCommandService {
 
   async remove(id: string): Promise<void> {
     await this.examAttemptCommandRepository.delete(id);
+  }
+
+  private calculateScore(
+    userAnswers: ExamUserAnswerInput[],
+    correctChoices: { questionId: string; correctChoiceId: string }[],
+    totalQuestions: number,
+  ): number {
+    const correctChoiceMap = new Map(
+      correctChoices.map((c) => [c.questionId, c.correctChoiceId]),
+    );
+
+    const correctCount = userAnswers.reduce((count, answer) => {
+      const isCorrect =
+        correctChoiceMap.get(answer.questionId) === answer.selectedChoiceId;
+      return isCorrect ? count + 1 : count;
+    }, 0);
+
+    return Math.round((correctCount / totalQuestions) * 100);
   }
 }

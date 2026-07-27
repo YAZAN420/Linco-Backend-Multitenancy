@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Type } from '@nestjs/common';
+import { DynamicModule, Global, Module, Type } from '@nestjs/common';
 import { QuestionsBanksCommandController } from './presentation/http/questionBank-command.controller';
 import { QuestionsBanksQueryController } from './presentation/http/questionBank-query.controller';
 import { QuestionsBankFactory } from './domain/factories/questionsBank.factory';
@@ -9,6 +9,7 @@ import { PrismaCourseQueryRepository } from 'src/courses/infrastructure/persiste
 import { PrismaQuestionChoicesMapper } from './infrastructure/persistence/prisma/mappers/prisma-question-choices.mapper';
 import { QuestionChoiceFactory } from './domain/factories/question-choice.factory';
 
+@Global()
 @Module({
   imports: [],
   controllers: [QuestionsBanksCommandController, QuestionsBanksQueryController],
