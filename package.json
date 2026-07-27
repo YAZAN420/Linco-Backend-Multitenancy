@@ -55,6 +55,7 @@
     "ioredis": "^5.10.0",
     "jsonwebtoken": "^9.0.3",
     "nestjs-cls": "^6.2.0",
+    "nestjs-i18n": "^10.8.5",
     "nestjs-pino": "^4.6.1",
     "nodemailer": "^8.0.1",
     "otplib": "^13.3.0",
