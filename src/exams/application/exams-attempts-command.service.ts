@@ -53,15 +53,22 @@ export class ExamAttemptCommandService {
     correctChoices: { questionId: string; correctChoiceId: string }[],
     totalQuestions: number,
   ): number {
+    if (totalQuestions === 0) return 0;
     const correctChoiceMap = new Map(
       correctChoices.map((c) => [c.questionId, c.correctChoiceId]),
     );
 
-    const correctCount = userAnswers.reduce((count, answer) => {
+    const processedQuestions = new Set<string>();
+    let correctCount = 0;
+
+    for (const answer of userAnswers) {
+      if (processedQuestions.has(answer.questionId)) continue;
+      processedQuestions.add(answer.questionId);
+
       const isCorrect =
         correctChoiceMap.get(answer.questionId) === answer.selectedChoiceId;
-      return isCorrect ? count + 1 : count;
-    }, 0);
+      if (isCorrect) correctCount++;
+    }
 
     return Math.round((correctCount / totalQuestions) * 100);
   }

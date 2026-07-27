@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import type { Exam as PrismaExam } from 'src/generated/prisma/client';
 import { Exam } from 'src/exams/domain/exam';
-import { Title } from 'src/courses/domain/value-objects/title.vo';
+import { Title } from 'src/exams/domain/value-objects/title.vo';
 
 @Injectable()
 export class PrismaExamMapper {
   toDomain(raw: PrismaExam): Exam {
-    const titleVo = Title.create(raw.title);
+    const titleVo = Title.fromPersistence(raw.title);
 
     return new Exam(raw.id, {
       sectionId: raw.sectionId,

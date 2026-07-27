@@ -17,6 +17,9 @@ export class ExamsCommandService {
   ) {}
 
   async create(sectionId: string, input: CreateExamInput): Promise<Exam> {
+    const section = await this.courseQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('section not found');
+
     const exam = this.examFactory.createNew(
       sectionId,
       input.title,
@@ -49,8 +52,9 @@ export class ExamsCommandService {
   }
 
   async findById(sectionId: string, examId: string): Promise<Exam> {
+    const section = await this.courseQueryRepository.findSectionById(sectionId);
+    if (!section) throw new NotFoundException('section not found');
     const exam = await this.examCommandRepository.findById(examId);
-    await this.courseQueryRepository.findSectionById(sectionId);
     if (!exam) throw new NotFoundException('exam not found');
     return exam;
   }

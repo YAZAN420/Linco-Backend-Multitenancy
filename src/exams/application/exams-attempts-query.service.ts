@@ -17,14 +17,15 @@ export class ExamAttemptQueryService {
   ) {}
 
   async findAllCursor(
+    demoMemberId: string,
     options: FindExamAttemptsCursorQuery,
   ): Promise<CursorPageDto<ExamAttempt>> {
-    return this.examAttemptQueryRepository.findAllCursor(options);
+    return this.examAttemptQueryRepository.findAllCursor(demoMemberId, options);
   }
 
   async findById(id: string): Promise<ExamAttempt> {
     const exam = await this.examAttemptQueryRepository.findById(id);
-    if (!exam) throw new NotFoundException('Exam not found');
+    if (!exam) throw new NotFoundException('Exam Attempt not found');
     return exam;
   }
 

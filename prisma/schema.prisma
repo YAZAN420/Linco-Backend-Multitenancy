@@ -291,7 +291,7 @@ model Exam {
   sectionId         String    @unique
   title             String
   numberOfQuestions Int
-  durationMinutes   Int @default(1000)
+  durationMinutes   Int @default(60)
 
   section           Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
   attempts          ExamAttempt[]

@@ -15,11 +15,13 @@ export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryReposit
   ) {}
 
   async findAllCursor(
+    demoMemberId: string,
     options: FindExamAttemptsCursorQuery,
   ): Promise<CursorPageDto<ExamAttempt>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.examAttempt.findMany({
+      where: { demoMemberId },
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,

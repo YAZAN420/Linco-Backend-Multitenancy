@@ -4,6 +4,7 @@ import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mappe
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { ApiTags } from '@nestjs/swagger';
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('ExamAttempts')
 @Controller('examAttempts')
@@ -15,8 +16,14 @@ export class ExamsAttemptQueryController {
   ) {}
 
   @Get('cursor')
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
-    const exams = await this.examAttemptQueryService.findAllCursor(options);
+  async findWithCursor(
+    @ActiveDemoMember('id') demoMemberId: string,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const exams = await this.examAttemptQueryService.findAllCursor(
+      demoMemberId,
+      options,
+    );
 
     return {
       message: 'Exams fetched successfully ',
