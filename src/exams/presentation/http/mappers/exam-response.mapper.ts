@@ -23,10 +23,10 @@ export class ExamResponseMapper {
   }) {
     return {
       id: data.exam.id,
+      sectionId: data.exam.sectionId,
       title: data.exam.title,
       durationMinutes: data.exam.durationMinutes,
       numberOfQuestions: data.exam.numberOfQuestions,
-      sectionId: data.exam.sectionId,
       questions: data.questions.map((q) => ({
         id: q.id,
         question: q.question,

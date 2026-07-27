@@ -17,10 +17,9 @@ export class ExamAttemptQueryService {
   ) {}
 
   async findAllCursor(
-    courseId: string,
     options: FindExamAttemptsCursorQuery,
   ): Promise<CursorPageDto<ExamAttempt>> {
-    return this.examAttemptQueryRepository.findAllCursor(courseId, options);
+    return this.examAttemptQueryRepository.findAllCursor(options);
   }
 
   async findById(id: string): Promise<ExamAttempt> {

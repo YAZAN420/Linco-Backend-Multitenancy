@@ -15,14 +15,8 @@ export class ExamsAttemptQueryController {
   ) {}
 
   @Get('cursor')
-  async findWithCursor(
-    @Param('courseId') courseId: string,
-    @Query() options: CursorPageOptionsDto,
-  ) {
-    const exams = await this.examAttemptQueryService.findAllCursor(
-      courseId,
-      options,
-    );
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+    const exams = await this.examAttemptQueryService.findAllCursor(options);
 
     return {
       message: 'Exams fetched successfully ',

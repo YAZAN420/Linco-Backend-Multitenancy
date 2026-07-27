@@ -4,7 +4,6 @@ import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 
 export abstract class ExamAttemptQueryRepository {
   abstract findAllCursor(
-    courseId: string,
     options: FindExamAttemptsCursorQuery,
   ): Promise<CursorPageDto<ExamAttempt>>;
   abstract findById(id: string): Promise<ExamAttempt | null>;

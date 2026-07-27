@@ -15,7 +15,6 @@ export class PrismaExamAttemptQueryRepository implements ExamAttemptQueryReposit
   ) {}
 
   async findAllCursor(
-    sectionId: string,
     options: FindExamAttemptsCursorQuery,
   ): Promise<CursorPageDto<ExamAttempt>> {
     const { cursor, take } = options;
