@@ -21,7 +21,7 @@ export class ExamsQueryService {
 
     if (!sectionExist) throw new NotFoundException('Section Not Found');
 
-    return this.examQueryRepository.findAllCursor(options);
+    return this.examQueryRepository.findAllCursor(sectionId, options);
   }
 
   async findById(sectionId: string, id: string): Promise<Exam> {
