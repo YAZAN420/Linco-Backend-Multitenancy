@@ -29,7 +29,9 @@ export class DepartmentRolesGuard implements CanActivate {
 
     const activeDemoMember = this.cls.get(CLS_KEYS.DEMO_MEMBER);
     if (!activeDemoMember) {
-      throw new ForbiddenException('errors.WORKSPACE_CONTEXT_IS_MISSING_OR_INVALID');
+      throw new ForbiddenException(
+        'errors.WORKSPACE_CONTEXT_IS_MISSING_OR_INVALID',
+      );
     }
     const departmentIdRaw = request.headers['x-department-id'];
 
@@ -43,13 +45,17 @@ export class DepartmentRolesGuard implements CanActivate {
       );
     }
 
+    console.log(activeDemoMember, departmentId);
+
     const deptMember = await this.departmentMemberQueryRepository.findById(
       departmentId,
       activeDemoMember.id,
     );
 
     if (!deptMember) {
-      throw new ForbiddenException('errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT');
+      throw new ForbiddenException(
+        'errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT',
+      );
     }
 
     const activeDeptMember: ActiveDepartmentMemberData = {
@@ -71,7 +77,9 @@ export class DepartmentRolesGuard implements CanActivate {
     }
 
     if (!requiredRoles.includes(activeDeptMember.role)) {
-      throw new ForbiddenException('errors.INSUFFICIENT_DEPARTMENT_PERMISSIONS');
+      throw new ForbiddenException(
+        'errors.INSUFFICIENT_DEPARTMENT_PERMISSIONS',
+      );
     }
 
     return true;
