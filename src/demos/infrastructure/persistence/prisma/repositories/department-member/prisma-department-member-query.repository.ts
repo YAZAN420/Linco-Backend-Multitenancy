@@ -45,10 +45,10 @@ export class PrismaDepartmentMemberQueryRepository implements DepartmentMemberQu
 
   async findById(
     departmentId: string,
-    memberId: string,
+    demoMemberId: string,
   ): Promise<DepartmentMemberWithUser | null> {
     return this.prisma.departmentMember.findFirst({
-      where: { id: memberId, departmentId },
+      where: { demoMemberId, departmentId },
       include: {
         demoMember: {
           include: {

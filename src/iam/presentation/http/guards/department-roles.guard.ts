@@ -45,22 +45,16 @@ export class DepartmentRolesGuard implements CanActivate {
       );
     }
 
-    console.log(activeDemoMember, departmentId);
-
     const deptMember = await this.departmentMemberQueryRepository.findById(
       departmentId,
       activeDemoMember.id,
     );
-
-    console.log(deptMember);
 
     if (!deptMember) {
       throw new ForbiddenException(
         'errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT',
       );
     }
-
-    console.log('aa');
 
     const activeDeptMember: ActiveDepartmentMemberData = {
       id: deptMember.id,
