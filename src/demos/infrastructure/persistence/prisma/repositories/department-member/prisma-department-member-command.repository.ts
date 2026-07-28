@@ -55,12 +55,10 @@ export class PrismaDepartmentMemberCommandRepository implements DepartmentMember
     departmentId: string,
     demoMemberId: string,
   ): Promise<DepartmentMember | null> {
-    const member = await this.prisma.departmentMember.findUnique({
+    const member = await this.prisma.departmentMember.findFirst({
       where: {
-        departmentId_demoMemberId: {
-          departmentId,
-          demoMemberId,
-        },
+        departmentId,
+        demoMemberId,
       },
     });
     return member ? this.mapper.toDomain(member) : null;

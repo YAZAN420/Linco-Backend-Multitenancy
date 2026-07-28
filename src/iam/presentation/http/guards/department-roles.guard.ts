@@ -52,11 +52,15 @@ export class DepartmentRolesGuard implements CanActivate {
       activeDemoMember.id,
     );
 
+    console.log(deptMember);
+
     if (!deptMember) {
       throw new ForbiddenException(
         'errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT',
       );
     }
+
+    console.log('aa');
 
     const activeDeptMember: ActiveDepartmentMemberData = {
       id: deptMember.id,
