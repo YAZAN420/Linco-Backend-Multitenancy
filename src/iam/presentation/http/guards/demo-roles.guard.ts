@@ -28,7 +28,9 @@ export class DemoRolesGuard implements CanActivate {
     const demoIdRaw = request.headers['x-demo-id'];
     const demoId = Array.isArray(demoIdRaw) ? demoIdRaw[0] : demoIdRaw;
     if (!demoId) {
-      throw new ForbiddenException('errors.WORKSPACE_CONTEXT_X_DEMO_ID_IS_MISSING');
+      throw new ForbiddenException(
+        'errors.WORKSPACE_CONTEXT_X_DEMO_ID_IS_MISSING',
+      );
     }
 
     const user = this.cls.get(CLS_KEYS.USER);
@@ -41,7 +43,9 @@ export class DemoRolesGuard implements CanActivate {
       );
 
     if (!demoMember) {
-      throw new ForbiddenException('errors.USER_IS_NOT_A_MEMBER_OF_THIS_WORKSPACE');
+      throw new ForbiddenException(
+        'errors.USER_IS_NOT_A_MEMBER_OF_THIS_WORKSPACE',
+      );
     }
 
     const activeDemoMember: ActiveDemoMemberData = {
