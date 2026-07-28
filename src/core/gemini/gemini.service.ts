@@ -13,7 +13,7 @@ export class GeminiService {
   async generateRoadmap(sectionTitle: string): Promise<RoadmapResponse> {
     try {
       const model = this.genAI.getGenerativeModel({
-        model: 'gemini-3.5-flash',
+        model: 'gemini-3.6-flash',
       });
 
       const roadmapSchema: Schema = {
@@ -111,6 +111,7 @@ Output strictly as a JSON object that matches the provided schema. Do not includ
       const rawJson = result.response.text();
 
       if (!rawJson) {
+        console.log(rawJson);
         throw new InternalServerErrorException(
           'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER',
         );
@@ -118,6 +119,7 @@ Output strictly as a JSON object that matches the provided schema. Do not includ
 
       return JSON.parse(rawJson) as RoadmapResponse;
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER_ERROR_ERROR',
       );

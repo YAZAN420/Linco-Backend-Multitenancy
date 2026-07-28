@@ -36,7 +36,9 @@ export class DepartmentsCommandService {
         throw new NotFoundException('errors.MEMBER_NOT_FOUND');
       }
       if (member.demoId !== demoId) {
-        throw new DomainException('errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO');
+        throw new DomainException(
+          'errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO',
+        );
       }
     }
 
@@ -74,7 +76,9 @@ export class DepartmentsCommandService {
       );
       if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
       if (member.demoId !== demoId) {
-        throw new DomainException('errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO');
+        throw new DomainException(
+          'errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO',
+        );
       }
       demo.reassignDepartmentManager(departmentId, input.managerId);
     }
