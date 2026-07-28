@@ -5,9 +5,10 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
+import { Reflector } from '@nestjs/core';
+import { I18nContext } from 'nestjs-i18n';
 import { ApiResponse } from '../interfaces/api-response.interface';
 import { ControllerResponse } from '../interfaces/controller-response.interface';
-import { Reflector } from '@nestjs/core';
 import { SkipResponseWrap } from '../decorators/skip-response-wrap.decorator';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<
   ApiResponse<T> | ControllerResponse<T>
 > {
   constructor(private readonly reflector: Reflector) {}
+
   intercept(
     context: ExecutionContext,
     next: CallHandler<ControllerResponse<T>>,
@@ -24,16 +26,35 @@ export class ResponseInterceptor<T> implements NestInterceptor<
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (skip) {
       return next.handle();
     }
+
+    const i18n = I18nContext.current(context);
+
+    const translateKey = (key?: string): string => {
+      const defaultKey = 'messages.REQUEST_SUCCESSFUL';
+      const targetKey = key || defaultKey;
+
+      if (
+        i18n &&
+        typeof targetKey === 'string' &&
+        targetKey.startsWith('messages.')
+      ) {
+        return i18n.t(targetKey);
+      }
+
+      return key || 'Request successful';
+    };
+
     return next.handle().pipe(
       map((response): ApiResponse<T> => {
         if (response === null || response === undefined) {
           return {
             success: true,
-            message: 'Request successful',
-            data: response as T,
+            message: translateKey(),
+            data: response,
             timestamp: new Date().toISOString(),
           };
         }
@@ -41,8 +62,8 @@ export class ResponseInterceptor<T> implements NestInterceptor<
         if (typeof response !== 'object') {
           return {
             success: true,
-            message: 'Request successful',
-            data: response as T,
+            message: translateKey(),
+            data: response,
             timestamp: new Date().toISOString(),
           };
         }
@@ -53,9 +74,15 @@ export class ResponseInterceptor<T> implements NestInterceptor<
             ? typedResponse.data
             : (response as unknown as T);
 
+        const customMessageKey =
+          'message' in typedResponse &&
+          typeof typedResponse.message === 'string'
+            ? typedResponse.message
+            : undefined;
+
         const apiResponse: ApiResponse<T> = {
           success: true,
-          message: typedResponse.message ?? 'Request successful',
+          message: translateKey(customMessageKey),
           data,
           timestamp: new Date().toISOString(),
         };
