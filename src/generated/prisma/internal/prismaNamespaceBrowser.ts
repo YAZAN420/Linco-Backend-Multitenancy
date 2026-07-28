@@ -73,7 +73,8 @@ export const ModelName = {
   Payment: 'Payment',
   Tag: 'Tag',
   Inquiry: 'Inquiry',
-  InquiryMessage: 'InquiryMessage'
+  InquiryMessage: 'InquiryMessage',
+  DepartmentMessage: 'DepartmentMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,6 +401,26 @@ export const InquiryMessageScalarFieldEnum = {
 } as const
 
 export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]
+
+
+export const DepartmentMessageScalarFieldEnum = {
+  id: 'id',
+  departmentId: 'departmentId',
+  senderId: 'senderId',
+  type: 'type',
+  content: 'content',
+  blobName: 'blobName',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  replyToId: 'replyToId',
+  isEdited: 'isEdited',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DepartmentMessageScalarFieldEnum = (typeof DepartmentMessageScalarFieldEnum)[keyof typeof DepartmentMessageScalarFieldEnum]
 
 
 export const SortOrder = {

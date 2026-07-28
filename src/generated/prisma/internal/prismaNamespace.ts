@@ -419,7 +419,8 @@ export const ModelName = {
   Payment: 'Payment',
   Tag: 'Tag',
   Inquiry: 'Inquiry',
-  InquiryMessage: 'InquiryMessage'
+  InquiryMessage: 'InquiryMessage',
+  DepartmentMessage: 'DepartmentMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -435,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryMessage"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryMessage" | "departmentMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2141,6 +2142,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DepartmentMessage: {
+      payload: Prisma.$DepartmentMessagePayload<ExtArgs>
+      fields: Prisma.DepartmentMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DepartmentMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DepartmentMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.DepartmentMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DepartmentMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        findMany: {
+          args: Prisma.DepartmentMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>[]
+        }
+        create: {
+          args: Prisma.DepartmentMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        createMany: {
+          args: Prisma.DepartmentMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DepartmentMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.DepartmentMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        update: {
+          args: Prisma.DepartmentMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.DepartmentMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DepartmentMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DepartmentMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.DepartmentMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.DepartmentMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartmentMessage>
+        }
+        groupBy: {
+          args: Prisma.DepartmentMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DepartmentMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentMessageCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2490,6 +2565,26 @@ export const InquiryMessageScalarFieldEnum = {
 export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]
 
 
+export const DepartmentMessageScalarFieldEnum = {
+  id: 'id',
+  departmentId: 'departmentId',
+  senderId: 'senderId',
+  type: 'type',
+  content: 'content',
+  blobName: 'blobName',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  replyToId: 'replyToId',
+  isEdited: 'isEdited',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DepartmentMessageScalarFieldEnum = (typeof DepartmentMessageScalarFieldEnum)[keyof typeof DepartmentMessageScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2750,6 +2845,20 @@ export type EnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 export type ListEnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InquiryStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'MessageType'
+ */
+export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageType[]'
+ */
+export type ListEnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2924,6 +3033,7 @@ export type GlobalOmitConfig = {
   tag?: Prisma.TagOmit
   inquiry?: Prisma.InquiryOmit
   inquiryMessage?: Prisma.InquiryMessageOmit
+  departmentMessage?: Prisma.DepartmentMessageOmit
 }
 
 /* Types for Logging */

@@ -37,6 +37,8 @@ import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module'
 import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
 import { HeaderResolver, I18nJsonLoader, I18nModule } from 'nestjs-i18n';
 import { join } from 'path';
+import { DepartmentMessagesModule } from './departmentMessages/departmentMessages.module';
+import { DepartmentMessagesInfrastructureModule } from './departmentMessages/infrastructure/departmentMessages-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -73,6 +75,9 @@ export class AppModule {
           InquiryMessagesInfrastructureModule.use(),
         ),
         this.registerI18n(),
+        DepartmentMessagesModule.withInfrastructure(
+          DepartmentMessagesInfrastructureModule.use(),
+        ),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
@@ -83,7 +88,7 @@ export class AppModule {
   }
   private static registerI18n(): DynamicModule {
     return I18nModule.forRoot({
-      fallbackLanguage: 'ar',
+      fallbackLanguage: 'en',
 
       loader: I18nJsonLoader,
 

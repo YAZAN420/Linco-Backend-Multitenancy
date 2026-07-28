@@ -15,7 +15,6 @@ async function bootstrap() {
       bufferLogs: true,
       rawBody: true,
     });
-
     const logger = app.get(PinoLogger);
     app.useLogger(logger);
     const instance = app.getHttpAdapter().getInstance() as Express;
@@ -26,9 +25,7 @@ async function bootstrap() {
     const port = configService.get<number>('PORT', 3000);
 
     setupSwagger(app);
-
     await app.listen(port, '0.0.0.0');
-
     logger.log(`🚀 Application is running on: https://api.lincolms.me`);
     logger.log(`📚 Scalar documentation at: https://api.lincolms.me/docs`);
   } catch (error) {

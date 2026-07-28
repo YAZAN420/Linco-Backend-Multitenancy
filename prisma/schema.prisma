@@ -23,6 +23,12 @@ enum DepartmentMemberRole {
   MEMBER
 }
 
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  AUDIO
+}
 
 enum CourseVisibility {
   PUBLIC   
@@ -149,6 +155,7 @@ model DepartmentMember {
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   demoMember   DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
+  messages DepartmentMessage[]
   @@unique([departmentId, demoMemberId])
   @@index([departmentId])
   @@index([demoMemberId])
@@ -168,6 +175,7 @@ model Department {
   courses    DepartmentCourse[]
 
   members DepartmentMember[]
+  messages DepartmentMessage[]
 }
 
 model Demo {
@@ -482,4 +490,36 @@ model InquiryMessage {
   updatedAt     DateTime @updatedAt
   
   @@index([inquiryId])
+}
+
+model DepartmentMessage {
+  id           String   @id 
+
+  departmentId String
+  senderId     String
+
+  type         MessageType @default(TEXT)
+
+  content      String? @db.Text
+
+  blobName     String?
+  fileName     String?
+  mimeType     String?
+  fileSize     Int?
+
+  replyToId    String?
+
+  isEdited     Boolean @default(false)
+  isDeleted    Boolean @default(false)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  sender       DepartmentMember @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  replyTo      DepartmentMessage?  @relation("Replies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies      DepartmentMessage[] @relation("Replies")
+
+  @@index([departmentId, createdAt])
 }

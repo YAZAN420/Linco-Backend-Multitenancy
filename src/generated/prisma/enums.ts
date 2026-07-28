@@ -34,6 +34,16 @@ export const DepartmentMemberRole = {
 export type DepartmentMemberRole = (typeof DepartmentMemberRole)[keyof typeof DepartmentMemberRole]
 
 
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  FILE: 'FILE',
+  AUDIO: 'AUDIO'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
 export const CourseVisibility = {
   PUBLIC: 'PUBLIC',
   PRIVATE: 'PRIVATE'

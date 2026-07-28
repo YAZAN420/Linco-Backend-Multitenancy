@@ -154,3 +154,8 @@ export type Inquiry = Prisma.InquiryModel
  * 
  */
 export type InquiryMessage = Prisma.InquiryMessageModel
+/**
+ * Model DepartmentMessage
+ * 
+ */
+export type DepartmentMessage = Prisma.DepartmentMessageModel

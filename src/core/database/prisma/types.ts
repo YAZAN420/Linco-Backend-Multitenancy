@@ -117,3 +117,33 @@ export type DiscussionAnswerWithDemoMember = Prisma.DiscussionAnswerGetPayload<{
     };
   };
 }>;
+
+export type DepartmentMessageWithSenderAndReply =
+  Prisma.DepartmentMessageGetPayload<{
+    include: {
+      sender: {
+        select: {
+          id: true;
+          demoMember: {
+            select: {
+              user: {
+                select: {
+                  id: true;
+                  firstName: true;
+                  lastName: true;
+                  imagePath: true;
+                };
+              };
+            };
+          };
+        };
+      };
+      replyTo: {
+        select: {
+          id: true;
+          content: true;
+          type: true;
+        };
+      };
+    };
+  }>;
