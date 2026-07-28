@@ -20,7 +20,7 @@ export class DemoMembersQueryService {
   ): Promise<CursorPageDto<DemoMemberWithUser>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException('Demo not found');
+      throw new NotFoundException('errors.DEMO_NOT_FOUND');
     }
     return await this.demoMemberQueryRepository.findAllByDemo(demoId, options);
   }
@@ -31,11 +31,11 @@ export class DemoMembersQueryService {
   ): Promise<DemoMemberWithUser> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException('Demo not found');
+      throw new NotFoundException('errors.DEMO_NOT_FOUND');
     }
     const member = await this.demoMemberQueryRepository.findById(memberId);
     if (!member) {
-      throw new NotFoundException('Member not found in this demo');
+      throw new NotFoundException('errors.MEMBER_NOT_FOUND_IN_THIS_DEMO');
     }
     return member;
   }

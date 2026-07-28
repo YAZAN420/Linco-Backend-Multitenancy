@@ -99,7 +99,7 @@ export class Course {
 
   addSection(section: Section): void {
     if (this.props.sections.length >= 50) {
-      throw new DomainException('Course cannot have more than 50 sections');
+      throw new DomainException('errors.COURSE_CANNOT_HAVE_MORE_THAN_50_SECTIONS');
     }
 
     const isTitleExists = this.props.sections.some(
@@ -107,7 +107,7 @@ export class Course {
     );
     if (isTitleExists) {
       throw new DomainException(
-        'Section title must be unique within the course',
+        'errors.SECTION_TITLE_MUST_BE_UNIQUE_WITHIN_THE_COURSE',
       );
     }
 
@@ -116,7 +116,7 @@ export class Course {
     );
     if (isOrderExists) {
       throw new DomainException(
-        'Section order must be unique within the course',
+        'errors.SECTION_ORDER_MUST_BE_UNIQUE_WITHIN_THE_COURSE',
       );
     }
 
@@ -130,7 +130,7 @@ export class Course {
     newOrder?: SectionOrder,
   ): void {
     const section = this.props.sections.find((s) => s.id === sectionId);
-    if (!section) throw new DomainException('Section not found in this course');
+    if (!section) throw new DomainException('errors.SECTION_NOT_FOUND_IN_THIS_COURSE');
 
     let isUpdated = false;
 
@@ -140,7 +140,7 @@ export class Course {
       );
       if (isTitleExists) {
         throw new DomainException(
-          'Section title must be unique within the course',
+          'errors.SECTION_TITLE_MUST_BE_UNIQUE_WITHIN_THE_COURSE',
         );
       }
       section.updateTitle(newTitle);
@@ -153,7 +153,7 @@ export class Course {
       );
       if (isOrderExists) {
         throw new DomainException(
-          'Section order must be unique within the course',
+          'errors.SECTION_ORDER_MUST_BE_UNIQUE_WITHIN_THE_COURSE',
         );
       }
       section.updateOrder(newOrder);

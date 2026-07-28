@@ -28,11 +28,11 @@ export class DemoRolesGuard implements CanActivate {
     const demoIdRaw = request.headers['x-demo-id'];
     const demoId = Array.isArray(demoIdRaw) ? demoIdRaw[0] : demoIdRaw;
     if (!demoId) {
-      throw new ForbiddenException('Workspace context (x-demo-id) is missing');
+      throw new ForbiddenException('errors.WORKSPACE_CONTEXT_X_DEMO_ID_IS_MISSING');
     }
 
     const user = this.cls.get(CLS_KEYS.USER);
-    if (!user) throw new ForbiddenException('User is not authenticated');
+    if (!user) throw new ForbiddenException('errors.USER_IS_NOT_AUTHENTICATED');
 
     const demoMember =
       await this.demoMemberQueryRepository.findDemoMemberByUserId(
@@ -41,7 +41,7 @@ export class DemoRolesGuard implements CanActivate {
       );
 
     if (!demoMember) {
-      throw new ForbiddenException('User is not a member of this workspace');
+      throw new ForbiddenException('errors.USER_IS_NOT_A_MEMBER_OF_THIS_WORKSPACE');
     }
 
     const activeDemoMember: ActiveDemoMemberData = {
@@ -63,7 +63,7 @@ export class DemoRolesGuard implements CanActivate {
     }
 
     if (!requiredRoles.includes(activeDemoMember.role)) {
-      throw new ForbiddenException('Insufficient workspace permissions');
+      throw new ForbiddenException('errors.INSUFFICIENT_WORKSPACE_PERMISSIONS');
     }
 
     return true;

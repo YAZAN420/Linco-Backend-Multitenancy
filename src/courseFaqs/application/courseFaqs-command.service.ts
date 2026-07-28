@@ -21,7 +21,7 @@ export class CourseFaqsCommandService {
   ): Promise<CourseFaq> {
     const course = await this.courseCommandRepository.findById(courseId);
 
-    if (!course) throw new NotFoundException('Course Not Found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     const courseFaq = this.courseFaqFactory.createNew(
       input.question,
@@ -35,7 +35,7 @@ export class CourseFaqsCommandService {
   async remove(courseId: string, courseFaqId: string): Promise<void> {
     const course = await this.courseCommandRepository.findById(courseId);
 
-    if (!course) throw new NotFoundException('Course Not Found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     await this.findById(courseFaqId);
     await this.courseFaqCommandRepository.delete(courseFaqId);
@@ -44,7 +44,7 @@ export class CourseFaqsCommandService {
   async findById(courseFaqId: string): Promise<CourseFaq> {
     const courseFaq =
       await this.courseFaqCommandRepository.findById(courseFaqId);
-    if (!courseFaq) throw new NotFoundException('courseFaq not found');
+    if (!courseFaq) throw new NotFoundException('errors.COURSE_FAQ_NOT_FOUND');
     return courseFaq;
   }
 }

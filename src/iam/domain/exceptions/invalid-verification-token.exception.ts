@@ -2,6 +2,6 @@ import { BadRequestException } from '@nestjs/common';
 
 export class InvalidVerificationTokenException extends BadRequestException {
   constructor() {
-    super('Invalid or expired verification token');
+    super('errors.INVALID_OR_EXPIRED_VERIFICATION_TOKEN');
   }
 }

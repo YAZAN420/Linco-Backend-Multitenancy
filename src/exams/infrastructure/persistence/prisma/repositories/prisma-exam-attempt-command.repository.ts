@@ -21,7 +21,7 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
       });
     } catch (error) {
       throw new InternalServerErrorException(
-        `Database operation failed: ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

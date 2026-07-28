@@ -15,16 +15,16 @@ export class AttachmentQueryService {
     options: FindCursorQuery,
   ): Promise<CursorPageDto<Attachment>> {
     const lesson = await this.lessonQueryRepository.findById(lessonId);
-    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (!lesson) throw new NotFoundException('errors.LESSON_NOT_FOUND');
     return this.lessonQueryRepository.findAttachmentsCursor(lessonId, options);
   }
 
   async findById(lessonId: string, attachmentId: string): Promise<Attachment> {
     const lesson = await this.lessonQueryRepository.findById(lessonId);
-    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (!lesson) throw new NotFoundException('errors.LESSON_NOT_FOUND');
     const attachment =
       await this.lessonQueryRepository.findAttachmentById(attachmentId);
-    if (!attachment) throw new NotFoundException('Attachment not found');
+    if (!attachment) throw new NotFoundException('errors.ATTACHMENT_NOT_FOUND');
     return attachment;
   }
 

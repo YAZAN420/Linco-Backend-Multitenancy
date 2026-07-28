@@ -51,7 +51,7 @@ export class DemosCommandService {
   ) {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException(`Demo workspace with ID ${demoId} not found`);
+      throw new NotFoundException('errors.DEMO_WORKSPACE_WITH_ID_DEMO_ID_NOT_FOUND');
     }
     demo.updatePlan(plan);
     demo.activateSubscription(stripeSubscriptionId, currentPeriodEnd);
@@ -64,7 +64,7 @@ export class DemosCommandService {
     );
 
     if (existingDemo) {
-      throw new DomainException('You have already used your free trial limit.');
+      throw new DomainException('errors.YOU_HAVE_ALREADY_USED_YOUR_FREE_TRIAL_LIMIT');
     }
 
     const demo = this.demoFactory.createNew(
@@ -108,7 +108,7 @@ export class DemosCommandService {
 
   async findById(id: string): Promise<Demo> {
     const demo = await this.demoCommandRepository.findById(id);
-    if (!demo) throw new NotFoundException('demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
     return demo;
   }
 }

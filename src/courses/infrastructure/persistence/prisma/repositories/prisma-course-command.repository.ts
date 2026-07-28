@@ -56,12 +56,12 @@ export class PrismaCourseCommandRepository implements CourseCommandRepository {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
           throw new NotFoundException(
-            `Validation failed: One of the related entities (e.g., Category, Instructor, or Course reference) does not exist.`,
+            'errors.VALIDATION_FAILED_ONE_OF_THE_RELATED_ENTITIES_E_G_CATEGORY_INSTRUCTOR_OR_COURSE_REFERENCE_DOES_NOT_EXIST',
           );
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed while saving course aggregate: ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_WHILE_SAVING_COURSE_AGGREGATE_ERROR',
       );
     }
   }

@@ -25,7 +25,7 @@ export class ExamAttemptQueryService {
 
   async findById(id: string): Promise<ExamAttempt> {
     const exam = await this.examAttemptQueryRepository.findById(id);
-    if (!exam) throw new NotFoundException('Exam Attempt not found');
+    if (!exam) throw new NotFoundException('errors.EXAM_ATTEMPT_NOT_FOUND');
     return exam;
   }
 
@@ -34,7 +34,7 @@ export class ExamAttemptQueryService {
     questions: QuestionsBankWithQuestionChoices[];
   }> {
     const exam = await this.examQueryRepository.findById(examId);
-    if (!exam) throw new NotFoundException('Exam Not Found');
+    if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
     const randomQuestions =
       await this.questionsBankQueryRepository.getRandomQuestions(

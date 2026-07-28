@@ -50,7 +50,7 @@ export class CoursesCommandService {
 
   async create(input: CreateCourseInput): Promise<Course> {
     const demoExists = await this.demoQueryRepository.demoExists(input.demoId);
-    if (!demoExists) throw new NotFoundException('demo not found');
+    if (!demoExists) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     const course = this.courseFactory.createNew(
       input.title,
@@ -133,7 +133,7 @@ export class CoursesCommandService {
 
   async findById(courseId: string): Promise<Course> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('course not found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
     return course;
   }
 

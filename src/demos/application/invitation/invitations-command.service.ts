@@ -27,7 +27,7 @@ export class InvitationsCommandService {
     const demoExists = await this.demoCommandRepository.findById(input.demoId);
     if (!demoExists) {
       throw new NotFoundException(
-        `Demo with ID ${input.demoId} does not exist`,
+        'errors.DEMO_WITH_ID_DEMO_ID_DOES_NOT_EXIST',
       );
     }
     const existingMember =
@@ -36,7 +36,7 @@ export class InvitationsCommandService {
         input.receiverId,
       );
     if (existingMember)
-      throw new ConflictException('User is already a member of this demo');
+      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
 
     const existingPending = await this.invitationCommandRepository.findPending(
       input.demoId,
@@ -44,7 +44,7 @@ export class InvitationsCommandService {
     );
     if (existingPending)
       throw new ConflictException(
-        'A pending invitation already exists for this user',
+        'errors.A_PENDING_INVITATION_ALREADY_EXISTS_FOR_THIS_USER',
       );
 
     const invitation = this.invitationFactory.createNew(
@@ -62,12 +62,12 @@ export class InvitationsCommandService {
 
     if (invitation.receiverId !== currentUserId) {
       throw new ForbiddenException(
-        'You are not authorized to accept this invitation',
+        'errors.YOU_ARE_NOT_AUTHORIZED_TO_ACCEPT_THIS_INVITATION',
       );
     }
 
     if (invitation.status !== InvitationStatus.PENDING) {
-      throw new ConflictException('Invitation is no longer pending');
+      throw new ConflictException('errors.INVITATION_IS_NO_LONGER_PENDING');
     }
 
     const memberExists =
@@ -77,7 +77,7 @@ export class InvitationsCommandService {
       );
 
     if (memberExists) {
-      throw new ConflictException('User is already a member of this demo.');
+      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
     }
 
     invitation.updateStatus(InvitationStatus.ACCEPTED);
@@ -95,12 +95,12 @@ export class InvitationsCommandService {
     const invitation = await this.findById(invitationId);
 
     if (invitation.status !== InvitationStatus.PENDING) {
-      throw new ConflictException('Invitation is no longer pending');
+      throw new ConflictException('errors.INVITATION_IS_NO_LONGER_PENDING');
     }
 
     if (invitation.receiverId !== currentUserId) {
       throw new ForbiddenException(
-        'You are not authorized to reject this invitation',
+        'errors.YOU_ARE_NOT_AUTHORIZED_TO_REJECT_THIS_INVITATION',
       );
     }
 
@@ -116,7 +116,7 @@ export class InvitationsCommandService {
   async findById(invitationId: string): Promise<Invitation> {
     const invitation =
       await this.invitationCommandRepository.findById(invitationId);
-    if (!invitation) throw new NotFoundException('invitation not found');
+    if (!invitation) throw new NotFoundException('errors.INVITATION_NOT_FOUND');
     return invitation;
   }
 }

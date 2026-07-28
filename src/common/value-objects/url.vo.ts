@@ -5,13 +5,13 @@ export class Url {
 
   static create(url: string): Url {
     if (!url || url.trim().length === 0) {
-      throw new DomainException('URL cannot be empty');
+      throw new DomainException('errors.URL_CANNOT_BE_EMPTY');
     }
 
     try {
       new URL(url);
     } catch {
-      throw new DomainException('Invalid URL format');
+      throw new DomainException('errors.INVALID_URL_FORMAT');
     }
 
     return new Url(url.trim());

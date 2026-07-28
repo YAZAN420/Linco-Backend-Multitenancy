@@ -22,7 +22,8 @@ export class DiscussionQuestionsCommandService {
   ): Promise<DiscussionQuestion> {
     const demoMember =
       await this.demoMemberQueryRepository.findDemoMemberByUserId('1', userId);
-    if (!demoMember) throw new NotFoundException('Not member in this demo');
+    if (!demoMember)
+      throw new NotFoundException('errors.NOT_MEMBER_IN_THIS_DEMO');
 
     const discussionQuestion = this.discussionQuestionFactory.createNew(
       input.content,
@@ -55,7 +56,7 @@ export class DiscussionQuestionsCommandService {
         discussionQuestionId,
       );
     if (!discussionQuestion)
-      throw new NotFoundException('discussionQuestion not found');
+      throw new NotFoundException('errors.DISCUSSION_QUESTION_NOT_FOUND');
     return discussionQuestion;
   }
 }

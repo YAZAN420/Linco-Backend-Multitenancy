@@ -27,17 +27,17 @@ export class DepartmentCoursesCommandService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException(`Department not found`);
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
 
     const asset = await this.assetQueryRepository.findById(input.assetId);
     if (!asset) {
-      throw new NotFoundException('Asset not found');
+      throw new NotFoundException('errors.ASSET_NOT_FOUND');
     }
 
     if (!asset.course || !asset.course.isPublished) {
       throw new BadRequestException(
-        'Cannot assign an unpublished course to a department',
+        'errors.CANNOT_ASSIGN_AN_UNPUBLISHED_COURSE_TO_A_DEPARTMENT',
       );
     }
 
@@ -64,12 +64,12 @@ export class DepartmentCoursesCommandService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException(`Department not found`);
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     const departmentCourse =
       await this.departmentCourseCommandRepository.findById(departmentCourseId);
     if (!departmentCourse)
-      throw new NotFoundException('departmentCourse not found');
+      throw new NotFoundException('errors.DEPARTMENT_COURSE_NOT_FOUND');
     return departmentCourse;
   }
 }

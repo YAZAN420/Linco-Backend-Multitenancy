@@ -27,11 +27,11 @@ export class PrismaPaymentCommandRepository implements PaymentCommandRepository 
     } catch (error: any) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new NotFoundException(`Payment Not Found`);
+          throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

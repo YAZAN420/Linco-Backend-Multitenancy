@@ -50,7 +50,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
     });
 
     if (numberOfQuestions > allIds.length) {
-      throw new DomainException('Not enough questions available');
+      throw new DomainException('errors.NOT_ENOUGH_QUESTIONS_AVAILABLE');
     }
 
     const shuffledIds = allIds

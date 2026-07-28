@@ -19,7 +19,7 @@ export class LessonsQueryService {
 
   async findById(sectionId: string, lessonId: string): Promise<Lesson> {
     const lesson = await this.lessonQueryRepository.findById(lessonId);
-    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (!lesson) throw new NotFoundException('errors.LESSON_NOT_FOUND');
     return lesson;
   }
 }

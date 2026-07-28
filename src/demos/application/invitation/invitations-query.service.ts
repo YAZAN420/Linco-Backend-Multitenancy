@@ -21,7 +21,7 @@ export class InvitationsQueryService {
 
   async findById(id: string): Promise<InvitationWithUserAndDemo> {
     const invitation = await this.invitationQueryRepository.findById(id);
-    if (!invitation) throw new NotFoundException('Invitation not found');
+    if (!invitation) throw new NotFoundException('errors.INVITATION_NOT_FOUND');
     return invitation;
   }
 }

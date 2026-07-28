@@ -72,16 +72,16 @@ export class PasswordManagementService {
     newPassword: string,
   ) {
     const user = await this.usersCommandService.findById(userId);
-    if (!user) throw new UnauthorizedException('User not found');
+    if (!user) throw new UnauthorizedException('errors.USER_NOT_FOUND');
 
     if (!user.security.password) {
       throw new ForbiddenException(
-        'Account registered via Google. Please use the "Forgot Password" flow or email verification to set your first password.',
+        'errors.ACCOUNT_REGISTERED_VIA_GOOGLE_PLEASE_USE_THE_FORGOT_PASSWORD_FLOW_OR_EMAIL_VERIFICATION_TO_SET_YOUR_FIRST_PASSWORD',
       );
     }
 
     if (!oldPassword) {
-      throw new BadRequestException('Current password is required.');
+      throw new BadRequestException('errors.CURRENT_PASSWORD_IS_REQUIRED');
     }
 
     const isOldPasswordValid = await this.hashingPort.compare(
@@ -89,7 +89,7 @@ export class PasswordManagementService {
       user.security.password,
     );
     if (!isOldPasswordValid) {
-      throw new BadRequestException('Current password is incorrect.');
+      throw new BadRequestException('errors.CURRENT_PASSWORD_IS_INCORRECT');
     }
 
     const hashedPassword = await this.hashingPort.hash(newPassword);

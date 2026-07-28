@@ -58,7 +58,7 @@ export class SectionsCommandService {
 
   private async findCourseById(courseId: string): Promise<Course> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('course not found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
     return course;
   }
 }

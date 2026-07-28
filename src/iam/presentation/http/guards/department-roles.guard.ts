@@ -29,7 +29,7 @@ export class DepartmentRolesGuard implements CanActivate {
 
     const activeDemoMember = this.cls.get(CLS_KEYS.DEMO_MEMBER);
     if (!activeDemoMember) {
-      throw new ForbiddenException('Workspace context is missing or invalid');
+      throw new ForbiddenException('errors.WORKSPACE_CONTEXT_IS_MISSING_OR_INVALID');
     }
     const departmentIdRaw = request.headers['x-department-id'];
 
@@ -39,7 +39,7 @@ export class DepartmentRolesGuard implements CanActivate {
 
     if (!activeDemoMember.demoId || !departmentId) {
       throw new ForbiddenException(
-        'Workspace and Department context are required',
+        'errors.WORKSPACE_AND_DEPARTMENT_CONTEXT_ARE_REQUIRED',
       );
     }
 
@@ -49,7 +49,7 @@ export class DepartmentRolesGuard implements CanActivate {
     );
 
     if (!deptMember) {
-      throw new ForbiddenException('User is not a member of this department');
+      throw new ForbiddenException('errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT');
     }
 
     const activeDeptMember: ActiveDepartmentMemberData = {
@@ -71,7 +71,7 @@ export class DepartmentRolesGuard implements CanActivate {
     }
 
     if (!requiredRoles.includes(activeDeptMember.role)) {
-      throw new ForbiddenException('Insufficient department permissions');
+      throw new ForbiddenException('errors.INSUFFICIENT_DEPARTMENT_PERMISSIONS');
     }
 
     return true;

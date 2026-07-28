@@ -26,11 +26,11 @@ export class PrismaAssetCommandRepository implements AssetCommandRepository {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new NotFoundException(`Asset Not Found`);
+          throw new NotFoundException('errors.ASSET_NOT_FOUND');
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

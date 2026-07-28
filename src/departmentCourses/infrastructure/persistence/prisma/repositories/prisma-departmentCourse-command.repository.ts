@@ -28,14 +28,16 @@ export class PrismaDepartmentCourseCommandRepository implements DepartmentCourse
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('DepartmentCourse already exists');
+          throw new ConflictException(
+            'errors.DEPARTMENT_COURSE_ALREADY_EXISTS',
+          );
         }
         if (error.code === 'P2003') {
-          throw new NotFoundException(`DepartmentCourse Not Found`);
+          throw new NotFoundException('errors.DEPARTMENT_COURSE_NOT_FOUND');
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

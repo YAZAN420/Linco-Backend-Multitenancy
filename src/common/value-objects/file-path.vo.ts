@@ -5,7 +5,7 @@ export class FilePath {
 
   static create(path: string): FilePath {
     if (!path || path.trim().length === 0) {
-      throw new DomainException('File path cannot be empty');
+      throw new DomainException('errors.FILE_PATH_CANNOT_BE_EMPTY');
     }
     return new FilePath(path.trim());
   }

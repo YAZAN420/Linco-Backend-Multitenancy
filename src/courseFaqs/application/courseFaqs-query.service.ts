@@ -19,17 +19,17 @@ export class CourseFaqsQueryService {
     options: FindCourseFaqsCursorQuery,
   ): Promise<CursorPageDto<CourseFaq>> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('Course Not Found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     return this.courseFaqQueryRepository.findAllCursor(courseId, options);
   }
 
   async findById(courseId: string, id: string): Promise<CourseFaq> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('Course Not Found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     const courseFaq = await this.courseFaqQueryRepository.findById(id);
-    if (!courseFaq) throw new NotFoundException('CourseFaq not found');
+    if (!courseFaq) throw new NotFoundException('errors.COURSE_FAQ_NOT_FOUND');
     return courseFaq;
   }
 }

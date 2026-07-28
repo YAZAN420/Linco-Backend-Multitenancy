@@ -26,17 +26,17 @@ export class DepartmentsCommandService {
     input: CreateDepartmentInput,
   ): Promise<void> {
     const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     if (input.managerId) {
       const member = await this.demoMemberCommandRepository.findById(
         input.managerId,
       );
       if (!member) {
-        throw new NotFoundException('Member not found');
+        throw new NotFoundException('errors.MEMBER_NOT_FOUND');
       }
       if (member.demoId !== demoId) {
-        throw new DomainException('Manager must be a member of this demo');
+        throw new DomainException('errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO');
       }
     }
 
@@ -66,15 +66,15 @@ export class DepartmentsCommandService {
     input: UpdateDepartmentInput,
   ): Promise<void> {
     const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     if (input.managerId !== undefined) {
       const member = await this.demoMemberCommandRepository.findById(
         input.managerId,
       );
-      if (!member) throw new NotFoundException('Member not found');
+      if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
       if (member.demoId !== demoId) {
-        throw new DomainException('Manager must be a member of this demo');
+        throw new DomainException('errors.MANAGER_MUST_BE_A_MEMBER_OF_THIS_DEMO');
       }
       demo.reassignDepartmentManager(departmentId, input.managerId);
     }
@@ -93,7 +93,7 @@ export class DepartmentsCommandService {
 
   async removeDepartment(demoId: string, departmentId: string): Promise<void> {
     const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     demo.removeDepartment(departmentId);
     await this.demoCommandRepository.save(demo);

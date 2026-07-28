@@ -20,7 +20,7 @@ export class DepartmentMembersCommandService {
   ): Promise<void> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
-    if (!department) throw new NotFoundException('department not found');
+    if (!department) throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
 
     const existing =
       await this.departmentMemberCommandRepository.findByDepartmentAndDemoMember(
@@ -30,7 +30,7 @@ export class DepartmentMembersCommandService {
 
     if (existing)
       throw new NotFoundException(
-        'Demo member already exists in this department',
+        'errors.DEMO_MEMBER_ALREADY_EXISTS_IN_THIS_DEPARTMENT',
       );
 
     const member = this.departmentMemberFactory.createNew(
@@ -49,11 +49,11 @@ export class DepartmentMembersCommandService {
   ): Promise<void> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
-    if (!department) throw new NotFoundException('department not found');
+    if (!department) throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
 
     const member =
       await this.departmentMemberCommandRepository.findById(memberId);
-    if (!member) throw new NotFoundException('Member not found');
+    if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     if (input.jobTitle) member.updateJobTitle(input.jobTitle);
 
@@ -63,11 +63,11 @@ export class DepartmentMembersCommandService {
   async removeMember(departmentId: string, memberId: string): Promise<void> {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
-    if (!department) throw new NotFoundException('department not found');
+    if (!department) throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
 
     const member =
       await this.departmentMemberCommandRepository.findById(memberId);
-    if (!member) throw new NotFoundException('Member not found');
+    if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     await this.departmentMemberCommandRepository.delete(memberId);
   }

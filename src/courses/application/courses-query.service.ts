@@ -35,7 +35,7 @@ export class CoursesQueryService {
       courseId,
       checkVisibility,
     );
-    if (!course) throw new NotFoundException('Course not found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
     return course;
   }
 }

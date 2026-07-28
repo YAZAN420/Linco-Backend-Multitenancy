@@ -68,7 +68,7 @@ export class StripeService implements PaymentGatewayPort {
       };
     } catch (error) {
       throw new InternalServerErrorException(
-        `Failed to create subscription checkout session: ${error}`,
+        'errors.FAILED_TO_CREATE_SUBSCRIPTION_CHECKOUT_SESSION_ERROR',
       );
     }
   }
@@ -121,7 +121,7 @@ export class StripeService implements PaymentGatewayPort {
       };
     } catch (error) {
       throw new InternalServerErrorException(
-        `Failed to create one-time checkout session: ${error}`,
+        'errors.FAILED_TO_CREATE_ONE_TIME_CHECKOUT_SESSION_ERROR',
       );
     }
   }
@@ -135,7 +135,7 @@ export class StripeService implements PaymentGatewayPort {
       );
     } catch (error) {
       throw new InternalServerErrorException(
-        `Webhook signature verification failed: ${error}`,
+        'errors.WEBHOOK_SIGNATURE_VERIFICATION_FAILED_ERROR',
       );
     }
   }
@@ -145,7 +145,7 @@ export class StripeService implements PaymentGatewayPort {
       return await this.stripe.subscriptions.retrieve(subscriptionId);
     } catch (error) {
       throw new InternalServerErrorException(
-        `Failed to fetch subscription from Stripe: ${error}`,
+        'errors.FAILED_TO_FETCH_SUBSCRIPTION_FROM_STRIPE_ERROR',
       );
     }
   }
@@ -157,7 +157,7 @@ export class StripeService implements PaymentGatewayPort {
       return await this.stripe.checkout.sessions.retrieve(sessionId);
     } catch (error) {
       throw new InternalServerErrorException(
-        `Failed to fetch checkout session: ${error}`,
+        'errors.FAILED_TO_FETCH_CHECKOUT_SESSION_ERROR',
       );
     }
   }

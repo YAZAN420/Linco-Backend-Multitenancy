@@ -43,18 +43,18 @@ export class TokenService {
       }>(token);
 
       if (payload.purpose !== '2FA') {
-        throw new UnauthorizedException('Invalid token purpose');
+        throw new UnauthorizedException('errors.INVALID_TOKEN_PURPOSE');
       }
 
       const userId = payload.id || payload.sub;
       if (!userId) {
-        throw new UnauthorizedException('User ID missing in token');
+        throw new UnauthorizedException('errors.USER_ID_MISSING_IN_TOKEN');
       }
 
       return userId;
     } catch (error) {
       this.logger.warn(`Invalid 2FA token: ${error}`);
-      throw new UnauthorizedException('Invalid or expired 2FA token');
+      throw new UnauthorizedException('errors.INVALID_OR_EXPIRED_2_FA_TOKEN');
     }
   }
 
@@ -79,7 +79,7 @@ export class TokenService {
       return await this.tokenPort.verifyRefreshToken<{ id: string }>(token);
     } catch (error) {
       this.logger.warn(`Invalid refresh token: ${error}`);
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new UnauthorizedException('errors.INVALID_REFRESH_TOKEN');
     }
   }
 
@@ -95,7 +95,7 @@ export class TokenService {
     );
 
     if (!isValid) {
-      throw new UnauthorizedException('Access Denied');
+      throw new UnauthorizedException('errors.ACCESS_DENIED');
     }
 
     return user;

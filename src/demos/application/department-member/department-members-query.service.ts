@@ -20,7 +20,7 @@ export class DepartmentMembersQueryService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException('Department not found');
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     return await this.departmentMemberQueryRepository.findAllByDepartment(
       departmentId,
@@ -35,14 +35,14 @@ export class DepartmentMembersQueryService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException('Department not found');
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     const member = await this.departmentMemberQueryRepository.findById(
       departmentId,
       memberId,
     );
     if (!member) {
-      throw new NotFoundException('Member not found in this department');
+      throw new NotFoundException('errors.MEMBER_NOT_FOUND_IN_THIS_DEPARTMENT');
     }
     return member;
   }

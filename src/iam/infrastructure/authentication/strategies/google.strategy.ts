@@ -30,7 +30,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const email = profile.emails?.[0]?.value?.trim().toLowerCase();
     if (!email) {
       throw new UnauthorizedException(
-        'Google account does not provide a valid email',
+        'errors.GOOGLE_ACCOUNT_DOES_NOT_PROVIDE_A_VALID_EMAIL',
       );
     }
 

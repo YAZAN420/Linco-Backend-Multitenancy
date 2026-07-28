@@ -96,11 +96,11 @@ export class Lesson {
 
   addAttachment(attachment: Attachment) {
     if (this.props.attachments.length >= 10) {
-      throw new DomainException('Lesson cannot have more than 10 attachments');
+      throw new DomainException('errors.LESSON_CANNOT_HAVE_MORE_THAN_10_ATTACHMENTS');
     }
     const exist = this.props.attachments.some((a) => a.id === attachment.id);
     if (exist) {
-      throw new DomainException('Attachment already exists in this lesson');
+      throw new DomainException('errors.ATTACHMENT_ALREADY_EXISTS_IN_THIS_LESSON');
     }
     this.props.attachments.push(attachment);
     this.touch();
@@ -116,7 +116,7 @@ export class Lesson {
       (a) => a.id === attachmentId,
     );
     if (!attachment) {
-      throw new DomainException('Attachment not found in this lesson');
+      throw new DomainException('errors.ATTACHMENT_NOT_FOUND_IN_THIS_LESSON');
     }
 
     if (name) attachment.updateName(name);
@@ -132,7 +132,7 @@ export class Lesson {
       (a) => a.id !== attachmentId,
     );
     if (this.props.attachments.length === initialLength) {
-      throw new DomainException('Attachment not found in this lesson');
+      throw new DomainException('errors.ATTACHMENT_NOT_FOUND_IN_THIS_LESSON');
     }
     this.touch();
   }

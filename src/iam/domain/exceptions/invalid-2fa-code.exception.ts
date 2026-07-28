@@ -2,6 +2,6 @@ import { UnauthorizedException } from '@nestjs/common';
 
 export class Invalid2FACodeException extends UnauthorizedException {
   constructor() {
-    super('Invalid two-factor authentication code');
+    super('errors.INVALID_TWO_FACTOR_AUTHENTICATION_CODE');
   }
 }

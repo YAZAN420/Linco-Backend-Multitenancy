@@ -23,11 +23,13 @@ export class DiscussionAnswersCommandService {
   ): Promise<DiscussionAnswer> {
     const demoMember =
       await this.demoMemberQueryRepository.findDemoMemberByUserId('', userId);
-    if (!demoMember) throw new NotFoundException('Not member in this demo');
+    if (!demoMember)
+      throw new NotFoundException('errors.NOT_MEMBER_IN_THIS_DEMO');
 
     const question =
       await this.discussionQuestionQueryRepository.findById(discussionId);
-    if (!question) throw new NotFoundException('Discussion question not found');
+    if (!question)
+      throw new NotFoundException('errors.DISCUSSION_QUESTION_NOT_FOUND');
 
     const discussionAnswer = this.discussionAnswerFactory.createNew(
       input.content,
@@ -57,7 +59,7 @@ export class DiscussionAnswersCommandService {
     const discussionAnswer =
       await this.discussionAnswerCommandRepository.findById(answerId);
     if (!discussionAnswer)
-      throw new NotFoundException('DiscussionAnswer not found');
+      throw new NotFoundException('errors.DISCUSSION_ANSWER_NOT_FOUND');
     return discussionAnswer;
   }
 }

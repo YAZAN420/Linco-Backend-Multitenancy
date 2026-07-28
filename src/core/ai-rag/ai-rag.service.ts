@@ -31,7 +31,7 @@ export class AiRagService {
     } catch (error) {
       this.logError('getCourseStatus', error);
       throw new InternalServerErrorException(
-        'Failed to get course status from AI',
+        'errors.FAILED_TO_GET_COURSE_STATUS_FROM_AI',
       );
     }
   }
@@ -49,7 +49,9 @@ export class AiRagService {
       return response.data;
     } catch (error) {
       this.logError('createCourse', error);
-      throw new InternalServerErrorException('Failed to create course in AI');
+      throw new InternalServerErrorException(
+        'errors.FAILED_TO_CREATE_COURSE_IN_AI',
+      );
     }
   }
 
@@ -67,7 +69,9 @@ export class AiRagService {
       return response.data;
     } catch (error) {
       this.logError('askQuestion', error);
-      throw new InternalServerErrorException('Failed to get answer from AI');
+      throw new InternalServerErrorException(
+        'errors.FAILED_TO_GET_ANSWER_FROM_AI',
+      );
     }
   }
 
@@ -89,7 +93,9 @@ export class AiRagService {
       return response.data;
     } catch (error) {
       this.logError('generateQuiz', error);
-      throw new InternalServerErrorException('Failed to generate quiz from AI');
+      throw new InternalServerErrorException(
+        'errors.FAILED_TO_GENERATE_QUIZ_FROM_AI',
+      );
     }
   }
 
@@ -110,7 +116,7 @@ export class AiRagService {
     } catch (error) {
       this.logError('generateRandomQuiz', error);
       throw new InternalServerErrorException(
-        'Failed to get random quiz from AI',
+        'errors.FAILED_TO_GET_RANDOM_QUIZ_FROM_AI',
       );
     }
   }

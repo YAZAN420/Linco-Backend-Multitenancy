@@ -55,7 +55,7 @@ export class InquiriesCommandService {
       inquiryId,
       demoId,
     );
-    if (!inquiry) throw new NotFoundException('inquiry not found');
+    if (!inquiry) throw new NotFoundException('errors.INQUIRY_NOT_FOUND');
     return inquiry;
   }
 }

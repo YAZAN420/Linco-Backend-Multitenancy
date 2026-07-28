@@ -70,7 +70,7 @@ export class PaymentsCommandController {
   @Get('checkout/status')
   async getCheckoutStatus(@Query('session_id') sessionId: string) {
     if (!sessionId) {
-      throw new BadRequestException('session_id query parameter is required');
+      throw new BadRequestException('errors.SESSION_ID_QUERY_PARAMETER_IS_REQUIRED');
     }
 
     return await this.paymentCommandService.getCheckoutStatus(sessionId);
@@ -86,7 +86,7 @@ export class PaymentsCommandController {
     const rawBody = req.rawBody;
 
     if (!rawBody) {
-      throw new BadRequestException('Raw body is unavailable');
+      throw new BadRequestException('errors.RAW_BODY_IS_UNAVAILABLE');
     }
 
     try {
@@ -97,7 +97,7 @@ export class PaymentsCommandController {
       return { received: true };
     } catch (err) {
       console.log(`Webhook validation failed: ${err}`);
-      throw new BadRequestException('Webhook validation failed');
+      throw new BadRequestException('errors.WEBHOOK_VALIDATION_FAILED');
     }
   }
 }

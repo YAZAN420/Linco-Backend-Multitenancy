@@ -10,7 +10,7 @@ export class GoogleAuthAdapter implements GoogleAuthPort {
   async verifyIdToken(idToken: string): Promise<GoogleUserData> {
     const audience = process.env.GOOGLE_CLIENT_ID?.trim();
     if (!audience)
-      throw new UnauthorizedException('Google client ID is not configured');
+      throw new UnauthorizedException('errors.GOOGLE_CLIENT_ID_IS_NOT_CONFIGURED');
 
     try {
       const ticket = await this.googleOAuthClient.verifyIdToken({
@@ -24,7 +24,7 @@ export class GoogleAuthAdapter implements GoogleAuthPort {
       const providerId = payload?.sub;
 
       if (!email || !providerId || !emailVerified) {
-        throw new UnauthorizedException('Invalid Google ID token payload');
+        throw new UnauthorizedException('errors.INVALID_GOOGLE_ID_TOKEN_PAYLOAD');
       }
 
       return {
@@ -35,7 +35,7 @@ export class GoogleAuthAdapter implements GoogleAuthPort {
         providerId,
       };
     } catch {
-      throw new UnauthorizedException('Invalid Google ID token');
+      throw new UnauthorizedException('errors.INVALID_GOOGLE_ID_TOKEN');
     }
   }
 }

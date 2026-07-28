@@ -23,7 +23,7 @@ export class InquiryMessagesQueryService {
     const inquiryMessage =
       await this.inquiryMessageQueryRepository.findById(id);
     if (!inquiryMessage)
-      throw new NotFoundException('InquiryMessage not found');
+      throw new NotFoundException('errors.INQUIRY_MESSAGE_NOT_FOUND');
     return inquiryMessage;
   }
 }

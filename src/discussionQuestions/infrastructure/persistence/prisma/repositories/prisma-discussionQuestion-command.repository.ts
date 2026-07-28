@@ -27,11 +27,11 @@ export class PrismaDiscussionQuestionCommandRepository implements DiscussionQues
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new NotFoundException(`Discussion Question Not Found`);
+          throw new NotFoundException('errors.DISCUSSION_QUESTION_NOT_FOUND');
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

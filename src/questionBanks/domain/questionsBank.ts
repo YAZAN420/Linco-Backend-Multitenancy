@@ -30,7 +30,7 @@ export class QuestionsBank {
 
   addChoice(choice: QuestionChoice): void {
     if (this.props.choices.length >= 50) {
-      throw new DomainException('question cannot have more than 50 choice');
+      throw new DomainException('errors.QUESTION_CANNOT_HAVE_MORE_THAN_50_CHOICE');
     }
 
     const isChoiceExists = this.props.choices.some(
@@ -38,7 +38,7 @@ export class QuestionsBank {
     );
     if (isChoiceExists) {
       throw new DomainException(
-        "text must be unique withins question's choices",
+        'errors.TEXT_MUST_BE_UNIQUE_WITHINS_QUESTION_S_CHOICES',
       );
     }
 

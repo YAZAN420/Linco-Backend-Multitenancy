@@ -112,14 +112,14 @@ Output strictly as a JSON object that matches the provided schema. Do not includ
 
       if (!rawJson) {
         throw new InternalServerErrorException(
-          'AI Cant generate the roadmap. Please try again later.',
+          'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER',
         );
       }
 
       return JSON.parse(rawJson) as RoadmapResponse;
     } catch (error) {
       throw new InternalServerErrorException(
-        `AI Cant generate the roadmap. Please try again later. Error: ${error}`,
+        'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER_ERROR_ERROR',
       );
     }
   }

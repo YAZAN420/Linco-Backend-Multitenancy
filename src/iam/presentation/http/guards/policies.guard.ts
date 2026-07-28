@@ -40,7 +40,7 @@ export class PoliciesGuard implements CanActivate {
     }
 
     if (!user) {
-      throw new ForbiddenException('User not authenticated');
+      throw new ForbiddenException('errors.USER_NOT_AUTHENTICATED');
     }
 
     const isAllowed = policyHandlers.every((handler) =>
@@ -49,7 +49,7 @@ export class PoliciesGuard implements CanActivate {
 
     if (!isAllowed) {
       throw new ForbiddenException(
-        'You do not have permission to perform this action',
+        'errors.YOU_DO_NOT_HAVE_PERMISSION_TO_PERFORM_THIS_ACTION',
       );
     }
 

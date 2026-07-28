@@ -23,7 +23,7 @@ export class AssetsQueryService {
     pageOptionsDto: FindAssetsQuery,
   ): Promise<PageDto<AssetWithCourse>> {
     const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     return this.assetQueryRepository.findAll(demoId, pageOptionsDto);
   }
@@ -33,17 +33,17 @@ export class AssetsQueryService {
     options: FindAssetsCursorQuery,
   ): Promise<CursorPageDto<AssetWithCourse>> {
     const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     return this.assetQueryRepository.findAllCursor(demoId, options);
   }
 
   async findById(demoId: string, assetId: string): Promise<AssetWithCourse> {
     const demo = await this.demoQueryRepository.demoExists(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     const asset = await this.assetQueryRepository.findById(assetId);
-    if (!asset) throw new NotFoundException('Asset not found');
+    if (!asset) throw new NotFoundException('errors.ASSET_NOT_FOUND');
     return asset;
   }
 }

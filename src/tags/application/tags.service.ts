@@ -12,7 +12,7 @@ export class TagsService {
 
   async getById(id: string): Promise<Tag> {
     const tag = await this.tagRepository.findById(id);
-    if (!tag) throw new NotFoundException('Tag not found');
+    if (!tag) throw new NotFoundException('errors.TAG_NOT_FOUND');
     return tag;
   }
 

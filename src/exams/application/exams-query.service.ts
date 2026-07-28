@@ -19,7 +19,7 @@ export class ExamsQueryService {
   ): Promise<CursorPageDto<Exam>> {
     const sectionExist = await this.sectionsQueryService.exists(sectionId);
 
-    if (!sectionExist) throw new NotFoundException('Section Not Found');
+    if (!sectionExist) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     return this.examQueryRepository.findAllCursor(sectionId, options);
   }
@@ -27,10 +27,10 @@ export class ExamsQueryService {
   async findById(sectionId: string, id: string): Promise<Exam> {
     const sectionExist = await this.sectionsQueryService.exists(sectionId);
 
-    if (!sectionExist) throw new NotFoundException('Section not found');
+    if (!sectionExist) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const exam = await this.examQueryRepository.findById(id);
-    if (!exam) throw new NotFoundException('Exam not found');
+    if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
     return exam;
   }

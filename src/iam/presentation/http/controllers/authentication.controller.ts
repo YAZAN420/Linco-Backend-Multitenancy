@@ -148,7 +148,7 @@ export class AuthenticationController {
     const googleUser = request.user as GoogleUserData | undefined;
 
     if (!googleUser?.email) {
-      throw new UnauthorizedException('Google authentication failed');
+      throw new UnauthorizedException('errors.GOOGLE_AUTHENTICATION_FAILED');
     }
 
     const result = await this.authService.signInWithGoogle(googleUser);
@@ -199,7 +199,7 @@ export class AuthenticationController {
       : dto.refreshToken;
 
     if (!refreshToken) {
-      throw new UnauthorizedException('Refresh token is required');
+      throw new UnauthorizedException('errors.REFRESH_TOKEN_IS_REQUIRED');
     }
 
     const result = await this.tokenService.refreshTokens({ refreshToken });

@@ -15,7 +15,7 @@ export class DepartmentsQueryService {
   ): Promise<CursorPageDto<DepartmentWithDetails>> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException(`Demo with ID ${demoId} not found`);
+      throw new NotFoundException('errors.DEMO_WITH_ID_DEMO_ID_NOT_FOUND');
     }
     return await this.demoQueryRepository.findDepartments(
       options,
@@ -31,7 +31,7 @@ export class DepartmentsQueryService {
   ): Promise<DepartmentWithDetails> {
     const demo = await this.demoQueryRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException(`Demo with ID ${demoId} not found`);
+      throw new NotFoundException('errors.DEMO_WITH_ID_DEMO_ID_NOT_FOUND');
     }
 
     const department = await this.demoQueryRepository.findDepartmentById(
@@ -41,7 +41,7 @@ export class DepartmentsQueryService {
 
     if (!department) {
       throw new NotFoundException(
-        `Department with ID ${deptId} not found in this demo`,
+        'errors.DEPARTMENT_WITH_ID_DEPT_ID_NOT_FOUND_IN_THIS_DEMO',
       );
     }
 

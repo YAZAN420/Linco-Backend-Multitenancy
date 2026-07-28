@@ -10,10 +10,10 @@ export class Name {
   static create(name: string): Name {
     const cleanName = name.trim();
     if (cleanName.length === 0) {
-      throw new DomainException('Name cannot be empty');
+      throw new DomainException('errors.NAME_CANNOT_BE_EMPTY');
     }
     if (cleanName.length > 50) {
-      throw new DomainException('Name cannot exceed 50 characters');
+      throw new DomainException('errors.NAME_CANNOT_EXCEED_50_CHARACTERS');
     }
     return new Name(cleanName);
   }

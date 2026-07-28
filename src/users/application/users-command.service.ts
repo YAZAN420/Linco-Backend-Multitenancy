@@ -99,7 +99,7 @@ export class UsersCommandService {
   async verifyUserEmail(token: string): Promise<void> {
     const user =
       await this.userCommandRepository.findByVerificationToken(token);
-    if (!user) throw new NotFoundException('Invalid verification token');
+    if (!user) throw new NotFoundException('errors.INVALID_VERIFICATION_TOKEN');
 
     user.security.verifyEmail(token);
     await this.userCommandRepository.save(user);
@@ -189,12 +189,12 @@ export class UsersCommandService {
 
   private async ensureEmailIsUnique(email: string): Promise<void> {
     const existing = await this.userCommandRepository.findByEmail(email);
-    if (existing) throw new ConflictException('Email already exists');
+    if (existing) throw new ConflictException('errors.EMAIL_ALREADY_EXISTS');
   }
 
   async findById(id: string): Promise<User> {
     const user = await this.userCommandRepository.findById(id);
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('errors.USER_NOT_FOUND');
     return user;
   }
 

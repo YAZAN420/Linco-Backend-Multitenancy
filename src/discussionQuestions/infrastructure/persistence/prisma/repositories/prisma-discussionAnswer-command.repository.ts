@@ -29,10 +29,10 @@ export class PrismaDiscussionAnswerCommandRepository implements DiscussionAnswer
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2003'
       ) {
-        throw new NotFoundException(`Foreign Key constraint failed`);
+        throw new NotFoundException('errors.FOREIGN_KEY_CONSTRAINT_FAILED');
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

@@ -26,7 +26,7 @@ export class DiscussionQuestionsQueryService {
     const discussionQuestion =
       await this.discussionQuestionQueryRepository.findById(id);
     if (!discussionQuestion)
-      throw new NotFoundException('DiscussionQuestion not found');
+      throw new NotFoundException('errors.DISCUSSION_QUESTION_NOT_FOUND');
     return discussionQuestion;
   }
 }

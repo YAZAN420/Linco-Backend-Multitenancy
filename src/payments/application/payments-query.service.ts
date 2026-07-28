@@ -26,7 +26,7 @@ export class PaymentsQueryService {
 
   async findById(id: string): Promise<Payment> {
     const payment = await this.paymentQueryRepository.findById(id);
-    if (!payment) throw new NotFoundException('Payment not found');
+    if (!payment) throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
     return payment;
   }
 }

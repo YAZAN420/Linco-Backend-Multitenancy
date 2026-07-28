@@ -21,7 +21,7 @@ export class ExamAttemptCommandService {
     input: CreateExamAttemptInput,
   ): Promise<ExamAttempt> {
     const exam = await this.examQueryRepository.findById(input.examId);
-    if (!exam) throw new NotFoundException('Exam Not Found');
+    if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
     const correctChoices =
       await this.questionBankQueryRepository.findCorrectChoicesByQuestionIds(

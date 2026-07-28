@@ -48,7 +48,7 @@ export class LessonsCommandService {
     input: UpdateLessonInput,
   ): Promise<Lesson> {
     const lesson = await this.findById(lessonId);
-    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (!lesson) throw new NotFoundException('errors.LESSON_NOT_FOUND');
     if (input.title !== undefined) {
       const titleVo = Title.create(input.title);
       lesson.updateTitle(titleVo);
@@ -83,7 +83,7 @@ export class LessonsCommandService {
 
   private async findById(lessonId: string): Promise<Lesson> {
     const lesson = await this.lessonCommandRepository.findById(lessonId);
-    if (!lesson) throw new NotFoundException('lesson not found');
+    if (!lesson) throw new NotFoundException('errors.LESSON_NOT_FOUND');
     return lesson;
   }
 }

@@ -2,6 +2,6 @@ import { BadRequestException } from '@nestjs/common';
 
 export class EmailAlreadyVerifiedException extends BadRequestException {
   constructor() {
-    super('Email is already verified');
+    super('errors.EMAIL_IS_ALREADY_VERIFIED');
   }
 }

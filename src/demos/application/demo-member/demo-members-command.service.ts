@@ -19,14 +19,14 @@ export class DemoMembersCommandService {
 
   async addMember(demoId: string, input: CreateDemoMemberInput): Promise<void> {
     const demo = await this.demoCommandRepository.findById(demoId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     const existing = await this.demoMemberCommandRepository.findByDemoAndUser(
       demoId,
       input.userId,
     );
     if (existing) {
-      throw new ConflictException('User is already a member of this demo');
+      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
     }
 
     const count = await this.demoMemberCommandRepository.countByDemo(demoId);
@@ -46,10 +46,10 @@ export class DemoMembersCommandService {
     input: UpdateDemoMemberInput,
   ): Promise<void> {
     const member = await this.demoMemberCommandRepository.findById(memberId);
-    if (!member) throw new NotFoundException('Member not found');
+    if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     if (member.demoId !== demoId)
-      throw new NotFoundException('Member not found');
+      throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     if (input.role) member.updateRole(input.role);
     await this.demoMemberCommandRepository.save(member);
@@ -58,10 +58,10 @@ export class DemoMembersCommandService {
   async removeMember(demoId: string, memberId: string): Promise<void> {
     const member = await this.demoMemberCommandRepository.findById(memberId);
 
-    if (!member) throw new NotFoundException('Member not found');
+    if (!member) throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     if (member.demoId !== demoId)
-      throw new NotFoundException('Member not found');
+      throw new NotFoundException('errors.MEMBER_NOT_FOUND');
 
     await this.demoMemberCommandRepository.delete(memberId);
   }

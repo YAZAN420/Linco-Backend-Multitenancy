@@ -144,7 +144,7 @@ export class Demo {
   updateName(newName: Name): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (this.props.name.equals(newName)) return;
@@ -155,7 +155,7 @@ export class Demo {
   updateImagePath(newImagePath: string): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (this.props.imagePath === newImagePath) return;
@@ -166,7 +166,7 @@ export class Demo {
   updateDescription(newDescription: string): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (this.props.description === newDescription) return;
@@ -177,16 +177,16 @@ export class Demo {
   addDepartment(department: Department): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (!department) {
-      throw new DomainException('Department cannot be null or undefined');
+      throw new DomainException('errors.DEPARTMENT_CANNOT_BE_NULL_OR_UNDEFINED');
     }
 
     if (this.departments.length >= this.maxDepartmentsLimit) {
       throw new DomainException(
-        `Your current plan (${this.props.plan}) allows a maximum of ${this.maxDepartmentsLimit} departments. Please upgrade.`,
+        'errors.YOUR_CURRENT_PLAN_PLAN_ALLOWS_A_MAXIMUM_OF_MAX_DEPARTMENTS_LIMIT_DEPARTMENTS_PLEASE_UPGRADE',
       );
     }
 
@@ -195,7 +195,7 @@ export class Demo {
     );
     if (exists) {
       throw new DomainException(
-        `Department "${department.name}" already exists`,
+        'errors.DEPARTMENT_NAME_ALREADY_EXISTS',
       );
     }
 
@@ -206,11 +206,11 @@ export class Demo {
   removeDepartment(departmentId: string): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (!this.hasDepartment(departmentId)) {
-      throw new DomainException('Department not found in this demo');
+      throw new DomainException('errors.DEPARTMENT_NOT_FOUND_IN_THIS_DEMO');
     }
 
     const index = this.props.departments.findIndex(
@@ -225,7 +225,7 @@ export class Demo {
   renameDepartment(departmentId: string, newName: Name): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     const department = this.getDepartmentStrict(departmentId);
@@ -238,7 +238,7 @@ export class Demo {
 
     if (nameExists) {
       throw new DomainException(
-        `Department "${newName.value}" already exists in this demo`,
+        'errors.DEPARTMENT_VALUE_ALREADY_EXISTS_IN_THIS_DEMO',
       );
     }
 
@@ -252,7 +252,7 @@ export class Demo {
   ): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     const department = this.getDepartmentStrict(departmentId);
@@ -263,7 +263,7 @@ export class Demo {
   reassignDepartmentManager(departmentId: string, newManagerId: string): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     const department = this.getDepartmentStrict(departmentId);
@@ -278,12 +278,12 @@ export class Demo {
   verifyCanAddMember(currentCount: number): void {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     if (currentCount >= this.maxMembersLimit) {
       throw new DomainException(
-        `Your current plan (${this.props.plan}) limits you to ${this.maxMembersLimit} members. Please upgrade.`,
+        'errors.YOUR_CURRENT_PLAN_PLAN_LIMITS_YOU_TO_MAX_MEMBERS_LIMIT_MEMBERS_PLEASE_UPGRADE',
       );
     }
   }
@@ -295,12 +295,12 @@ export class Demo {
   private getDepartmentStrict(departmentId: string): Department {
     if (!this.isAccessAllowed()) {
       throw new DomainException(
-        'Your subscription has expired. Please upgrade to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
     }
     const department = this.departments.find((d) => d.id === departmentId);
     if (!department) {
-      throw new DomainException('Department not found in this demo');
+      throw new DomainException('errors.DEPARTMENT_NOT_FOUND_IN_THIS_DEMO');
     }
     return department;
   }

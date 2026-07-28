@@ -5,15 +5,15 @@ export class LessonOrder {
 
   static create(order: number): LessonOrder {
     if (order <= 0) {
-      throw new DomainException('Lesson order must be greater than zero');
+      throw new DomainException('errors.LESSON_ORDER_MUST_BE_GREATER_THAN_ZERO');
     }
 
     if (order > 100) {
-      throw new DomainException('Lesson order exceeds maximum allowed value');
+      throw new DomainException('errors.LESSON_ORDER_EXCEEDS_MAXIMUM_ALLOWED_VALUE');
     }
 
     if (!Number.isInteger(order)) {
-      throw new DomainException('Lesson order must be a whole number');
+      throw new DomainException('errors.LESSON_ORDER_MUST_BE_A_WHOLE_NUMBER');
     }
 
     return new LessonOrder(order);

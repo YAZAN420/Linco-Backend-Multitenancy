@@ -22,7 +22,7 @@ export class QuestionsBanksCommandService {
   ): Promise<QuestionsBank> {
     const section =
       await this.sectionsQueryRepository.findSectionById(sectionId);
-    if (!section) throw new NotFoundException('Section not found');
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
@@ -53,13 +53,13 @@ export class QuestionsBanksCommandService {
   ): Promise<QuestionsBank> {
     const section =
       await this.sectionsQueryRepository.findSectionById(sectionId);
-    if (!section) throw new NotFoundException('Section not found');
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = await this.questionsBankCommandRepository.findById(
       sectionId,
       questionBankId,
     );
-    if (!questionsBank) throw new NotFoundException('QuestionBank not found');
+    if (!questionsBank) throw new NotFoundException('errors.QUESTION_BANK_NOT_FOUND');
     return questionsBank;
   }
 }

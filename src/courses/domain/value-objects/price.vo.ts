@@ -5,11 +5,11 @@ export class Price {
 
   static create(price: number): Price {
     if (price < 0) {
-      throw new DomainException('Course price cannot be negative');
+      throw new DomainException('errors.COURSE_PRICE_CANNOT_BE_NEGATIVE');
     }
 
     if (price > 10000) {
-      throw new DomainException('Course price exceeds maximum allowed value');
+      throw new DomainException('errors.COURSE_PRICE_EXCEEDS_MAXIMUM_ALLOWED_VALUE');
     }
 
     return new Price(price);

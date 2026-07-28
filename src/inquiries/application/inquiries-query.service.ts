@@ -21,7 +21,7 @@ export class InquiriesQueryService {
 
   async findById(id: string, demoId: string): Promise<Inquiry> {
     const inquiry = await this.inquiryQueryRepository.findById(id, demoId);
-    if (!inquiry) throw new NotFoundException('Inquiry not found');
+    if (!inquiry) throw new NotFoundException('errors.INQUIRY_NOT_FOUND');
     return inquiry;
   }
 }

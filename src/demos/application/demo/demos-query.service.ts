@@ -29,7 +29,7 @@ export class DemosQueryService {
 
   async findById(userId: string, id: string): Promise<DemoWithOwnership> {
     const demo = await this.demoQueryRepository.findById(id, userId);
-    if (!demo) throw new NotFoundException('Demo not found');
+    if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
     return demo;
   }
 }

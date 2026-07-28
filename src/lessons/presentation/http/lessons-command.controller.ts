@@ -39,7 +39,7 @@ export class LessonsCommandController {
   ) {
     const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
-      throw new NotFoundException('Section not found');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND');
     }
 
     const lesson = await this.lessonCommandService.create(sectionId, dto);
@@ -58,7 +58,7 @@ export class LessonsCommandController {
   ) {
     const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
-      throw new NotFoundException('Section not found');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND');
     }
 
     const lesson = await this.lessonCommandService.update(
@@ -80,7 +80,7 @@ export class LessonsCommandController {
   ) {
     const section = await this.sectionQueryService.exists(sectionId);
     if (!section) {
-      throw new NotFoundException('Section not found');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND');
     }
 
     await this.lessonCommandService.remove(sectionId, lessonId);

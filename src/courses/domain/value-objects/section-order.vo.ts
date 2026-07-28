@@ -5,15 +5,15 @@ export class SectionOrder {
 
   static create(order: number): SectionOrder {
     if (order <= 0) {
-      throw new DomainException('Section order must be greater than zero');
+      throw new DomainException('errors.SECTION_ORDER_MUST_BE_GREATER_THAN_ZERO');
     }
 
     if (order > 50) {
-      throw new DomainException('Section order exceeds maximum allowed value');
+      throw new DomainException('errors.SECTION_ORDER_EXCEEDS_MAXIMUM_ALLOWED_VALUE');
     }
 
     if (!Number.isInteger(order)) {
-      throw new DomainException('Section order must be a whole number');
+      throw new DomainException('errors.SECTION_ORDER_MUST_BE_A_WHOLE_NUMBER');
     }
 
     return new SectionOrder(order);

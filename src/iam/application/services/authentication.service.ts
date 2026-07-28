@@ -84,7 +84,7 @@ export class AuthenticationService {
     tfaCode: string,
   ): Promise<SignInResult> {
     const user = await this.usersCommandService.findById(userId);
-    if (!user) throw new UnauthorizedException('User not found');
+    if (!user) throw new UnauthorizedException('errors.USER_NOT_FOUND');
 
     const verificationResult = await this.otp.verify({
       token: tfaCode,

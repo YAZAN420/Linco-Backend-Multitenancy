@@ -35,9 +35,8 @@ import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
 import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
 import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module';
 import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
-import { HeaderResolver, I18nModule } from 'nestjs-i18n';
-import * as path from 'path';
-import * as fs from 'fs';
+import { HeaderResolver, I18nJsonLoader, I18nModule } from 'nestjs-i18n';
+import { join } from 'path';
 
 @Module({})
 export class AppModule {
@@ -73,7 +72,7 @@ export class AppModule {
         InquiryMessagesModule.withInfrastructure(
           InquiryMessagesInfrastructureModule.use(),
         ),
-        // this.registerI18n(),
+        this.registerI18n(),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
@@ -83,20 +82,16 @@ export class AppModule {
     };
   }
   private static registerI18n(): DynamicModule {
-    const srcPath = path.join(process.cwd(), 'src/i18n');
-    const distPath = path.join(process.cwd(), 'dist/i18n');
-
-    const i18nPath = fs.existsSync(srcPath) ? srcPath : distPath;
-
-    if (!fs.existsSync(i18nPath)) {
-      fs.mkdirSync(i18nPath, { recursive: true });
-    }
-
     return I18nModule.forRoot({
       fallbackLanguage: 'ar',
+
+      loader: I18nJsonLoader,
+
       loaderOptions: {
-        path: i18nPath,
+        path: join(__dirname, 'i18n'),
+        watch: false,
       },
+
       resolvers: [new HeaderResolver(['accept-language'])],
     });
   }

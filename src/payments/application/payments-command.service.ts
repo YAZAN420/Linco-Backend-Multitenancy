@@ -49,7 +49,7 @@ export class PaymentsCommandService {
       priceId = this.stripeConfiguration.enterprisePriceId!;
       amount = 20000;
     } else {
-      throw new BadRequestException('Invalid subscription plan');
+      throw new BadRequestException('errors.INVALID_SUBSCRIPTION_PLAN');
     }
 
     const payment = this.paymentFactory.createNew(
@@ -83,15 +83,15 @@ export class PaymentsCommandService {
   ) {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) {
-      throw new NotFoundException('Course not found');
+      throw new NotFoundException('errors.COURSE_NOT_FOUND');
     }
     if (!course.isPublished) {
-      throw new BadRequestException('Cannot purchase an unpublished course');
+      throw new BadRequestException('errors.CANNOT_PURCHASE_AN_UNPUBLISHED_COURSE');
     }
 
     if (course.visibility === CourseVisibility.PRIVATE) {
       throw new BadRequestException(
-        'Cannot purchase a private course from the marketplace',
+        'errors.CANNOT_PURCHASE_A_PRIVATE_COURSE_FROM_THE_MARKETPLACE',
       );
     }
 
@@ -178,7 +178,7 @@ export class PaymentsCommandService {
     currentPeriodEnd?: Date,
   ) {
     const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment) throw new NotFoundException('Payment not found');
+    if (!payment) throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
 
     if (payment.isSuccessful) {
       return;
@@ -209,11 +209,11 @@ export class PaymentsCommandService {
 
     const paymentId = session.metadata?.paymentId;
     if (!paymentId) {
-      throw new NotFoundException('Payment metadata not found in session');
+      throw new NotFoundException('errors.PAYMENT_METADATA_NOT_FOUND_IN_SESSION');
     }
 
     const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment) throw new NotFoundException('Payment record not found');
+    if (!payment) throw new NotFoundException('errors.PAYMENT_RECORD_NOT_FOUND');
     return {
       status: session.status,
       paymentStatus: session.payment_status,
@@ -231,7 +231,7 @@ export class PaymentsCommandService {
 
   async findById(paymentId: string): Promise<Payment> {
     const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment) throw new NotFoundException('payment not found');
+    if (!payment) throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
     return payment;
   }
 }

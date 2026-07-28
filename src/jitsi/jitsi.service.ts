@@ -61,7 +61,7 @@ export class JitsiService {
       };
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException('Error generating Jitsi token');
+      throw new InternalServerErrorException('errors.ERROR_GENERATING_JITSI_TOKEN');
     }
   }
 }

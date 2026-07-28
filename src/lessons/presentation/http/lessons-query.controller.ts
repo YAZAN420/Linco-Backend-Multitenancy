@@ -29,7 +29,7 @@ export class LessonsQueryController {
   ) {
     const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) {
-      throw new NotFoundException('Section not found');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND');
     }
 
     const lessons = await this.lessonQueryService.findAllCursor(
@@ -51,7 +51,7 @@ export class LessonsQueryController {
   ) {
     const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) {
-      throw new NotFoundException('Section not found');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND');
     }
 
     const lesson = await this.lessonQueryService.findById(sectionId, lessonId);

@@ -29,11 +29,11 @@ export class PrismaDemoMemberCommandRepository implements DemoMemberCommandRepos
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new NotFoundException(`Demo Member Not Found`);
+          throw new NotFoundException('errors.DEMO_MEMBER_NOT_FOUND');
         }
       }
       throw new InternalServerErrorException(
-        `Database operation failed ${error}`,
+        'errors.DATABASE_OPERATION_FAILED_ERROR',
       );
     }
   }

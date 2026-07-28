@@ -24,7 +24,7 @@ export class DiscussionAnswersQueryService {
     const discussionAnswer =
       await this.discussionAnswerQueryRepository.findById(id);
     if (!discussionAnswer)
-      throw new NotFoundException('DiscussionAnswer not found');
+      throw new NotFoundException('errors.DISCUSSION_ANSWER_NOT_FOUND');
     return discussionAnswer;
   }
 }

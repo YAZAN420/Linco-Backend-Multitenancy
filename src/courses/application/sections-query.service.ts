@@ -18,18 +18,18 @@ export class SectionsQueryService {
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('Course not found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     return this.courseQueryRepository.findSectionsCursor(courseId, options);
   }
 
   async findById(courseId: string, sectionId: string): Promise<Section> {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) throw new NotFoundException('Course not found');
+    if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
 
     const section = await this.courseQueryRepository.findSectionById(sectionId);
     if (!section)
-      throw new NotFoundException('Section not found in this course');
+      throw new NotFoundException('errors.SECTION_NOT_FOUND_IN_THIS_COURSE');
     return section;
   }
 

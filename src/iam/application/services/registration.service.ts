@@ -54,7 +54,7 @@ export class RegistrationService {
     const user = await this.usersCommandService.findByEmail(email);
 
     if (!user || user.security.isEmailVerified) {
-      throw new BadRequestException('User already verified or does not exist');
+      throw new BadRequestException('errors.USER_ALREADY_VERIFIED_OR_DOES_NOT_EXIST');
     }
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);

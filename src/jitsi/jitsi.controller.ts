@@ -15,7 +15,7 @@ export class JitsiController {
     @ActiveUser() user: ActiveUserData,
   ) {
     if (!roomName) {
-      throw new BadRequestException('Room name is required');
+      throw new BadRequestException('errors.ROOM_NAME_IS_REQUIRED');
     }
     return this.jitsiService.generateJitsiToken(user, roomName);
   }

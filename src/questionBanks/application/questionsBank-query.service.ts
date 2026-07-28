@@ -21,7 +21,7 @@ export class QuestionsBanksQueryService {
   ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
     const section =
       await this.sectionsQueryRepository.findSectionById(sectionId);
-    if (!section) throw new NotFoundException('Section not found');
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     return this.questionsBankQueryRepository.findAllCursor(sectionId, options);
   }
 
@@ -31,13 +31,13 @@ export class QuestionsBanksQueryService {
   ): Promise<QuestionsBankWithQuestionChoices> {
     const section =
       await this.sectionsQueryRepository.findSectionById(sectionId);
-    if (!section) throw new NotFoundException('Section not found');
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = await this.questionsBankQueryRepository.findById(
       sectionId,
       id,
     );
-    if (!questionsBank) throw new NotFoundException('QuestionsBank not found');
+    if (!questionsBank) throw new NotFoundException('errors.QUESTIONS_BANK_NOT_FOUND');
     return questionsBank;
   }
 }

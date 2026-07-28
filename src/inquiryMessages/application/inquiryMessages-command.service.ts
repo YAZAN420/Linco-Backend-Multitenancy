@@ -51,7 +51,7 @@ export class InquiryMessagesCommandService {
     const inquiryMessage =
       await this.inquiryMessageCommandRepository.findById(inquiryMessageId);
     if (!inquiryMessage)
-      throw new NotFoundException('inquiryMessage not found');
+      throw new NotFoundException('errors.INQUIRY_MESSAGE_NOT_FOUND');
     return inquiryMessage;
   }
 }

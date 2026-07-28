@@ -25,7 +25,7 @@ export class DepartmentCoursesQueryService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException(`Department not found`);
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     return this.departmentCourseQueryRepository.findAll(pageOptionsDto);
   }
@@ -37,7 +37,7 @@ export class DepartmentCoursesQueryService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException(`Department not found`);
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     return this.departmentCourseQueryRepository.findAllCursor(options);
   }
@@ -49,12 +49,12 @@ export class DepartmentCoursesQueryService {
     const department =
       await this.demoQueryRepository.findDepartmentById(departmentId);
     if (!department) {
-      throw new NotFoundException(`Department not found`);
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
     const departmentCourse =
       await this.departmentCourseQueryRepository.findById(id);
     if (!departmentCourse)
-      throw new NotFoundException('DepartmentCourse not found');
+      throw new NotFoundException('errors.DEPARTMENT_COURSE_NOT_FOUND');
     return departmentCourse;
   }
 }
