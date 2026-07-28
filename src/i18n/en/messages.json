@@ -134,5 +134,6 @@
   "USER_UPDATED_SUCCESSFULLY": "User updated successfully",
   "USER_DELETED_SUCCESSFULLY": "User deleted successfully",
   "USERS_FETCHED_SUCCESSFULLY": "Users fetched successfully",
-  "USER_RETRIEVED_SUCCESSFULLY": "User retrieved successfully"
+  "USER_RETRIEVED_SUCCESSFULLY": "User retrieved successfully",
+  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "User profile retrieved successfully"
 }

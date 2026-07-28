@@ -28,7 +28,7 @@ export class UsersQueryController {
       pageOptionsDto,
     );
     return {
-      message: 'Users fetched successfully',
+      message: 'messages.USERS_FETCHED_SUCCESSFULLY',
       data: this.userResponseMapper.toResponseManyFromPrisma(
         users.data,
         activeUser.role,
@@ -48,7 +48,7 @@ export class UsersQueryController {
     );
 
     return {
-      message: 'Users fetched successfully',
+      message: 'messages.USERS_FETCHED_SUCCESSFULLY',
       data: this.userResponseMapper.toResponseManyFromPrisma(
         users.data,
         activeUser.role,
@@ -62,7 +62,7 @@ export class UsersQueryController {
     const user = await this.userQueryService.findById(activeUser.id);
 
     return {
-      message: 'User profile retrieved successfully',
+      message: 'messages.USER_PROFILE_RETRIEVED_SUCCESSFULLY',
       data: { user: this.userResponseMapper.toResponseFromPrisma(user) },
     };
   }
@@ -80,7 +80,7 @@ export class UsersQueryController {
         : this.userResponseMapper.toPublicResponseFromPrisma(user);
 
     return {
-      message: 'User retrieved successfully',
+      message: 'messages.USER_RETRIEVED_SUCCESSFULLY',
       data: data,
     };
   }

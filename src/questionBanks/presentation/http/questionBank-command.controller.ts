@@ -30,7 +30,7 @@ export class QuestionsBanksCommandController {
     );
 
     return {
-      message: 'QuestionsBank created successfully',
+      message: 'messages.QUESTION_BANK_CREATED_SUCCESSFULLY',
       data: this.questionsBankResponseMapper.toResponseFromPrisma(
         questionsBank,
       ),
@@ -45,7 +45,7 @@ export class QuestionsBanksCommandController {
     await this.questionsBankCommandService.remove(sectionId, questionsBankId);
 
     return {
-      message: 'QuestionsBank deleted successfully',
+      message: 'messages.QUESTION_BANK_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

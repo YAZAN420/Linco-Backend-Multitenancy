@@ -32,7 +32,7 @@ export class UsersCommandController {
     const createdUser = await this.userCommandService.create(dto);
     const user = await this.userQueryService.findById(createdUser.id);
     return {
-      message: 'User created successfully',
+      message: 'messages.USER_CREATED_SUCCESSFULLY',
       data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
@@ -43,7 +43,7 @@ export class UsersCommandController {
     const user = await this.userQueryService.findById(updatedUser.id);
 
     return {
-      message: 'User updated successfully',
+      message: 'messages.USER_UPDATED_SUCCESSFULLY',
       data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
@@ -53,7 +53,7 @@ export class UsersCommandController {
     await this.userCommandService.remove(id);
 
     return {
-      message: 'User deleted successfully',
+      message: 'messages.USER_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

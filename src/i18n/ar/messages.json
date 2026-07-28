@@ -134,5 +134,6 @@
   "USER_UPDATED_SUCCESSFULLY": "تم تحديث المستخدم بنجاح",
   "USER_DELETED_SUCCESSFULLY": "تم حذف المستخدم بنجاح",
   "USERS_FETCHED_SUCCESSFULLY": "تم جلب المستخدمين بنجاح",
-  "USER_RETRIEVED_SUCCESSFULLY": "تم استرجاع المستخدم بنجاح"
+  "USER_RETRIEVED_SUCCESSFULLY": "تم استرجاع المستخدم بنجاح",
+  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "تم استرجاع الملف الشخصي بنجاح"
 }
