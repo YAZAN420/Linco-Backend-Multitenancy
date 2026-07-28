@@ -26,7 +26,7 @@ export class CourseFaqsQueryController {
     );
 
     return {
-      message: 'CourseFaqs fetched successfully',
+      message: 'messages.COURSE_FAQS_FETCHED_SUCCESSFULLY',
       data: this.courseFaqResponseMapper.toResponseManyFromPrisma(
         courseFaqs.data,
       ),
@@ -45,7 +45,7 @@ export class CourseFaqsQueryController {
     );
 
     return {
-      message: 'CourseFaq retrieved successfully',
+      message: 'messages.COURSE_FAQ_RETRIEVED_SUCCESSFULLY',
       data: this.courseFaqResponseMapper.toResponseFromPrisma(courseFaq),
     };
   }

@@ -37,7 +37,7 @@ export class InquiryMessagesCommandController {
     );
 
     return {
-      message: 'InquiryMessage created successfully',
+      message: 'messages.INQUIRY_MESSAGE_CREATED_SUCCESSFULLY',
       data: this.inquiryMessageResponseMapper.toResponseFromDomain(
         inquiryMessage,
       ),
@@ -57,7 +57,7 @@ export class InquiryMessagesCommandController {
     );
 
     return {
-      message: 'InquiryMessage updated successfully',
+      message: 'messages.INQUIRY_MESSAGE_UPDATED_SUCCESSFULLY',
       data: this.inquiryMessageResponseMapper.toResponseFromDomain(
         inquiryMessage,
       ),
@@ -69,7 +69,7 @@ export class InquiryMessagesCommandController {
     await this.inquiryMessageCommandService.remove(inquiryMessageId);
 
     return {
-      message: 'InquiryMessage deleted successfully',
+      message: 'messages.INQUIRY_MESSAGE_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

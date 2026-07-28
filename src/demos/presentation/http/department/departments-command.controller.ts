@@ -35,7 +35,7 @@ export class DepartmentsCommandController {
   ) {
     await this.departmentsCommandService.addDepartment(demoId, dto);
     return {
-      message: 'Department added successfully',
+      message: 'messages.DEPARTMENT_ADDED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -52,7 +52,7 @@ export class DepartmentsCommandController {
       dto,
     );
     return {
-      message: 'Department updated successfully',
+      message: 'messages.DEPARTMENT_UPDATED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -64,7 +64,7 @@ export class DepartmentsCommandController {
   ) {
     await this.departmentsCommandService.removeDepartment(demoId, departmentId);
     return {
-      message: 'Department removed successfully',
+      message: 'messages.DEPARTMENT_REMOVED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -74,7 +74,7 @@ export class DepartmentsCommandController {
   async createRoadmap(@Body('title') title: string) {
     const roadmap = await this.aiRoadmapService.generateRoadmap(title);
     return {
-      message: 'Roadmap generated successfully',
+      message: 'messages.ROADMAP_GENERATED_SUCCESSFULLY',
       data: roadmap,
     };
   }

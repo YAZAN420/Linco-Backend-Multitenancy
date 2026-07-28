@@ -29,7 +29,7 @@ export class ExamsCommandController {
     );
 
     return {
-      message: 'Exam created successfully',
+      message: 'messages.EXAM_CREATED_SUCCESSFULLY',
       data: this.examResponseMapper.toResponseFromPrisma(exam),
     };
   }
@@ -52,7 +52,7 @@ export class ExamsCommandController {
     );
 
     return {
-      message: 'Exam updated successfully',
+      message: 'messages.EXAM_UPDATED_SUCCESSFULLY',
       data: this.examResponseMapper.toResponseFromPrisma(exam),
     };
   }
@@ -65,7 +65,7 @@ export class ExamsCommandController {
     await this.examCommandService.remove(sectionId, examId);
 
     return {
-      message: 'Exam deleted successfully',
+      message: 'messages.EXAM_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

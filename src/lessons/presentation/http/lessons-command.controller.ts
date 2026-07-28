@@ -45,7 +45,7 @@ export class LessonsCommandController {
     const lesson = await this.lessonCommandService.create(sectionId, dto);
 
     return {
-      message: 'Lesson created successfully',
+      message: 'messages.LESSON_CREATED_SUCCESSFULLY',
       data: this.lessonResponseMapper.toResponseFromDomain(lesson),
     };
   }
@@ -68,7 +68,7 @@ export class LessonsCommandController {
     );
 
     return {
-      message: 'Lesson updated successfully',
+      message: 'messages.LESSON_UPDATED_SUCCESSFULLY',
       data: this.lessonResponseMapper.toResponseFromDomain(lesson),
     };
   }
@@ -86,7 +86,7 @@ export class LessonsCommandController {
     await this.lessonCommandService.remove(sectionId, lessonId);
 
     return {
-      message: 'Lesson deleted successfully',
+      message: 'messages.LESSON_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

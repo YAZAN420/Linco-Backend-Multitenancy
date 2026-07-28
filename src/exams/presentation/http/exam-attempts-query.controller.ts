@@ -26,7 +26,7 @@ export class ExamsAttemptQueryController {
     );
 
     return {
-      message: 'Exams fetched successfully ',
+      message: 'messages.EXAM_ATTEMPTS_FETCHED_SUCCESSFULLY',
       data: this.examAttemptResponseMapper.toResponseManyFromPrisma(exams.data),
       meta: exams.meta,
     };
@@ -37,7 +37,7 @@ export class ExamsAttemptQueryController {
     const exam = await this.examAttemptQueryService.findById(examAttemptId);
 
     return {
-      message: 'Exam retrieved successfully',
+      message: 'messages.EXAM_ATTEMPT_RETRIEVED_SUCCESSFULLY',
       data: this.examAttemptResponseMapper.toResponseFromPrisma(exam),
     };
   }
@@ -47,7 +47,7 @@ export class ExamsAttemptQueryController {
     const exam = await this.examAttemptQueryService.generateExam(examId);
 
     return {
-      message: 'Exam retrieved successfully',
+      message: 'messages.EXAM_RETRIEVED_SUCCESSFULLY',
       data: this.examResponseMapper.toGeneratedExamResponse(exam),
     };
   }

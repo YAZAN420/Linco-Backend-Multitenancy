@@ -32,7 +32,7 @@ export class DepartmentCoursesQueryController {
       options,
     );
     return {
-      message: 'DepartmentCourses fetched successfully',
+      message: 'messages.DEPARTMENT_COURSES_FETCHED_SUCCESSFULLY',
       data: this.departmentCourseResponseMapper.toResponseManyFromPrisma(
         departmentCourses.data,
       ),
@@ -52,7 +52,7 @@ export class DepartmentCoursesQueryController {
       );
 
     return {
-      message: 'DepartmentCourses fetched successfully',
+      message: 'messages.DEPARTMENT_COURSES_FETCHED_SUCCESSFULLY',
       data: this.departmentCourseResponseMapper.toResponseManyFromPrisma(
         departmentCourses.data,
       ),
@@ -71,7 +71,7 @@ export class DepartmentCoursesQueryController {
     );
 
     return {
-      message: 'DepartmentCourse retrieved successfully',
+      message: 'messages.DEPARTMENT_COURSE_ADDED_SUCCESSFULLY',
       data: this.departmentCourseResponseMapper.toResponseFromPrisma(
         departmentCourse,
       ),

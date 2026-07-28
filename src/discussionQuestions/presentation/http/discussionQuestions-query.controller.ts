@@ -27,7 +27,7 @@ export class DiscussionQuestionsQueryController {
       );
 
     return {
-      message: 'DiscussionQuestions fetched successfully ',
+      message: 'messages.DISCUSSION_QUESTIONS_FETCHED_SUCCESSFULLY',
       data: this.discussionQuestionResponseMapper.toResponseManyFromPrisma(
         discussionQuestions.data,
       ),
@@ -47,7 +47,7 @@ export class DiscussionQuestionsQueryController {
       );
 
     return {
-      message: 'DiscussionQuestion fetched successfully',
+      message: 'messages.DISCUSSION_QUESTION_RETRIEVED_SUCCESSFULLY',
       data: this.discussionQuestionResponseMapper.toResponseFromPrisma(
         discussionQuestion,
       ),

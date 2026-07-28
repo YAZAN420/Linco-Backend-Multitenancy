@@ -34,7 +34,7 @@ export class DepartmentMembersCommandController {
     });
 
     return {
-      message: 'Member added successfully',
+      message: 'messages.DEPARTMENT_MEMBER_ADDED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -54,7 +54,7 @@ export class DepartmentMembersCommandController {
     );
 
     return {
-      message: 'Member role updated successfully',
+      message: 'messages.DEPARTMENT_MEMBER_ROLE_UPDATED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -70,7 +70,7 @@ export class DepartmentMembersCommandController {
     );
 
     return {
-      message: 'Member removed successfully',
+      message: 'messages.DEPARTMENT_MEMBER_REMOVED_SUCCESSFULLY',
       data: null,
     };
   }

@@ -38,7 +38,7 @@ export class LessonsQueryController {
     );
 
     return {
-      message: 'Lessons fetched successfully',
+      message: 'messages.LESSONS_FETCHED_SUCCESSFULLY',
       data: this.lessonResponseMapper.toResponseManyFromPrisma(lessons.data),
       meta: lessons.meta,
     };
@@ -57,7 +57,7 @@ export class LessonsQueryController {
     const lesson = await this.lessonQueryService.findById(sectionId, lessonId);
 
     return {
-      message: 'Lesson retrieved successfully',
+      message: 'messages.LESSON_RETRIEVED_SUCCESSFULLY',
       data: this.lessonResponseMapper.toResponseFromPrisma(lesson),
     };
   }

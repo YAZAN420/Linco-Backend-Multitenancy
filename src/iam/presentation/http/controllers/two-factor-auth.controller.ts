@@ -14,7 +14,7 @@ export class TwoFactorAuthController {
   async asyncgenerateQrCode(@ActiveUser() user: ActiveUserData) {
     const secret = await this.twoFactorService.generateSecret(user);
     return {
-      message: 'qrcode generated successfully',
+      message: 'messages.QR_CODE_GENERATED_SUCCESSFULLY',
       data: secret,
     };
   }
@@ -23,7 +23,7 @@ export class TwoFactorAuthController {
   async turnOn(@ActiveUser() user: ActiveUserData, @Body() dto: TurnOn2FADto) {
     await this.twoFactorService.turnOn(user.id, dto.tfaCode);
     return {
-      message: 'Two-factor authentication successfully enabled',
+      message: 'messages.TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_ENABLED',
       data: null,
     };
   }
@@ -33,7 +33,7 @@ export class TwoFactorAuthController {
     await this.twoFactorService.turnOff(user.id);
 
     return {
-      message: 'Two-factor authentication successfully disabled',
+      message: 'messages.TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_DISABLED',
       data: null,
     };
   }

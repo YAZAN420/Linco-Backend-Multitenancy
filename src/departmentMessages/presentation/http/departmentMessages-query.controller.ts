@@ -22,7 +22,7 @@ export class DepartmentMessagesQueryController {
       );
 
     return {
-      message: 'DepartmentMessages fetched successfully ',
+      message: 'messages.DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY',
       data: this.departmentMessageResponseMapper.toResponseManyFromPrisma(
         departmentMessages.data,
       ),
@@ -36,7 +36,7 @@ export class DepartmentMessagesQueryController {
       await this.departmentMessageQueryService.findById(departmentMessageId);
 
     return {
-      message: 'DepartmentMessage retrieved successfully',
+      message: 'messages.DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY',
       data: this.departmentMessageResponseMapper.toResponseFromPrisma(
         departmentMessage,
       ),

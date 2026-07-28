@@ -23,7 +23,7 @@ export class ExamsQueryController {
     const exams = await this.examQueryService.findAllCursor(sectionId, options);
 
     return {
-      message: 'Exams fetched successfully ',
+      message: 'messages.EXAMS_FETCHED_SUCCESSFULLY',
       data: this.examResponseMapper.toResponseManyFromPrisma(exams.data),
       meta: exams.meta,
     };
@@ -37,7 +37,7 @@ export class ExamsQueryController {
     const exam = await this.examQueryService.findById(sectionId, examId);
 
     return {
-      message: 'Exam retrieved successfully',
+      message: 'messages.EXAM_RETRIEVED_SUCCESSFULLY',
       data: this.examResponseMapper.toResponseFromPrisma(exam),
     };
   }

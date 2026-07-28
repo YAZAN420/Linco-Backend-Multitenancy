@@ -31,7 +31,7 @@ export class CourseFaqsCommandController {
     );
 
     return {
-      message: 'CourseFaq created successfully',
+      message: 'messages.COURSE_FAQ_CREATED_SUCCESSFULLY',
       data: this.courseFaqResponseMapper.toResponseFromPrisma(courseFaq),
     };
   }
@@ -44,7 +44,7 @@ export class CourseFaqsCommandController {
     await this.courseFaqCommandService.remove(courseId, courseFaqId);
 
     return {
-      message: 'CourseFaq deleted successfully',
+      message: 'messages.COURSE_FAQ_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

@@ -37,7 +37,7 @@ export class DiscussionQuestionsCommandController {
       );
 
     return {
-      message: 'DiscussionQuestion created successfully',
+      message: 'messages.DISCUSSION_QUESTION_CREATED_SUCCESSFULLY',
       data: this.discussionQuestionResponseMapper.toResponseFromPrisma(
         discussionQuestion,
       ),
@@ -64,7 +64,7 @@ export class DiscussionQuestionsCommandController {
       );
 
     return {
-      message: 'DiscussionQuestion updated successfully',
+      message: 'messages.DISCUSSION_QUESTION_UPDATED_SUCCESSFULLY',
       data: this.discussionQuestionResponseMapper.toResponseFromPrisma(
         discussionQuestion,
       ),
@@ -82,7 +82,7 @@ export class DiscussionQuestionsCommandController {
     );
 
     return {
-      message: 'DiscussionQuestion deleted successfully',
+      message: 'messages.DISCUSSION_QUESTION_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

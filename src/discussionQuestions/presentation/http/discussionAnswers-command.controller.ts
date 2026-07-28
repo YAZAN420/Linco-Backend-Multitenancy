@@ -33,7 +33,7 @@ export class DiscussionAnswersCommandController {
     );
 
     return {
-      message: 'DiscussionAnswer created successfully',
+      message: 'messages.DISCUSSION_ANSWER_CREATED_SUCCESSFULLY',
       data: this.discussionAnswerResponseMapper.toResponseFromPrisma(answer),
     };
   }
@@ -53,7 +53,7 @@ export class DiscussionAnswersCommandController {
     );
 
     return {
-      message: 'DiscussionAnswer updated successfully',
+      message: 'messages.DISCUSSION_ANSWER_UPDATED_SUCCESSFULLY',
       data: this.discussionAnswerResponseMapper.toResponseFromPrisma(answer),
     };
   }
@@ -65,7 +65,7 @@ export class DiscussionAnswersCommandController {
   ) {
     await this.discussionAnswerCommandService.remove(answerId);
     return {
-      message: 'DiscussionAnswer deleted successfully',
+      message: 'messages.DISCUSSION_ANSWER_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

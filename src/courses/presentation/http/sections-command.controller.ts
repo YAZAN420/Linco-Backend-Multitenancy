@@ -21,7 +21,7 @@ export class SectionsCommandController {
     const section = await this.sectionCommandService.create(courseId, dto);
 
     return {
-      message: 'Section created successfully',
+      message: 'messages.SECTION_CREATED_SUCCESSFULLY',
       data: this.sectionResponseMapper.toResponseFromDomain(section),
     };
   }
@@ -39,7 +39,7 @@ export class SectionsCommandController {
     );
 
     return {
-      message: 'Section updated successfully',
+      message: 'messages.SECTION_UPDATED_SUCCESSFULLY',
       data: this.sectionResponseMapper.toResponseFromDomain(section),
     };
   }
@@ -52,7 +52,7 @@ export class SectionsCommandController {
     await this.sectionCommandService.remove(courseId, sectionId);
 
     return {
-      message: 'Section deleted successfully',
+      message: 'messages.SECTION_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

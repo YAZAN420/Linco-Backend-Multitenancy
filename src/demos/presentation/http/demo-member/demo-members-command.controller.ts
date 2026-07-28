@@ -32,7 +32,7 @@ export class DemoMembersCommandController {
     });
 
     return {
-      message: 'Member role updated successfully',
+      message: 'messages.DEMO_MEMBER_ROLE_UPDATED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -45,7 +45,7 @@ export class DemoMembersCommandController {
     await this.demoMembersCommandService.removeMember(demoId, memberId);
 
     return {
-      message: 'Member removed successfully',
+      message: 'messages.DEMO_MEMBER_REMOVED_SUCCESSFULLY',
       data: null,
     };
   }

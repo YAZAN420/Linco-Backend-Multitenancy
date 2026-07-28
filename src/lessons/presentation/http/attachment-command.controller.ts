@@ -40,7 +40,7 @@ export class AttachmentsCommandController {
       dto,
     );
     return {
-      message: 'Attachment created successfully',
+      message: 'messages.ATTACHMENT_CREATED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseFromDomain(attachment),
     };
   }
@@ -57,7 +57,7 @@ export class AttachmentsCommandController {
       dto,
     );
     return {
-      message: 'Attachment updated successfully',
+      message: 'messages.ATTACHMENT_CREATED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseFromDomain(attachment),
     };
   }
@@ -69,7 +69,7 @@ export class AttachmentsCommandController {
   ) {
     await this.attachmentCommandService.remove(lessonId, attachmentId);
     return {
-      message: 'Attachment deleted successfully',
+      message: 'messages.ATTACHMENT_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

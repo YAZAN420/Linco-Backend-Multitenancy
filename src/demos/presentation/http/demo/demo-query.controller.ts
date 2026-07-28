@@ -25,7 +25,7 @@ export class DemosQueryController {
     const demos = await this.demoQueryService.findAllForMe(options, user.id);
 
     return {
-      message: 'Demos fetched successfully ',
+      message: 'messages.DEMOS_FETCHED_SUCCESSFULLY',
       data: this.demoResponseMapper.toResponseManyFromPrisma(demos.data),
       meta: demos.meta,
     };
@@ -36,7 +36,7 @@ export class DemosQueryController {
   async findOne(@ActiveUser() user: ActiveUserData, @Param('id') id: string) {
     const demo = await this.demoQueryService.findById(user.id, id);
     return {
-      message: 'Demo retrieved successfully',
+      message: 'messages.DEMO_RETRIEVED_SUCCESSFULLY',
       data: this.demoResponseMapper.toResponseFromPrisma(demo),
     };
   }

@@ -14,7 +14,7 @@ export class EmailVerificationController {
   @Get('verify-email')
   async verifyEmail(@Query() dto: VerifyEmailDto) {
     await this.registrationService.verifyEmail(dto.token);
-    return { message: 'Email verified successfully.', data: null };
+    return { message: 'messages.EMAIL_VERIFIED_SUCCESSFULLY', data: null };
   }
 
   @Public()
@@ -22,8 +22,7 @@ export class EmailVerificationController {
   async resendVerificationEmail(@Body() dto: ResendVerificationEmailDto) {
     await this.registrationService.resendVerificationEmail(dto.email);
     return {
-      message:
-        'If the email is registered and not verified, a new verification link has been sent.',
+      message: 'messages.VERIFICATION_EMAIL_SENT_IF_REGISTERED',
       data: null,
     };
   }

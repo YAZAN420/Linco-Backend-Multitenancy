@@ -25,7 +25,7 @@ export class AssetsQueryController {
   ) {
     const assets = await this.assetQueryService.findAll(demoId, options);
     return {
-      message: 'Assets fetched successfully',
+      message: 'messages.ASSETS_FETCHED_SUCCESSFULLY',
       data: this.assetResponseMapper.toResponseManyFromPrisma(assets.data),
       meta: assets.meta,
     };
@@ -39,7 +39,7 @@ export class AssetsQueryController {
     const assets = await this.assetQueryService.findAllCursor(demoId, options);
 
     return {
-      message: 'Assets fetched successfully',
+      message: 'messages.ASSETS_FETCHED_SUCCESSFULLY',
       data: this.assetResponseMapper.toResponseManyFromPrisma(assets.data),
       meta: assets.meta,
     };
@@ -53,7 +53,7 @@ export class AssetsQueryController {
     const asset = await this.assetQueryService.findById(demoId, assetId);
 
     return {
-      message: 'Asset retrieved successfully',
+      message: 'messages.ASSET_RETRIEVED_SUCCESSFULLY',
       data: this.assetResponseMapper.toResponseFromPrisma(asset),
     };
   }

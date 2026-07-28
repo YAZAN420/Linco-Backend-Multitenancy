@@ -22,7 +22,7 @@ export class CoursesQueryController {
     const courses = await this.courseQueryService.findAll(options);
 
     return {
-      message: 'Courses fetched successfully',
+      message: 'messages.COURSES_FETCHED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseManyFromPrisma(courses.data),
       meta: courses.meta,
     };
@@ -33,7 +33,7 @@ export class CoursesQueryController {
     const courses = await this.courseQueryService.findAllCursor(options);
 
     return {
-      message: 'Courses fetched successfully ',
+      message: 'messages.COURSES_FETCHED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseManyFromPrisma(courses.data),
       meta: courses.meta,
     };
@@ -44,7 +44,7 @@ export class CoursesQueryController {
     const course = await this.courseQueryService.findById(courseId);
 
     return {
-      message: 'Course retrieved successfully',
+      message: 'messages.COURSE_RETRIEVED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }

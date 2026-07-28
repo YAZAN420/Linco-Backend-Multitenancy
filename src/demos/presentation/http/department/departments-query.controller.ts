@@ -32,7 +32,7 @@ export class DepartmentsQueryController {
     );
 
     return {
-      message: 'Departments fetched successfully',
+      message: 'messages.DEPARTMENTS_FETCHED_SUCCESSFULLY',
       data: this.departmentResponseMapper.toResponseManyFromPrisma(
         departments.data,
       ),
@@ -54,7 +54,7 @@ export class DepartmentsQueryController {
     );
 
     return {
-      message: 'Department retrieved successfully',
+      message: 'messages.DEPARTMENT_RETRIEVED_SUCCESSFULLY',
       data: this.departmentResponseMapper.toResponseFromPrisma(department),
     };
   }

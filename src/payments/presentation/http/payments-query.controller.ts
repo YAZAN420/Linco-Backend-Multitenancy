@@ -24,7 +24,7 @@ export class PaymentsQueryController {
   async findAll(@Query() options: PageOptionsDto) {
     const payments = await this.paymentQueryService.findAll(options);
     return {
-      message: 'Payments fetched successfully',
+      message: 'messages.PAYMENTS_FETCHED_SUCCESSFULLY',
       data: this.paymentResponseMapper.toResponseManyFromPrisma(payments.data),
       meta: payments.meta,
     };
@@ -41,7 +41,7 @@ export class PaymentsQueryController {
     );
 
     return {
-      message: 'Payments fetched successfully ',
+      message: 'messages.PAYMENTS_FETCHED_SUCCESSFULLY',
       data: this.paymentResponseMapper.toResponseManyFromPrisma(payments.data),
       meta: payments.meta,
     };
@@ -52,7 +52,7 @@ export class PaymentsQueryController {
     const payment = await this.paymentQueryService.findById(paymentId);
 
     return {
-      message: 'Payment retrieved successfully',
+      message: 'messages.PAYMENT_RETRIEVED_SUCCESSFULLY',
       data: this.paymentResponseMapper.toResponseFromPrisma(payment),
     };
   }

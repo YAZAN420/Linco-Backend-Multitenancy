@@ -24,7 +24,7 @@ export class DiscussionAnswersQueryController {
       );
 
     return {
-      message: 'DiscussionAnswers fetched successfully',
+      message: 'messages.DISCUSSION_ANSWERS_FETCHED_SUCCESSFULLY',
       data: this.discussionAnswerResponseMapper.toResponseManyFromPrisma(
         discussionAnswers.data,
       ),
@@ -40,7 +40,7 @@ export class DiscussionAnswersQueryController {
     const discussionAnswer =
       await this.discussionAnswerQueryService.findById(answerId);
     return {
-      message: 'DiscussionAnswer fetched successfully',
+      message: 'messages.DISCUSSION_ANSWER_RETRIEVED_SUCCESSFULLY',
       data: discussionAnswer,
     };
   }

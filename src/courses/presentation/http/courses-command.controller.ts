@@ -34,7 +34,7 @@ export class CoursesCommandController {
       false,
     );
     return {
-      message: 'Course published successfully',
+      message: 'messages.COURSE_PUBLISHED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }
@@ -47,7 +47,7 @@ export class CoursesCommandController {
       false,
     );
     return {
-      message: 'Course created successfully',
+      message: 'messages.COURSE_CREATED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }
@@ -63,7 +63,7 @@ export class CoursesCommandController {
       false,
     );
     return {
-      message: 'Course updated successfully',
+      message: 'messages.COURSE_UPDATED_SUCCESSFULLY',
       data: this.courseResponseMapper.toResponseFromPrisma(course),
     };
   }
@@ -73,7 +73,7 @@ export class CoursesCommandController {
     await this.courseCommandService.remove(courseId);
 
     return {
-      message: 'Course deleted successfully',
+      message: 'messages.COURSE_DELETED_SUCCESSFULLY',
       data: null,
     };
   }
@@ -88,7 +88,7 @@ export class CoursesCommandController {
       question,
     );
     return {
-      message: 'Question asked successfully',
+      message: 'messages.QUESTION_ASKED_SUCCESSFULLY',
       data: data.answer,
     };
   }
@@ -103,7 +103,7 @@ export class CoursesCommandController {
       dto,
     );
     return {
-      message: 'Quiz generated successfully',
+      message: 'messages.QUIZ_GENERATED_SUCCESSFULLY',
       data: data.quiz,
     };
   }
@@ -118,7 +118,7 @@ export class CoursesCommandController {
       dto.questionCount,
     );
     return {
-      message: ' Random quiz generated successfully',
+      message: 'messages.RANDOM_QUIZ_GENERATED_SUCCESSFULLY',
       data: data.quiz,
     };
   }

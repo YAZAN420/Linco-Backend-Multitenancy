@@ -23,7 +23,7 @@ export class SectionsQueryController {
     );
 
     return {
-      message: 'Sections fetched successfully',
+      message: 'messages.SECTIONS_FETCHED_SUCCESSFULLY',
       data: this.sectionResponseMapper.toResponseManyFromPrisma(sections.data),
       meta: sections.meta,
     };
@@ -40,7 +40,7 @@ export class SectionsQueryController {
     );
 
     return {
-      message: 'Section retrieved successfully',
+      message: 'messages.SECTION_RETRIEVED_SUCCESSFULLY',
       data: this.sectionResponseMapper.toResponseFromPrisma(section),
     };
   }

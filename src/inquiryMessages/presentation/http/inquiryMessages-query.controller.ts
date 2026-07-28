@@ -26,7 +26,7 @@ export class InquiryMessagesQueryController {
     );
 
     return {
-      message: 'InquiryMessages fetched successfully',
+      message: 'messages.INQUIRY_MESSAGES_FETCHED_SUCCESSFULLY',
       data: this.inquiryMessageResponseMapper.toResponseManyFromPrisma(
         inquiryMessages.data,
       ),
@@ -40,7 +40,7 @@ export class InquiryMessagesQueryController {
       await this.inquiryMessageQueryService.findById(inquiryMessageId);
 
     return {
-      message: 'InquiryMessage retrieved successfully',
+      message: 'messages.INQUIRY_MESSAGE_RETRIEVED_SUCCESSFULLY',
       data: this.inquiryMessageResponseMapper.toResponseFromPrisma(
         inquiryMessage,
       ),

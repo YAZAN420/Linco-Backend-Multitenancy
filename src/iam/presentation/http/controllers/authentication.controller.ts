@@ -51,8 +51,7 @@ export class AuthenticationController {
   async signUp(@Body() dto: SignUpDto) {
     await this.registrationService.signUp(dto);
     return {
-      message:
-        'Registration successful. Please check your email to verify your account.',
+      message: 'messages.REGISTRATION_SUCCESSFUL',
       data: null,
     };
   }
@@ -71,7 +70,7 @@ export class AuthenticationController {
 
     if (result.requires2FA) {
       return {
-        message: 'Two-factor authentication required',
+        message: 'messages.TWO_FACTOR_AUTHENTICATION_REQUIRED',
         data: {
           requires2FA: true,
           twoFactorToken: result.twoFactorToken,
@@ -82,7 +81,7 @@ export class AuthenticationController {
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens!);
       return {
-        message: 'User signed in successfully',
+        message: 'messages.USER_SIGNED_IN_SUCCESSFULLY',
         data: {
           requires2FA: false,
           user: this.userResponseMapper.toResponseFromDomain(result.user!),
@@ -91,7 +90,7 @@ export class AuthenticationController {
     }
 
     return {
-      message: 'User signed in successfully',
+      message: 'messages.USER_SIGNED_IN_SUCCESSFULLY',
       data: {
         requires2FA: false,
         user: this.userResponseMapper.toResponseFromDomain(result.user!),
@@ -117,7 +116,7 @@ export class AuthenticationController {
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens!);
       return {
-        message: 'User signed in successfully',
+        message: 'messages.USER_SIGNED_IN_SUCCESSFULLY',
         data: {
           requires2FA: false,
           user: this.userResponseMapper.toResponseFromDomain(result.user!),
@@ -126,7 +125,7 @@ export class AuthenticationController {
     }
 
     return {
-      message: 'User signed in successfully',
+      message: 'messages.USER_SIGNED_IN_SUCCESSFULLY',
       data: {
         requires2FA: false,
         user: this.userResponseMapper.toResponseFromDomain(result.user!),
@@ -165,7 +164,7 @@ export class AuthenticationController {
     const result = await this.authService.signInWithGoogleIdToken(dto.idToken);
 
     return {
-      message: 'User signed in successfully',
+      message: 'messages.USER_SIGNED_IN_SUCCESSFULLY',
       data: {
         user: this.userResponseMapper.toResponseFromDomain(result.user!),
         accessToken: result.tokens!.accessToken,
@@ -181,7 +180,7 @@ export class AuthenticationController {
   ) {
     this.cookieService.clearAuthCookies(response);
     await this.authService.signOut(user.id);
-    return { message: 'User signed out successfully', data: null };
+    return { message: 'messages.USER_SIGNED_OUT_SUCCESSFULLY', data: null };
   }
 
   @Public()
@@ -206,11 +205,11 @@ export class AuthenticationController {
 
     if (isWeb) {
       this.cookieService.setAuthCookies(response, result.tokens);
-      return { message: 'Tokens refreshed successfully', data: null };
+      return { message: 'messages.TOKENS_REFRESHED_SUCCESSFULLY', data: null };
     }
 
     return {
-      message: 'Tokens refreshed successfully',
+      message: 'messages.TOKENS_REFRESHED_SUCCESSFULLY',
       data: {
         accessToken: result.tokens.accessToken,
         refreshToken: result.tokens.refreshToken,

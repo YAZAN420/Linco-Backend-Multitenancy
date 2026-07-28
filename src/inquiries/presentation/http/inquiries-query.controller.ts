@@ -29,7 +29,7 @@ export class InquiriesQueryController {
     );
 
     return {
-      message: 'Inquiries fetched successfully ',
+      message: 'messages.INQUIRIES_FETCHED_SUCCESSFULLY',
       data: this.inquiryResponseMapper.toResponseManyFromPrisma(inquiries.data),
       meta: inquiries.meta,
     };
@@ -43,7 +43,7 @@ export class InquiriesQueryController {
     const inquiry = await this.inquiryQueryService.findById(inquiryId, demoId);
 
     return {
-      message: 'Inquiry retrieved successfully',
+      message: 'messages.INQUIRY_RETRIEVED_SUCCESSFULLY',
       data: this.inquiryResponseMapper.toResponseFromPrisma(inquiry),
     };
   }

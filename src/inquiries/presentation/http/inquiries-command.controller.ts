@@ -44,7 +44,7 @@ export class InquiriesCommandController {
       demoMember.demoId,
     );
     return {
-      message: 'Inquiry created successfully',
+      message: 'messages.INQUIRY_CREATED_SUCCESSFULLY',
       data: this.inquiryResponseMapper.toResponseFromPrisma(inquiry),
     };
   }
@@ -66,7 +66,7 @@ export class InquiriesCommandController {
     );
 
     return {
-      message: 'Inquiry updated successfully',
+      message: 'messages.INQUIRY_UPDATED_SUCCESSFULLY',
       data: this.inquiryResponseMapper.toResponseFromPrisma(inquiry),
     };
   }
@@ -79,7 +79,7 @@ export class InquiriesCommandController {
     await this.inquiryCommandService.remove(demoId, inquiryId);
 
     return {
-      message: 'Inquiry deleted successfully',
+      message: 'messages.INQUIRY_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

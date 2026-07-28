@@ -38,7 +38,7 @@ export class ExamsAttemptCommandController {
     );
 
     return {
-      message: 'Exam Attempt created successfully',
+      message: 'messages.EXAM_ATTEMPT_CREATED_SUCCESSFULLY',
       data: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
     };
   }
@@ -47,7 +47,7 @@ export class ExamsAttemptCommandController {
   async remove(@Param('examAttemptId') examAttemptId: string) {
     await this.examAttemptCommandService.remove(examAttemptId);
     return {
-      message: 'Exam Attempt deleted successfully',
+      message: 'messages.EXAM_ATTEMPT_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

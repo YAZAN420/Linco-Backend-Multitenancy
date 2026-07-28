@@ -39,7 +39,7 @@ export class DepartmentCoursesCommandController {
       createdDepartmentCourse.id,
     );
     return {
-      message: 'DepartmentCourse created successfully',
+      message: 'messages.DEPARTMENT_COURSE_ADDED_SUCCESSFULLY',
       data: this.departmentCourseResponseMapper.toResponseFromPrisma(
         departmentCourse,
       ),
@@ -57,7 +57,7 @@ export class DepartmentCoursesCommandController {
     );
 
     return {
-      message: 'DepartmentCourse deleted successfully',
+      message: 'messages.DEPARTMENT_COURSE_REMOVED_SUCCESSFULLY',
       data: null,
     };
   }

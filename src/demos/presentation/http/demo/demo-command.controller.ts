@@ -41,7 +41,7 @@ export class DemosCommandController {
     });
 
     return {
-      message: 'Demo created successfully',
+      message: 'messages.DEMO_CREATED_SUCCESSFULLY',
       data: this.demoResponseMapper.toResponseFromDomain(demo),
     };
   }
@@ -52,7 +52,7 @@ export class DemosCommandController {
     const demo = await this.demoCommandService.update(id, { name: dto.name });
 
     return {
-      message: 'Demo updated successfully',
+      message: 'messages.DEMO_UPDATED_SUCCESSFULLY',
       data: this.demoResponseMapper.toResponseFromDomain(demo),
     };
   }
@@ -63,7 +63,7 @@ export class DemosCommandController {
     await this.demoCommandService.remove(id);
 
     return {
-      message: 'Demo deleted successfully',
+      message: 'messages.DEMO_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

@@ -44,7 +44,7 @@ export class InvitationsCommandController {
     );
 
     return {
-      message: 'Invitation created successfully',
+      message: 'messages.INVITATION_CREATED_SUCCESSFULLY',
       data: this.invitationResponseMapper.toResponseFromPrisma(invitation),
     };
   }
@@ -55,7 +55,7 @@ export class InvitationsCommandController {
     @ActiveUser() user: ActiveUserData,
   ) {
     await this.invitationCommandService.accept(invitationId, user.id);
-    return { message: 'Invitation accepted successfully', data: null };
+    return { message: 'messages.INVITATION_ACCEPTED_SUCCESSFULLY', data: null };
   }
 
   @Post(':invitationId/reject')
@@ -64,7 +64,7 @@ export class InvitationsCommandController {
     @ActiveUser() user: ActiveUserData,
   ) {
     await this.invitationCommandService.reject(invitationId, user.id);
-    return { message: 'Invitation rejected successfully', data: null };
+    return { message: 'messages.INVITATION_REJECTED_SUCCESSFULLY', data: null };
   }
 
   @Delete(':invitationId')
@@ -73,7 +73,7 @@ export class InvitationsCommandController {
     await this.invitationCommandService.remove(invitationId);
 
     return {
-      message: 'Invitation deleted successfully',
+      message: 'messages.INVITATION_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

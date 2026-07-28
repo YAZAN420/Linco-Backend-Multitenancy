@@ -27,7 +27,7 @@ export class DemoMembersQueryController {
     );
 
     return {
-      message: 'Members fetched successfully',
+      message: 'messages.DEMO_MEMBERS_FETCHED_SUCCESSFULLY',
       data: this.demoMemberResponseMapper.toResponseManyFromPrisma(
         members.data,
       ),
@@ -46,7 +46,7 @@ export class DemoMembersQueryController {
     );
 
     return {
-      message: 'Member retrieved successfully',
+      message: 'messages.DEMO_MEMBER_RETRIEVED_SUCCESSFULLY',
       data: this.demoMemberResponseMapper.toResponseFromPrisma(member),
     };
   }

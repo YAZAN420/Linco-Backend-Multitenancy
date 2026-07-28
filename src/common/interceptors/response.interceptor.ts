@@ -37,11 +37,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<
       const defaultKey = 'messages.REQUEST_SUCCESSFUL';
       const targetKey = key || defaultKey;
 
-      if (
-        i18n &&
-        typeof targetKey === 'string' &&
-        targetKey.startsWith('messages.')
-      ) {
+      if (i18n && typeof targetKey === 'string') {
         return i18n.t(targetKey);
       }
 

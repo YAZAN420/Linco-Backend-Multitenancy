@@ -26,7 +26,7 @@ export class InvitationsQueryController {
     );
 
     return {
-      message: 'Invitations fetched successfully',
+      message: 'messages.INVITATIONS_FETCHED_SUCCESSFULLY',
       data: this.invitationResponseMapper.toResponseManyFromPrisma(
         invitations.data,
       ),
@@ -39,7 +39,7 @@ export class InvitationsQueryController {
     const invitation = await this.invitationQueryService.findById(invitationId);
 
     return {
-      message: 'Invitation retrieved successfully',
+      message: 'messages.INVITATION_RETRIEVED_SUCCESSFULLY',
       data: this.invitationResponseMapper.toResponseFromPrisma(invitation),
     };
   }

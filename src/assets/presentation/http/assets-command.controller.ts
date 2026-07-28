@@ -40,7 +40,7 @@ export class AssetsCommandController {
       updatedAsset.id,
     );
     return {
-      message: 'Asset updated successfully',
+      message: 'messages.ASSET_UPDATED_SUCCESSFULLY',
       data: this.assetResponseMapper.toResponseFromPrisma(asset),
     };
   }
@@ -53,7 +53,7 @@ export class AssetsCommandController {
     await this.assetCommandService.remove(demoId, assetId);
 
     return {
-      message: 'Asset deleted successfully',
+      message: 'messages.ASSET_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

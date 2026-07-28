@@ -22,7 +22,7 @@ export class AttachmentsQueryController {
       options,
     );
     return {
-      message: 'Attachments fetched successfully',
+      message: 'messages.ATTACHMENTS_FETCHED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseManyFromPrisma(
         attachments.data,
       ),
@@ -40,7 +40,7 @@ export class AttachmentsQueryController {
       attachmentId,
     );
     return {
-      message: 'Attachment retrieved successfully',
+      message: 'messages.ATTACHMENT_CREATED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseFromPrisma(attachment),
     };
   }
