@@ -35,7 +35,11 @@ import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
 import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
 import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module';
 import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
-import { HeaderResolver, I18nJsonLoader, I18nModule } from 'nestjs-i18n';
+import {
+  AcceptLanguageResolver,
+  I18nJsonLoader,
+  I18nModule,
+} from 'nestjs-i18n';
 import { join } from 'path';
 import { DepartmentMessagesModule } from './departmentMessages/departmentMessages.module';
 import { DepartmentMessagesInfrastructureModule } from './departmentMessages/infrastructure/departmentMessages-infrastructure.module';
@@ -97,7 +101,7 @@ export class AppModule {
         watch: false,
       },
 
-      resolvers: [new HeaderResolver(['accept-language'])],
+      resolvers: [new AcceptLanguageResolver()],
     });
   }
 }
