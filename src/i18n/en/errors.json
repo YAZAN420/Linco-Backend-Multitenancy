@@ -70,6 +70,7 @@
   "INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN": "Invalid or expired password reset token",
   "INVALID_OR_EXPIRED_VERIFICATION_TOKEN": "Invalid or expired verification token",
   "INVALID_REFRESH_TOKEN": "Invalid refresh token",
+  "INVALID_ACCESS_TOKEN": "Invalid access toen",
   "INVALID_RESET_TOKEN": "Invalid reset token",
   "INVALID_SUBSCRIPTION_PLAN": "Invalid subscription plan",
   "INVALID_TOKEN_PURPOSE": "Invalid token purpose",

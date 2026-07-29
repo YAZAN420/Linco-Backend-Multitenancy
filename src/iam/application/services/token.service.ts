@@ -88,8 +88,8 @@ export class TokenService {
     try {
       return await this.tokenPort.verifyToken<ActiveUserData>(token);
     } catch (error) {
-      this.logger.warn(`Invalid refresh token: ${error}`);
-      throw new UnauthorizedException('errors.INVALID_REFRESH_TOKEN');
+      this.logger.warn(`Invalid access token: ${error}`);
+      throw new UnauthorizedException('errors.INVALID_ACCESS_TOKEN');
     }
   }
 

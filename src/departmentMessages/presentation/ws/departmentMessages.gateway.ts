@@ -50,8 +50,7 @@ export class DepartmentMessagesGateway {
         const payload = await this.tokenService.verifyAccessToken(token);
         client.data.user = payload;
         next();
-      })().catch((error) => {
-        console.log(error);
+      })().catch((_error) => {
         next(new Error('UNAUTHORIZED: Invalid token'));
       });
     });

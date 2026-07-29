@@ -70,6 +70,7 @@
   "INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN": "رمز إعادة تعيين كلمة المرور غير صالح أو منتهي الصلاحية",
   "INVALID_OR_EXPIRED_VERIFICATION_TOKEN": "رمز التحقق غير صالح أو منتهي الصلاحية",
   "INVALID_REFRESH_TOKEN": "رمز التحديث غير صالح",
+  "INVALID_ACCESS_TOKEN": "رمز الدخول غير صالح",
   "INVALID_RESET_TOKEN": "رمز إعادة التعيين غير صالح",
   "INVALID_SUBSCRIPTION_PLAN": "خطة الاشتراك غير صالحة",
   "INVALID_TOKEN_PURPOSE": "غرض الرمز غير صالح",
