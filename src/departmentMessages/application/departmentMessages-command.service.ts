@@ -37,9 +37,16 @@ export class DepartmentMessagesCommandService {
 
   async update(
     departmentMessageId: string,
+    departmentMemberId: string,
     input: UpdateDepartmentMessageInput,
   ): Promise<DepartmentMessage> {
     const departmentMessage = await this.findById(departmentMessageId);
+
+    if (departmentMessage.senderId !== departmentMemberId) {
+      throw new NotFoundException(
+        'DepartmentMessage not found or you are not the sender',
+      );
+    }
 
     departmentMessage.editContent(input.content);
 
@@ -48,8 +55,17 @@ export class DepartmentMessagesCommandService {
     return departmentMessage;
   }
 
-  async remove(departmentMessageId: string): Promise<DepartmentMessage> {
+  async remove(
+    departmentMessageId: string,
+    departmentMemberId: string,
+  ): Promise<DepartmentMessage> {
     const departmentMessage = await this.findById(departmentMessageId);
+
+    if (departmentMessage.senderId !== departmentMemberId) {
+      throw new NotFoundException(
+        'DepartmentMessage not found or you are not the sender',
+      );
+    }
 
     departmentMessage.softDelete();
 

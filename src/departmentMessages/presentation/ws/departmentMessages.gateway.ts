@@ -6,6 +6,7 @@ import {
   WebSocketServer,
   BaseWsExceptionFilter,
   WsException,
+  OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { UseFilters } from '@nestjs/common';
@@ -21,13 +22,14 @@ import { EditMessageDto } from '../dto/edit-departmentMessage.dto';
 import { DeleteMessageDto } from '../dto/delete-departmentMessage.dto';
 import { TokenService } from 'src/iam/application/services/token.service';
 import { AuthenticatedSocket } from './interfaces/authenticated-socket.interface';
+import { IsTypingDto } from '../dto/IsTyping.dto';
 
 @WebSocketGateway({
   namespace: 'departmentChat',
   cors: { origin: '*' },
 })
 @UseFilters(BaseWsExceptionFilter)
-export class DepartmentMessagesGateway {
+export class DepartmentMessagesGateway implements OnGatewayDisconnect {
   @WebSocketServer()
   server!: Server;
 
@@ -56,6 +58,15 @@ export class DepartmentMessagesGateway {
     });
   }
 
+  handleDisconnect(client: AuthenticatedSocket) {
+    const { departmentId, departmentMemberId } = client.data;
+    if (departmentId) {
+      client
+        .to(`dept_${departmentId}`)
+        .emit('userOffline', { departmentMemberId });
+    }
+  }
+
   @SubscribeMessage('joinChat')
   async handleJoinRoom(
     @MessageBody() { departmentId }: JoinDepartmentDto,
@@ -72,6 +83,10 @@ export class DepartmentMessagesGateway {
       throw new WsException('errors.USER_IS_NOT_A_MEMBER_OF_THIS_DEPARTMENT');
     }
 
+    if (client.data.departmentId && client.data.departmentId !== departmentId) {
+      await client.leave(`dept_${client.data.departmentId}`);
+    }
+
     client.data.departmentId = departmentId;
     client.data.role = member.role;
     client.data.departmentMemberId = member.id;
@@ -79,7 +94,25 @@ export class DepartmentMessagesGateway {
     const roomName = `dept_${departmentId}`;
     await client.join(roomName);
 
+    client.to(roomName).emit('userOnline', {
+      departmentMemberId: member.id,
+    });
+
     return { status: 'joined', room: roomName };
+  }
+
+  @SubscribeMessage('typing')
+  handleTyping(
+    @MessageBody() { isTyping }: IsTypingDto,
+    @ConnectedSocket() client: AuthenticatedSocket,
+  ) {
+    const { departmentId, departmentMemberId } =
+      this.validateClientContext(client);
+
+    client.to(`dept_${departmentId}`).emit('userTypingStatus', {
+      departmentMemberId,
+      isTyping,
+    });
   }
 
   @SubscribeMessage('sendMessage')
@@ -109,10 +142,12 @@ export class DepartmentMessagesGateway {
     @MessageBody() dto: EditMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId } = this.validateClientContext(client);
+    const { departmentId, departmentMemberId } =
+      this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.update(
       dto.messageId,
+      departmentMemberId,
       {
         content: dto.content,
       },
@@ -131,10 +166,13 @@ export class DepartmentMessagesGateway {
     @MessageBody() { messageId }: DeleteMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId } = this.validateClientContext(client);
+    const { departmentId, departmentMemberId } =
+      this.validateClientContext(client);
 
-    const domainMessage =
-      await this.departmentMessageCommandService.remove(messageId);
+    const domainMessage = await this.departmentMessageCommandService.remove(
+      messageId,
+      departmentMemberId,
+    );
 
     await this.broadcastMessage(
       departmentId,
