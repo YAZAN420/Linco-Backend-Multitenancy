@@ -26,7 +26,9 @@ export class DemoMembersCommandService {
       input.userId,
     );
     if (existing) {
-      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
+      throw new ConflictException(
+        'errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO',
+      );
     }
 
     const count = await this.demoMemberCommandRepository.countByDemo(demoId);

@@ -6,6 +6,7 @@ import { HashingPort } from '../ports/hashing.port';
 import { User } from 'src/users/domain/user';
 import { TokenPair } from '../../domain/interfaces/token-pair.interface';
 import { UsersCommandService } from 'src/users/application/users-command.service';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @Injectable()
 export class TokenService {
@@ -77,6 +78,15 @@ export class TokenService {
   private async verifyRefreshToken(token: string): Promise<{ id: string }> {
     try {
       return await this.tokenPort.verifyRefreshToken<{ id: string }>(token);
+    } catch (error) {
+      this.logger.warn(`Invalid refresh token: ${error}`);
+      throw new UnauthorizedException('errors.INVALID_REFRESH_TOKEN');
+    }
+  }
+
+  public async verifyAccessToken(token: string): Promise<ActiveUserData> {
+    try {
+      return await this.tokenPort.verifyToken<ActiveUserData>(token);
     } catch (error) {
       this.logger.warn(`Invalid refresh token: ${error}`);
       throw new UnauthorizedException('errors.INVALID_REFRESH_TOKEN');

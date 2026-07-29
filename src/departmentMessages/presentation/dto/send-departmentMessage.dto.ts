@@ -1,22 +1,7 @@
-import {
-  IsString,
-  IsOptional,
-  IsEnum,
-  IsNumber,
-  IsNotEmpty,
-} from 'class-validator';
-import { CreateDepartmentMessageInput } from 'src/departmentMessages/application/interfaces/create-departmentMessage-input.interface';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { MessageType } from 'src/departmentMessages/domain/enums/message-type.enum';
 
-export class CreateDepartmentMessageDto implements CreateDepartmentMessageInput {
-  @IsString()
-  @IsNotEmpty()
-  departmentId!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  senderId!: string;
-
+export class SendMessageDto {
   @IsOptional()
   @IsEnum(MessageType)
   type?: MessageType;

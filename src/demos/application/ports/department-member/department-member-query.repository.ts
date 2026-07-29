@@ -12,4 +12,9 @@ export abstract class DepartmentMemberQueryRepository {
     departmentId: string,
     memberId: string,
   ): Promise<DepartmentMemberWithUser | null>;
+
+  abstract findByUserId(
+    departmentId: string,
+    userId: string,
+  ): Promise<DepartmentMemberWithUser | null>;
 }

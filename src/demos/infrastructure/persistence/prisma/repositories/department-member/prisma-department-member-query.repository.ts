@@ -58,4 +58,20 @@ export class PrismaDepartmentMemberQueryRepository implements DepartmentMemberQu
       },
     });
   }
+
+  async findByUserId(
+    departmentId: string,
+    userId: string,
+  ): Promise<DepartmentMemberWithUser | null> {
+    return this.prisma.departmentMember.findFirst({
+      where: { departmentId, demoMember: { userId } },
+      include: {
+        demoMember: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  }
 }
