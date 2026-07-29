@@ -12,7 +12,7 @@ export class SendMessageDto {
 
   @IsOptional()
   @IsString()
-  blobName?: string;
+  fileUrl?: string;
 
   @IsOptional()
   @IsString()

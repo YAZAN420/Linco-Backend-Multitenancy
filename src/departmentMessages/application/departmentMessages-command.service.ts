@@ -23,7 +23,7 @@ export class DepartmentMessagesCommandService {
       departmentMemberId,
       input.type,
       input.content,
-      input.blobName,
+      input.fileUrl,
       input.fileName,
       input.mimeType,
       input.fileSize,

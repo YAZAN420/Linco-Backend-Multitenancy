@@ -5,7 +5,7 @@ export interface DepartmentMessageProps {
   senderId: string;
   type: MessageType;
   content?: string;
-  blobName?: string;
+  fileUrl?: string;
   fileName?: string;
   mimeType?: string;
   fileSize?: number;

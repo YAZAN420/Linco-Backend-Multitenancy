@@ -40,7 +40,7 @@ export type DepartmentMessageMinAggregateOutputType = {
   senderId: string | null
   type: $Enums.MessageType | null
   content: string | null
-  blobName: string | null
+  fileUrl: string | null
   fileName: string | null
   mimeType: string | null
   fileSize: number | null
@@ -57,7 +57,7 @@ export type DepartmentMessageMaxAggregateOutputType = {
   senderId: string | null
   type: $Enums.MessageType | null
   content: string | null
-  blobName: string | null
+  fileUrl: string | null
   fileName: string | null
   mimeType: string | null
   fileSize: number | null
@@ -74,7 +74,7 @@ export type DepartmentMessageCountAggregateOutputType = {
   senderId: number
   type: number
   content: number
-  blobName: number
+  fileUrl: number
   fileName: number
   mimeType: number
   fileSize: number
@@ -101,7 +101,7 @@ export type DepartmentMessageMinAggregateInputType = {
   senderId?: true
   type?: true
   content?: true
-  blobName?: true
+  fileUrl?: true
   fileName?: true
   mimeType?: true
   fileSize?: true
@@ -118,7 +118,7 @@ export type DepartmentMessageMaxAggregateInputType = {
   senderId?: true
   type?: true
   content?: true
-  blobName?: true
+  fileUrl?: true
   fileName?: true
   mimeType?: true
   fileSize?: true
@@ -135,7 +135,7 @@ export type DepartmentMessageCountAggregateInputType = {
   senderId?: true
   type?: true
   content?: true
-  blobName?: true
+  fileUrl?: true
   fileName?: true
   mimeType?: true
   fileSize?: true
@@ -239,7 +239,7 @@ export type DepartmentMessageGroupByOutputType = {
   senderId: string
   type: $Enums.MessageType
   content: string | null
-  blobName: string | null
+  fileUrl: string | null
   fileName: string | null
   mimeType: string | null
   fileSize: number | null
@@ -279,7 +279,7 @@ export type DepartmentMessageWhereInput = {
   senderId?: Prisma.StringFilter<"DepartmentMessage"> | string
   type?: Prisma.EnumMessageTypeFilter<"DepartmentMessage"> | $Enums.MessageType
   content?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
-  blobName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
+  fileUrl?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   mimeType?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileSize?: Prisma.IntNullableFilter<"DepartmentMessage"> | number | null
@@ -300,7 +300,7 @@ export type DepartmentMessageOrderByWithRelationInput = {
   senderId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  blobName?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   fileName?: Prisma.SortOrderInput | Prisma.SortOrder
   mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   fileSize?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -324,7 +324,7 @@ export type DepartmentMessageWhereUniqueInput = Prisma.AtLeast<{
   senderId?: Prisma.StringFilter<"DepartmentMessage"> | string
   type?: Prisma.EnumMessageTypeFilter<"DepartmentMessage"> | $Enums.MessageType
   content?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
-  blobName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
+  fileUrl?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   mimeType?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileSize?: Prisma.IntNullableFilter<"DepartmentMessage"> | number | null
@@ -345,7 +345,7 @@ export type DepartmentMessageOrderByWithAggregationInput = {
   senderId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  blobName?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   fileName?: Prisma.SortOrderInput | Prisma.SortOrder
   mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   fileSize?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -370,7 +370,7 @@ export type DepartmentMessageScalarWhereWithAggregatesInput = {
   senderId?: Prisma.StringWithAggregatesFilter<"DepartmentMessage"> | string
   type?: Prisma.EnumMessageTypeWithAggregatesFilter<"DepartmentMessage"> | $Enums.MessageType
   content?: Prisma.StringNullableWithAggregatesFilter<"DepartmentMessage"> | string | null
-  blobName?: Prisma.StringNullableWithAggregatesFilter<"DepartmentMessage"> | string | null
+  fileUrl?: Prisma.StringNullableWithAggregatesFilter<"DepartmentMessage"> | string | null
   fileName?: Prisma.StringNullableWithAggregatesFilter<"DepartmentMessage"> | string | null
   mimeType?: Prisma.StringNullableWithAggregatesFilter<"DepartmentMessage"> | string | null
   fileSize?: Prisma.IntNullableWithAggregatesFilter<"DepartmentMessage"> | number | null
@@ -385,7 +385,7 @@ export type DepartmentMessageCreateInput = {
   id: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -405,7 +405,7 @@ export type DepartmentMessageUncheckedCreateInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -421,7 +421,7 @@ export type DepartmentMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -441,7 +441,7 @@ export type DepartmentMessageUncheckedUpdateInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -459,7 +459,7 @@ export type DepartmentMessageCreateManyInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -474,7 +474,7 @@ export type DepartmentMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -490,7 +490,7 @@ export type DepartmentMessageUncheckedUpdateManyInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -522,7 +522,7 @@ export type DepartmentMessageCountOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  blobName?: Prisma.SortOrder
+  fileUrl?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -543,7 +543,7 @@ export type DepartmentMessageMaxOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  blobName?: Prisma.SortOrder
+  fileUrl?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -560,7 +560,7 @@ export type DepartmentMessageMinOrderByAggregateInput = {
   senderId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  blobName?: Prisma.SortOrder
+  fileUrl?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -733,7 +733,7 @@ export type DepartmentMessageCreateWithoutSenderInput = {
   id: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -751,7 +751,7 @@ export type DepartmentMessageUncheckedCreateWithoutSenderInput = {
   departmentId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -798,7 +798,7 @@ export type DepartmentMessageScalarWhereInput = {
   senderId?: Prisma.StringFilter<"DepartmentMessage"> | string
   type?: Prisma.EnumMessageTypeFilter<"DepartmentMessage"> | $Enums.MessageType
   content?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
-  blobName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
+  fileUrl?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileName?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   mimeType?: Prisma.StringNullableFilter<"DepartmentMessage"> | string | null
   fileSize?: Prisma.IntNullableFilter<"DepartmentMessage"> | number | null
@@ -813,7 +813,7 @@ export type DepartmentMessageCreateWithoutDepartmentInput = {
   id: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -831,7 +831,7 @@ export type DepartmentMessageUncheckedCreateWithoutDepartmentInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -873,7 +873,7 @@ export type DepartmentMessageCreateWithoutRepliesInput = {
   id: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -892,7 +892,7 @@ export type DepartmentMessageUncheckedCreateWithoutRepliesInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -912,7 +912,7 @@ export type DepartmentMessageCreateWithoutReplyToInput = {
   id: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -931,7 +931,7 @@ export type DepartmentMessageUncheckedCreateWithoutReplyToInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -967,7 +967,7 @@ export type DepartmentMessageUpdateWithoutRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -986,7 +986,7 @@ export type DepartmentMessageUncheckedUpdateWithoutRepliesInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1018,7 +1018,7 @@ export type DepartmentMessageCreateManySenderInput = {
   departmentId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -1033,7 +1033,7 @@ export type DepartmentMessageUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1051,7 +1051,7 @@ export type DepartmentMessageUncheckedUpdateWithoutSenderInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1068,7 +1068,7 @@ export type DepartmentMessageUncheckedUpdateManyWithoutSenderInput = {
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1084,7 +1084,7 @@ export type DepartmentMessageCreateManyDepartmentInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -1099,7 +1099,7 @@ export type DepartmentMessageUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1117,7 +1117,7 @@ export type DepartmentMessageUncheckedUpdateWithoutDepartmentInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1134,7 +1134,7 @@ export type DepartmentMessageUncheckedUpdateManyWithoutDepartmentInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1151,7 +1151,7 @@ export type DepartmentMessageCreateManyReplyToInput = {
   senderId: string
   type?: $Enums.MessageType
   content?: string | null
-  blobName?: string | null
+  fileUrl?: string | null
   fileName?: string | null
   mimeType?: string | null
   fileSize?: number | null
@@ -1165,7 +1165,7 @@ export type DepartmentMessageUpdateWithoutReplyToInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1184,7 +1184,7 @@ export type DepartmentMessageUncheckedUpdateWithoutReplyToInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1201,7 +1201,7 @@ export type DepartmentMessageUncheckedUpdateManyWithoutReplyToInput = {
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  blobName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1248,7 +1248,7 @@ export type DepartmentMessageSelect<ExtArgs extends runtime.Types.Extensions.Int
   senderId?: boolean
   type?: boolean
   content?: boolean
-  blobName?: boolean
+  fileUrl?: boolean
   fileName?: boolean
   mimeType?: boolean
   fileSize?: boolean
@@ -1270,7 +1270,7 @@ export type DepartmentMessageSelectCreateManyAndReturn<ExtArgs extends runtime.T
   senderId?: boolean
   type?: boolean
   content?: boolean
-  blobName?: boolean
+  fileUrl?: boolean
   fileName?: boolean
   mimeType?: boolean
   fileSize?: boolean
@@ -1290,7 +1290,7 @@ export type DepartmentMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   senderId?: boolean
   type?: boolean
   content?: boolean
-  blobName?: boolean
+  fileUrl?: boolean
   fileName?: boolean
   mimeType?: boolean
   fileSize?: boolean
@@ -1310,7 +1310,7 @@ export type DepartmentMessageSelectScalar = {
   senderId?: boolean
   type?: boolean
   content?: boolean
-  blobName?: boolean
+  fileUrl?: boolean
   fileName?: boolean
   mimeType?: boolean
   fileSize?: boolean
@@ -1321,7 +1321,7 @@ export type DepartmentMessageSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DepartmentMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "departmentId" | "senderId" | "type" | "content" | "blobName" | "fileName" | "mimeType" | "fileSize" | "replyToId" | "isEdited" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["departmentMessage"]>
+export type DepartmentMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "departmentId" | "senderId" | "type" | "content" | "fileUrl" | "fileName" | "mimeType" | "fileSize" | "replyToId" | "isEdited" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["departmentMessage"]>
 export type DepartmentMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.DepartmentMemberDefaultArgs<ExtArgs>
@@ -1354,7 +1354,7 @@ export type $DepartmentMessagePayload<ExtArgs extends runtime.Types.Extensions.I
     senderId: string
     type: $Enums.MessageType
     content: string | null
-    blobName: string | null
+    fileUrl: string | null
     fileName: string | null
     mimeType: string | null
     fileSize: number | null
@@ -1795,7 +1795,7 @@ export interface DepartmentMessageFieldRefs {
   readonly senderId: Prisma.FieldRef<"DepartmentMessage", 'String'>
   readonly type: Prisma.FieldRef<"DepartmentMessage", 'MessageType'>
   readonly content: Prisma.FieldRef<"DepartmentMessage", 'String'>
-  readonly blobName: Prisma.FieldRef<"DepartmentMessage", 'String'>
+  readonly fileUrl: Prisma.FieldRef<"DepartmentMessage", 'String'>
   readonly fileName: Prisma.FieldRef<"DepartmentMessage", 'String'>
   readonly mimeType: Prisma.FieldRef<"DepartmentMessage", 'String'>
   readonly fileSize: Prisma.FieldRef<"DepartmentMessage", 'Int'>

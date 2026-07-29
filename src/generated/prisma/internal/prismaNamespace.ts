@@ -2571,7 +2571,7 @@ export const DepartmentMessageScalarFieldEnum = {
   senderId: 'senderId',
   type: 'type',
   content: 'content',
-  blobName: 'blobName',
+  fileUrl: 'fileUrl',
   fileName: 'fileName',
   mimeType: 'mimeType',
   fileSize: 'fileSize',

@@ -24,8 +24,8 @@ export class DepartmentMessage {
     return this.props.content;
   }
 
-  get blobName(): string | undefined {
-    return this.props.blobName;
+  get fileUrl(): string | undefined {
+    return this.props.fileUrl;
   }
 
   get fileName(): string | undefined {
@@ -72,7 +72,7 @@ export class DepartmentMessage {
   public softDelete(): void {
     this.props.isDeleted = true;
     this.props.content = undefined;
-    this.props.blobName = undefined;
+    this.props.fileUrl = undefined;
     this.props.fileName = undefined;
     this.props.mimeType = undefined;
     this.props.fileSize = undefined;

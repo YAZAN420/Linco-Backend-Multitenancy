@@ -502,7 +502,7 @@ model DepartmentMessage {
 
   content      String? @db.Text
 
-  blobName     String?
+  fileUrl     String?
   fileName     String?
   mimeType     String?
   fileSize     Int?

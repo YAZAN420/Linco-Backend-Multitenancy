@@ -3,7 +3,7 @@ import { MessageType } from 'src/departmentMessages/domain/enums/message-type.en
 export interface CreateDepartmentMessageInput {
   type?: MessageType;
   content?: string;
-  blobName?: string;
+  fileUrl?: string;
   fileName?: string;
   mimeType?: string;
   fileSize?: number;
