@@ -11,6 +11,7 @@ export interface AuthenticatedSocket extends Socket {
   data: {
     user: ActiveUserData;
     departmentId?: string;
+    departmentMemberId?: string;
     role?: string;
   };
 }

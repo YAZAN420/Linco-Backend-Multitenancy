@@ -32,8 +32,8 @@ export class DepartmentMessagesGateway {
   server!: Server;
 
   constructor(
-    private readonly commandService: DepartmentMessagesCommandService,
-    private readonly queryService: DepartmentMessagesQueryService,
+    private readonly departmentMessageCommandService: DepartmentMessagesCommandService,
+    private readonly departmentMessageQueryService: DepartmentMessagesQueryService,
     private readonly responseMapper: DepartmentMessageResponseMapper,
     private readonly tokenService: TokenService,
     private readonly departmentMemberQueryRepository: DepartmentMemberQueryRepository,
@@ -75,6 +75,7 @@ export class DepartmentMessagesGateway {
 
     client.data.departmentId = departmentId;
     client.data.role = member.role;
+    client.data.departmentMemberId = member.id;
 
     const roomName = `dept_${departmentId}`;
     await client.join(roomName);
@@ -87,13 +88,14 @@ export class DepartmentMessagesGateway {
     @MessageBody() dto: SendMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId, user } = this.validateClientContext(client);
+    const { departmentId, departmentMemberId } =
+      this.validateClientContext(client);
 
-    const domainMessage = await this.commandService.create({
-      ...dto,
+    const domainMessage = await this.departmentMessageCommandService.create(
+      departmentMemberId,
       departmentId,
-      senderId: user.id,
-    });
+      dto,
+    );
 
     await this.broadcastMessage(
       departmentId,
@@ -110,9 +112,12 @@ export class DepartmentMessagesGateway {
   ) {
     const { departmentId } = this.validateClientContext(client);
 
-    const domainMessage = await this.commandService.update(dto.messageId, {
-      content: dto.content,
-    });
+    const domainMessage = await this.departmentMessageCommandService.update(
+      dto.messageId,
+      {
+        content: dto.content,
+      },
+    );
 
     await this.broadcastMessage(
       departmentId,
@@ -129,7 +134,8 @@ export class DepartmentMessagesGateway {
   ) {
     const { departmentId } = this.validateClientContext(client);
 
-    const domainMessage = await this.commandService.remove(messageId);
+    const domainMessage =
+      await this.departmentMessageCommandService.remove(messageId);
 
     await this.broadcastMessage(
       departmentId,
@@ -140,11 +146,11 @@ export class DepartmentMessagesGateway {
   }
 
   private validateClientContext(client: AuthenticatedSocket) {
-    const { departmentId, user } = client.data;
-    if (!departmentId || !user) {
+    const { departmentId, user, departmentMemberId } = client.data;
+    if (!departmentId || !departmentMemberId || !user) {
       throw new WsException('errors.UNAUTHORIZED_OR_NOT_JOINED_YET');
     }
-    return { departmentId, user };
+    return { departmentId, departmentMemberId };
   }
 
   private async broadcastMessage(
@@ -152,7 +158,8 @@ export class DepartmentMessagesGateway {
     event: string,
     messageId: string,
   ) {
-    const fullMessage = await this.queryService.findById(messageId);
+    const fullMessage =
+      await this.departmentMessageQueryService.findById(messageId);
     const response = this.responseMapper.toResponseFromPrisma(fullMessage);
     this.server.to(`dept_${departmentId}`).emit(event, response);
   }

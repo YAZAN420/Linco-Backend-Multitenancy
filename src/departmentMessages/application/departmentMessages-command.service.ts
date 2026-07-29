@@ -14,11 +14,13 @@ export class DepartmentMessagesCommandService {
   ) {}
 
   async create(
+    departmentMemberId: string,
+    departmentId: string,
     input: CreateDepartmentMessageInput,
   ): Promise<DepartmentMessage> {
     const departmentMessage = this.departmentMessageFactory.createNew(
-      input.departmentId,
-      input.senderId,
+      departmentId,
+      departmentMemberId,
       input.type,
       input.content,
       input.blobName,
