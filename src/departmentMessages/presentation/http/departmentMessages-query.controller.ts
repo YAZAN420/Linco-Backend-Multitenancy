@@ -1,8 +1,12 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { DepartmentMessagesQueryService } from 'src/departmentMessages/application/departmentMessages-query.service';
 import { DepartmentMessageResponseMapper } from '../mappers/departmentMessage-response.mapper';
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
 
+@UseGuards(DemoRolesGuard, DepartmentRolesGuard)
 @Controller('departmentMessages')
 export class DepartmentMessagesQueryController {
   constructor(
@@ -12,7 +16,7 @@ export class DepartmentMessagesQueryController {
 
   @Get('cursor')
   async findWithCursor(
-    @Param('departmentId') departmentId: string,
+    @ActiveDepartmentMember('departmentId') departmentId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
     const departmentMessages =
