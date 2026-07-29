@@ -70,7 +70,9 @@ export class PaymentsCommandController {
   @Get('checkout/status')
   async getCheckoutStatus(@Query('session_id') sessionId: string) {
     if (!sessionId) {
-      throw new BadRequestException('errors.SESSION_ID_QUERY_PARAMETER_IS_REQUIRED');
+      throw new BadRequestException(
+        'errors.SESSION_ID_QUERY_PARAMETER_IS_REQUIRED',
+      );
     }
 
     return await this.paymentCommandService.getCheckoutStatus(sessionId);
