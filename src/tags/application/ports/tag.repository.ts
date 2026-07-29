@@ -6,4 +6,5 @@ export abstract class TagRepository {
   abstract create(name: string): Promise<Tag>;
   abstract update(id: string, name: string): Promise<Tag>;
   abstract delete(id: string): Promise<void>;
+  abstract existsByIds(ids: string[]): Promise<boolean>;
 }

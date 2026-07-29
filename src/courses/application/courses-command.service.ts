@@ -14,6 +14,7 @@ import { StoragePort } from 'src/core/storage/storage.port';
 import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
 import { CreateCourseQuizInput } from './interfaces/create-course-quiz.input';
+import { TagRepository } from 'src/tags/application/ports/tag.repository';
 @Injectable()
 export class CoursesCommandService {
   constructor(
@@ -24,6 +25,7 @@ export class CoursesCommandService {
     private readonly courseFactory: CourseFactory,
     private readonly spacesService: StoragePort,
     private readonly aiRagService: AiRagService,
+    private readonly tagRepository: TagRepository,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
@@ -61,6 +63,12 @@ export class CoursesCommandService {
       input.price,
       input.tagIds,
     );
+
+    const tagsExist = await this.tagRepository.existsByIds(course.tagIds);
+
+    if (!tagsExist) {
+      throw new NotFoundException('One or more tags do not exist.');
+    }
 
     await this.courseCommandRepository.save(course);
 
@@ -119,6 +127,12 @@ export class CoursesCommandService {
     }
 
     if (input.tagIds !== undefined) {
+      const tagsExist = await this.tagRepository.existsByIds(input.tagIds);
+
+      if (!tagsExist) {
+        throw new NotFoundException('One or more tags do not exist.');
+      }
+
       course.updateTags(input.tagIds);
     }
 

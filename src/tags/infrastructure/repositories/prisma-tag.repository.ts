@@ -31,6 +31,22 @@ export class PrismaTagRepository implements TagRepository {
     return new Tag(tag.id, tag.name);
   }
 
+  async existsByIds(ids: string[]): Promise<boolean> {
+    if (ids.length === 0) {
+      return true;
+    }
+
+    const count = await this.prisma.tag.count({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    return count === ids.length;
+  }
+
   async update(id: string, name: string): Promise<Tag> {
     const tag = await this.prisma.tag.update({
       where: { id },

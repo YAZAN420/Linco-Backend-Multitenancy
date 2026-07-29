@@ -28,7 +28,6 @@ export class CoursesQueryController {
 
   @Get('cursor')
   async findWithCursor(@Query() options: CoursesCursorQueryDto) {
-    console.log(options);
     const courses = await this.courseQueryService.findAllCursor(options);
 
     return {

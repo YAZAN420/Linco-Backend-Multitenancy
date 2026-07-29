@@ -15,6 +15,6 @@ import { TagResponseMapper } from './presentation/http/mappers/tag-response.mapp
       useClass: PrismaTagRepository,
     },
   ],
-  exports: [TagsService, TagResponseMapper],
+  exports: [TagsService, TagResponseMapper, TagRepository],
 })
 export class TagsModule {}
