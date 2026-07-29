@@ -1,13 +1,11 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
 import { CoursesQueryService } from 'src/courses/application/courses-query.service';
 
 import { CourseResponseMapper } from './mappers/course-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
+import { CoursesCursorQueryDto } from './dto/queries/course-cursor-query.dto';
+import { CoursesQueryDto } from './dto/queries/course-query.dto';
 
 @ApiTags('Course')
 @Controller('courses')
@@ -18,7 +16,7 @@ export class CoursesQueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: PageOptionsDto) {
+  async findAll(@Query() options: CoursesQueryDto) {
     const courses = await this.courseQueryService.findAll(options);
 
     return {
@@ -29,7 +27,8 @@ export class CoursesQueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+  async findWithCursor(@Query() options: CoursesCursorQueryDto) {
+    console.log(options);
     const courses = await this.courseQueryService.findAllCursor(options);
 
     return {

@@ -10,19 +10,47 @@ import {
 } from 'src/courses/application/interfaces/find-courses.query';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
-import { CourseVisibility, Section } from 'src/generated/prisma/client';
+import { CourseVisibility, Prisma, Section } from 'src/generated/prisma/client';
 import { CourseWithStats } from 'src/core/database/prisma/types';
 import {
   courseWithStatsInclude,
   mapCourseToCourseWithStats,
 } from 'src/core/database/prisma/utils/course-mapper.util';
+import { CourseFilter } from 'src/courses/application/interfaces/course-filter.interface';
 
 @Injectable()
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  private buildWhereClause(filter: CourseFilter): Prisma.CourseWhereInput {
+    const { search, tagIds } = filter;
+
+    const where: Prisma.CourseWhereInput = {
+      isPublished: true,
+      visibility: CourseVisibility.PUBLIC,
+    };
+
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    if (tagIds && tagIds.length > 0) {
+      where.tags = {
+        some: {
+          id: { in: tagIds },
+        },
+      };
+    }
+
+    return where;
+  }
+
   async findAll(options: FindCoursesQuery): Promise<PageDto<CourseWithStats>> {
     const skip = (options.page - 1) * options.take;
+    const where = this.buildWhereClause(options);
 
     const [rawItems, itemCount] = await Promise.all([
       this.prisma.course.findMany({
@@ -30,10 +58,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
         include: courseWithStatsInclude,
-        where: {
-          isPublished: true,
-          visibility: CourseVisibility.PUBLIC,
-        },
+        where,
       }),
       this.prisma.course.count({
         where: {
@@ -53,16 +78,13 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<CourseWithStats>> {
     const { cursor, take } = options;
-
+    const where = this.buildWhereClause(options);
     const rawItems = await this.prisma.course.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
-      where: {
-        isPublished: true,
-        visibility: CourseVisibility.PUBLIC,
-      },
+      where,
       include: courseWithStatsInclude,
     });
 
