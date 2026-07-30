@@ -14,7 +14,7 @@ import { DepartmentMessagesCommandService } from 'src/departmentMessages/applica
 
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
 @Controller('departmentMessages')
-export class DepartmentMessagesQueryController {
+export class DepartmentMessagesCommandController {
   constructor(
     private readonly departmentMessageCommandService: DepartmentMessagesCommandService,
   ) {}

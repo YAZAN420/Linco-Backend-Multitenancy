@@ -6,10 +6,14 @@ import { DepartmentMessagesCommandService } from './application/departmentMessag
 import { DepartmentMessagesQueryService } from './application/departmentMessages-query.service';
 import { DepartmentMessageResponseMapper } from './presentation/mappers/departmentMessage-response.mapper';
 import { DepartmentMessagesGateway } from './presentation/ws/departmentMessages.gateway';
+import { DepartmentMessagesCommandController } from './presentation/http/departmentMessages-command.controller';
 
 @Module({
   imports: [],
-  controllers: [DepartmentMessagesQueryController],
+  controllers: [
+    DepartmentMessagesQueryController,
+    DepartmentMessagesCommandController,
+  ],
   providers: [
     DepartmentMessagesCommandService,
     DepartmentMessagesQueryService,
