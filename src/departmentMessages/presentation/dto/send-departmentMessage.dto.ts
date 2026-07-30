@@ -13,8 +13,8 @@ export class SendMessageDto {
   @IsEnum(MessageType)
   type?: MessageType;
 
+  @ValidateIf((o: SendMessageDto) => !o.fileUrl || o.content !== undefined)
   @IsString()
-  @ValidateIf((o: SendMessageDto) => !o.fileUrl)
   @IsNotEmpty({ message: 'errors.CONTENT_OR_FILE_REQUIRED' })
   content?: string;
 
@@ -22,16 +22,19 @@ export class SendMessageDto {
   @IsString()
   fileUrl?: string;
 
-  @IsOptional()
+  @ValidateIf((o: SendMessageDto) => !!o.fileUrl)
+  @IsNotEmpty({ message: 'errors.FILE_NAME_REQUIRED' })
   @IsString()
   fileName?: string;
 
-  @IsOptional()
+  @ValidateIf((o: SendMessageDto) => !!o.fileUrl)
+  @IsNotEmpty({ message: 'errors.MIME_TYPE_REQUIRED' })
   @IsString()
   mimeType?: string;
 
-  @IsOptional()
-  @IsNumber()
+  @ValidateIf((o: SendMessageDto) => !!o.fileUrl)
+  @IsNotEmpty({ message: 'errors.FILE_SIZE_REQUIRED' })
+  @IsNumber({}, { message: 'errors.FILE_SIZE_MUST_BE_NUMBER' })
   fileSize?: number;
 
   @IsOptional()

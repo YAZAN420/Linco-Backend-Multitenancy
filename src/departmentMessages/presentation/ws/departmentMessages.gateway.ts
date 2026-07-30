@@ -25,10 +25,11 @@ import { TokenService } from 'src/iam/application/services/token.service';
 import { AuthenticatedSocket } from './interfaces/authenticated-socket.interface';
 import { IsTypingDto } from '../dto/IsTyping.dto';
 import * as cookie from 'cookie';
+import { getCorsOrigins } from 'src/common/config/cors.config';
 
 @WebSocketGateway({
   namespace: 'departmentChat',
-  cors: { origin: '*' },
+  cors: { origin: getCorsOrigins(), credentials: true },
 })
 @UseFilters(BaseWsExceptionFilter)
 export class DepartmentMessagesGateway
@@ -166,6 +167,7 @@ export class DepartmentMessagesGateway
       this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.update(
+      departmentId,
       dto.messageId,
       departmentMemberId,
       {
@@ -190,6 +192,7 @@ export class DepartmentMessagesGateway
       this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.remove(
+      departmentId,
       messageId,
       departmentMemberId,
     );

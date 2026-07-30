@@ -55,11 +55,12 @@ export class DepartmentMessagesCommandService {
     input: CreateDepartmentMessageInput,
   ): Promise<DepartmentMessage> {
     if (input.replyToId) {
-      const parentMessage = await this.departmentMessageQueryService.findById(
-        departmentId,
-        input.replyToId,
-      );
-      if (!parentMessage) {
+      try {
+        await this.departmentMessageQueryService.findById(
+          departmentId,
+          input.replyToId,
+        );
+      } catch {
         throw new WsException('errors.REPLY_MESSAGE_NOT_FOUND_IN_DEPARTMENT');
       }
     }
@@ -81,11 +82,15 @@ export class DepartmentMessagesCommandService {
   }
 
   async update(
+    departmentId: string,
     departmentMessageId: string,
     departmentMemberId: string,
     input: UpdateDepartmentMessageInput,
   ): Promise<DepartmentMessage> {
-    const departmentMessage = await this.findById(departmentMessageId);
+    const departmentMessage = await this.findById(
+      departmentId,
+      departmentMessageId,
+    );
 
     if (departmentMessage.senderId !== departmentMemberId) {
       throw new NotFoundException(
@@ -101,10 +106,14 @@ export class DepartmentMessagesCommandService {
   }
 
   async remove(
+    departmentId: string,
     departmentMessageId: string,
     departmentMemberId: string,
   ): Promise<DepartmentMessage> {
-    const departmentMessage = await this.findById(departmentMessageId);
+    const departmentMessage = await this.findById(
+      departmentId,
+      departmentMessageId,
+    );
 
     if (departmentMessage.senderId !== departmentMemberId) {
       throw new NotFoundException(
@@ -119,13 +128,19 @@ export class DepartmentMessagesCommandService {
     return departmentMessage;
   }
 
-  async findById(departmentMessageId: string): Promise<DepartmentMessage> {
+  async findById(
+    departmentId: string,
+    departmentMessageId: string,
+  ): Promise<DepartmentMessage> {
     const departmentMessage =
       await this.departmentMessageCommandRepository.findById(
         departmentMessageId,
       );
-    if (!departmentMessage)
-      throw new NotFoundException('DepartmentMessage not found');
+    if (!departmentMessage || departmentMessage.departmentId !== departmentId) {
+      throw new NotFoundException(
+        'DepartmentMessage not found in this department',
+      );
+    }
     return departmentMessage;
   }
 }
