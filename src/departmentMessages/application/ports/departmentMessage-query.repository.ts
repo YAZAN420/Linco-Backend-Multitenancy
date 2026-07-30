@@ -9,6 +9,7 @@ export abstract class DepartmentMessageQueryRepository {
     options: FindDepartmentMessagesCursorQuery,
   ): Promise<CursorPageDto<DepartmentMessageWithSenderAndReply>>;
   abstract findById(
+    departmentId: string,
     id: string,
   ): Promise<DepartmentMessageWithSenderAndReply | null>;
 }

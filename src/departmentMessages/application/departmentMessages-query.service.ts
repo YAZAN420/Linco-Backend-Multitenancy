@@ -23,9 +23,12 @@ export class DepartmentMessagesQueryService {
     );
   }
 
-  async findById(id: string): Promise<DepartmentMessageWithSenderAndReply> {
+  async findById(
+    departmentId: string,
+    id: string,
+  ): Promise<DepartmentMessageWithSenderAndReply> {
     const departmentMessage =
-      await this.departmentMessageQueryRepository.findById(id);
+      await this.departmentMessageQueryRepository.findById(departmentId, id);
     if (!departmentMessage)
       throw new NotFoundException('DepartmentMessage not found');
     return departmentMessage;

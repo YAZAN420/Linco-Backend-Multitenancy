@@ -5,12 +5,15 @@ import { DepartmentMessage } from '../domain/departmentMessage';
 
 import { UpdateDepartmentMessageInput } from './interfaces/update-departmentMessage-input.interface';
 import { CreateDepartmentMessageInput } from './interfaces/create-departmentMessage-input.interface';
+import { DepartmentMessagesQueryService } from './departmentMessages-query.service';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class DepartmentMessagesCommandService {
   constructor(
     private readonly departmentMessageCommandRepository: DepartmentMessageCommandRepository,
     private readonly departmentMessageFactory: DepartmentMessageFactory,
+    private readonly departmentMessageQueryService: DepartmentMessagesQueryService,
   ) {}
 
   async create(
@@ -18,6 +21,15 @@ export class DepartmentMessagesCommandService {
     departmentId: string,
     input: CreateDepartmentMessageInput,
   ): Promise<DepartmentMessage> {
+    if (input.replyToId) {
+      const parentMessage = await this.departmentMessageQueryService.findById(
+        departmentId,
+        input.replyToId,
+      );
+      if (!parentMessage) {
+        throw new WsException('errors.REPLY_MESSAGE_NOT_FOUND_IN_DEPARTMENT');
+      }
+    }
     const departmentMessage = this.departmentMessageFactory.createNew(
       departmentId,
       departmentMemberId,

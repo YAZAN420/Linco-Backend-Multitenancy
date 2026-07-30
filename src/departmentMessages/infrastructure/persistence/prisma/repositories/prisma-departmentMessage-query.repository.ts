@@ -63,10 +63,11 @@ export class PrismaDepartmentMessageQueryRepository implements DepartmentMessage
   }
 
   async findById(
+    departmentId: string,
     id: string,
   ): Promise<DepartmentMessageWithSenderAndReply | null> {
     return this.prisma.departmentMessage.findUnique({
-      where: { id },
+      where: { id, departmentId },
       include: {
         sender: {
           select: {

@@ -35,9 +35,14 @@ export class DepartmentMessagesQueryController {
   }
 
   @Get(':departmentMessageId')
-  async findOne(@Param('departmentMessageId') departmentMessageId: string) {
-    const departmentMessage =
-      await this.departmentMessageQueryService.findById(departmentMessageId);
+  async findOne(
+    @ActiveDepartmentMember('departmentId') departmentId: string,
+    @Param('departmentMessageId') departmentMessageId: string,
+  ) {
+    const departmentMessage = await this.departmentMessageQueryService.findById(
+      departmentId,
+      departmentMessageId,
+    );
 
     return {
       message: 'messages.DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY',

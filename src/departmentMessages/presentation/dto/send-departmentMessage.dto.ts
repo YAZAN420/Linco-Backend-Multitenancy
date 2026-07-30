@@ -1,4 +1,11 @@
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateIf,
+} from 'class-validator';
 import { MessageType } from 'src/departmentMessages/domain/enums/message-type.enum';
 
 export class SendMessageDto {
@@ -6,8 +13,9 @@ export class SendMessageDto {
   @IsEnum(MessageType)
   type?: MessageType;
 
-  @IsOptional()
   @IsString()
+  @ValidateIf((o: SendMessageDto) => !o.fileUrl)
+  @IsNotEmpty({ message: 'errors.CONTENT_OR_FILE_REQUIRED' })
   content?: string;
 
   @IsOptional()

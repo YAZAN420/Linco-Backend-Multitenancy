@@ -7,6 +7,7 @@ import {
   BaseWsExceptionFilter,
   WsException,
   OnGatewayDisconnect,
+  OnGatewayInit,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { UseFilters } from '@nestjs/common';
@@ -23,13 +24,16 @@ import { DeleteMessageDto } from '../dto/delete-departmentMessage.dto';
 import { TokenService } from 'src/iam/application/services/token.service';
 import { AuthenticatedSocket } from './interfaces/authenticated-socket.interface';
 import { IsTypingDto } from '../dto/IsTyping.dto';
+import * as cookie from 'cookie';
 
 @WebSocketGateway({
   namespace: 'departmentChat',
   cors: { origin: '*' },
 })
 @UseFilters(BaseWsExceptionFilter)
-export class DepartmentMessagesGateway implements OnGatewayDisconnect {
+export class DepartmentMessagesGateway
+  implements OnGatewayInit, OnGatewayDisconnect
+{
   @WebSocketServer()
   server!: Server;
 
@@ -45,10 +49,26 @@ export class DepartmentMessagesGateway implements OnGatewayDisconnect {
     server.use((socket: Socket, next) => {
       (async () => {
         const client = socket as AuthenticatedSocket;
-        const token = client.handshake.headers?.token as string;
-        if (!token) {
-          return next(new Error('UNAUTHORIZED: Token missing'));
+        let token: string | undefined;
+
+        const rawCookies = client.handshake.headers.cookie;
+        if (rawCookies) {
+          const parsedCookies = cookie.parse(rawCookies);
+          token = parsedCookies['accessToken'];
         }
+
+        if (!token) {
+          token =
+            client.handshake.auth?.token ||
+            (client.handshake.headers?.token as string);
+        }
+
+        if (!token) {
+          return next(
+            new Error('UNAUTHORIZED: Authentication cookie or token missing'),
+          );
+        }
+
         const payload = await this.tokenService.verifyAccessToken(token);
         client.data.user = payload;
         next();
@@ -98,7 +118,7 @@ export class DepartmentMessagesGateway implements OnGatewayDisconnect {
       departmentMemberId: member.id,
     });
 
-    return { status: 'joined', room: roomName };
+    return { status: 'joined', room: roomName, departmentMemberId: member.id };
   }
 
   @SubscribeMessage('typing')
@@ -195,8 +215,10 @@ export class DepartmentMessagesGateway implements OnGatewayDisconnect {
     event: string,
     messageId: string,
   ) {
-    const fullMessage =
-      await this.departmentMessageQueryService.findById(messageId);
+    const fullMessage = await this.departmentMessageQueryService.findById(
+      departmentId,
+      messageId,
+    );
     const response = this.responseMapper.toResponseFromPrisma(fullMessage);
     this.server.to(`dept_${departmentId}`).emit(event, response);
   }
