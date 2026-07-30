@@ -1,11 +1,15 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { getCorsOrigins } from 'src/common/config/cors.config';
 
 export function setupApp(app: INestApplication): void {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const corsOrigins = (process.env.CORS_ORIGINS ?? '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter((origin) => origin.length > 0);
   app.enableCors({
-    origin: getCorsOrigins(),
+    origin: corsOrigins.length > 0 ? corsOrigins : !isProduction,
     credentials: true,
   });
   app.use(cookieParser());

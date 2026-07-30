@@ -1,8 +1,8 @@
+import 'dotenv/config';
 import { Logger as NestLogger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { Logger as PinoLogger } from 'nestjs-pino';
-
 import { AppModule } from './app.module';
 import { setupApp } from './setup/app.setup';
 import { setupSwagger } from './setup/swagger.setup';
