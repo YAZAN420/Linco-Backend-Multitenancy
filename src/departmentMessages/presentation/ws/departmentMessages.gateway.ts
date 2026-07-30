@@ -28,7 +28,7 @@ import * as cookie from 'cookie';
 
 @WebSocketGateway({
   namespace: 'departmentChat',
-  cors: { origin: '*', credentials: true },
+  cors: { origin: 'https://lincolms.me', credentials: true },
 })
 @UseFilters(BaseWsExceptionFilter)
 export class DepartmentMessagesGateway
