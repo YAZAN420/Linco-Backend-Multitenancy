@@ -1,4 +1,5 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   initializeApp,
   getApps,
@@ -9,6 +10,7 @@ import {
   getMessaging,
   Message,
   MulticastMessage,
+  BatchResponse,
 } from 'firebase-admin/messaging';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -20,11 +22,24 @@ export class FirebaseNotificationsAdapter
 {
   private readonly logger = new Logger(FirebaseNotificationsAdapter.name);
 
-  onModuleInit() {
-    if (getApps().length === 0) {
-      const filePath = path.join(process.cwd(), 'linco-firebase.json');
-      const fileContent = fs.readFileSync(filePath, 'utf8');
+  constructor(private readonly configService: ConfigService) {}
 
+  onModuleInit(): void {
+    if (getApps().length > 0) return;
+
+    try {
+      const credentialPath =
+        this.configService.get<string>('FIREBASE_CREDENTIALS_PATH') ||
+        path.join(process.cwd(), 'linco-firebase.json');
+
+      if (!fs.existsSync(credentialPath)) {
+        this.logger.error(
+          `❌ Firebase credentials file not found at: ${credentialPath}`,
+        );
+        return;
+      }
+
+      const fileContent = fs.readFileSync(credentialPath, 'utf8');
       const serviceAccount = JSON.parse(fileContent) as ServiceAccount;
 
       initializeApp({
@@ -32,6 +47,8 @@ export class FirebaseNotificationsAdapter
       });
 
       this.logger.log('🔥 Firebase Admin SDK Initialized Successfully');
+    } catch (error) {
+      this.logger.error('❌ Failed to initialize Firebase Admin SDK', error);
     }
   }
 
@@ -39,23 +56,29 @@ export class FirebaseNotificationsAdapter
     token: string,
     title: string,
     body: string,
-    data?: Record<string, string>,
-  ): Promise<any> {
-    if (!token) return;
+    data: Record<string, string> = {},
+  ): Promise<string | null> {
+    if (!token?.trim()) {
+      this.logger.warn(
+        '⚠️ Push notification skipped: Empty or invalid FCM token.',
+      );
+      return null;
+    }
 
     const message: Message = {
       token,
       notification: { title, body },
-      data: data || {},
+      data,
     };
 
     try {
-      return await getMessaging().send(message);
-    } catch (error) {
-      this.logger.error(
-        `Failed to send notification to token: ${token}`,
-        error,
+      const messageId = await getMessaging().send(message);
+      this.logger.debug(
+        `Notification sent to token ending with ...${token.slice(-6)}`,
       );
+      return messageId;
+    } catch (error) {
+      this.logger.error(`Failed to send notification to device`, error);
       throw error;
     }
   }
@@ -64,20 +87,27 @@ export class FirebaseNotificationsAdapter
     tokens: string[],
     title: string,
     body: string,
-    data?: Record<string, string>,
-  ): Promise<any> {
-    if (!tokens || tokens.length === 0) return;
+    data: Record<string, string> = {},
+  ): Promise<BatchResponse | null> {
+    const validTokens = tokens?.filter((t) => Boolean(t?.trim())) || [];
+
+    if (validTokens.length === 0) {
+      this.logger.warn(
+        '⚠️ Multicast notification skipped: No valid tokens provided.',
+      );
+      return null;
+    }
 
     const message: MulticastMessage = {
-      tokens,
+      tokens: validTokens,
       notification: { title, body },
-      data: data || {},
+      data,
     };
 
     try {
       const response = await getMessaging().sendEachForMulticast(message);
       this.logger.log(
-        `Sent notifications: ${response.successCount} success, ${response.failureCount} failed`,
+        `Multicast sent: ${response.successCount} succeeded, ${response.failureCount} failed`,
       );
       return response;
     } catch (error) {

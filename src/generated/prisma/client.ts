@@ -159,3 +159,8 @@ export type InquiryMessage = Prisma.InquiryMessageModel
  * 
  */
 export type DepartmentMessage = Prisma.DepartmentMessageModel
+/**
+ * Model FcmToken
+ * 
+ */
+export type FcmToken = Prisma.FcmTokenModel

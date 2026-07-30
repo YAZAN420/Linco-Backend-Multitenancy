@@ -74,7 +74,8 @@ export const ModelName = {
   Tag: 'Tag',
   Inquiry: 'Inquiry',
   InquiryMessage: 'InquiryMessage',
-  DepartmentMessage: 'DepartmentMessage'
+  DepartmentMessage: 'DepartmentMessage',
+  FcmToken: 'FcmToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,6 +422,18 @@ export const DepartmentMessageScalarFieldEnum = {
 } as const
 
 export type DepartmentMessageScalarFieldEnum = (typeof DepartmentMessageScalarFieldEnum)[keyof typeof DepartmentMessageScalarFieldEnum]
+
+
+export const FcmTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  deviceModel: 'deviceModel',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FcmTokenScalarFieldEnum = (typeof FcmTokenScalarFieldEnum)[keyof typeof FcmTokenScalarFieldEnum]
 
 
 export const SortOrder = {

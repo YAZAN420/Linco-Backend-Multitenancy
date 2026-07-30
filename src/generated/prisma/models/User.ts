@@ -299,6 +299,7 @@ export type UserWhereInput = {
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
+  fcmTokens?: Prisma.FcmTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -326,6 +327,7 @@ export type UserOrderByWithRelationInput = {
   demoMemberships?: Prisma.DemoMemberOrderByRelationAggregateInput
   ownedDemos?: Prisma.DemoOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
+  fcmTokens?: Prisma.FcmTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -356,6 +358,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   demoMemberships?: Prisma.DemoMemberListRelationFilter
   ownedDemos?: Prisma.DemoListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
+  fcmTokens?: Prisma.FcmTokenListRelationFilter
 }, "id" | "email" | "stripeCustomerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -433,6 +436,7 @@ export type UserCreateInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -460,6 +464,7 @@ export type UserUncheckedCreateInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -487,6 +492,7 @@ export type UserUpdateInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -514,6 +520,7 @@ export type UserUncheckedUpdateInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -747,6 +754,20 @@ export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type UserCreateNestedOneWithoutFcmTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFcmTokensInput, Prisma.UserUncheckedCreateWithoutFcmTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFcmTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFcmTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFcmTokensInput, Prisma.UserUncheckedCreateWithoutFcmTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFcmTokensInput
+  upsert?: Prisma.UserUpsertWithoutFcmTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFcmTokensInput, Prisma.UserUpdateWithoutFcmTokensInput>, Prisma.UserUncheckedUpdateWithoutFcmTokensInput>
+}
+
 export type UserCreateWithoutDemoMembershipsInput = {
   id: string
   firstName: string
@@ -771,6 +792,7 @@ export type UserCreateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDemoMembershipsInput = {
@@ -797,6 +819,7 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDemoMembershipsInput = {
@@ -839,6 +862,7 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
@@ -865,6 +889,7 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedDemosInput = {
@@ -891,6 +916,7 @@ export type UserCreateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDemosInput = {
@@ -917,6 +943,7 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDemosInput = {
@@ -959,6 +986,7 @@ export type UserUpdateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDemosInput = {
@@ -985,6 +1013,7 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReceivedInvitationsInput = {
@@ -1011,6 +1040,7 @@ export type UserCreateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
@@ -1037,6 +1067,7 @@ export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedInvitationsInput = {
@@ -1068,6 +1099,7 @@ export type UserCreateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentInvitationsInput = {
@@ -1094,6 +1126,7 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentInvitationsInput = {
@@ -1136,6 +1169,7 @@ export type UserUpdateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
@@ -1162,6 +1196,7 @@ export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSentInvitationsInput = {
@@ -1199,6 +1234,7 @@ export type UserUpdateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentInvitationsInput = {
@@ -1225,6 +1261,7 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1251,6 +1288,7 @@ export type UserCreateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
+  fcmTokens?: Prisma.FcmTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1277,6 +1315,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
   demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
   ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
+  fcmTokens?: Prisma.FcmTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1319,6 +1358,7 @@ export type UserUpdateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
+  fcmTokens?: Prisma.FcmTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -1345,6 +1385,131 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
   demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
+  fcmTokens?: Prisma.FcmTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFcmTokensInput = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  password?: string | null
+  birthDate?: Date | string | null
+  imagePath: string
+  refreshToken?: string | null
+  role?: $Enums.UserRole
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
+  isEmailVerified?: boolean
+  emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  stripeCustomerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
+  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
+  demoMemberships?: Prisma.DemoMemberCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoCreateNestedManyWithoutOwnerInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFcmTokensInput = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  password?: string | null
+  birthDate?: Date | string | null
+  imagePath: string
+  refreshToken?: string | null
+  role?: $Enums.UserRole
+  twoFactorSecret?: string | null
+  isTwoFactorEnabled?: boolean
+  isEmailVerified?: boolean
+  emailVerificationToken?: string | null
+  emailVerificationExpires?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  stripeCustomerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
+  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
+  demoMemberships?: Prisma.DemoMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedDemos?: Prisma.DemoUncheckedCreateNestedManyWithoutOwnerInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFcmTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFcmTokensInput, Prisma.UserUncheckedCreateWithoutFcmTokensInput>
+}
+
+export type UserUpsertWithoutFcmTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFcmTokensInput, Prisma.UserUncheckedUpdateWithoutFcmTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFcmTokensInput, Prisma.UserUncheckedCreateWithoutFcmTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFcmTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFcmTokensInput, Prisma.UserUncheckedUpdateWithoutFcmTokensInput>
+}
+
+export type UserUpdateWithoutFcmTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
+  sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
+  demoMemberships?: Prisma.DemoMemberUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUpdateManyWithoutOwnerNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFcmTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerificationExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
+  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
+  demoMemberships?: Prisma.DemoMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedDemos?: Prisma.DemoUncheckedUpdateManyWithoutOwnerNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1358,6 +1523,7 @@ export type UserCountOutputType = {
   demoMemberships: number
   ownedDemos: number
   payments: number
+  fcmTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1366,6 +1532,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   demoMemberships?: boolean | UserCountOutputTypeCountDemoMembershipsArgs
   ownedDemos?: boolean | UserCountOutputTypeCountOwnedDemosArgs
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
+  fcmTokens?: boolean | UserCountOutputTypeCountFcmTokensArgs
 }
 
 /**
@@ -1413,6 +1580,13 @@ export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.PaymentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFcmTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FcmTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1439,6 +1613,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  fcmTokens?: boolean | Prisma.User$fcmTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1515,6 +1690,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   demoMemberships?: boolean | Prisma.User$demoMembershipsArgs<ExtArgs>
   ownedDemos?: boolean | Prisma.User$ownedDemosArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  fcmTokens?: boolean | Prisma.User$fcmTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1528,6 +1704,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     demoMemberships: Prisma.$DemoMemberPayload<ExtArgs>[]
     ownedDemos: Prisma.$DemoPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
+    fcmTokens: Prisma.$FcmTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1948,6 +2125,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   demoMemberships<T extends Prisma.User$demoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedDemos<T extends Prisma.User$ownedDemosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDemosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fcmTokens<T extends Prisma.User$fcmTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fcmTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FcmTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2506,6 +2684,30 @@ export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
+}
+
+/**
+ * User.fcmTokens
+ */
+export type User$fcmTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FcmToken
+   */
+  select?: Prisma.FcmTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FcmToken
+   */
+  omit?: Prisma.FcmTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FcmTokenInclude<ExtArgs> | null
+  where?: Prisma.FcmTokenWhereInput
+  orderBy?: Prisma.FcmTokenOrderByWithRelationInput | Prisma.FcmTokenOrderByWithRelationInput[]
+  cursor?: Prisma.FcmTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FcmTokenScalarFieldEnum | Prisma.FcmTokenScalarFieldEnum[]
 }
 
 /**

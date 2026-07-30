@@ -420,7 +420,8 @@ export const ModelName = {
   Tag: 'Tag',
   Inquiry: 'Inquiry',
   InquiryMessage: 'InquiryMessage',
-  DepartmentMessage: 'DepartmentMessage'
+  DepartmentMessage: 'DepartmentMessage',
+  FcmToken: 'FcmToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryMessage" | "departmentMessage"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryMessage" | "departmentMessage" | "fcmToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2216,6 +2217,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FcmToken: {
+      payload: Prisma.$FcmTokenPayload<ExtArgs>
+      fields: Prisma.FcmTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FcmTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FcmTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.FcmTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FcmTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        findMany: {
+          args: Prisma.FcmTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>[]
+        }
+        create: {
+          args: Prisma.FcmTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        createMany: {
+          args: Prisma.FcmTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FcmTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.FcmTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        update: {
+          args: Prisma.FcmTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.FcmTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FcmTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FcmTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.FcmTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FcmTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.FcmTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFcmToken>
+        }
+        groupBy: {
+          args: Prisma.FcmTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FcmTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FcmTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FcmTokenCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2583,6 +2658,18 @@ export const DepartmentMessageScalarFieldEnum = {
 } as const
 
 export type DepartmentMessageScalarFieldEnum = (typeof DepartmentMessageScalarFieldEnum)[keyof typeof DepartmentMessageScalarFieldEnum]
+
+
+export const FcmTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  deviceModel: 'deviceModel',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FcmTokenScalarFieldEnum = (typeof FcmTokenScalarFieldEnum)[keyof typeof FcmTokenScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3034,6 +3121,7 @@ export type GlobalOmitConfig = {
   inquiry?: Prisma.InquiryOmit
   inquiryMessage?: Prisma.InquiryMessageOmit
   departmentMessage?: Prisma.DepartmentMessageOmit
+  fcmToken?: Prisma.FcmTokenOmit
 }
 
 /* Types for Logging */

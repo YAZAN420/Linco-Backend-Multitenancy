@@ -117,6 +117,7 @@ model User {
   demoMemberships       DemoMember[]
   ownedDemos            Demo[]                 @relation("DemoOwner")
   payments              Payment[]
+  fcmTokens FcmToken[]
 }
 
 model DemoMember {
@@ -522,4 +523,18 @@ model DepartmentMessage {
   replies      DepartmentMessage[] @relation("Replies")
 
   @@index([departmentId, createdAt])
+}
+
+model FcmToken {
+  id          String   @id @default(uuid())
+  token       String   @unique
+  deviceModel String?
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
 }
