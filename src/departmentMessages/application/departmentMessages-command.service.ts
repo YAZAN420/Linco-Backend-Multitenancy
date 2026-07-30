@@ -7,6 +7,7 @@ import { UpdateDepartmentMessageInput } from './interfaces/update-departmentMess
 import { CreateDepartmentMessageInput } from './interfaces/create-departmentMessage-input.interface';
 import { DepartmentMessagesQueryService } from './departmentMessages-query.service';
 import { WsException } from '@nestjs/websockets';
+import { StoragePort } from 'src/core/storage/storage.port';
 
 @Injectable()
 export class DepartmentMessagesCommandService {
@@ -14,7 +15,39 @@ export class DepartmentMessagesCommandService {
     private readonly departmentMessageCommandRepository: DepartmentMessageCommandRepository,
     private readonly departmentMessageFactory: DepartmentMessageFactory,
     private readonly departmentMessageQueryService: DepartmentMessagesQueryService,
+    private readonly storageService: StoragePort,
   ) {}
+
+  async generateAttachmentUrl(fileName: string) {
+    const mimeTypesMap: Record<string, string> = {
+      pdf: 'application/pdf',
+      zip: 'application/zip',
+      rar: 'application/x-rar-compressed',
+      txt: 'text/plain',
+      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+    };
+
+    const ext = fileName.split('.').pop()?.toLowerCase() || '';
+    const contentType = mimeTypesMap[ext] || 'application/octet-stream';
+
+    const storageResult = await this.storageService.generateUploadUrl(
+      fileName,
+      contentType,
+      true,
+      'attachments',
+      15,
+    );
+
+    return {
+      fileName,
+      ...storageResult,
+    };
+  }
 
   async create(
     departmentMemberId: string,

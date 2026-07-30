@@ -526,7 +526,7 @@ model DepartmentMessage {
 }
 
 model FcmToken {
-  id          String   @id @default(uuid())
+  id          String   @id 
   token       String   @unique
   deviceModel String?
 
