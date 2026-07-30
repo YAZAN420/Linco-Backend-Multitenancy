@@ -13,7 +13,6 @@ import { StorageModule } from './storage/storage.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GeminiModule } from './gemini/gemini.module';
 import { AiRagModule } from './ai-rag/ai-rag.module';
-import { NotificationsModule } from './notifications/notifications.module';
 
 @Global()
 @Module({})
@@ -37,7 +36,6 @@ export class CoreModule {
         LoggerModule,
         QueueModule,
         StorageModule,
-        NotificationsModule,
       ],
 
       exports: [CacheModule, DatabaseModule, MailModule, LoggerModule],

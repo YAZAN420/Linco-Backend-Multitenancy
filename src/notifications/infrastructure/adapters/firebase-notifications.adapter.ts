@@ -14,7 +14,7 @@ import {
 } from 'firebase-admin/messaging';
 import * as path from 'path';
 import * as fs from 'fs';
-import { NotificationsPort } from './notifications.port';
+import { NotificationsPort } from '../../application/ports/notifications.port';
 
 @Injectable()
 export class FirebaseNotificationsAdapter
@@ -42,10 +42,7 @@ export class FirebaseNotificationsAdapter
       const fileContent = fs.readFileSync(credentialPath, 'utf8');
       const serviceAccount = JSON.parse(fileContent) as ServiceAccount;
 
-      initializeApp({
-        credential: cert(serviceAccount),
-      });
-
+      initializeApp({ credential: cert(serviceAccount) });
       this.logger.log('🔥 Firebase Admin SDK Initialized Successfully');
     } catch (error) {
       this.logger.error('❌ Failed to initialize Firebase Admin SDK', error);
@@ -58,25 +55,12 @@ export class FirebaseNotificationsAdapter
     body: string,
     data: Record<string, string> = {},
   ): Promise<string | null> {
-    if (!token?.trim()) {
-      this.logger.warn(
-        '⚠️ Push notification skipped: Empty or invalid FCM token.',
-      );
-      return null;
-    }
+    if (!token?.trim()) return null;
 
-    const message: Message = {
-      token,
-      notification: { title, body },
-      data,
-    };
+    const message: Message = { token, notification: { title, body }, data };
 
     try {
-      const messageId = await getMessaging().send(message);
-      this.logger.debug(
-        `Notification sent to token ending with ...${token.slice(-6)}`,
-      );
-      return messageId;
+      return await getMessaging().send(message);
     } catch (error) {
       this.logger.error(`Failed to send notification to device`, error);
       throw error;
@@ -90,13 +74,7 @@ export class FirebaseNotificationsAdapter
     data: Record<string, string> = {},
   ): Promise<BatchResponse | null> {
     const validTokens = tokens?.filter((t) => Boolean(t?.trim())) || [];
-
-    if (validTokens.length === 0) {
-      this.logger.warn(
-        '⚠️ Multicast notification skipped: No valid tokens provided.',
-      );
-      return null;
-    }
+    if (validTokens.length === 0) return null;
 
     const message: MulticastMessage = {
       tokens: validTokens,

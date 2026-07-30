@@ -43,6 +43,7 @@ import {
 import { join } from 'path';
 import { DepartmentMessagesModule } from './departmentMessages/departmentMessages.module';
 import { DepartmentMessagesInfrastructureModule } from './departmentMessages/infrastructure/departmentMessages-infrastructure.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({})
 export class AppModule {
@@ -54,6 +55,7 @@ export class AppModule {
         IamModule,
         TagsModule,
         JitsiModule,
+        NotificationsModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
         DemosModule.withInfrastructure(DemosInfrastructureModule.use()),
