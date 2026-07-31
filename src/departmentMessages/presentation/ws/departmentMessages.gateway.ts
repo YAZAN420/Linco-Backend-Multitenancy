@@ -114,11 +114,32 @@ export class DepartmentMessagesGateway
     const roomName = `dept_${departmentId}`;
     await client.join(roomName);
 
+    const onlineMemberIds = [
+      ...new Set(
+        Array.from(this.server.sockets.sockets.values())
+          .map((socket) => {
+            const socketData = socket.data as AuthenticatedSocket['data'];
+
+            if (socketData.departmentId !== departmentId) {
+              return undefined;
+            }
+
+            return socketData.departmentMemberId;
+          })
+          .filter((id): id is string => Boolean(id)),
+      ),
+    ];
+
     client.to(roomName).emit('userOnline', {
       departmentMemberId: member.id,
     });
 
-    return { status: 'joined', room: roomName, departmentMemberId: member.id };
+    return {
+      status: 'joined',
+      room: roomName,
+      departmentMemberId: member.id,
+      onlineMemberIds,
+    };
   }
 
   @SubscribeMessage('typing')
