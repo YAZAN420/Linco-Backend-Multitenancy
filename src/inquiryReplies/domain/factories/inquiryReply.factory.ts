@@ -5,9 +5,14 @@ import { InquirySenderType } from '../enums/InquirySenderType';
 
 @Injectable()
 export class InquiryReplyFactory {
-  public createNew(message: string, senderType: InquirySenderType, senderId: string, inquiryId: string): InquiryReply {
+  public createNew(
+    message: string,
+    senderType: InquirySenderType,
+    senderId: string,
+    inquiryId: string,
+  ): InquiryReply {
     const now = new Date();
-    return new InquiryReply(uuidv7(),{ 
+    return new InquiryReply(uuidv7(), {
       message: message,
       senderId: senderId,
       senderType: senderType,

@@ -17,13 +17,13 @@ export class InquiryRepliesCommandService {
   async create(
     inquiryId: string,
     demoMemberId: string,
-    input: CreateInquiryReplyInput
+    input: CreateInquiryReplyInput,
   ): Promise<InquiryReply> {
     const inquiryReply = this.inquiryReplyFactory.createNew(
       input.message,
       InquirySenderType.ADMIN,
       demoMemberId,
-      inquiryId
+      inquiryId,
     );
     await this.inquiryReplyCommandRepository.save(inquiryReply);
     return inquiryReply;
@@ -31,13 +31,13 @@ export class InquiryRepliesCommandService {
 
   async update(
     inquiryId: string,
-    inquiryReplyId: string, 
-    input: UpdateInquiryReplyInput): Promise<InquiryReply> {
-    
-      console.log(input);
+    inquiryReplyId: string,
+    input: UpdateInquiryReplyInput,
+  ): Promise<InquiryReply> {
+    console.log(input);
     const inquiryReply = await this.findById(inquiryReplyId);
 
-    if(input.message != undefined) {
+    if (input.message != undefined) {
       inquiryReply.updateMessage(input.message);
     }
 
@@ -51,8 +51,9 @@ export class InquiryRepliesCommandService {
   }
 
   async findById(inquiryReplyId: string): Promise<InquiryReply> {
-    const inquiryReply = await this.inquiryReplyCommandRepository.findById(inquiryReplyId);
-    if (!inquiryReply) 
+    const inquiryReply =
+      await this.inquiryReplyCommandRepository.findById(inquiryReplyId);
+    if (!inquiryReply)
       throw new NotFoundException('errors.INQUIRY_REPLY_NOT_FOUND');
     return inquiryReply;
   }

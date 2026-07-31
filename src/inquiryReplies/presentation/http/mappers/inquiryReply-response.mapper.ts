@@ -6,7 +6,9 @@ import { InquirySenderType } from 'src/inquiryReplies/domain/enums/InquirySender
 
 @Injectable()
 export class InquiryReplyResponseMapper {
-  toResponseFromPrisma(inquiryReply: PrismaInquiryReply): InquiryReplyResponseDto {
+  toResponseFromPrisma(
+    inquiryReply: PrismaInquiryReply,
+  ): InquiryReplyResponseDto {
     return new InquiryReplyResponseDto(
       inquiryReply.id,
       inquiryReply.inquiryId,
@@ -18,7 +20,9 @@ export class InquiryReplyResponseMapper {
     );
   }
 
-  toResponseFromDomain(inquiryReply: DomainInquiryReply): InquiryReplyResponseDto {
+  toResponseFromDomain(
+    inquiryReply: DomainInquiryReply,
+  ): InquiryReplyResponseDto {
     return new InquiryReplyResponseDto(
       inquiryReply.id,
       inquiryReply.inquiryId,
@@ -30,7 +34,11 @@ export class InquiryReplyResponseMapper {
     );
   }
 
-  toResponseManyFromPrisma(inquiryReplies: PrismaInquiryReply[]): InquiryReplyResponseDto[] {
-    return inquiryReplies.map((inquiryReply) => this.toResponseFromPrisma(inquiryReply));
+  toResponseManyFromPrisma(
+    inquiryReplies: PrismaInquiryReply[],
+  ): InquiryReplyResponseDto[] {
+    return inquiryReplies.map((inquiryReply) =>
+      this.toResponseFromPrisma(inquiryReply),
+    );
   }
 }

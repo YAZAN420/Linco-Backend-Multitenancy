@@ -7,20 +7,20 @@ import { InquiryRepliesQueryService } from './application/inquiryReplies-query.s
 import { InquiryReplyResponseMapper } from './presentation/http/mappers/inquiryReply-response.mapper';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [InquiryRepliesCommandController, InquiryRepliesQueryController],
   providers: [
     InquiryRepliesCommandService,
     InquiryRepliesQueryService,
-    InquiryReplyFactory, 
-    InquiryReplyResponseMapper
-    ],
+    InquiryReplyFactory,
+    InquiryReplyResponseMapper,
+  ],
   exports: [
     InquiryRepliesCommandService,
     InquiryRepliesQueryService,
     InquiryReplyFactory,
-    InquiryReplyResponseMapper
-    ],
+    InquiryReplyResponseMapper,
+  ],
 })
 export class InquiryRepliesModule {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

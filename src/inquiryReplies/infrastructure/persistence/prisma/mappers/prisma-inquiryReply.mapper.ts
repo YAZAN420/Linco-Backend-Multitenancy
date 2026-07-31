@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import type { InquiryReply as PrismaInquiryReply} from 'src/generated/prisma/client';
+import type { InquiryReply as PrismaInquiryReply } from 'src/generated/prisma/client';
 import { InquirySenderType } from 'src/inquiryReplies/domain/enums/InquirySenderType';
 import { InquiryReply } from 'src/inquiryReplies/domain/inquiryReply';
-
 
 @Injectable()
 export class PrismaInquiryReplyMapper {

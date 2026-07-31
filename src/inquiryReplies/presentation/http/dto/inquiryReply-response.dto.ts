@@ -1,4 +1,4 @@
-import { InquirySenderType } from "src/inquiryReplies/domain/enums/InquirySenderType";
+import { InquirySenderType } from 'src/inquiryReplies/domain/enums/InquirySenderType';
 
 export class InquiryReplyResponseDto {
   constructor(

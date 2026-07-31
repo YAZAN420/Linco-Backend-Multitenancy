@@ -1,9 +1,6 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 
 import { InquiryRepliesQueryService } from 'src/inquiryReplies/application/inquiryReplies-query.service';
 
@@ -18,7 +15,6 @@ export class InquiryRepliesQueryController {
     private readonly inquiryReplyResponseMapper: InquiryReplyResponseMapper,
   ) {}
 
-  
   @Get('cursor')
   async findWithCursor(
     @Param('inquiryId') inquiryId: string,
@@ -45,9 +41,7 @@ export class InquiryRepliesQueryController {
 
     return {
       message: 'messages.INQUIRY_REPLY_RETRIEVED_SUCCESSFULLY',
-      data: this.inquiryReplyResponseMapper.toResponseFromPrisma(
-        inquiryReply,
-      ),
+      data: this.inquiryReplyResponseMapper.toResponseFromPrisma(inquiryReply),
     };
   }
 }

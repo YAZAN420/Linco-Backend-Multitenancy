@@ -1,7 +1,5 @@
-import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
-import {
-  FindInquiryRepliesCursorQuery,
-} from '../interfaces/find-inquiryReplies.query';
+import { CursorPageDto } from 'src/common/dtos/pagination';
+import { FindInquiryRepliesCursorQuery } from '../interfaces/find-inquiryReplies.query';
 import { InquiryReply } from 'src/generated/prisma/client';
 
 export abstract class InquiryReplyQueryRepository {

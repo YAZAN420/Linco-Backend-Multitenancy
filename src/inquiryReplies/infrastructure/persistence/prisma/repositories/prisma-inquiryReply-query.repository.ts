@@ -1,15 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
-import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
-import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { InquiryReply } from 'src/generated/prisma/client';
 
-import {
-  FindInquiryRepliesCursorQuery,
-  FindInquiryRepliesQuery,
-} from 'src/inquiryReplies/application/interfaces/find-inquiryReplies.query';
+import { FindInquiryRepliesCursorQuery } from 'src/inquiryReplies/application/interfaces/find-inquiryReplies.query';
 import { InquiryReplyQueryRepository } from 'src/inquiryReplies/application/ports/inquiryReply-query.repository';
 
 @Injectable()

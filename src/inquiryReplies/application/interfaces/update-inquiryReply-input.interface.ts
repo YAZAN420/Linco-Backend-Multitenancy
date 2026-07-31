@@ -1,3 +1,3 @@
 export interface UpdateInquiryReplyInput {
-    message?: string;
+  message?: string;
 }

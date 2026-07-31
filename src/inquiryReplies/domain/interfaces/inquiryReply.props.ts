@@ -1,4 +1,4 @@
-import { InquirySenderType } from "../enums/InquirySenderType";
+import { InquirySenderType } from '../enums/InquirySenderType';
 
 export interface InquiryReplyProps {
   inquiryId: string;

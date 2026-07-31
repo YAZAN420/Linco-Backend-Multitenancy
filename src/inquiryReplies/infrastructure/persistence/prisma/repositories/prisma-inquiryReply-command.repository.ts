@@ -25,7 +25,9 @@ export class PrismaInquiryReplyCommandRepository implements InquiryReplyCommandR
   }
 
   async findById(id: string): Promise<InquiryReply | null> {
-    const inquiryReply = await this.prisma.inquiryReply.findUnique({ where: { id } });
+    const inquiryReply = await this.prisma.inquiryReply.findUnique({
+      where: { id },
+    });
     return inquiryReply ? this.mapper.toDomain(inquiryReply) : null;
   }
 }

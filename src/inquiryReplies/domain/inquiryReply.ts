@@ -32,11 +32,11 @@ export class InquiryReply {
   }
 
   updateMessage(newMessage: string): void {
-    if(this.props.message == newMessage) return;
+    if (this.props.message == newMessage) return;
     this.props.message = newMessage;
     this.touch();
   }
-  
+
   private touch(): void {
     this.props.updatedAt = new Date();
   }

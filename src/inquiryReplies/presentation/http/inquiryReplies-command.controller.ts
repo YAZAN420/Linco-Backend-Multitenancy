@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateInquiryReplyDto } from './dto/create-inquiryReply.dto';
 import { UpdateInquiryReplyDto } from './dto/update-inquiryReply.dto';
 
@@ -8,7 +16,6 @@ import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guar
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @Controller('inquiryReplies')
-
 @UseGuards(DemoRolesGuard)
 @Controller('inquiries/:inquiryId/inquiryReplies')
 export class InquiryRepliesCommandController {
@@ -26,7 +33,7 @@ export class InquiryRepliesCommandController {
     const inquiryReply = await this.inquiryReplyCommandService.create(
       inquiryId,
       demoId,
-      dto
+      dto,
     );
 
     return {
@@ -44,7 +51,7 @@ export class InquiryRepliesCommandController {
     const inquiryReply = await this.inquiryReplyCommandService.update(
       inquiryId,
       inquiryReplyId,
-      dto
+      dto,
     );
 
     return {
@@ -58,7 +65,7 @@ export class InquiryRepliesCommandController {
     await this.inquiryReplyCommandService.remove(inquiryReplyId);
 
     return {
-      message:  'messages.INQUIRY_REPLY_DELETED_SUCCESSFULLY',
+      message: 'messages.INQUIRY_REPLY_DELETED_SUCCESSFULLY',
       data: null,
     };
   }

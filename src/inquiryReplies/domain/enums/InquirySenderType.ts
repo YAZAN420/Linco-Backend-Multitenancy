@@ -1,5 +1,5 @@
 export enum InquirySenderType {
-    ADMIN = 'ADMIN',
-    SYSTEM = 'SYSTEM',
-    OWNER = 'OWNER'
+  ADMIN = 'ADMIN',
+  SYSTEM = 'SYSTEM',
+  OWNER = 'OWNER',
 }
