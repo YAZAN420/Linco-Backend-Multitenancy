@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { FcmTokenRepository } from '../../application/ports/fcm-token.repository.port';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
+import { v7 as uuidv7 } from 'uuid';
 
 @Injectable()
 export class PrismaFcmTokenRepository implements FcmTokenRepository {
@@ -15,7 +16,7 @@ export class PrismaFcmTokenRepository implements FcmTokenRepository {
     await this.prisma.fcmToken.upsert({
       where: { token },
       update: { userId, deviceModel },
-      create: { token, userId, deviceModel },
+      create: { id: uuidv7(), token, userId, deviceModel },
     });
   }
 

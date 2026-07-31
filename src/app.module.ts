@@ -33,8 +33,7 @@ import { InquiriesInfrastructureModule } from './inquiries/infrastructure/inquir
 import { JitsiModule } from './jitsi/jitsi.module';
 import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
 import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
-import { InquiryMessagesModule } from './inquiryMessages/inquiryMessages.module';
-import { InquiryMessagesInfrastructureModule } from './inquiryMessages/infrastructure/inquiryMessages-infrastructure.module';
+
 import {
   AcceptLanguageResolver,
   I18nJsonLoader,
@@ -46,7 +45,6 @@ import { DepartmentMessagesInfrastructureModule } from './departmentMessages/inf
 import { NotificationsModule } from './notifications/notifications.module';
 import { InquiryRepliesModule } from './inquiryReplies/inquiryReplies.module';
 import { InquiryRepliesInfrastructureModule } from './inquiryReplies/infrastructure/inquiryReplies-infrastructure.module';
-
 
 @Module({})
 export class AppModule {
@@ -80,14 +78,13 @@ export class AppModule {
         CourseFaqsModule.withInfrastructure(
           CourseFaqsInfrastructureModule.use(),
         ),
-        InquiryMessagesModule.withInfrastructure(
-          InquiryMessagesInfrastructureModule.use(),
-        ),
-        this.registerI18n(),
         DepartmentMessagesModule.withInfrastructure(
           DepartmentMessagesInfrastructureModule.use(),
         ),
-        InquiryRepliesModule.withInfrastructure(InquiryRepliesInfrastructureModule.use()),
+        InquiryRepliesModule.withInfrastructure(
+          InquiryRepliesInfrastructureModule.use(),
+        ),
+        this.registerI18n(),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
