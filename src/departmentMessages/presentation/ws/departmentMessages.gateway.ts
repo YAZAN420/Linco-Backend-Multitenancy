@@ -79,11 +79,10 @@ export class DepartmentMessagesGateway
   }
 
   handleDisconnect(client: AuthenticatedSocket) {
-    const { departmentId, departmentMemberId } = client.data;
-    if (departmentId) {
-      client
-        .to(`dept_${departmentId}`)
-        .emit('userOffline', { departmentMemberId });
+    const { departmentId, member } = client.data;
+
+    if (departmentId && member) {
+      client.to(`dept_${departmentId}`).emit('userOffline', member);
     }
   }
 
@@ -109,36 +108,33 @@ export class DepartmentMessagesGateway
 
     client.data.departmentId = departmentId;
     client.data.role = member.role;
-    client.data.departmentMemberId = member.id;
+    client.data.member = this.getMemberInfo(member);
 
     const roomName = `dept_${departmentId}`;
     await client.join(roomName);
 
-    const onlineMemberIds = [
-      ...new Set(
+    const onlineMembers = [
+      ...new Map(
         Array.from(client.nsp.sockets.values())
-          .map((socket) => {
-            const socketData = socket.data as AuthenticatedSocket['data'];
-
-            if (socketData.departmentId !== departmentId) {
-              return undefined;
-            }
-
-            return socketData.departmentMemberId;
-          })
-          .filter((id): id is string => typeof id === 'string'),
-      ),
+          .map((socket) => socket as AuthenticatedSocket)
+          .filter(
+            (socket) =>
+              socket.data.departmentId === departmentId && socket.data.member,
+          )
+          .map((socket) => [
+            socket.data.member!.departmentMemberId,
+            socket.data.member!,
+          ]),
+      ).values(),
     ];
 
-    client.to(roomName).emit('userOnline', {
-      departmentMemberId: member.id,
-    });
+    client.to(roomName).emit('userOnline', client.data.member);
 
     return {
       status: 'joined',
       room: roomName,
-      departmentMemberId: member.id,
-      onlineMemberIds,
+      member: client.data.member,
+      onlineMembers,
     };
   }
 
@@ -147,11 +143,10 @@ export class DepartmentMessagesGateway
     @MessageBody() { isTyping }: IsTypingDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId, departmentMemberId } =
-      this.validateClientContext(client);
+    const { departmentId, member } = this.validateClientContext(client);
 
     client.to(`dept_${departmentId}`).emit('userTypingStatus', {
-      departmentMemberId,
+      ...member,
       isTyping,
     });
   }
@@ -226,11 +221,17 @@ export class DepartmentMessagesGateway
   }
 
   private validateClientContext(client: AuthenticatedSocket) {
-    const { departmentId, user, departmentMemberId } = client.data;
-    if (!departmentId || !departmentMemberId || !user) {
+    const { departmentId, user, member } = client.data;
+
+    if (!departmentId || !member || !user) {
       throw new WsException('errors.UNAUTHORIZED_OR_NOT_JOINED_YET');
     }
-    return { departmentId, departmentMemberId };
+
+    return {
+      departmentId,
+      member,
+      departmentMemberId: member.departmentMemberId,
+    };
   }
 
   private async broadcastMessage(
@@ -244,5 +245,22 @@ export class DepartmentMessagesGateway
     );
     const response = this.responseMapper.toResponseFromPrisma(fullMessage);
     this.server.to(`dept_${departmentId}`).emit(event, response);
+  }
+  private getMemberInfo(member: {
+    id: string;
+    demoMember: {
+      user: {
+        firstName: string;
+        lastName: string;
+        imagePath: string | null;
+      };
+    };
+  }) {
+    return {
+      departmentMemberId: member.id,
+      firstName: member.demoMember.user.firstName,
+      lastName: member.demoMember.user.lastName,
+      imagePath: member.demoMember.user.imagePath,
+    };
   }
 }

@@ -8,7 +8,13 @@ export interface AuthenticatedSocket extends Socket {
   data: {
     user: ActiveUserData;
     departmentId?: string;
-    departmentMemberId?: string;
     role?: string;
+
+    member?: {
+      departmentMemberId: string;
+      firstName: string;
+      lastName: string;
+      imagePath: string | null;
+    };
   };
 }
