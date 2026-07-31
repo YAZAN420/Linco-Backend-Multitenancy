@@ -15,6 +15,10 @@ export class Inquiry {
     return this.props.demoId;
   }
 
+  get message(): string {
+    return this.props.message;
+  }
+
   get creatorId(): string {
     return this.props.creatorId;
   }
@@ -32,6 +36,12 @@ export class Inquiry {
   updateSubject(newSubject: string): void {
     if (this.props.subject == newSubject) return;
     this.props.subject = newSubject;
+    this.touch();
+  }
+
+  updateMessage(newMessage: string): void {
+    if (this.props.message == newMessage) return;
+    this.props.message = newMessage;
     this.touch();
   }
 

@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.9.0
- * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.9.0",
-  engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -156,19 +156,6 @@ export type Subset<T, U> = {
 };
 
 /**
- * Resolved type of the argument passed to the `PrismaClient` constructor.
- *
- * When called without a narrower options type (the common case), this resolves
- * to `PrismaClientOptions` directly, which produces a clear TypeScript error
- * message (`not assignable to parameter of type 'PrismaClientOptions'`) when
- * the argument is missing or incomplete. When the user supplies a narrower
- * options type (e.g. via a literal), it falls back to `Subset` to keep
- * filtering out unknown properties.
- */
-export type PrismaClientConstructorArgs<Options extends PrismaClientOptions> =
-  [PrismaClientOptions] extends [Options] ? PrismaClientOptions : Subset<Options, PrismaClientOptions>;
-
-/**
  * SelectSubset
  * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
  * Additionally, it validates, if both select and include are present. If the case, it errors.
@@ -200,7 +187,7 @@ type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> =
   T extends object ?
   U extends object ?
-    ((Without<T, U> & U) | (Without<U, T> & T)) & object
+    (Without<T, U> & U) | (Without<U, T> & T)
   : U : T
 
 
@@ -419,7 +406,7 @@ export const ModelName = {
   Payment: 'Payment',
   Tag: 'Tag',
   Inquiry: 'Inquiry',
-  InquiryMessage: 'InquiryMessage',
+  InquiryReply: 'InquiryReply',
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken'
 } as const
@@ -437,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryMessage" | "departmentMessage" | "fcmToken"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2069,77 +2056,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    InquiryMessage: {
-      payload: Prisma.$InquiryMessagePayload<ExtArgs>
-      fields: Prisma.InquiryMessageFieldRefs
+    InquiryReply: {
+      payload: Prisma.$InquiryReplyPayload<ExtArgs>
+      fields: Prisma.InquiryReplyFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.InquiryMessageFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload> | null
+          args: Prisma.InquiryReplyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.InquiryMessageFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         findFirst: {
-          args: Prisma.InquiryMessageFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload> | null
+          args: Prisma.InquiryReplyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.InquiryMessageFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         findMany: {
-          args: Prisma.InquiryMessageFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>[]
+          args: Prisma.InquiryReplyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>[]
         }
         create: {
-          args: Prisma.InquiryMessageCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         createMany: {
-          args: Prisma.InquiryMessageCreateManyArgs<ExtArgs>
+          args: Prisma.InquiryReplyCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.InquiryMessageCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>[]
+          args: Prisma.InquiryReplyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>[]
         }
         delete: {
-          args: Prisma.InquiryMessageDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         update: {
-          args: Prisma.InquiryMessageUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         deleteMany: {
-          args: Prisma.InquiryMessageDeleteManyArgs<ExtArgs>
+          args: Prisma.InquiryReplyDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.InquiryMessageUpdateManyArgs<ExtArgs>
+          args: Prisma.InquiryReplyUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.InquiryMessageUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>[]
+          args: Prisma.InquiryReplyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>[]
         }
         upsert: {
-          args: Prisma.InquiryMessageUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryMessagePayload>
+          args: Prisma.InquiryReplyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InquiryReplyPayload>
         }
         aggregate: {
-          args: Prisma.InquiryMessageAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateInquiryMessage>
+          args: Prisma.InquiryReplyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInquiryReply>
         }
         groupBy: {
-          args: Prisma.InquiryMessageGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InquiryMessageGroupByOutputType>[]
+          args: Prisma.InquiryReplyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InquiryReplyGroupByOutputType>[]
         }
         count: {
-          args: Prisma.InquiryMessageCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InquiryMessageCountAggregateOutputType> | number
+          args: Prisma.InquiryReplyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InquiryReplyCountAggregateOutputType> | number
         }
       }
     }
@@ -2618,6 +2605,7 @@ export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagSca
 export const InquiryScalarFieldEnum = {
   id: 'id',
   subject: 'subject',
+  message: 'message',
   creatorId: 'creatorId',
   demoId: 'demoId',
   status: 'status',
@@ -2628,16 +2616,17 @@ export const InquiryScalarFieldEnum = {
 export type InquiryScalarFieldEnum = (typeof InquiryScalarFieldEnum)[keyof typeof InquiryScalarFieldEnum]
 
 
-export const InquiryMessageScalarFieldEnum = {
+export const InquiryReplyScalarFieldEnum = {
   id: 'id',
   inquiryId: 'inquiryId',
+  senderType: 'senderType',
   senderId: 'senderId',
   message: 'message',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]
+export type InquiryReplyScalarFieldEnum = (typeof InquiryReplyScalarFieldEnum)[keyof typeof InquiryReplyScalarFieldEnum]
 
 
 export const DepartmentMessageScalarFieldEnum = {
@@ -2934,6 +2923,20 @@ export type ListEnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'InquirySenderType'
+ */
+export type EnumInquirySenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InquirySenderType'>
+    
+
+
+/**
+ * Reference to a field of type 'InquirySenderType[]'
+ */
+export type ListEnumInquirySenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InquirySenderType[]'>
+    
+
+
+/**
  * Reference to a field of type 'MessageType'
  */
 export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType'>
@@ -2956,10 +2959,19 @@ export type BatchPayload = {
 export const defineExtension = runtime.Extensions.defineExtension as unknown as runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>
 export type DefaultPrismaClient = PrismaClient
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-/**
- * Options common to all variants of `PrismaClientOptions`, regardless of whether you connect to your database through a driver adapter or through Prisma Accelerate.
- */
-export interface PrismaClientBaseOptions {
+export type PrismaClientOptions = ({
+  /**
+   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
+   */
+  adapter: runtime.SqlDriverAdapterFactory
+  accelerateUrl?: never
+} | {
+  /**
+   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
+   */
+  accelerateUrl: string
+  adapter?: never
+}) & {
   /**
    * @default "colorless"
    */
@@ -3046,56 +3058,6 @@ export interface PrismaClientBaseOptions {
    */
   queryPlanCacheMaxSize?: number
 }
-
-/**
- * `PrismaClient` options for connecting to your database through Prisma Accelerate instead of a driver adapter.
- * 
- * Learn more: https://pris.ly/d/accelerate
- */
-export interface PrismaClientOptionsWithAccelerateUrl extends PrismaClientBaseOptions {
-  /**
-   * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
-   * 
-   * Learn more: https://pris.ly/d/accelerate
-   */
-  accelerateUrl: string
-  adapter?: never
-}
-
-/**
- * `PrismaClient` options for connecting to your database through a driver adapter. This is the common case in Prisma 7.
- * 
- * Learn more: https://pris.ly/d/driver-adapters
- */
-export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions {
-  /**
-   * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
-   * 
-   * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
-   * 
-   * Learn more: https://pris.ly/d/driver-adapters
-   * 
-   * @example
-   * ```ts
-   * import { PrismaPg } from '@prisma/adapter-pg'
-   * import { PrismaClient } from './generated/prisma/client'
-   * 
-   * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
-   * const prisma = new PrismaClient({ adapter })
-   * ```
-   */
-  adapter: runtime.SqlDriverAdapterFactory
-  accelerateUrl?: never
-}
-
-/**
- * Options passed to the `PrismaClient` constructor.
- * 
- * A driver adapter (or, alternatively, a Prisma Accelerate URL) is **required**. See {@link PrismaClientOptionsWithAdapter} and {@link PrismaClientOptionsWithAccelerateUrl} for the two variants. All other properties live in {@link PrismaClientBaseOptions} and are optional.
- * 
- * Learn more about driver adapters: https://pris.ly/d/driver-adapters
- */
-export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   demoMember?: Prisma.DemoMemberOmit
@@ -3119,7 +3081,7 @@ export type GlobalOmitConfig = {
   payment?: Prisma.PaymentOmit
   tag?: Prisma.TagOmit
   inquiry?: Prisma.InquiryOmit
-  inquiryMessage?: Prisma.InquiryMessageOmit
+  inquiryReply?: Prisma.InquiryReplyOmit
   departmentMessage?: Prisma.DepartmentMessageOmit
   fcmToken?: Prisma.FcmTokenOmit
 }

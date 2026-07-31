@@ -11,5 +11,10 @@ export class UpdateInquiryDto implements UpdateInquiryInput {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
+  message!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   status!: InquiryStatus;
 }

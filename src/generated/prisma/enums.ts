@@ -26,6 +26,15 @@ export const DemoMemberRole = {
 export type DemoMemberRole = (typeof DemoMemberRole)[keyof typeof DemoMemberRole]
 
 
+export const InquirySenderType = {
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM',
+  OWNER: 'OWNER'
+} as const
+
+export type InquirySenderType = (typeof InquirySenderType)[keyof typeof InquirySenderType]
+
+
 export const DepartmentMemberRole = {
   MANAGER: 'MANAGER',
   MEMBER: 'MEMBER'

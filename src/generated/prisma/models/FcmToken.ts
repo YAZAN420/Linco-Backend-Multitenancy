@@ -241,7 +241,7 @@ export type FcmTokenScalarWhereWithAggregatesInput = {
 }
 
 export type FcmTokenCreateInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   createdAt?: Date | string
@@ -250,7 +250,7 @@ export type FcmTokenCreateInput = {
 }
 
 export type FcmTokenUncheckedCreateInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   userId: string
@@ -277,7 +277,7 @@ export type FcmTokenUncheckedUpdateInput = {
 }
 
 export type FcmTokenCreateManyInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   userId: string
@@ -382,7 +382,7 @@ export type FcmTokenUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type FcmTokenCreateWithoutUserInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   createdAt?: Date | string
@@ -390,7 +390,7 @@ export type FcmTokenCreateWithoutUserInput = {
 }
 
 export type FcmTokenUncheckedCreateWithoutUserInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   createdAt?: Date | string
@@ -436,7 +436,7 @@ export type FcmTokenScalarWhereInput = {
 }
 
 export type FcmTokenCreateManyUserInput = {
-  id?: string
+  id: string
   token: string
   deviceModel?: string | null
   createdAt?: Date | string

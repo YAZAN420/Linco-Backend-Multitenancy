@@ -5,4 +5,8 @@ export class CreateInquiryDto implements CreateInquiryInput {
   @IsString()
   @IsNotEmpty()
   subject!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  message!: string;
 }

@@ -7,12 +7,14 @@ import { InquiryStatus } from '../enums/inqurity-status.enum';
 export class InquiryFactory {
   public createNew(
     subject: string,
+    message: string,
     creatorId: string,
     demoId: string,
   ): Inquiry {
     const now = new Date();
     return new Inquiry(uuidv7(), {
       subject: subject,
+      message: message,
       demoId: demoId,
       creatorId: creatorId,
       status: InquiryStatus.PENDING,

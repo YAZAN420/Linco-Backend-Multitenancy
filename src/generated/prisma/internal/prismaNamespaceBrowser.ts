@@ -73,7 +73,7 @@ export const ModelName = {
   Payment: 'Payment',
   Tag: 'Tag',
   Inquiry: 'Inquiry',
-  InquiryMessage: 'InquiryMessage',
+  InquiryReply: 'InquiryReply',
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken'
 } as const
@@ -382,6 +382,7 @@ export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagSca
 export const InquiryScalarFieldEnum = {
   id: 'id',
   subject: 'subject',
+  message: 'message',
   creatorId: 'creatorId',
   demoId: 'demoId',
   status: 'status',
@@ -392,16 +393,17 @@ export const InquiryScalarFieldEnum = {
 export type InquiryScalarFieldEnum = (typeof InquiryScalarFieldEnum)[keyof typeof InquiryScalarFieldEnum]
 
 
-export const InquiryMessageScalarFieldEnum = {
+export const InquiryReplyScalarFieldEnum = {
   id: 'id',
   inquiryId: 'inquiryId',
+  senderType: 'senderType',
   senderId: 'senderId',
   message: 'message',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type InquiryMessageScalarFieldEnum = (typeof InquiryMessageScalarFieldEnum)[keyof typeof InquiryMessageScalarFieldEnum]
+export type InquiryReplyScalarFieldEnum = (typeof InquiryReplyScalarFieldEnum)[keyof typeof InquiryReplyScalarFieldEnum]
 
 
 export const DepartmentMessageScalarFieldEnum = {

@@ -150,10 +150,10 @@ export type Tag = Prisma.TagModel
  */
 export type Inquiry = Prisma.InquiryModel
 /**
- * Model InquiryMessage
+ * Model InquiryReply
  * 
  */
-export type InquiryMessage = Prisma.InquiryMessageModel
+export type InquiryReply = Prisma.InquiryReplyModel
 /**
  * Model DepartmentMessage
  * 

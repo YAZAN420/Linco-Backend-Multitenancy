@@ -20,6 +20,7 @@ export class InquiriesCommandService {
   ): Promise<Inquiry> {
     const inquiry = this.inquiryFactory.createNew(
       input.subject,
+      input.message,
       demoMemberId,
       demoId,
     );
@@ -36,6 +37,9 @@ export class InquiriesCommandService {
 
     if (input.subject !== undefined) {
       inquiry.updateSubject(input.subject);
+    }
+    if (input.message !== undefined) {
+      inquiry.updateMessage(input.message);
     }
     if (input.status !== undefined) {
       inquiry.updateStatus(input.status);

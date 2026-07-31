@@ -18,6 +18,12 @@ enum DemoMemberRole {
   MEMBER
 }
 
+enum InquirySenderType {
+  ADMIN
+  SYSTEM
+  OWNER
+}
+
 enum DepartmentMemberRole {
   MANAGER
   MEMBER
@@ -31,12 +37,12 @@ enum MessageType {
 }
 
 enum CourseVisibility {
-  PUBLIC   
-  PRIVATE  
+  PUBLIC
+  PRIVATE
 }
 
 enum AccessMethod {
-  CREATED  
+  CREATED
   PURCHASED
 }
 
@@ -91,326 +97,326 @@ enum InquiryStatus {
 }
 
 model User {
-  id                    String                 @id
-  firstName             String
-  lastName              String
-  email                 String                 @unique
-  password              String?
-  birthDate             DateTime?
-  imagePath             String
-  refreshToken          String?
-  role                  UserRole                   @default(USER)
-  twoFactorSecret       String?
-  isTwoFactorEnabled    Boolean                @default(false)
-  isEmailVerified       Boolean                @default(false)
-  emailVerificationToken String?
+  id                       String    @id
+  firstName                String
+  lastName                 String
+  email                    String    @unique
+  password                 String?
+  birthDate                DateTime?
+  imagePath                String
+  refreshToken             String?
+  role                     UserRole  @default(USER)
+  twoFactorSecret          String?
+  isTwoFactorEnabled       Boolean   @default(false)
+  isEmailVerified          Boolean   @default(false)
+  emailVerificationToken   String?
   emailVerificationExpires DateTime?
-  passwordResetToken    String?
-  passwordResetExpires  DateTime?
-  stripeCustomerId      String?   @unique
+  passwordResetToken       String?
+  passwordResetExpires     DateTime?
+  stripeCustomerId         String?   @unique
 
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  receivedInvitations   Invitation[] @relation("ReceivedInvitations")
-  sentInvitations       Invitation[] @relation("SentInvitations")
-  demoMemberships       DemoMember[]
-  ownedDemos            Demo[]                 @relation("DemoOwner")
-  payments              Payment[]
-  fcmTokens FcmToken[]
+  receivedInvitations Invitation[] @relation("ReceivedInvitations")
+  sentInvitations     Invitation[] @relation("SentInvitations")
+  demoMemberships     DemoMember[]
+  ownedDemos          Demo[]       @relation("DemoOwner")
+  payments            Payment[]
+  fcmTokens           FcmToken[]
 }
 
 model DemoMember {
-  id        String   @id
+  id        String         @id
   userId    String
   demoId    String
-  role      DemoMemberRole   @default(MEMBER) 
-  joinedAt  DateTime @default(now())
-  updatedAt             DateTime               @updatedAt
+  role      DemoMemberRole @default(MEMBER)
+  joinedAt  DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  demo      Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  demo               Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
   managedDepartments Department[]
 
   discussionQuestions DiscussionQuestion[]
   discussionAnswers   DiscussionAnswer[]
 
   accessibleDepartments DepartmentMember[]
-  createdInquiries      Inquiry[] 
-  inquiryMessages       InquiryMessage[]
+  createdInquiries      Inquiry[]
+  createdInquiriesReplies InquiryReply[]
   examAttempts          ExamAttempt[]
 
   @@unique([userId, demoId])
 }
 
 model DepartmentMember {
-  id           String     @id @default(uuid())
+  id           String @id @default(uuid())
   departmentId String
   demoMemberId String
 
-  jobTitle     JobTitle   @default(JUNIOR)
-  role DepartmentMemberRole @default(MEMBER)
-  assignedAt   DateTime   @default(now())
-  updatedAt  DateTime @updatedAt
+  jobTitle   JobTitle             @default(JUNIOR)
+  role       DepartmentMemberRole @default(MEMBER)
+  assignedAt DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
 
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  demoMember   DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
   messages DepartmentMessage[]
+
   @@unique([departmentId, demoMemberId])
   @@index([departmentId])
   @@index([demoMemberId])
 }
 
 model Department {
-  id         String   @id
-  name       String
-  description  String
-  managerId  String
-  demoId     String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String   @id
+  name        String
+  description String
+  managerId   String
+  demoId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  manager DemoMember @relation(fields: [managerId], references: [id], onDelete: Restrict)
-  demo       Demo     @relation(fields: [demoId], references: [id], onDelete: Cascade)
-  courses    DepartmentCourse[]
+  manager DemoMember         @relation(fields: [managerId], references: [id], onDelete: Restrict)
+  demo    Demo               @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  courses DepartmentCourse[]
 
-  members DepartmentMember[]
+  members  DepartmentMember[]
   messages DepartmentMessage[]
 }
 
 model Demo {
-  id           String       @id
-  name         String
-  imagePath String
-  description  String
-  plan PlanTier @default(FREE)
+  id          String   @id
+  name        String
+  imagePath   String
+  description String
+  plan        PlanTier @default(FREE)
 
-  stripeSubscriptionId   String?   @unique
-  subscriptionStatus   SubscriptionStatus  @default(TRIALING)
-  currentPeriodEnd       DateTime
+  stripeSubscriptionId String?            @unique
+  subscriptionStatus   SubscriptionStatus @default(TRIALING)
+  currentPeriodEnd     DateTime
 
-  ownerId      String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  departments  Department[]
-  members      DemoMember[]
-  invitations  Invitation[]
-  owner        User         @relation("DemoOwner", fields: [ownerId], references: [id])
+  departments Department[]
+  members     DemoMember[]
+  invitations Invitation[]
+  owner       User         @relation("DemoOwner", fields: [ownerId], references: [id])
 
   payments  Payment[]
-  courses     Course[]
-  assets     Asset[]
+  courses   Course[]
+  assets    Asset[]
   inquiries Inquiry[]
 }
 
 model Course {
-  id         String           @id 
-  title      String
-  imagePath String
+  id          String           @id
+  title       String
+  imagePath   String
   description String
-  visibility CourseVisibility @default(PRIVATE)
-  price      Float         
-  isPublished Boolean @default(false)
+  visibility  CourseVisibility @default(PRIVATE)
+  price       Float
+  isPublished Boolean          @default(false)
 
-  demoId     String
-  demo       Demo             @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  demoId String
+  demo   Demo   @relation(fields: [demoId], references: [id], onDelete: Cascade)
 
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-
-  payments Payment[]
-  tags        Tag[]
-  assets     Asset[]
-  sections   Section[]
-  faqs        CourseFaq[]
-}
-
-model CourseFaq {
-  id        String   @id 
-  question  String   @db.Text
-  answer    String   @db.Text
-  courseId  String
-  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  payments Payment[]
+  tags     Tag[]
+  assets   Asset[]
+  sections Section[]
+  faqs     CourseFaq[]
+}
+
+model CourseFaq {
+  id       String @id
+  question String @db.Text
+  answer   String @db.Text
+  courseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([courseId])
 }
 
 model Section {
-  id            String   @id 
-  title         String
-  order         Int
-  
+  id    String @id
+  title String
+  order Int
+
   courseId      String
-  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade) 
+  course        Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lessons       Lesson[]
   questionsBank QuestionsBank[]
   exam          Exam?
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([courseId]) 
   @@unique([courseId, order])
   @@unique([courseId, title])
+  @@index([courseId])
 }
 
 model Lesson {
-  id          String   @id 
+  id          String   @id
   title       String
-  description String 
+  description String
   videoUrl    String
   duration    Int
   subTitleUrl String?
-  order       Int      
+  order       Int
   sectionId   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade) 
-  attachments  Attachment[]
-  questions DiscussionQuestion[]
+  section     Section              @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  attachments Attachment[]
+  questions   DiscussionQuestion[]
 
-  @@index([sectionId]) 
   @@unique([sectionId, order])
   @@unique([sectionId, title])
+  @@index([sectionId])
 }
 
 model Attachment {
-  id        String   @id 
-  name      String  
+  id        String   @id
+  name      String
   path      String
   mimeType  String?
   lessonId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@index([lessonId])
 }
 
 model Exam {
-  id                String    @id 
-  sectionId         String    @unique
+  id                String @id
+  sectionId         String @unique
   title             String
   numberOfQuestions Int
-  durationMinutes   Int @default(60)
+  durationMinutes   Int    @default(60)
 
-  section           Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)  
-  attempts          ExamAttempt[]
- 
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  section  Section       @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  attempts ExamAttempt[]
 
-  @@index([sectionId]) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sectionId])
 }
 
 model QuestionsBank {
-  id          String            @id 
-  sectionId   String
-  question        String
+  id        String @id
+  sectionId String
+  question  String
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  section     Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  choices     QuestionChoice[]
+  section Section          @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  choices QuestionChoice[]
 }
 
 model QuestionChoice {
-  id          String            @id 
-  questionId  String
-  choice        String
-  isCorrect   Boolean
+  id         String  @id
+  questionId String
+  choice     String
+  isCorrect  Boolean
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  question    QuestionsBank      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question QuestionsBank @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model ExamAttempt {
-  id          String            @id 
-  demoMemberId      String
-  examId      String
-  score       Int               @default(0)
+  id           String @id
+  demoMemberId String
+  examId       String
+  score        Int    @default(0)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  exam         Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
-  demoMember        DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  exam       Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
+  demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 }
 
 model Asset {
-  id           String       @id
+  id           String             @id
   demoId       String
   courseId     String
   accessMethod AccessMethod
-  acquiredAt   DateTime     @default(now())
-  updatedAt DateTime @updatedAt
-  departments     DepartmentCourse[]
+  acquiredAt   DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  departments  DepartmentCourse[]
 
-  demo         Demo         @relation(fields: [demoId], references: [id], onDelete: Cascade)
-  course       Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  demo   Demo   @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([demoId, courseId])
 }
 
 model DepartmentCourse {
-  id           String       @id
+  id           String   @id
   departmentId String
-  assetId     String
-  assignedAt   DateTime   @default(now())
-  updatedAt DateTime @updatedAt
+  assetId      String
+  assignedAt   DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  asset        Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  asset      Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
 
-  @@unique([departmentId, assetId]) 
+  @@unique([departmentId, assetId])
 }
 
-
 model DiscussionQuestion {
-  id           String             @id
-  lessonId     String             
-  demoMemberId String             
-  content      String             @db.Text 
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id           String   @id
+  lessonId     String
+  demoMemberId String
+  content      String   @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  lesson       Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
-  answers      DiscussionAnswer[] 
+  lesson     Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  demoMember DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  answers    DiscussionAnswer[]
 
-  @@index([lessonId]) 
+  @@index([lessonId])
 }
 
 model DiscussionAnswer {
-  id           String             @id 
-  discussionId String             
-  demoMemberId String             
-  content      String             @db.Text 
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id           String   @id
+  discussionId String
+  demoMemberId String
+  content      String   @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  discussion   DiscussionQuestion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
-  demoMember   DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  discussion DiscussionQuestion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  demoMember DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
-  @@index([discussionId]) 
+  @@index([discussionId])
 }
 
 model Invitation {
-  id         String           @id 
+  id         String           @id
   demoId     String
-  receiverId String 
-  senderId   String 
+  receiverId String
+  senderId   String
   role       DemoMemberRole   @default(MEMBER)
   status     InvitationStatus @default(PENDING)
   createdAt  DateTime         @default(now())
@@ -420,121 +426,120 @@ model Invitation {
   receiver User @relation("ReceivedInvitations", fields: [receiverId], references: [id], onDelete: Cascade)
   sender   User @relation("SentInvitations", fields: [senderId], references: [id], onDelete: Cascade)
 
-  @@index([receiverId]) 
-  @@index([demoId,receiverId])
+  @@index([receiverId])
+  @@index([demoId, receiverId])
 }
 
 model Payment {
-  id                     String    @id 
-  amount                 Int    
-  currency               String    @default("USD")
-  type PaymentType @default(SUBSCRIPTION)
-  plan PlanTier?
-  status                 PaymentStatus @default(PENDING)
-  
-  stripeInvoiceId        String?   @unique 
-  stripePaymentIntentId  String?   @unique 
+  id       String        @id
+  amount   Int
+  currency String        @default("USD")
+  type     PaymentType   @default(SUBSCRIPTION)
+  plan     PlanTier?
+  status   PaymentStatus @default(PENDING)
 
-  createdAt            DateTime  @default(now())
-  updatedAt              DateTime @updatedAt
+  stripeInvoiceId       String? @unique
+  stripePaymentIntentId String? @unique
 
-  userId                 String
-  user                   User      @relation(fields: [userId], references: [id])
-  
-  demoId                 String?
-  demo                   Demo?     @relation(fields: [demoId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  courseId               String?
-  course                 Course?   @relation(fields: [courseId], references: [id]) 
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  demoId String?
+  demo   Demo?   @relation(fields: [demoId], references: [id])
+
+  courseId String?
+  course   Course? @relation(fields: [courseId], references: [id])
 }
 
 model Tag {
-  id        String   @id 
-  name      String   @unique 
-  courses   Course[] 
+  id      String   @id
+  name    String   @unique
+  courses Course[]
 }
 
 model Inquiry {
-  id            String  @id 
+  id String @id
 
-  subject       String
+  subject String
+  message String
 
-  creatorId     String
-  demoId        String
+  creatorId String
+  demoId    String
 
-  creator       DemoMember    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-  demo          Demo    @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  creator DemoMember    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  demo    Demo          @relation(fields: [demoId], references: [id], onDelete: Cascade)
+  reply   InquiryReply?
 
-  status        InquiryStatus @default(PENDING)
+  status InquiryStatus @default(PENDING)
 
-  messages      InquiryMessage[]
-
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([demoId])
   @@index([creatorId])
 }
 
-model InquiryMessage {
-  id String @id 
+model InquiryReply {
+  id String @id
 
-  inquiryId String
+  inquiryId String  @unique
   inquiry   Inquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
 
+  senderType InquirySenderType
   senderId String
-  sender   DemoMember @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  sender DemoMember  @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
   message String
 
   createdAt DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  
-  @@index([inquiryId])
+  updatedAt DateTime @updatedAt
 }
 
 model DepartmentMessage {
-  id           String   @id 
+  id String @id
 
   departmentId String
   senderId     String
 
-  type         MessageType @default(TEXT)
+  type MessageType @default(TEXT)
 
-  content      String? @db.Text
+  content String? @db.Text
 
-  fileUrl     String?
-  fileName     String?
-  mimeType     String?
-  fileSize     Int?
+  fileUrl  String?
+  fileName String?
+  mimeType String?
+  fileSize Int?
 
-  replyToId    String?
+  replyToId String?
 
-  isEdited     Boolean @default(false)
-  isDeleted    Boolean @default(false)
+  isEdited  Boolean @default(false)
+  isDeleted Boolean @default(false)
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  sender       DepartmentMember @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  department Department       @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  sender     DepartmentMember @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
-  replyTo      DepartmentMessage?  @relation("Replies", fields: [replyToId], references: [id], onDelete: SetNull)
-  replies      DepartmentMessage[] @relation("Replies")
+  replyTo DepartmentMessage?  @relation("Replies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies DepartmentMessage[] @relation("Replies")
 
   @@index([departmentId, createdAt])
 }
 
 model FcmToken {
-  id          String   @id 
-  token       String   @unique
+  id          String  @id
+  token       String  @unique
   deviceModel String?
 
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }

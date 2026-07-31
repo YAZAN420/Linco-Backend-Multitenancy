@@ -423,6 +423,23 @@ export type EnumInquiryStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumInquiryStatusFilter<$PrismaModel>
 }
 
+export type EnumInquirySenderTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InquirySenderType | Prisma.EnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel> | $Enums.InquirySenderType
+}
+
+export type EnumInquirySenderTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InquirySenderType | Prisma.EnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInquirySenderTypeWithAggregatesFilter<$PrismaModel> | $Enums.InquirySenderType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel>
+}
+
 export type EnumMessageTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.MessageType | Prisma.EnumMessageTypeFieldRefInput<$PrismaModel>
   in?: $Enums.MessageType[] | Prisma.ListEnumMessageTypeFieldRefInput<$PrismaModel>
@@ -876,6 +893,23 @@ export type NestedEnumInquiryStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumInquiryStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumInquiryStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumInquirySenderTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InquirySenderType | Prisma.EnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel> | $Enums.InquirySenderType
+}
+
+export type NestedEnumInquirySenderTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InquirySenderType | Prisma.EnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InquirySenderType[] | Prisma.ListEnumInquirySenderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInquirySenderTypeWithAggregatesFilter<$PrismaModel> | $Enums.InquirySenderType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInquirySenderTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumMessageTypeFilter<$PrismaModel = never> = {

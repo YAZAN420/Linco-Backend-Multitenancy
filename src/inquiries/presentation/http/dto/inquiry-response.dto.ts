@@ -4,6 +4,7 @@ export class InquiryResponseDto {
   constructor(
     readonly id: string,
     readonly subject: string,
+    readonly message: string,
     readonly demoId: string,
     readonly creatorId: string,
     readonly status: InquiryStatus,

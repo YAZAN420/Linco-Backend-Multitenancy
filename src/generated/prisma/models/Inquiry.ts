@@ -27,6 +27,7 @@ export type AggregateInquiry = {
 export type InquiryMinAggregateOutputType = {
   id: string | null
   subject: string | null
+  message: string | null
   creatorId: string | null
   demoId: string | null
   status: $Enums.InquiryStatus | null
@@ -37,6 +38,7 @@ export type InquiryMinAggregateOutputType = {
 export type InquiryMaxAggregateOutputType = {
   id: string | null
   subject: string | null
+  message: string | null
   creatorId: string | null
   demoId: string | null
   status: $Enums.InquiryStatus | null
@@ -47,6 +49,7 @@ export type InquiryMaxAggregateOutputType = {
 export type InquiryCountAggregateOutputType = {
   id: number
   subject: number
+  message: number
   creatorId: number
   demoId: number
   status: number
@@ -59,6 +62,7 @@ export type InquiryCountAggregateOutputType = {
 export type InquiryMinAggregateInputType = {
   id?: true
   subject?: true
+  message?: true
   creatorId?: true
   demoId?: true
   status?: true
@@ -69,6 +73,7 @@ export type InquiryMinAggregateInputType = {
 export type InquiryMaxAggregateInputType = {
   id?: true
   subject?: true
+  message?: true
   creatorId?: true
   demoId?: true
   status?: true
@@ -79,6 +84,7 @@ export type InquiryMaxAggregateInputType = {
 export type InquiryCountAggregateInputType = {
   id?: true
   subject?: true
+  message?: true
   creatorId?: true
   demoId?: true
   status?: true
@@ -162,6 +168,7 @@ export type InquiryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type InquiryGroupByOutputType = {
   id: string
   subject: string
+  message: string
   creatorId: string
   demoId: string
   status: $Enums.InquiryStatus
@@ -193,6 +200,7 @@ export type InquiryWhereInput = {
   NOT?: Prisma.InquiryWhereInput | Prisma.InquiryWhereInput[]
   id?: Prisma.StringFilter<"Inquiry"> | string
   subject?: Prisma.StringFilter<"Inquiry"> | string
+  message?: Prisma.StringFilter<"Inquiry"> | string
   creatorId?: Prisma.StringFilter<"Inquiry"> | string
   demoId?: Prisma.StringFilter<"Inquiry"> | string
   status?: Prisma.EnumInquiryStatusFilter<"Inquiry"> | $Enums.InquiryStatus
@@ -200,12 +208,13 @@ export type InquiryWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Inquiry"> | Date | string
   creator?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
-  messages?: Prisma.InquiryMessageListRelationFilter
+  reply?: Prisma.XOR<Prisma.InquiryReplyNullableScalarRelationFilter, Prisma.InquiryReplyWhereInput> | null
 }
 
 export type InquiryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   subject?: Prisma.SortOrder
+  message?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -213,7 +222,7 @@ export type InquiryOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   creator?: Prisma.DemoMemberOrderByWithRelationInput
   demo?: Prisma.DemoOrderByWithRelationInput
-  messages?: Prisma.InquiryMessageOrderByRelationAggregateInput
+  reply?: Prisma.InquiryReplyOrderByWithRelationInput
 }
 
 export type InquiryWhereUniqueInput = Prisma.AtLeast<{
@@ -222,6 +231,7 @@ export type InquiryWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.InquiryWhereInput[]
   NOT?: Prisma.InquiryWhereInput | Prisma.InquiryWhereInput[]
   subject?: Prisma.StringFilter<"Inquiry"> | string
+  message?: Prisma.StringFilter<"Inquiry"> | string
   creatorId?: Prisma.StringFilter<"Inquiry"> | string
   demoId?: Prisma.StringFilter<"Inquiry"> | string
   status?: Prisma.EnumInquiryStatusFilter<"Inquiry"> | $Enums.InquiryStatus
@@ -229,12 +239,13 @@ export type InquiryWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Inquiry"> | Date | string
   creator?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
   demo?: Prisma.XOR<Prisma.DemoScalarRelationFilter, Prisma.DemoWhereInput>
-  messages?: Prisma.InquiryMessageListRelationFilter
+  reply?: Prisma.XOR<Prisma.InquiryReplyNullableScalarRelationFilter, Prisma.InquiryReplyWhereInput> | null
 }, "id">
 
 export type InquiryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   subject?: Prisma.SortOrder
+  message?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -251,6 +262,7 @@ export type InquiryScalarWhereWithAggregatesInput = {
   NOT?: Prisma.InquiryScalarWhereWithAggregatesInput | Prisma.InquiryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Inquiry"> | string
   subject?: Prisma.StringWithAggregatesFilter<"Inquiry"> | string
+  message?: Prisma.StringWithAggregatesFilter<"Inquiry"> | string
   creatorId?: Prisma.StringWithAggregatesFilter<"Inquiry"> | string
   demoId?: Prisma.StringWithAggregatesFilter<"Inquiry"> | string
   status?: Prisma.EnumInquiryStatusWithAggregatesFilter<"Inquiry"> | $Enums.InquiryStatus
@@ -261,50 +273,55 @@ export type InquiryScalarWhereWithAggregatesInput = {
 export type InquiryCreateInput = {
   id: string
   subject: string
+  message: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.DemoMemberCreateNestedOneWithoutCreatedInquiriesInput
   demo: Prisma.DemoCreateNestedOneWithoutInquiriesInput
-  messages?: Prisma.InquiryMessageCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryUncheckedCreateInput = {
   id: string
   subject: string
+  message: string
   creatorId: string
   demoId: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyUncheckedCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.DemoMemberUpdateOneRequiredWithoutCreatedInquiriesNestedInput
   demo?: Prisma.DemoUpdateOneRequiredWithoutInquiriesNestedInput
-  messages?: Prisma.InquiryMessageUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUncheckedUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryCreateManyInput = {
   id: string
   subject: string
+  message: string
   creatorId: string
   demoId: string
   status?: $Enums.InquiryStatus
@@ -315,6 +332,7 @@ export type InquiryCreateManyInput = {
 export type InquiryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -323,6 +341,7 @@ export type InquiryUpdateManyMutationInput = {
 export type InquiryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
@@ -343,6 +362,7 @@ export type InquiryOrderByRelationAggregateInput = {
 export type InquiryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   subject?: Prisma.SortOrder
+  message?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -353,6 +373,7 @@ export type InquiryCountOrderByAggregateInput = {
 export type InquiryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   subject?: Prisma.SortOrder
+  message?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -363,6 +384,7 @@ export type InquiryMaxOrderByAggregateInput = {
 export type InquiryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   subject?: Prisma.SortOrder
+  message?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -463,38 +485,40 @@ export type EnumInquiryStatusFieldUpdateOperationsInput = {
   set?: $Enums.InquiryStatus
 }
 
-export type InquiryCreateNestedOneWithoutMessagesInput = {
-  create?: Prisma.XOR<Prisma.InquiryCreateWithoutMessagesInput, Prisma.InquiryUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.InquiryCreateOrConnectWithoutMessagesInput
+export type InquiryCreateNestedOneWithoutReplyInput = {
+  create?: Prisma.XOR<Prisma.InquiryCreateWithoutReplyInput, Prisma.InquiryUncheckedCreateWithoutReplyInput>
+  connectOrCreate?: Prisma.InquiryCreateOrConnectWithoutReplyInput
   connect?: Prisma.InquiryWhereUniqueInput
 }
 
-export type InquiryUpdateOneRequiredWithoutMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.InquiryCreateWithoutMessagesInput, Prisma.InquiryUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.InquiryCreateOrConnectWithoutMessagesInput
-  upsert?: Prisma.InquiryUpsertWithoutMessagesInput
+export type InquiryUpdateOneRequiredWithoutReplyNestedInput = {
+  create?: Prisma.XOR<Prisma.InquiryCreateWithoutReplyInput, Prisma.InquiryUncheckedCreateWithoutReplyInput>
+  connectOrCreate?: Prisma.InquiryCreateOrConnectWithoutReplyInput
+  upsert?: Prisma.InquiryUpsertWithoutReplyInput
   connect?: Prisma.InquiryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.InquiryUpdateToOneWithWhereWithoutMessagesInput, Prisma.InquiryUpdateWithoutMessagesInput>, Prisma.InquiryUncheckedUpdateWithoutMessagesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InquiryUpdateToOneWithWhereWithoutReplyInput, Prisma.InquiryUpdateWithoutReplyInput>, Prisma.InquiryUncheckedUpdateWithoutReplyInput>
 }
 
 export type InquiryCreateWithoutCreatorInput = {
   id: string
   subject: string
+  message: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutInquiriesInput
-  messages?: Prisma.InquiryMessageCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryUncheckedCreateWithoutCreatorInput = {
   id: string
   subject: string
+  message: string
   demoId: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyUncheckedCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryCreateOrConnectWithoutCreatorInput = {
@@ -529,6 +553,7 @@ export type InquiryScalarWhereInput = {
   NOT?: Prisma.InquiryScalarWhereInput | Prisma.InquiryScalarWhereInput[]
   id?: Prisma.StringFilter<"Inquiry"> | string
   subject?: Prisma.StringFilter<"Inquiry"> | string
+  message?: Prisma.StringFilter<"Inquiry"> | string
   creatorId?: Prisma.StringFilter<"Inquiry"> | string
   demoId?: Prisma.StringFilter<"Inquiry"> | string
   status?: Prisma.EnumInquiryStatusFilter<"Inquiry"> | $Enums.InquiryStatus
@@ -539,21 +564,23 @@ export type InquiryScalarWhereInput = {
 export type InquiryCreateWithoutDemoInput = {
   id: string
   subject: string
+  message: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.DemoMemberCreateNestedOneWithoutCreatedInquiriesInput
-  messages?: Prisma.InquiryMessageCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryUncheckedCreateWithoutDemoInput = {
   id: string
   subject: string
+  message: string
   creatorId: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.InquiryMessageUncheckedCreateNestedManyWithoutInquiryInput
+  reply?: Prisma.InquiryReplyUncheckedCreateNestedOneWithoutInquiryInput
 }
 
 export type InquiryCreateOrConnectWithoutDemoInput = {
@@ -582,9 +609,10 @@ export type InquiryUpdateManyWithWhereWithoutDemoInput = {
   data: Prisma.XOR<Prisma.InquiryUpdateManyMutationInput, Prisma.InquiryUncheckedUpdateManyWithoutDemoInput>
 }
 
-export type InquiryCreateWithoutMessagesInput = {
+export type InquiryCreateWithoutReplyInput = {
   id: string
   subject: string
+  message: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -592,9 +620,10 @@ export type InquiryCreateWithoutMessagesInput = {
   demo: Prisma.DemoCreateNestedOneWithoutInquiriesInput
 }
 
-export type InquiryUncheckedCreateWithoutMessagesInput = {
+export type InquiryUncheckedCreateWithoutReplyInput = {
   id: string
   subject: string
+  message: string
   creatorId: string
   demoId: string
   status?: $Enums.InquiryStatus
@@ -602,25 +631,26 @@ export type InquiryUncheckedCreateWithoutMessagesInput = {
   updatedAt?: Date | string
 }
 
-export type InquiryCreateOrConnectWithoutMessagesInput = {
+export type InquiryCreateOrConnectWithoutReplyInput = {
   where: Prisma.InquiryWhereUniqueInput
-  create: Prisma.XOR<Prisma.InquiryCreateWithoutMessagesInput, Prisma.InquiryUncheckedCreateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.InquiryCreateWithoutReplyInput, Prisma.InquiryUncheckedCreateWithoutReplyInput>
 }
 
-export type InquiryUpsertWithoutMessagesInput = {
-  update: Prisma.XOR<Prisma.InquiryUpdateWithoutMessagesInput, Prisma.InquiryUncheckedUpdateWithoutMessagesInput>
-  create: Prisma.XOR<Prisma.InquiryCreateWithoutMessagesInput, Prisma.InquiryUncheckedCreateWithoutMessagesInput>
+export type InquiryUpsertWithoutReplyInput = {
+  update: Prisma.XOR<Prisma.InquiryUpdateWithoutReplyInput, Prisma.InquiryUncheckedUpdateWithoutReplyInput>
+  create: Prisma.XOR<Prisma.InquiryCreateWithoutReplyInput, Prisma.InquiryUncheckedCreateWithoutReplyInput>
   where?: Prisma.InquiryWhereInput
 }
 
-export type InquiryUpdateToOneWithWhereWithoutMessagesInput = {
+export type InquiryUpdateToOneWithWhereWithoutReplyInput = {
   where?: Prisma.InquiryWhereInput
-  data: Prisma.XOR<Prisma.InquiryUpdateWithoutMessagesInput, Prisma.InquiryUncheckedUpdateWithoutMessagesInput>
+  data: Prisma.XOR<Prisma.InquiryUpdateWithoutReplyInput, Prisma.InquiryUncheckedUpdateWithoutReplyInput>
 }
 
-export type InquiryUpdateWithoutMessagesInput = {
+export type InquiryUpdateWithoutReplyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -628,9 +658,10 @@ export type InquiryUpdateWithoutMessagesInput = {
   demo?: Prisma.DemoUpdateOneRequiredWithoutInquiriesNestedInput
 }
 
-export type InquiryUncheckedUpdateWithoutMessagesInput = {
+export type InquiryUncheckedUpdateWithoutReplyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
@@ -641,6 +672,7 @@ export type InquiryUncheckedUpdateWithoutMessagesInput = {
 export type InquiryCreateManyCreatorInput = {
   id: string
   subject: string
+  message: string
   demoId: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
@@ -650,26 +682,29 @@ export type InquiryCreateManyCreatorInput = {
 export type InquiryUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutInquiriesNestedInput
-  messages?: Prisma.InquiryMessageUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUncheckedUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -679,6 +714,7 @@ export type InquiryUncheckedUpdateManyWithoutCreatorInput = {
 export type InquiryCreateManyDemoInput = {
   id: string
   subject: string
+  message: string
   creatorId: string
   status?: $Enums.InquiryStatus
   createdAt?: Date | string
@@ -688,26 +724,29 @@ export type InquiryCreateManyDemoInput = {
 export type InquiryUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.DemoMemberUpdateOneRequiredWithoutCreatedInquiriesNestedInput
-  messages?: Prisma.InquiryMessageUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.InquiryMessageUncheckedUpdateManyWithoutInquiryNestedInput
+  reply?: Prisma.InquiryReplyUncheckedUpdateOneWithoutInquiryNestedInput
 }
 
 export type InquiryUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumInquiryStatusFieldUpdateOperationsInput | $Enums.InquiryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,39 +754,11 @@ export type InquiryUncheckedUpdateManyWithoutDemoInput = {
 }
 
 
-/**
- * Count Type InquiryCountOutputType
- */
-
-export type InquiryCountOutputType = {
-  messages: number
-}
-
-export type InquiryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  messages?: boolean | InquiryCountOutputTypeCountMessagesArgs
-}
-
-/**
- * InquiryCountOutputType without action
- */
-export type InquiryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the InquiryCountOutputType
-   */
-  select?: Prisma.InquiryCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * InquiryCountOutputType without action
- */
-export type InquiryCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.InquiryMessageWhereInput
-}
-
 
 export type InquirySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   subject?: boolean
+  message?: boolean
   creatorId?: boolean
   demoId?: boolean
   status?: boolean
@@ -755,13 +766,13 @@ export type InquirySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   creator?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
-  messages?: boolean | Prisma.Inquiry$messagesArgs<ExtArgs>
-  _count?: boolean | Prisma.InquiryCountOutputTypeDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.Inquiry$replyArgs<ExtArgs>
 }, ExtArgs["result"]["inquiry"]>
 
 export type InquirySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   subject?: boolean
+  message?: boolean
   creatorId?: boolean
   demoId?: boolean
   status?: boolean
@@ -774,6 +785,7 @@ export type InquirySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type InquirySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   subject?: boolean
+  message?: boolean
   creatorId?: boolean
   demoId?: boolean
   status?: boolean
@@ -786,6 +798,7 @@ export type InquirySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type InquirySelectScalar = {
   id?: boolean
   subject?: boolean
+  message?: boolean
   creatorId?: boolean
   demoId?: boolean
   status?: boolean
@@ -793,12 +806,11 @@ export type InquirySelectScalar = {
   updatedAt?: boolean
 }
 
-export type InquiryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subject" | "creatorId" | "demoId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["inquiry"]>
+export type InquiryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subject" | "message" | "creatorId" | "demoId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["inquiry"]>
 export type InquiryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
-  messages?: boolean | Prisma.Inquiry$messagesArgs<ExtArgs>
-  _count?: boolean | Prisma.InquiryCountOutputTypeDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.Inquiry$replyArgs<ExtArgs>
 }
 export type InquiryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
@@ -814,11 +826,12 @@ export type $InquiryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     creator: Prisma.$DemoMemberPayload<ExtArgs>
     demo: Prisma.$DemoPayload<ExtArgs>
-    messages: Prisma.$InquiryMessagePayload<ExtArgs>[]
+    reply: Prisma.$InquiryReplyPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     subject: string
+    message: string
     creatorId: string
     demoId: string
     status: $Enums.InquiryStatus
@@ -1220,7 +1233,7 @@ export interface Prisma__InquiryClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   creator<T extends Prisma.DemoMemberDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoMemberDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoMemberClient<runtime.Types.Result.GetResult<Prisma.$DemoMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   demo<T extends Prisma.DemoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemoDefaultArgs<ExtArgs>>): Prisma.Prisma__DemoClient<runtime.Types.Result.GetResult<Prisma.$DemoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  messages<T extends Prisma.Inquiry$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inquiry$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InquiryMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reply<T extends Prisma.Inquiry$replyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inquiry$replyArgs<ExtArgs>>): Prisma.Prisma__InquiryReplyClient<runtime.Types.Result.GetResult<Prisma.$InquiryReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1252,6 +1265,7 @@ export interface Prisma__InquiryClient<T, Null = never, ExtArgs extends runtime.
 export interface InquiryFieldRefs {
   readonly id: Prisma.FieldRef<"Inquiry", 'String'>
   readonly subject: Prisma.FieldRef<"Inquiry", 'String'>
+  readonly message: Prisma.FieldRef<"Inquiry", 'String'>
   readonly creatorId: Prisma.FieldRef<"Inquiry", 'String'>
   readonly demoId: Prisma.FieldRef<"Inquiry", 'String'>
   readonly status: Prisma.FieldRef<"Inquiry", 'InquiryStatus'>
@@ -1658,27 +1672,22 @@ export type InquiryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Inquiry.messages
+ * Inquiry.reply
  */
-export type Inquiry$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Inquiry$replyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the InquiryMessage
+   * Select specific fields to fetch from the InquiryReply
    */
-  select?: Prisma.InquiryMessageSelect<ExtArgs> | null
+  select?: Prisma.InquiryReplySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the InquiryMessage
+   * Omit specific fields from the InquiryReply
    */
-  omit?: Prisma.InquiryMessageOmit<ExtArgs> | null
+  omit?: Prisma.InquiryReplyOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.InquiryMessageInclude<ExtArgs> | null
-  where?: Prisma.InquiryMessageWhereInput
-  orderBy?: Prisma.InquiryMessageOrderByWithRelationInput | Prisma.InquiryMessageOrderByWithRelationInput[]
-  cursor?: Prisma.InquiryMessageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.InquiryMessageScalarFieldEnum | Prisma.InquiryMessageScalarFieldEnum[]
+  include?: Prisma.InquiryReplyInclude<ExtArgs> | null
+  where?: Prisma.InquiryReplyWhereInput
 }
 
 /**

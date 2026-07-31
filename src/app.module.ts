@@ -44,6 +44,9 @@ import { join } from 'path';
 import { DepartmentMessagesModule } from './departmentMessages/departmentMessages.module';
 import { DepartmentMessagesInfrastructureModule } from './departmentMessages/infrastructure/departmentMessages-infrastructure.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { InquiryRepliesModule } from './inquiryReplies/inquiryReplies.module';
+import { InquiryRepliesInfrastructureModule } from './inquiryReplies/infrastructure/inquiryReplies-infrastructure.module';
+
 
 @Module({})
 export class AppModule {
@@ -84,6 +87,7 @@ export class AppModule {
         DepartmentMessagesModule.withInfrastructure(
           DepartmentMessagesInfrastructureModule.use(),
         ),
+        InquiryRepliesModule.withInfrastructure(InquiryRepliesInfrastructureModule.use()),
       ],
       providers: [
         { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },

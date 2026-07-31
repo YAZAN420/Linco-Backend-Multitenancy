@@ -9,6 +9,7 @@ export class InquiryResponseMapper {
     return new InquiryResponseDto(
       inquiry.id,
       inquiry.subject,
+      inquiry.message,
       inquiry.demoId,
       inquiry.creatorId,
       inquiry.status as InquiryStatus,
