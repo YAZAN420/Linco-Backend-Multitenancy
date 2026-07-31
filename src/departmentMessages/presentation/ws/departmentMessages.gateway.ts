@@ -116,7 +116,7 @@ export class DepartmentMessagesGateway
 
     const onlineMemberIds = [
       ...new Set(
-        Array.from(this.server.sockets.sockets.values())
+        Array.from(client.nsp.sockets.values())
           .map((socket) => {
             const socketData = socket.data as AuthenticatedSocket['data'];
 
@@ -126,7 +126,7 @@ export class DepartmentMessagesGateway
 
             return socketData.departmentMemberId;
           })
-          .filter((id): id is string => Boolean(id)),
+          .filter((id): id is string => typeof id === 'string'),
       ),
     ];
 
