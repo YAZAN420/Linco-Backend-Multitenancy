@@ -82,7 +82,9 @@ export class DepartmentMessagesGateway
     const { departmentId, member } = client.data;
 
     if (departmentId && member) {
-      client.to(`dept_${departmentId}`).emit('userOffline', member);
+      client
+        .to(`dept_${departmentId}`)
+        .emit('userOffline', { departmentMemberId: member.departmentMemberId });
     }
   }
 
@@ -119,12 +121,14 @@ export class DepartmentMessagesGateway
           .map((socket) => socket as AuthenticatedSocket)
           .filter(
             (socket) =>
-              socket.data.departmentId === departmentId && socket.data.member,
+              socket.data.departmentId === departmentId &&
+              socket.data.member !== undefined,
           )
-          .map((socket) => [
-            socket.data.member!.departmentMemberId,
-            socket.data.member!,
-          ]),
+          .map((socket) => {
+            const member = socket.data.member!;
+
+            return [member.departmentMemberId, member] as const;
+          }),
       ).values(),
     ];
 
@@ -146,7 +150,7 @@ export class DepartmentMessagesGateway
     const { departmentId, member } = this.validateClientContext(client);
 
     client.to(`dept_${departmentId}`).emit('userTypingStatus', {
-      ...member,
+      departmentMemberId: member.departmentMemberId,
       isTyping,
     });
   }
@@ -156,11 +160,10 @@ export class DepartmentMessagesGateway
     @MessageBody() dto: SendMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId, departmentMemberId } =
-      this.validateClientContext(client);
+    const { departmentId, member } = this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.create(
-      departmentMemberId,
+      member.departmentMemberId,
       departmentId,
       dto,
     );
@@ -178,13 +181,12 @@ export class DepartmentMessagesGateway
     @MessageBody() dto: EditMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId, departmentMemberId } =
-      this.validateClientContext(client);
+    const { departmentId, member } = this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.update(
       departmentId,
       dto.messageId,
-      departmentMemberId,
+      member.departmentMemberId,
       {
         content: dto.content,
       },
@@ -203,13 +205,12 @@ export class DepartmentMessagesGateway
     @MessageBody() { messageId }: DeleteMessageDto,
     @ConnectedSocket() client: AuthenticatedSocket,
   ) {
-    const { departmentId, departmentMemberId } =
-      this.validateClientContext(client);
+    const { departmentId, member } = this.validateClientContext(client);
 
     const domainMessage = await this.departmentMessageCommandService.remove(
       departmentId,
       messageId,
-      departmentMemberId,
+      member.departmentMemberId,
     );
 
     await this.broadcastMessage(
@@ -230,7 +231,6 @@ export class DepartmentMessagesGateway
     return {
       departmentId,
       member,
-      departmentMemberId: member.departmentMemberId,
     };
   }
 
