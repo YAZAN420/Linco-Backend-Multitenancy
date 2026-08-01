@@ -157,3 +157,13 @@ export type InquiryWithDemoMember = Prisma.InquiryGetPayload<{
     };
   };
 }>;
+
+export type InquiryReplyWithDemoMember = Prisma.InquiryReplyGetPayload<{
+  include: {
+    sender: {
+      include: {
+        user: true;
+      };
+    };
+  };
+}>;

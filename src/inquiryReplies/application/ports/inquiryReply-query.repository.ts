@@ -1,11 +1,12 @@
 import { CursorPageDto } from 'src/common/dtos/pagination';
 import { FindInquiryRepliesCursorQuery } from '../interfaces/find-inquiryReplies.query';
-import { InquiryReply } from 'src/generated/prisma/client';
+
+import { InquiryReplyWithDemoMember } from 'src/core/database/prisma/types';
 
 export abstract class InquiryReplyQueryRepository {
   abstract findAllCursor(
     inquiryId: string,
     options: FindInquiryRepliesCursorQuery,
-  ): Promise<CursorPageDto<InquiryReply>>;
-  abstract findById(id: string): Promise<InquiryReply | null>;
+  ): Promise<CursorPageDto<InquiryReplyWithDemoMember>>;
+  abstract findById(id: string): Promise<InquiryReplyWithDemoMember | null>;
 }

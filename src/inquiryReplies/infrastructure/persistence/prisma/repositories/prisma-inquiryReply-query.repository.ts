@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { InquiryReply } from 'src/generated/prisma/client';
+import { InquiryReplyWithDemoMember } from 'src/core/database/prisma/types';
 
 import { FindInquiryRepliesCursorQuery } from 'src/inquiryReplies/application/interfaces/find-inquiryReplies.query';
 import { InquiryReplyQueryRepository } from 'src/inquiryReplies/application/ports/inquiryReply-query.repository';
@@ -14,7 +14,7 @@ export class PrismaInquiryReplyQueryRepository implements InquiryReplyQueryRepos
   async findAllCursor(
     inquiryId: string,
     options: FindInquiryRepliesCursorQuery,
-  ): Promise<CursorPageDto<InquiryReply>> {
+  ): Promise<CursorPageDto<InquiryReplyWithDemoMember>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.inquiryReply.findMany({
@@ -23,6 +23,13 @@ export class PrismaInquiryReplyQueryRepository implements InquiryReplyQueryRepos
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
       where: { inquiryId },
+      include: {
+        sender: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
 
     const hasNextPage = items.length > take;
@@ -36,9 +43,16 @@ export class PrismaInquiryReplyQueryRepository implements InquiryReplyQueryRepos
     );
   }
 
-  async findById(id: string): Promise<InquiryReply | null> {
+  async findById(id: string): Promise<InquiryReplyWithDemoMember | null> {
     return this.prisma.inquiryReply.findUnique({
       where: { id },
+      include: {
+        sender: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
   }
 }
