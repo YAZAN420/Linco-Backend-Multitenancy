@@ -1,3 +1,4 @@
+import { DemoMemberResponseDto } from 'src/demos/presentation/http/dto/demo-member/demo-member-response.dto';
 import { InquiryStatus } from 'src/inquiries/domain/enums/inqurity-status.enum';
 
 export class InquiryResponseDto {
@@ -6,9 +7,9 @@ export class InquiryResponseDto {
     readonly subject: string,
     readonly message: string,
     readonly demoId: string,
-    readonly creatorId: string,
     readonly status: InquiryStatus,
     readonly createdAt: Date,
     readonly updatedAt: Date,
+    readonly creator: DemoMemberResponseDto,
   ) {}
 }

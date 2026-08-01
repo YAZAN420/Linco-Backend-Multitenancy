@@ -14,13 +14,14 @@ import { InquiryReplyResponseMapper } from './mappers/inquiryReply-response.mapp
 import { InquiryRepliesCommandService } from 'src/inquiryReplies/application/inquiryReplies-command.service';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { InquiryRepliesQueryService } from 'src/inquiryReplies/application/inquiryReplies-query.service';
 
-@Controller('inquiryReplies')
 @UseGuards(DemoRolesGuard)
 @Controller('inquiries/:inquiryId/inquiryReplies')
 export class InquiryRepliesCommandController {
   constructor(
     private readonly inquiryReplyCommandService: InquiryRepliesCommandService,
+    private readonly inquiryReplyQueryService: InquiryRepliesQueryService,
     private readonly inquiryReplyResponseMapper: InquiryReplyResponseMapper,
   ) {}
 
@@ -30,15 +31,17 @@ export class InquiryRepliesCommandController {
     @Param('inquiryId') inquiryId: string,
     @Body() dto: CreateInquiryReplyDto,
   ) {
-    const inquiryReply = await this.inquiryReplyCommandService.create(
+    const createdInquiryReply = await this.inquiryReplyCommandService.create(
       inquiryId,
       demoId,
       dto,
     );
-
+    const inquiryReply = await this.inquiryReplyQueryService.findById(
+      createdInquiryReply.id,
+    );
     return {
       message: 'messages.INQUIRY_REPLY_CREATED_SUCCESSFULLY',
-      data: this.inquiryReplyResponseMapper.toResponseFromDomain(inquiryReply),
+      data: this.inquiryReplyResponseMapper.toResponseFromPrisma(inquiryReply),
     };
   }
 
@@ -48,15 +51,18 @@ export class InquiryRepliesCommandController {
     @Param('inquiryReplyId') inquiryReplyId: string,
     @Body() dto: UpdateInquiryReplyDto,
   ) {
-    const inquiryReply = await this.inquiryReplyCommandService.update(
+    const updatedInquiryReply = await this.inquiryReplyCommandService.update(
       inquiryId,
       inquiryReplyId,
       dto,
     );
+    const inquiryReply = await this.inquiryReplyQueryService.findById(
+      updatedInquiryReply.id,
+    );
 
     return {
       message: 'messages.INQUIRY_REPLY_UPDATED_SUCCESSFULLY',
-      data: this.inquiryReplyResponseMapper.toResponseFromDomain(inquiryReply),
+      data: this.inquiryReplyResponseMapper.toResponseFromPrisma(inquiryReply),
     };
   }
 

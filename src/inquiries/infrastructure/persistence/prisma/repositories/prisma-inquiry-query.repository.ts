@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Inquiry } from 'src/generated/prisma/client';
+import { InquiryWithDemoMember } from 'src/core/database/prisma/types';
 
 import { FindInquiriesCursorQuery } from 'src/inquiries/application/interfaces/find-inquiries.query';
 import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
@@ -14,7 +14,7 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
   async findAllCursor(
     demoId: string,
     options: FindInquiriesCursorQuery,
-  ): Promise<CursorPageDto<Inquiry>> {
+  ): Promise<CursorPageDto<InquiryWithDemoMember>> {
     const { cursor, take } = options;
 
     const items = await this.prisma.inquiry.findMany({
@@ -24,6 +24,13 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
       orderBy: [{ id: 'desc' }],
       where: {
         demoId,
+      },
+      include: {
+        creator: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
 
@@ -38,9 +45,19 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
     );
   }
 
-  async findById(id: string, demoId: string): Promise<Inquiry | null> {
+  async findById(
+    id: string,
+    demoId: string,
+  ): Promise<InquiryWithDemoMember | null> {
     return this.prisma.inquiry.findFirst({
       where: { id, demoId },
+      include: {
+        creator: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
   }
 }

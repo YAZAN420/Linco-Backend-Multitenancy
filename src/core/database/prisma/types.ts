@@ -147,3 +147,13 @@ export type DepartmentMessageWithSenderAndReply =
       };
     };
   }>;
+
+export type InquiryWithDemoMember = Prisma.InquiryGetPayload<{
+  include: {
+    creator: {
+      include: {
+        user: true;
+      };
+    };
+  };
+}>;
