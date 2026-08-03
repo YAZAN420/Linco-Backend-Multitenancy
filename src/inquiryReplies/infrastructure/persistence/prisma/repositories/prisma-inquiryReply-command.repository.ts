@@ -13,7 +13,6 @@ export class PrismaInquiryReplyCommandRepository implements InquiryReplyCommandR
 
   async save(inquiryReply: InquiryReply): Promise<void> {
     const data = this.mapper.toPersistence(inquiryReply);
-    console.log('Saving inquiry reply:', data);
     await this.prisma.inquiryReply.upsert({
       where: { id: inquiryReply.id },
       update: data,
