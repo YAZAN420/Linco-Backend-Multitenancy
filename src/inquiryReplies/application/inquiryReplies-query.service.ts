@@ -23,7 +23,7 @@ export class InquiryRepliesQueryService {
   async findById(id: string): Promise<InquiryReplyWithDemoMember> {
     const inquiryReply = await this.inquiryReplyQueryRepository.findById(id);
     if (!inquiryReply)
-      throw new NotFoundException('errors.INQUIRY_Reply_NOT_FOUND');
+      throw new NotFoundException('errors.INQUIRY_REPLY_NOT_FOUND');
     return inquiryReply;
   }
 }

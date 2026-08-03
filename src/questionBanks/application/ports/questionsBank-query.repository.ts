@@ -18,4 +18,7 @@ export abstract class QuestionsBankQueryRepository {
     sectionId: string,
     id: string,
   ): Promise<QuestionsBankWithQuestionChoices | null>;
+  abstract findByIdWithoutSection(
+    id: string
+  ): Promise<QuestionsBankWithQuestionChoices | null>;
 }
