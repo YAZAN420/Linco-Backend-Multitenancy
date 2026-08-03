@@ -13,6 +13,7 @@ export class QuestionsBankResponseMapper {
       questionsBank.id,
       questionsBank.sectionId,
       questionsBank.question,
+      questionsBank.note,
       questionsBank.choices.map(
         (choice) =>
           new QuestionChoiceResponseDto(choice.choice, choice.isCorrect),

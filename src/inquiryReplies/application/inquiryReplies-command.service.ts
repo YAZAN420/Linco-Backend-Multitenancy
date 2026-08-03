@@ -6,6 +6,7 @@ import { InquiryReply } from '../domain/inquiryReply';
 import { CreateInquiryReplyInput } from './interfaces/create-inquiryReply-input.interface';
 import { UpdateInquiryReplyInput } from './interfaces/update-inquiryReply-input.interface';
 import { InquirySenderType } from '../domain/enums/InquirySenderType';
+import { DemoMemberRole } from 'src/generated/prisma/enums';
 
 @Injectable()
 export class InquiryRepliesCommandService {
@@ -17,11 +18,13 @@ export class InquiryRepliesCommandService {
   async create(
     inquiryId: string,
     demoMemberId: string,
+    demoMemberRole: DemoMemberRole,
     input: CreateInquiryReplyInput,
   ): Promise<InquiryReply> {
+    const senderType = demoMemberRole as InquirySenderType;
     const inquiryReply = this.inquiryReplyFactory.createNew(
       input.message,
-      InquirySenderType.ADMIN,
+      senderType,
       demoMemberId,
       inquiryId,
     );

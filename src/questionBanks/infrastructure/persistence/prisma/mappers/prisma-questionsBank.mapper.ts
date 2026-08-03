@@ -14,6 +14,7 @@ export class PrismaQuestionsBankMapper {
     return new QuestionsBank(raw.id, {
       sectionId: raw.sectionId,
       question: raw.question,
+      note: raw.note,
       choices: raw.choices
         ? raw.choices.map((choice) =>
             this.prismaQuestionCoicesMapper.toDomain(choice),
@@ -29,6 +30,7 @@ export class PrismaQuestionsBankMapper {
       id: questionBank.id,
       sectionId: questionBank.sectionId,
       question: questionBank.question,
+      note: questionBank.note,
       createdAt: questionBank.createdAt,
       updatedAt: questionBank.updatedAt,
     };

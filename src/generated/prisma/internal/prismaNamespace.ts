@@ -2496,6 +2496,7 @@ export const QuestionsBankScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
   question: 'question',
+  note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

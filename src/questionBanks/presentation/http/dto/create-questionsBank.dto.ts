@@ -12,4 +12,7 @@ export class CreateQuestionBankDto implements CreateQuestionsBankInput {
   @ValidateNested({ each: true })
   @Type(() => ChoiceDto)
   choices!: ChoiceDto[];
+
+  @IsString()
+  note!: string;
 }

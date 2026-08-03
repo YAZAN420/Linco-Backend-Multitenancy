@@ -5,6 +5,7 @@ export class QuestionsBankResponseDto {
     readonly id: string,
     readonly sectionId: string,
     readonly question: string,
+    readonly note: string,
     readonly choices: QuestionChoiceResponseDto[],
     readonly createdAt: Date,
     readonly updatedAt: Date,

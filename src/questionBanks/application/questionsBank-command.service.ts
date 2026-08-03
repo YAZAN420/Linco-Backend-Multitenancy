@@ -26,6 +26,7 @@ export class QuestionsBanksCommandService {
 
     const questionsBank = this.questionsBankFactory.createNew(
       sectionId,
+      input.note,
       input.question,
     );
 

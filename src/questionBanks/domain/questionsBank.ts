@@ -12,6 +12,10 @@ export class QuestionsBank {
     return this.props.sectionId;
   }
 
+  get note(): string {
+    return this.props.note;
+  }
+
   get choices(): QuestionChoice[] {
     return [...this.props.choices];
   }

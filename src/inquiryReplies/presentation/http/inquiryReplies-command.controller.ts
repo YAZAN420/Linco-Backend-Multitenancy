@@ -15,6 +15,8 @@ import { InquiryRepliesCommandService } from 'src/inquiryReplies/application/inq
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { InquiryRepliesQueryService } from 'src/inquiryReplies/application/inquiryReplies-query.service';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
+import { InquirySenderType } from 'src/inquiryReplies/domain/enums/InquirySenderType';
 
 @UseGuards(DemoRolesGuard)
 @Controller('inquiries/:inquiryId/inquiryReplies')
@@ -27,13 +29,14 @@ export class InquiryRepliesCommandController {
 
   @Post()
   async create(
-    @ActiveDemoMember('demoId') demoId: string,
+    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
     @Param('inquiryId') inquiryId: string,
     @Body() dto: CreateInquiryReplyDto,
   ) {
     const createdInquiryReply = await this.inquiryReplyCommandService.create(
       inquiryId,
-      demoId,
+      demoMember.id,
+      demoMember.role,
       dto,
     );
     const inquiryReply = await this.inquiryReplyQueryService.findById(
