@@ -86,7 +86,9 @@ export class PaymentsCommandService {
       throw new NotFoundException('errors.COURSE_NOT_FOUND');
     }
     if (!course.isPublished) {
-      throw new BadRequestException('errors.CANNOT_PURCHASE_AN_UNPUBLISHED_COURSE');
+      throw new BadRequestException(
+        'errors.CANNOT_PURCHASE_AN_UNPUBLISHED_COURSE',
+      );
     }
 
     if (course.visibility === CourseVisibility.PRIVATE) {
@@ -209,11 +211,14 @@ export class PaymentsCommandService {
 
     const paymentId = session.metadata?.paymentId;
     if (!paymentId) {
-      throw new NotFoundException('errors.PAYMENT_METADATA_NOT_FOUND_IN_SESSION');
+      throw new NotFoundException(
+        'errors.PAYMENT_METADATA_NOT_FOUND_IN_SESSION',
+      );
     }
 
     const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment) throw new NotFoundException('errors.PAYMENT_RECORD_NOT_FOUND');
+    if (!payment)
+      throw new NotFoundException('errors.PAYMENT_RECORD_NOT_FOUND');
     return {
       status: session.status,
       paymentStatus: session.payment_status,
