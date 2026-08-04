@@ -30,6 +30,7 @@ export class ExamResponseMapper {
       questions: data.questions.map((q) => ({
         id: q.id,
         question: q.question,
+        note: q.note,
         choices: q.choices.map((c) => ({
           id: c.id,
           choice: c.choice,

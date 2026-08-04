@@ -8,6 +8,8 @@ import { InquiryResponseMapper } from './mappers/inquiry-response.mapper';
 import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { DemoMember } from 'src/demos/domain/demo-member';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 
 @ApiTags('Inquiry')
 @UseGuards(DemoRolesGuard)
@@ -46,5 +48,23 @@ export class InquiriesQueryController {
       message: 'messages.INQUIRY_RETRIEVED_SUCCESSFULLY',
       data: this.inquiryResponseMapper.toResponseFromPrisma(inquiry),
     };
+  }
+
+  @Get('cursor/me') 
+  async findAllForMe (
+    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
+    @Query() options: CursorPageOptionsDto
+   ) {
+    const inquiries = await this.inquiryQueryService.findAllForMe(
+      demoMember.demoId,
+      demoMember.id,
+      options
+    );
+
+    return {
+      message: 'messages.INQUIRIES_FETCHED_SUCCESSFULLY',
+      data: this.inquiryResponseMapper.toResponseManyFromPrisma(inquiries.data),
+      meta: inquiries.meta,
+    }
   }
 }

@@ -5,6 +5,7 @@ import { InquiryFactory } from './domain/factories/inquiry.factory';
 import { InquiriesCommandService } from './application/inquiries-command.service';
 import { InquiriesQueryService } from './application/inquiries-query.service';
 import { InquiryResponseMapper } from './presentation/http/mappers/inquiry-response.mapper';
+import { InquiryReplyResponseMapper } from 'src/inquiryReplies/presentation/http/mappers/inquiryReply-response.mapper';
 
 @Global()
 @Module({
@@ -15,6 +16,7 @@ import { InquiryResponseMapper } from './presentation/http/mappers/inquiry-respo
     InquiriesQueryService,
     InquiryFactory,
     InquiryResponseMapper,
+    InquiryReplyResponseMapper
   ],
   exports: [
     InquiriesCommandService,

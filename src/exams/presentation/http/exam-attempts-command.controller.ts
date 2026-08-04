@@ -13,6 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
+import { ExamResponseMapper } from './mappers/exam-response.mapper';
 
 @ApiTags('ExamAttempts')
 @UseGuards(DemoRolesGuard)
@@ -22,6 +23,7 @@ export class ExamsAttemptCommandController {
     private readonly examAttemptCommandService: ExamAttemptCommandService,
     private readonly examAttemptQueryService: ExamAttemptQueryService,
     private readonly examAttemptResponseMapper: ExamAttemptResponseMapper,
+    private readonly examResponseMapper: ExamResponseMapper
   ) {}
 
   @Post()
@@ -34,12 +36,15 @@ export class ExamsAttemptCommandController {
       dto,
     );
     const examAttempt = await this.examAttemptQueryService.findById(
-      createdExamAttempt.id,
+      createdExamAttempt.examAttempt.id,
     );
 
     return {
       message: 'messages.EXAM_ATTEMPT_CREATED_SUCCESSFULLY',
-      data: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
+      data: {
+        examAttempt: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
+        ...this.examResponseMapper.toGeneratedExamResponse(createdExamAttempt)
+      }
     };
   }
 

@@ -95,4 +95,13 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
       include: { choices: true },
     });
   }
+
+  async findByIdWithoutSection(
+    id: string
+  ): Promise<QuestionsBankWithQuestionChoices | null> {
+    return await this.prisma.questionsBank.findUnique({
+      where: { id },
+      include: { choices: true },
+    });
+  }
 }

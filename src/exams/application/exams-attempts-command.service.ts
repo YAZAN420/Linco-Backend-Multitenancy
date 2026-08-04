@@ -6,6 +6,8 @@ import { ExamAttemptCommandRepository } from './ports/exam-attempt-command.repos
 import { QuestionsBankQueryRepository } from 'src/questionBanks/application/ports/questionsBank-query.repository';
 import { ExamQueryRepository } from './ports/exam-query.repository';
 import { ExamUserAnswerInput } from './interfaces/exam-user-answer-input.interface';
+import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
+import { Exam } from '../domain/exam';
 
 @Injectable()
 export class ExamAttemptCommandService {
@@ -19,7 +21,11 @@ export class ExamAttemptCommandService {
   async create(
     demoMemberId: string,
     input: CreateExamAttemptInput,
-  ): Promise<ExamAttempt> {
+  ): Promise<{
+      examAttempt: ExamAttempt;
+      exam: Exam;
+      questions: QuestionsBankWithQuestionChoices[];
+    }> {
     const exam = await this.examQueryRepository.findById(input.examId);
     if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
@@ -40,8 +46,17 @@ export class ExamAttemptCommandService {
       calculatedScore,
     );
 
+    const questionsWithChoices = await Promise.all(
+      input.answers.map((a) => this.questionBankQueryRepository.findByIdWithoutSection(a.questionId)),
+    ) as QuestionsBankWithQuestionChoices[];
+    console.log(questionsWithChoices);
+
     await this.examAttemptCommandRepository.save(examAttempt);
-    return examAttempt;
+    return {
+      examAttempt,
+      exam,
+      questions: questionsWithChoices,
+    };
   }
 
   async remove(id: string): Promise<void> {

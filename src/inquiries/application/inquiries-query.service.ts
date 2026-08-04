@@ -5,7 +5,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { FindInquiriesCursorQuery } from './interfaces/find-inquiries.query';
 
 import { InquiryQueryRepository } from './ports/inquiry-query.repository';
-import { InquiryWithDemoMember } from 'src/core/database/prisma/types';
+import { InquiryWithReply } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class InquiriesQueryService {
@@ -16,11 +16,19 @@ export class InquiriesQueryService {
   async findAllCursor(
     options: FindInquiriesCursorQuery,
     demoId: string,
-  ): Promise<CursorPageDto<InquiryWithDemoMember>> {
+  ): Promise<CursorPageDto<InquiryWithReply>> {
     return this.inquiryQueryRepository.findAllCursor(demoId, options);
   }
 
-  async findById(id: string, demoId: string): Promise<InquiryWithDemoMember> {
+  async findAllForMe(
+    demoId: string,
+    userId: string,
+    options: FindInquiriesCursorQuery
+  ): Promise<CursorPageDto<InquiryWithReply>> {
+    return this.inquiryQueryRepository.findAllForMe(demoId, userId, options);
+  }
+
+  async findById(id: string, demoId: string): Promise<InquiryWithReply> {
     const inquiry = await this.inquiryQueryRepository.findById(id, demoId);
     if (!inquiry) throw new NotFoundException('errors.INQUIRY_NOT_FOUND');
     return inquiry;
