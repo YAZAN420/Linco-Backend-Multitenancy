@@ -6,10 +6,8 @@ import {
 import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
 
 export abstract class DepartmentCourseQueryRepository {
-  abstract findAll(
-    options: FindDepartmentCoursesQuery,
-  ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>>;
   abstract findAllCursor(
+    departmentId: string,
     options: FindDepartmentCoursesCursorQuery,
   ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>>;
   abstract findById(
