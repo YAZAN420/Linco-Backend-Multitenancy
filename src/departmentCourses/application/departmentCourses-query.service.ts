@@ -18,18 +18,6 @@ export class DepartmentCoursesQueryService {
     private readonly demoQueryRepository: DemoQueryRepository,
   ) {}
 
-  async findAll(
-    departmentId: string,
-    pageOptionsDto: FindDepartmentCoursesQuery,
-  ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>> {
-    const department =
-      await this.demoQueryRepository.findDepartmentById(departmentId);
-    if (!department) {
-      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
-    }
-    return this.departmentCourseQueryRepository.findAll(pageOptionsDto);
-  }
-
   async findAllCursor(
     departmentId: string,
     options: FindDepartmentCoursesCursorQuery,
@@ -39,7 +27,7 @@ export class DepartmentCoursesQueryService {
     if (!department) {
       throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }
-    return this.departmentCourseQueryRepository.findAllCursor(options);
+    return this.departmentCourseQueryRepository.findAllCursor(departmentId, options);
   }
 
   async findById(
