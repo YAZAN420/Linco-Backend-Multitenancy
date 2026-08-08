@@ -3,10 +3,7 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import {
-  FindDepartmentCoursesCursorQuery,
-  FindDepartmentCoursesQuery,
-} from './interfaces/find-departmentCourses.query';
+import { FindDepartmentCoursesCursorQuery } from './interfaces/find-departmentCourses.query';
 import { DepartmentCourseQueryRepository } from './ports/departmentCourse-query.repository';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { DepartmentCourseWithAssetWithCourse } from 'src/core/database/prisma/types';
