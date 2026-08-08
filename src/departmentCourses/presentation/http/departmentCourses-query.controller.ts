@@ -22,24 +22,6 @@ export class DepartmentCoursesQueryController {
     private readonly departmentCourseResponseMapper: DepartmentCourseResponseMapper,
   ) {}
 
-  @Get()
-  async findAll(
-    @ActiveDepartmentMember('departmentId') departmentId: string,
-    @Query() options: PageOptionsDto,
-  ) {
-    const departmentCourses = await this.departmentCourseQueryService.findAll(
-      departmentId,
-      options,
-    );
-    return {
-      message: 'messages.DEPARTMENT_COURSES_FETCHED_SUCCESSFULLY',
-      data: this.departmentCourseResponseMapper.toResponseManyFromPrisma(
-        departmentCourses.data,
-      ),
-      meta: departmentCourses.meta,
-    };
-  }
-
   @Get('cursor')
   async findWithCursor(
     @ActiveDepartmentMember('departmentId') departmentId: string,
