@@ -43,7 +43,7 @@ export class ExamsAttemptCommandController {
       message: 'messages.EXAM_ATTEMPT_CREATED_SUCCESSFULLY',
       data: {
         examAttempt: this.examAttemptResponseMapper.toResponseFromPrisma(examAttempt),
-        ...this.examResponseMapper.toGeneratedExamResponse(createdExamAttempt)
+        ...this.examResponseMapper.toGeneratedExamResponseWithSolutions(createdExamAttempt)
       }
     };
   }

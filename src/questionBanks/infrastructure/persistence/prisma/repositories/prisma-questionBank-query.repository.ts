@@ -110,7 +110,9 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
   ): Promise<QuestionsBankWithQuestionChoices | null> {
     return await this.prisma.questionsBank.findUnique({
       where: { id },
-      include: { choices: true },
+      include: { 
+        choices: true
+      },
     });
   }
 }

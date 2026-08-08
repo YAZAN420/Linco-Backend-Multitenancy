@@ -39,6 +39,29 @@ export class ExamResponseMapper {
     };
   }
 
+  toGeneratedExamResponseWithSolutions(data: {
+    exam: PrismaExam;
+    questions: QuestionsBankWithQuestionChoices[];
+  }) {
+    return {
+      id: data.exam.id,
+      sectionId: data.exam.sectionId,
+      title: data.exam.title,
+      durationMinutes: data.exam.durationMinutes,
+      numberOfQuestions: data.exam.numberOfQuestions,
+      questions: data.questions.map((q) => ({
+        id: q.id,
+        question: q.question,
+        note: q.note,
+        choices: q.choices.map((c) => ({
+          id: c.id,
+          choice: c.choice,
+          isCorrect: c.isCorrect
+        })),
+      })),
+    };
+  }
+
   toResponseManyFromPrisma(exams: PrismaExam[]): ExamResponseDto[] {
     return exams.map((exam) => this.toResponseFromPrisma(exam));
   }
