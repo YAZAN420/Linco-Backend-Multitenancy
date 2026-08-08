@@ -3,10 +3,7 @@ import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { DepartmentCoursesQueryService } from 'src/departmentCourses/application/departmentCourses-query.service';
 
 import { DepartmentCourseResponseMapper } from './mappers/departmentCourse-response.mapper';
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
