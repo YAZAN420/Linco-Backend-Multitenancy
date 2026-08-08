@@ -20,53 +20,8 @@ import {
 export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(
-    options: FindDepartmentCoursesQuery,
-  ): Promise<PageDto<DepartmentCourseWithAssetWithCourse>> {
-    const skip = (options.page - 1) * options.take;
-
-    const [rawItems, itemCount] = await Promise.all([
-      this.prisma.departmentCourse.findMany({
-        skip,
-        take: options.take,
-        orderBy: [{ assignedAt: 'desc' }],
-        where: {
-          asset: {
-            course: {
-              isPublished: true,
-            },
-          },
-        },
-        include: {
-          asset: {
-            include: {
-              course: {
-                include: courseWithStatsInclude,
-              },
-            },
-          },
-        },
-      }),
-      this.prisma.departmentCourse.count({
-        where: {
-          asset: {
-            course: {
-              isPublished: true,
-            },
-          },
-        },
-      }),
-    ]);
-
-    const items = rawItems.map(mapDepartmentCourse);
-
-    return new PageDto(
-      items,
-      new PageMetaDto({ itemCount, pageOptionsDto: options }),
-    );
-  }
-
   async findAllCursor(
+    departmentId: string,
     options: FindDepartmentCoursesCursorQuery,
   ): Promise<CursorPageDto<DepartmentCourseWithAssetWithCourse>> {
     const { cursor, take } = options;
@@ -77,6 +32,7 @@ export class PrismaDepartmentCourseQueryRepository implements DepartmentCourseQu
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
       where: {
+        departmentId,
         asset: {
           course: {
             isPublished: true,
