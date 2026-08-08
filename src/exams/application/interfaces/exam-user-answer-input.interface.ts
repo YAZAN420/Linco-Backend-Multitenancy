@@ -1,4 +1,4 @@
 export interface ExamUserAnswerInput {
   questionId: string;
-  selectedChoiceId: string;
+  selectedChoiceIds: string[];
 }

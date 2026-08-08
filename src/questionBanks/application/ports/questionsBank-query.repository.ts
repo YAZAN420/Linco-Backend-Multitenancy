@@ -13,7 +13,7 @@ export abstract class QuestionsBankQueryRepository {
   ): Promise<QuestionsBankWithQuestionChoices[]>;
   abstract findCorrectChoicesByQuestionIds(
     questionIds: string[],
-  ): Promise<{ questionId: string; correctChoiceId: string }[]>;
+  ): Promise<{ questionId: string; correctChoiceIds: string[] }[]>;
   abstract findById(
     sectionId: string,
     id: string,

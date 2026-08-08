@@ -68,7 +68,7 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
 
   async findCorrectChoicesByQuestionIds(
     questionIds: string[],
-  ): Promise<{ questionId: string; correctChoiceId: string }[]> {
+  ): Promise<{ questionId: string; correctChoiceIds: string[] }[]> {
     const choices = await this.prisma.questionChoice.findMany({
       where: {
         questionId: { in: questionIds },
@@ -80,10 +80,19 @@ export class PrismaQuestionsBankQueryRepository implements QuestionsBankQueryRep
       },
     });
 
-    return choices.map((c) => ({
-      questionId: c.questionId,
-      correctChoiceId: c.id,
-    }));
+    const groupedCorrectChoices = new Map<string, string[]>();
+    for (const choice of choices) {
+      const existingIds = groupedCorrectChoices.get(choice.questionId) ?? [];
+      existingIds.push(choice.id);
+      groupedCorrectChoices.set(choice.questionId, existingIds);
+    }
+
+    return Array.from(groupedCorrectChoices.entries()).map(
+      ([questionId, correctChoiceIds]) => ({
+        questionId,
+        correctChoiceIds,
+      }),
+    );
   }
 
   async findById(

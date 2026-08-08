@@ -65,12 +65,12 @@ export class ExamAttemptCommandService {
 
   private calculateScore(
     userAnswers: ExamUserAnswerInput[],
-    correctChoices: { questionId: string; correctChoiceId: string }[],
+    correctChoices: { questionId: string; correctChoiceIds: string[] }[],
     totalQuestions: number,
   ): number {
     if (totalQuestions === 0) return 0;
     const correctChoiceMap = new Map(
-      correctChoices.map((c) => [c.questionId, c.correctChoiceId]),
+      correctChoices.map((c) => [c.questionId, c.correctChoiceIds]),
     );
 
     const processedQuestions = new Set<string>();
@@ -80,8 +80,12 @@ export class ExamAttemptCommandService {
       if (processedQuestions.has(answer.questionId)) continue;
       processedQuestions.add(answer.questionId);
 
+      const correctChoiceIds = correctChoiceMap.get(answer.questionId) ?? [];
+      const selectedChoiceIds = new Set(answer.selectedChoiceIds);
       const isCorrect =
-        correctChoiceMap.get(answer.questionId) === answer.selectedChoiceId;
+        correctChoiceIds.length > 0 &&
+        correctChoiceIds.length === selectedChoiceIds.size &&
+        correctChoiceIds.every((choiceId) => selectedChoiceIds.has(choiceId));
       if (isCorrect) correctCount++;
     }
 
