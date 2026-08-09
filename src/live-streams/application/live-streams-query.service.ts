@@ -3,12 +3,12 @@ import { CursorPageDto } from 'src/common/dtos/pagination';
 import { LiveStream } from '../domain/live-stream';
 import {
   FindLiveStreamsQuery,
-  LiveStreamsQueryRepositoryPort,
+  LiveStreamsQueryRepository,
 } from './ports/live-streams-query.repository.port';
 
 @Injectable()
 export class LiveStreamsQueryService {
-  constructor(private readonly repository: LiveStreamsQueryRepositoryPort) {}
+  constructor(private readonly repository: LiveStreamsQueryRepository) {}
   async findById(
     id: string,
     departmentId: string,

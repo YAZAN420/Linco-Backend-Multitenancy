@@ -15,12 +15,12 @@ import {
   JitsiTokenPort,
   JitsiTokenResult,
 } from './ports/jitsi-token.port';
-import { LiveStreamsCommandRepositoryPort } from './ports/live-streams-command.repository.port';
+import { LiveStreamsCommandRepository } from './ports/live-streams-command.repository.port';
 
 @Injectable()
 export class LiveStreamsCommandService {
   constructor(
-    private readonly repository: LiveStreamsCommandRepositoryPort,
+    private readonly repository: LiveStreamsCommandRepository,
     private readonly factory: LiveStreamFactory,
     private readonly jitsiTokenPort: JitsiTokenPort,
   ) {}

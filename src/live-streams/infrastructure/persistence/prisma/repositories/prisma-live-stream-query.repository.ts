@@ -3,13 +3,13 @@ import { CursorPageDto, CursorPageMetaDto } from 'src/common/dtos/pagination';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import {
   FindLiveStreamsQuery,
-  LiveStreamsQueryRepositoryPort,
+  LiveStreamsQueryRepository,
 } from 'src/live-streams/application/ports/live-streams-query.repository.port';
 import { LiveStream } from 'src/live-streams/domain/live-stream';
 import { PrismaLiveStreamMapper } from '../mappers/prisma-live-stream.mapper';
 
 @Injectable()
-export class PrismaLiveStreamQueryRepository implements LiveStreamsQueryRepositoryPort {
+export class PrismaLiveStreamQueryRepository implements LiveStreamsQueryRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaLiveStreamMapper,

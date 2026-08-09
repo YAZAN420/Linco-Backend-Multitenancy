@@ -8,7 +8,7 @@ export interface FindLiveStreamsQuery {
   status?: LiveStreamStatus;
 }
 
-export abstract class LiveStreamsQueryRepositoryPort {
+export abstract class LiveStreamsQueryRepository {
   abstract findById(
     id: string,
     departmentId: string,

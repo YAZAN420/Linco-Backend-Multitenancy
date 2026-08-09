@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Prisma } from 'src/generated/prisma/client';
-import { LiveStreamsCommandRepositoryPort } from 'src/live-streams/application/ports/live-streams-command.repository.port';
+import { LiveStreamsCommandRepository } from 'src/live-streams/application/ports/live-streams-command.repository.port';
 import { LiveStream } from 'src/live-streams/domain/live-stream';
 import { PrismaLiveStreamMapper } from '../mappers/prisma-live-stream.mapper';
 
 @Injectable()
-export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepositoryPort {
+export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaLiveStreamMapper,

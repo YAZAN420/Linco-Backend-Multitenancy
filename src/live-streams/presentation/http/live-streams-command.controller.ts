@@ -21,7 +21,7 @@ import { LiveStreamHttpMapper } from './mappers/live-stream-http.mapper';
 
 @ApiTags('LiveStreams')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
-@Controller('live-streams')
+@Controller('liveStreams')
 export class LiveStreamsCommandController {
   constructor(
     private readonly service: LiveStreamsCommandService,
