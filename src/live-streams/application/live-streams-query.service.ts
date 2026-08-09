@@ -1,10 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CursorPageDto } from 'src/common/dtos/pagination';
 import { LiveStream } from '../domain/live-stream';
-import {
-  FindLiveStreamsQuery,
-  LiveStreamsQueryRepository,
-} from './ports/live-streams-query.repository.port';
+import { LiveStreamsQueryRepository } from './ports/live-streams-query.repository.port';
+import { FindCursorQuery } from 'src/common/interfaces/find.query';
 
 @Injectable()
 export class LiveStreamsQueryService {
@@ -12,7 +10,7 @@ export class LiveStreamsQueryService {
   async findAll(
     departmentId: string,
     demoId: string,
-    query: FindLiveStreamsQuery,
+    query: FindCursorQuery,
   ): Promise<CursorPageDto<LiveStream>> {
     return this.repository.findAll(departmentId, demoId, query);
   }

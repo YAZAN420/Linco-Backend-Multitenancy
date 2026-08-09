@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CursorPageDto, CursorPageMetaDto } from 'src/common/dtos/pagination';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import {
-  FindLiveStreamsQuery,
-  LiveStreamsQueryRepository,
-} from 'src/live-streams/application/ports/live-streams-query.repository.port';
+import { LiveStreamsQueryRepository } from 'src/live-streams/application/ports/live-streams-query.repository.port';
 import { LiveStream } from 'src/live-streams/domain/live-stream';
 import { PrismaLiveStreamMapper } from '../mappers/prisma-live-stream.mapper';
+import { FindCursorQuery } from 'src/common/interfaces/find.query';
 
 @Injectable()
 export class PrismaLiveStreamQueryRepository implements LiveStreamsQueryRepository {
@@ -29,13 +27,13 @@ export class PrismaLiveStreamQueryRepository implements LiveStreamsQueryReposito
   async findAll(
     departmentId: string,
     demoId: string,
-    query: FindLiveStreamsQuery,
+    query: FindCursorQuery,
   ): Promise<CursorPageDto<LiveStream>> {
     const items = await this.prisma.liveStream.findMany({
       take: query.take + 1,
       skip: query.cursor ? 1 : 0,
       cursor: query.cursor ? { id: query.cursor } : undefined,
-      where: { departmentId, department: { demoId }, status: query.status },
+      where: { departmentId, department: { demoId } },
       orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
     });
     const hasNextPage = items.length > query.take;
