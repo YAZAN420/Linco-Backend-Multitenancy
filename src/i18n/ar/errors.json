@@ -1,4 +1,11 @@
 {
+  "ENDED_LIVE_STREAMS_CANNOT_BE_UPDATED": "لا يمكن تحديث البثوث المباشرة المنتهية",
+  "LIVE_STREAM_NOT_FOUND": "البث المباشر غير موجود",
+  "LIVE_STREAM_CANNOT_BE_STARTED": "لا يمكن بدء البث المباشر",
+  "LIVE_STREAM_CANNOT_BE_ENDED": "لا يمكن إنهاء البث المباشر",
+  "LIVE_STREAM_CANNOT_BE_JOINED": "لا يمكن الانضمام إلى البث المباشر",
+  "ONLY_SCHEDULED_LIVE_STREAMS_CAN_BE_UPDATED": "يمكن تحديث البثوث المباشرة المجدولة فقط",
+  "LIVE_STREAM_ROOM_ALREADY_EXISTS": "غرفة البث المباشر موجودة بالفعل",
   "CERTIFICATION_ALREADY_EXISTS": "يوجد شهادة بالفعل لهذا العضو وهذه الدورة",
   "CERTIFICATION_COURSE_AND_MEMBER_MUST_BELONG_TO_THE_SAME_WORKSPACE": "يجب أن تنتمي الدورة والعضو إلى نفس مساحة العمل",
   "CERTIFICATION_NOT_FOUND": "الشهادة غير موجودة",

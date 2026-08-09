@@ -1,4 +1,11 @@
 {
+  "ENDED_LIVE_STREAMS_CANNOT_BE_UPDATED": "Ended live streams cannot be updated",
+  "LIVE_STREAM_NOT_FOUND": "Live stream not found",
+  "LIVE_STREAM_CANNOT_BE_STARTED": "Live stream cannot be started",
+  "LIVE_STREAM_CANNOT_BE_ENDED": "Live stream cannot be ended",
+  "LIVE_STREAM_CANNOT_BE_JOINED": "Live stream cannot be joined",
+  "ONLY_SCHEDULED_LIVE_STREAMS_CAN_BE_UPDATED": "Only scheduled live streams can be updated",
+  "LIVE_STREAM_ROOM_ALREADY_EXISTS": "Live stream room already exists",
   "ACCESS_DENIED": "Access Denied",
   "ACCOUNT_REGISTERED_VIA_GOOGLE_PLEASE_USE_THE_FORGOT_PASSWORD_FLOW_OR_EMAIL_VERIFICATION_TO_SET_YOUR_FIRST_PASSWORD": "Account registered via Google. Please use the \"Forgot Password\" flow or email verification to set your first password.",
   "AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER": "AI Cant generate the roadmap. Please try again later.",
