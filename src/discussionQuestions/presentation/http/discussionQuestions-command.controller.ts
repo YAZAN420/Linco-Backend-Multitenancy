@@ -1,15 +1,25 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateDiscussionQuestionDto } from './dto/create-discussionQuestion.dto';
 import { UpdateDiscussionQuestionDto } from './dto/update-discussionQuestion.dto';
 
 import { DiscussionQuestionResponseMapper } from './mappers/discussionQuestion-response.mapper';
 import { DiscussionQuestionsCommandService } from 'src/discussionQuestions/application/discussionQuestions-command.service';
-import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+
 import { DiscussionQuestionsQueryService } from 'src/discussionQuestions/application/discussionQuestions-query.service';
 import { ApiTags } from '@nestjs/swagger';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 
 @ApiTags('Qa-Question')
+@UseGuards(DemoRolesGuard)
 @Controller('lessons/:lessonId/discussionQuestions')
 export class DiscussionQuestionsCommandController {
   constructor(
@@ -20,14 +30,14 @@ export class DiscussionQuestionsCommandController {
 
   @Post()
   async create(
-    @ActiveUser() activeUser: ActiveUserData,
+    @ActiveDemoMember('id') demoMemberId: string,
     @Param('lessonId') lessonId: string,
     @Body() dto: CreateDiscussionQuestionDto,
   ) {
     const createdDiscussionQuestion =
       await this.discussionQuestionCommandService.create(
         lessonId,
-        activeUser.id,
+        demoMemberId,
         dto,
       );
     const discussionQuestion =

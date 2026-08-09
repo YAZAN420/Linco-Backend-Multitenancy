@@ -17,18 +17,13 @@ export class DiscussionQuestionsCommandService {
 
   async create(
     lessonId: string,
-    userId: string,
+    demoMemberId: string,
     input: CreateDiscussionQuestionInput,
   ): Promise<DiscussionQuestion> {
-    const demoMember =
-      await this.demoMemberQueryRepository.findDemoMemberByUserId('1', userId);
-    if (!demoMember)
-      throw new NotFoundException('errors.NOT_MEMBER_IN_THIS_DEMO');
-
     const discussionQuestion = this.discussionQuestionFactory.createNew(
       input.content,
       lessonId,
-      demoMember.id,
+      demoMemberId,
     );
     await this.discussionQuestionCommandRepository.save(discussionQuestion);
     return discussionQuestion;
