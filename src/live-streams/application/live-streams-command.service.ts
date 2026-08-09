@@ -16,6 +16,7 @@ import {
   JitsiTokenResult,
 } from './ports/jitsi-token.port';
 import { LiveStreamsCommandRepository } from './ports/live-streams-command.repository.port';
+import { UpdateLiveStreamInput } from './interfaces/update-live-stream.interface';
 
 @Injectable()
 export class LiveStreamsCommandService {
@@ -32,16 +33,18 @@ export class LiveStreamsCommandService {
     input: CreateLiveStreamInput,
   ): Promise<LiveStream> {
     await this.validateOwnership(demoId, departmentId, hostId);
-    let roomName: string;
-    do {
-      roomName = `live-${uuidv7()}`;
-    } while (await this.repository.roomNameExists(roomName));
-    const stream = this.factory.createNew({
-      ...input,
+
+    const roomName = `live-${uuidv7()}`;
+
+    const stream = this.factory.createNew(
+      input.title,
       departmentId,
       hostId,
       roomName,
-    });
+      input.description,
+      input.scheduledAt,
+    );
+
     await this.repository.save(stream);
     return stream;
   }
@@ -50,10 +53,20 @@ export class LiveStreamsCommandService {
     demoId: string,
     departmentId: string,
     id: string,
-    input: { title?: string; description?: string; scheduledAt?: Date },
+    input: UpdateLiveStreamInput,
   ): Promise<LiveStream> {
     const stream = await this.findById(id, departmentId, demoId);
-    stream.update(input);
+
+    if (input.title !== undefined) {
+      stream.updateTitle(input.title);
+    }
+    if (input.description !== undefined) {
+      stream.updateDescription(input.description);
+    }
+    if (input.scheduledAt !== undefined) {
+      stream.updateScheduledAt(input.scheduledAt);
+    }
+
     await this.repository.save(stream);
     return stream;
   }

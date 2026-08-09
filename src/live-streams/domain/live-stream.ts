@@ -42,21 +42,24 @@ export class LiveStream {
     return this.props.updatedAt;
   }
 
-  update(input: {
-    title?: string;
-    description?: string;
-    scheduledAt?: Date;
-  }): void {
-    if (this.props.status !== LiveStreamStatus.SCHEDULED) {
-      throw new DomainException(
-        'errors.ONLY_SCHEDULED_LIVE_STREAMS_CAN_BE_UPDATED',
-      );
-    }
-    if (input.title !== undefined) this.props.title = input.title;
-    if (input.description !== undefined)
-      this.props.description = input.description;
-    if (input.scheduledAt !== undefined)
-      this.props.scheduledAt = input.scheduledAt;
+  updateTitle(newTitle: string): void {
+    this.ensureIsScheduled();
+    if (this.props.title === newTitle) return;
+    this.props.title = newTitle;
+    this.touch();
+  }
+
+  updateDescription(newDescription?: string): void {
+    this.ensureIsScheduled();
+    if (this.props.description === newDescription) return;
+    this.props.description = newDescription;
+    this.touch();
+  }
+
+  updateScheduledAt(newScheduledAt?: Date): void {
+    this.ensureIsScheduled();
+    if (this.props.scheduledAt?.getTime() === newScheduledAt?.getTime()) return;
+    this.props.scheduledAt = newScheduledAt;
     this.touch();
   }
 
@@ -81,6 +84,13 @@ export class LiveStream {
   ensureJoinable(): void {
     if (this.props.status !== LiveStreamStatus.LIVE) {
       throw new DomainException('errors.LIVE_STREAM_CANNOT_BE_JOINED');
+    }
+  }
+  private ensureIsScheduled(): void {
+    if (this.props.status !== LiveStreamStatus.SCHEDULED) {
+      throw new DomainException(
+        'errors.ONLY_SCHEDULED_LIVE_STREAMS_CAN_BE_UPDATED',
+      );
     }
   }
 
