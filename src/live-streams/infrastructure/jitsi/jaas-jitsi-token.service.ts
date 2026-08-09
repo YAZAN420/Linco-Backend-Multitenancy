@@ -6,12 +6,10 @@ import {
 import { ConfigType } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import jitsiConfig from 'src/common/config/jitsi.config';
-import {
-  GenerateJitsiTokenParams,
-  JitsiParticipantRole,
-  JitsiTokenPort,
-  JitsiTokenResult,
-} from 'src/live-streams/application/ports/jitsi-token.port';
+import { JitsiTokenPort } from 'src/live-streams/application/ports/jitsi-token.port';
+import { GenerateJitsiTokenParams } from 'src/live-streams/application/interfaces/generate-jitsi-token-params.interface';
+import { JitsiParticipantRole } from 'src/live-streams/application/interfaces/jitsi-participant-role.enum';
+import { JitsiTokenResult } from 'src/live-streams/application/interfaces/jitsi-token-result.interface';
 
 @Injectable()
 export class JaasJitsiTokenService implements JitsiTokenPort {

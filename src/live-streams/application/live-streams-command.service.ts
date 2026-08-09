@@ -10,11 +10,9 @@ import { CreateLiveStreamInput } from './interfaces/create-live-stream.interface
 import { EndLiveStreamInput } from './interfaces/end-live-stream.interface';
 import { GenerateLiveStreamTokenInput } from './interfaces/generate-live-stream-token.interface';
 import { StartLiveStreamInput } from './interfaces/start-live-stream.interface';
-import {
-  JitsiParticipantRole,
-  JitsiTokenPort,
-  JitsiTokenResult,
-} from './ports/jitsi-token.port';
+import { JitsiTokenPort } from './ports/jitsi-token.port';
+import { JitsiParticipantRole } from './interfaces/jitsi-participant-role.enum';
+import { JitsiTokenResult } from './interfaces/jitsi-token-result.interface';
 import { LiveStreamsCommandRepository } from './ports/live-streams-command.repository.port';
 import { UpdateLiveStreamInput } from './interfaces/update-live-stream.interface';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';

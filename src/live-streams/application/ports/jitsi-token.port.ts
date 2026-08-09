@@ -1,21 +1,5 @@
-import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
-
-export enum JitsiParticipantRole {
-  HOST = 'HOST',
-  PARTICIPANT = 'PARTICIPANT',
-}
-
-export interface GenerateJitsiTokenParams {
-  roomName: string;
-  user: ActiveUserData;
-  role: JitsiParticipantRole;
-}
-
-export interface JitsiTokenResult {
-  token: string;
-  roomName: string;
-  appId: string;
-}
+import { GenerateJitsiTokenParams } from '../interfaces/generate-jitsi-token-params.interface';
+import { JitsiTokenResult } from '../interfaces/jitsi-token-result.interface';
 
 export abstract class JitsiTokenPort {
   abstract generateToken(
