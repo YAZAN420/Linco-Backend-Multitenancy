@@ -13,6 +13,7 @@ export class PrismaExamMapper {
       title: titleVo,
       durationMinutes: raw.durationMinutes,
       numberOfQuestions: raw.numberOfQuestions,
+      passingScore: raw.passingScore,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -24,6 +25,7 @@ export class PrismaExamMapper {
       sectionId: exam.sectionId,
       title: exam.title,
       numberOfQuestions: exam.numberOfQuestions,
+      passingScore: exam.passingScore,
       durationMinutes: exam.durationMinutes,
       createdAt: exam.createdAt,
       updatedAt: exam.updatedAt,

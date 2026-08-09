@@ -25,6 +25,7 @@ export class ExamsCommandService {
       input.title,
       input.numberOfQuestions,
       input.durationMinutes,
+      input.passingScore,
     );
     await this.examCommandRepository.save(exam);
     return exam;
@@ -37,10 +38,11 @@ export class ExamsCommandService {
   ): Promise<Exam> {
     const exam = await this.findById(sectionId, examId);
 
-    const { title, numberOfQuestions, durationMinutes } = input;
+    const { title, numberOfQuestions, durationMinutes, passingScore } = input;
     if (title) exam.updateTitle(Title.create(title));
     if (numberOfQuestions) exam.updateNumberOfQuestions(numberOfQuestions);
     if (durationMinutes) exam.updateDurationMinutes(durationMinutes);
+    if (passingScore !== undefined) exam.updatePassingScore(passingScore);
 
     await this.examCommandRepository.save(exam);
     return exam;

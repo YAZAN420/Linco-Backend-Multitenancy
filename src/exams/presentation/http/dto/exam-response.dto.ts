@@ -3,6 +3,7 @@ export class ExamResponseDto {
     readonly id: string,
     readonly title: string,
     readonly numberOfQuestions: number,
+    readonly passingScore: number,
     readonly durationMinutes: number,
     readonly sectionId: string,
     readonly createdAt: Date,

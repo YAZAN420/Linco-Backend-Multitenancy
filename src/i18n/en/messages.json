@@ -1,5 +1,9 @@
 {
   "REQUEST_SUCCESSFUL": "Request successful",
+  "CERTIFICATION_CREATED_SUCCESSFULLY": "Certification created successfully",
+  "CERTIFICATION_DELETED_SUCCESSFULLY": "Certification deleted successfully",
+  "CERTIFICATIONS_FETCHED_SUCCESSFULLY": "Certifications fetched successfully",
+  "CERTIFICATION_RETRIEVED_SUCCESSFULLY": "Certification retrieved successfully",
   "REGISTRATION_SUCCESSFUL": "Registration successful. Please check your email to verify your account.",
   "TWO_FACTOR_AUTHENTICATION_REQUIRED": "Two-factor authentication required",
   "USER_SIGNED_IN_SUCCESSFULLY": "User signed in successfully",

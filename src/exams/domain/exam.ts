@@ -23,6 +23,10 @@ export class Exam {
     return this.props.numberOfQuestions;
   }
 
+  get passingScore(): number {
+    return this.props.passingScore;
+  }
+
   get durationMinutes(): number {
     return this.props.durationMinutes;
   }
@@ -46,6 +50,12 @@ export class Exam {
   updateNumberOfQuestions(newNumberOfQuestions: number): void {
     if (this.props.numberOfQuestions === newNumberOfQuestions) return;
     this.props.numberOfQuestions = newNumberOfQuestions;
+    this.touch();
+  }
+
+  updatePassingScore(newPassingScore: number): void {
+    if (this.props.passingScore === newPassingScore) return;
+    this.props.passingScore = newPassingScore;
     this.touch();
   }
 

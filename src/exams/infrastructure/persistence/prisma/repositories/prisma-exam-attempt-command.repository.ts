@@ -1,4 +1,9 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { Prisma } from 'src/generated/prisma/client';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { ExamAttempt } from 'src/exams/domain/exam-attempt';
 import { ExamAttemptCommandRepository } from 'src/exams/application/ports/exam-attempt-command.repository';
@@ -20,6 +25,12 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
         create: data,
       });
     } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('errors.EXAM_ATTEMPT_ALREADY_EXISTS');
+      }
       throw new InternalServerErrorException(
         'errors.DATABASE_OPERATION_FAILED_ERROR',
       );

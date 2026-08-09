@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateExamAttemptInput } from './interfaces/create-exam-attempt-input.interface';
 import { ExamAttempt } from '../domain/exam-attempt';
 import { ExamAttemptFactory } from '../domain/factories/exam-attempt.factory';
@@ -16,16 +17,17 @@ export class ExamAttemptCommandService {
     private readonly examAttemptFactory: ExamAttemptFactory,
     private readonly examQueryRepository: ExamQueryRepository,
     private readonly questionBankQueryRepository: QuestionsBankQueryRepository,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async create(
     demoMemberId: string,
     input: CreateExamAttemptInput,
   ): Promise<{
-      examAttempt: ExamAttempt;
-      exam: Exam;
-      questions: QuestionsBankWithQuestionChoices[];
-    }> {
+    examAttempt: ExamAttempt;
+    exam: Exam;
+    questions: QuestionsBankWithQuestionChoices[];
+  }> {
     const exam = await this.examQueryRepository.findById(input.examId);
     if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
@@ -46,12 +48,18 @@ export class ExamAttemptCommandService {
       calculatedScore,
     );
 
-    const questionsWithChoices = await Promise.all(
-      input.answers.map((a) => this.questionBankQueryRepository.findByIdWithoutSection(a.questionId)),
-    ) as QuestionsBankWithQuestionChoices[];
+    const questionsWithChoices = (await Promise.all(
+      input.answers.map((a) =>
+        this.questionBankQueryRepository.findByIdWithoutSection(a.questionId),
+      ),
+    )) as QuestionsBankWithQuestionChoices[];
     console.log(questionsWithChoices);
 
     await this.examAttemptCommandRepository.save(examAttempt);
+    await this.eventEmitter.emitAsync('exam.attempt.created', {
+      examId: input.examId,
+      demoMemberId,
+    });
     return {
       examAttempt,
       exam,

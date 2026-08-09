@@ -10,6 +10,7 @@ export class ExamFactory {
     title: string,
     numberOfQuestions: number,
     durationMinutes: number,
+    passingScore: number,
   ): Exam {
     const now = new Date();
     const titleVo = Title.create(title);
@@ -18,6 +19,7 @@ export class ExamFactory {
       sectionId: sectionId,
       title: titleVo,
       numberOfQuestions: numberOfQuestions,
+      passingScore,
       durationMinutes: durationMinutes,
       createdAt: now,
       updatedAt: now,

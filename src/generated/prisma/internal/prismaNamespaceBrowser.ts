@@ -75,7 +75,8 @@ export const ModelName = {
   Inquiry: 'Inquiry',
   InquiryReply: 'InquiryReply',
   DepartmentMessage: 'DepartmentMessage',
-  FcmToken: 'FcmToken'
+  FcmToken: 'FcmToken',
+  Certification: 'Certification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -247,6 +248,7 @@ export const ExamScalarFieldEnum = {
   id: 'id',
   sectionId: 'sectionId',
   title: 'title',
+  passingScore: 'passingScore',
   numberOfQuestions: 'numberOfQuestions',
   durationMinutes: 'durationMinutes',
   createdAt: 'createdAt',
@@ -437,6 +439,18 @@ export const FcmTokenScalarFieldEnum = {
 } as const
 
 export type FcmTokenScalarFieldEnum = (typeof FcmTokenScalarFieldEnum)[keyof typeof FcmTokenScalarFieldEnum]
+
+
+export const CertificationScalarFieldEnum = {
+  id: 'id',
+  demoMemberId: 'demoMemberId',
+  courseId: 'courseId',
+  score: 'score',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
 
 
 export const SortOrder = {

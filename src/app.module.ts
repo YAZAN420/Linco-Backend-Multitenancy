@@ -45,6 +45,8 @@ import { DepartmentMessagesInfrastructureModule } from './departmentMessages/inf
 import { NotificationsModule } from './notifications/notifications.module';
 import { InquiryRepliesModule } from './inquiryReplies/inquiryReplies.module';
 import { InquiryRepliesInfrastructureModule } from './inquiryReplies/infrastructure/inquiryReplies-infrastructure.module';
+import { CertificationsModule } from './certifications/certifications.module';
+import { CertificationsInfrastructureModule } from './certifications/infrastructure/certifications-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -83,6 +85,9 @@ export class AppModule {
         ),
         InquiryRepliesModule.withInfrastructure(
           InquiryRepliesInfrastructureModule.use(),
+        ),
+        CertificationsModule.withInfrastructure(
+          CertificationsInfrastructureModule.use(),
         ),
         this.registerI18n(),
       ],

@@ -1,4 +1,8 @@
 {
+  "CERTIFICATION_CREATED_SUCCESSFULLY": "Certification created successfully",
+  "CERTIFICATION_DELETED_SUCCESSFULLY": "Certification deleted successfully",
+  "CERTIFICATIONS_FETCHED_SUCCESSFULLY": "Certifications fetched successfully",
+  "CERTIFICATION_RETRIEVED_SUCCESSFULLY": "Certification retrieved successfully",
   "REQUEST_SUCCESSFUL": "تم الطلب بنجاح",
   "REGISTRATION_SUCCESSFUL": "تم التسجيل بنجاح. يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك.",
   "TWO_FACTOR_AUTHENTICATION_REQUIRED": "المصادقة الثنائية مطلوبة",

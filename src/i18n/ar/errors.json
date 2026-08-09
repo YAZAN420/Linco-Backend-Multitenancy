@@ -1,4 +1,9 @@
 {
+  "CERTIFICATION_ALREADY_EXISTS": "A certification already exists for this member and course",
+  "CERTIFICATION_COURSE_AND_MEMBER_MUST_BELONG_TO_THE_SAME_WORKSPACE": "The course and member must belong to the same workspace",
+  "CERTIFICATION_NOT_FOUND": "Certification not found",
+  "CERTIFICATION_RELATION_NOT_FOUND": "The certification course or member was not found",
+  "EXAM_ATTEMPT_ALREADY_EXISTS": "This member has already attempted this exam",
   "ACCESS_DENIED": "تم رفض الوصول",
   "ACCOUNT_REGISTERED_VIA_GOOGLE_PLEASE_USE_THE_FORGOT_PASSWORD_FLOW_OR_EMAIL_VERIFICATION_TO_SET_YOUR_FIRST_PASSWORD": "تم تسجيل الحساب عبر Google. يرجى استخدام خيار نسيت كلمة المرور أو تفعيل البريد الإلكتروني لتعيين كلمة المرور الأولى.",
   "AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER": "تعذّر على الذكاء الاصطناعي إنشاء خارطة الطريق. يرجى المحاولة لاحقًا.",

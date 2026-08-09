@@ -164,3 +164,8 @@ export type DepartmentMessage = Prisma.DepartmentMessageModel
  * 
  */
 export type FcmToken = Prisma.FcmTokenModel
+/**
+ * Model Certification
+ * 
+ */
+export type Certification = Prisma.CertificationModel

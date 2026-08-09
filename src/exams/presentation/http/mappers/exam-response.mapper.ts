@@ -10,6 +10,7 @@ export class ExamResponseMapper {
       exam.id,
       exam.title,
       exam.numberOfQuestions,
+      exam.passingScore,
       exam.durationMinutes,
       exam.sectionId,
       exam.createdAt,
@@ -27,6 +28,7 @@ export class ExamResponseMapper {
       title: data.exam.title,
       durationMinutes: data.exam.durationMinutes,
       numberOfQuestions: data.exam.numberOfQuestions,
+      passingScore: data.exam.passingScore,
       questions: data.questions.map((q) => ({
         id: q.id,
         question: q.question,
@@ -49,6 +51,7 @@ export class ExamResponseMapper {
       title: data.exam.title,
       durationMinutes: data.exam.durationMinutes,
       numberOfQuestions: data.exam.numberOfQuestions,
+      passingScore: data.exam.passingScore,
       questions: data.questions.map((q) => ({
         id: q.id,
         question: q.question,
@@ -56,7 +59,7 @@ export class ExamResponseMapper {
         choices: q.choices.map((c) => ({
           id: c.id,
           choice: c.choice,
-          isCorrect: c.isCorrect
+          isCorrect: c.isCorrect,
         })),
       })),
     };

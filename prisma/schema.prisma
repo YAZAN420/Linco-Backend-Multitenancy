@@ -141,10 +141,11 @@ model DemoMember {
   discussionQuestions DiscussionQuestion[]
   discussionAnswers   DiscussionAnswer[]
 
-  accessibleDepartments DepartmentMember[]
-  createdInquiries      Inquiry[]
+  accessibleDepartments   DepartmentMember[]
+  createdInquiries        Inquiry[]
   createdInquiriesReplies InquiryReply[]
-  examAttempts          ExamAttempt[]
+  examAttempts            ExamAttempt[]
+  certifications          Certification[]
 
   @@unique([userId, demoId])
 }
@@ -227,11 +228,12 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  payments Payment[]
-  tags     Tag[]
-  assets   Asset[]
-  sections Section[]
-  faqs     CourseFaq[]
+  payments       Payment[]
+  tags           Tag[]
+  assets         Asset[]
+  sections       Section[]
+  faqs           CourseFaq[]
+  certifications Certification[]
 }
 
 model CourseFaq {
@@ -306,6 +308,7 @@ model Exam {
   id                String @id
   sectionId         String @unique
   title             String
+  passingScore      Int
   numberOfQuestions Int
   durationMinutes   Int    @default(60)
 
@@ -319,7 +322,7 @@ model Exam {
 }
 
 model QuestionsBank {
-  id        String @id
+  id        String   @id
   sectionId String
   question  String
   note      String
@@ -353,6 +356,9 @@ model ExamAttempt {
 
   exam       Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
   demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+
+  @@unique([demoMemberId, examId])
+  @@index([examId])
 }
 
 model Asset {
@@ -489,8 +495,8 @@ model InquiryReply {
   inquiry   Inquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
 
   senderType InquirySenderType
-  senderId String
-  sender DemoMember  @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   String
+  sender     DemoMember        @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
   message String
 
@@ -542,4 +548,21 @@ model FcmToken {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+model Certification {
+  id           String @id
+  demoMemberId String
+  courseId     String
+  score        Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
+  course     Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, demoMemberId])
+  @@index([courseId])
+  @@index([demoMemberId])
 }

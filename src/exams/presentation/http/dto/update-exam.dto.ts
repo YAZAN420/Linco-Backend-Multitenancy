@@ -4,6 +4,8 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  Max,
+  Min,
 } from 'class-validator';
 import { UpdateExamInput } from 'src/exams/application/interfaces/update-exam-input.interface';
 
@@ -23,4 +25,10 @@ export class UpdateExamDto implements UpdateExamInput {
   @IsOptional()
   @IsInt()
   numberOfQuestions!: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(100)
+  passingScore?: number;
 }

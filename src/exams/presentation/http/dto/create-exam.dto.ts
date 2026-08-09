@@ -1,4 +1,11 @@
-import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 import { CreateExamInput } from 'src/exams/application/interfaces/create-exam-input.interface';
 
 export class CreateExamDto implements CreateExamInput {
@@ -14,4 +21,9 @@ export class CreateExamDto implements CreateExamInput {
   @IsPositive()
   @IsInt()
   numberOfQuestions!: number;
+
+  @IsInt()
+  @Min(0)
+  @Max(100)
+  passingScore!: number;
 }
