@@ -33,8 +33,6 @@ export class LiveStreamsCommandService {
     hostId: string,
     input: CreateLiveStreamInput,
   ): Promise<LiveStream> {
-    await this.validateOwnership(demoId, departmentId, hostId);
-
     const roomName = `live-${uuidv7()}`;
 
     const stream = this.factory.createNew(
@@ -123,23 +121,6 @@ export class LiveStreamsCommandService {
       user,
       role,
     });
-  }
-
-  private async validateOwnership(
-    demoId: string,
-    departmentId: string,
-    hostId: string,
-  ): Promise<void> {
-    if (!(await this.repository.departmentBelongsToDemo(departmentId, demoId)))
-      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
-    if (
-      !(await this.repository.hostBelongsToDepartment(
-        hostId,
-        departmentId,
-        demoId,
-      ))
-    )
-      throw new ForbiddenException('errors.HOST_DOES_NOT_BELONG_TO_DEPARTMENT');
   }
 
   private async findById(

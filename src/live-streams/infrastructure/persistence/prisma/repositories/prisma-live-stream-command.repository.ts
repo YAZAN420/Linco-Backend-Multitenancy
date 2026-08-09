@@ -47,31 +47,4 @@ export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepo
     });
     return raw ? this.mapper.toDomain(raw) : null;
   }
-
-  async departmentBelongsToDemo(
-    departmentId: string,
-    demoId: string,
-  ): Promise<boolean> {
-    return (
-      (await this.prisma.department.count({
-        where: { id: departmentId, demoId },
-      })) > 0
-    );
-  }
-
-  async hostBelongsToDepartment(
-    hostId: string,
-    departmentId: string,
-    demoId: string,
-  ): Promise<boolean> {
-    return (
-      (await this.prisma.departmentMember.count({
-        where: { id: hostId, departmentId, department: { demoId } },
-      })) > 0
-    );
-  }
-
-  async roomNameExists(roomName: string): Promise<boolean> {
-    return (await this.prisma.liveStream.count({ where: { roomName } })) > 0;
-  }
 }

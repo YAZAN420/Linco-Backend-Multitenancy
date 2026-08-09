@@ -36,9 +36,11 @@ export class PrismaLiveStreamQueryRepository implements LiveStreamsQueryReposito
       where: { departmentId, department: { demoId } },
       orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
     });
+
     const hasNextPage = items.length > query.take;
     if (hasNextPage) items.pop();
     const endCursor = items.length ? items[items.length - 1].id : null;
+
     return new CursorPageDto(
       items.map((item) => this.mapper.toDomain(item)),
       new CursorPageMetaDto(hasNextPage, endCursor),
