@@ -17,6 +17,7 @@ import {
 } from './ports/jitsi-token.port';
 import { LiveStreamsCommandRepository } from './ports/live-streams-command.repository.port';
 import { UpdateLiveStreamInput } from './interfaces/update-live-stream.interface';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @Injectable()
 export class LiveStreamsCommandService {
@@ -104,6 +105,7 @@ export class LiveStreamsCommandService {
   }
 
   async generateToken(
+    user: ActiveUserData,
     input: GenerateLiveStreamTokenInput,
   ): Promise<JitsiTokenResult> {
     const stream = await this.findById(
@@ -118,7 +120,7 @@ export class LiveStreamsCommandService {
         : JitsiParticipantRole.PARTICIPANT;
     return this.jitsiTokenPort.generateToken({
       roomName: stream.roomName,
-      userId: input.userId,
+      user,
       role,
     });
   }

@@ -43,7 +43,11 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
               recording: isHost,
               transcription: true,
             },
-            user: { id: params.userId, moderator: isHost },
+            user: {
+              id: params.user.id,
+              moderator: isHost,
+              name: `${params.user.firstName} ${params.user.lastName}`,
+            },
           },
         },
         this.config.privateKey,

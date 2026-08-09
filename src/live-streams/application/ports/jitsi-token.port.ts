@@ -1,3 +1,5 @@
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+
 export enum JitsiParticipantRole {
   HOST = 'HOST',
   PARTICIPANT = 'PARTICIPANT',
@@ -5,7 +7,7 @@ export enum JitsiParticipantRole {
 
 export interface GenerateJitsiTokenParams {
   roomName: string;
-  userId: string;
+  user: ActiveUserData;
   role: JitsiParticipantRole;
 }
 

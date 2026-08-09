@@ -17,6 +17,8 @@ import { LiveStreamsCommandService } from 'src/live-streams/application/live-str
 import { CreateLiveStreamDto } from './dto/create-live-stream.dto';
 import { UpdateLiveStreamDto } from './dto/update-live-stream.dto';
 import { LiveStreamHttpMapper } from './mappers/live-stream-http.mapper';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 
 @ApiTags('LiveStreams')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
@@ -102,15 +104,15 @@ export class LiveStreamsCommandController {
 
   @Post(':liveStreamId/token')
   async generateToken(
+    @ActiveUser() user: ActiveUserData,
     @ActiveDepartmentMember() member: ActiveDepartmentMemberData,
     @Param('liveStreamId') liveStreamId: string,
   ) {
-    const data = await this.service.generateToken({
+    const data = await this.service.generateToken(user, {
       liveStreamId,
       demoId: member.demoId,
       departmentId: member.departmentId,
       departmentMemberId: member.id,
-      userId: member.userId,
     });
     return {
       message: 'messages.LIVE_STREAM_TOKEN_GENERATED_SUCCESSFULLY',

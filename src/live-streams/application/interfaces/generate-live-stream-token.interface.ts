@@ -3,5 +3,4 @@ export interface GenerateLiveStreamTokenInput {
   demoId: string;
   departmentId: string;
   departmentMemberId: string;
-  userId: string;
 }
