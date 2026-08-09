@@ -55,6 +55,7 @@ export const ModelName = {
   DemoMember: 'DemoMember',
   DepartmentMember: 'DepartmentMember',
   Department: 'Department',
+  LiveStream: 'LiveStream',
   Demo: 'Demo',
   Course: 'Course',
   CourseFaq: 'CourseFaq',
@@ -156,6 +157,24 @@ export const DepartmentScalarFieldEnum = {
 } as const
 
 export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+export const LiveStreamScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  roomName: 'roomName',
+  departmentId: 'departmentId',
+  hostId: 'hostId',
+  scheduledAt: 'scheduledAt',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LiveStreamScalarFieldEnum = (typeof LiveStreamScalarFieldEnum)[keyof typeof LiveStreamScalarFieldEnum]
 
 
 export const DemoScalarFieldEnum = {

@@ -203,6 +203,7 @@ export type DepartmentWhereInput = {
   courses?: Prisma.DepartmentCourseListRelationFilter
   members?: Prisma.DepartmentMemberListRelationFilter
   messages?: Prisma.DepartmentMessageListRelationFilter
+  liveStreams?: Prisma.LiveStreamListRelationFilter
 }
 
 export type DepartmentOrderByWithRelationInput = {
@@ -218,6 +219,7 @@ export type DepartmentOrderByWithRelationInput = {
   courses?: Prisma.DepartmentCourseOrderByRelationAggregateInput
   members?: Prisma.DepartmentMemberOrderByRelationAggregateInput
   messages?: Prisma.DepartmentMessageOrderByRelationAggregateInput
+  liveStreams?: Prisma.LiveStreamOrderByRelationAggregateInput
 }
 
 export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -236,6 +238,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   courses?: Prisma.DepartmentCourseListRelationFilter
   members?: Prisma.DepartmentMemberListRelationFilter
   messages?: Prisma.DepartmentMessageListRelationFilter
+  liveStreams?: Prisma.LiveStreamListRelationFilter
 }, "id">
 
 export type DepartmentOrderByWithAggregationInput = {
@@ -275,6 +278,7 @@ export type DepartmentCreateInput = {
   courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateInput = {
@@ -288,6 +292,7 @@ export type DepartmentUncheckedCreateInput = {
   courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUpdateInput = {
@@ -301,6 +306,7 @@ export type DepartmentUpdateInput = {
   courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateInput = {
@@ -314,6 +320,7 @@ export type DepartmentUncheckedUpdateInput = {
   courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyInput = {
@@ -445,6 +452,20 @@ export type DepartmentUpdateOneRequiredWithoutMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutMembersInput, Prisma.DepartmentUpdateWithoutMembersInput>, Prisma.DepartmentUncheckedUpdateWithoutMembersInput>
 }
 
+export type DepartmentCreateNestedOneWithoutLiveStreamsInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedCreateWithoutLiveStreamsInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutLiveStreamsInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+}
+
+export type DepartmentUpdateOneRequiredWithoutLiveStreamsNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedCreateWithoutLiveStreamsInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutLiveStreamsInput
+  upsert?: Prisma.DepartmentUpsertWithoutLiveStreamsInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutLiveStreamsInput, Prisma.DepartmentUpdateWithoutLiveStreamsInput>, Prisma.DepartmentUncheckedUpdateWithoutLiveStreamsInput>
+}
+
 export type DepartmentCreateNestedManyWithoutDemoInput = {
   create?: Prisma.XOR<Prisma.DepartmentCreateWithoutDemoInput, Prisma.DepartmentUncheckedCreateWithoutDemoInput> | Prisma.DepartmentCreateWithoutDemoInput[] | Prisma.DepartmentUncheckedCreateWithoutDemoInput[]
   connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutDemoInput | Prisma.DepartmentCreateOrConnectWithoutDemoInput[]
@@ -525,6 +546,7 @@ export type DepartmentCreateWithoutManagerInput = {
   courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutManagerInput = {
@@ -537,6 +559,7 @@ export type DepartmentUncheckedCreateWithoutManagerInput = {
   courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutManagerInput = {
@@ -588,6 +611,7 @@ export type DepartmentCreateWithoutMembersInput = {
   demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
   courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutMembersInput = {
@@ -600,6 +624,7 @@ export type DepartmentUncheckedCreateWithoutMembersInput = {
   updatedAt?: Date | string
   courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutMembersInput = {
@@ -628,6 +653,7 @@ export type DepartmentUpdateWithoutMembersInput = {
   demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
   courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutMembersInput = {
@@ -639,6 +665,75 @@ export type DepartmentUncheckedUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
+  messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutLiveStreamsInput = {
+  id: string
+  name: string
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
+  demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
+  courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
+  members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
+  messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutLiveStreamsInput = {
+  id: string
+  name: string
+  description: string
+  managerId: string
+  demoId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
+  members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
+  messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutLiveStreamsInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedCreateWithoutLiveStreamsInput>
+}
+
+export type DepartmentUpsertWithoutLiveStreamsInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedUpdateWithoutLiveStreamsInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedCreateWithoutLiveStreamsInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutLiveStreamsInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutLiveStreamsInput, Prisma.DepartmentUncheckedUpdateWithoutLiveStreamsInput>
+}
+
+export type DepartmentUpdateWithoutLiveStreamsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
+  demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
+  courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
+  members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
+  messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutLiveStreamsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  managerId?: Prisma.StringFieldUpdateOperationsInput | string
+  demoId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
+  members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
@@ -652,6 +747,7 @@ export type DepartmentCreateWithoutDemoInput = {
   courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutDemoInput = {
@@ -664,6 +760,7 @@ export type DepartmentUncheckedCreateWithoutDemoInput = {
   courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutDemoInput = {
@@ -702,6 +799,7 @@ export type DepartmentCreateWithoutCoursesInput = {
   demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
   members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutCoursesInput = {
@@ -714,6 +812,7 @@ export type DepartmentUncheckedCreateWithoutCoursesInput = {
   updatedAt?: Date | string
   members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
   messages?: Prisma.DepartmentMessageUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutCoursesInput = {
@@ -742,6 +841,7 @@ export type DepartmentUpdateWithoutCoursesInput = {
   demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
   members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutCoursesInput = {
@@ -754,6 +854,7 @@ export type DepartmentUncheckedUpdateWithoutCoursesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutMessagesInput = {
@@ -766,6 +867,7 @@ export type DepartmentCreateWithoutMessagesInput = {
   demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
   courses?: Prisma.DepartmentCourseCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutMessagesInput = {
@@ -778,6 +880,7 @@ export type DepartmentUncheckedCreateWithoutMessagesInput = {
   updatedAt?: Date | string
   courses?: Prisma.DepartmentCourseUncheckedCreateNestedManyWithoutDepartmentInput
   members?: Prisma.DepartmentMemberUncheckedCreateNestedManyWithoutDepartmentInput
+  liveStreams?: Prisma.LiveStreamUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutMessagesInput = {
@@ -806,6 +909,7 @@ export type DepartmentUpdateWithoutMessagesInput = {
   demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
   courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutMessagesInput = {
@@ -818,6 +922,7 @@ export type DepartmentUncheckedUpdateWithoutMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyManagerInput = {
@@ -839,6 +944,7 @@ export type DepartmentUpdateWithoutManagerInput = {
   courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutManagerInput = {
@@ -851,6 +957,7 @@ export type DepartmentUncheckedUpdateWithoutManagerInput = {
   courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutManagerInput = {
@@ -881,6 +988,7 @@ export type DepartmentUpdateWithoutDemoInput = {
   courses?: Prisma.DepartmentCourseUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutDemoInput = {
@@ -893,6 +1001,7 @@ export type DepartmentUncheckedUpdateWithoutDemoInput = {
   courses?: Prisma.DepartmentCourseUncheckedUpdateManyWithoutDepartmentNestedInput
   members?: Prisma.DepartmentMemberUncheckedUpdateManyWithoutDepartmentNestedInput
   messages?: Prisma.DepartmentMessageUncheckedUpdateManyWithoutDepartmentNestedInput
+  liveStreams?: Prisma.LiveStreamUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutDemoInput = {
@@ -913,12 +1022,14 @@ export type DepartmentCountOutputType = {
   courses: number
   members: number
   messages: number
+  liveStreams: number
 }
 
 export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | DepartmentCountOutputTypeCountCoursesArgs
   members?: boolean | DepartmentCountOutputTypeCountMembersArgs
   messages?: boolean | DepartmentCountOutputTypeCountMessagesArgs
+  liveStreams?: boolean | DepartmentCountOutputTypeCountLiveStreamsArgs
 }
 
 /**
@@ -952,6 +1063,13 @@ export type DepartmentCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.T
   where?: Prisma.DepartmentMessageWhereInput
 }
 
+/**
+ * DepartmentCountOutputType without action
+ */
+export type DepartmentCountOutputTypeCountLiveStreamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveStreamWhereInput
+}
+
 
 export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -966,6 +1084,7 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   courses?: boolean | Prisma.Department$coursesArgs<ExtArgs>
   members?: boolean | Prisma.Department$membersArgs<ExtArgs>
   messages?: boolean | Prisma.Department$messagesArgs<ExtArgs>
+  liveStreams?: boolean | Prisma.Department$liveStreamsArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -1010,6 +1129,7 @@ export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   courses?: boolean | Prisma.Department$coursesArgs<ExtArgs>
   members?: boolean | Prisma.Department$membersArgs<ExtArgs>
   messages?: boolean | Prisma.Department$messagesArgs<ExtArgs>
+  liveStreams?: boolean | Prisma.Department$liveStreamsArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1029,6 +1149,7 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     courses: Prisma.$DepartmentCoursePayload<ExtArgs>[]
     members: Prisma.$DepartmentMemberPayload<ExtArgs>[]
     messages: Prisma.$DepartmentMessagePayload<ExtArgs>[]
+    liveStreams: Prisma.$LiveStreamPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1437,6 +1558,7 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
   courses<T extends Prisma.Department$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Department$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.Department$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveStreams<T extends Prisma.Department$liveStreamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$liveStreamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveStreamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1943,6 +2065,30 @@ export type Department$messagesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.DepartmentMessageScalarFieldEnum | Prisma.DepartmentMessageScalarFieldEnum[]
+}
+
+/**
+ * Department.liveStreams
+ */
+export type Department$liveStreamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveStream
+   */
+  select?: Prisma.LiveStreamSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveStream
+   */
+  omit?: Prisma.LiveStreamOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveStreamInclude<ExtArgs> | null
+  where?: Prisma.LiveStreamWhereInput
+  orderBy?: Prisma.LiveStreamOrderByWithRelationInput | Prisma.LiveStreamOrderByWithRelationInput[]
+  cursor?: Prisma.LiveStreamWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveStreamScalarFieldEnum | Prisma.LiveStreamScalarFieldEnum[]
 }
 
 /**

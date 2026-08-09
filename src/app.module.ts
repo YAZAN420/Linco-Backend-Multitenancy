@@ -47,6 +47,8 @@ import { InquiryRepliesModule } from './inquiryReplies/inquiryReplies.module';
 import { InquiryRepliesInfrastructureModule } from './inquiryReplies/infrastructure/inquiryReplies-infrastructure.module';
 import { CertificationsModule } from './certifications/certifications.module';
 import { CertificationsInfrastructureModule } from './certifications/infrastructure/certifications-infrastructure.module';
+import { LiveStreamsModule } from './live-streams/live-streams.module';
+import { LiveStreamsInfrastructureModule } from './live-streams/infrastructure/live-streams-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -88,6 +90,9 @@ export class AppModule {
         ),
         CertificationsModule.withInfrastructure(
           CertificationsInfrastructureModule.use(),
+        ),
+        LiveStreamsModule.withInfrastructure(
+          LiveStreamsInfrastructureModule.use(),
         ),
         this.registerI18n(),
       ],

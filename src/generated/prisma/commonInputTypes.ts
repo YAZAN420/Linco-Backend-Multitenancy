@@ -216,6 +216,23 @@ export type EnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
 }
 
+export type EnumLiveStreamStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveStreamStatus | Prisma.EnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel> | $Enums.LiveStreamStatus
+}
+
+export type EnumLiveStreamStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveStreamStatus | Prisma.EnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveStreamStatusWithAggregatesFilter<$PrismaModel> | $Enums.LiveStreamStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel>
+}
+
 export type EnumPlanTierFilter<$PrismaModel = never> = {
   equals?: $Enums.PlanTier | Prisma.EnumPlanTierFieldRefInput<$PrismaModel>
   in?: $Enums.PlanTier[] | Prisma.ListEnumPlanTierFieldRefInput<$PrismaModel>
@@ -697,6 +714,23 @@ export type NestedEnumDepartmentMemberRoleWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDepartmentMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumLiveStreamStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveStreamStatus | Prisma.EnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel> | $Enums.LiveStreamStatus
+}
+
+export type NestedEnumLiveStreamStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveStreamStatus | Prisma.EnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveStreamStatus[] | Prisma.ListEnumLiveStreamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveStreamStatusWithAggregatesFilter<$PrismaModel> | $Enums.LiveStreamStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLiveStreamStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumPlanTierFilter<$PrismaModel = never> = {

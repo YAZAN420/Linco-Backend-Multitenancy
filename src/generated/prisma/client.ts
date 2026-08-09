@@ -60,6 +60,11 @@ export type DepartmentMember = Prisma.DepartmentMemberModel
  */
 export type Department = Prisma.DepartmentModel
 /**
+ * Model LiveStream
+ * 
+ */
+export type LiveStream = Prisma.LiveStreamModel
+/**
  * Model Demo
  * 
  */

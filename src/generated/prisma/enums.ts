@@ -43,6 +43,15 @@ export const DepartmentMemberRole = {
 export type DepartmentMemberRole = (typeof DepartmentMemberRole)[keyof typeof DepartmentMemberRole]
 
 
+export const LiveStreamStatus = {
+  SCHEDULED: 'SCHEDULED',
+  LIVE: 'LIVE',
+  ENDED: 'ENDED'
+} as const
+
+export type LiveStreamStatus = (typeof LiveStreamStatus)[keyof typeof LiveStreamStatus]
+
+
 export const MessageType = {
   TEXT: 'TEXT',
   IMAGE: 'IMAGE',

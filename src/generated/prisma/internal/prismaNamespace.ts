@@ -401,6 +401,7 @@ export const ModelName = {
   DemoMember: 'DemoMember',
   DepartmentMember: 'DepartmentMember',
   Department: 'Department',
+  LiveStream: 'LiveStream',
   Demo: 'Demo',
   Course: 'Course',
   CourseFaq: 'CourseFaq',
@@ -438,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -735,6 +736,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DepartmentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DepartmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    LiveStream: {
+      payload: Prisma.$LiveStreamPayload<ExtArgs>
+      fields: Prisma.LiveStreamFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LiveStreamFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LiveStreamFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        findFirst: {
+          args: Prisma.LiveStreamFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LiveStreamFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        findMany: {
+          args: Prisma.LiveStreamFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>[]
+        }
+        create: {
+          args: Prisma.LiveStreamCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        createMany: {
+          args: Prisma.LiveStreamCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LiveStreamCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>[]
+        }
+        delete: {
+          args: Prisma.LiveStreamDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        update: {
+          args: Prisma.LiveStreamUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        deleteMany: {
+          args: Prisma.LiveStreamDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LiveStreamUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LiveStreamUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>[]
+        }
+        upsert: {
+          args: Prisma.LiveStreamUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveStreamPayload>
+        }
+        aggregate: {
+          args: Prisma.LiveStreamAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLiveStream>
+        }
+        groupBy: {
+          args: Prisma.LiveStreamGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveStreamGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LiveStreamCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveStreamCountAggregateOutputType> | number
         }
       }
     }
@@ -2468,6 +2543,24 @@ export const DepartmentScalarFieldEnum = {
 export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
 
 
+export const LiveStreamScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  roomName: 'roomName',
+  departmentId: 'departmentId',
+  hostId: 'hostId',
+  scheduledAt: 'scheduledAt',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LiveStreamScalarFieldEnum = (typeof LiveStreamScalarFieldEnum)[keyof typeof LiveStreamScalarFieldEnum]
+
+
 export const DemoScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2885,6 +2978,20 @@ export type ListEnumDepartmentMemberRoleFieldRefInput<$PrismaModel> = FieldRefIn
 
 
 /**
+ * Reference to a field of type 'LiveStreamStatus'
+ */
+export type EnumLiveStreamStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveStreamStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LiveStreamStatus[]'
+ */
+export type ListEnumLiveStreamStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveStreamStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'PlanTier'
  */
 export type EnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlanTier'>
@@ -3206,6 +3313,7 @@ export type GlobalOmitConfig = {
   demoMember?: Prisma.DemoMemberOmit
   departmentMember?: Prisma.DepartmentMemberOmit
   department?: Prisma.DepartmentOmit
+  liveStream?: Prisma.LiveStreamOmit
   demo?: Prisma.DemoOmit
   course?: Prisma.CourseOmit
   courseFaq?: Prisma.CourseFaqOmit

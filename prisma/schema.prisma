@@ -29,6 +29,12 @@ enum DepartmentMemberRole {
   MEMBER
 }
 
+enum LiveStreamStatus {
+  SCHEDULED
+  LIVE
+  ENDED
+}
+
 enum MessageType {
   TEXT
   IMAGE
@@ -164,6 +170,7 @@ model DepartmentMember {
   demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
   messages DepartmentMessage[]
+  hostedLiveStreams LiveStream[]
 
   @@unique([departmentId, demoMemberId])
   @@index([departmentId])
@@ -185,6 +192,28 @@ model Department {
 
   members  DepartmentMember[]
   messages DepartmentMessage[]
+  liveStreams LiveStream[]
+}
+
+model LiveStream {
+  id           String           @id
+  title        String
+  description  String?
+  status       LiveStreamStatus @default(SCHEDULED)
+  roomName     String           @unique
+  departmentId String
+  hostId       String
+  scheduledAt  DateTime?
+  startedAt    DateTime?
+  endedAt      DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  department Department       @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  host       DepartmentMember @relation(fields: [hostId], references: [id], onDelete: Restrict)
+
+  @@index([departmentId, status])
+  @@index([hostId])
 }
 
 model Demo {
