@@ -30,7 +30,6 @@ import { PaymentsModule } from './payments/payments.module';
 import { PaymentsInfrastructureModule } from './payments/infrastructure/payments-infrastructure.module';
 import { InquiriesModule } from './inquiries/inquiries.module';
 import { InquiriesInfrastructureModule } from './inquiries/infrastructure/inquiries-infrastructure.module';
-import { JitsiModule } from './jitsi/jitsi.module';
 import { CourseFaqsModule } from './courseFaqs/courseFaqs.module';
 import { CourseFaqsInfrastructureModule } from './courseFaqs/infrastructure/courseFaqs-infrastructure.module';
 
@@ -59,7 +58,6 @@ export class AppModule {
         GoogleAuthModule,
         IamModule,
         TagsModule,
-        JitsiModule,
         NotificationsModule,
         CoreModule.forRoot(),
         UsersModule.withInfrastructure(UsersInfrastructureModule.use()),
