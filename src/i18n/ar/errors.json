@@ -109,6 +109,7 @@
   "PAYMENT_METADATA_NOT_FOUND_IN_SESSION": "بيانات الدفع الوصفية غير موجودة في الجلسة",
   "PAYMENT_NOT_FOUND": "عملية الدفع غير موجودة",
   "PAYMENT_RECORD_NOT_FOUND": "سجل الدفع غير موجود",
+  "PREVIOUS_EXAMS_MUST_BE_PASSED_BEFORE_ATTEMPTING_THIS_EXAM": "يجب النجاح في جميع الاختبارات السابقة في هذه الدورة قبل محاولة هذا الاختبار",
   "PLEASE_VERIFY_YOUR_EMAIL_BEFORE_SIGNING_IN": "يرجى التحقق من بريدك الإلكتروني قبل تسجيل الدخول",
   "QUESTIONS_BANK_NOT_FOUND": "بنك الأسئلة غير موجود",
   "QUESTION_BANK_NOT_FOUND": "بنك الأسئلة غير موجود",
