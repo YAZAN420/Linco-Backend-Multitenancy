@@ -16,6 +16,7 @@ export class PrismaDemoMapper {
     return new Demo(raw.id, {
       name: nameVo,
       imagePath: raw.imagePath,
+      signatureImagePath: raw.signatureImagePath,
       description: raw.description,
       ownerId: raw.ownerId,
       plan: raw.plan as PlanTier,
@@ -35,6 +36,7 @@ export class PrismaDemoMapper {
       id: demo.id,
       name: demo.name,
       imagePath: demo.imagePath,
+      signatureImagePath: demo.signatureImagePath,
       plan: demo.plan,
       subscriptionStatus: demo.subscriptionStatus,
       stripeSubscriptionId: demo.stripeSubscriptionId ?? null,

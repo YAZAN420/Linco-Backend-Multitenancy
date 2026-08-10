@@ -12,5 +12,9 @@ export class UpdateDemoDto implements UpdateDemoInput {
 
   @IsOptional()
   @IsString()
+  signatureImagePath?: string;
+
+  @IsOptional()
+  @IsString()
   description?: string;
 }

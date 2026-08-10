@@ -11,5 +11,9 @@ export class CreateDemoDto {
 
   @IsString()
   @IsNotEmpty()
+  signatureImagePath!: string;
+
+  @IsString()
+  @IsNotEmpty()
   description!: string;
 }

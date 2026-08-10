@@ -61,4 +61,41 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
       })) > 0
     );
   }
+
+  async hasPassedAllPreviousExams(
+    demoMemberId: string,
+    examId: string,
+  ): Promise<boolean> {
+    const targetExam = await this.prisma.exam.findUnique({
+      where: { id: examId },
+      select: { section: { select: { courseId: true, order: true } } },
+    });
+    if (!targetExam) return false;
+
+    const previousSections = await this.prisma.section.findMany({
+      where: {
+        courseId: targetExam.section.courseId,
+        order: { lt: targetExam.section.order },
+      },
+      select: {
+        exam: {
+          select: {
+            passingScore: true,
+            attempts: {
+              where: { demoMemberId },
+              select: { score: true },
+            },
+          },
+        },
+      },
+    });
+
+    return previousSections.every(
+      (section) =>
+        section.exam !== null &&
+        section.exam.attempts.some(
+          (attempt) => attempt.score >= section.exam!.passingScore,
+        ),
+    );
+  }
 }

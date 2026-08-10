@@ -6,6 +6,7 @@ export class DemoResponseDto {
     readonly id: string,
     readonly name: string,
     readonly imagePath: string,
+    readonly signatureImagePath: string,
     readonly description: string,
     readonly plan: PlanTier,
     readonly createdAt: Date,

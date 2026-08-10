@@ -1,0 +1,2 @@
+ALTER TABLE "Demo"
+ADD COLUMN "signatureImagePath" TEXT NOT NULL DEFAULT '';

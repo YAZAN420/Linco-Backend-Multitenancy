@@ -1,19 +1,57 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ExamAttemptQueryService } from 'src/exams/application/exams-attempts-query.service';
 import { ExamAttemptResponseMapper } from './mappers/exam-attempt-response.mapper';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { ApiTags } from '@nestjs/swagger';
 import { ExamResponseMapper } from './mappers/exam-response.mapper';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { ExamAttemptCommandService } from 'src/exams/application/exams-attempts-command.service';
+import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 
 @ApiTags('ExamAttempts')
 @Controller('examAttempts')
 export class ExamsAttemptQueryController {
   constructor(
     private readonly examAttemptQueryService: ExamAttemptQueryService,
+    private readonly examAttemptCommandService: ExamAttemptCommandService,
     private readonly examAttemptResponseMapper: ExamAttemptResponseMapper,
     private readonly examResponseMapper: ExamResponseMapper,
   ) {}
+
+  @Get('me')
+  @UseGuards(DemoRolesGuard)
+  async findMine(
+    @ActiveDemoMember('id') demoMemberId: string,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const attempts = await this.examAttemptQueryService.findAllCursor(
+      demoMemberId,
+      options,
+    );
+
+    return {
+      message: 'messages.EXAM_ATTEMPTS_FETCHED_SUCCESSFULLY',
+      data: this.examAttemptResponseMapper.toResponseManyFromPrisma(
+        attempts.data,
+      ),
+      meta: attempts.meta,
+    };
+  }
+
+  @Get('exams/:examId/eligibility')
+  @UseGuards(DemoRolesGuard)
+  async getEligibility(
+    @ActiveDemoMember('id') demoMemberId: string,
+    @Param('examId') examId: string,
+  ) {
+    return {
+      message: 'messages.EXAM_ATTEMPT_ELIGIBILITY_RETRIEVED_SUCCESSFULLY',
+      data: await this.examAttemptCommandService.getEligibility(
+        demoMemberId,
+        examId,
+      ),
+    };
+  }
 
   @Get('cursor')
   async findWithCursor(

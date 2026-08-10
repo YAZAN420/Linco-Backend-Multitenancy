@@ -217,11 +217,12 @@ model LiveStream {
 }
 
 model Demo {
-  id          String   @id
-  name        String
-  imagePath   String
-  description String
-  plan        PlanTier @default(FREE)
+  id                 String   @id
+  name               String
+  imagePath          String
+  signatureImagePath String   @default("")
+  description        String
+  plan               PlanTier @default(FREE)
 
   stripeSubscriptionId String?            @unique
   subscriptionStatus   SubscriptionStatus @default(TRIALING)

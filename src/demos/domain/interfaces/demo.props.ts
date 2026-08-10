@@ -6,6 +6,7 @@ import { Name } from '../value-objects/name.vo';
 export interface DemoProps {
   name: Name;
   imagePath: string;
+  signatureImagePath: string;
   description: string;
   ownerId: string;
   plan: PlanTier;

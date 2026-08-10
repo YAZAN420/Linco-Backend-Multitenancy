@@ -28,6 +28,7 @@ export type DemoMinAggregateOutputType = {
   id: string | null
   name: string | null
   imagePath: string | null
+  signatureImagePath: string | null
   description: string | null
   plan: $Enums.PlanTier | null
   stripeSubscriptionId: string | null
@@ -42,6 +43,7 @@ export type DemoMaxAggregateOutputType = {
   id: string | null
   name: string | null
   imagePath: string | null
+  signatureImagePath: string | null
   description: string | null
   plan: $Enums.PlanTier | null
   stripeSubscriptionId: string | null
@@ -56,6 +58,7 @@ export type DemoCountAggregateOutputType = {
   id: number
   name: number
   imagePath: number
+  signatureImagePath: number
   description: number
   plan: number
   stripeSubscriptionId: number
@@ -72,6 +75,7 @@ export type DemoMinAggregateInputType = {
   id?: true
   name?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   plan?: true
   stripeSubscriptionId?: true
@@ -86,6 +90,7 @@ export type DemoMaxAggregateInputType = {
   id?: true
   name?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   plan?: true
   stripeSubscriptionId?: true
@@ -100,6 +105,7 @@ export type DemoCountAggregateInputType = {
   id?: true
   name?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   plan?: true
   stripeSubscriptionId?: true
@@ -187,6 +193,7 @@ export type DemoGroupByOutputType = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath: string
   description: string
   plan: $Enums.PlanTier
   stripeSubscriptionId: string | null
@@ -222,6 +229,7 @@ export type DemoWhereInput = {
   id?: Prisma.StringFilter<"Demo"> | string
   name?: Prisma.StringFilter<"Demo"> | string
   imagePath?: Prisma.StringFilter<"Demo"> | string
+  signatureImagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
@@ -244,6 +252,7 @@ export type DemoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -270,6 +279,7 @@ export type DemoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DemoWhereInput | Prisma.DemoWhereInput[]
   name?: Prisma.StringFilter<"Demo"> | string
   imagePath?: Prisma.StringFilter<"Demo"> | string
+  signatureImagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Demo"> | $Enums.SubscriptionStatus
@@ -291,6 +301,7 @@ export type DemoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -311,6 +322,7 @@ export type DemoScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   name?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   imagePath?: Prisma.StringWithAggregatesFilter<"Demo"> | string
+  signatureImagePath?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   description?: Prisma.StringWithAggregatesFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierWithAggregatesFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"Demo"> | string | null
@@ -325,6 +337,7 @@ export type DemoCreateInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -346,6 +359,7 @@ export type DemoUncheckedCreateInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -367,6 +381,7 @@ export type DemoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -388,6 +403,7 @@ export type DemoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -409,6 +425,7 @@ export type DemoCreateManyInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -423,6 +440,7 @@ export type DemoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -436,6 +454,7 @@ export type DemoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -465,6 +484,7 @@ export type DemoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrder
@@ -479,6 +499,7 @@ export type DemoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrder
@@ -493,6 +514,7 @@ export type DemoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   stripeSubscriptionId?: Prisma.SortOrder
@@ -662,6 +684,7 @@ export type DemoCreateWithoutOwnerInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -682,6 +705,7 @@ export type DemoUncheckedCreateWithoutOwnerInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -731,6 +755,7 @@ export type DemoScalarWhereInput = {
   id?: Prisma.StringFilter<"Demo"> | string
   name?: Prisma.StringFilter<"Demo"> | string
   imagePath?: Prisma.StringFilter<"Demo"> | string
+  signatureImagePath?: Prisma.StringFilter<"Demo"> | string
   description?: Prisma.StringFilter<"Demo"> | string
   plan?: Prisma.EnumPlanTierFilter<"Demo"> | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.StringNullableFilter<"Demo"> | string | null
@@ -745,6 +770,7 @@ export type DemoCreateWithoutMembersInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -765,6 +791,7 @@ export type DemoUncheckedCreateWithoutMembersInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -801,6 +828,7 @@ export type DemoUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -821,6 +849,7 @@ export type DemoUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -841,6 +870,7 @@ export type DemoCreateWithoutDepartmentsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -861,6 +891,7 @@ export type DemoUncheckedCreateWithoutDepartmentsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -897,6 +928,7 @@ export type DemoUpdateWithoutDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -917,6 +949,7 @@ export type DemoUncheckedUpdateWithoutDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -937,6 +970,7 @@ export type DemoCreateWithoutCoursesInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -957,6 +991,7 @@ export type DemoUncheckedCreateWithoutCoursesInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -993,6 +1028,7 @@ export type DemoUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1013,6 +1049,7 @@ export type DemoUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1033,6 +1070,7 @@ export type DemoCreateWithoutAssetsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1053,6 +1091,7 @@ export type DemoUncheckedCreateWithoutAssetsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1089,6 +1128,7 @@ export type DemoUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1109,6 +1149,7 @@ export type DemoUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1129,6 +1170,7 @@ export type DemoCreateWithoutInvitationsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1149,6 +1191,7 @@ export type DemoUncheckedCreateWithoutInvitationsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1185,6 +1228,7 @@ export type DemoUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1205,6 +1249,7 @@ export type DemoUncheckedUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1225,6 +1270,7 @@ export type DemoCreateWithoutPaymentsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1245,6 +1291,7 @@ export type DemoUncheckedCreateWithoutPaymentsInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1281,6 +1328,7 @@ export type DemoUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1301,6 +1349,7 @@ export type DemoUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1321,6 +1370,7 @@ export type DemoCreateWithoutInquiriesInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1341,6 +1391,7 @@ export type DemoUncheckedCreateWithoutInquiriesInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1377,6 +1428,7 @@ export type DemoUpdateWithoutInquiriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1397,6 +1449,7 @@ export type DemoUncheckedUpdateWithoutInquiriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1417,6 +1470,7 @@ export type DemoCreateManyOwnerInput = {
   id: string
   name: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   plan?: $Enums.PlanTier
   stripeSubscriptionId?: string | null
@@ -1430,6 +1484,7 @@ export type DemoUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1450,6 +1505,7 @@ export type DemoUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1470,6 +1526,7 @@ export type DemoUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
   stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1568,6 +1625,7 @@ export type DemoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   plan?: boolean
   stripeSubscriptionId?: boolean
@@ -1591,6 +1649,7 @@ export type DemoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   plan?: boolean
   stripeSubscriptionId?: boolean
@@ -1606,6 +1665,7 @@ export type DemoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   plan?: boolean
   stripeSubscriptionId?: boolean
@@ -1621,6 +1681,7 @@ export type DemoSelectScalar = {
   id?: boolean
   name?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   plan?: boolean
   stripeSubscriptionId?: boolean
@@ -1631,7 +1692,7 @@ export type DemoSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imagePath" | "description" | "plan" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
+export type DemoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "imagePath" | "signatureImagePath" | "description" | "plan" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["demo"]>
 export type DemoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   departments?: boolean | Prisma.Demo$departmentsArgs<ExtArgs>
   members?: boolean | Prisma.Demo$membersArgs<ExtArgs>
@@ -1666,6 +1727,7 @@ export type $DemoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     name: string
     imagePath: string
+    signatureImagePath: string
     description: string
     plan: $Enums.PlanTier
     stripeSubscriptionId: string | null
@@ -2108,6 +2170,7 @@ export interface DemoFieldRefs {
   readonly id: Prisma.FieldRef<"Demo", 'String'>
   readonly name: Prisma.FieldRef<"Demo", 'String'>
   readonly imagePath: Prisma.FieldRef<"Demo", 'String'>
+  readonly signatureImagePath: Prisma.FieldRef<"Demo", 'String'>
   readonly description: Prisma.FieldRef<"Demo", 'String'>
   readonly plan: Prisma.FieldRef<"Demo", 'PlanTier'>
   readonly stripeSubscriptionId: Prisma.FieldRef<"Demo", 'String'>

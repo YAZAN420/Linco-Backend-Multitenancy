@@ -109,6 +109,7 @@
   "PAYMENT_METADATA_NOT_FOUND_IN_SESSION": "Payment metadata not found in session",
   "PAYMENT_NOT_FOUND": "Payment not found",
   "PAYMENT_RECORD_NOT_FOUND": "Payment record not found",
+  "PREVIOUS_EXAMS_MUST_BE_PASSED_BEFORE_ATTEMPTING_THIS_EXAM": "All previous exams in this course must be passed before attempting this exam",
   "PLEASE_VERIFY_YOUR_EMAIL_BEFORE_SIGNING_IN": "Please verify your email before signing in",
   "QUESTIONS_BANK_NOT_FOUND": "Question bank not found",
   "QUESTION_BANK_NOT_FOUND": "Question bank not found",

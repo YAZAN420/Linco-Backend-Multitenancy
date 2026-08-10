@@ -1,4 +1,4 @@
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, ForbiddenException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ExamAttempt } from '../domain/exam-attempt';
 import { Exam } from '../domain/exam';
@@ -18,6 +18,7 @@ describe('ExamAttemptCommandService', () => {
 
   let repository: {
     hasPassedAttempt: jest.Mock;
+    hasPassedAllPreviousExams: jest.Mock;
     save: jest.Mock;
     delete: jest.Mock;
     findById: jest.Mock;
@@ -34,6 +35,7 @@ describe('ExamAttemptCommandService', () => {
   beforeEach(() => {
     repository = {
       hasPassedAttempt: jest.fn(),
+      hasPassedAllPreviousExams: jest.fn().mockResolvedValue(true),
       save: jest.fn(),
       delete: jest.fn(),
       findById: jest.fn(),
@@ -87,5 +89,52 @@ describe('ExamAttemptCommandService', () => {
     ).rejects.toBeInstanceOf(ConflictException);
 
     expect(repository.save).not.toHaveBeenCalled();
+  });
+
+  it('blocks an exam until all previous section exams are passed', async () => {
+    repository.hasPassedAllPreviousExams.mockResolvedValue(false);
+
+    await expect(
+      service.create('member-id', { examId: 'exam-id', answers: [] }),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+
+    expect(repository.hasPassedAttempt).not.toHaveBeenCalled();
+    expect(repository.save).not.toHaveBeenCalled();
+  });
+
+  it('reports that an exam is available when prerequisites are satisfied', async () => {
+    repository.hasPassedAttempt.mockResolvedValue(false);
+
+    await expect(
+      service.getEligibility('member-id', 'exam-id'),
+    ).resolves.toEqual({
+      examId: 'exam-id',
+      canAttempt: true,
+      reason: 'AVAILABLE',
+    });
+  });
+
+  it('reports that previous exams block the attempt', async () => {
+    repository.hasPassedAllPreviousExams.mockResolvedValue(false);
+
+    await expect(
+      service.getEligibility('member-id', 'exam-id'),
+    ).resolves.toEqual({
+      examId: 'exam-id',
+      canAttempt: false,
+      reason: 'PREVIOUS_EXAMS_NOT_PASSED',
+    });
+  });
+
+  it('reports that a passed exam cannot be attempted again', async () => {
+    repository.hasPassedAttempt.mockResolvedValue(true);
+
+    await expect(
+      service.getEligibility('member-id', 'exam-id'),
+    ).resolves.toEqual({
+      examId: 'exam-id',
+      canAttempt: false,
+      reason: 'ALREADY_PASSED',
+    });
   });
 });

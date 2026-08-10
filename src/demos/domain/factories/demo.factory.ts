@@ -11,6 +11,7 @@ export class DemoFactory {
     name: string,
     ownerId: string,
     imagePath: string,
+    signatureImagePath: string,
     description: string,
   ): Demo {
     const now = new Date();
@@ -24,6 +25,7 @@ export class DemoFactory {
     return new Demo(uuidv7(), {
       name: nameVo,
       imagePath,
+      signatureImagePath,
       description,
       ownerId,
       subscriptionStatus: SubscriptionStatus.TRIALING,

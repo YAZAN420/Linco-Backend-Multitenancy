@@ -27,6 +27,10 @@ export class Demo {
     return this.props.imagePath;
   }
 
+  get signatureImagePath(): string {
+    return this.props.signatureImagePath;
+  }
+
   get description(): string {
     return this.props.description;
   }
@@ -160,6 +164,17 @@ export class Demo {
     }
     if (this.props.imagePath === newImagePath) return;
     this.props.imagePath = newImagePath;
+    this.touch();
+  }
+
+  updateSignatureImagePath(newSignatureImagePath: string): void {
+    if (!this.isAccessAllowed()) {
+      throw new DomainException(
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
+      );
+    }
+    if (this.props.signatureImagePath === newSignatureImagePath) return;
+    this.props.signatureImagePath = newSignatureImagePath;
     this.touch();
   }
 

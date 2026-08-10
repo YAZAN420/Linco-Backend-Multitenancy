@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -13,6 +14,7 @@ import { ExamQueryRepository } from './ports/exam-query.repository';
 import { ExamUserAnswerInput } from './interfaces/exam-user-answer-input.interface';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 import { Exam } from '../domain/exam';
+import { ExamAttemptEligibility } from './interfaces/exam-attempt-eligibility.interface';
 
 @Injectable()
 export class ExamAttemptCommandService {
@@ -35,13 +37,13 @@ export class ExamAttemptCommandService {
     const exam = await this.examQueryRepository.findById(input.examId);
     if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
-    const hasPassedAttempt =
-      await this.examAttemptCommandRepository.hasPassedAttempt(
-        demoMemberId,
-        input.examId,
-        exam.passingScore,
+    const eligibility = await this.evaluateEligibility(demoMemberId, exam);
+    if (eligibility.reason === 'PREVIOUS_EXAMS_NOT_PASSED') {
+      throw new ForbiddenException(
+        'errors.PREVIOUS_EXAMS_MUST_BE_PASSED_BEFORE_ATTEMPTING_THIS_EXAM',
       );
-    if (hasPassedAttempt) {
+    }
+    if (eligibility.reason === 'ALREADY_PASSED') {
       throw new ConflictException('errors.EXAM_ATTEMPT_ALREADY_EXISTS');
     }
 
@@ -82,6 +84,49 @@ export class ExamAttemptCommandService {
 
   async remove(id: string): Promise<void> {
     await this.examAttemptCommandRepository.delete(id);
+  }
+
+  async getEligibility(
+    demoMemberId: string,
+    examId: string,
+  ): Promise<ExamAttemptEligibility> {
+    const exam = await this.examQueryRepository.findById(examId);
+    if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
+    return this.evaluateEligibility(demoMemberId, exam);
+  }
+
+  private async evaluateEligibility(
+    demoMemberId: string,
+    exam: Exam,
+  ): Promise<ExamAttemptEligibility> {
+    const hasPassedAllPreviousExams =
+      await this.examAttemptCommandRepository.hasPassedAllPreviousExams(
+        demoMemberId,
+        exam.id,
+      );
+    if (!hasPassedAllPreviousExams) {
+      return {
+        examId: exam.id,
+        canAttempt: false,
+        reason: 'PREVIOUS_EXAMS_NOT_PASSED',
+      };
+    }
+
+    const hasPassedAttempt =
+      await this.examAttemptCommandRepository.hasPassedAttempt(
+        demoMemberId,
+        exam.id,
+        exam.passingScore,
+      );
+    if (hasPassedAttempt) {
+      return {
+        examId: exam.id,
+        canAttempt: false,
+        reason: 'ALREADY_PASSED',
+      };
+    }
+
+    return { examId: exam.id, canAttempt: true, reason: 'AVAILABLE' };
   }
 
   private calculateScore(

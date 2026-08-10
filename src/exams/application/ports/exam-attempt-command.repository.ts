@@ -9,4 +9,8 @@ export abstract class ExamAttemptCommandRepository {
     examId: string,
     passingScore: number,
   ): Promise<boolean>;
+  abstract hasPassedAllPreviousExams(
+    demoMemberId: string,
+    examId: string,
+  ): Promise<boolean>;
 }

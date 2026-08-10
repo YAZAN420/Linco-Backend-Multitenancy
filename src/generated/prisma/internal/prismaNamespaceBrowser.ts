@@ -181,6 +181,7 @@ export const DemoScalarFieldEnum = {
   id: 'id',
   name: 'name',
   imagePath: 'imagePath',
+  signatureImagePath: 'signatureImagePath',
   description: 'description',
   plan: 'plan',
   stripeSubscriptionId: 'stripeSubscriptionId',

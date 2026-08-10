@@ -71,6 +71,7 @@ export class DemosCommandService {
       input.name,
       input.ownerId,
       input.imagePath,
+      input.signatureImagePath,
       input.description,
     );
     await this.demoCommandRepository.save(demo);
@@ -89,6 +90,9 @@ export class DemosCommandService {
     }
     if (input.imagePath !== undefined) {
       demo.updateImagePath(input.imagePath);
+    }
+    if (input.signatureImagePath !== undefined) {
+      demo.updateSignatureImagePath(input.signatureImagePath);
     }
     if (input.description !== undefined) {
       demo.updateDescription(input.description);
