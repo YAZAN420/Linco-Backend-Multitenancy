@@ -56,6 +56,7 @@ export class JwtTokenAdapter implements TokenPort {
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
+          profileImage: user.imagePath,
           role: user.role,
         },
       ),

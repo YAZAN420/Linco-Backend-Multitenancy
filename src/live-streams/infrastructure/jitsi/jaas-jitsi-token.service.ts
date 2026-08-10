@@ -25,7 +25,7 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
       const token = jwt.sign(
         {
           aud: 'jitsi',
-          iss: 'jaas-components',
+          iss: 'chat',
           sub: this.config.appId,
           room: params.roomName,
           nbf: now - 10,
@@ -40,6 +40,7 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
               id: params.user.id,
               moderator: isHost,
               name: `${params.user.firstName} ${params.user.lastName}`,
+              avatar: params.user.profileImage,
             },
           },
         },
