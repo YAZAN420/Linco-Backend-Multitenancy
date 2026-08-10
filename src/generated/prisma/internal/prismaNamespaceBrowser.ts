@@ -198,6 +198,7 @@ export const CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   imagePath: 'imagePath',
+  signatureImagePath: 'signatureImagePath',
   description: 'description',
   visibility: 'visibility',
   price: 'price',
@@ -465,6 +466,7 @@ export const CertificationScalarFieldEnum = {
   demoMemberId: 'demoMemberId',
   courseId: 'courseId',
   score: 'score',
+  issuedAt: 'issuedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

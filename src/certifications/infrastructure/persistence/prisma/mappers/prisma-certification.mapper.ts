@@ -9,6 +9,7 @@ export class PrismaCertificationMapper {
       courseId: raw.courseId,
       demoMemberId: raw.demoMemberId,
       score: raw.score,
+      issuedAt: raw.issuedAt,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -20,6 +21,7 @@ export class PrismaCertificationMapper {
       courseId: certification.courseId,
       demoMemberId: certification.demoMemberId,
       score: certification.score,
+      issuedAt: certification.issuedAt,
       createdAt: certification.createdAt,
       updatedAt: certification.updatedAt,
     };

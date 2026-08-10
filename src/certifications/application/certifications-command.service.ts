@@ -44,12 +44,7 @@ export class CertificationsCommandService {
       demoMemberId,
     );
     if (!snapshot || snapshot.exams.length === 0) return null;
-    if (
-      snapshot.exams.some(
-        (exam) =>
-          exam.attemptScore === null || exam.attemptScore < exam.passingScore,
-      )
-    ) {
+    if (snapshot.exams.some((exam) => exam.passedAttemptScore === null)) {
       return null;
     }
     if (
@@ -61,7 +56,7 @@ export class CertificationsCommandService {
       return null;
 
     const score = Math.round(
-      snapshot.exams.reduce((sum, exam) => sum + exam.attemptScore!, 0) /
+      snapshot.exams.reduce((sum, exam) => sum + exam.passedAttemptScore!, 0) /
         snapshot.exams.length,
     );
     const certification = this.factory.createNew(

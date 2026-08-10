@@ -13,6 +13,7 @@ export class CourseFactory {
     demoId: string,
     description: string,
     imagePath: string,
+    signatureImagePath: string,
     price: number,
     tagIds: string[] = [],
   ): Course {
@@ -23,6 +24,7 @@ export class CourseFactory {
       title: titleVo,
       visibility,
       imagePath,
+      signatureImagePath,
       description,
       tagIds,
       isPublished: false,

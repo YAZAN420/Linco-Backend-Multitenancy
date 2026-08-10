@@ -112,16 +112,18 @@ export class PrismaCertificationCommandRepository implements CertificationComman
         attempts: {
           where: { demoMemberId },
           select: { score: true },
-          take: 1,
+          orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         },
       },
     });
     return {
       courseId: exam.section.courseId,
-      exams: exams.map((item) => ({
-        passingScore: item.passingScore,
-        attemptScore: item.attempts[0]?.score ?? null,
-      })),
+      exams: exams.map((item) => {
+        const passedAttempt = item.attempts.find(
+          (attempt) => attempt.score >= item.passingScore,
+        );
+        return { passedAttemptScore: passedAttempt?.score ?? null };
+      }),
     };
   }
 }

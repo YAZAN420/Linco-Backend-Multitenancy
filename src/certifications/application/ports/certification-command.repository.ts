@@ -2,7 +2,7 @@ import { Certification } from 'src/certifications/domain/certification';
 
 export interface CourseCompletionSnapshot {
   courseId: string;
-  exams: { passingScore: number; attemptScore: number | null }[];
+  exams: { passedAttemptScore: number | null }[];
 }
 
 export abstract class CertificationCommandRepository {

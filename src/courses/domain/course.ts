@@ -20,6 +20,10 @@ export class Course {
     return this.props.imagePath;
   }
 
+  get signatureImagePath(): string {
+    return this.props.signatureImagePath;
+  }
+
   get tagIds(): string[] {
     return this.props.tagIds;
   }
@@ -74,6 +78,12 @@ export class Course {
     this.touch();
   }
 
+  updateSignatureImagePath(newSignatureImagePath: string) {
+    if (newSignatureImagePath === this.props.signatureImagePath) return;
+    this.props.signatureImagePath = newSignatureImagePath;
+    this.touch();
+  }
+
   updateVisibility(newVisibility: CourseVisibility) {
     if (newVisibility === this.props.visibility) return;
     this.props.visibility = newVisibility;
@@ -99,7 +109,9 @@ export class Course {
 
   addSection(section: Section): void {
     if (this.props.sections.length >= 50) {
-      throw new DomainException('errors.COURSE_CANNOT_HAVE_MORE_THAN_50_SECTIONS');
+      throw new DomainException(
+        'errors.COURSE_CANNOT_HAVE_MORE_THAN_50_SECTIONS',
+      );
     }
 
     const isTitleExists = this.props.sections.some(
@@ -130,7 +142,8 @@ export class Course {
     newOrder?: SectionOrder,
   ): void {
     const section = this.props.sections.find((s) => s.id === sectionId);
-    if (!section) throw new DomainException('errors.SECTION_NOT_FOUND_IN_THIS_COURSE');
+    if (!section)
+      throw new DomainException('errors.SECTION_NOT_FOUND_IN_THIS_COURSE');
 
     let isUpdated = false;
 

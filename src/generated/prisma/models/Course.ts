@@ -38,6 +38,7 @@ export type CourseMinAggregateOutputType = {
   id: string | null
   title: string | null
   imagePath: string | null
+  signatureImagePath: string | null
   description: string | null
   visibility: $Enums.CourseVisibility | null
   price: number | null
@@ -51,6 +52,7 @@ export type CourseMaxAggregateOutputType = {
   id: string | null
   title: string | null
   imagePath: string | null
+  signatureImagePath: string | null
   description: string | null
   visibility: $Enums.CourseVisibility | null
   price: number | null
@@ -64,6 +66,7 @@ export type CourseCountAggregateOutputType = {
   id: number
   title: number
   imagePath: number
+  signatureImagePath: number
   description: number
   visibility: number
   price: number
@@ -87,6 +90,7 @@ export type CourseMinAggregateInputType = {
   id?: true
   title?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   visibility?: true
   price?: true
@@ -100,6 +104,7 @@ export type CourseMaxAggregateInputType = {
   id?: true
   title?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   visibility?: true
   price?: true
@@ -113,6 +118,7 @@ export type CourseCountAggregateInputType = {
   id?: true
   title?: true
   imagePath?: true
+  signatureImagePath?: true
   description?: true
   visibility?: true
   price?: true
@@ -213,6 +219,7 @@ export type CourseGroupByOutputType = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath: string
   description: string
   visibility: $Enums.CourseVisibility
   price: number
@@ -249,6 +256,7 @@ export type CourseWhereInput = {
   id?: Prisma.StringFilter<"Course"> | string
   title?: Prisma.StringFilter<"Course"> | string
   imagePath?: Prisma.StringFilter<"Course"> | string
+  signatureImagePath?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringFilter<"Course"> | string
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatFilter<"Course"> | number
@@ -269,6 +277,7 @@ export type CourseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -292,6 +301,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
   title?: Prisma.StringFilter<"Course"> | string
   imagePath?: Prisma.StringFilter<"Course"> | string
+  signatureImagePath?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringFilter<"Course"> | string
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatFilter<"Course"> | number
@@ -312,6 +322,7 @@ export type CourseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -333,6 +344,7 @@ export type CourseScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Course"> | string
   title?: Prisma.StringWithAggregatesFilter<"Course"> | string
   imagePath?: Prisma.StringWithAggregatesFilter<"Course"> | string
+  signatureImagePath?: Prisma.StringWithAggregatesFilter<"Course"> | string
   description?: Prisma.StringWithAggregatesFilter<"Course"> | string
   visibility?: Prisma.EnumCourseVisibilityWithAggregatesFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatWithAggregatesFilter<"Course"> | number
@@ -346,6 +358,7 @@ export type CourseCreateInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -365,6 +378,7 @@ export type CourseUncheckedCreateInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -384,6 +398,7 @@ export type CourseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -403,6 +418,7 @@ export type CourseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -422,6 +438,7 @@ export type CourseCreateManyInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -435,6 +452,7 @@ export type CourseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -447,6 +465,7 @@ export type CourseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -470,6 +489,7 @@ export type CourseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -487,6 +507,7 @@ export type CourseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -500,6 +521,7 @@ export type CourseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   imagePath?: Prisma.SortOrder
+  signatureImagePath?: Prisma.SortOrder
   description?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -691,6 +713,7 @@ export type CourseCreateWithoutDemoInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -709,6 +732,7 @@ export type CourseUncheckedCreateWithoutDemoInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -756,6 +780,7 @@ export type CourseScalarWhereInput = {
   id?: Prisma.StringFilter<"Course"> | string
   title?: Prisma.StringFilter<"Course"> | string
   imagePath?: Prisma.StringFilter<"Course"> | string
+  signatureImagePath?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringFilter<"Course"> | string
   visibility?: Prisma.EnumCourseVisibilityFilter<"Course"> | $Enums.CourseVisibility
   price?: Prisma.FloatFilter<"Course"> | number
@@ -769,6 +794,7 @@ export type CourseCreateWithoutFaqsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -787,6 +813,7 @@ export type CourseUncheckedCreateWithoutFaqsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -821,6 +848,7 @@ export type CourseUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -839,6 +867,7 @@ export type CourseUncheckedUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -857,6 +886,7 @@ export type CourseCreateWithoutSectionsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -875,6 +905,7 @@ export type CourseUncheckedCreateWithoutSectionsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -909,6 +940,7 @@ export type CourseUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -927,6 +959,7 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -945,6 +978,7 @@ export type CourseCreateWithoutAssetsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -963,6 +997,7 @@ export type CourseUncheckedCreateWithoutAssetsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -997,6 +1032,7 @@ export type CourseUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1015,6 +1051,7 @@ export type CourseUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1033,6 +1070,7 @@ export type CourseCreateWithoutPaymentsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1051,6 +1089,7 @@ export type CourseUncheckedCreateWithoutPaymentsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1085,6 +1124,7 @@ export type CourseUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1103,6 +1143,7 @@ export type CourseUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1121,6 +1162,7 @@ export type CourseCreateWithoutTagsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1139,6 +1181,7 @@ export type CourseUncheckedCreateWithoutTagsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1178,6 +1221,7 @@ export type CourseCreateWithoutCertificationsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1196,6 +1240,7 @@ export type CourseUncheckedCreateWithoutCertificationsInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1230,6 +1275,7 @@ export type CourseUpdateWithoutCertificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1248,6 +1294,7 @@ export type CourseUncheckedUpdateWithoutCertificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1266,6 +1313,7 @@ export type CourseCreateManyDemoInput = {
   id: string
   title: string
   imagePath: string
+  signatureImagePath?: string
   description: string
   visibility?: $Enums.CourseVisibility
   price: number
@@ -1278,6 +1326,7 @@ export type CourseUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1296,6 +1345,7 @@ export type CourseUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1314,6 +1364,7 @@ export type CourseUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1326,6 +1377,7 @@ export type CourseUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1344,6 +1396,7 @@ export type CourseUncheckedUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1362,6 +1415,7 @@ export type CourseUncheckedUpdateManyWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imagePath?: Prisma.StringFieldUpdateOperationsInput | string
+  signatureImagePath?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumCourseVisibilityFieldUpdateOperationsInput | $Enums.CourseVisibility
   price?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1451,6 +1505,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   title?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   visibility?: boolean
   price?: boolean
@@ -1472,6 +1527,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   visibility?: boolean
   price?: boolean
@@ -1486,6 +1542,7 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   visibility?: boolean
   price?: boolean
@@ -1500,6 +1557,7 @@ export type CourseSelectScalar = {
   id?: boolean
   title?: boolean
   imagePath?: boolean
+  signatureImagePath?: boolean
   description?: boolean
   visibility?: boolean
   price?: boolean
@@ -1509,7 +1567,7 @@ export type CourseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imagePath" | "description" | "visibility" | "price" | "isPublished" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imagePath" | "signatureImagePath" | "description" | "visibility" | "price" | "isPublished" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Course$paymentsArgs<ExtArgs>
@@ -1542,6 +1600,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     title: string
     imagePath: string
+    signatureImagePath: string
     description: string
     visibility: $Enums.CourseVisibility
     price: number
@@ -1982,6 +2041,7 @@ export interface CourseFieldRefs {
   readonly id: Prisma.FieldRef<"Course", 'String'>
   readonly title: Prisma.FieldRef<"Course", 'String'>
   readonly imagePath: Prisma.FieldRef<"Course", 'String'>
+  readonly signatureImagePath: Prisma.FieldRef<"Course", 'String'>
   readonly description: Prisma.FieldRef<"Course", 'String'>
   readonly visibility: Prisma.FieldRef<"Course", 'CourseVisibility'>
   readonly price: Prisma.FieldRef<"Course", 'Float'>
