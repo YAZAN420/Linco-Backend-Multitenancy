@@ -1,10 +1,5 @@
 import { IsEnum, IsOptional } from 'class-validator';
-
-export enum AnalyticsPeriod {
-  SEVEN_DAYS = '7D',
-  SIX_MONTHS = '6M',
-  ONE_YEAR = '1Y',
-}
+import { AnalyticsPeriod } from 'src/dashboard/application/interfaces/dashboard-analytics.query';
 
 export class DashboardAnalyticsQueryDto {
   @IsOptional()

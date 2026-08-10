@@ -198,6 +198,8 @@ model DemoMember {
   certifications          Certification[]
 
   @@unique([userId, demoId])
+  @@index([demoId, joinedAt, id])
+  @@index([role, joinedAt, userId])
 }
 
 model DepartmentMember {
@@ -219,6 +221,7 @@ model DepartmentMember {
   @@unique([departmentId, demoMemberId])
   @@index([departmentId])
   @@index([demoMemberId])
+  @@index([role, demoMemberId])
 }
 
 model Department {
@@ -285,6 +288,8 @@ model Demo {
   courses   Course[]
   assets    Asset[]
   inquiries Inquiry[]
+
+  @@index([createdAt, id])
 }
 
 model Course {
@@ -309,6 +314,9 @@ model Course {
   sections       Section[]
   faqs           CourseFaq[]
   certifications Certification[]
+
+  @@index([isPublished, createdAt, id])
+  @@index([isPublished, updatedAt, id])
 }
 
 model CourseFaq {
@@ -533,6 +541,8 @@ model Payment {
 
   courseId String?
   course   Course? @relation(fields: [courseId], references: [id])
+
+  @@index([type, status, updatedAt, id])
 }
 
 model Tag {
@@ -641,4 +651,5 @@ model Certification {
   @@unique([courseId, demoMemberId])
   @@index([courseId])
   @@index([demoMemberId])
+  @@index([issuedAt, demoMemberId])
 }

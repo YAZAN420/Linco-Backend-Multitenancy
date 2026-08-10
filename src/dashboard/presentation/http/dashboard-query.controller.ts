@@ -1,38 +1,48 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { DashboardAnalyticsService } from 'src/dashboard/application/dashboard-analytics.service';
+import { DashboardQueryService } from 'src/dashboard/application/dashboard-query.service';
 import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
 import { Role } from 'src/users/domain/enums/role.enum';
 import { DashboardAnalyticsQueryDto } from './dto/dashboard-analytics-query.dto';
 import { RecentDashboardQueryDto } from './dto/recent-dashboard-query.dto';
+import { DashboardResponseMapper } from './mappers/dashboard-response.mapper';
 
 @ApiTags('Dashboard')
 @Roles([Role.ADMIN])
 @Controller('dashboard')
-export class DashboardAnalyticsController {
-  constructor(private readonly analyticsService: DashboardAnalyticsService) {}
+export class DashboardQueryController {
+  constructor(
+    private readonly queryService: DashboardQueryService,
+    private readonly responseMapper: DashboardResponseMapper,
+  ) {}
 
   @Get('analytics')
   async getAnalytics(@Query() query: DashboardAnalyticsQueryDto) {
+    const analytics = await this.queryService.getAnalytics(query.period);
     return {
       message: 'messages.REQUEST_SUCCESSFUL',
-      data: await this.analyticsService.getAnalytics(query.period),
+      data: this.responseMapper.toAnalyticsResponse(analytics),
     };
   }
 
   @Get('recent-companies')
   async getRecentlyJoinedCompanies(@Query() query: RecentDashboardQueryDto) {
+    const companies =
+      await this.queryService.findRecentlyJoinedCompanies(query);
     return {
       message: 'messages.REQUEST_SUCCESSFUL',
-      data: await this.analyticsService.getRecentlyJoinedCompanies(query.take),
+      data: this.responseMapper.toRecentCompaniesResponse(companies.data),
+      meta: companies.meta,
     };
   }
 
   @Get('recent-activity')
   async getRecentActivity(@Query() query: RecentDashboardQueryDto) {
+    const activities = await this.queryService.findRecentActivity(query);
     return {
       message: 'messages.REQUEST_SUCCESSFUL',
-      data: await this.analyticsService.getRecentActivity(query.take),
+      data: this.responseMapper.toActivitiesResponse(activities.data),
+      meta: activities.meta,
     };
   }
 }
