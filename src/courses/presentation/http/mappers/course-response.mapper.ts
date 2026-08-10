@@ -18,6 +18,7 @@ export class CourseResponseMapper {
       course.price,
       course.description,
       course.imagePath,
+      course.signatureImagePath,
       course.isPublished,
       course.createdAt,
       course.updatedAt,

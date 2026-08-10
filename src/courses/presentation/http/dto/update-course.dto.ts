@@ -25,6 +25,10 @@ export class UpdateCourseDto implements UpdateCourseInput {
   @IsOptional()
   imagePath?: string;
 
+  @IsString()
+  @IsOptional()
+  signatureImagePath?: string;
+
   @IsNumber()
   @IsOptional()
   price?: number;

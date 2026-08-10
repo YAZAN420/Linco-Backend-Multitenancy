@@ -15,6 +15,9 @@ export class Certification {
   get score(): number {
     return this.props.score;
   }
+  get issuedAt(): Date {
+    return this.props.issuedAt;
+  }
   get createdAt(): Date {
     return this.props.createdAt;
   }

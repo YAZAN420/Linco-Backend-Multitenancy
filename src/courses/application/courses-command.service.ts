@@ -60,6 +60,7 @@ export class CoursesCommandService {
       input.demoId,
       input.description,
       input.imagePath,
+      input.signatureImagePath,
       input.price,
       input.tagIds,
     );
@@ -120,6 +121,10 @@ export class CoursesCommandService {
 
     if (input.imagePath !== undefined) {
       course.updateImagePath(input.imagePath);
+    }
+
+    if (input.signatureImagePath !== undefined) {
+      course.updateSignatureImagePath(input.signatureImagePath);
     }
 
     if (input.visibility !== undefined && input.visibility !== null) {

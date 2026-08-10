@@ -14,6 +14,7 @@ export class CertificationFactory {
       courseId,
       demoMemberId,
       score,
+      issuedAt: now,
       createdAt: now,
       updatedAt: now,
     });

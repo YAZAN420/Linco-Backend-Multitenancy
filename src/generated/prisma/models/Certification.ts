@@ -39,6 +39,7 @@ export type CertificationMinAggregateOutputType = {
   demoMemberId: string | null
   courseId: string | null
   score: number | null
+  issuedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +49,7 @@ export type CertificationMaxAggregateOutputType = {
   demoMemberId: string | null
   courseId: string | null
   score: number | null
+  issuedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,6 +59,7 @@ export type CertificationCountAggregateOutputType = {
   demoMemberId: number
   courseId: number
   score: number
+  issuedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -76,6 +79,7 @@ export type CertificationMinAggregateInputType = {
   demoMemberId?: true
   courseId?: true
   score?: true
+  issuedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,6 +89,7 @@ export type CertificationMaxAggregateInputType = {
   demoMemberId?: true
   courseId?: true
   score?: true
+  issuedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type CertificationCountAggregateInputType = {
   demoMemberId?: true
   courseId?: true
   score?: true
+  issuedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -190,6 +196,7 @@ export type CertificationGroupByOutputType = {
   demoMemberId: string
   courseId: string
   score: number
+  issuedAt: Date
   createdAt: Date
   updatedAt: Date
   _count: CertificationCountAggregateOutputType | null
@@ -222,6 +229,7 @@ export type CertificationWhereInput = {
   demoMemberId?: Prisma.StringFilter<"Certification"> | string
   courseId?: Prisma.StringFilter<"Certification"> | string
   score?: Prisma.IntFilter<"Certification"> | number
+  issuedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   demoMember?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
@@ -233,6 +241,7 @@ export type CertificationOrderByWithRelationInput = {
   demoMemberId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   demoMember?: Prisma.DemoMemberOrderByWithRelationInput
@@ -248,6 +257,7 @@ export type CertificationWhereUniqueInput = Prisma.AtLeast<{
   demoMemberId?: Prisma.StringFilter<"Certification"> | string
   courseId?: Prisma.StringFilter<"Certification"> | string
   score?: Prisma.IntFilter<"Certification"> | number
+  issuedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   demoMember?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
@@ -259,6 +269,7 @@ export type CertificationOrderByWithAggregationInput = {
   demoMemberId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CertificationCountOrderByAggregateInput
@@ -276,6 +287,7 @@ export type CertificationScalarWhereWithAggregatesInput = {
   demoMemberId?: Prisma.StringWithAggregatesFilter<"Certification"> | string
   courseId?: Prisma.StringWithAggregatesFilter<"Certification"> | string
   score?: Prisma.IntWithAggregatesFilter<"Certification"> | number
+  issuedAt?: Prisma.DateTimeWithAggregatesFilter<"Certification"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Certification"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Certification"> | Date | string
 }
@@ -283,6 +295,7 @@ export type CertificationScalarWhereWithAggregatesInput = {
 export type CertificationCreateInput = {
   id: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   demoMember: Prisma.DemoMemberCreateNestedOneWithoutCertificationsInput
@@ -294,6 +307,7 @@ export type CertificationUncheckedCreateInput = {
   demoMemberId: string
   courseId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -301,6 +315,7 @@ export type CertificationUncheckedCreateInput = {
 export type CertificationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demoMember?: Prisma.DemoMemberUpdateOneRequiredWithoutCertificationsNestedInput
@@ -312,6 +327,7 @@ export type CertificationUncheckedUpdateInput = {
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -321,6 +337,7 @@ export type CertificationCreateManyInput = {
   demoMemberId: string
   courseId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -328,6 +345,7 @@ export type CertificationCreateManyInput = {
 export type CertificationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -337,6 +355,7 @@ export type CertificationUncheckedUpdateManyInput = {
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +380,7 @@ export type CertificationCountOrderByAggregateInput = {
   demoMemberId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -374,6 +394,7 @@ export type CertificationMaxOrderByAggregateInput = {
   demoMemberId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -383,6 +404,7 @@ export type CertificationMinOrderByAggregateInput = {
   demoMemberId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -478,6 +500,7 @@ export type CertificationUncheckedUpdateManyWithoutCourseNestedInput = {
 export type CertificationCreateWithoutDemoMemberInput = {
   id: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutCertificationsInput
@@ -487,6 +510,7 @@ export type CertificationUncheckedCreateWithoutDemoMemberInput = {
   id: string
   courseId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -525,6 +549,7 @@ export type CertificationScalarWhereInput = {
   demoMemberId?: Prisma.StringFilter<"Certification"> | string
   courseId?: Prisma.StringFilter<"Certification"> | string
   score?: Prisma.IntFilter<"Certification"> | number
+  issuedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Certification"> | Date | string
 }
@@ -532,6 +557,7 @@ export type CertificationScalarWhereInput = {
 export type CertificationCreateWithoutCourseInput = {
   id: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   demoMember: Prisma.DemoMemberCreateNestedOneWithoutCertificationsInput
@@ -541,6 +567,7 @@ export type CertificationUncheckedCreateWithoutCourseInput = {
   id: string
   demoMemberId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -575,6 +602,7 @@ export type CertificationCreateManyDemoMemberInput = {
   id: string
   courseId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -582,6 +610,7 @@ export type CertificationCreateManyDemoMemberInput = {
 export type CertificationUpdateWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutCertificationsNestedInput
@@ -591,6 +620,7 @@ export type CertificationUncheckedUpdateWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -599,6 +629,7 @@ export type CertificationUncheckedUpdateManyWithoutDemoMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -607,6 +638,7 @@ export type CertificationCreateManyCourseInput = {
   id: string
   demoMemberId: string
   score: number
+  issuedAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -614,6 +646,7 @@ export type CertificationCreateManyCourseInput = {
 export type CertificationUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demoMember?: Prisma.DemoMemberUpdateOneRequiredWithoutCertificationsNestedInput
@@ -623,6 +656,7 @@ export type CertificationUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -631,6 +665,7 @@ export type CertificationUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   demoMemberId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  issuedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -642,6 +677,7 @@ export type CertificationSelect<ExtArgs extends runtime.Types.Extensions.Interna
   demoMemberId?: boolean
   courseId?: boolean
   score?: boolean
+  issuedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
@@ -653,6 +689,7 @@ export type CertificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   demoMemberId?: boolean
   courseId?: boolean
   score?: boolean
+  issuedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
@@ -664,6 +701,7 @@ export type CertificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   demoMemberId?: boolean
   courseId?: boolean
   score?: boolean
+  issuedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
@@ -675,11 +713,12 @@ export type CertificationSelectScalar = {
   demoMemberId?: boolean
   courseId?: boolean
   score?: boolean
+  issuedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "demoMemberId" | "courseId" | "score" | "createdAt" | "updatedAt", ExtArgs["result"]["certification"]>
+export type CertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "demoMemberId" | "courseId" | "score" | "issuedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["certification"]>
 export type CertificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demoMember?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -704,6 +743,7 @@ export type $CertificationPayload<ExtArgs extends runtime.Types.Extensions.Inter
     demoMemberId: string
     courseId: string
     score: number
+    issuedAt: Date
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["certification"]>
@@ -1135,6 +1175,7 @@ export interface CertificationFieldRefs {
   readonly demoMemberId: Prisma.FieldRef<"Certification", 'String'>
   readonly courseId: Prisma.FieldRef<"Certification", 'String'>
   readonly score: Prisma.FieldRef<"Certification", 'Int'>
+  readonly issuedAt: Prisma.FieldRef<"Certification", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Certification", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Certification", 'DateTime'>
 }

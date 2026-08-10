@@ -4,6 +4,10 @@ export class CertificationResponseDto {
     readonly courseId: string,
     readonly demoMemberId: string,
     readonly score: number,
+    readonly demoName: string,
+    readonly courseName: string,
+    readonly signature: string,
+    readonly issuedAt: Date,
     readonly createdAt: Date,
     readonly updatedAt: Date,
   ) {}

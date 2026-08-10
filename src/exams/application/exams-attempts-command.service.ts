@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateExamAttemptInput } from './interfaces/create-exam-attempt-input.interface';
 import { ExamAttempt } from '../domain/exam-attempt';
@@ -31,6 +35,16 @@ export class ExamAttemptCommandService {
     const exam = await this.examQueryRepository.findById(input.examId);
     if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
+    const hasPassedAttempt =
+      await this.examAttemptCommandRepository.hasPassedAttempt(
+        demoMemberId,
+        input.examId,
+        exam.passingScore,
+      );
+    if (hasPassedAttempt) {
+      throw new ConflictException('errors.EXAM_ATTEMPT_ALREADY_EXISTS');
+    }
+
     const correctChoices =
       await this.questionBankQueryRepository.findCorrectChoicesByQuestionIds(
         input.answers.map((a) => a.questionId),
@@ -53,7 +67,6 @@ export class ExamAttemptCommandService {
         this.questionBankQueryRepository.findByIdWithoutSection(a.questionId),
       ),
     )) as QuestionsBankWithQuestionChoices[];
-    console.log(questionsWithChoices);
 
     await this.examAttemptCommandRepository.save(examAttempt);
     await this.eventEmitter.emitAsync('exam.attempt.created', {

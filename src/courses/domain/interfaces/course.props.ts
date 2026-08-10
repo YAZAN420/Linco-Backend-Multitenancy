@@ -7,6 +7,7 @@ export interface CourseProps {
   title: Title;
   visibility: CourseVisibility;
   imagePath: string;
+  signatureImagePath: string;
   description: string;
   isPublished: boolean;
   demoId: string;

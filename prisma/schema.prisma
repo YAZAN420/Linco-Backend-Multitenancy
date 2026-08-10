@@ -169,7 +169,7 @@ model DepartmentMember {
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
-  messages DepartmentMessage[]
+  messages          DepartmentMessage[]
   hostedLiveStreams LiveStream[]
 
   @@unique([departmentId, demoMemberId])
@@ -190,8 +190,8 @@ model Department {
   demo    Demo               @relation(fields: [demoId], references: [id], onDelete: Cascade)
   courses DepartmentCourse[]
 
-  members  DepartmentMember[]
-  messages DepartmentMessage[]
+  members     DepartmentMember[]
+  messages    DepartmentMessage[]
   liveStreams LiveStream[]
 }
 
@@ -243,13 +243,14 @@ model Demo {
 }
 
 model Course {
-  id          String           @id
-  title       String
-  imagePath   String
-  description String
-  visibility  CourseVisibility @default(PRIVATE)
-  price       Float
-  isPublished Boolean          @default(false)
+  id                 String           @id
+  title              String
+  imagePath          String
+  signatureImagePath String           @default("")
+  description        String
+  visibility         CourseVisibility @default(PRIVATE)
+  price              Float
+  isPublished        Boolean          @default(false)
 
   demoId String
   demo   Demo   @relation(fields: [demoId], references: [id], onDelete: Cascade)
@@ -386,8 +387,8 @@ model ExamAttempt {
   exam       Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
   demoMember DemoMember @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
-  @@unique([demoMemberId, examId])
   @@index([examId])
+  @@index([demoMemberId, examId, createdAt])
 }
 
 model Asset {
@@ -585,6 +586,7 @@ model Certification {
   courseId     String
   score        Int
 
+  issuedAt  DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

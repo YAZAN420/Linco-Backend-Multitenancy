@@ -46,7 +46,7 @@
   "EMAIL_IS_ALREADY_VERIFIED": "Email is already verified",
   "EMAIL_MUST_BE_VERIFIED_BEFORE_ENABLING_2_FA": "Email must be verified before enabling 2FA",
   "ERROR_GENERATING_JITSI_TOKEN": "Error generating Jitsi token",
-  "EXAM_ATTEMPT_ALREADY_EXISTS": "This member has already attempted this exam",
+  "EXAM_ATTEMPT_ALREADY_EXISTS": "This member has already passed this exam",
   "EXAM_ATTEMPT_NOT_FOUND": "Exam Attempt not found",
   "EXAM_NOT_FOUND": "Exam not found",
   "FAILED_TO_CREATE_COURSE_IN_AI": "Failed to create course in AI",

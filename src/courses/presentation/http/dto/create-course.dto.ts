@@ -30,6 +30,10 @@ export class CreateCourseDto implements CreateCourseInput {
   @IsNotEmpty()
   imagePath!: string;
 
+  @IsString()
+  @IsNotEmpty()
+  signatureImagePath!: string;
+
   @IsNumber()
   @IsNotEmpty()
   price!: number;

@@ -20,6 +20,34 @@ export type DemoMemberWithUser = Prisma.DemoMemberGetPayload<{
   include: { user: true };
 }>;
 
+export type CertificationWithDetails = Prisma.CertificationGetPayload<{
+  select: {
+    id: true;
+    courseId: true;
+    demoMemberId: true;
+    score: true;
+    issuedAt: true;
+    createdAt: true;
+    updatedAt: true;
+    course: {
+      select: {
+        title: true;
+        signatureImagePath: true;
+      };
+    };
+    demoMember: {
+      select: {
+        user: {
+          select: {
+            firstName: true;
+            lastName: true;
+          };
+        };
+      };
+    };
+  };
+}>;
+
 export type DemoWithMemberCount = Prisma.DemoGetPayload<{
   include: {
     _count: { select: { members: true } };

@@ -45,4 +45,20 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
     const exam = await this.prisma.examAttempt.findUnique({ where: { id } });
     return exam ? this.mapper.toDomain(exam) : null;
   }
+
+  async hasPassedAttempt(
+    demoMemberId: string,
+    examId: string,
+    passingScore: number,
+  ): Promise<boolean> {
+    return (
+      (await this.prisma.examAttempt.count({
+        where: {
+          demoMemberId,
+          examId,
+          score: { gte: passingScore },
+        },
+      })) > 0
+    );
+  }
 }

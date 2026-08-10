@@ -241,7 +241,6 @@ export type ExamAttemptOrderByWithRelationInput = {
 
 export type ExamAttemptWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  demoMemberId_examId?: Prisma.ExamAttemptDemoMemberIdExamIdCompoundUniqueInput
   AND?: Prisma.ExamAttemptWhereInput | Prisma.ExamAttemptWhereInput[]
   OR?: Prisma.ExamAttemptWhereInput[]
   NOT?: Prisma.ExamAttemptWhereInput | Prisma.ExamAttemptWhereInput[]
@@ -252,7 +251,7 @@ export type ExamAttemptWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"ExamAttempt"> | Date | string
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
   demoMember?: Prisma.XOR<Prisma.DemoMemberScalarRelationFilter, Prisma.DemoMemberWhereInput>
-}, "id" | "demoMemberId_examId">
+}, "id">
 
 export type ExamAttemptOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -349,11 +348,6 @@ export type ExamAttemptListRelationFilter = {
 
 export type ExamAttemptOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type ExamAttemptDemoMemberIdExamIdCompoundUniqueInput = {
-  demoMemberId: string
-  examId: string
 }
 
 export type ExamAttemptCountOrderByAggregateInput = {
