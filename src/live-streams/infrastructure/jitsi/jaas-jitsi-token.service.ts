@@ -40,6 +40,7 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
               id: params.user.id,
               moderator: isHost,
               name: `${params.user.firstName} ${params.user.lastName}`,
+              avatar: params.user.profileImage,
             },
           },
         },
