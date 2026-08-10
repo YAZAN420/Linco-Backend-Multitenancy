@@ -48,7 +48,6 @@ import { CertificationsModule } from './certifications/certifications.module';
 import { CertificationsInfrastructureModule } from './certifications/infrastructure/certifications-infrastructure.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { LiveStreamsInfrastructureModule } from './live-streams/infrastructure/live-streams-infrastructure.module';
-import { DesignsModule } from './designs/designs.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardInfrastructureModule } from './dashboard/infrastructure/dashboard-infrastructure.module';
 
@@ -95,7 +94,6 @@ export class AppModule {
         LiveStreamsModule.withInfrastructure(
           LiveStreamsInfrastructureModule.use(),
         ),
-        DesignsModule,
         DashboardModule.withInfrastructure(DashboardInfrastructureModule.use()),
         this.registerI18n(),
       ],
