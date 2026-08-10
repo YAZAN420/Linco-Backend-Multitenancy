@@ -1,4 +1,9 @@
 {
+  "DESIGN_NOT_FOUND": "Design not found",
+  "DESIGN_SOURCE_ASSET_FORBIDDEN": "Source asset is unavailable or is not owned by you",
+  "DESIGN_FILE_REQUIRED": "An export file is required",
+  "DESIGN_FILE_TOO_LARGE": "Design export exceeds the 25 MiB limit",
+  "DESIGN_FILE_UNSUPPORTED": "Only genuine PNG, JPEG, and PSD files are supported",
   "ENDED_LIVE_STREAMS_CANNOT_BE_UPDATED": "Ended live streams cannot be updated",
   "LIVE_STREAM_NOT_FOUND": "Live stream not found",
   "LIVE_STREAM_CANNOT_BE_STARTED": "Live stream cannot be started",

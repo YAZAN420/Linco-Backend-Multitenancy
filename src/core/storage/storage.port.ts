@@ -13,4 +13,13 @@ export abstract class StoragePort {
     fileKey: string,
     isPublic: boolean,
   ): Promise<string>;
+
+  abstract upload(
+    fileKey: string,
+    data: Buffer,
+    contentType: string,
+    isPublic: boolean,
+  ): Promise<void>;
+
+  abstract delete(fileKey: string, isPublic: boolean): Promise<void>;
 }

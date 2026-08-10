@@ -1,4 +1,9 @@
 {
+  "DESIGN_CREATED_SUCCESSFULLY": "Design created successfully",
+  "DESIGNS_FETCHED_SUCCESSFULLY": "Designs fetched successfully",
+  "DESIGN_RETRIEVED_SUCCESSFULLY": "Design retrieved successfully",
+  "DESIGN_UPDATED_SUCCESSFULLY": "Design updated successfully",
+  "DESIGN_EXPORTED_SUCCESSFULLY": "Design export saved successfully",
   "EXAM_ATTEMPT_ELIGIBILITY_RETRIEVED_SUCCESSFULLY": "Exam attempt eligibility retrieved successfully",
   "LIVE_STREAM_CREATED_SUCCESSFULLY": "Live stream created successfully",
   "LIVE_STREAM_UPDATED_SUCCESSFULLY": "Live stream updated successfully",

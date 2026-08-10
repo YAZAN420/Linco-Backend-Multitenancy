@@ -1,4 +1,9 @@
 {
+  "DESIGN_NOT_FOUND": "التصميم غير موجود",
+  "DESIGN_SOURCE_ASSET_FORBIDDEN": "ملف المصدر غير متاح أو لا تملكه",
+  "DESIGN_FILE_REQUIRED": "ملف التصدير مطلوب",
+  "DESIGN_FILE_TOO_LARGE": "يتجاوز ملف التصميم الحد الأقصى 25 ميبيبايت",
+  "DESIGN_FILE_UNSUPPORTED": "يتم دعم ملفات PNG وJPEG وPSD الأصلية فقط",
   "ENDED_LIVE_STREAMS_CANNOT_BE_UPDATED": "لا يمكن تحديث البثوث المباشرة المنتهية",
   "LIVE_STREAM_NOT_FOUND": "البث المباشر غير موجود",
   "LIVE_STREAM_CANNOT_BE_STARTED": "لا يمكن بدء البث المباشر",

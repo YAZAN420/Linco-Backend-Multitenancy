@@ -463,14 +463,6 @@ export type SectionUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type SectionCreateNestedOneWithoutLessonsInput = {
   create?: Prisma.XOR<Prisma.SectionCreateWithoutLessonsInput, Prisma.SectionUncheckedCreateWithoutLessonsInput>
   connectOrCreate?: Prisma.SectionCreateOrConnectWithoutLessonsInput

@@ -113,4 +113,30 @@ export class SpacesService implements StoragePort {
 
     return Promise.resolve(`${blockBlobClient.url}?${sasToken}`);
   }
+
+  async upload(
+    fileKey: string,
+    data: Buffer,
+    contentType: string,
+    isPublic: boolean = false,
+  ): Promise<void> {
+    const containerName = isPublic
+      ? this.config.containerName!
+      : 'private-uploads';
+    const blob = this.blobServiceClient
+      .getContainerClient(containerName)
+      .getBlockBlobClient(fileKey);
+    await blob.uploadData(data, {
+      blobHTTPHeaders: { blobContentType: contentType },
+    });
+  }
+
+  async delete(fileKey: string, isPublic: boolean = false): Promise<void> {
+    const containerName = isPublic
+      ? this.config.containerName!
+      : 'private-uploads';
+    await this.blobServiceClient
+      .getContainerClient(containerName)
+      .deleteBlob(fileKey, { deleteSnapshots: 'include' });
+  }
 }

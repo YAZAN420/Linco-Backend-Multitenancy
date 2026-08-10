@@ -9,7 +9,6 @@ import { CertificationQueryDto } from './dto/certification-query.dto';
 import { CertificationResponseMapper } from './mappers/certification-response.mapper';
 
 @ApiTags('Certification')
-@Public()
 @Controller('certifications')
 export class CertificationsQueryController {
   constructor(
@@ -18,7 +17,6 @@ export class CertificationsQueryController {
   ) {}
 
   @Get('me')
-  @Public(false)
   @UseGuards(DemoRolesGuard)
   async findMine(
     @ActiveDemoMember('id') demoMemberId: string,
@@ -28,6 +26,7 @@ export class CertificationsQueryController {
       demoMemberId,
       options,
     );
+    console.log('certifications', certifications);
     return {
       message: 'messages.CERTIFICATIONS_FETCHED_SUCCESSFULLY',
       data: this.mapper.toResponseManyFromPrisma(certifications.data),
@@ -36,7 +35,6 @@ export class CertificationsQueryController {
   }
 
   @Get('me/courses/:courseId')
-  @Public(false)
   @UseGuards(DemoRolesGuard)
   async findMineForCourse(
     @ActiveDemoMember('id') demoMemberId: string,
@@ -53,6 +51,7 @@ export class CertificationsQueryController {
   }
 
   @Get('cursor')
+  @Public()
   async findWithCursor(@Query() options: CertificationQueryDto) {
     const certifications = await this.service.findAllCursor(options);
     return {
@@ -63,6 +62,7 @@ export class CertificationsQueryController {
   }
 
   @Get(':certificationId')
+  @Public()
   async findOne(@Param('certificationId') certificationId: string) {
     const certification = await this.service.findById(certificationId);
     return {

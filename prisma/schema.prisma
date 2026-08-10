@@ -130,6 +130,50 @@ model User {
   ownedDemos          Demo[]       @relation("DemoOwner")
   payments            Payment[]
   fcmTokens           FcmToken[]
+  designs             Design[]
+  designAssets        DesignAsset[]
+}
+
+model Design {
+  id             String   @id @default(uuid())
+  userId         String
+  name           String
+  sourceAssetId  String?
+  currentAssetId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sourceAsset  DesignAsset? @relation("DesignSourceAsset", fields: [sourceAssetId], references: [id], onDelete: SetNull)
+  currentAsset DesignAsset? @relation("DesignCurrentAsset", fields: [currentAssetId], references: [id], onDelete: SetNull)
+  assets       DesignAsset[] @relation("DesignAssets")
+
+  @@index([userId, createdAt])
+  @@index([sourceAssetId])
+  @@index([currentAssetId])
+}
+
+model DesignAsset {
+  id           String   @id @default(uuid())
+  designId     String?
+  ownerId      String
+  sourceAssetId String?
+  fileKey      String   @unique
+  fileName     String
+  mimeType     String
+  fileSize     Int
+  createdAt    DateTime @default(now())
+
+  design          Design?       @relation("DesignAssets", fields: [designId], references: [id], onDelete: SetNull)
+  owner           User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  sourceAsset     DesignAsset?   @relation("AssetLineage", fields: [sourceAssetId], references: [id], onDelete: SetNull)
+  derivedAssets   DesignAsset[]  @relation("AssetLineage")
+  sourceForDesigns Design[]      @relation("DesignSourceAsset")
+  currentForDesigns Design[]     @relation("DesignCurrentAsset")
+
+  @@index([designId, createdAt])
+  @@index([ownerId])
+  @@index([sourceAssetId])
 }
 
 model DemoMember {
