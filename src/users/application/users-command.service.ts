@@ -152,7 +152,9 @@ export class UsersCommandService {
   async disableTwoFactorAuth(userId: string): Promise<User> {
     const user = await this.findById(userId);
     if (!user.security.isTwoFactorEnabled) {
-      throw new Error('Two-factor authentication is already disabled.');
+      throw new ConflictException(
+        'Two-factor authentication is already disabled.',
+      );
     }
     user.security.disableTwoFactorAuth();
     await this.userCommandRepository.save(user);
@@ -169,7 +171,9 @@ export class UsersCommandService {
   async enableTwoFactorAuth(userId: string, secret: string): Promise<User> {
     const user = await this.findById(userId);
     if (user.security.isTwoFactorEnabled) {
-      throw new Error('Two-factor authentication is already enabled.');
+      throw new ConflictException(
+        'Two-factor authentication is already enabled.',
+      );
     }
     user.security.enableTwoFactorAuth(secret);
     await this.userCommandRepository.save(user);
