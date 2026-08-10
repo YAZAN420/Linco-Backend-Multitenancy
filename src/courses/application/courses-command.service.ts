@@ -50,6 +50,28 @@ export class CoursesCommandService {
     );
   }
 
+  async generateSignatureImageUploadUrl(fileName: string) {
+    const ext = fileName.split('.').pop()?.toLowerCase() || '';
+
+    const mimeTypes: Record<string, string> = {
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      webp: 'image/webp',
+      gif: 'image/gif',
+      svg: 'image/svg+xml',
+    };
+
+    const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+    return await this.spacesService.generateUploadUrl(
+      fileName,
+      contentType,
+      true,
+      'signatures',
+    );
+  }
+
   async create(input: CreateCourseInput): Promise<Course> {
     const demoExists = await this.demoQueryRepository.demoExists(input.demoId);
     if (!demoExists) throw new NotFoundException('errors.DEMO_NOT_FOUND');

@@ -26,6 +26,13 @@ export class CoursesCommandController {
     );
   }
 
+  @Post('signature-upload-url')
+  async getSignatureUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    return await this.courseCommandService.generateSignatureImageUploadUrl(
+      dto.fileName,
+    );
+  }
+
   @Post(':courseId/publish')
   async publish(@Param('courseId') courseId: string) {
     const publishedCourse = await this.courseCommandService.publish(courseId);
