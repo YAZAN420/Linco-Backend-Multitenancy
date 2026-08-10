@@ -10,17 +10,17 @@ import { CreateLiveStreamInput } from './interfaces/create-live-stream.interface
 import { EndLiveStreamInput } from './interfaces/end-live-stream.interface';
 import { GenerateLiveStreamTokenInput } from './interfaces/generate-live-stream-token.interface';
 import { StartLiveStreamInput } from './interfaces/start-live-stream.interface';
-import {
-  JitsiParticipantRole,
-  JitsiTokenPort,
-  JitsiTokenResult,
-} from './ports/jitsi-token.port';
-import { LiveStreamsCommandRepositoryPort } from './ports/live-streams-command.repository.port';
+import { JitsiTokenPort } from './ports/jitsi-token.port';
+import { JitsiParticipantRole } from './interfaces/jitsi-participant-role.enum';
+import { JitsiTokenResult } from './interfaces/jitsi-token-result.interface';
+import { LiveStreamsCommandRepository } from './ports/live-streams-command.repository.port';
+import { UpdateLiveStreamInput } from './interfaces/update-live-stream.interface';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @Injectable()
 export class LiveStreamsCommandService {
   constructor(
-    private readonly repository: LiveStreamsCommandRepositoryPort,
+    private readonly repository: LiveStreamsCommandRepository,
     private readonly factory: LiveStreamFactory,
     private readonly jitsiTokenPort: JitsiTokenPort,
   ) {}
@@ -31,17 +31,17 @@ export class LiveStreamsCommandService {
     hostId: string,
     input: CreateLiveStreamInput,
   ): Promise<LiveStream> {
-    await this.validateOwnership(demoId, departmentId, hostId);
-    let roomName: string;
-    do {
-      roomName = `live-${uuidv7()}`;
-    } while (await this.repository.roomNameExists(roomName));
-    const stream = this.factory.createNew({
-      ...input,
+    const roomName = `live-${uuidv7()}`;
+
+    const stream = this.factory.createNew(
+      input.title,
       departmentId,
       hostId,
       roomName,
-    });
+      input.description,
+      input.scheduledAt,
+    );
+
     await this.repository.save(stream);
     return stream;
   }
@@ -50,10 +50,20 @@ export class LiveStreamsCommandService {
     demoId: string,
     departmentId: string,
     id: string,
-    input: { title?: string; description?: string; scheduledAt?: Date },
+    input: UpdateLiveStreamInput,
   ): Promise<LiveStream> {
     const stream = await this.findById(id, departmentId, demoId);
-    stream.update(input);
+
+    if (input.title !== undefined) {
+      stream.updateTitle(input.title);
+    }
+    if (input.description !== undefined) {
+      stream.updateDescription(input.description);
+    }
+    if (input.scheduledAt !== undefined) {
+      stream.updateScheduledAt(input.scheduledAt);
+    }
+
     await this.repository.save(stream);
     return stream;
   }
@@ -91,6 +101,7 @@ export class LiveStreamsCommandService {
   }
 
   async generateToken(
+    user: ActiveUserData,
     input: GenerateLiveStreamTokenInput,
   ): Promise<JitsiTokenResult> {
     const stream = await this.findById(
@@ -105,26 +116,9 @@ export class LiveStreamsCommandService {
         : JitsiParticipantRole.PARTICIPANT;
     return this.jitsiTokenPort.generateToken({
       roomName: stream.roomName,
-      userId: input.userId,
+      user,
       role,
     });
-  }
-
-  private async validateOwnership(
-    demoId: string,
-    departmentId: string,
-    hostId: string,
-  ): Promise<void> {
-    if (!(await this.repository.departmentBelongsToDemo(departmentId, demoId)))
-      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
-    if (
-      !(await this.repository.hostBelongsToDepartment(
-        hostId,
-        departmentId,
-        demoId,
-      ))
-    )
-      throw new ForbiddenException('errors.HOST_DOES_NOT_BELONG_TO_DEPARTMENT');
   }
 
   private async findById(

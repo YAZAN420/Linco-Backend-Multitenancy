@@ -10,7 +10,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
 import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
-import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { DepartmentRoles } from 'src/iam/presentation/http/decorators/department-roles.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
@@ -18,10 +17,12 @@ import { LiveStreamsCommandService } from 'src/live-streams/application/live-str
 import { CreateLiveStreamDto } from './dto/create-live-stream.dto';
 import { UpdateLiveStreamDto } from './dto/update-live-stream.dto';
 import { LiveStreamHttpMapper } from './mappers/live-stream-http.mapper';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 
 @ApiTags('LiveStreams')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
-@Controller('live-streams')
+@Controller('liveStreams')
 export class LiveStreamsCommandController {
   constructor(
     private readonly service: LiveStreamsCommandService,
@@ -31,14 +32,13 @@ export class LiveStreamsCommandController {
   @Post()
   @DepartmentRoles([DepartmentMemberRole.MANAGER])
   async create(
-    @ActiveDemoMember('demoId') demoId: string,
-    @ActiveDepartmentMember() member: ActiveDepartmentMemberData,
+    @ActiveDepartmentMember() departmentMember: ActiveDepartmentMemberData,
     @Body() dto: CreateLiveStreamDto,
   ) {
     const stream = await this.service.create(
-      demoId,
-      member.departmentId,
-      member.id,
+      departmentMember.demoId,
+      departmentMember.departmentId,
+      departmentMember.id,
       dto,
     );
     return {
@@ -50,12 +50,16 @@ export class LiveStreamsCommandController {
   @Patch(':liveStreamId')
   @DepartmentRoles([DepartmentMemberRole.MANAGER])
   async update(
-    @ActiveDemoMember('demoId') demoId: string,
-    @ActiveDepartmentMember('departmentId') departmentId: string,
+    @ActiveDepartmentMember() departmentMember: ActiveDepartmentMemberData,
     @Param('liveStreamId') id: string,
     @Body() dto: UpdateLiveStreamDto,
   ) {
-    const stream = await this.service.update(demoId, departmentId, id, dto);
+    const stream = await this.service.update(
+      departmentMember.demoId,
+      departmentMember.departmentId,
+      id,
+      dto,
+    );
     return {
       message: 'messages.LIVE_STREAM_UPDATED_SUCCESSFULLY',
       data: this.mapper.toResponse(stream),
@@ -100,15 +104,15 @@ export class LiveStreamsCommandController {
 
   @Post(':liveStreamId/token')
   async generateToken(
+    @ActiveUser() user: ActiveUserData,
     @ActiveDepartmentMember() member: ActiveDepartmentMemberData,
     @Param('liveStreamId') liveStreamId: string,
   ) {
-    const data = await this.service.generateToken({
+    const data = await this.service.generateToken(user, {
       liveStreamId,
       demoId: member.demoId,
       departmentId: member.departmentId,
       departmentMemberId: member.id,
-      userId: member.userId,
     });
     return {
       message: 'messages.LIVE_STREAM_TOKEN_GENERATED_SUCCESSFULLY',

@@ -6,12 +6,10 @@ import {
 import { ConfigType } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import jitsiConfig from 'src/common/config/jitsi.config';
-import {
-  GenerateJitsiTokenParams,
-  JitsiParticipantRole,
-  JitsiTokenPort,
-  JitsiTokenResult,
-} from 'src/live-streams/application/ports/jitsi-token.port';
+import { JitsiTokenPort } from 'src/live-streams/application/ports/jitsi-token.port';
+import { GenerateJitsiTokenParams } from 'src/live-streams/application/interfaces/generate-jitsi-token-params.interface';
+import { JitsiParticipantRole } from 'src/live-streams/application/interfaces/jitsi-participant-role.enum';
+import { JitsiTokenResult } from 'src/live-streams/application/interfaces/jitsi-token-result.interface';
 
 @Injectable()
 export class JaasJitsiTokenService implements JitsiTokenPort {
@@ -21,11 +19,6 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
   ) {}
 
   generateToken(params: GenerateJitsiTokenParams): Promise<JitsiTokenResult> {
-    if (!this.config.appId || !this.config.keyId || !this.config.privateKey) {
-      throw new InternalServerErrorException(
-        'errors.JITSI_CONFIGURATION_IS_INVALID',
-      );
-    }
     const now = Math.floor(Date.now() / 1000);
     const isHost = params.role === JitsiParticipantRole.HOST;
     try {
@@ -43,10 +36,14 @@ export class JaasJitsiTokenService implements JitsiTokenPort {
               recording: isHost,
               transcription: true,
             },
-            user: { id: params.userId, moderator: isHost },
+            user: {
+              id: params.user.id,
+              moderator: isHost,
+              name: `${params.user.firstName} ${params.user.lastName}`,
+            },
           },
         },
-        this.config.privateKey,
+        this.config.privateKey!,
         {
           algorithm: 'RS256',
           header: { alg: 'RS256', kid: this.config.keyId, typ: 'JWT' },

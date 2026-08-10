@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Prisma } from 'src/generated/prisma/client';
-import { LiveStreamsCommandRepositoryPort } from 'src/live-streams/application/ports/live-streams-command.repository.port';
+import { LiveStreamsCommandRepository } from 'src/live-streams/application/ports/live-streams-command.repository.port';
 import { LiveStream } from 'src/live-streams/domain/live-stream';
 import { PrismaLiveStreamMapper } from '../mappers/prisma-live-stream.mapper';
 
 @Injectable()
-export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepositoryPort {
+export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mapper: PrismaLiveStreamMapper,
@@ -46,32 +46,5 @@ export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepo
       where: { id, departmentId, department: { demoId } },
     });
     return raw ? this.mapper.toDomain(raw) : null;
-  }
-
-  async departmentBelongsToDemo(
-    departmentId: string,
-    demoId: string,
-  ): Promise<boolean> {
-    return (
-      (await this.prisma.department.count({
-        where: { id: departmentId, demoId },
-      })) > 0
-    );
-  }
-
-  async hostBelongsToDepartment(
-    hostId: string,
-    departmentId: string,
-    demoId: string,
-  ): Promise<boolean> {
-    return (
-      (await this.prisma.departmentMember.count({
-        where: { id: hostId, departmentId, department: { demoId } },
-      })) > 0
-    );
-  }
-
-  async roomNameExists(roomName: string): Promise<boolean> {
-    return (await this.prisma.liveStream.count({ where: { roomName } })) > 0;
   }
 }

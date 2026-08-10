@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { LiveStreamsCommandRepositoryPort } from 'src/live-streams/application/ports/live-streams-command.repository.port';
-import { LiveStreamsQueryRepositoryPort } from 'src/live-streams/application/ports/live-streams-query.repository.port';
+import { LiveStreamsCommandRepository } from 'src/live-streams/application/ports/live-streams-command.repository.port';
+import { LiveStreamsQueryRepository } from 'src/live-streams/application/ports/live-streams-query.repository.port';
 import { PrismaLiveStreamMapper } from './mappers/prisma-live-stream.mapper';
 import { PrismaLiveStreamCommandRepository } from './repositories/prisma-live-stream-command.repository';
 import { PrismaLiveStreamQueryRepository } from './repositories/prisma-live-stream-query.repository';
@@ -9,14 +9,14 @@ import { PrismaLiveStreamQueryRepository } from './repositories/prisma-live-stre
   providers: [
     PrismaLiveStreamMapper,
     {
-      provide: LiveStreamsCommandRepositoryPort,
+      provide: LiveStreamsCommandRepository,
       useClass: PrismaLiveStreamCommandRepository,
     },
     {
-      provide: LiveStreamsQueryRepositoryPort,
+      provide: LiveStreamsQueryRepository,
       useClass: PrismaLiveStreamQueryRepository,
     },
   ],
-  exports: [LiveStreamsCommandRepositoryPort, LiveStreamsQueryRepositoryPort],
+  exports: [LiveStreamsCommandRepository, LiveStreamsQueryRepository],
 })
 export class PrismaPersistenceModule {}

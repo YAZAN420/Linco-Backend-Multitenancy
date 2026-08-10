@@ -1,19 +1,26 @@
+import { Injectable } from '@nestjs/common';
 import { v7 as uuidv7 } from 'uuid';
 import { LiveStreamStatus } from '../enums/live-stream-status.enum';
 import { LiveStream } from '../live-stream';
 
+@Injectable()
 export class LiveStreamFactory {
-  createNew(input: {
-    title: string;
-    description?: string;
-    departmentId: string;
-    hostId: string;
-    scheduledAt?: Date;
-    roomName: string;
-  }): LiveStream {
+  createNew(
+    title: string,
+    departmentId: string,
+    hostId: string,
+    roomName: string,
+    description?: string,
+    scheduledAt?: Date,
+  ): LiveStream {
     const now = new Date();
     return new LiveStream(uuidv7(), {
-      ...input,
+      title,
+      description,
+      departmentId,
+      hostId,
+      scheduledAt,
+      roomName,
       status: LiveStreamStatus.SCHEDULED,
       createdAt: now,
       updatedAt: now,

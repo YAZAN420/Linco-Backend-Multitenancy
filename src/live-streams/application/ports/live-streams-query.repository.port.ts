@@ -1,14 +1,8 @@
 import { CursorPageDto } from 'src/common/dtos/pagination';
-import { LiveStreamStatus } from 'src/live-streams/domain/enums/live-stream-status.enum';
+import { FindCursorQuery } from 'src/common/interfaces/find.query';
 import { LiveStream } from 'src/live-streams/domain/live-stream';
 
-export interface FindLiveStreamsQuery {
-  cursor?: string;
-  take: number;
-  status?: LiveStreamStatus;
-}
-
-export abstract class LiveStreamsQueryRepositoryPort {
+export abstract class LiveStreamsQueryRepository {
   abstract findById(
     id: string,
     departmentId: string,
@@ -17,6 +11,6 @@ export abstract class LiveStreamsQueryRepositoryPort {
   abstract findAll(
     departmentId: string,
     demoId: string,
-    query: FindLiveStreamsQuery,
+    query: FindCursorQuery,
   ): Promise<CursorPageDto<LiveStream>>;
 }

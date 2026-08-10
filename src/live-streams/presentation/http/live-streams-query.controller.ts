@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  ParseEnumPipe,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
@@ -13,12 +6,11 @@ import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/act
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
 import { LiveStreamsQueryService } from 'src/live-streams/application/live-streams-query.service';
-import { LiveStreamStatus } from 'src/live-streams/domain/enums/live-stream-status.enum';
 import { LiveStreamHttpMapper } from './mappers/live-stream-http.mapper';
 
 @ApiTags('LiveStreams')
 @UseGuards(DemoRolesGuard, DepartmentRolesGuard)
-@Controller('live-streams')
+@Controller('liveStreams')
 export class LiveStreamsQueryController {
   constructor(
     private readonly service: LiveStreamsQueryService,
@@ -29,13 +21,11 @@ export class LiveStreamsQueryController {
   async findAll(
     @ActiveDepartmentMember() member: ActiveDepartmentMemberData,
     @Query() options: CursorPageOptionsDto,
-    @Query('status', new ParseEnumPipe(LiveStreamStatus, { optional: true }))
-    status?: LiveStreamStatus,
   ) {
     const page = await this.service.findAll(
       member.departmentId,
       member.demoId,
-      { cursor: options.cursor, take: options.take, status },
+      { cursor: options.cursor, take: options.take },
     );
     return {
       message: 'messages.LIVE_STREAMS_FETCHED_SUCCESSFULLY',

@@ -1,4 +1,11 @@
 {
+  "LIVE_STREAM_CREATED_SUCCESSFULLY": "Live stream created successfully",
+  "LIVE_STREAM_UPDATED_SUCCESSFULLY": "Live stream updated successfully",
+  "LIVE_STREAM_STARTED_SUCCESSFULLY": "Live stream started successfully",
+  "LIVE_STREAM_ENDED_SUCCESSFULLY": "Live stream ended successfully",
+  "LIVE_STREAM_TOKEN_GENERATED_SUCCESSFULLY": "Live stream token generated successfully",
+  "LIVE_STREAMS_FETCHED_SUCCESSFULLY": "Live streams fetched successfully",
+  "LIVE_STREAM_FETCHED_SUCCESSFULLY": "Live stream fetched successfully",
   "REQUEST_SUCCESSFUL": "Request successful",
   "CERTIFICATION_CREATED_SUCCESSFULLY": "Certification created successfully",
   "CERTIFICATION_DELETED_SUCCESSFULLY": "Certification deleted successfully",
