@@ -11,6 +11,7 @@ import {
 } from 'src/users/application/interfaces/find-users.query';
 import { UserQueryRepository } from 'src/users/application/ports/user-query.repository';
 import { UserDashboardStats } from 'src/core/database/prisma/types';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
 export class PrismaUserQueryRepository implements UserQueryRepository {
@@ -109,10 +110,16 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
 
     const [totalUsers, verifiedAccounts, newThisMonth, twoFactorEnabled] =
       await Promise.all([
-        this.prisma.user.count(),
-        this.prisma.user.count({ where: { isEmailVerified: true } }),
-        this.prisma.user.count({ where: { createdAt: { gte: startOfMonth } } }),
-        this.prisma.user.count({ where: { isTwoFactorEnabled: true } }),
+        this.prisma.user.count({ where: { role: Role.USER } }),
+        this.prisma.user.count({
+          where: { isEmailVerified: true, role: Role.USER },
+        }),
+        this.prisma.user.count({
+          where: { createdAt: { gte: startOfMonth }, role: Role.USER },
+        }),
+        this.prisma.user.count({
+          where: { isTwoFactorEnabled: true, role: Role.USER },
+        }),
       ]);
 
     return {
