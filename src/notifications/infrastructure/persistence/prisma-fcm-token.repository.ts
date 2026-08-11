@@ -27,10 +27,12 @@ export class PrismaFcmTokenRepository implements FcmTokenRepository {
   }
 
   async findFcmTokensByUserId(userId: string): Promise<string[]> {
+    console.log('repo ', userId);
     const records = await this.prisma.fcmToken.findMany({
       where: { userId },
       select: { token: true },
     });
+    console.log(records);
     return records.map((r) => r.token);
   }
 
