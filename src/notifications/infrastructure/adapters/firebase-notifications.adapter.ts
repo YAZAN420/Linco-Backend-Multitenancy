@@ -30,7 +30,10 @@ export class FirebaseNotificationsAdapter
     try {
       const credentialPath =
         this.configService.get<string>('FIREBASE_CREDENTIALS_PATH') ||
-        path.join(process.cwd(), 'linco-firebase.json');
+        path.join(
+          process.cwd(),
+          'linco-project-471db-firebase-adminsdk-fbsvc-5037a093f0.json',
+        );
 
       if (!fs.existsSync(credentialPath)) {
         this.logger.error(
