@@ -9,6 +9,8 @@ import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @ApiTags('User')
 @Controller('users')
@@ -27,6 +29,7 @@ export class UsersCommandController {
     );
   }
 
+  @Roles([Role.ADMIN])
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const createdUser = await this.userCommandService.create(dto);
@@ -48,6 +51,7 @@ export class UsersCommandController {
     };
   }
 
+  @Roles([Role.ADMIN])
   @Delete(':id')
   async remove(@Param('id') id: string) {
     await this.userCommandService.remove(id);

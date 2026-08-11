@@ -4,6 +4,7 @@ import {
   FindUsersQuery,
 } from '../interfaces/find-users.query';
 import { User } from 'src/generated/prisma/client';
+import { UserDashboardStats } from 'src/core/database/prisma/types';
 
 export abstract class UserQueryRepository {
   abstract findAll(
@@ -15,4 +16,5 @@ export abstract class UserQueryRepository {
     options: FindUsersCursorQuery,
   ): Promise<CursorPageDto<User>>;
   abstract findById(id: string): Promise<User | null>;
+  abstract getUserDashboardStats(): Promise<UserDashboardStats>;
 }

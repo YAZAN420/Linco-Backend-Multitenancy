@@ -9,6 +9,7 @@ import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
 
 import { Role } from 'src/users/domain/enums/role.enum';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
 
 @ApiTags('User')
 @Controller('users')
@@ -18,6 +19,7 @@ export class UsersQueryController {
     private readonly userResponseMapper: UserResponseMapper,
   ) {}
 
+  @Roles([Role.ADMIN])
   @Get()
   async findAll(
     @Query() pageOptionsDto: PageOptionsDto,
@@ -64,6 +66,16 @@ export class UsersQueryController {
     return {
       message: 'messages.USER_PROFILE_RETRIEVED_SUCCESSFULLY',
       data: { user: this.userResponseMapper.toResponseFromPrisma(user) },
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Get('stats')
+  async getStats() {
+    const stats = await this.userQueryService.getDashboardStats();
+    return {
+      message: 'messages.USER_STATS_FETCHED_SUCCESSFULLY',
+      data: stats,
     };
   }
 
