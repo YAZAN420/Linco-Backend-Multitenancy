@@ -152,5 +152,9 @@
   "USER_DELETED_SUCCESSFULLY": "User deleted successfully",
   "USERS_FETCHED_SUCCESSFULLY": "Users fetched successfully",
   "USER_RETRIEVED_SUCCESSFULLY": "User retrieved successfully",
-  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "User profile retrieved successfully"
+  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "User profile retrieved successfully",
+  "USER_SUSPENDED_SUCCESSFULLY": "User suspended successfully",
+  "USER_ACTIVATED_SUCCESSFULLY": "User activated successfully",
+  "USER_UPDATED_BY_ADMIN_SUCCESSFULLY": "User updated successfully by admin",
+  "USER_STATS_FETCHED_SUCCESSFULLY": "User statistics fetched successfully"
 }

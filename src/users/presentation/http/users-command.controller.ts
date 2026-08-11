@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { UsersCommandService } from 'src/users/application/users-command.service';
@@ -84,11 +83,8 @@ export class UsersCommandController {
 
   @Roles([Role.ADMIN])
   @Patch(':id')
-  async updateByAdmin(
-    @Param('id') id: string,
-    @Body() dto: AdminUpdateUserDto,
-  ) {
-    const updatedUser = await this.userCommandService.updateByAdmin(id, dto);
+  async makeAdmin(@Param('id') id: string) {
+    const updatedUser = await this.userCommandService.makeAdmin(id);
     const user = await this.userQueryService.findById(updatedUser.id);
 
     return {

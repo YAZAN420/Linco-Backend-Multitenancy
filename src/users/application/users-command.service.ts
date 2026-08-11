@@ -10,12 +10,13 @@ import { HashingPort } from 'src/iam/application/ports/hashing.port';
 
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
-import { AdminUpdateUserInput } from './interfaces/admin-update-user-input.interface';
+
 import {
   InvalidResetTokenException,
   InvalidVerificationTokenException,
 } from '../domain/exceptions';
 import { StoragePort } from 'src/core/storage/storage.port';
+import { Role } from '../domain/enums/role.enum';
 
 @Injectable()
 export class UsersCommandService {
@@ -95,14 +96,9 @@ export class UsersCommandService {
     await this.userCommandRepository.save(user);
   }
 
-  async updateByAdmin(id: string, input: AdminUpdateUserInput): Promise<User> {
+  async makeAdmin(id: string): Promise<User> {
     const user = await this.findById(id);
-
-    if (input.role !== undefined) user.updateRole(input.role);
-    if (input.isEmailVerified !== undefined) {
-      user.security.updateEmailVerified(input.isEmailVerified);
-    }
-
+    user.updateRole(Role.ADMIN);
     await this.userCommandRepository.save(user);
     return user;
   }
