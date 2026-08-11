@@ -30,6 +30,7 @@ export class NotificationsService {
     data: Record<string, string> = {},
   ): Promise<void> {
     const tokens = await this.fcmTokenRepository.findFcmTokensByUserId(userId);
+
     if (!tokens || tokens.length === 0) return;
 
     const response = await this.notificationsAdapter.sendToMultipleDevices(
@@ -38,6 +39,7 @@ export class NotificationsService {
       body,
       data,
     );
+    console.log(response);
 
     if (response && response.failureCount > 0) {
       const invalidTokens: string[] = [];
