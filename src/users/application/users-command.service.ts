@@ -11,7 +11,6 @@ import { HashingPort } from 'src/iam/application/ports/hashing.port';
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
 import { AdminUpdateUserInput } from './interfaces/admin-update-user-input.interface';
-import { UserStatus } from '../domain/enums/user-status.enum';
 import {
   InvalidResetTokenException,
   InvalidVerificationTokenException,
@@ -99,19 +98,7 @@ export class UsersCommandService {
   async updateByAdmin(id: string, input: AdminUpdateUserInput): Promise<User> {
     const user = await this.findById(id);
 
-    if (input.firstName !== undefined) user.updateFirstName(input.firstName);
-    if (input.lastName !== undefined) user.updateLastName(input.lastName);
-    if (input.birthDate !== undefined) user.updateBirthDate(input.birthDate);
-    if (input.imagePath !== undefined) user.updateImagePath(input.imagePath);
-
     if (input.role !== undefined) user.updateRole(input.role);
-
-    if (input.status === UserStatus.SUSPENDED) {
-      user.suspend();
-    } else if (input.status === UserStatus.ACTIVE) {
-      user.activate();
-    }
-
     if (input.isEmailVerified !== undefined) {
       user.security.updateEmailVerified(input.isEmailVerified);
     }
