@@ -36,8 +36,6 @@ export class PrismaUserCommandRepository implements UserCommandRepository {
     }
   }
 
-
-
   async findById(id: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     return user ? this.mapper.toDomain(user) : null;

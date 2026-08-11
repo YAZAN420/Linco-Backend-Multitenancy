@@ -62,6 +62,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
         where: {
           ...where,
           status: options.status,
+          role: options.role,
         },
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
