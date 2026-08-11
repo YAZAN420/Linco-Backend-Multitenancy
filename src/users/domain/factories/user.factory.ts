@@ -4,6 +4,7 @@ import { Email } from '../value-objects/email.vo';
 import { User } from '../user';
 import { UserSecurity } from '../user-security';
 import { v7 as uuidv7 } from 'uuid';
+import { UserStatus } from '../enums/user-status.enum';
 
 @Injectable()
 export class UserFactory {
@@ -38,6 +39,8 @@ export class UserFactory {
       email,
       birthDate,
       imagePath,
+      status: UserStatus.ACTIVE,
+      lastActiveAt: null,
       role,
       security,
       createdAt: now,

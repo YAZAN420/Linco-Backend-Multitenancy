@@ -1,4 +1,5 @@
 import { Role } from './enums/role.enum';
+import { UserStatus } from './enums/user-status.enum';
 import { Email } from './value-objects/email.vo';
 import { UserSecurity } from './user-security';
 import { UserProps } from './interfaces/user.props';
@@ -41,6 +42,14 @@ export class User {
     return this.props.role;
   }
 
+  get status(): UserStatus {
+    return this.props.status;
+  }
+
+  get lastActiveAt(): Date | null {
+    return this.props.lastActiveAt;
+  }
+
   get security(): UserSecurity {
     return this.props.security;
   }
@@ -68,6 +77,17 @@ export class User {
   updateRole(newRole: Role): void {
     if (newRole === this.props.role) return;
     this.props.role = newRole;
+    this.touch();
+  }
+
+  updateStatus(newStatus: UserStatus): void {
+    if (newStatus === this.props.status) return;
+    this.props.status = newStatus;
+    this.touch();
+  }
+
+  updateLastActiveAt(date: Date): void {
+    this.props.lastActiveAt = date;
     this.touch();
   }
 

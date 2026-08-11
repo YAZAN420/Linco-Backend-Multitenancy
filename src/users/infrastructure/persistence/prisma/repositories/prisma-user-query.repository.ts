@@ -21,8 +21,12 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     currentUserId: string,
     options: FindUsersQuery | FindUsersCursorQuery,
   ): Prisma.UserWhereInput {
-    const { search, createdAt } = options;
+    const { search, createdAt, status } = options;
     const where: Prisma.UserWhereInput = {};
+
+    if (status) {
+      where.status = status;
+    }
 
     if (createdAt) {
       where.createdAt = createdAt;
@@ -65,6 +69,7 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
       }),
       this.prisma.user.count({ where }),
     ]);
+    console.log(items);
 
     return new PageDto(
       items,
