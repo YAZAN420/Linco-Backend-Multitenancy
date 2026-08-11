@@ -29,10 +29,8 @@ export class NotificationsService {
     body: string,
     data: Record<string, string> = {},
   ): Promise<void> {
-    console.log('aa');
     const tokens = await this.fcmTokenRepository.findFcmTokensByUserId(userId);
 
-    console.log(tokens);
     if (!tokens || tokens.length === 0) return;
 
     const response = await this.notificationsAdapter.sendToMultipleDevices(
@@ -41,7 +39,6 @@ export class NotificationsService {
       body,
       data,
     );
-    console.log(response);
 
     if (response && response.failureCount > 0) {
       const invalidTokens: string[] = [];

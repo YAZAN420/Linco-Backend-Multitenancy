@@ -60,7 +60,7 @@ export class InvitationsCommandService {
     try {
       await this.notificationsService.sendToUser(
         input.receiverId,
-        'New Demo Invitation',
+        'Demo Invitation',
         `You have been invited to join the demo: ${demoExists.name}`,
         {
           type: 'INVITATION',
