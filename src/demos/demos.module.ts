@@ -37,9 +37,11 @@ import { InvitationFactory } from './domain/factories/invitation.factory';
 import { InvitationResponseMapper } from './presentation/http/mappers/invitation-response.mapper';
 import { UsersModule } from 'src/users/users.module';
 
+import { NotificationsModule } from 'src/notifications/notifications.module';
+
 @Global()
 @Module({
-  imports: [UsersModule],
+  imports: [UsersModule, NotificationsModule],
   controllers: [
     DemosCommandController,
     DemosQueryController,
