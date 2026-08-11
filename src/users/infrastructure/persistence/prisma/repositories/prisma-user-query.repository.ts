@@ -4,7 +4,7 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, User } from 'src/generated/prisma/client';
+import { Prisma, User, UserStatus } from 'src/generated/prisma/client';
 import {
   FindUsersCursorQuery,
   FindUsersQuery,
@@ -21,12 +21,8 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     currentUserId: string,
     options: FindUsersQuery | FindUsersCursorQuery,
   ): Prisma.UserWhereInput {
-    const { search, createdAt, status } = options;
+    const { search, createdAt } = options;
     const where: Prisma.UserWhereInput = {};
-
-    if (status) {
-      where.status = status;
-    }
 
     if (createdAt) {
       where.createdAt = createdAt;
@@ -63,13 +59,15 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
-        where,
+        where: {
+          ...where,
+          status: options.status,
+        },
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
       this.prisma.user.count({ where }),
     ]);
-    console.log(items);
 
     return new PageDto(
       items,
@@ -86,7 +84,10 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
-      where,
+      where: {
+        ...where,
+        status: UserStatus.ACTIVE,
+      },
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
     });

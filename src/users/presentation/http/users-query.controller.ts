@@ -4,12 +4,12 @@ import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { UserResponseMapper } from './mappers/user-response.mapper';
-import { PageOptionsDto } from 'src/common/dtos/pagination';
 import { UsersCursorQueryDto } from './dto/user-cursor-query.dto';
 
 import { Role } from 'src/users/domain/enums/role.enum';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { UsersQueryDto } from './dto/user-query.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -22,7 +22,7 @@ export class UsersQueryController {
   @Roles([Role.ADMIN])
   @Get()
   async findAll(
-    @Query() pageOptionsDto: PageOptionsDto,
+    @Query() pageOptionsDto: UsersQueryDto,
     @ActiveUser() activeUser: ActiveUserData,
   ) {
     const users = await this.userQueryService.findAll(
