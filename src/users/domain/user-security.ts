@@ -84,6 +84,14 @@ export class UserSecurity {
     this.props.emailVerificationExpires = null;
   }
 
+  updateEmailVerified(isVerified: boolean): void {
+    this.props.isEmailVerified = isVerified;
+    if (isVerified) {
+      this.props.emailVerificationToken = null;
+      this.props.emailVerificationExpires = null;
+    }
+  }
+
   enableTwoFactorAuth(secret: string): void {
     if (!this.props.isEmailVerified) {
       throw new EmailNotVerifiedFor2FAException();

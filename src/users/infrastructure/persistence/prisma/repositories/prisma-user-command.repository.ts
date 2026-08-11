@@ -36,9 +36,7 @@ export class PrismaUserCommandRepository implements UserCommandRepository {
     }
   }
 
-  async delete(id: string): Promise<void> {
-    await this.prisma.user.delete({ where: { id } });
-  }
+
 
   async findById(id: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { id } });

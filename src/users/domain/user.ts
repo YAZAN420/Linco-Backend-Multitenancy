@@ -86,6 +86,14 @@ export class User {
     this.touch();
   }
 
+  suspend(): void {
+    this.updateStatus(UserStatus.SUSPENDED);
+  }
+
+  activate(): void {
+    this.updateStatus(UserStatus.ACTIVE);
+  }
+
   updateLastActiveAt(date: Date): void {
     this.props.lastActiveAt = date;
     this.touch();

@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 
 import { UserResponseMapper } from './mappers/user-response.mapper';
 import { UsersCommandService } from 'src/users/application/users-command.service';
@@ -61,12 +62,38 @@ export class UsersCommandController {
 
   @Roles([Role.ADMIN])
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.userCommandService.remove(id);
+  async suspend(@Param('id') id: string) {
+    await this.userCommandService.suspend(id);
 
     return {
-      message: 'messages.USER_DELETED_SUCCESSFULLY',
+      message: 'messages.USER_SUSPENDED_SUCCESSFULLY',
       data: null,
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Patch(':id/activate')
+  async activate(@Param('id') id: string) {
+    await this.userCommandService.activate(id);
+
+    return {
+      message: 'messages.USER_ACTIVATED_SUCCESSFULLY',
+      data: null,
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Patch(':id')
+  async updateByAdmin(
+    @Param('id') id: string,
+    @Body() dto: AdminUpdateUserDto,
+  ) {
+    const updatedUser = await this.userCommandService.updateByAdmin(id, dto);
+    const user = await this.userQueryService.findById(updatedUser.id);
+
+    return {
+      message: 'messages.USER_UPDATED_BY_ADMIN_SUCCESSFULLY',
+      data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
 }
