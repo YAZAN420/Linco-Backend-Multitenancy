@@ -69,7 +69,7 @@ export class UsersCommandService {
     return user;
   }
 
-  async update(id: string, input: UpdateUserInput): Promise<User> {
+  async updateProfile(id: string, input: UpdateUserInput): Promise<User> {
     const user = await this.findById(id);
 
     if (input.firstName) user.updateFirstName(input.firstName);
