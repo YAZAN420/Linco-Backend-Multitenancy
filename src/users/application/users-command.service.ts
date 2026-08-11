@@ -149,6 +149,12 @@ export class UsersCommandService {
     return user;
   }
 
+  async updateLastActiveAt(userId: string): Promise<void> {
+    const user = await this.findById(userId);
+    user.updateLastActiveAt(new Date());
+    await this.userCommandRepository.save(user);
+  }
+
   async disableTwoFactorAuth(userId: string): Promise<User> {
     const user = await this.findById(userId);
     if (!user.security.isTwoFactorEnabled) {

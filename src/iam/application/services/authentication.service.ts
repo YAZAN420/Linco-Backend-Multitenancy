@@ -34,7 +34,7 @@ export class AuthenticationService {
       );
       return { requires2FA: true, twoFactorToken };
     }
-
+    await this.usersCommandService.updateLastActiveAt(user.id);
     const tokens = await this.tokenService.generateTokens(user);
     return { requires2FA: false, user, tokens };
   }
@@ -69,7 +69,7 @@ export class AuthenticationService {
     } else if (!user.security.isEmailVerified) {
       user = await this.usersCommandService.markEmailAsVerified(user.id);
     }
-
+    await this.usersCommandService.updateLastActiveAt(user.id);
     const tokens = await this.tokenService.generateTokens(user);
     return { requires2FA: false, user, tokens };
   }
@@ -94,7 +94,7 @@ export class AuthenticationService {
     if (!verificationResult.valid) {
       throw new Invalid2FACodeException();
     }
-
+    await this.usersCommandService.updateLastActiveAt(user.id);
     const tokens = await this.tokenService.generateTokens(user);
     return { requires2FA: false, user, tokens };
   }
