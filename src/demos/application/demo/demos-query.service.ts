@@ -3,7 +3,10 @@ import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 
-import { DemoWithOwnership } from 'src/core/database/prisma/types';
+import {
+  AdminDemoStats,
+  DemoWithOwnership,
+} from 'src/core/database/prisma/types';
 import {
   FindDemosCursorQuery,
   FindDemosQuery,
@@ -31,5 +34,9 @@ export class DemosQueryService {
     const demo = await this.demoQueryRepository.findById(id, userId);
     if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
     return demo;
+  }
+
+  async getAdminStats(): Promise<AdminDemoStats> {
+    return this.demoQueryRepository.getAdminStats();
   }
 }

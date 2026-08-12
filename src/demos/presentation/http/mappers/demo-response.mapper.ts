@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DemoResponseDto } from '../dto/demo/demo-response.dto';
+import { AdminDemoResponseDto } from '../dto/demo/admin-demo-response.dto';
 
 import { Demo as DomainDemo } from 'src/demos/domain/demo';
 
@@ -43,6 +44,25 @@ export class DemoResponseMapper {
       demo._count.members,
       demo.isOwner,
     );
+  }
+
+  toAdminResponseFromPrisma(demo: DemoWithOwnership): AdminDemoResponseDto {
+    return new AdminDemoResponseDto(
+      demo.id,
+      demo.name,
+      demo.imagePath,
+      demo.plan as PlanTier,
+      demo._count.members,
+      demo._count.departments ?? 0,
+      demo.createdAt,
+      demo.subscriptionStatus as SubscriptionStatus,
+    );
+  }
+
+  toAdminResponseManyFromPrisma(
+    demos: DemoWithOwnership[],
+  ): AdminDemoResponseDto[] {
+    return demos.map((demo) => this.toAdminResponseFromPrisma(demo));
   }
 
   toResponseFromDomain(demo: DomainDemo): DemoResponseDto {

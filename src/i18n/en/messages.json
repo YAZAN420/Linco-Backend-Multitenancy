@@ -30,17 +30,14 @@
   "QR_CODE_GENERATED_SUCCESSFULLY": "QR code generated successfully",
   "TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_ENABLED": "Two-factor authentication successfully enabled",
   "TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_DISABLED": "Two-factor authentication successfully disabled",
-
   "ASSET_UPDATED_SUCCESSFULLY": "Asset updated successfully",
   "ASSET_DELETED_SUCCESSFULLY": "Asset deleted successfully",
   "ASSETS_FETCHED_SUCCESSFULLY": "Assets fetched successfully",
   "ASSET_RETRIEVED_SUCCESSFULLY": "Asset retrieved successfully",
-
   "COURSE_FAQ_CREATED_SUCCESSFULLY": "CourseFaq created successfully",
   "COURSE_FAQ_DELETED_SUCCESSFULLY": "CourseFaq deleted successfully",
   "COURSE_FAQS_FETCHED_SUCCESSFULLY": "CourseFaqs fetched successfully",
   "COURSE_FAQ_RETRIEVED_SUCCESSFULLY": "CourseFaq retrieved successfully",
-
   "COURSE_PUBLISHED_SUCCESSFULLY": "Course published successfully",
   "COURSE_CREATED_SUCCESSFULLY": "Course created successfully",
   "COURSE_UPDATED_SUCCESSFULLY": "Course updated successfully",
@@ -50,103 +47,86 @@
   "RANDOM_QUIZ_GENERATED_SUCCESSFULLY": "Random quiz generated successfully",
   "COURSES_FETCHED_SUCCESSFULLY": "Courses fetched successfully",
   "COURSE_RETRIEVED_SUCCESSFULLY": "Course retrieved successfully",
-
   "SECTION_CREATED_SUCCESSFULLY": "Section created successfully",
   "SECTION_UPDATED_SUCCESSFULLY": "Section updated successfully",
   "SECTION_DELETED_SUCCESSFULLY": "Section deleted successfully",
   "SECTIONS_FETCHED_SUCCESSFULLY": "Sections fetched successfully",
   "SECTION_RETRIEVED_SUCCESSFULLY": "Section retrieved successfully",
-
   "DEMO_MEMBER_ROLE_UPDATED_SUCCESSFULLY": "Member role updated successfully",
   "DEMO_MEMBER_REMOVED_SUCCESSFULLY": "Member removed successfully",
   "DEMO_MEMBERS_FETCHED_SUCCESSFULLY": "Members fetched successfully",
   "DEMO_MEMBER_RETRIEVED_SUCCESSFULLY": "Member retrieved successfully",
-
   "DEMO_CREATED_SUCCESSFULLY": "Demo created successfully",
   "DEMO_UPDATED_SUCCESSFULLY": "Demo updated successfully",
   "DEMO_DELETED_SUCCESSFULLY": "Demo deleted successfully",
   "DEMOS_FETCHED_SUCCESSFULLY": "Demos fetched successfully",
   "DEMO_RETRIEVED_SUCCESSFULLY": "Demo retrieved successfully",
-
+  "ADMIN_DEMO_STATS_FETCHED_SUCCESSFULLY": "Admin workspaces stats fetched successfully",
+  "ADMIN_DEMOS_FETCHED_SUCCESSFULLY": "Admin workspaces fetched successfully",
   "DEPARTMENT_MEMBER_ADDED_SUCCESSFULLY": "Member added successfully",
   "DEPARTMENT_MEMBER_ROLE_UPDATED_SUCCESSFULLY": "Member role updated successfully",
   "DEPARTMENT_MEMBER_REMOVED_SUCCESSFULLY": "Member removed successfully",
   "DEPARTMENT_MEMBERS_FETCHED_SUCCESSFULLY": "Members fetched successfully",
   "DEPARTMENT_MEMBER_RETRIEVED_SUCCESSFULLY": "Member retrieved successfully",
-
   "DEPARTMENT_ADDED_SUCCESSFULLY": "Department added successfully",
   "DEPARTMENT_UPDATED_SUCCESSFULLY": "Department updated successfully",
   "DEPARTMENT_REMOVED_SUCCESSFULLY": "Department removed successfully",
   "ROADMAP_GENERATED_SUCCESSFULLY": "Roadmap generated successfully",
   "DEPARTMENTS_FETCHED_SUCCESSFULLY": "Departments fetched successfully",
   "DEPARTMENT_RETRIEVED_SUCCESSFULLY": "Department retrieved successfully",
-
   "INVITATION_CREATED_SUCCESSFULLY": "Invitation created successfully",
   "INVITATION_ACCEPTED_SUCCESSFULLY": "Invitation accepted successfully",
   "INVITATION_REJECTED_SUCCESSFULLY": "Invitation rejected successfully",
   "INVITATION_DELETED_SUCCESSFULLY": "Invitation deleted successfully",
   "INVITATIONS_FETCHED_SUCCESSFULLY": "Invitations fetched successfully",
   "INVITATION_RETRIEVED_SUCCESSFULLY": "Invitation retrieved successfully",
-
   "DEPARTMENT_COURSE_ADDED_SUCCESSFULLY": "Department course added successfully",
   "DEPARTMENT_COURSE_REMOVED_SUCCESSFULLY": "Department course removed successfully",
   "DEPARTMENT_COURSES_FETCHED_SUCCESSFULLY": "Department courses fetched successfully",
-
   "DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY": "Department messages fetched successfully",
-
   "DISCUSSION_ANSWER_CREATED_SUCCESSFULLY": "Discussion answer created successfully",
   "DISCUSSION_ANSWER_UPDATED_SUCCESSFULLY": "Discussion answer updated successfully",
   "DISCUSSION_ANSWER_DELETED_SUCCESSFULLY": "Discussion answer deleted successfully",
   "DISCUSSION_ANSWERS_FETCHED_SUCCESSFULLY": "Discussion answers fetched successfully",
   "DISCUSSION_ANSWER_RETRIEVED_SUCCESSFULLY": "Discussion answer retrieved successfully",
-
   "DISCUSSION_QUESTION_CREATED_SUCCESSFULLY": "Discussion question created successfully",
   "DISCUSSION_QUESTION_UPDATED_SUCCESSFULLY": "Discussion question updated successfully",
   "DISCUSSION_QUESTION_DELETED_SUCCESSFULLY": "Discussion question deleted successfully",
   "DISCUSSION_QUESTIONS_FETCHED_SUCCESSFULLY": "Discussion questions fetched successfully",
   "DISCUSSION_QUESTION_RETRIEVED_SUCCESSFULLY": "Discussion question retrieved successfully",
-
   "EXAM_ATTEMPT_CREATED_SUCCESSFULLY": "Exam attempt created successfully",
   "EXAM_ATTEMPTS_FETCHED_SUCCESSFULLY": "Exam attempts fetched successfully",
   "EXAM_ATTEMPT_RETRIEVED_SUCCESSFULLY": "Exam attempt retrieved successfully",
-
   "EXAM_CREATED_SUCCESSFULLY": "Exam created successfully",
   "EXAM_UPDATED_SUCCESSFULLY": "Exam updated successfully",
   "EXAM_DELETED_SUCCESSFULLY": "Exam deleted successfully",
   "EXAMS_FETCHED_SUCCESSFULLY": "Exams fetched successfully",
   "EXAM_RETRIEVED_SUCCESSFULLY": "Exam retrieved successfully",
-
   "INQUIRY_CREATED_SUCCESSFULLY": "Inquiry created successfully",
   "INQUIRY_UPDATED_SUCCESSFULLY": "Inquiry updated successfully",
   "INQUIRY_DELETED_SUCCESSFULLY": "Inquiry deleted successfully",
   "INQUIRIES_FETCHED_SUCCESSFULLY": "Inquiries fetched successfully",
   "INQUIRY_RETRIEVED_SUCCESSFULLY": "Inquiry retrieved successfully",
-
   "INQUIRY_MESSAGE_CREATED_SUCCESSFULLY": "Inquiry message created successfully",
   "INQUIRY_MESSAGE_UPDATED_SUCCESSFULLY": "Inquiry message updated successfully",
   "INQUIRY_MESSAGE_DELETED_SUCCESSFULLY": "Inquiry message deleted successfully",
   "INQUIRY_MESSAGES_FETCHED_SUCCESSFULLY": "Inquiry messages fetched successfully",
   "INQUIRY_MESSAGE_RETRIEVED_SUCCESSFULLY": "Inquiry message retrieved successfully",
-
   "ATTACHMENT_CREATED_SUCCESSFULLY": "Attachment created successfully",
   "ATTACHMENT_DELETED_SUCCESSFULLY": "Attachment deleted successfully",
   "ATTACHMENTS_FETCHED_SUCCESSFULLY": "Attachments fetched successfully",
-
   "LESSON_CREATED_SUCCESSFULLY": "Lesson created successfully",
   "LESSON_UPDATED_SUCCESSFULLY": "Lesson updated successfully",
   "LESSON_DELETED_SUCCESSFULLY": "Lesson deleted successfully",
   "LESSONS_FETCHED_SUCCESSFULLY": "Lessons fetched successfully",
   "LESSON_RETRIEVED_SUCCESSFULLY": "Lesson retrieved successfully",
-
   "PAYMENTS_FETCHED_SUCCESSFULLY": "Payments fetched successfully",
   "PAYMENT_RETRIEVED_SUCCESSFULLY": "Payment retrieved successfully",
-
   "QUESTION_BANK_CREATED_SUCCESSFULLY": "Question bank created successfully",
   "QUESTION_BANK_UPDATED_SUCCESSFULLY": "Question bank updated successfully",
   "QUESTION_BANK_DELETED_SUCCESSFULLY": "Question bank deleted successfully",
   "QUESTION_BANKS_FETCHED_SUCCESSFULLY": "Question banks fetched successfully",
   "QUESTION_BANK_RETRIEVED_SUCCESSFULLY": "Question bank retrieved successfully",
-
   "USER_CREATED_SUCCESSFULLY": "User created successfully",
   "USER_UPDATED_SUCCESSFULLY": "User updated successfully",
   "USER_DELETED_SUCCESSFULLY": "User deleted successfully",

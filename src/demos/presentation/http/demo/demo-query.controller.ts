@@ -8,6 +8,9 @@ import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.dec
 import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
+import { Role } from 'src/users/domain/enums/role.enum';
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { FindAdminDemosDto } from '../dto/demo/find-admin-demos.dto';
 
 @ApiTags('Demo')
 @Controller('demos')
@@ -16,6 +19,17 @@ export class DemosQueryController {
     private readonly demoQueryService: DemosQueryService,
     private readonly demoResponseMapper: DemoResponseMapper,
   ) {}
+
+  @Roles([Role.ADMIN])
+  @Get('admin')
+  async findAll(@Query() options: FindAdminDemosDto) {
+    const result = await this.demoQueryService.findAll(options);
+    return {
+      message: 'messages.ADMIN_DEMOS_FETCHED_SUCCESSFULLY',
+      data: this.demoResponseMapper.toAdminResponseManyFromPrisma(result.data),
+      meta: result.meta,
+    };
+  }
 
   @Get()
   async findAllForMe(
@@ -28,6 +42,16 @@ export class DemosQueryController {
       message: 'messages.DEMOS_FETCHED_SUCCESSFULLY',
       data: this.demoResponseMapper.toResponseManyFromPrisma(demos.data),
       meta: demos.meta,
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Get('stats')
+  async getAdminStats() {
+    const stats = await this.demoQueryService.getAdminStats();
+    return {
+      message: 'messages.ADMIN_DEMO_STATS_FETCHED_SUCCESSFULLY',
+      data: stats,
     };
   }
 

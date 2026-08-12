@@ -11,9 +11,12 @@ import {
 } from 'src/demos/application/demo/interfaces/find-demos.query';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import {
+  AdminDemoStats,
   DemoWithOwnership,
   DepartmentWithDetails,
 } from 'src/core/database/prisma/types';
+import { Prisma } from 'src/generated/prisma/client';
+import { SubscriptionStatus } from 'src/demos/domain/enums/subscription-status.enum';
 
 @Injectable()
 export class PrismaDemoQueryRepository implements DemoQueryRepository {
@@ -21,15 +24,28 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
   async findAll(options: FindDemosQuery): Promise<PageDto<DemoWithOwnership>> {
     const skip = (options.page - 1) * options.take;
+    const where: Prisma.DemoWhereInput = {};
+
+    if (options.search) {
+      where.name = {
+        contains: options.search,
+        mode: 'insensitive',
+      };
+    }
+
+    if (options.status) {
+      where.subscriptionStatus = options.status;
+    }
 
     const [items, itemCount] = await Promise.all([
       this.prisma.demo.findMany({
+        where,
         skip,
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
         include: {
           _count: {
-            select: { members: true },
+            select: { members: true, departments: true },
           },
           owner: {
             select: {
@@ -39,7 +55,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
           },
         },
       }),
-      this.prisma.demo.count(),
+      this.prisma.demo.count({ where }),
     ]);
     const itemsWithOwnership = items.map((item) => ({
       ...item,
@@ -50,6 +66,37 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       itemsWithOwnership,
       new PageMetaDto({ itemCount, pageOptionsDto: options }),
     );
+  }
+
+  async getAdminStats(): Promise<AdminDemoStats> {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const [
+      totalCompanies,
+      activeCompanies,
+      newCompaniesThisMonth,
+      totalMembers,
+    ] = await Promise.all([
+      this.prisma.demo.count(),
+
+      this.prisma.demo.count({
+        where: { subscriptionStatus: SubscriptionStatus.ACTIVE },
+      }),
+
+      this.prisma.demo.count({
+        where: { createdAt: { gte: thirtyDaysAgo } },
+      }),
+
+      this.prisma.demoMember.count(),
+    ]);
+
+    return {
+      totalCompanies,
+      activeCompanies,
+      newCompaniesThisMonth,
+      totalMembers,
+    };
   }
 
   async findAllForMe(
@@ -68,7 +115,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       orderBy: [{ id: 'desc' }],
       include: {
         _count: {
-          select: { members: true },
+          select: { members: true, departments: true },
         },
         owner: {
           select: {
@@ -103,7 +150,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       where: { id },
       include: {
         _count: {
-          select: { members: true },
+          select: { members: true, departments: true },
         },
         owner: {
           select: {

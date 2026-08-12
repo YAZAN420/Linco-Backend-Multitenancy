@@ -50,7 +50,7 @@ export type CertificationWithDetails = Prisma.CertificationGetPayload<{
 
 export type DemoWithMemberCount = Prisma.DemoGetPayload<{
   include: {
-    _count: { select: { members: true } };
+    _count: { select: { members: true; departments: true } };
     owner: { select: { firstName: true; lastName: true } };
   };
 }>;
@@ -220,4 +220,11 @@ export interface UserDashboardStats {
   verifiedAccounts: number;
   newThisMonth: number;
   twoFactorEnabled: number;
+}
+
+export interface AdminDemoStats {
+  totalCompanies: number;
+  activeCompanies: number;
+  newCompaniesThisMonth: number;
+  totalMembers: number;
 }

@@ -1,6 +1,7 @@
 import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
 
 import {
+  AdminDemoStats,
   DemoWithOwnership,
   DepartmentWithDetails,
 } from 'src/core/database/prisma/types';
@@ -32,4 +33,5 @@ export abstract class DemoQueryRepository {
     userId?: string,
   ): Promise<DepartmentWithDetails | null>;
   abstract demoExists(id: string): Promise<boolean>;
+  abstract getAdminStats(): Promise<AdminDemoStats>;
 }

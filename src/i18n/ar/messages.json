@@ -30,17 +30,14 @@
   "QR_CODE_GENERATED_SUCCESSFULLY": "تم إنشاء رمز QR بنجاح",
   "TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_ENABLED": "تم تفعيل المصادقة الثنائية بنجاح",
   "TWO_FACTOR_AUTHENTICATION_SUCCESSFULLY_DISABLED": "تم تعطيل المصادقة الثنائية بنجاح",
-
   "ASSET_UPDATED_SUCCESSFULLY": "تم تحديث الأصل بنجاح",
   "ASSET_DELETED_SUCCESSFULLY": "تم حذف الأصل بنجاح",
   "ASSETS_FETCHED_SUCCESSFULLY": "تم جلب الأصول بنجاح",
   "ASSET_RETRIEVED_SUCCESSFULLY": "تم استرجاع الأصل بنجاح",
-
   "COURSE_FAQ_CREATED_SUCCESSFULLY": "تم إنشاء السؤال الشائع بنجاح",
   "COURSE_FAQ_DELETED_SUCCESSFULLY": "تم حذف السؤال الشائع بنجاح",
   "COURSE_FAQS_FETCHED_SUCCESSFULLY": "تم جلب الأسئلة الشائعة بنجاح",
   "COURSE_FAQ_RETRIEVED_SUCCESSFULLY": "تم استرجاع السؤال الشائع بنجاح",
-
   "COURSE_PUBLISHED_SUCCESSFULLY": "تم نشر الدورة بنجاح",
   "COURSE_CREATED_SUCCESSFULLY": "تم إنشاء الدورة بنجاح",
   "COURSE_UPDATED_SUCCESSFULLY": "تم تحديث الدورة بنجاح",
@@ -50,103 +47,84 @@
   "RANDOM_QUIZ_GENERATED_SUCCESSFULLY": "تم إنشاء الاختبار العشوائي بنجاح",
   "COURSES_FETCHED_SUCCESSFULLY": "تم جلب الدورات بنجاح",
   "COURSE_RETRIEVED_SUCCESSFULLY": "تم استرجاع الدورة بنجاح",
-
   "SECTION_CREATED_SUCCESSFULLY": "تم إنشاء القسم بنجاح",
   "SECTION_UPDATED_SUCCESSFULLY": "تم تحديث القسم بنجاح",
   "SECTION_DELETED_SUCCESSFULLY": "تم حذف القسم بنجاح",
   "SECTIONS_FETCHED_SUCCESSFULLY": "تم جلب الأقسام بنجاح",
   "SECTION_RETRIEVED_SUCCESSFULLY": "تم استرجاع القسم بنجاح",
-
   "DEMO_MEMBER_ROLE_UPDATED_SUCCESSFULLY": "تم تحديث دور العضو بنجاح",
   "DEMO_MEMBER_REMOVED_SUCCESSFULLY": "تم إزالة العضو بنجاح",
   "DEMO_MEMBERS_FETCHED_SUCCESSFULLY": "تم جلب الأعضاء بنجاح",
   "DEMO_MEMBER_RETRIEVED_SUCCESSFULLY": "تم استرجاع العضو بنجاح",
-
   "DEMO_CREATED_SUCCESSFULLY": "تم إنشاء مساحة العمل التجريبية بنجاح",
   "DEMO_UPDATED_SUCCESSFULLY": "تم تحديث مساحة العمل التجريبية بنجاح",
   "DEMO_DELETED_SUCCESSFULLY": "تم حذف مساحة العمل التجريبية بنجاح",
   "DEMOS_FETCHED_SUCCESSFULLY": "تم جلب مساحات العمل التجريبية بنجاح",
   "DEMO_RETRIEVED_SUCCESSFULLY": "تم استرجاع مساحة العمل التجريبية بنجاح",
-
   "DEPARTMENT_MEMBER_ADDED_SUCCESSFULLY": "تم إضافة العضو بنجاح",
   "DEPARTMENT_MEMBER_ROLE_UPDATED_SUCCESSFULLY": "تم تحديث دور العضو بنجاح",
   "DEPARTMENT_MEMBER_REMOVED_SUCCESSFULLY": "تم إزالة العضو بنجاح",
   "DEPARTMENT_MEMBERS_FETCHED_SUCCESSFULLY": "تم جلب الأعضاء بنجاح",
   "DEPARTMENT_MEMBER_RETRIEVED_SUCCESSFULLY": "تم استرجاع العضو بنجاح",
-
   "DEPARTMENT_ADDED_SUCCESSFULLY": "تم إضافة القسم بنجاح",
   "DEPARTMENT_UPDATED_SUCCESSFULLY": "تم تحديث القسم بنجاح",
   "DEPARTMENT_REMOVED_SUCCESSFULLY": "تم إزالة القسم بنجاح",
   "ROADMAP_GENERATED_SUCCESSFULLY": "تم إنشاء خارطة الطريق بنجاح",
   "DEPARTMENTS_FETCHED_SUCCESSFULLY": "تم جلب الأقسام بنجاح",
   "DEPARTMENT_RETRIEVED_SUCCESSFULLY": "تم استرجاع القسم بنجاح",
-
   "INVITATION_CREATED_SUCCESSFULLY": "تم إنشاء الدعوة بنجاح",
   "INVITATION_ACCEPTED_SUCCESSFULLY": "تم قبول الدعوة بنجاح",
   "INVITATION_REJECTED_SUCCESSFULLY": "تم رفض الدعوة بنجاح",
   "INVITATION_DELETED_SUCCESSFULLY": "تم حذف الدعوة بنجاح",
   "INVITATIONS_FETCHED_SUCCESSFULLY": "تم جلب الدعوات بنجاح",
   "INVITATION_RETRIEVED_SUCCESSFULLY": "تم استرجاع الدعوة بنجاح",
-
   "DEPARTMENT_COURSE_ADDED_SUCCESSFULLY": "تم إضافة دورة القسم بنجاح",
   "DEPARTMENT_COURSE_REMOVED_SUCCESSFULLY": "تم إزالة دورة القسم بنجاح",
   "DEPARTMENT_COURSES_FETCHED_SUCCESSFULLY": "تم جلب دورات القسم بنجاح",
-
   "DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY": "تم جلب رسائل القسم بنجاح",
-
   "DISCUSSION_ANSWER_CREATED_SUCCESSFULLY": "تم إنشاء إجابة النقاش بنجاح",
   "DISCUSSION_ANSWER_UPDATED_SUCCESSFULLY": "تم تحديث إجابة النقاش بنجاح",
   "DISCUSSION_ANSWER_DELETED_SUCCESSFULLY": "تم حذف إجابة النقاش بنجاح",
   "DISCUSSION_ANSWERS_FETCHED_SUCCESSFULLY": "تم جلب إجابات النقاش بنجاح",
   "DISCUSSION_ANSWER_RETRIEVED_SUCCESSFULLY": "تم استرجاع إجابة النقاش بنجاح",
-
   "DISCUSSION_QUESTION_CREATED_SUCCESSFULLY": "تم إنشاء سؤال النقاش بنجاح",
   "DISCUSSION_QUESTION_UPDATED_SUCCESSFULLY": "تم تحديث سؤال النقاش بنجاح",
   "DISCUSSION_QUESTION_DELETED_SUCCESSFULLY": "تم حذف سؤال النقاش بنجاح",
   "DISCUSSION_QUESTIONS_FETCHED_SUCCESSFULLY": "تم جلب أسئلة النقاش بنجاح",
   "DISCUSSION_QUESTION_RETRIEVED_SUCCESSFULLY": "تم استرجاع سؤال النقاش بنجاح",
-
   "EXAM_ATTEMPT_CREATED_SUCCESSFULLY": "تم إنشاء محاولة الاختبار بنجاح",
   "EXAM_ATTEMPTS_FETCHED_SUCCESSFULLY": "تم جلب محاولات الاختبار بنجاح",
   "EXAM_ATTEMPT_RETRIEVED_SUCCESSFULLY": "تم استرجاع محاولة الاختبار بنجاح",
-
   "EXAM_CREATED_SUCCESSFULLY": "تم إنشاء الاختبار بنجاح",
   "EXAM_UPDATED_SUCCESSFULLY": "تم تحديث الاختبار بنجاح",
   "EXAM_DELETED_SUCCESSFULLY": "تم حذف الاختبار بنجاح",
   "EXAMS_FETCHED_SUCCESSFULLY": "تم جلب الاختبارات بنجاح",
   "EXAM_RETRIEVED_SUCCESSFULLY": "تم استرجاع الاختبار بنجاح",
-
   "INQUIRY_CREATED_SUCCESSFULLY": "تم إنشاء الاستفسار بنجاح",
   "INQUIRY_UPDATED_SUCCESSFULLY": "تم تحديث الاستفسار بنجاح",
   "INQUIRY_DELETED_SUCCESSFULLY": "تم حذف الاستفسار بنجاح",
   "INQUIRIES_FETCHED_SUCCESSFULLY": "تم جلب الاستفسارات بنجاح",
   "INQUIRY_RETRIEVED_SUCCESSFULLY": "تم استرجاع الاستفسار بنجاح",
-
   "INQUIRY_MESSAGE_CREATED_SUCCESSFULLY": "تم إنشاء رسالة الاستفسار بنجاح",
   "INQUIRY_MESSAGE_UPDATED_SUCCESSFULLY": "تم تحديث رسالة الاستفسار بنجاح",
   "INQUIRY_MESSAGE_DELETED_SUCCESSFULLY": "تم حذف رسالة الاستفسار بنجاح",
   "INQUIRY_MESSAGES_FETCHED_SUCCESSFULLY": "تم جلب رسائل الاستفسار بنجاح",
   "INQUIRY_MESSAGE_RETRIEVED_SUCCESSFULLY": "تم استرجاع رسالة الاستفسار بنجاح",
-
   "ATTACHMENT_CREATED_SUCCESSFULLY": "تم إنشاء المرفق بنجاح",
   "ATTACHMENT_DELETED_SUCCESSFULLY": "تم حذف المرفق بنجاح",
   "ATTACHMENTS_FETCHED_SUCCESSFULLY": "تم جلب المرفقات بنجاح",
-
   "LESSON_CREATED_SUCCESSFULLY": "تم إنشاء الدرس بنجاح",
   "LESSON_UPDATED_SUCCESSFULLY": "تم تحديث الدرس بنجاح",
   "LESSON_DELETED_SUCCESSFULLY": "تم حذف الدرس بنجاح",
   "LESSONS_FETCHED_SUCCESSFULLY": "تم جلب الدروس بنجاح",
   "LESSON_RETRIEVED_SUCCESSFULLY": "تم استرجاع الدرس بنجاح",
-
   "PAYMENTS_FETCHED_SUCCESSFULLY": "تم جلب الدفعات بنجاح",
   "PAYMENT_RETRIEVED_SUCCESSFULLY": "تم استرجاع الدفعة بنجاح",
-
   "QUESTION_BANK_CREATED_SUCCESSFULLY": "تم إنشاء بنك الأسئلة بنجاح",
   "QUESTION_BANK_UPDATED_SUCCESSFULLY": "تم تحديث بنك الأسئلة بنجاح",
   "QUESTION_BANK_DELETED_SUCCESSFULLY": "تم حذف بنك الأسئلة بنجاح",
   "QUESTION_BANKS_FETCHED_SUCCESSFULLY": "تم جلب بنوك الأسئلة بنجاح",
   "QUESTION_BANK_RETRIEVED_SUCCESSFULLY": "تم استرجاع بنك الأسئلة بنجاح",
-
   "USER_CREATED_SUCCESSFULLY": "تم إنشاء المستخدم بنجاح",
   "USER_UPDATED_SUCCESSFULLY": "تم تحديث المستخدم بنجاح",
   "USER_DELETED_SUCCESSFULLY": "تم حذف المستخدم بنجاح",
@@ -156,5 +134,7 @@
   "USER_SUSPENDED_SUCCESSFULLY": "تم إيقاف حساب المستخدم بنجاح",
   "USER_ACTIVATED_SUCCESSFULLY": "تم تفعيل حساب المستخدم بنجاح",
   "USER_UPDATED_BY_ADMIN_SUCCESSFULLY": "تم تحديث بيانات المستخدم بواسطة الإدارة بنجاح",
-  "USER_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات المستخدمين بنجاح"
+  "USER_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات المستخدمين بنجاح",
+  "ADMIN_DEMO_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات مساحات العمل للمشرف بنجاح",
+  "ADMIN_DEMOS_FETCHED_SUCCESSFULLY": "تم جلب مساحات العمل للمشرف بنجاح"
 }
