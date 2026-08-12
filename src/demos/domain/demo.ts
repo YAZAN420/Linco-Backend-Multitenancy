@@ -196,7 +196,9 @@ export class Demo {
       );
     }
     if (!department) {
-      throw new DomainException('errors.DEPARTMENT_CANNOT_BE_NULL_OR_UNDEFINED');
+      throw new DomainException(
+        'errors.DEPARTMENT_CANNOT_BE_NULL_OR_UNDEFINED',
+      );
     }
 
     if (this.departments.length >= this.maxDepartmentsLimit) {
@@ -209,9 +211,7 @@ export class Demo {
       (d) => d.name.toLowerCase() === department.name.toLowerCase(),
     );
     if (exists) {
-      throw new DomainException(
-        'errors.DEPARTMENT_NAME_ALREADY_EXISTS',
-      );
+      throw new DomainException('errors.DEPARTMENT_NAME_ALREADY_EXISTS');
     }
 
     this.props.departments.push(department);
