@@ -42,6 +42,8 @@ export type UserMinAggregateOutputType = {
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   stripeCustomerId: string | null
+  status: $Enums.UserStatus | null
+  lastActiveAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,6 +66,8 @@ export type UserMaxAggregateOutputType = {
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   stripeCustomerId: string | null
+  status: $Enums.UserStatus | null
+  lastActiveAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -86,6 +90,8 @@ export type UserCountAggregateOutputType = {
   passwordResetToken: number
   passwordResetExpires: number
   stripeCustomerId: number
+  status: number
+  lastActiveAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -110,6 +116,8 @@ export type UserMinAggregateInputType = {
   passwordResetToken?: true
   passwordResetExpires?: true
   stripeCustomerId?: true
+  status?: true
+  lastActiveAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -132,6 +140,8 @@ export type UserMaxAggregateInputType = {
   passwordResetToken?: true
   passwordResetExpires?: true
   stripeCustomerId?: true
+  status?: true
+  lastActiveAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -154,6 +164,8 @@ export type UserCountAggregateInputType = {
   passwordResetToken?: true
   passwordResetExpires?: true
   stripeCustomerId?: true
+  status?: true
+  lastActiveAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -249,6 +261,8 @@ export type UserGroupByOutputType = {
   passwordResetToken: string | null
   passwordResetExpires: Date | null
   stripeCustomerId: string | null
+  status: $Enums.UserStatus
+  lastActiveAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -292,6 +306,8 @@ export type UserWhereInput = {
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
+  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   receivedInvitations?: Prisma.InvitationListRelationFilter
@@ -322,6 +338,8 @@ export type UserOrderByWithRelationInput = {
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   receivedInvitations?: Prisma.InvitationOrderByRelationAggregateInput
@@ -355,6 +373,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailVerificationExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordResetToken?: Prisma.StringNullableFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   receivedInvitations?: Prisma.InvitationListRelationFilter
@@ -385,6 +405,8 @@ export type UserOrderByWithAggregationInput = {
   passwordResetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrderInput | Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -413,6 +435,8 @@ export type UserScalarWhereWithAggregatesInput = {
   passwordResetToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordResetExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   stripeCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+  lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -435,6 +459,8 @@ export type UserCreateInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -465,6 +491,8 @@ export type UserUncheckedCreateInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -495,6 +523,8 @@ export type UserUpdateInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -525,6 +555,8 @@ export type UserUncheckedUpdateInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -555,6 +587,8 @@ export type UserCreateManyInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -577,6 +611,8 @@ export type UserUpdateManyMutationInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -599,6 +635,8 @@ export type UserUncheckedUpdateManyInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -621,6 +659,8 @@ export type UserCountOrderByAggregateInput = {
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -643,6 +683,8 @@ export type UserMaxOrderByAggregateInput = {
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -665,6 +707,8 @@ export type UserMinOrderByAggregateInput = {
   passwordResetToken?: Prisma.SortOrder
   passwordResetExpires?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -692,6 +736,10 @@ export type EnumUserRoleFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type EnumUserStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserStatus
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -828,6 +876,8 @@ export type UserCreateWithoutDesignsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -857,6 +907,8 @@ export type UserUncheckedCreateWithoutDesignsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -902,6 +954,8 @@ export type UserUpdateWithoutDesignsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -931,6 +985,8 @@ export type UserUncheckedUpdateWithoutDesignsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -960,6 +1016,8 @@ export type UserCreateWithoutDesignAssetsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -989,6 +1047,8 @@ export type UserUncheckedCreateWithoutDesignAssetsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1034,6 +1094,8 @@ export type UserUpdateWithoutDesignAssetsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1063,6 +1125,8 @@ export type UserUncheckedUpdateWithoutDesignAssetsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1092,6 +1156,8 @@ export type UserCreateWithoutDemoMembershipsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -1121,6 +1187,8 @@ export type UserUncheckedCreateWithoutDemoMembershipsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1166,6 +1234,8 @@ export type UserUpdateWithoutDemoMembershipsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1195,6 +1265,8 @@ export type UserUncheckedUpdateWithoutDemoMembershipsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1224,6 +1296,8 @@ export type UserCreateWithoutOwnedDemosInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -1253,6 +1327,8 @@ export type UserUncheckedCreateWithoutOwnedDemosInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1298,6 +1374,8 @@ export type UserUpdateWithoutOwnedDemosInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1327,6 +1405,8 @@ export type UserUncheckedUpdateWithoutOwnedDemosInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1356,6 +1436,8 @@ export type UserCreateWithoutReceivedInvitationsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sentInvitations?: Prisma.InvitationCreateNestedManyWithoutSenderInput
@@ -1385,6 +1467,8 @@ export type UserUncheckedCreateWithoutReceivedInvitationsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutSenderInput
@@ -1419,6 +1503,8 @@ export type UserCreateWithoutSentInvitationsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -1448,6 +1534,8 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1493,6 +1581,8 @@ export type UserUpdateWithoutReceivedInvitationsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentInvitations?: Prisma.InvitationUpdateManyWithoutSenderNestedInput
@@ -1522,6 +1612,8 @@ export type UserUncheckedUpdateWithoutReceivedInvitationsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutSenderNestedInput
@@ -1562,6 +1654,8 @@ export type UserUpdateWithoutSentInvitationsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1591,6 +1685,8 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1620,6 +1716,8 @@ export type UserCreateWithoutPaymentsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -1649,6 +1747,8 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1694,6 +1794,8 @@ export type UserUpdateWithoutPaymentsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1723,6 +1825,8 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1752,6 +1856,8 @@ export type UserCreateWithoutFcmTokensInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationCreateNestedManyWithoutReceiverInput
@@ -1781,6 +1887,8 @@ export type UserUncheckedCreateWithoutFcmTokensInput = {
   passwordResetToken?: string | null
   passwordResetExpires?: Date | string | null
   stripeCustomerId?: string | null
+  status?: $Enums.UserStatus
+  lastActiveAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   receivedInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutReceiverInput
@@ -1826,6 +1934,8 @@ export type UserUpdateWithoutFcmTokensInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUpdateManyWithoutReceiverNestedInput
@@ -1855,6 +1965,8 @@ export type UserUncheckedUpdateWithoutFcmTokensInput = {
   passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivedInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -1978,6 +2090,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   stripeCustomerId?: boolean
+  status?: boolean
+  lastActiveAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   receivedInvitations?: boolean | Prisma.User$receivedInvitationsArgs<ExtArgs>
@@ -2009,6 +2123,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   stripeCustomerId?: boolean
+  status?: boolean
+  lastActiveAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -2031,6 +2147,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   stripeCustomerId?: boolean
+  status?: boolean
+  lastActiveAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -2053,11 +2171,13 @@ export type UserSelectScalar = {
   passwordResetToken?: boolean
   passwordResetExpires?: boolean
   stripeCustomerId?: boolean
+  status?: boolean
+  lastActiveAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "emailVerificationExpires" | "passwordResetToken" | "passwordResetExpires" | "stripeCustomerId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "birthDate" | "imagePath" | "refreshToken" | "role" | "twoFactorSecret" | "isTwoFactorEnabled" | "isEmailVerified" | "emailVerificationToken" | "emailVerificationExpires" | "passwordResetToken" | "passwordResetExpires" | "stripeCustomerId" | "status" | "lastActiveAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   receivedInvitations?: boolean | Prisma.User$receivedInvitationsArgs<ExtArgs>
   sentInvitations?: boolean | Prisma.User$sentInvitationsArgs<ExtArgs>
@@ -2102,6 +2222,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     passwordResetToken: string | null
     passwordResetExpires: Date | null
     stripeCustomerId: string | null
+    status: $Enums.UserStatus
+    lastActiveAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -2552,6 +2674,8 @@ export interface UserFieldRefs {
   readonly passwordResetToken: Prisma.FieldRef<"User", 'String'>
   readonly passwordResetExpires: Prisma.FieldRef<"User", 'DateTime'>
   readonly stripeCustomerId: Prisma.FieldRef<"User", 'String'>
+  readonly status: Prisma.FieldRef<"User", 'UserStatus'>
+  readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

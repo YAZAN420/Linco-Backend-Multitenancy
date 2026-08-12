@@ -9,6 +9,10 @@ import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 
 import { UsersQueryService } from 'src/users/application/users-query.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { Role } from 'src/users/domain/enums/role.enum';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/iam/domain/interfaces/active-user-data.interface';
 
 @ApiTags('User')
 @Controller('users')
@@ -27,6 +31,7 @@ export class UsersCommandController {
     );
   }
 
+  @Roles([Role.ADMIN])
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const createdUser = await this.userCommandService.create(dto);
@@ -37,9 +42,15 @@ export class UsersCommandController {
     };
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    const updatedUser = await this.userCommandService.update(id, dto);
+  @Patch()
+  async updateProfile(
+    @ActiveUser() activeUser: ActiveUserData,
+    @Body() dto: UpdateUserDto,
+  ) {
+    const updatedUser = await this.userCommandService.updateProfile(
+      activeUser.id,
+      dto,
+    );
     const user = await this.userQueryService.findById(updatedUser.id);
 
     return {
@@ -48,13 +59,37 @@ export class UsersCommandController {
     };
   }
 
+  @Roles([Role.ADMIN])
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.userCommandService.remove(id);
+  async suspend(@Param('id') id: string) {
+    await this.userCommandService.suspend(id);
 
     return {
-      message: 'messages.USER_DELETED_SUCCESSFULLY',
+      message: 'messages.USER_SUSPENDED_SUCCESSFULLY',
       data: null,
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Patch(':id/activate')
+  async activate(@Param('id') id: string) {
+    await this.userCommandService.activate(id);
+
+    return {
+      message: 'messages.USER_ACTIVATED_SUCCESSFULLY',
+      data: null,
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Patch(':id')
+  async makeAdmin(@Param('id') id: string) {
+    const updatedUser = await this.userCommandService.makeAdmin(id);
+    const user = await this.userQueryService.findById(updatedUser.id);
+
+    return {
+      message: 'messages.USER_UPDATED_BY_ADMIN_SUCCESSFULLY',
+      data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
 }

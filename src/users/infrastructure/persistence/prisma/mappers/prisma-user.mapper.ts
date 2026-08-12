@@ -4,6 +4,7 @@ import { User } from 'src/users/domain/user';
 import { UserSecurity } from 'src/users/domain/user-security';
 import { Email } from 'src/users/domain/value-objects/email.vo';
 import { Role } from 'src/users/domain/enums/role.enum';
+import { UserStatus } from 'src/users/domain/enums/user-status.enum';
 
 @Injectable()
 export class PrismaUserMapper {
@@ -26,7 +27,9 @@ export class PrismaUserMapper {
       email: Email.fromPersistence(raw.email),
       birthDate: raw.birthDate,
       imagePath: raw.imagePath,
-      role: raw.role as unknown as Role,
+      role: raw.role as Role,
+      status: raw.status as UserStatus,
+      lastActiveAt: raw.lastActiveAt,
       security,
       stripeCustomerId: raw.stripeCustomerId ?? undefined,
       createdAt: raw.createdAt,
@@ -43,6 +46,8 @@ export class PrismaUserMapper {
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+      status: user.status,
+      lastActiveAt: user.lastActiveAt,
       stripeCustomerId: user.stripeCustomerId ?? null,
       birthDate: user.birthDate,
       imagePath: user.imagePath,

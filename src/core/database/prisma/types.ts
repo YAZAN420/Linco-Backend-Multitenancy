@@ -214,3 +214,10 @@ export type InquiryReplyWithDemoMember = Prisma.InquiryReplyGetPayload<{
     };
   };
 }>;
+
+export interface UserDashboardStats {
+  totalUsers: number;
+  verifiedAccounts: number;
+  newThisMonth: number;
+  twoFactorEnabled: number;
+}

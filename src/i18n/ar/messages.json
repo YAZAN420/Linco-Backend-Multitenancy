@@ -152,5 +152,9 @@
   "USER_DELETED_SUCCESSFULLY": "تم حذف المستخدم بنجاح",
   "USERS_FETCHED_SUCCESSFULLY": "تم جلب المستخدمين بنجاح",
   "USER_RETRIEVED_SUCCESSFULLY": "تم استرجاع المستخدم بنجاح",
-  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "تم استرجاع الملف الشخصي بنجاح"
+  "USER_PROFILE_RETRIEVED_SUCCESSFULLY": "تم استرجاع الملف الشخصي بنجاح",
+  "USER_SUSPENDED_SUCCESSFULLY": "تم إيقاف حساب المستخدم بنجاح",
+  "USER_ACTIVATED_SUCCESSFULLY": "تم تفعيل حساب المستخدم بنجاح",
+  "USER_UPDATED_BY_ADMIN_SUCCESSFULLY": "تم تحديث بيانات المستخدم بواسطة الإدارة بنجاح",
+  "USER_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات المستخدمين بنجاح"
 }

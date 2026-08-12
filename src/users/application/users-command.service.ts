@@ -10,11 +10,13 @@ import { HashingPort } from 'src/iam/application/ports/hashing.port';
 
 import { CreateUserInput } from './interfaces/create-user-input.interface';
 import { UpdateUserInput } from './interfaces/update-user-input.interface';
+
 import {
   InvalidResetTokenException,
   InvalidVerificationTokenException,
 } from '../domain/exceptions';
 import { StoragePort } from 'src/core/storage/storage.port';
+import { Role } from '../domain/enums/role.enum';
 
 @Injectable()
 export class UsersCommandService {
@@ -69,7 +71,7 @@ export class UsersCommandService {
     return user;
   }
 
-  async update(id: string, input: UpdateUserInput): Promise<User> {
+  async updateProfile(id: string, input: UpdateUserInput): Promise<User> {
     const user = await this.findById(id);
 
     if (input.firstName) user.updateFirstName(input.firstName);
@@ -82,9 +84,23 @@ export class UsersCommandService {
     return user;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.findById(id);
-    await this.userCommandRepository.delete(id);
+  async suspend(id: string): Promise<void> {
+    const user = await this.findById(id);
+    user.suspend();
+    await this.userCommandRepository.save(user);
+  }
+
+  async activate(id: string): Promise<void> {
+    const user = await this.findById(id);
+    user.activate();
+    await this.userCommandRepository.save(user);
+  }
+
+  async makeAdmin(id: string): Promise<User> {
+    const user = await this.findById(id);
+    user.updateRole(Role.ADMIN);
+    await this.userCommandRepository.save(user);
+    return user;
   }
 
   async updateRefreshToken(
@@ -147,6 +163,12 @@ export class UsersCommandService {
     user.security.updatePassword(hashedPassword);
     await this.userCommandRepository.save(user);
     return user;
+  }
+
+  async updateLastActiveAt(userId: string): Promise<void> {
+    const user = await this.findById(userId);
+    user.updateLastActiveAt(new Date());
+    await this.userCommandRepository.save(user);
   }
 
   async disableTwoFactorAuth(userId: string): Promise<User> {

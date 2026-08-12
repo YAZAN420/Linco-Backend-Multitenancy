@@ -9,6 +9,7 @@ import {
 } from './interfaces/find-users.query';
 import { User } from 'src/generated/prisma/client';
 import { UserQueryRepository } from './ports/user-query.repository';
+import { UserDashboardStats } from 'src/core/database/prisma/types';
 
 @Injectable()
 export class UsersQueryService {
@@ -32,5 +33,9 @@ export class UsersQueryService {
     const user = await this.userQueryRepository.findById(id);
     if (!user) throw new NotFoundException('errors.USER_NOT_FOUND');
     return user;
+  }
+
+  async getDashboardStats(): Promise<UserDashboardStats> {
+    return this.userQueryRepository.getUserDashboardStats();
   }
 }

@@ -12,6 +12,7 @@ import { InvitationStatus } from 'src/demos/domain/enums/invitation-status.enum'
 import { DemoMemberCommandRepository } from '../ports/demo-member/demo-member-command.repository';
 import { DemoMemberFactory } from 'src/demos/domain/factories/demo-member.factory';
 import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
+import { NotificationsService } from 'src/notifications/application/notifications.service';
 
 @Injectable()
 export class InvitationsCommandService {
@@ -21,14 +22,13 @@ export class InvitationsCommandService {
     private readonly invitationFactory: InvitationFactory,
     private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
     private readonly demoMemberFactory: DemoMemberFactory,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async create(input: CreateInvitationInput): Promise<Invitation> {
     const demoExists = await this.demoCommandRepository.findById(input.demoId);
     if (!demoExists) {
-      throw new NotFoundException(
-        'errors.DEMO_WITH_ID_DEMO_ID_DOES_NOT_EXIST',
-      );
+      throw new NotFoundException('errors.DEMO_WITH_ID_DEMO_ID_DOES_NOT_EXIST');
     }
     const existingMember =
       await this.demoMemberCommandRepository.findByDemoAndUser(
@@ -36,7 +36,9 @@ export class InvitationsCommandService {
         input.receiverId,
       );
     if (existingMember)
-      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
+      throw new ConflictException(
+        'errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO',
+      );
 
     const existingPending = await this.invitationCommandRepository.findPending(
       input.demoId,
@@ -54,6 +56,22 @@ export class InvitationsCommandService {
       input.role,
     );
     await this.invitationCommandRepository.save(invitation);
+
+    try {
+      await this.notificationsService.sendToUser(
+        input.receiverId,
+        'Demo Invitation',
+        `You have been invited to join the demo: ${demoExists.name}`,
+        {
+          type: 'INVITATION',
+          invitationId: invitation.id,
+          demoId: input.demoId,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
     return invitation;
   }
 
@@ -77,7 +95,9 @@ export class InvitationsCommandService {
       );
 
     if (memberExists) {
-      throw new ConflictException('errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO');
+      throw new ConflictException(
+        'errors.USER_IS_ALREADY_A_MEMBER_OF_THIS_DEMO',
+      );
     }
 
     invitation.updateStatus(InvitationStatus.ACCEPTED);

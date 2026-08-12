@@ -116,6 +116,8 @@ export const UserScalarFieldEnum = {
   passwordResetToken: 'passwordResetToken',
   passwordResetExpires: 'passwordResetExpires',
   stripeCustomerId: 'stripeCustomerId',
+  status: 'status',
+  lastActiveAt: 'lastActiveAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

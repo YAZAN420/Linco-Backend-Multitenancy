@@ -6,6 +6,7 @@ import {
 import { User as PrismaUser } from 'src/generated/prisma/client';
 import { User as DomainUser } from 'src/users/domain/user';
 import { Role } from 'src/users/domain/enums/role.enum';
+import { UserStatus } from 'src/users/domain/enums/user-status.enum';
 import { maskEmail } from 'src/common/utils/string.util';
 
 @Injectable()
@@ -19,6 +20,8 @@ export class UserResponseMapper {
       email: user.email,
       birthDate: user.birthDate,
       role: user.role as Role,
+      status: user.status as UserStatus,
+      lastActiveAt: user.lastActiveAt,
       isEmailVerified: user.isEmailVerified,
       isTwoFactorEnabled: user.isTwoFactorEnabled,
       createdAt: user.createdAt,
@@ -33,6 +36,8 @@ export class UserResponseMapper {
       lastName: user.lastName,
       email: maskEmail(user.email),
       imagePath: user.imagePath,
+      status: user.status as UserStatus,
+      lastActiveAt: user.lastActiveAt,
     });
   }
 
@@ -45,6 +50,8 @@ export class UserResponseMapper {
       email: user.email,
       birthDate: user.birthDate,
       role: user.role,
+      status: user.status,
+      lastActiveAt: user.lastActiveAt,
       isEmailVerified: user.security.isEmailVerified,
       isTwoFactorEnabled: user.security.isTwoFactorEnabled,
       createdAt: user.createdAt,

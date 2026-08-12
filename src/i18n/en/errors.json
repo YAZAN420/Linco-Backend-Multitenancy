@@ -161,5 +161,6 @@
   "YOU_ARE_NOT_AUTHORIZED_TO_ACCEPT_THIS_INVITATION": "You are not authorized to accept this invitation",
   "YOU_ARE_NOT_AUTHORIZED_TO_REJECT_THIS_INVITATION": "You are not authorized to reject this invitation",
   "YOU_DO_NOT_HAVE_PERMISSION_TO_PERFORM_THIS_ACTION": "You do not have permission to perform this action",
-  "YOU_HAVE_ALREADY_USED_YOUR_FREE_TRIAL_LIMIT": "You have already used your free trial limit."
+  "YOU_HAVE_ALREADY_USED_YOUR_FREE_TRIAL_LIMIT": "You have already used your free trial limit.",
+  "FORBIDDEN": "Forbidden"
 }

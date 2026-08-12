@@ -4,12 +4,14 @@ import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, User } from 'src/generated/prisma/client';
+import { Prisma, User, UserStatus } from 'src/generated/prisma/client';
 import {
   FindUsersCursorQuery,
   FindUsersQuery,
 } from 'src/users/application/interfaces/find-users.query';
 import { UserQueryRepository } from 'src/users/application/ports/user-query.repository';
+import { UserDashboardStats } from 'src/core/database/prisma/types';
+import { Role } from 'src/users/domain/enums/role.enum';
 
 @Injectable()
 export class PrismaUserQueryRepository implements UserQueryRepository {
@@ -57,7 +59,11 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
-        where,
+        where: {
+          ...where,
+          status: options.status,
+          role: options.role,
+        },
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
@@ -79,7 +85,10 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     const items = await this.prisma.user.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
-      where,
+      where: {
+        ...where,
+        status: UserStatus.ACTIVE,
+      },
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
     });
@@ -99,5 +108,32 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
     return this.prisma.user.findUnique({
       where: { id },
     });
+  }
+
+  async getUserDashboardStats(): Promise<UserDashboardStats> {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const [totalUsers, verifiedAccounts, newThisMonth, twoFactorEnabled] =
+      await Promise.all([
+        this.prisma.user.count({ where: { role: Role.USER } }),
+        this.prisma.user.count({
+          where: { isEmailVerified: true, role: Role.USER },
+        }),
+        this.prisma.user.count({
+          where: { createdAt: { gte: startOfMonth }, role: Role.USER },
+        }),
+        this.prisma.user.count({
+          where: { isTwoFactorEnabled: true, role: Role.USER },
+        }),
+      ]);
+
+    return {
+      totalUsers,
+      verifiedAccounts,
+      newThisMonth,
+      twoFactorEnabled,
+    };
   }
 }
