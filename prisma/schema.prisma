@@ -89,10 +89,7 @@ enum InvitationStatus {
 enum SubscriptionStatus {
   TRIALING
   EXPIRED
-  PENDING
   ACTIVE
-  CANCELED
-  PAST_DUE
 }
 
 enum InquiryStatus {
