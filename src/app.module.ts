@@ -48,8 +48,6 @@ import { CertificationsModule } from './certifications/certifications.module';
 import { CertificationsInfrastructureModule } from './certifications/infrastructure/certifications-infrastructure.module';
 import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { LiveStreamsInfrastructureModule } from './live-streams/infrastructure/live-streams-infrastructure.module';
-import { ReportsModule } from './reports/reports.module';
-import { ReportsInfrastructureModule } from './reports/infrastructure/reports-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -94,7 +92,6 @@ export class AppModule {
         LiveStreamsModule.withInfrastructure(
           LiveStreamsInfrastructureModule.use(),
         ),
-        ReportsModule.withInfrastructure(ReportsInfrastructureModule.use()),
         this.registerI18n(),
       ],
       providers: [
