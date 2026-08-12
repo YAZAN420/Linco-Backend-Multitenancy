@@ -16,7 +16,10 @@ export class DiscussionQuestionsQueryService {
     lessonId: string,
     options: FindDiscussionQuestionsCursorQuery,
   ): Promise<CursorPageDto<DiscussionQuestionWithDemoMember>> {
-    return this.discussionQuestionQueryRepository.findAllCursor(options);
+    return this.discussionQuestionQueryRepository.findAllCursor(
+      lessonId,
+      options,
+    );
   }
 
   async findById(
