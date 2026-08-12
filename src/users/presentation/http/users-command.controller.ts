@@ -31,17 +31,6 @@ export class UsersCommandController {
     );
   }
 
-  @Roles([Role.ADMIN])
-  @Post()
-  async create(@Body() dto: CreateUserDto) {
-    const createdUser = await this.userCommandService.create(dto);
-    const user = await this.userQueryService.findById(createdUser.id);
-    return {
-      message: 'messages.USER_CREATED_SUCCESSFULLY',
-      data: this.userResponseMapper.toResponseFromPrisma(user),
-    };
-  }
-
   @Patch()
   async updateProfile(
     @ActiveUser() activeUser: ActiveUserData,
@@ -55,6 +44,17 @@ export class UsersCommandController {
 
     return {
       message: 'messages.USER_UPDATED_SUCCESSFULLY',
+      data: this.userResponseMapper.toResponseFromPrisma(user),
+    };
+  }
+
+  @Roles([Role.ADMIN])
+  @Post()
+  async create(@Body() dto: CreateUserDto) {
+    const createdUser = await this.userCommandService.create(dto);
+    const user = await this.userQueryService.findById(createdUser.id);
+    return {
+      message: 'messages.USER_CREATED_SUCCESSFULLY',
       data: this.userResponseMapper.toResponseFromPrisma(user),
     };
   }
