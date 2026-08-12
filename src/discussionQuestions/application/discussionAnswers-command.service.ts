@@ -18,14 +18,9 @@ export class DiscussionAnswersCommandService {
 
   async create(
     discussionId: string,
-    userId: string,
+    memberId: string,
     input: CreateDiscussionAnswerInput,
   ): Promise<DiscussionAnswer> {
-    const demoMember =
-      await this.demoMemberQueryRepository.findDemoMemberByUserId('', userId);
-    if (!demoMember)
-      throw new NotFoundException('errors.NOT_MEMBER_IN_THIS_DEMO');
-
     const question =
       await this.discussionQuestionQueryRepository.findById(discussionId);
     if (!question)
@@ -34,7 +29,7 @@ export class DiscussionAnswersCommandService {
     const discussionAnswer = this.discussionAnswerFactory.createNew(
       input.content,
       discussionId,
-      demoMember.id,
+      memberId,
     );
     await this.discussionAnswerCommandRepository.save(discussionAnswer);
     return discussionAnswer;
