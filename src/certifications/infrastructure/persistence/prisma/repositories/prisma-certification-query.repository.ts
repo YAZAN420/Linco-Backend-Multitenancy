@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CertificationQueryRepository } from 'src/certifications/application/ports/certification-query.repository';
 import { FindCertificationsCursorQuery } from 'src/certifications/application/interfaces/find-certifications.query';
-import { CursorPageDto } from 'src/common/dtos/pagination';
+import {
+  CursorPageDto,
+  CursorPageOptionsDto,
+} from 'src/common/dtos/pagination';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { CertificationWithDetails } from 'src/core/database/prisma/types';
+import { Prisma } from 'src/generated/prisma/client';
 
 const certificationDetailsSelect = {
   id: true,
@@ -39,9 +43,24 @@ export class PrismaCertificationQueryRepository implements CertificationQueryRep
   async findAllCursor(
     options: FindCertificationsCursorQuery,
   ): Promise<CursorPageDto<CertificationWithDetails>> {
-    const { cursor, take, courseId, demoMemberId } = options;
+    const { courseId, demoMemberId } = options;
+    return this.findCursor(options, { courseId, demoMemberId });
+  }
+
+  findAllByUserIdCursor(
+    userId: string,
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<CertificationWithDetails>> {
+    return this.findCursor(options, { demoMember: { userId } });
+  }
+
+  private async findCursor(
+    options: CursorPageOptionsDto,
+    where: Prisma.CertificationWhereInput,
+  ): Promise<CursorPageDto<CertificationWithDetails>> {
+    const { cursor, take } = options;
     const items = await this.prisma.certification.findMany({
-      where: { courseId, demoMemberId },
+      where,
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,

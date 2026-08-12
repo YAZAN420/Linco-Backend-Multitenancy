@@ -18,10 +18,10 @@ export class CertificationsQueryService {
   }
 
   findMineCursor(
-    demoMemberId: string,
+    userId: string,
     options: CursorPageOptionsDto,
   ): Promise<CursorPageDto<CertificationWithDetails>> {
-    return this.repository.findAllCursor({ ...options, demoMemberId });
+    return this.repository.findAllByUserIdCursor(userId, options);
   }
 
   async findMineByCourse(

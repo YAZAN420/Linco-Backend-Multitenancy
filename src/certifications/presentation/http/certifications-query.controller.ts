@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 import { CertificationsQueryService } from 'src/certifications/application/certifications-query.service';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { ActiveUser } from 'src/iam/presentation/http/decorators/active-user.decorator';
 import { Public } from 'src/iam/presentation/http/decorators/public.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { CertificationQueryDto } from './dto/certification-query.dto';
@@ -17,16 +18,11 @@ export class CertificationsQueryController {
   ) {}
 
   @Get('me')
-  @UseGuards(DemoRolesGuard)
   async findMine(
-    @ActiveDemoMember('id') demoMemberId: string,
+    @ActiveUser('id') userId: string,
     @Query() options: CursorPageOptionsDto,
   ) {
-    const certifications = await this.service.findMineCursor(
-      demoMemberId,
-      options,
-    );
-    console.log('certifications', certifications);
+    const certifications = await this.service.findMineCursor(userId, options);
     return {
       message: 'messages.CERTIFICATIONS_FETCHED_SUCCESSFULLY',
       data: this.mapper.toResponseManyFromPrisma(certifications.data),
