@@ -31,7 +31,7 @@ export class UsersCommandController {
     );
   }
 
-  @Patch()
+  @Patch('me')
   async updateProfile(
     @ActiveUser() activeUser: ActiveUserData,
     @Body() dto: UpdateUserDto,
