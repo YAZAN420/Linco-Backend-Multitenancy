@@ -137,29 +137,8 @@ model User {
   ownedDemos          Demo[]       @relation("DemoOwner")
   payments            Payment[]
   fcmTokens           FcmToken[]
-  designAssets        DesignAsset[]
 }
 
-model DesignAsset {
-  id           String   @id @default(uuid())
-  designId     String?
-  ownerId      String
-  sourceAssetId String?
-  fileKey      String   @unique
-  fileName     String
-  mimeType     String
-  fileSize     Int
-  createdAt    DateTime @default(now())
-
-
-  owner           User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  sourceAsset     DesignAsset?   @relation("AssetLineage", fields: [sourceAssetId], references: [id], onDelete: SetNull)
-  derivedAssets   DesignAsset[]  @relation("AssetLineage")
-
-  @@index([designId, createdAt])
-  @@index([ownerId])
-  @@index([sourceAssetId])
-}
 
 model DemoMember {
   id        String         @id
