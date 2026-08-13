@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: yazan420/linco-backend-app:v1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: 'postgres-service'
+            - name: REDIS_HOST
+              value: 'redis-service'
+          envFrom:
+            - secretRef:
+                name: app-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 80
+      targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prisma-studio-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prisma-studio
+  template:
+    metadata:
+      labels:
+        app: prisma-studio
+    spec:
+      containers:
+        - name: prisma-studio
+          image: yazan420/linco-backend-app:v1
+          command:
+            ['npx', 'prisma', 'studio', '--port', '5555', '--browser', 'none']
+          ports:
+            - containerPort: 5555
+          envFrom:
+            - secretRef:
+                name: app-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prisma-service
+spec:
+  type: ClusterIP
+  selector:
+    app: prisma-studio
+  ports:
+    - port: 5555
+      targetPort: 5555
