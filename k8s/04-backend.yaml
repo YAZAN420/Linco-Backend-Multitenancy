@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: yazan420/linco-backend-app:v4
+          image: yazan420/linco-backend-app:v5
           ports:
             - containerPort: 3000
           envFrom:
@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: prisma-studio
-          image: yazan420/linco-backend-app:v4
+          image: yazan420/linco-backend-app:v5
           command:
             [
               'sh',

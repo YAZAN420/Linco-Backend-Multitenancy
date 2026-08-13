@@ -133,10 +133,7 @@ export type InvitationStatus = (typeof InvitationStatus)[keyof typeof Invitation
 export const SubscriptionStatus = {
   TRIALING: 'TRIALING',
   EXPIRED: 'EXPIRED',
-  PENDING: 'PENDING',
-  ACTIVE: 'ACTIVE',
-  CANCELED: 'CANCELED',
-  PAST_DUE: 'PAST_DUE'
+  ACTIVE: 'ACTIVE'
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]

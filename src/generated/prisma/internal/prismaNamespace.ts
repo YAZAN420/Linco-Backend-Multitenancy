@@ -398,8 +398,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Design: 'Design',
-  DesignAsset: 'DesignAsset',
   DemoMember: 'DemoMember',
   DepartmentMember: 'DepartmentMember',
   Department: 'Department',
@@ -441,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "design" | "designAsset" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -516,154 +514,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
-        }
-      }
-    }
-    Design: {
-      payload: Prisma.$DesignPayload<ExtArgs>
-      fields: Prisma.DesignFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DesignFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DesignFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        findFirst: {
-          args: Prisma.DesignFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DesignFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        findMany: {
-          args: Prisma.DesignFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>[]
-        }
-        create: {
-          args: Prisma.DesignCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        createMany: {
-          args: Prisma.DesignCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DesignCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>[]
-        }
-        delete: {
-          args: Prisma.DesignDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        update: {
-          args: Prisma.DesignUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        deleteMany: {
-          args: Prisma.DesignDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DesignUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DesignUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>[]
-        }
-        upsert: {
-          args: Prisma.DesignUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignPayload>
-        }
-        aggregate: {
-          args: Prisma.DesignAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDesign>
-        }
-        groupBy: {
-          args: Prisma.DesignGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DesignGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DesignCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DesignCountAggregateOutputType> | number
-        }
-      }
-    }
-    DesignAsset: {
-      payload: Prisma.$DesignAssetPayload<ExtArgs>
-      fields: Prisma.DesignAssetFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DesignAssetFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DesignAssetFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        findFirst: {
-          args: Prisma.DesignAssetFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DesignAssetFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        findMany: {
-          args: Prisma.DesignAssetFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>[]
-        }
-        create: {
-          args: Prisma.DesignAssetCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        createMany: {
-          args: Prisma.DesignAssetCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DesignAssetCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>[]
-        }
-        delete: {
-          args: Prisma.DesignAssetDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        update: {
-          args: Prisma.DesignAssetUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        deleteMany: {
-          args: Prisma.DesignAssetDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DesignAssetUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DesignAssetUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>[]
-        }
-        upsert: {
-          args: Prisma.DesignAssetUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesignAssetPayload>
-        }
-        aggregate: {
-          args: Prisma.DesignAssetAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDesignAsset>
-        }
-        groupBy: {
-          args: Prisma.DesignAssetGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DesignAssetGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DesignAssetCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DesignAssetCountAggregateOutputType> | number
         }
       }
     }
@@ -2657,34 +2507,6 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const DesignScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  name: 'name',
-  sourceAssetId: 'sourceAssetId',
-  currentAssetId: 'currentAssetId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DesignScalarFieldEnum = (typeof DesignScalarFieldEnum)[keyof typeof DesignScalarFieldEnum]
-
-
-export const DesignAssetScalarFieldEnum = {
-  id: 'id',
-  designId: 'designId',
-  ownerId: 'ownerId',
-  sourceAssetId: 'sourceAssetId',
-  fileKey: 'fileKey',
-  fileName: 'fileName',
-  mimeType: 'mimeType',
-  fileSize: 'fileSize',
-  createdAt: 'createdAt'
-} as const
-
-export type DesignAssetScalarFieldEnum = (typeof DesignAssetScalarFieldEnum)[keyof typeof DesignAssetScalarFieldEnum]
-
-
 export const DemoMemberScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3133,20 +2955,6 @@ export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'DemoMemberRole'
  */
 export type EnumDemoMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemoMemberRole'>
@@ -3255,6 +3063,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -3507,8 +3329,6 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  design?: Prisma.DesignOmit
-  designAsset?: Prisma.DesignAssetOmit
   demoMember?: Prisma.DemoMemberOmit
   departmentMember?: Prisma.DepartmentMemberOmit
   department?: Prisma.DepartmentOmit

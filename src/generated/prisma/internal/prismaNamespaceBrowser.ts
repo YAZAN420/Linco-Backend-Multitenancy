@@ -52,8 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Design: 'Design',
-  DesignAsset: 'DesignAsset',
   DemoMember: 'DemoMember',
   DepartmentMember: 'DepartmentMember',
   Department: 'Department',
@@ -123,34 +121,6 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const DesignScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  name: 'name',
-  sourceAssetId: 'sourceAssetId',
-  currentAssetId: 'currentAssetId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DesignScalarFieldEnum = (typeof DesignScalarFieldEnum)[keyof typeof DesignScalarFieldEnum]
-
-
-export const DesignAssetScalarFieldEnum = {
-  id: 'id',
-  designId: 'designId',
-  ownerId: 'ownerId',
-  sourceAssetId: 'sourceAssetId',
-  fileKey: 'fileKey',
-  fileName: 'fileName',
-  mimeType: 'mimeType',
-  fileSize: 'fileSize',
-  createdAt: 'createdAt'
-} as const
-
-export type DesignAssetScalarFieldEnum = (typeof DesignAssetScalarFieldEnum)[keyof typeof DesignAssetScalarFieldEnum]
 
 
 export const DemoMemberScalarFieldEnum = {
