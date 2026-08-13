@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: yazan420/linco-backend-app:v6
+          image: yazan420/linco-backend-app:v7
           ports:
             - containerPort: 3000
           envFrom:
@@ -50,13 +50,8 @@ spec:
     spec:
       containers:
         - name: prisma-studio
-          image: yazan420/linco-backend-app:v6
-          command:
-            [
-              'sh',
-              '-c',
-              'npx prisma studio --port 5555 --browser none --url $DATABASE_URL',
-            ]
+          image: yazan420/linco-backend-app:v7
+          command: ['sh', '-c', 'npx prisma studio --port 5555 --browser none']
           ports:
             - containerPort: 5555
           envFrom:
