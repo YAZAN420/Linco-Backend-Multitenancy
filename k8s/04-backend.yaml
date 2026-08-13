@@ -14,14 +14,14 @@ spec:
     spec:
       initContainers:
         - name: prisma-migrate
-          image: yazan420/linco-backend-app:v2
+          image: yazan420/linco-backend-app:v3
           command: ['npx', 'prisma', 'migrate', 'deploy']
           envFrom:
             - secretRef:
                 name: app-secrets
       containers:
         - name: backend
-          image: yazan420/linco-backend-app:v2
+          image: yazan420/linco-backend-app:v3
           ports:
             - containerPort: 3000
           envFrom:
@@ -57,7 +57,7 @@ spec:
     spec:
       containers:
         - name: prisma-studio
-          image: yazan420/linco-backend-app:v2
+          image: yazan420/linco-backend-app:v3
           command:
             [
               'sh',
