@@ -24,11 +24,6 @@ spec:
           image: yazan420/linco-backend-app:v2
           ports:
             - containerPort: 3000
-          env:
-            - name: DB_HOST
-              value: 'postgres-service'
-            - name: REDIS_HOST
-              value: 'redis-service'
           envFrom:
             - secretRef:
                 name: app-secrets
@@ -64,7 +59,11 @@ spec:
         - name: prisma-studio
           image: yazan420/linco-backend-app:v2
           command:
-            ['npx', 'prisma', 'studio', '--port', '5555', '--browser', 'none']
+            [
+              'sh',
+              '-c',
+              'npx prisma studio --port 5555 --browser none --url $DATABASE_URL',
+            ]
           ports:
             - containerPort: 5555
           envFrom:
