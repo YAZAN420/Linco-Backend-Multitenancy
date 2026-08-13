@@ -53,6 +53,13 @@ spec:
       labels:
         app: prisma-studio
     spec:
+      initContainers:
+        - name: prisma-migrate
+          image: yazan420/linco-backend-app:v1
+          command: ['npx', 'prisma', 'migrate', 'deploy']
+          envFrom:
+            - secretRef:
+                name: app-secrets
       containers:
         - name: prisma-studio
           image: yazan420/linco-backend-app:v1

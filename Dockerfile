@@ -16,7 +16,11 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+COPY prisma ./prisma
+
 RUN npm ci --only=production && npm cache clean --force
+
+RUN npx prisma generate
 
 COPY --from=builder /usr/src/app/dist ./dist
 
