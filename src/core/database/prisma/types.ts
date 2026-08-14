@@ -24,7 +24,6 @@ export type CertificationWithDetails = Prisma.CertificationGetPayload<{
   select: {
     id: true;
     courseId: true;
-    demoMemberId: true;
     score: true;
     issuedAt: true;
     createdAt: true;
@@ -43,6 +42,12 @@ export type CertificationWithDetails = Prisma.CertificationGetPayload<{
             lastName: true;
           };
         };
+        demo: {
+          select: {
+            name: true;
+            imagePath: true;
+          }
+        }
       };
     };
   };

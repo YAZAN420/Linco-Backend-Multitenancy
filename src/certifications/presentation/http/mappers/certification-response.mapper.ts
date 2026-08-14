@@ -10,9 +10,10 @@ export class CertificationResponseMapper {
     return new CertificationResponseDto(
       item.id,
       item.courseId,
-      item.demoMemberId,
+      item.demoMember.demo.name,
       item.score,
       `${item.demoMember.user.firstName} ${item.demoMember.user.lastName}`.trim(),
+      item.demoMember.demo.imagePath,
       item.course.title,
       item.course.signatureImagePath,
       item.issuedAt,
