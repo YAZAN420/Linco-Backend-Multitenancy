@@ -7,18 +7,18 @@ export enum SortDirection {
 
 export class OrderByInput {
   @IsOptional()
-  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  @IsEnum(SortDirection, { message: 'errors.ORDER_MUST_BE_ASC_OR_DESC' })
   createdAt?: SortDirection;
 
   @IsOptional()
-  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  @IsEnum(SortDirection, { message: 'errors.ORDER_MUST_BE_ASC_OR_DESC' })
   firstName?: SortDirection;
 
   @IsOptional()
-  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  @IsEnum(SortDirection, { message: 'errors.ORDER_MUST_BE_ASC_OR_DESC' })
   lastName?: SortDirection;
 
   @IsOptional()
-  @IsEnum(SortDirection, { message: 'order must be asc or desc' })
+  @IsEnum(SortDirection, { message: 'errors.ORDER_MUST_BE_ASC_OR_DESC' })
   email?: SortDirection;
 }

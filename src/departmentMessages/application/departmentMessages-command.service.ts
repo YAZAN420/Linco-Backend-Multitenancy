@@ -94,7 +94,7 @@ export class DepartmentMessagesCommandService {
 
     if (departmentMessage.senderId !== departmentMemberId) {
       throw new NotFoundException(
-        'DepartmentMessage not found or you are not the sender',
+        'errors.DEPARTMENT_MESSAGE_NOT_FOUND_OR_NOT_SENDER',
       );
     }
 
@@ -117,7 +117,7 @@ export class DepartmentMessagesCommandService {
 
     if (departmentMessage.senderId !== departmentMemberId) {
       throw new NotFoundException(
-        'DepartmentMessage not found or you are not the sender',
+        'errors.DEPARTMENT_MESSAGE_NOT_FOUND_OR_NOT_SENDER',
       );
     }
 
@@ -138,7 +138,7 @@ export class DepartmentMessagesCommandService {
       );
     if (!departmentMessage || departmentMessage.departmentId !== departmentId) {
       throw new NotFoundException(
-        'DepartmentMessage not found in this department',
+        'errors.DEPARTMENT_MESSAGE_NOT_FOUND_IN_THIS_DEPARTMENT',
       );
     }
     return departmentMessage;

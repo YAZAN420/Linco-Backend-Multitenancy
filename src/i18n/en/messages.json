@@ -136,5 +136,19 @@
   "USER_SUSPENDED_SUCCESSFULLY": "User suspended successfully",
   "USER_ACTIVATED_SUCCESSFULLY": "User activated successfully",
   "USER_UPDATED_BY_ADMIN_SUCCESSFULLY": "User updated successfully by admin",
-  "USER_STATS_FETCHED_SUCCESSFULLY": "User statistics fetched successfully"
+  "USER_STATS_FETCHED_SUCCESSFULLY": "User statistics fetched successfully",
+  "EXAM_ATTEMPT_DELETED_SUCCESSFULLY": "Exam attempt deleted successfully",
+  "INQUIRY_REPLY_CREATED_SUCCESSFULLY": "Inquiry reply created successfully",
+  "INQUIRY_REPLY_UPDATED_SUCCESSFULLY": "Inquiry reply updated successfully",
+  "INQUIRY_REPLY_DELETED_SUCCESSFULLY": "Inquiry reply deleted successfully",
+  "INQUIRY_REPLIES_FETCHED_SUCCESSFULLY": "Inquiry replies fetched successfully",
+  "INQUIRY_REPLY_RETRIEVED_SUCCESSFULLY": "Inquiry reply retrieved successfully",
+  "DEMO_OWNER_REPORT_RETRIEVED_SUCCESSFULLY": "Demo owner report retrieved successfully",
+  "MEMBER_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "Member performance report retrieved successfully",
+  "COURSE_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "Course performance report retrieved successfully",
+  "DEPARTMENT_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "Department performance report retrieved successfully",
+  "FCM_TOKEN_REGISTERED_SUCCESSFULLY": "FCM Token registered successfully",
+  "FCM_TOKEN_REMOVED_SUCCESSFULLY": "FCM Token removed successfully",
+  "FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY": "Free course added to assets successfully",
+  "CHECKOUT_SESSION_CREATED_SUCCESSFULLY": "Checkout session created successfully"
 }

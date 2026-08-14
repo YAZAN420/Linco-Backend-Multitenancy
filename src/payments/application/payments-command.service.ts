@@ -105,7 +105,7 @@ export class PaymentsCommandService {
         isFree: true,
       });
       return {
-        message: 'Free course added to assets successfully',
+        message: 'messages.FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY',
         data: null,
       };
     }
@@ -136,7 +136,7 @@ export class PaymentsCommandService {
       data: {
         url: result.url,
       },
-      message: 'Checkout session created successfully',
+      message: 'messages.CHECKOUT_SESSION_CREATED_SUCCESSFULLY',
     };
   }
 

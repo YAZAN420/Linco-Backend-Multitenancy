@@ -62,7 +62,7 @@ export class DepartmentMessage {
 
   public editContent(newContent: string): void {
     if (this.props.isDeleted) {
-      throw new DomainException('Cant edit a deleted message');
+      throw new DomainException('errors.CANNOT_EDIT_A_DELETED_MESSAGE');
     }
     this.props.content = newContent;
     this.props.isEdited = true;

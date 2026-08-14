@@ -90,7 +90,7 @@ export class CoursesCommandService {
     const tagsExist = await this.tagRepository.existsByIds(course.tagIds);
 
     if (!tagsExist) {
-      throw new NotFoundException('One or more tags do not exist.');
+      throw new NotFoundException('errors.ONE_OR_MORE_TAGS_DO_NOT_EXIST');
     }
 
     await this.courseCommandRepository.save(course);
@@ -157,7 +157,7 @@ export class CoursesCommandService {
       const tagsExist = await this.tagRepository.existsByIds(input.tagIds);
 
       if (!tagsExist) {
-        throw new NotFoundException('One or more tags do not exist.');
+        throw new NotFoundException('errors.ONE_OR_MORE_TAGS_DO_NOT_EXIST');
       }
 
       course.updateTags(input.tagIds);

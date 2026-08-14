@@ -175,7 +175,7 @@ export class UsersCommandService {
     const user = await this.findById(userId);
     if (!user.security.isTwoFactorEnabled) {
       throw new ConflictException(
-        'Two-factor authentication is already disabled.',
+        'errors.TWO_FACTOR_AUTHENTICATION_ALREADY_DISABLED',
       );
     }
     user.security.disableTwoFactorAuth();
@@ -194,7 +194,7 @@ export class UsersCommandService {
     const user = await this.findById(userId);
     if (user.security.isTwoFactorEnabled) {
       throw new ConflictException(
-        'Two-factor authentication is already enabled.',
+        'errors.TWO_FACTOR_AUTHENTICATION_ALREADY_ENABLED',
       );
     }
     user.security.enableTwoFactorAuth(secret);

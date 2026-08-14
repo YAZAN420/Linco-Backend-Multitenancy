@@ -19,7 +19,10 @@ export class FcmTokensController {
       dto.token,
       dto.deviceModel,
     );
-    return { message: 'FCM Token registered successfully', data: null };
+    return {
+      message: 'messages.FCM_TOKEN_REGISTERED_SUCCESSFULLY',
+      data: null,
+    };
   }
 
   @Delete('fcm-token/:token')
@@ -28,6 +31,6 @@ export class FcmTokensController {
     @Param('token') token: string,
   ) {
     await this.notificationsService.unregisterToken(activeUser.id, token);
-    return { message: 'FCM Token removed successfully', data: null };
+    return { message: 'messages.FCM_TOKEN_REMOVED_SUCCESSFULLY', data: null };
   }
 }

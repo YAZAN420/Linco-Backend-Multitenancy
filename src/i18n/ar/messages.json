@@ -136,5 +136,19 @@
   "USER_UPDATED_BY_ADMIN_SUCCESSFULLY": "تم تحديث بيانات المستخدم بواسطة الإدارة بنجاح",
   "USER_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات المستخدمين بنجاح",
   "ADMIN_DEMO_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات مساحات العمل للمشرف بنجاح",
-  "ADMIN_DEMOS_FETCHED_SUCCESSFULLY": "تم جلب مساحات العمل للمشرف بنجاح"
+  "ADMIN_DEMOS_FETCHED_SUCCESSFULLY": "تم جلب مساحات العمل للمشرف بنجاح",
+  "EXAM_ATTEMPT_DELETED_SUCCESSFULLY": "تم حذف محاولة الاختبار بنجاح",
+  "INQUIRY_REPLY_CREATED_SUCCESSFULLY": "تم إنشاء الرد على الاستفسار بنجاح",
+  "INQUIRY_REPLY_UPDATED_SUCCESSFULLY": "تم تحديث الرد على الاستفسار بنجاح",
+  "INQUIRY_REPLY_DELETED_SUCCESSFULLY": "تم حذف الرد على الاستفسار بنجاح",
+  "INQUIRY_REPLIES_FETCHED_SUCCESSFULLY": "تم جلب الردود على الاستفسارات بنجاح",
+  "INQUIRY_REPLY_RETRIEVED_SUCCESSFULLY": "تم استرجاع الرد على الاستفسار بنجاح",
+  "DEMO_OWNER_REPORT_RETRIEVED_SUCCESSFULLY": "تم جلب تقرير مالك مساحة العمل بنجاح",
+  "MEMBER_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "تم جلب تقرير أداء الأعضاء بنجاح",
+  "COURSE_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "تم جلب تقرير أداء الدورات بنجاح",
+  "DEPARTMENT_PERFORMANCE_REPORT_RETRIEVED_SUCCESSFULLY": "تم جلب تقرير أداء الأقسام بنجاح",
+  "FCM_TOKEN_REGISTERED_SUCCESSFULLY": "تم تسجيل رمز FCM بنجاح",
+  "FCM_TOKEN_REMOVED_SUCCESSFULLY": "تم إزالة رمز FCM بنجاح",
+  "FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY": "تمت إضافة الدورة المجانية إلى الأصول بنجاح",
+  "CHECKOUT_SESSION_CREATED_SUCCESSFULLY": "تم إنشاء جلسة الدفع بنجاح"
 }

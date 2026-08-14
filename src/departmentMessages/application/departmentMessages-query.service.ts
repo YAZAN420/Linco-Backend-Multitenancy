@@ -30,7 +30,7 @@ export class DepartmentMessagesQueryService {
     const departmentMessage =
       await this.departmentMessageQueryRepository.findById(departmentId, id);
     if (!departmentMessage)
-      throw new NotFoundException('DepartmentMessage not found');
+      throw new NotFoundException('errors.DEPARTMENT_MESSAGE_NOT_FOUND');
     return departmentMessage;
   }
 }

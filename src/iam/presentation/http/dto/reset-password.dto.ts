@@ -9,8 +9,7 @@ export class ResetPasswordDto {
   @IsNotEmpty()
   @MinLength(8)
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/, {
-    message:
-      'Password must contain uppercase, lowercase, number, and special character',
+    message: 'errors.PASSWORD_COMPLEXITY_REQUIREMENT',
   })
   password!: string;
 }

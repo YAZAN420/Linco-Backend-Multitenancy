@@ -2,6 +2,7 @@ import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { PaymentStatus } from './enums/payment-status.enum';
 import { PaymentType } from './enums/payment-type.enum';
 import { PaymentProps } from './interfaces/payment.props';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 export class Payment {
   constructor(
@@ -93,7 +94,7 @@ export class Payment {
 
   private assertNotFinalState() {
     if (this.isFinal) {
-      throw new Error('Payment is already finalized');
+      throw new DomainException('errors.PAYMENT_IS_ALREADY_FINALIZED');
     }
   }
 
