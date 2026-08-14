@@ -10,6 +10,7 @@ import {
 
 import { CourseQueryRepository } from './ports/course-query.repository';
 import { CourseWithStats } from 'src/core/database/prisma/types';
+import { CourseDashboardStats } from './interfaces/course-dashboard-stats.interface';
 
 @Injectable()
 export class CoursesQueryService {
@@ -37,5 +38,9 @@ export class CoursesQueryService {
     );
     if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
     return course;
+  }
+
+  async getDashboardStats(): Promise<CourseDashboardStats> {
+    return this.courseQueryRepository.getDashboardStats();
   }
 }

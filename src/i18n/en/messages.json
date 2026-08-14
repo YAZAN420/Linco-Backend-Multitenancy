@@ -47,6 +47,7 @@
   "RANDOM_QUIZ_GENERATED_SUCCESSFULLY": "Random quiz generated successfully",
   "COURSES_FETCHED_SUCCESSFULLY": "Courses fetched successfully",
   "COURSE_RETRIEVED_SUCCESSFULLY": "Course retrieved successfully",
+  "COURSE_STATS_FETCHED_SUCCESSFULLY": "Course statistics fetched successfully",
   "SECTION_CREATED_SUCCESSFULLY": "Section created successfully",
   "SECTION_UPDATED_SUCCESSFULLY": "Section updated successfully",
   "SECTION_DELETED_SUCCESSFULLY": "Section deleted successfully",

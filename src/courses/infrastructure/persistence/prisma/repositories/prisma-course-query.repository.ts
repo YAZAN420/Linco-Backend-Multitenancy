@@ -20,12 +20,60 @@ import {
   mapCourseToCourseWithStats,
 } from 'src/core/database/prisma/utils/course-mapper.util';
 import { CourseFilter } from 'src/courses/application/interfaces/course-filter.interface';
+import { CourseDashboardStats } from 'src/courses/application/interfaces/course-dashboard-stats.interface';
 
 @Injectable()
 export class PrismaCourseQueryRepository implements CourseQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildWhereClause(filter: CourseFilter): Prisma.CourseWhereInput {
+  private buildDashboardWhereClause(
+    options: FindCoursesQuery,
+  ): Prisma.CourseWhereInput {
+    const where: Prisma.CourseWhereInput = {};
+
+    if (options.isPublished !== undefined) {
+      where.isPublished = options.isPublished;
+    }
+
+    if (options.visibility) {
+      where.visibility = options.visibility;
+    }
+
+    if (options.demoId) {
+      where.demoId = options.demoId;
+    }
+
+    if (options.tagIds && options.tagIds.length > 0) {
+      where.tags = {
+        some: {
+          id: { in: options.tagIds },
+        },
+      };
+    }
+
+    if (options.search) {
+      const searchString = options.search.trim();
+      where.OR = [
+        { title: { contains: searchString, mode: 'insensitive' } },
+        { description: { contains: searchString, mode: 'insensitive' } },
+        { demo: { name: { contains: searchString, mode: 'insensitive' } } },
+        {
+          demo: {
+            owner: {
+              OR: [
+                { firstName: { contains: searchString, mode: 'insensitive' } },
+                { lastName: { contains: searchString, mode: 'insensitive' } },
+              ],
+            },
+          },
+        },
+      ];
+    }
+
+    return where;
+  }
+
+  private buildUserWhereClause(filter: CourseFilter): Prisma.CourseWhereInput {
     const { search, tagIds } = filter;
 
     const where: Prisma.CourseWhereInput = {
@@ -53,24 +101,21 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
 
   async findAll(options: FindCoursesQuery): Promise<PageDto<CourseWithStats>> {
     const skip = (options.page - 1) * options.take;
-    const where = this.buildWhereClause(options);
+    const where = this.buildDashboardWhereClause(options);
 
     const [rawItems, itemCount] = await Promise.all([
       this.prisma.course.findMany({
         skip,
         take: options.take,
+        where,
         orderBy: [{ createdAt: 'desc' }],
         include: courseWithStatsInclude,
-        where,
       }),
-      this.prisma.course.count({
-        where: {
-          isPublished: true,
-          visibility: CourseVisibility.PUBLIC,
-        },
-      }),
+      this.prisma.course.count({ where }),
     ]);
+
     const items = rawItems.map(mapCourseToCourseWithStats);
+
     return new PageDto(
       items,
       new PageMetaDto({ itemCount, pageOptionsDto: options }),
@@ -81,7 +126,7 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
     options: FindCoursesCursorQuery,
   ): Promise<CursorPageDto<CourseWithStats>> {
     const { cursor, take } = options;
-    const where = this.buildWhereClause(options);
+    const where = this.buildUserWhereClause(options);
     const rawItems = await this.prisma.course.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
@@ -163,5 +208,36 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
         _count: { select: { questionsBank: true } },
       },
     });
+  }
+
+  async getDashboardStats(): Promise<CourseDashboardStats> {
+    const [
+      totalCourses,
+      publishedCourses,
+      draftCourses,
+      totalEnrollments,
+      publicCourses,
+      privateCourses,
+    ] = await Promise.all([
+      this.prisma.course.count(),
+      this.prisma.course.count({ where: { isPublished: true } }),
+      this.prisma.course.count({ where: { isPublished: false } }),
+      this.prisma.asset.count(),
+      this.prisma.course.count({
+        where: { visibility: CourseVisibility.PUBLIC },
+      }),
+      this.prisma.course.count({
+        where: { visibility: CourseVisibility.PRIVATE },
+      }),
+    ]);
+
+    return {
+      totalCourses,
+      publishedCourses,
+      draftCourses,
+      totalEnrollments,
+      publicCourses,
+      privateCourses,
+    };
   }
 }

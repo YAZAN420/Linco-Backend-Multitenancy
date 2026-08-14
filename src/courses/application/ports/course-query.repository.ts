@@ -9,6 +9,7 @@ import {
   CourseWithStats,
   SectionWithExamAndQuestionCount,
 } from 'src/core/database/prisma/types';
+import { CourseDashboardStats } from '../interfaces/course-dashboard-stats.interface';
 
 export abstract class CourseQueryRepository {
   abstract findAll(
@@ -29,4 +30,5 @@ export abstract class CourseQueryRepository {
   abstract findSectionWithExamAndQuestionCount(
     sectionId: string,
   ): Promise<SectionWithExamAndQuestionCount | null>;
+  abstract getDashboardStats(): Promise<CourseDashboardStats>;
 }

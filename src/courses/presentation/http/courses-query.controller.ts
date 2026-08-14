@@ -7,6 +7,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { CoursesCursorQueryDto } from './dto/queries/course-cursor-query.dto';
 import { CoursesQueryDto } from './dto/queries/course-query.dto';
 
+import { Roles } from 'src/iam/presentation/http/decorators/roles.decorator';
+import { Role } from 'src/users/domain/enums/role.enum';
+
 @ApiTags('Course')
 @Controller('courses')
 export class CoursesQueryController {
@@ -15,6 +18,18 @@ export class CoursesQueryController {
     private readonly courseResponseMapper: CourseResponseMapper,
   ) {}
 
+  @Roles([Role.ADMIN])
+  @Get('stats')
+  async getDashboardStats() {
+    const stats = await this.courseQueryService.getDashboardStats();
+
+    return {
+      message: 'messages.COURSE_STATS_FETCHED_SUCCESSFULLY',
+      data: this.courseResponseMapper.toDashboardStatsResponse(stats),
+    };
+  }
+
+  @Roles([Role.ADMIN])
   @Get()
   async findAll(@Query() options: CoursesQueryDto) {
     const courses = await this.courseQueryService.findAll(options);

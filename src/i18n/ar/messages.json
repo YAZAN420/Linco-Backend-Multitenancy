@@ -47,6 +47,7 @@
   "RANDOM_QUIZ_GENERATED_SUCCESSFULLY": "تم إنشاء الاختبار العشوائي بنجاح",
   "COURSES_FETCHED_SUCCESSFULLY": "تم جلب الدورات بنجاح",
   "COURSE_RETRIEVED_SUCCESSFULLY": "تم استرجاع الدورة بنجاح",
+  "COURSE_STATS_FETCHED_SUCCESSFULLY": "تم جلب إحصائيات الدورات بنجاح",
   "SECTION_CREATED_SUCCESSFULLY": "تم إنشاء القسم بنجاح",
   "SECTION_UPDATED_SUCCESSFULLY": "تم تحديث القسم بنجاح",
   "SECTION_DELETED_SUCCESSFULLY": "تم حذف القسم بنجاح",
