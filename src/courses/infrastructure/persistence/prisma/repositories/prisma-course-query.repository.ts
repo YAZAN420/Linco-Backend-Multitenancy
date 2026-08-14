@@ -11,7 +11,10 @@ import {
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { FindSectionsCursorQuery } from 'src/courses/application/interfaces/find-sections.query';
 import { CourseVisibility, Prisma, Section } from 'src/generated/prisma/client';
-import { CourseWithStats } from 'src/core/database/prisma/types';
+import {
+  CourseWithStats,
+  SectionWithExamAndQuestionCount,
+} from 'src/core/database/prisma/types';
 import {
   courseWithStatsInclude,
   mapCourseToCourseWithStats,
@@ -147,6 +150,18 @@ export class PrismaCourseQueryRepository implements CourseQueryRepository {
   async findSectionById(sectionId: string): Promise<Section | null> {
     return this.prisma.section.findUnique({
       where: { id: sectionId },
+    });
+  }
+
+  async findSectionWithExamAndQuestionCount(
+    sectionId: string,
+  ): Promise<SectionWithExamAndQuestionCount | null> {
+    return this.prisma.section.findUnique({
+      where: { id: sectionId },
+      include: {
+        exam: true,
+        _count: { select: { questionsBank: true } },
+      },
     });
   }
 }

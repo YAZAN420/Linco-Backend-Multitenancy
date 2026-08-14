@@ -6,6 +6,7 @@ import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-inpu
 
 import { QuestionChoiceFactory } from '../domain/factories/question-choice.factory';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 @Injectable()
 export class QuestionsBanksCommandService {
@@ -44,7 +45,28 @@ export class QuestionsBanksCommandService {
   }
 
   async remove(sectionId: string, questionBankId: string): Promise<void> {
-    await this.findById(sectionId, questionBankId);
+    const section =
+      await this.sectionsQueryRepository.findSectionWithExamAndQuestionCount(
+        sectionId,
+      );
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
+
+    const questionsBank = await this.questionsBankCommandRepository.findById(
+      sectionId,
+      questionBankId,
+    );
+    if (!questionsBank) {
+      throw new NotFoundException('errors.QUESTION_BANK_NOT_FOUND');
+    }
+
+    const remainingQuestionCount = section._count.questionsBank - 1;
+    if (
+      section.exam !== null &&
+      section.exam.numberOfQuestions > remainingQuestionCount
+    ) {
+      throw new DomainException('errors.NOT_ENOUGH_QUESTIONS_AVAILABLE');
+    }
+
     await this.questionsBankCommandRepository.delete(sectionId, questionBankId);
   }
 
@@ -60,7 +82,8 @@ export class QuestionsBanksCommandService {
       sectionId,
       questionBankId,
     );
-    if (!questionsBank) throw new NotFoundException('errors.QUESTION_BANK_NOT_FOUND');
+    if (!questionsBank)
+      throw new NotFoundException('errors.QUESTION_BANK_NOT_FOUND');
     return questionsBank;
   }
 }

@@ -12,6 +12,13 @@ export type QuestionsBankWithQuestionChoices = Prisma.QuestionsBankGetPayload<{
   include: { choices: true };
 }>;
 
+export type SectionWithExamAndQuestionCount = Prisma.SectionGetPayload<{
+  include: {
+    exam: true;
+    _count: { select: { questionsBank: true } };
+  };
+}>;
+
 export type DemoWithDepartments = Prisma.DemoGetPayload<{
   include: { departments: true };
 }>;
@@ -46,8 +53,8 @@ export type CertificationWithDetails = Prisma.CertificationGetPayload<{
           select: {
             name: true;
             imagePath: true;
-          }
-        }
+          };
+        };
       };
     };
   };

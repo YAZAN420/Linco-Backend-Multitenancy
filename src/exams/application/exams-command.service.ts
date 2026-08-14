@@ -7,6 +7,7 @@ import { UpdateExamInput } from './interfaces/update-exam-input.interface';
 import { ExamFactory } from '../domain/factories/exam.factory';
 import { Title } from '../domain/value-objects/title.vo';
 import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
+import { DomainException } from 'src/common/exceptions/domain.exception';
 
 @Injectable()
 export class ExamsCommandService {
@@ -17,8 +18,15 @@ export class ExamsCommandService {
   ) {}
 
   async create(sectionId: string, input: CreateExamInput): Promise<Exam> {
-    const section = await this.courseQueryRepository.findSectionById(sectionId);
+    const section =
+      await this.courseQueryRepository.findSectionWithExamAndQuestionCount(
+        sectionId,
+      );
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
+    this.ensureEnoughQuestions(
+      input.numberOfQuestions,
+      section._count.questionsBank,
+    );
 
     const exam = this.examFactory.createNew(
       sectionId,
@@ -36,11 +44,27 @@ export class ExamsCommandService {
     examId: string,
     input: UpdateExamInput,
   ): Promise<Exam> {
-    const exam = await this.findById(sectionId, examId);
+    const section =
+      await this.courseQueryRepository.findSectionWithExamAndQuestionCount(
+        sectionId,
+      );
+    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
+
+    const exam = await this.examCommandRepository.findById(examId);
+    if (!exam || exam.sectionId !== sectionId) {
+      throw new NotFoundException('errors.EXAM_NOT_FOUND');
+    }
 
     const { title, numberOfQuestions, durationMinutes, passingScore } = input;
+    this.ensureEnoughQuestions(
+      numberOfQuestions ?? exam.numberOfQuestions,
+      section._count.questionsBank,
+    );
+
     if (title) exam.updateTitle(Title.create(title));
-    if (numberOfQuestions) exam.updateNumberOfQuestions(numberOfQuestions);
+    if (numberOfQuestions !== undefined) {
+      exam.updateNumberOfQuestions(numberOfQuestions);
+    }
     if (durationMinutes) exam.updateDurationMinutes(durationMinutes);
     if (passingScore !== undefined) exam.updatePassingScore(passingScore);
 
@@ -57,7 +81,18 @@ export class ExamsCommandService {
     const section = await this.courseQueryRepository.findSectionById(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     const exam = await this.examCommandRepository.findById(examId);
-    if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
+    if (!exam || exam.sectionId !== sectionId) {
+      throw new NotFoundException('errors.EXAM_NOT_FOUND');
+    }
     return exam;
+  }
+
+  private ensureEnoughQuestions(
+    numberOfQuestions: number,
+    availableQuestions: number,
+  ): void {
+    if (numberOfQuestions > availableQuestions) {
+      throw new DomainException('errors.NOT_ENOUGH_QUESTIONS_AVAILABLE');
+    }
   }
 }

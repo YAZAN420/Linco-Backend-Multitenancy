@@ -5,7 +5,10 @@ import {
 } from '../interfaces/find-courses.query';
 import { Section } from 'src/generated/prisma/client';
 import { FindSectionsCursorQuery } from '../interfaces/find-sections.query';
-import { CourseWithStats } from 'src/core/database/prisma/types';
+import {
+  CourseWithStats,
+  SectionWithExamAndQuestionCount,
+} from 'src/core/database/prisma/types';
 
 export abstract class CourseQueryRepository {
   abstract findAll(
@@ -23,4 +26,7 @@ export abstract class CourseQueryRepository {
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>>;
   abstract findSectionById(sectionId: string): Promise<Section | null>;
+  abstract findSectionWithExamAndQuestionCount(
+    sectionId: string,
+  ): Promise<SectionWithExamAndQuestionCount | null>;
 }
