@@ -1,4 +1,4 @@
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class ExamUserAnswerDto {
   @IsString()
@@ -6,7 +6,6 @@ export class ExamUserAnswerDto {
   questionId!: string;
 
   @IsArray()
-  @ArrayNotEmpty()
   @IsString({ each: true })
   selectedChoiceIds!: string[];
 }
