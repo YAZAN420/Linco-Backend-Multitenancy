@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: yazan420/linco-backend-app:v7
+          image: yazan420/linco-backend-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           envFrom:
@@ -50,7 +51,8 @@ spec:
     spec:
       containers:
         - name: prisma-studio
-          image: yazan420/linco-backend-app:v7
+          image: yazan420/linco-backend-app:latest
+          imagePullPolicy: Always
           command: ['sh', '-c', 'npx prisma studio --port 5555 --browser none']
           ports:
             - containerPort: 5555
