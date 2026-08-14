@@ -12,6 +12,7 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
   constructor(private readonly prisma: PrismaService) {}
 
   async findAllCursor(
+    lessonId: string,
     options: FindDiscussionQuestionsCursorQuery,
   ): Promise<CursorPageDto<DiscussionQuestionWithDemoMember>> {
     const { cursor, take } = options;
@@ -20,6 +21,7 @@ export class PrismaDiscussionQuestionQueryRepository implements DiscussionQuesti
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: [{ id: 'desc' }],
+      where: { lessonId },
       include: {
         demoMember: {
           include: {
