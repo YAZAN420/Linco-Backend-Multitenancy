@@ -2,9 +2,10 @@ export class CertificationResponseDto {
   constructor(
     readonly id: string,
     readonly courseId: string,
-    readonly demoMemberId: string,
-    readonly score: number,
     readonly demoName: string,
+    readonly score: number,
+    readonly userName: string,
+    readonly logoImagePath: string,
     readonly courseName: string,
     readonly signature: string,
     readonly issuedAt: Date,

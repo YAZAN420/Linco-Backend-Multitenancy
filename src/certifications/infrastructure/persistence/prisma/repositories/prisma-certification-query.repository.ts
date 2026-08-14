@@ -32,6 +32,12 @@ const certificationDetailsSelect = {
           lastName: true,
         },
       },
+      demo: {
+        select: {
+          name: true,
+          imagePath: true
+        }
+      }
     },
   },
 } as const;
