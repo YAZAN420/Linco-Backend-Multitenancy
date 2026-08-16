@@ -4,6 +4,24 @@ metadata:
   name: main-ingress
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: '50m'
+
+    nginx.ingress.kubernetes.io/proxy-http-version: '1.1'
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Connection "";
+
+    nginx.ingress.kubernetes.io/use-gzip: 'true'
+    nginx.ingress.kubernetes.io/gzip-types: 'application/json application/javascript text/css text/plain application/xml'
+    nginx.ingress.kubernetes.io/gzip-min-length: '256'
+
+    nginx.ingress.kubernetes.io/proxy-buffering: 'on'
+    nginx.ingress.kubernetes.io/proxy-buffer-size: '128k'
+    nginx.ingress.kubernetes.io/proxy-buffers-number: '4'
+
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '15'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '60'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '60'
+    nginx.ingress.kubernetes.io/proxy-next-upstream: 'error timeout invalid_header http_502 http_503'
+
 spec:
   rules:
     - host: api.lincolms.me

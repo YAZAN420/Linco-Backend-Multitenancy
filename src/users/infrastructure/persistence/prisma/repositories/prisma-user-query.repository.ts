@@ -56,18 +56,21 @@ export class PrismaUserQueryRepository implements UserQueryRepository {
   ): Promise<PageDto<User>> {
     const skip = (options.page - 1) * options.take;
     const where = this.buildWhereClause(currentUserId, options);
+    const whereClause: Prisma.UserWhereInput = {
+      ...where,
+      status: options.status,
+      role: options.role,
+    };
     const [items, itemCount] = await Promise.all([
       this.prisma.user.findMany({
         skip,
-        where: {
-          ...where,
-          status: options.status,
-          role: options.role,
-        },
+        where: whereClause,
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
-      this.prisma.user.count({ where }),
+      this.prisma.user.count({
+        where: whereClause,
+      }),
     ]);
 
     return new PageDto(

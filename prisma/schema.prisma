@@ -134,6 +134,10 @@ model User {
   ownedDemos          Demo[]       @relation("DemoOwner")
   payments            Payment[]
   fcmTokens           FcmToken[]
+
+  @@index([role, status, createdAt, id])
+  @@index([emailVerificationToken])
+  @@index([passwordResetToken])
 }
 
 
@@ -202,6 +206,8 @@ model Department {
   members     DepartmentMember[]
   messages    DepartmentMessage[]
   liveStreams LiveStream[]
+
+  @@index([demoId, createdAt, id])
 }
 
 model LiveStream {
@@ -252,6 +258,8 @@ model Demo {
   inquiries Inquiry[]
 
   @@index([createdAt, id])
+  @@index([ownerId])
+  @@index([subscriptionStatus, currentPeriodEnd])
 }
 
 model Course {
@@ -279,6 +287,8 @@ model Course {
 
   @@index([isPublished, createdAt, id])
   @@index([isPublished, updatedAt, id])
+  @@index([demoId, isPublished, createdAt, id])
+  @@index([demoId, createdAt, id])
 }
 
 model CourseFaq {
@@ -376,6 +386,8 @@ model QuestionsBank {
 
   section Section          @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   choices QuestionChoice[]
+
+  @@index([sectionId])
 }
 
 model QuestionChoice {
@@ -388,6 +400,8 @@ model QuestionChoice {
   updatedAt DateTime @updatedAt
 
   question QuestionsBank @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
 }
 
 model ExamAttempt {
@@ -419,6 +433,7 @@ model Asset {
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([demoId, courseId])
+  @@index([demoId, acquiredAt, id])
 }
 
 model DepartmentCourse {
@@ -432,6 +447,8 @@ model DepartmentCourse {
   asset      Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
 
   @@unique([departmentId, assetId])
+  @@index([departmentId])
+  @@index([assetId])
 }
 
 model DiscussionQuestion {
@@ -447,6 +464,7 @@ model DiscussionQuestion {
   answers    DiscussionAnswer[]
 
   @@index([lessonId])
+  @@index([demoMemberId, lessonId])
 }
 
 model DiscussionAnswer {
@@ -461,6 +479,7 @@ model DiscussionAnswer {
   demoMember DemoMember         @relation(fields: [demoMemberId], references: [id], onDelete: Cascade)
 
   @@index([discussionId])
+  @@index([demoMemberId])
 }
 
 model Invitation {
@@ -505,6 +524,7 @@ model Payment {
   course   Course? @relation(fields: [courseId], references: [id])
 
   @@index([type, status, updatedAt, id])
+  @@index([userId])
 }
 
 model Tag {
@@ -549,6 +569,8 @@ model InquiryReply {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([senderId])
 }
 
 model DepartmentMessage {
@@ -581,6 +603,7 @@ model DepartmentMessage {
   replies DepartmentMessage[] @relation("Replies")
 
   @@index([departmentId, createdAt])
+  @@index([senderId])
 }
 
 model FcmToken {
