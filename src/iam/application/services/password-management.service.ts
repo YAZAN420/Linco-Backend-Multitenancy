@@ -39,11 +39,18 @@ export class PasswordManagementService {
     );
 
     if (user) {
-      await this.mailQueueService.enqueue(
-        MAIL_JOBS.SEND_PASSWORD_RESET_EMAIL,
-        { email: user.email, token: resetToken },
-        { priority: 1 },
-      );
+      try {
+        await this.mailQueueService.enqueue(
+          MAIL_JOBS.SEND_PASSWORD_RESET_EMAIL,
+          { email: user.email, token: resetToken },
+          { priority: 1 },
+        );
+      } catch (error) {
+        this.logger.error(
+          `Failed to enqueue password reset email for user: ${user.id}`,
+          error,
+        );
+      }
       this.logger.log(`Password reset token generated for user: ${user.id}`);
     } else {
       this.logger.warn(

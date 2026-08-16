@@ -82,7 +82,22 @@ export class ExamAttemptCommandService {
     };
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string, demoMemberId: string, role: string): Promise<void> {
+    const attempt = await this.examAttemptCommandRepository.findById(id);
+    if (!attempt) {
+      throw new NotFoundException('errors.EXAM_ATTEMPT_NOT_FOUND');
+    }
+
+    if (
+      attempt.demoMemberId !== demoMemberId &&
+      role !== 'ADMIN' &&
+      role !== 'OWNER'
+    ) {
+      throw new ForbiddenException(
+        'errors.UNAUTHORIZED_TO_DELETE_EXAM_ATTEMPT',
+      );
+    }
+
     await this.examAttemptCommandRepository.delete(id);
   }
 

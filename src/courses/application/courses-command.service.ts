@@ -117,11 +117,14 @@ export class CoursesCommandService {
       video_url: lesson.videoUrl,
     }));
 
-    const rag = await this.aiRagService.createCourse({
-      course_name: course.title,
-      videos: formattedVideos,
-    });
-    console.log(rag);
+    try {
+      await this.aiRagService.createCourse({
+        course_name: course.title,
+        videos: formattedVideos,
+      });
+    } catch (error) {
+      console.error('Failed to create course in AI RAG service:', error);
+    }
     return course;
   }
 

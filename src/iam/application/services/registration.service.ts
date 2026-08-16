@@ -76,10 +76,17 @@ export class RegistrationService {
       expiresAt,
     );
 
-    await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
-      email: email,
-      token: verificationToken,
-    });
+    try {
+      await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
+        email: email,
+        token: verificationToken,
+      });
+    } catch (error) {
+      this.logger.error(
+        `Failed to enqueue verification email for user: ${user.id}`,
+        error,
+      );
+    }
 
     this.logger.log(`New Email verification token sent for user: ${user.id}`);
   }

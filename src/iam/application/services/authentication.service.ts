@@ -88,9 +88,13 @@ export class AuthenticationService {
     const user = await this.usersCommandService.findById(userId);
     if (!user) throw new UnauthorizedException('errors.USER_NOT_FOUND');
 
+    if (!user.security.twoFactorSecret) {
+      throw new UnauthorizedException('errors.TWO_FACTOR_SECRET_NOT_FOUND');
+    }
+
     const verificationResult = await this.otp.verify({
       token: tfaCode,
-      secret: user.security.twoFactorSecret!,
+      secret: user.security.twoFactorSecret,
     });
 
     if (!verificationResult.valid) {
