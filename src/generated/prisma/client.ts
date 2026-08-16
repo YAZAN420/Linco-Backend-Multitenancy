@@ -174,3 +174,8 @@ export type FcmToken = Prisma.FcmTokenModel
  * 
  */
 export type Certification = Prisma.CertificationModel
+/**
+ * Model DepartmentLeaderboard
+ * 
+ */
+export type DepartmentLeaderboard = Prisma.DepartmentLeaderboardModel

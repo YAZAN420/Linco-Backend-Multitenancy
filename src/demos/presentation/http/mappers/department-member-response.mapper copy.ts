@@ -3,6 +3,7 @@ import { DepartmentMemberWithUser } from 'src/core/database/prisma/types';
 import { DepartmentMemberResponseDto } from '../dto/department-member/department-member-response.dto';
 import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
 import { DemoMemberResponseMapper } from './demo-member-response.mapper';
+
 @Injectable()
 export class DepartmentMemberResponseMapper {
   constructor(

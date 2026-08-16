@@ -423,7 +423,8 @@ export const ModelName = {
   InquiryReply: 'InquiryReply',
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken',
-  Certification: 'Certification'
+  Certification: 'Certification',
+  DepartmentLeaderboard: 'DepartmentLeaderboard'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -439,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification" | "departmentLeaderboard"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2441,6 +2442,44 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DepartmentLeaderboard: {
+      payload: Prisma.$DepartmentLeaderboardPayload<ExtArgs>
+      fields: Prisma.DepartmentLeaderboardFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DepartmentLeaderboardFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentLeaderboardPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DepartmentLeaderboardFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentLeaderboardPayload>
+        }
+        findFirst: {
+          args: Prisma.DepartmentLeaderboardFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentLeaderboardPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DepartmentLeaderboardFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentLeaderboardPayload>
+        }
+        findMany: {
+          args: Prisma.DepartmentLeaderboardFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentLeaderboardPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DepartmentLeaderboardAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartmentLeaderboard>
+        }
+        groupBy: {
+          args: Prisma.DepartmentLeaderboardGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentLeaderboardGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DepartmentLeaderboardCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentLeaderboardCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2860,6 +2899,22 @@ export const CertificationScalarFieldEnum = {
 } as const
 
 export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
+
+
+export const DepartmentLeaderboardScalarFieldEnum = {
+  id: 'id',
+  rank: 'rank',
+  departmentId: 'departmentId',
+  demoMemberId: 'demoMemberId',
+  memberId: 'memberId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  imagePath: 'imagePath',
+  jobTitle: 'jobTitle',
+  totalScore: 'totalScore'
+} as const
+
+export type DepartmentLeaderboardScalarFieldEnum = (typeof DepartmentLeaderboardScalarFieldEnum)[keyof typeof DepartmentLeaderboardScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3356,6 +3411,7 @@ export type GlobalOmitConfig = {
   departmentMessage?: Prisma.DepartmentMessageOmit
   fcmToken?: Prisma.FcmTokenOmit
   certification?: Prisma.CertificationOmit
+  departmentLeaderboard?: Prisma.DepartmentLeaderboardOmit
 }
 
 /* Types for Logging */

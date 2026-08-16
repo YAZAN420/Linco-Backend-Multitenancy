@@ -1,8 +1,13 @@
-import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
+import {
+  CursorPageDto,
+  CursorPageOptionsDto,
+  PageDto,
+} from 'src/common/dtos/pagination';
 
 import {
   AdminDemoStats,
   DemoWithOwnership,
+  DepartmentLeaderboardItem,
   DepartmentWithDetails,
 } from 'src/core/database/prisma/types';
 import {
@@ -30,8 +35,12 @@ export abstract class DemoQueryRepository {
   ): Promise<CursorPageDto<DepartmentWithDetails>>;
   abstract findDepartmentById(
     deptId: string,
-    userId?: string,
+    demoMemberId?: string,
   ): Promise<DepartmentWithDetails | null>;
   abstract demoExists(id: string): Promise<boolean>;
   abstract getAdminStats(): Promise<AdminDemoStats>;
+  abstract getDepartmentLeaderboard(
+    deptId: string,
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<DepartmentLeaderboardItem>>;
 }

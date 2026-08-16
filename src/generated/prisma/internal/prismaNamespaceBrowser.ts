@@ -77,7 +77,8 @@ export const ModelName = {
   InquiryReply: 'InquiryReply',
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken',
-  Certification: 'Certification'
+  Certification: 'Certification',
+  DepartmentLeaderboard: 'DepartmentLeaderboard'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -476,6 +477,22 @@ export const CertificationScalarFieldEnum = {
 } as const
 
 export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
+
+
+export const DepartmentLeaderboardScalarFieldEnum = {
+  id: 'id',
+  rank: 'rank',
+  departmentId: 'departmentId',
+  demoMemberId: 'demoMemberId',
+  memberId: 'memberId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  imagePath: 'imagePath',
+  jobTitle: 'jobTitle',
+  totalScore: 'totalScore'
+} as const
+
+export type DepartmentLeaderboardScalarFieldEnum = (typeof DepartmentLeaderboardScalarFieldEnum)[keyof typeof DepartmentLeaderboardScalarFieldEnum]
 
 
 export const SortOrder = {

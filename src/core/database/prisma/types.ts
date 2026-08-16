@@ -1,4 +1,4 @@
-import { Prisma } from 'src/generated/prisma/client';
+import { JobTitle, Prisma } from 'src/generated/prisma/client';
 
 export type LessonWithAttachments = Prisma.LessonGetPayload<{
   include: { attachments: true };
@@ -239,4 +239,15 @@ export interface AdminDemoStats {
   activeCompanies: number;
   newCompaniesThisMonth: number;
   totalMembers: number;
+}
+
+export interface DepartmentLeaderboardItem {
+  rank: number;
+  demoMemberId: string;
+  memberId: string;
+  firstName: string;
+  lastName: string;
+  imagePath: string;
+  jobTitle: JobTitle;
+  totalScore: number;
 }

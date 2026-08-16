@@ -13,10 +13,12 @@ import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query
 import {
   AdminDemoStats,
   DemoWithOwnership,
+  DepartmentLeaderboardItem,
   DepartmentWithDetails,
 } from 'src/core/database/prisma/types';
 import { Prisma } from 'src/generated/prisma/client';
 import { SubscriptionStatus } from 'src/demos/domain/enums/subscription-status.enum';
+import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
 
 @Injectable()
 export class PrismaDemoQueryRepository implements DemoQueryRepository {
@@ -228,7 +230,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
 
   async findDepartmentById(
     deptId: string,
-    userId?: string,
+    demoMemberId?: string,
   ): Promise<DepartmentWithDetails | null> {
     const dept = await this.prisma.department.findUnique({
       where: {
@@ -240,9 +242,7 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
         },
         members: {
           where: {
-            demoMember: {
-              userId: userId,
-            },
+            demoMemberId,
           },
           select: {
             id: true,
@@ -258,5 +258,32 @@ export class PrismaDemoQueryRepository implements DemoQueryRepository {
       ...rest,
       isJoined: members.length > 0,
     };
+  }
+
+  async getDepartmentLeaderboard(
+    deptId: string,
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<DepartmentLeaderboardItem>> {
+    const { cursor, take } = options;
+
+    const items = await this.prisma.departmentLeaderboard.findMany({
+      take: take + 1,
+      skip: cursor ? 1 : 0,
+      cursor: cursor ? { id: cursor } : undefined,
+      where: {
+        departmentId: deptId,
+      },
+      orderBy: [{ totalScore: 'desc' }, { id: 'asc' }],
+    });
+
+    const hasNextPage = items.length > take;
+    if (hasNextPage) items.pop();
+
+    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+
+    return new CursorPageDto(
+      items,
+      new CursorPageMetaDto(hasNextPage, endCursor),
+    );
   }
 }

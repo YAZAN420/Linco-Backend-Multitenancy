@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -613,4 +614,19 @@ model Certification {
   @@index([courseId])
   @@index([demoMemberId])
   @@index([issuedAt, demoMemberId])
+}
+
+view DepartmentLeaderboard {
+  id           String   @unique
+  rank         Int
+  departmentId String
+  demoMemberId String
+  memberId     String
+  firstName    String
+  lastName     String
+  imagePath    String
+  jobTitle     JobTitle
+  totalScore   Int
+
+  @@unique([departmentId, demoMemberId])
 }

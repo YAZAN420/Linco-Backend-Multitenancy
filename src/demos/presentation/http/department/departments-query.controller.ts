@@ -9,6 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
+import { ActiveDepartmentMember } from 'src/iam/presentation/http/decorators/active-department-member.decorator';
 
 @ApiTags('Department')
 @UseGuards(DemoRolesGuard)
@@ -40,17 +41,36 @@ export class DepartmentsQueryController {
     };
   }
 
+  @Get('leaderboard')
+  @UseGuards(DepartmentRolesGuard)
+  async getLeaderboard(
+    @ActiveDepartmentMember('departmentId') deptId: string,
+    @Query() options: CursorPageOptionsDto,
+  ) {
+    const leaderboard =
+      await this.departmentsQueryService.getDepartmentLeaderboard(
+        deptId,
+        options,
+      );
+
+    return {
+      message: 'messages.DEPARTMENT_LEADERBOARD_FETCHED_SUCCESSFULLY',
+      data: this.departmentResponseMapper.toLeaderboardResponseMany(
+        leaderboard.data,
+      ),
+      meta: leaderboard.meta,
+    };
+  }
+
   @Get(':deptId')
   @UseGuards(DepartmentRolesGuard)
   async findDepartment(
-    @ActiveDemoMember('demoId') demoId: string,
+    @ActiveDemoMember('id') demoMemberId: string,
     @Param('deptId') deptId: string,
-    @ActiveUser() user: ActiveUserData,
   ) {
     const department = await this.departmentsQueryService.findDepartmentById(
-      demoId,
       deptId,
-      user.id,
+      demoMemberId,
     );
 
     return {
