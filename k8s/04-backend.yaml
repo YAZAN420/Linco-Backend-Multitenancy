@@ -12,6 +12,14 @@ spec:
       labels:
         app: backend
     spec:
+      initContainers:
+        - name: run-migrations
+          image: yazan420/linco-backend-app:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', 'npx prisma migrate deploy']
+          envFrom:
+            - secretRef:
+                name: app-secrets
       containers:
         - name: backend
           image: yazan420/linco-backend-app:latest

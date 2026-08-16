@@ -9,6 +9,7 @@ RUN npm ci
 COPY . .
 
 RUN npx swc prisma.config.ts -o prisma.config.js
+RUN npx prisma generate
 
 RUN npm run build
 
