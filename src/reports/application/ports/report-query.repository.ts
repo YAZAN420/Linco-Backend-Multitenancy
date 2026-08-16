@@ -1,9 +1,7 @@
-import {
-  CoursePerformanceReport,
-  DemoOwnerReport,
-  DepartmentPerformanceReport,
-  MemberPerformanceReport,
-} from '../interfaces/demo-owner-report.interface';
+import { CoursePerformanceReport } from '../interfaces/course-performance-report.interface';
+import { DemoOwnerReport } from '../interfaces/demo-owner-report.interface';
+import { DepartmentPerformanceReport } from '../interfaces/department-performance-report.interface';
+import { MemberPerformanceReport } from '../interfaces/member-performance-report.interface';
 import { ReportDateRange } from '../interfaces/report-date-range.interface';
 
 export abstract class ReportQueryRepository {

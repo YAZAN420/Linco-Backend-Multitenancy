@@ -653,3 +653,92 @@ view DepartmentLeaderboard {
 
   @@unique([departmentId, demoMemberId])
 }
+
+view DemoOwnerReportView {
+  id               String    @unique
+  demoId           String
+  memberId         String?
+  memberJoinedAt   DateTime?
+  totalMembers     Int
+  totalDepartments Int
+  totalCourses     Int
+  publishedCourses Int
+
+  totalCertifications Int
+  certificationRate   Float
+  totalExamAttempts   Int
+  examPassRate        Float
+  averageExamScore    Float
+}
+
+view MemberPerformanceView {
+  memberId String @unique
+  demoId   String
+  userId   String
+
+  fullName String
+  email    String
+  demoRole DemoMemberRole
+  joinedAt DateTime
+
+  departmentIds   String[]
+  departmentNames String[]
+  departmentRoles DepartmentMemberRole[]
+  jobTitles       JobTitle[]
+
+  assignedCourses          Int
+  examAttempts             Int
+  examsPassed              Int
+  examsFailed              Int
+  averageScore             Float
+  highestScore             Int
+  certificationsEarned     Int
+  discussionQuestionsCount Int
+  discussionAnswersCount   Int
+  messagesCount            Int
+  inquiriesCount           Int
+}
+
+view CoursePerformanceView {
+  courseId  String   @unique
+  demoId    String
+  createdAt DateTime
+
+  courseTitle String
+  isPublished Boolean
+  visibility  CourseVisibility
+
+  departmentCount      Int
+  assignedMemberCount  Int
+  sectionCount         Int
+  lessonCount          Int
+  totalDuration        Int
+  examCount            Int
+  membersAttempted     Int
+  totalAttempts        Int
+  averageScore         Float
+  passRate             Float
+  certificationsIssued Int
+  certificationRate    Float
+}
+
+view DepartmentPerformanceView {
+  departmentId String   @unique
+  demoId       String
+  createdAt    DateTime
+
+  departmentName String
+  manager        String
+
+  memberCount          Int
+  assignedCourseCount  Int
+  membersWithAttempts  Int
+  examAttempts         Int
+  averageExamScore     Float
+  examPassRate         Float
+  certificationsEarned Int
+  discussionActivity   Int
+  messageActivity      Int
+  scheduledLiveStreams Int
+  completedLiveStreams Int
+}

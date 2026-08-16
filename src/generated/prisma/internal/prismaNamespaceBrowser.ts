@@ -78,7 +78,11 @@ export const ModelName = {
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken',
   Certification: 'Certification',
-  DepartmentLeaderboard: 'DepartmentLeaderboard'
+  DepartmentLeaderboard: 'DepartmentLeaderboard',
+  DemoOwnerReportView: 'DemoOwnerReportView',
+  MemberPerformanceView: 'MemberPerformanceView',
+  CoursePerformanceView: 'CoursePerformanceView',
+  DepartmentPerformanceView: 'DepartmentPerformanceView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -493,6 +497,99 @@ export const DepartmentLeaderboardScalarFieldEnum = {
 } as const
 
 export type DepartmentLeaderboardScalarFieldEnum = (typeof DepartmentLeaderboardScalarFieldEnum)[keyof typeof DepartmentLeaderboardScalarFieldEnum]
+
+
+export const DemoOwnerReportViewScalarFieldEnum = {
+  id: 'id',
+  demoId: 'demoId',
+  memberId: 'memberId',
+  memberJoinedAt: 'memberJoinedAt',
+  totalMembers: 'totalMembers',
+  totalDepartments: 'totalDepartments',
+  totalCourses: 'totalCourses',
+  publishedCourses: 'publishedCourses',
+  totalCertifications: 'totalCertifications',
+  certificationRate: 'certificationRate',
+  totalExamAttempts: 'totalExamAttempts',
+  examPassRate: 'examPassRate',
+  averageExamScore: 'averageExamScore'
+} as const
+
+export type DemoOwnerReportViewScalarFieldEnum = (typeof DemoOwnerReportViewScalarFieldEnum)[keyof typeof DemoOwnerReportViewScalarFieldEnum]
+
+
+export const MemberPerformanceViewScalarFieldEnum = {
+  memberId: 'memberId',
+  demoId: 'demoId',
+  userId: 'userId',
+  fullName: 'fullName',
+  email: 'email',
+  demoRole: 'demoRole',
+  joinedAt: 'joinedAt',
+  departmentIds: 'departmentIds',
+  departmentNames: 'departmentNames',
+  departmentRoles: 'departmentRoles',
+  jobTitles: 'jobTitles',
+  assignedCourses: 'assignedCourses',
+  examAttempts: 'examAttempts',
+  examsPassed: 'examsPassed',
+  examsFailed: 'examsFailed',
+  averageScore: 'averageScore',
+  highestScore: 'highestScore',
+  certificationsEarned: 'certificationsEarned',
+  discussionQuestionsCount: 'discussionQuestionsCount',
+  discussionAnswersCount: 'discussionAnswersCount',
+  messagesCount: 'messagesCount',
+  inquiriesCount: 'inquiriesCount'
+} as const
+
+export type MemberPerformanceViewScalarFieldEnum = (typeof MemberPerformanceViewScalarFieldEnum)[keyof typeof MemberPerformanceViewScalarFieldEnum]
+
+
+export const CoursePerformanceViewScalarFieldEnum = {
+  courseId: 'courseId',
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  courseTitle: 'courseTitle',
+  isPublished: 'isPublished',
+  visibility: 'visibility',
+  departmentCount: 'departmentCount',
+  assignedMemberCount: 'assignedMemberCount',
+  sectionCount: 'sectionCount',
+  lessonCount: 'lessonCount',
+  totalDuration: 'totalDuration',
+  examCount: 'examCount',
+  membersAttempted: 'membersAttempted',
+  totalAttempts: 'totalAttempts',
+  averageScore: 'averageScore',
+  passRate: 'passRate',
+  certificationsIssued: 'certificationsIssued',
+  certificationRate: 'certificationRate'
+} as const
+
+export type CoursePerformanceViewScalarFieldEnum = (typeof CoursePerformanceViewScalarFieldEnum)[keyof typeof CoursePerformanceViewScalarFieldEnum]
+
+
+export const DepartmentPerformanceViewScalarFieldEnum = {
+  departmentId: 'departmentId',
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  departmentName: 'departmentName',
+  manager: 'manager',
+  memberCount: 'memberCount',
+  assignedCourseCount: 'assignedCourseCount',
+  membersWithAttempts: 'membersWithAttempts',
+  examAttempts: 'examAttempts',
+  averageExamScore: 'averageExamScore',
+  examPassRate: 'examPassRate',
+  certificationsEarned: 'certificationsEarned',
+  discussionActivity: 'discussionActivity',
+  messageActivity: 'messageActivity',
+  scheduledLiveStreams: 'scheduledLiveStreams',
+  completedLiveStreams: 'completedLiveStreams'
+} as const
+
+export type DepartmentPerformanceViewScalarFieldEnum = (typeof DepartmentPerformanceViewScalarFieldEnum)[keyof typeof DepartmentPerformanceViewScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -424,7 +424,11 @@ export const ModelName = {
   DepartmentMessage: 'DepartmentMessage',
   FcmToken: 'FcmToken',
   Certification: 'Certification',
-  DepartmentLeaderboard: 'DepartmentLeaderboard'
+  DepartmentLeaderboard: 'DepartmentLeaderboard',
+  DemoOwnerReportView: 'DemoOwnerReportView',
+  MemberPerformanceView: 'MemberPerformanceView',
+  CoursePerformanceView: 'CoursePerformanceView',
+  DepartmentPerformanceView: 'DepartmentPerformanceView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -440,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification" | "departmentLeaderboard"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification" | "departmentLeaderboard" | "demoOwnerReportView" | "memberPerformanceView" | "coursePerformanceView" | "departmentPerformanceView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2480,6 +2484,158 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DemoOwnerReportView: {
+      payload: Prisma.$DemoOwnerReportViewPayload<ExtArgs>
+      fields: Prisma.DemoOwnerReportViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DemoOwnerReportViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoOwnerReportViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DemoOwnerReportViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoOwnerReportViewPayload>
+        }
+        findFirst: {
+          args: Prisma.DemoOwnerReportViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoOwnerReportViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DemoOwnerReportViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoOwnerReportViewPayload>
+        }
+        findMany: {
+          args: Prisma.DemoOwnerReportViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DemoOwnerReportViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DemoOwnerReportViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDemoOwnerReportView>
+        }
+        groupBy: {
+          args: Prisma.DemoOwnerReportViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DemoOwnerReportViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DemoOwnerReportViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DemoOwnerReportViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    MemberPerformanceView: {
+      payload: Prisma.$MemberPerformanceViewPayload<ExtArgs>
+      fields: Prisma.MemberPerformanceViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MemberPerformanceViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberPerformanceViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MemberPerformanceViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberPerformanceViewPayload>
+        }
+        findFirst: {
+          args: Prisma.MemberPerformanceViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberPerformanceViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MemberPerformanceViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberPerformanceViewPayload>
+        }
+        findMany: {
+          args: Prisma.MemberPerformanceViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MemberPerformanceViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.MemberPerformanceViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMemberPerformanceView>
+        }
+        groupBy: {
+          args: Prisma.MemberPerformanceViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MemberPerformanceViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MemberPerformanceViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MemberPerformanceViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    CoursePerformanceView: {
+      payload: Prisma.$CoursePerformanceViewPayload<ExtArgs>
+      fields: Prisma.CoursePerformanceViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CoursePerformanceViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoursePerformanceViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CoursePerformanceViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoursePerformanceViewPayload>
+        }
+        findFirst: {
+          args: Prisma.CoursePerformanceViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoursePerformanceViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CoursePerformanceViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoursePerformanceViewPayload>
+        }
+        findMany: {
+          args: Prisma.CoursePerformanceViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoursePerformanceViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.CoursePerformanceViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCoursePerformanceView>
+        }
+        groupBy: {
+          args: Prisma.CoursePerformanceViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoursePerformanceViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CoursePerformanceViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoursePerformanceViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    DepartmentPerformanceView: {
+      payload: Prisma.$DepartmentPerformanceViewPayload<ExtArgs>
+      fields: Prisma.DepartmentPerformanceViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DepartmentPerformanceViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPerformanceViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DepartmentPerformanceViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPerformanceViewPayload>
+        }
+        findFirst: {
+          args: Prisma.DepartmentPerformanceViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPerformanceViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DepartmentPerformanceViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPerformanceViewPayload>
+        }
+        findMany: {
+          args: Prisma.DepartmentPerformanceViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DepartmentPerformanceViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DepartmentPerformanceViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDepartmentPerformanceView>
+        }
+        groupBy: {
+          args: Prisma.DepartmentPerformanceViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentPerformanceViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DepartmentPerformanceViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DepartmentPerformanceViewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2915,6 +3071,99 @@ export const DepartmentLeaderboardScalarFieldEnum = {
 } as const
 
 export type DepartmentLeaderboardScalarFieldEnum = (typeof DepartmentLeaderboardScalarFieldEnum)[keyof typeof DepartmentLeaderboardScalarFieldEnum]
+
+
+export const DemoOwnerReportViewScalarFieldEnum = {
+  id: 'id',
+  demoId: 'demoId',
+  memberId: 'memberId',
+  memberJoinedAt: 'memberJoinedAt',
+  totalMembers: 'totalMembers',
+  totalDepartments: 'totalDepartments',
+  totalCourses: 'totalCourses',
+  publishedCourses: 'publishedCourses',
+  totalCertifications: 'totalCertifications',
+  certificationRate: 'certificationRate',
+  totalExamAttempts: 'totalExamAttempts',
+  examPassRate: 'examPassRate',
+  averageExamScore: 'averageExamScore'
+} as const
+
+export type DemoOwnerReportViewScalarFieldEnum = (typeof DemoOwnerReportViewScalarFieldEnum)[keyof typeof DemoOwnerReportViewScalarFieldEnum]
+
+
+export const MemberPerformanceViewScalarFieldEnum = {
+  memberId: 'memberId',
+  demoId: 'demoId',
+  userId: 'userId',
+  fullName: 'fullName',
+  email: 'email',
+  demoRole: 'demoRole',
+  joinedAt: 'joinedAt',
+  departmentIds: 'departmentIds',
+  departmentNames: 'departmentNames',
+  departmentRoles: 'departmentRoles',
+  jobTitles: 'jobTitles',
+  assignedCourses: 'assignedCourses',
+  examAttempts: 'examAttempts',
+  examsPassed: 'examsPassed',
+  examsFailed: 'examsFailed',
+  averageScore: 'averageScore',
+  highestScore: 'highestScore',
+  certificationsEarned: 'certificationsEarned',
+  discussionQuestionsCount: 'discussionQuestionsCount',
+  discussionAnswersCount: 'discussionAnswersCount',
+  messagesCount: 'messagesCount',
+  inquiriesCount: 'inquiriesCount'
+} as const
+
+export type MemberPerformanceViewScalarFieldEnum = (typeof MemberPerformanceViewScalarFieldEnum)[keyof typeof MemberPerformanceViewScalarFieldEnum]
+
+
+export const CoursePerformanceViewScalarFieldEnum = {
+  courseId: 'courseId',
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  courseTitle: 'courseTitle',
+  isPublished: 'isPublished',
+  visibility: 'visibility',
+  departmentCount: 'departmentCount',
+  assignedMemberCount: 'assignedMemberCount',
+  sectionCount: 'sectionCount',
+  lessonCount: 'lessonCount',
+  totalDuration: 'totalDuration',
+  examCount: 'examCount',
+  membersAttempted: 'membersAttempted',
+  totalAttempts: 'totalAttempts',
+  averageScore: 'averageScore',
+  passRate: 'passRate',
+  certificationsIssued: 'certificationsIssued',
+  certificationRate: 'certificationRate'
+} as const
+
+export type CoursePerformanceViewScalarFieldEnum = (typeof CoursePerformanceViewScalarFieldEnum)[keyof typeof CoursePerformanceViewScalarFieldEnum]
+
+
+export const DepartmentPerformanceViewScalarFieldEnum = {
+  departmentId: 'departmentId',
+  demoId: 'demoId',
+  createdAt: 'createdAt',
+  departmentName: 'departmentName',
+  manager: 'manager',
+  memberCount: 'memberCount',
+  assignedCourseCount: 'assignedCourseCount',
+  membersWithAttempts: 'membersWithAttempts',
+  examAttempts: 'examAttempts',
+  averageExamScore: 'averageExamScore',
+  examPassRate: 'examPassRate',
+  certificationsEarned: 'certificationsEarned',
+  discussionActivity: 'discussionActivity',
+  messageActivity: 'messageActivity',
+  scheduledLiveStreams: 'scheduledLiveStreams',
+  completedLiveStreams: 'completedLiveStreams'
+} as const
+
+export type DepartmentPerformanceViewScalarFieldEnum = (typeof DepartmentPerformanceViewScalarFieldEnum)[keyof typeof DepartmentPerformanceViewScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3412,6 +3661,10 @@ export type GlobalOmitConfig = {
   fcmToken?: Prisma.FcmTokenOmit
   certification?: Prisma.CertificationOmit
   departmentLeaderboard?: Prisma.DepartmentLeaderboardOmit
+  demoOwnerReportView?: Prisma.DemoOwnerReportViewOmit
+  memberPerformanceView?: Prisma.MemberPerformanceViewOmit
+  coursePerformanceView?: Prisma.CoursePerformanceViewOmit
+  departmentPerformanceView?: Prisma.DepartmentPerformanceViewOmit
 }
 
 /* Types for Logging */
