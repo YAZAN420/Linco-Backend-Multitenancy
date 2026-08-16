@@ -151,5 +151,6 @@
   "FCM_TOKEN_REGISTERED_SUCCESSFULLY": "تم تسجيل رمز FCM بنجاح",
   "FCM_TOKEN_REMOVED_SUCCESSFULLY": "تم إزالة رمز FCM بنجاح",
   "FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY": "تمت إضافة الدورة المجانية إلى الأصول بنجاح",
-  "CHECKOUT_SESSION_CREATED_SUCCESSFULLY": "تم إنشاء جلسة الدفع بنجاح"
+  "CHECKOUT_SESSION_CREATED_SUCCESSFULLY": "تم إنشاء جلسة الدفع بنجاح",
+  "DEPARTMENT_LEADERBOARD_FETCHED_SUCCESSFULLY": "تم جلب لوحة الصدارة للقسم بنجاح"
 }
