@@ -18,6 +18,11 @@ export class Department {
   get demoId(): string {
     return this.props.demoId;
   }
+
+  get isGroup(): boolean {
+    return this.props.isGroup;
+  }
+
   get nameVo(): Name {
     return this.props.name;
   }

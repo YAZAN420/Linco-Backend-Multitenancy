@@ -28,6 +28,7 @@ export type DepartmentMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  isGroup: boolean | null
   managerId: string | null
   demoId: string | null
   createdAt: Date | null
@@ -38,6 +39,7 @@ export type DepartmentMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  isGroup: boolean | null
   managerId: string | null
   demoId: string | null
   createdAt: Date | null
@@ -48,6 +50,7 @@ export type DepartmentCountAggregateOutputType = {
   id: number
   name: number
   description: number
+  isGroup: number
   managerId: number
   demoId: number
   createdAt: number
@@ -60,6 +63,7 @@ export type DepartmentMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  isGroup?: true
   managerId?: true
   demoId?: true
   createdAt?: true
@@ -70,6 +74,7 @@ export type DepartmentMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  isGroup?: true
   managerId?: true
   demoId?: true
   createdAt?: true
@@ -80,6 +85,7 @@ export type DepartmentCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  isGroup?: true
   managerId?: true
   demoId?: true
   createdAt?: true
@@ -163,6 +169,7 @@ export type DepartmentGroupByOutputType = {
   id: string
   name: string
   description: string
+  isGroup: boolean
   managerId: string
   demoId: string
   createdAt: Date
@@ -194,6 +201,7 @@ export type DepartmentWhereInput = {
   id?: Prisma.StringFilter<"Department"> | string
   name?: Prisma.StringFilter<"Department"> | string
   description?: Prisma.StringFilter<"Department"> | string
+  isGroup?: Prisma.BoolFilter<"Department"> | boolean
   managerId?: Prisma.StringFilter<"Department"> | string
   demoId?: Prisma.StringFilter<"Department"> | string
   createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
@@ -210,6 +218,7 @@ export type DepartmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isGroup?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -229,6 +238,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   name?: Prisma.StringFilter<"Department"> | string
   description?: Prisma.StringFilter<"Department"> | string
+  isGroup?: Prisma.BoolFilter<"Department"> | boolean
   managerId?: Prisma.StringFilter<"Department"> | string
   demoId?: Prisma.StringFilter<"Department"> | string
   createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
@@ -245,6 +255,7 @@ export type DepartmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isGroup?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -261,6 +272,7 @@ export type DepartmentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Department"> | string
   name?: Prisma.StringWithAggregatesFilter<"Department"> | string
   description?: Prisma.StringWithAggregatesFilter<"Department"> | string
+  isGroup?: Prisma.BoolWithAggregatesFilter<"Department"> | boolean
   managerId?: Prisma.StringWithAggregatesFilter<"Department"> | string
   demoId?: Prisma.StringWithAggregatesFilter<"Department"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Department"> | Date | string
@@ -271,6 +283,7 @@ export type DepartmentCreateInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -285,6 +298,7 @@ export type DepartmentUncheckedCreateInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -299,6 +313,7 @@ export type DepartmentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -313,6 +328,7 @@ export type DepartmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,6 +343,7 @@ export type DepartmentCreateManyInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -337,6 +354,7 @@ export type DepartmentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,6 +363,7 @@ export type DepartmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -370,6 +389,7 @@ export type DepartmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isGroup?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -380,6 +400,7 @@ export type DepartmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isGroup?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -390,6 +411,7 @@ export type DepartmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isGroup?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   demoId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -540,6 +562,7 @@ export type DepartmentCreateWithoutManagerInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   demo: Prisma.DemoCreateNestedOneWithoutDepartmentsInput
@@ -553,6 +576,7 @@ export type DepartmentUncheckedCreateWithoutManagerInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   demoId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -595,6 +619,7 @@ export type DepartmentScalarWhereInput = {
   id?: Prisma.StringFilter<"Department"> | string
   name?: Prisma.StringFilter<"Department"> | string
   description?: Prisma.StringFilter<"Department"> | string
+  isGroup?: Prisma.BoolFilter<"Department"> | boolean
   managerId?: Prisma.StringFilter<"Department"> | string
   demoId?: Prisma.StringFilter<"Department"> | string
   createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
@@ -605,6 +630,7 @@ export type DepartmentCreateWithoutMembersInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -618,6 +644,7 @@ export type DepartmentUncheckedCreateWithoutMembersInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -647,6 +674,7 @@ export type DepartmentUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -660,6 +688,7 @@ export type DepartmentUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -673,6 +702,7 @@ export type DepartmentCreateWithoutLiveStreamsInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -686,6 +716,7 @@ export type DepartmentUncheckedCreateWithoutLiveStreamsInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -715,6 +746,7 @@ export type DepartmentUpdateWithoutLiveStreamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -728,6 +760,7 @@ export type DepartmentUncheckedUpdateWithoutLiveStreamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -741,6 +774,7 @@ export type DepartmentCreateWithoutDemoInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -754,6 +788,7 @@ export type DepartmentUncheckedCreateWithoutDemoInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -793,6 +828,7 @@ export type DepartmentCreateWithoutCoursesInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -806,6 +842,7 @@ export type DepartmentUncheckedCreateWithoutCoursesInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -835,6 +872,7 @@ export type DepartmentUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -848,6 +886,7 @@ export type DepartmentUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -861,6 +900,7 @@ export type DepartmentCreateWithoutMessagesInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   manager: Prisma.DemoMemberCreateNestedOneWithoutManagedDepartmentsInput
@@ -874,6 +914,7 @@ export type DepartmentUncheckedCreateWithoutMessagesInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   demoId: string
   createdAt?: Date | string
@@ -903,6 +944,7 @@ export type DepartmentUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -916,6 +958,7 @@ export type DepartmentUncheckedUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -929,6 +972,7 @@ export type DepartmentCreateManyManagerInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   demoId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -938,6 +982,7 @@ export type DepartmentUpdateWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demo?: Prisma.DemoUpdateOneRequiredWithoutDepartmentsNestedInput
@@ -951,6 +996,7 @@ export type DepartmentUncheckedUpdateWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -964,6 +1010,7 @@ export type DepartmentUncheckedUpdateManyWithoutManagerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   demoId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -973,6 +1020,7 @@ export type DepartmentCreateManyDemoInput = {
   id: string
   name: string
   description: string
+  isGroup?: boolean
   managerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -982,6 +1030,7 @@ export type DepartmentUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.DemoMemberUpdateOneRequiredWithoutManagedDepartmentsNestedInput
@@ -995,6 +1044,7 @@ export type DepartmentUncheckedUpdateWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1008,6 +1058,7 @@ export type DepartmentUncheckedUpdateManyWithoutDemoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isGroup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   managerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1075,6 +1126,7 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   name?: boolean
   description?: boolean
+  isGroup?: boolean
   managerId?: boolean
   demoId?: boolean
   createdAt?: boolean
@@ -1092,6 +1144,7 @@ export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   description?: boolean
+  isGroup?: boolean
   managerId?: boolean
   demoId?: boolean
   createdAt?: boolean
@@ -1104,6 +1157,7 @@ export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   description?: boolean
+  isGroup?: boolean
   managerId?: boolean
   demoId?: boolean
   createdAt?: boolean
@@ -1116,13 +1170,14 @@ export type DepartmentSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
+  isGroup?: boolean
   managerId?: boolean
   demoId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "managerId" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isGroup" | "managerId" | "demoId" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
 export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   manager?: boolean | Prisma.DemoMemberDefaultArgs<ExtArgs>
   demo?: boolean | Prisma.DemoDefaultArgs<ExtArgs>
@@ -1155,6 +1210,7 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     name: string
     description: string
+    isGroup: boolean
     managerId: string
     demoId: string
     createdAt: Date
@@ -1591,6 +1647,7 @@ export interface DepartmentFieldRefs {
   readonly id: Prisma.FieldRef<"Department", 'String'>
   readonly name: Prisma.FieldRef<"Department", 'String'>
   readonly description: Prisma.FieldRef<"Department", 'String'>
+  readonly isGroup: Prisma.FieldRef<"Department", 'Boolean'>
   readonly managerId: Prisma.FieldRef<"Department", 'String'>
   readonly demoId: Prisma.FieldRef<"Department", 'String'>
   readonly createdAt: Prisma.FieldRef<"Department", 'DateTime'>

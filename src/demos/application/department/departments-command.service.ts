@@ -47,6 +47,7 @@ export class DepartmentsCommandService {
       input.name,
       input.managerId,
       input.description,
+      input.isGroup,
     );
     demo.addDepartment(newDepartment);
 

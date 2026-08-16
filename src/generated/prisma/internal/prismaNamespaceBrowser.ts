@@ -152,6 +152,7 @@ export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  isGroup: 'isGroup',
   managerId: 'managerId',
   demoId: 'demoId',
   createdAt: 'createdAt',

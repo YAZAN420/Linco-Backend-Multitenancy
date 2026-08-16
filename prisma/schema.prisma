@@ -188,6 +188,7 @@ model Department {
   id          String   @id
   name        String
   description String
+  isGroup Boolean @default(false)
   managerId   String
   demoId      String
   createdAt   DateTime @default(now())

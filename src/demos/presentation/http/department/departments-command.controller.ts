@@ -16,7 +16,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { DepartmentRolesGuard } from 'src/iam/presentation/http/guards/department-roles.guard';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
-import { DepartmentsQueryService } from 'src/demos/application/department/departments-query.service';
 
 @ApiTags('Department')
 @UseGuards(DemoRolesGuard)
@@ -24,7 +23,6 @@ import { DepartmentsQueryService } from 'src/demos/application/department/depart
 export class DepartmentsCommandController {
   constructor(
     private readonly departmentsCommandService: DepartmentsCommandService,
-    private readonly departmentsQueryService: DepartmentsQueryService,
     private readonly aiRoadmapService: GeminiService,
   ) {}
 

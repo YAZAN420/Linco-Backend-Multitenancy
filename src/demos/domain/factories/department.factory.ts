@@ -10,6 +10,7 @@ export class DepartmentFactory {
     name: string,
     managerId: string,
     description: string,
+    isGroup: boolean = false,
   ): Department {
     const now = new Date();
     const nameVo = Name.create(name);
@@ -17,6 +18,7 @@ export class DepartmentFactory {
       name: nameVo,
       description,
       managerId,
+      isGroup,
       demoId: demoId,
       createdAt: now,
       updatedAt: now,

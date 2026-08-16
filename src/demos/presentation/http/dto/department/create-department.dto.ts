@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateDepartmentDto {
   @IsString()
@@ -10,4 +10,7 @@ export class CreateDepartmentDto {
   @IsString()
   @IsNotEmpty()
   description!: string;
+  @IsBoolean()
+  @IsOptional()
+  isGroup?: boolean;
 }
