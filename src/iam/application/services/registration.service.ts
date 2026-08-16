@@ -35,11 +35,17 @@ export class RegistrationService {
       expiresAt,
     );
 
-    await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
-      email: signUpDto.email,
-      token: verificationToken,
-    });
-
+    try {
+      await this.mailQueueService.enqueue(MAIL_JOBS.SEND_VERIFICATION_EMAIL, {
+        email: signUpDto.email,
+        token: verificationToken,
+      });
+    } catch (error) {
+      this.logger.error(
+        `Failed to enqueue verification email for user: ${newUser.id}`,
+        error,
+      );
+    }
     this.logger.log(`User registered: ${newUser.id}`);
   }
 
@@ -54,7 +60,9 @@ export class RegistrationService {
     const user = await this.usersCommandService.findByEmail(email);
 
     if (!user || user.security.isEmailVerified) {
-      throw new BadRequestException('errors.USER_ALREADY_VERIFIED_OR_DOES_NOT_EXIST');
+      throw new BadRequestException(
+        'errors.USER_ALREADY_VERIFIED_OR_DOES_NOT_EXIST',
+      );
     }
     const verificationToken = this.cryptoPort.generateSecureToken();
     const hashedToken = this.cryptoPort.hashToken(verificationToken);

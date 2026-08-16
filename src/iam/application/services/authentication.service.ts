@@ -62,7 +62,9 @@ export class AuthenticationService {
         firstName: googleUser.firstName,
         lastName: googleUser.lastName,
         email: googleUser.email,
-        imagePath: googleUser.imagePath,
+        imagePath:
+          googleUser.imagePath ||
+          'https://storage.lincolms.me/uploads/Default.jpg',
         role: Role.USER,
         isEmailVerified: true,
       });
