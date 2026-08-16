@@ -181,21 +181,21 @@ export type Certification = Prisma.CertificationModel
 export type DepartmentLeaderboard = Prisma.DepartmentLeaderboardModel
 /**
  * Model DemoOwnerReportView
- *
+ * 
  */
 export type DemoOwnerReportView = Prisma.DemoOwnerReportViewModel
 /**
  * Model MemberPerformanceView
- *
+ * 
  */
 export type MemberPerformanceView = Prisma.MemberPerformanceViewModel
 /**
  * Model CoursePerformanceView
- *
+ * 
  */
 export type CoursePerformanceView = Prisma.CoursePerformanceViewModel
 /**
  * Model DepartmentPerformanceView
- *
+ * 
  */
 export type DepartmentPerformanceView = Prisma.DepartmentPerformanceViewModel
