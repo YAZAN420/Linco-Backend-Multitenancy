@@ -4,21 +4,25 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PaymentCommandRepository } from './ports/payment-command.repository';
-import { Payment } from '../domain/payment';
-import { PaymentGatewayPort } from './ports/payment-gateway.port';
-import { PaymentFactory } from '../domain/factories/payment.factory';
 import { ConfigType } from '@nestjs/config';
-import stripeConfig from 'src/common/config/stripe.config';
-import Stripe from 'stripe';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import Stripe from 'stripe';
+
+import stripeConfig from 'src/common/config/stripe.config';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
+import { Course } from 'src/courses/domain/course';
+
+import { Payment } from '../domain/payment';
+import { PaymentFactory } from '../domain/factories/payment.factory';
+import { PaymentCommandRepository } from './ports/payment-command.repository';
+import { PaymentGatewayPort } from './ports/payment-gateway.port';
 
 @Injectable()
 export class PaymentsCommandService {
   private readonly DEFAULT_CURRENCY = 'usd';
+
   constructor(
     private readonly paymentCommandRepository: PaymentCommandRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
@@ -34,7 +38,7 @@ export class PaymentsCommandService {
     demoId: string,
     userEmail: string,
     plan: PlanTier,
-  ) {
+  ): Promise<string> {
     const { priceId, amount } = this.resolvePlanDetails(plan);
 
     const payment = this.paymentFactory.createSubscriptionPayment(
@@ -44,51 +48,17 @@ export class PaymentsCommandService {
       demoId,
       plan,
     );
-
     await this.paymentCommandRepository.save(payment);
 
     const result = await this.paymentGateway.createSubscriptionCheckoutSession({
-      priceId: priceId,
-      demoId: demoId,
+      priceId,
+      demoId,
       paymentId: payment.id,
-      userId: userId,
+      userId,
       customerEmail: userEmail,
     });
 
     return result.url;
-  }
-
-  private resolvePlanDetails(plan: PlanTier): {
-    priceId: string;
-    amount: number;
-  } {
-    const plansMap: Partial<
-      Record<PlanTier, { priceId: string; amount: number }>
-    > = {
-      [PlanTier.STARTER]: {
-        priceId: this.stripeConfiguration.starterPriceId!,
-        amount: 2000,
-      },
-      [PlanTier.PRO]: {
-        priceId: this.stripeConfiguration.proPriceId!,
-        amount: 10000,
-      },
-      [PlanTier.ENTERPRISE]: {
-        priceId: this.stripeConfiguration.enterprisePriceId!,
-        amount: 20000,
-      },
-    };
-
-    const selectedPlan = plansMap[plan];
-
-    if (!selectedPlan || !selectedPlan.priceId) {
-      throw new BadRequestException('errors.INVALID_SUBSCRIPTION_PLAN');
-    }
-
-    return {
-      priceId: selectedPlan.priceId,
-      amount: selectedPlan.amount,
-    };
   }
 
   async initiateCoursePurchase(
@@ -98,28 +68,16 @@ export class PaymentsCommandService {
     userEmail: string,
   ) {
     const course = await this.courseCommandRepository.findById(courseId);
-    if (!course) {
-      throw new NotFoundException('errors.COURSE_NOT_FOUND');
-    }
-    if (!course.isPublished) {
-      throw new BadRequestException(
-        'errors.CANNOT_PURCHASE_AN_UNPUBLISHED_COURSE',
-      );
-    }
-
-    if (course.visibility === CourseVisibility.PRIVATE) {
-      throw new BadRequestException(
-        'errors.CANNOT_PURCHASE_A_PRIVATE_COURSE_FROM_THE_MARKETPLACE',
-      );
-    }
+    this.validateCourseForPurchase(course);
 
     if (course.price === 0) {
       await this.eventEmitter.emitAsync('course.purchased', {
-        userId: userId,
-        courseId: courseId,
-        demoId: demoId,
+        userId,
+        courseId,
+        demoId,
         isFree: true,
       });
+
       return {
         message: 'messages.FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY',
         data: null,
@@ -133,7 +91,6 @@ export class PaymentsCommandService {
       demoId,
       courseId,
     );
-
     await this.paymentCommandRepository.save(payment);
 
     const result = await this.paymentGateway.createOneTimeCheckoutSession({
@@ -141,49 +98,37 @@ export class PaymentsCommandService {
       currency: this.DEFAULT_CURRENCY,
       courseTitle: course.title,
       paymentId: payment.id,
-      courseId: courseId,
-      userId: userId,
+      courseId,
+      userId,
       customerEmail: userEmail,
     });
 
     return {
-      data: {
-        url: result.url,
-      },
+      data: { url: result.url },
       message: 'messages.CHECKOUT_SESSION_CREATED_SUCCESSFULLY',
     };
   }
 
-  async processWebhookEvent(event: Stripe.Event) {
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
+  async processWebhookEvent(event: Stripe.Event): Promise<void> {
+    switch (event.type) {
+      case 'checkout.session.completed':
+        await this.handleCheckoutSessionCompleted(event.data.object);
+        break;
 
-      const paymentId = session.metadata?.paymentId;
-      const type = session.metadata?.type;
-      const stripeSubscriptionId = session.subscription as string;
+      case 'invoice.payment_succeeded':
+        await this.handleInvoicePaymentSucceeded(event.data.object);
+        break;
 
-      if (!paymentId) return;
+      case 'invoice.payment_failed':
+        this.handleInvoicePaymentFailed(event.data.object);
+        break;
 
-      if (type === 'course') {
-        await this.fulfillPayment(paymentId, type);
-        console.log(`Course payment ${paymentId} succeeded!`);
-      } else if (type === 'subscription') {
-        const subscription: Stripe.Subscription =
-          await this.paymentGateway.getSubscription(stripeSubscriptionId);
+      case 'customer.subscription.deleted':
+        this.handleSubscriptionDeleted(event.data.object);
+        break;
 
-        const currentPeriodEnd = new Date(
-          subscription.items.data[0].current_period_end * 1000,
-        );
-        await this.fulfillPayment(
-          paymentId,
-          type,
-          stripeSubscriptionId,
-          currentPeriodEnd,
-        );
-        console.log(
-          `Subscription ${paymentId} succeeded! Unlocking demo for user.`,
-        );
-      }
+      default:
+        break;
     }
   }
 
@@ -192,16 +137,12 @@ export class PaymentsCommandService {
     type: string,
     stripeSubscriptionId?: string,
     currentPeriodEnd?: Date,
-  ) {
-    const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment) throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
-
-    if (payment.isSuccessful) {
-      return;
-    }
-
+  ): Promise<void> {
+    const payment = await this.findById(paymentId);
+    if (payment.isSuccessful) return;
     payment.markAsSuccessful();
     await this.paymentCommandRepository.save(payment);
+
     if (type === 'course') {
       this.eventEmitter.emit('course.purchased', {
         userId: payment.userId,
@@ -214,25 +155,24 @@ export class PaymentsCommandService {
         userId: payment.userId,
         demoId: payment.demoId,
         plan: payment.plan,
-        stripeSubscriptionId: stripeSubscriptionId,
-        currentPeriodEnd: currentPeriodEnd,
+        stripeSubscriptionId,
+        currentPeriodEnd,
       });
     }
   }
 
   async getCheckoutStatus(sessionId: string) {
     const session = await this.paymentGateway.getCheckoutSession(sessionId);
-
     const paymentId = session.metadata?.paymentId;
+
     if (!paymentId) {
       throw new NotFoundException(
         'errors.PAYMENT_METADATA_NOT_FOUND_IN_SESSION',
       );
     }
 
-    const payment = await this.paymentCommandRepository.findById(paymentId);
-    if (!payment)
-      throw new NotFoundException('errors.PAYMENT_RECORD_NOT_FOUND');
+    const payment = await this.findById(paymentId);
+
     return {
       status: session.status,
       paymentStatus: session.payment_status,
@@ -252,5 +192,132 @@ export class PaymentsCommandService {
     const payment = await this.paymentCommandRepository.findById(paymentId);
     if (!payment) throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
     return payment;
+  }
+
+  private async handleCheckoutSessionCompleted(
+    session: Stripe.Checkout.Session,
+  ): Promise<void> {
+    const paymentId = session.metadata?.paymentId;
+    const type = session.metadata?.type;
+    const stripeSubscriptionId = session.subscription as string;
+
+    if (!paymentId) return;
+
+    if (type === 'course') {
+      await this.fulfillPayment(paymentId, type);
+    } else if (type === 'subscription' && stripeSubscriptionId) {
+      const subscription =
+        await this.paymentGateway.getSubscription(stripeSubscriptionId);
+      const currentPeriodEnd = this.toJsDate(
+        subscription.items.data[0].current_period_end,
+      );
+
+      await this.fulfillPayment(
+        paymentId,
+        type,
+        stripeSubscriptionId,
+        currentPeriodEnd,
+      );
+    }
+  }
+
+  private async handleInvoicePaymentSucceeded(
+    invoice: Stripe.Invoice,
+  ): Promise<void> {
+    if (invoice.billing_reason === 'subscription_create') return;
+
+    const stripeSubscriptionId = this.extractSubscriptionId(invoice);
+    if (!stripeSubscriptionId) return;
+
+    const subscription =
+      await this.paymentGateway.getSubscription(stripeSubscriptionId);
+    const currentPeriodEnd = this.toJsDate(
+      subscription.items.data[0].current_period_end,
+    );
+
+    this.eventEmitter.emit('demo.subscription_renewed', {
+      stripeSubscriptionId,
+      currentPeriodEnd,
+    });
+  }
+
+  private handleInvoicePaymentFailed(invoice: Stripe.Invoice): void {
+    const stripeSubscriptionId = this.extractSubscriptionId(invoice);
+    if (!stripeSubscriptionId) return;
+
+    this.eventEmitter.emit('demo.subscription_payment_failed', {
+      stripeSubscriptionId,
+      customerEmail: invoice.customer_email,
+      attemptCount: invoice.attempt_count,
+    });
+  }
+
+  private handleSubscriptionDeleted(subscription: Stripe.Subscription): void {
+    this.eventEmitter.emit('demo.subscription_canceled', {
+      stripeSubscriptionId: subscription.id,
+    });
+  }
+
+  private resolvePlanDetails(plan: PlanTier): {
+    priceId: string;
+    amount: number;
+  } {
+    const plansMap: Partial<
+      Record<PlanTier, { priceId?: string; amount: number }>
+    > = {
+      [PlanTier.STARTER]: {
+        priceId: this.stripeConfiguration.starterPriceId,
+        amount: 2000,
+      },
+      [PlanTier.PRO]: {
+        priceId: this.stripeConfiguration.proPriceId,
+        amount: 10000,
+      },
+      [PlanTier.ENTERPRISE]: {
+        priceId: this.stripeConfiguration.enterprisePriceId,
+        amount: 20000,
+      },
+    };
+
+    const selectedPlan = plansMap[plan];
+    if (!selectedPlan?.priceId) {
+      throw new BadRequestException('errors.INVALID_SUBSCRIPTION_PLAN');
+    }
+
+    return {
+      priceId: selectedPlan.priceId,
+      amount: selectedPlan.amount,
+    };
+  }
+
+  private validateCourseForPurchase(
+    course: Course | null,
+  ): asserts course is Course {
+    if (!course) {
+      throw new NotFoundException('errors.COURSE_NOT_FOUND');
+    }
+    if (!course.isPublished) {
+      throw new BadRequestException(
+        'errors.CANNOT_PURCHASE_AN_UNPUBLISHED_COURSE',
+      );
+    }
+    if (course.visibility === CourseVisibility.PRIVATE) {
+      throw new BadRequestException(
+        'errors.CANNOT_PURCHASE_A_PRIVATE_COURSE_FROM_THE_MARKETPLACE',
+      );
+    }
+  }
+
+  private extractSubscriptionId(invoice: Stripe.Invoice): string | null {
+    const lineItem = invoice.lines?.data?.find((line) => line.subscription);
+    if (!lineItem?.subscription) return null;
+
+    return typeof lineItem.subscription === 'string'
+      ? lineItem.subscription
+      : lineItem.subscription.id;
+  }
+
+  private toJsDate(unixTimestampInSeconds: number): Date {
+    return new Date(unixTimestampInSeconds * 1000);
   }
 }

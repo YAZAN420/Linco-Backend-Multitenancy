@@ -67,6 +67,16 @@ export class PrismaDemoCommandRepository implements DemoCommandRepository {
     return demo ? this.mapper.toDomain(demo) : null;
   }
 
+  async findByStripeSubscriptionId(
+    stripeSubscriptionId: string,
+  ): Promise<Demo | null> {
+    const demo = await this.prisma.demo.findUnique({
+      where: { stripeSubscriptionId },
+      include: { departments: true },
+    });
+    return demo ? this.mapper.toDomain(demo) : null;
+  }
+
   async updateExpiredTrials(): Promise<void> {
     await this.prisma.demo.updateMany({
       where: {

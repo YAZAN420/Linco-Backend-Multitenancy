@@ -139,6 +139,22 @@ export class Demo {
     this.touch();
   }
 
+  renewSubscription(periodEnd: Date): void {
+    this.props.subscriptionStatus = SubscriptionStatus.ACTIVE;
+    this.props.currentPeriodEnd = periodEnd;
+    this.touch();
+  }
+
+  markPaymentAsPastDue(): void {
+    this.props.subscriptionStatus = SubscriptionStatus.EXPIRED;
+    this.touch();
+  }
+
+  cancelSubscription(): void {
+    this.props.subscriptionStatus = SubscriptionStatus.EXPIRED;
+    this.touch();
+  }
+
   updatePlan(newPlan: PlanTier): void {
     if (this.props.plan === newPlan) return;
     this.props.plan = newPlan;

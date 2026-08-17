@@ -43,7 +43,6 @@ export class DemosCommandService {
   }
 
   async activateDemoSubscription(
-    userId: string,
     demoId: string,
     plan: PlanTier,
     stripeSubscriptionId: string,
@@ -57,6 +56,58 @@ export class DemosCommandService {
     }
     demo.updatePlan(plan);
     demo.activateSubscription(stripeSubscriptionId, currentPeriodEnd);
+    await this.demoCommandRepository.save(demo);
+  }
+
+  async renewDemoSubscription(
+    stripeSubscriptionId: string,
+    currentPeriodEnd: Date,
+  ): Promise<void> {
+    const demo =
+      await this.demoCommandRepository.findByStripeSubscriptionId(
+        stripeSubscriptionId,
+      );
+    if (!demo) {
+      throw new NotFoundException(
+        'errors.DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND',
+      );
+    }
+
+    demo.renewSubscription(currentPeriodEnd);
+    await this.demoCommandRepository.save(demo);
+  }
+
+  async handlePaymentFailure(
+    stripeSubscriptionId: string,
+    _attemptCount: number,
+    _customerEmail: string,
+  ): Promise<void> {
+    const demo =
+      await this.demoCommandRepository.findByStripeSubscriptionId(
+        stripeSubscriptionId,
+      );
+    if (!demo) {
+      throw new NotFoundException(
+        'errors.DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND',
+      );
+    }
+
+    demo.markPaymentAsPastDue();
+    await this.demoCommandRepository.save(demo);
+  }
+
+  async cancelDemoSubscription(stripeSubscriptionId: string): Promise<void> {
+    const demo =
+      await this.demoCommandRepository.findByStripeSubscriptionId(
+        stripeSubscriptionId,
+      );
+    if (!demo) {
+      throw new NotFoundException(
+        'errors.DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND',
+      );
+    }
+
+    demo.cancelSubscription();
     await this.demoCommandRepository.save(demo);
   }
 
