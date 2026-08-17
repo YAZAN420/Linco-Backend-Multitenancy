@@ -29,12 +29,21 @@ spec:
           envFrom:
             - secretRef:
                 name: app-secrets
+          volumeMounts:
+            - name: firebase-secret-volume
+              mountPath: /usr/src/app/linco-firebase.json
+              subPath: linco-firebase.json
+              readOnly: true
           resources:
             requests:
               cpu: '500m'
               memory: '350Mi'
             limits:
               memory: '1Gi'
+      volumes:
+        - name: firebase-secret-volume
+          secret:
+            secretName: firebase-secret
 ---
 apiVersion: v1
 kind: Service
