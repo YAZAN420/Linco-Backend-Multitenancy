@@ -38,10 +38,8 @@ export class PaymentsCommandController {
     @ActiveDemoMember('demoId') demoId: string,
     @Body() body: SubscribeToDemoDto,
   ) {
-    const userId = user.id;
-
     const url = await this.paymentCommandService.initiateDemoSubscription(
-      userId,
+      user.id,
       demoId,
       user.email,
       body.plan,

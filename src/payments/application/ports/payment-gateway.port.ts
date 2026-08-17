@@ -1,23 +1,7 @@
 import Stripe from 'stripe';
 import { CheckoutSessionResult } from '../interfaces/checkout-session-result.interface';
-
-export interface CreateSubscriptionCheckoutParams {
-  priceId: string;
-  customerEmail?: string;
-  paymentId: string;
-  demoId: string;
-  userId: string;
-}
-
-export interface CreateOneTimeCheckoutParams {
-  amount: number;
-  currency: string;
-  courseTitle: string;
-  customerEmail?: string;
-  paymentId: string;
-  courseId: string;
-  userId: string;
-}
+import { CreateSubscriptionCheckoutParams } from '../interfaces/create-subscription-checkout-params.interface';
+import { CreateOneTimeCheckoutParams } from '../interfaces/create-one-time-checkout-params.interface';
 
 export abstract class PaymentGatewayPort {
   abstract createSubscriptionCheckoutSession(

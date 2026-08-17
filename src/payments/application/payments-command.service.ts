@@ -12,13 +12,13 @@ import { ConfigType } from '@nestjs/config';
 import stripeConfig from 'src/common/config/stripe.config';
 import Stripe from 'stripe';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { PaymentType } from '../domain/enums/payment-type.enum';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 
 @Injectable()
 export class PaymentsCommandService {
+  private readonly DEFAULT_CURRENCY = 'usd';
   constructor(
     private readonly paymentCommandRepository: PaymentCommandRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
@@ -35,31 +35,14 @@ export class PaymentsCommandService {
     userEmail: string,
     plan: PlanTier,
   ) {
-    let priceId: string;
-    let amount: number;
-    const currency = 'usd';
+    const { priceId, amount } = this.resolvePlanDetails(plan);
 
-    if (plan === PlanTier.STARTER) {
-      priceId = this.stripeConfiguration.starterPriceId!;
-      amount = 2000;
-    } else if (plan === PlanTier.PRO) {
-      priceId = this.stripeConfiguration.proPriceId!;
-      amount = 10000;
-    } else if (plan === PlanTier.ENTERPRISE) {
-      priceId = this.stripeConfiguration.enterprisePriceId!;
-      amount = 20000;
-    } else {
-      throw new BadRequestException('errors.INVALID_SUBSCRIPTION_PLAN');
-    }
-
-    const payment = this.paymentFactory.createNew(
+    const payment = this.paymentFactory.createSubscriptionPayment(
       amount,
-      currency,
+      this.DEFAULT_CURRENCY,
       userId,
-      PaymentType.SUBSCRIPTION,
-      plan,
       demoId,
-      undefined,
+      plan,
     );
 
     await this.paymentCommandRepository.save(payment);
@@ -73,6 +56,39 @@ export class PaymentsCommandService {
     });
 
     return result.url;
+  }
+
+  private resolvePlanDetails(plan: PlanTier): {
+    priceId: string;
+    amount: number;
+  } {
+    const plansMap: Partial<
+      Record<PlanTier, { priceId: string; amount: number }>
+    > = {
+      [PlanTier.STARTER]: {
+        priceId: this.stripeConfiguration.starterPriceId!,
+        amount: 2000,
+      },
+      [PlanTier.PRO]: {
+        priceId: this.stripeConfiguration.proPriceId!,
+        amount: 10000,
+      },
+      [PlanTier.ENTERPRISE]: {
+        priceId: this.stripeConfiguration.enterprisePriceId!,
+        amount: 20000,
+      },
+    };
+
+    const selectedPlan = plansMap[plan];
+
+    if (!selectedPlan || !selectedPlan.priceId) {
+      throw new BadRequestException('errors.INVALID_SUBSCRIPTION_PLAN');
+    }
+
+    return {
+      priceId: selectedPlan.priceId,
+      amount: selectedPlan.amount,
+    };
   }
 
   async initiateCoursePurchase(
@@ -110,12 +126,10 @@ export class PaymentsCommandService {
       };
     }
 
-    const payment = this.paymentFactory.createNew(
+    const payment = this.paymentFactory.createCoursePayment(
       course.price,
-      'usd',
+      this.DEFAULT_CURRENCY,
       userId,
-      PaymentType.COURSE,
-      undefined,
       demoId,
       courseId,
     );

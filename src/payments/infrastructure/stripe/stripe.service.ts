@@ -8,11 +8,9 @@ import Stripe from 'stripe';
 
 import stripeConfig from 'src/common/config/stripe.config';
 
-import {
-  CreateOneTimeCheckoutParams,
-  CreateSubscriptionCheckoutParams,
-  PaymentGatewayPort,
-} from '../../application/ports/payment-gateway.port';
+import { PaymentGatewayPort } from '../../application/ports/payment-gateway.port';
+import { CreateOneTimeCheckoutParams } from '../../application/interfaces/create-one-time-checkout-params.interface';
+import { CreateSubscriptionCheckoutParams } from '../../application/interfaces/create-subscription-checkout-params.interface';
 import { CheckoutSessionResult } from '../../application/interfaces/checkout-session-result.interface';
 
 @Injectable()
@@ -67,6 +65,7 @@ export class StripeService implements PaymentGatewayPort {
         url: session.url,
       };
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.FAILED_TO_CREATE_SUBSCRIPTION_CHECKOUT_SESSION_ERROR',
       );
@@ -120,6 +119,7 @@ export class StripeService implements PaymentGatewayPort {
         url: session.url,
       };
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.FAILED_TO_CREATE_ONE_TIME_CHECKOUT_SESSION_ERROR',
       );
@@ -134,6 +134,7 @@ export class StripeService implements PaymentGatewayPort {
         this.stripeConfiguration.stripeWebhookSecret!,
       );
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.WEBHOOK_SIGNATURE_VERIFICATION_FAILED_ERROR',
       );
@@ -144,6 +145,7 @@ export class StripeService implements PaymentGatewayPort {
     try {
       return await this.stripe.subscriptions.retrieve(subscriptionId);
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.FAILED_TO_FETCH_SUBSCRIPTION_FROM_STRIPE_ERROR',
       );
@@ -156,6 +158,7 @@ export class StripeService implements PaymentGatewayPort {
     try {
       return await this.stripe.checkout.sessions.retrieve(sessionId);
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'errors.FAILED_TO_FETCH_CHECKOUT_SESSION_ERROR',
       );

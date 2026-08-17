@@ -7,14 +7,12 @@ import { PlanTier } from 'src/common/enums/plan-tier.enum';
 
 @Injectable()
 export class PaymentFactory {
-  public createNew(
+  public createSubscriptionPayment(
     amount: number,
     currency: string,
     userId: string,
-    type: PaymentType,
-    plan?: PlanTier,
-    demoId?: string,
-    courseId?: string,
+    demoId: string,
+    plan: PlanTier,
   ): Payment {
     const now = new Date();
     return new Payment(uuidv7(), {
@@ -23,8 +21,32 @@ export class PaymentFactory {
       status: PaymentStatus.PENDING,
       userId,
       demoId,
-      type,
+      type: PaymentType.SUBSCRIPTION,
       plan,
+      courseId: undefined,
+      stripeInvoiceId: undefined,
+      stripePaymentIntentId: undefined,
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+
+  public createCoursePayment(
+    amount: number,
+    currency: string,
+    userId: string,
+    demoId: string,
+    courseId: string,
+  ): Payment {
+    const now = new Date();
+    return new Payment(uuidv7(), {
+      amount,
+      currency,
+      status: PaymentStatus.PENDING,
+      userId,
+      demoId,
+      type: PaymentType.COURSE,
+      plan: undefined,
       courseId,
       stripeInvoiceId: undefined,
       stripePaymentIntentId: undefined,
