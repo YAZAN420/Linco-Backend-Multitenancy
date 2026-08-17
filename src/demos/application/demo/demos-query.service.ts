@@ -39,7 +39,10 @@ export class DemosQueryService {
     const demo = await this.demoQueryRepository.findById(id, userId);
     if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
-    if (demo.subscriptionStatus === SubscriptionStatus.EXPIRED)
+    if (
+      demo.subscriptionStatus === SubscriptionStatus.EXPIRED ||
+      demo.subscriptionStatus === SubscriptionStatus.CANCELED
+    )
       throw new ForbiddenException(
         'Your subscription has expired. Please renew to continue.',
       );

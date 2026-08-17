@@ -90,6 +90,7 @@ enum SubscriptionStatus {
   TRIALING
   EXPIRED
   ACTIVE
+  CANCELED
 }
 
 enum InquiryStatus {

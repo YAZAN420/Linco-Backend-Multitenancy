@@ -151,7 +151,7 @@ export class Demo {
   }
 
   cancelSubscription(): void {
-    this.props.subscriptionStatus = SubscriptionStatus.EXPIRED;
+    this.props.subscriptionStatus = SubscriptionStatus.CANCELED;
     this.touch();
   }
 
