@@ -18,6 +18,7 @@ import { Payment } from '../domain/payment';
 import { PaymentFactory } from '../domain/factories/payment.factory';
 import { PaymentCommandRepository } from './ports/payment-command.repository';
 import { PaymentGatewayPort } from './ports/payment-gateway.port';
+import { DemosCommandService } from 'src/demos/application/demo/demos-command.service';
 
 @Injectable()
 export class PaymentsCommandService {
@@ -30,6 +31,7 @@ export class PaymentsCommandService {
     @Inject(stripeConfig.KEY)
     private readonly stripeConfiguration: ConfigType<typeof stripeConfig>,
     private readonly paymentGateway: PaymentGatewayPort,
+    private readonly demosCommandService: DemosCommandService,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
@@ -186,6 +188,27 @@ export class PaymentsCommandService {
         demoId: session.metadata?.demoId,
       },
     };
+  }
+
+  async createCustomerPortalSessionForDemo(demoId: string): Promise<string> {
+    const demo = await this.demosCommandService.findById(demoId);
+
+    if (!demo.stripeSubscriptionId) {
+      throw new BadRequestException(
+        'errors.NO_ACTIVE_SUBSCRIPTION_FOUND_FOR_DEMO',
+      );
+    }
+
+    const subscription = await this.paymentGateway.getSubscription(
+      demo.stripeSubscriptionId,
+    );
+
+    const customerId =
+      typeof subscription.customer === 'string'
+        ? subscription.customer
+        : subscription.customer.id;
+
+    return await this.paymentGateway.createCustomerPortalSession(customerId);
   }
 
   async findById(paymentId: string): Promise<Payment> {

@@ -100,4 +100,17 @@ export class PaymentsCommandController {
       throw new BadRequestException('errors.WEBHOOK_VALIDATION_FAILED');
     }
   }
+
+  @Post('subscriptions/manage')
+  async manageSubscription(@Body('demoId') demoId: string) {
+    const portalUrl =
+      await this.paymentCommandService.createCustomerPortalSessionForDemo(
+        demoId,
+      );
+
+    return {
+      url: portalUrl,
+      message: 'messages.PORTAL_SESSION_CREATED_SUCCESSFULLY',
+    };
+  }
 }

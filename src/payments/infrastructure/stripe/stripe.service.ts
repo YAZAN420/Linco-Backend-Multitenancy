@@ -141,6 +141,15 @@ export class StripeService implements PaymentGatewayPort {
     }
   }
 
+  async createCustomerPortalSession(customerId: string): Promise<string> {
+    const session = await this.stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${this.stripeConfiguration.frontEndUrl}/home`,
+    });
+
+    return session.url;
+  }
+
   async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
     try {
       return await this.stripe.subscriptions.retrieve(subscriptionId);
