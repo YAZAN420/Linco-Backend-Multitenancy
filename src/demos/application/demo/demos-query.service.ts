@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
 
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
@@ -12,6 +16,7 @@ import {
   FindDemosQuery,
 } from './interfaces/find-demos.query';
 import { DemoQueryRepository } from '../ports/demo/demo-query.repository';
+import { SubscriptionStatus } from 'src/generated/prisma/enums';
 
 @Injectable()
 export class DemosQueryService {
@@ -33,6 +38,12 @@ export class DemosQueryService {
   async findById(userId: string, id: string): Promise<DemoWithOwnership> {
     const demo = await this.demoQueryRepository.findById(id, userId);
     if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
+
+    if (demo.subscriptionStatus === SubscriptionStatus.EXPIRED)
+      throw new ForbiddenException(
+        'Your subscription has expired. Please renew to continue.',
+      );
+
     return demo;
   }
 
