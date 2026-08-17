@@ -1,6 +1,6 @@
 export interface CreateSubscriptionCheckoutParams {
   priceId: string;
-  customerEmail?: string;
+  customerEmail: string;
   paymentId: string;
   demoId: string;
   userId: string;

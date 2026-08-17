@@ -138,7 +138,7 @@ export class PaymentsCommandService {
 
     const result = await this.paymentGateway.createOneTimeCheckoutSession({
       amount: course.price,
-      currency: 'usd',
+      currency: this.DEFAULT_CURRENCY,
       courseTitle: course.title,
       paymentId: payment.id,
       courseId: courseId,

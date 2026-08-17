@@ -13,6 +13,7 @@ export abstract class PaymentGatewayPort {
   ): Promise<CheckoutSessionResult>;
 
   abstract verifyWebhookEvent(payload: Buffer, signature: string): Stripe.Event;
+
   abstract getSubscription(
     subscriptionId: string,
   ): Promise<Stripe.Subscription>;
