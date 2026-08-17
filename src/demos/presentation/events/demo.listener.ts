@@ -50,6 +50,28 @@ export class DemoEventsListener {
     }
   }
 
+  @OnEvent('demo.subscription_updated')
+  async handleSubscriptionUpdated(payload: {
+    stripeSubscriptionId: string;
+    plan: PlanTier;
+    currentPeriodEnd: Date;
+  }) {
+    this.logger.log(
+      `🆙 Handling demo.subscription_updated for Sub: ${payload.stripeSubscriptionId} (Plan: ${payload.plan})`,
+    );
+    try {
+      await this.demosCommandService.updateDemoSubscriptionPlan(
+        payload.stripeSubscriptionId,
+        payload.plan,
+        payload.currentPeriodEnd,
+      );
+    } catch (error) {
+      this.logger.error(
+        `❌ Failed to process demo.subscription_updated: ${error}`,
+      );
+    }
+  }
+
   @OnEvent('demo.subscription_payment_failed')
   async handleSubscriptionPaymentFailed(payload: {
     stripeSubscriptionId: string;

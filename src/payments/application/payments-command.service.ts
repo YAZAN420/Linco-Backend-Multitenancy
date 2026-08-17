@@ -125,6 +125,10 @@ export class PaymentsCommandService {
         this.handleInvoicePaymentFailed(event.data.object);
         break;
 
+      case 'customer.subscription.updated':
+        this.handleSubscriptionUpdated(event.data.object);
+        break;
+
       case 'customer.subscription.deleted':
         this.handleSubscriptionDeleted(event.data.object);
         break;
@@ -275,10 +279,48 @@ export class PaymentsCommandService {
     });
   }
 
+  private handleSubscriptionUpdated(subscription: Stripe.Subscription): void {
+    const firstItem = subscription.items?.data?.[0];
+    const priceId = firstItem?.price?.id;
+    if (!priceId) return;
+
+    const plan = this.resolvePlanTierFromPriceId(priceId);
+    const currentPeriodEnd = this.toJsDate(firstItem.current_period_end);
+
+    this.eventEmitter.emit('demo.subscription_updated', {
+      stripeSubscriptionId: subscription.id,
+      plan,
+      currentPeriodEnd,
+    });
+  }
+
   private handleSubscriptionDeleted(subscription: Stripe.Subscription): void {
     this.eventEmitter.emit('demo.subscription_canceled', {
       stripeSubscriptionId: subscription.id,
     });
+  }
+
+  private resolvePlanTierFromPriceId(priceId: string): PlanTier {
+    if (
+      this.stripeConfiguration.starterPriceId &&
+      priceId === this.stripeConfiguration.starterPriceId
+    ) {
+      return PlanTier.STARTER;
+    }
+    if (
+      this.stripeConfiguration.proPriceId &&
+      priceId === this.stripeConfiguration.proPriceId
+    ) {
+      return PlanTier.PRO;
+    }
+    if (
+      this.stripeConfiguration.enterprisePriceId &&
+      priceId === this.stripeConfiguration.enterprisePriceId
+    ) {
+      return PlanTier.ENTERPRISE;
+    }
+
+    throw new BadRequestException('errors.UNKNOWN_SUBSCRIPTION_PRICE_ID');
   }
 
   private resolvePlanDetails(plan: PlanTier): {

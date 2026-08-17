@@ -77,6 +77,26 @@ export class DemosCommandService {
     await this.demoCommandRepository.save(demo);
   }
 
+  async updateDemoSubscriptionPlan(
+    stripeSubscriptionId: string,
+    plan: PlanTier,
+    currentPeriodEnd: Date,
+  ): Promise<void> {
+    const demo =
+      await this.demoCommandRepository.findByStripeSubscriptionId(
+        stripeSubscriptionId,
+      );
+    if (!demo) {
+      throw new NotFoundException(
+        'errors.DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND',
+      );
+    }
+
+    demo.updatePlan(plan);
+    demo.renewSubscription(currentPeriodEnd);
+    await this.demoCommandRepository.save(demo);
+  }
+
   async handlePaymentFailure(
     stripeSubscriptionId: string,
     _attemptCount: number,
