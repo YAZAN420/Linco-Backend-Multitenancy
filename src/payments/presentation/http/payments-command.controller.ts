@@ -22,6 +22,7 @@ import { SkipThrottle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { DemoRolesGuard } from 'src/iam/presentation/http/guards/demo-roles.guard';
 import { ActiveDemoMember } from 'src/iam/presentation/http/decorators/active-demo-member.decorator';
+import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 
 @ApiTags('Payment')
 @Controller('payments')
@@ -101,11 +102,14 @@ export class PaymentsCommandController {
     }
   }
 
+  @UseGuards(DemoRolesGuard)
   @Post('subscriptions/manage')
-  async manageSubscription(@Body('demoId') demoId: string) {
+  async manageSubscription(
+    @ActiveDemoMember() demoMember: ActiveDemoMemberData,
+  ) {
     const portalUrl =
       await this.paymentCommandService.createCustomerPortalSessionForDemo(
-        demoId,
+        demoMember.demoId,
       );
 
     return {

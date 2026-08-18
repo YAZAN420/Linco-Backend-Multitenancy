@@ -212,7 +212,10 @@ export class PaymentsCommandService {
         ? subscription.customer
         : subscription.customer.id;
 
-    return await this.paymentGateway.createCustomerPortalSession(customerId);
+    return await this.paymentGateway.createCustomerPortalSession(
+      demoId,
+      customerId,
+    );
   }
 
   async findById(paymentId: string): Promise<Payment> {

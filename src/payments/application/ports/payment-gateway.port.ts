@@ -22,5 +22,8 @@ export abstract class PaymentGatewayPort {
     sessionId: string,
   ): Promise<Stripe.Checkout.Session>;
 
-  abstract createCustomerPortalSession(customerId: string): Promise<string>;
+  abstract createCustomerPortalSession(
+    demoId: string,
+    customerId: string,
+  ): Promise<string>;
 }
