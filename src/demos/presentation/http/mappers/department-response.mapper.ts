@@ -36,7 +36,8 @@ export class DepartmentResponseMapper {
   ): DepartmentLeaderboardResponseDto {
     return {
       rank: Number(item.rank),
-      demoMemberId: item.demoMemberId,
+      userId: item.userId,
+      departmentMemberId: item.memberId,
       firstName: item.firstName,
       lastName: item.lastName,
       imagePath: item.imagePath,

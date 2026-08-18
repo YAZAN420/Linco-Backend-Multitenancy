@@ -644,7 +644,7 @@ view DepartmentLeaderboard {
   id           String   @unique
   rank         Int
   departmentId String
-  demoMemberId String
+  userId       String
   memberId     String
   firstName    String
   lastName     String
@@ -652,7 +652,7 @@ view DepartmentLeaderboard {
   jobTitle     JobTitle
   totalScore   Int
 
-  @@unique([departmentId, demoMemberId])
+  @@unique([departmentId, userId])
 }
 
 view DemoOwnerReportView {

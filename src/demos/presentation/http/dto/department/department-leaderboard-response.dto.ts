@@ -2,7 +2,8 @@ import { JobTitle } from 'src/generated/prisma/client';
 
 export class DepartmentLeaderboardResponseDto {
   rank!: number;
-  demoMemberId!: string;
+  userId!: string;
+  departmentMemberId!: string;
   firstName!: string;
   lastName!: string;
   imagePath!: string;

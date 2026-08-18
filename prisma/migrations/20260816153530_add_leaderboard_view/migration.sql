@@ -16,9 +16,9 @@ WITH BestExamScores AS (
 ),
 MemberScores AS (
   SELECT 
-    CONCAT(dep_m."departmentId", '_', dm."id") AS "id",
+    CONCAT(dep_m."departmentId", '_', u."id") AS "id",
     dep_m."departmentId",
-    dm."id" AS "demoMemberId",
+    u."id" AS "userId",
     dep_m."id" AS "memberId",
     u."firstName",
     u."lastName",
@@ -31,12 +31,12 @@ MemberScores AS (
   LEFT JOIN BestExamScores bes 
     ON dm."id" = bes."demoMemberId" 
     AND dep_m."departmentId" = bes."departmentId"
-  GROUP BY dep_m."departmentId", dm."id", dep_m."id", u."firstName", u."lastName", u."imagePath", dep_m."jobTitle"
+  GROUP BY dep_m."departmentId", dep_m."id", u."id", u."firstName", u."lastName", u."imagePath", dep_m."jobTitle"
 )
 SELECT 
   "id",
   "departmentId",
-  "demoMemberId",
+  "userId",
   "memberId",
   "firstName",
   "lastName",

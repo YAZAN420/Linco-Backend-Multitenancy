@@ -40,7 +40,7 @@ export type DepartmentLeaderboardMinAggregateOutputType = {
   id: string | null
   rank: number | null
   departmentId: string | null
-  demoMemberId: string | null
+  userId: string | null
   memberId: string | null
   firstName: string | null
   lastName: string | null
@@ -53,7 +53,7 @@ export type DepartmentLeaderboardMaxAggregateOutputType = {
   id: string | null
   rank: number | null
   departmentId: string | null
-  demoMemberId: string | null
+  userId: string | null
   memberId: string | null
   firstName: string | null
   lastName: string | null
@@ -66,7 +66,7 @@ export type DepartmentLeaderboardCountAggregateOutputType = {
   id: number
   rank: number
   departmentId: number
-  demoMemberId: number
+  userId: number
   memberId: number
   firstName: number
   lastName: number
@@ -91,7 +91,7 @@ export type DepartmentLeaderboardMinAggregateInputType = {
   id?: true
   rank?: true
   departmentId?: true
-  demoMemberId?: true
+  userId?: true
   memberId?: true
   firstName?: true
   lastName?: true
@@ -104,7 +104,7 @@ export type DepartmentLeaderboardMaxAggregateInputType = {
   id?: true
   rank?: true
   departmentId?: true
-  demoMemberId?: true
+  userId?: true
   memberId?: true
   firstName?: true
   lastName?: true
@@ -117,7 +117,7 @@ export type DepartmentLeaderboardCountAggregateInputType = {
   id?: true
   rank?: true
   departmentId?: true
-  demoMemberId?: true
+  userId?: true
   memberId?: true
   firstName?: true
   lastName?: true
@@ -217,7 +217,7 @@ export type DepartmentLeaderboardGroupByOutputType = {
   id: string
   rank: number
   departmentId: string
-  demoMemberId: string
+  userId: string
   memberId: string
   firstName: string
   lastName: string
@@ -253,7 +253,7 @@ export type DepartmentLeaderboardWhereInput = {
   id?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   rank?: Prisma.IntFilter<"DepartmentLeaderboard"> | number
   departmentId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
-  demoMemberId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
+  userId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   memberId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   firstName?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   lastName?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
@@ -266,7 +266,7 @@ export type DepartmentLeaderboardOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  demoMemberId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   memberId?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
@@ -277,26 +277,26 @@ export type DepartmentLeaderboardOrderByWithRelationInput = {
 
 export type DepartmentLeaderboardWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  departmentId_demoMemberId?: Prisma.DepartmentLeaderboardDepartmentIdDemoMemberIdCompoundUniqueInput
+  departmentId_userId?: Prisma.DepartmentLeaderboardDepartmentIdUserIdCompoundUniqueInput
   AND?: Prisma.DepartmentLeaderboardWhereInput | Prisma.DepartmentLeaderboardWhereInput[]
   OR?: Prisma.DepartmentLeaderboardWhereInput[]
   NOT?: Prisma.DepartmentLeaderboardWhereInput | Prisma.DepartmentLeaderboardWhereInput[]
   rank?: Prisma.IntFilter<"DepartmentLeaderboard"> | number
   departmentId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
-  demoMemberId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
+  userId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   memberId?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   firstName?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   lastName?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   imagePath?: Prisma.StringFilter<"DepartmentLeaderboard"> | string
   jobTitle?: Prisma.EnumJobTitleFilter<"DepartmentLeaderboard"> | $Enums.JobTitle
   totalScore?: Prisma.IntFilter<"DepartmentLeaderboard"> | number
-}, "id" | "departmentId_demoMemberId">
+}, "id" | "departmentId_userId">
 
 export type DepartmentLeaderboardOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  demoMemberId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   memberId?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
@@ -317,7 +317,7 @@ export type DepartmentLeaderboardScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
   rank?: Prisma.IntWithAggregatesFilter<"DepartmentLeaderboard"> | number
   departmentId?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
-  demoMemberId?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
   memberId?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
   firstName?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"DepartmentLeaderboard"> | string
@@ -326,16 +326,16 @@ export type DepartmentLeaderboardScalarWhereWithAggregatesInput = {
   totalScore?: Prisma.IntWithAggregatesFilter<"DepartmentLeaderboard"> | number
 }
 
-export type DepartmentLeaderboardDepartmentIdDemoMemberIdCompoundUniqueInput = {
+export type DepartmentLeaderboardDepartmentIdUserIdCompoundUniqueInput = {
   departmentId: string
-  demoMemberId: string
+  userId: string
 }
 
 export type DepartmentLeaderboardCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  demoMemberId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   memberId?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
@@ -353,7 +353,7 @@ export type DepartmentLeaderboardMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  demoMemberId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   memberId?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
@@ -366,7 +366,7 @@ export type DepartmentLeaderboardMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  demoMemberId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   memberId?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
@@ -386,7 +386,7 @@ export type DepartmentLeaderboardSelect<ExtArgs extends runtime.Types.Extensions
   id?: boolean
   rank?: boolean
   departmentId?: boolean
-  demoMemberId?: boolean
+  userId?: boolean
   memberId?: boolean
   firstName?: boolean
   lastName?: boolean
@@ -401,7 +401,7 @@ export type DepartmentLeaderboardSelectScalar = {
   id?: boolean
   rank?: boolean
   departmentId?: boolean
-  demoMemberId?: boolean
+  userId?: boolean
   memberId?: boolean
   firstName?: boolean
   lastName?: boolean
@@ -410,7 +410,7 @@ export type DepartmentLeaderboardSelectScalar = {
   totalScore?: boolean
 }
 
-export type DepartmentLeaderboardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rank" | "departmentId" | "demoMemberId" | "memberId" | "firstName" | "lastName" | "imagePath" | "jobTitle" | "totalScore", ExtArgs["result"]["departmentLeaderboard"]>
+export type DepartmentLeaderboardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rank" | "departmentId" | "userId" | "memberId" | "firstName" | "lastName" | "imagePath" | "jobTitle" | "totalScore", ExtArgs["result"]["departmentLeaderboard"]>
 
 export type $DepartmentLeaderboardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DepartmentLeaderboard"
@@ -419,7 +419,7 @@ export type $DepartmentLeaderboardPayload<ExtArgs extends runtime.Types.Extensio
     id: string
     rank: number
     departmentId: string
-    demoMemberId: string
+    userId: string
     memberId: string
     firstName: string
     lastName: string
@@ -687,7 +687,7 @@ export interface DepartmentLeaderboardFieldRefs {
   readonly id: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
   readonly rank: Prisma.FieldRef<"DepartmentLeaderboard", 'Int'>
   readonly departmentId: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
-  readonly demoMemberId: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
+  readonly userId: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
   readonly memberId: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
   readonly firstName: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>
   readonly lastName: Prisma.FieldRef<"DepartmentLeaderboard", 'String'>

@@ -243,7 +243,7 @@ export interface AdminDemoStats {
 
 export interface DepartmentLeaderboardItem {
   rank: number;
-  demoMemberId: string;
+  userId: string;
   memberId: string;
   firstName: string;
   lastName: string;
@@ -251,3 +251,4 @@ export interface DepartmentLeaderboardItem {
   jobTitle: JobTitle;
   totalScore: number;
 }
+

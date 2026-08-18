@@ -487,7 +487,7 @@ export const DepartmentLeaderboardScalarFieldEnum = {
   id: 'id',
   rank: 'rank',
   departmentId: 'departmentId',
-  demoMemberId: 'demoMemberId',
+  userId: 'userId',
   memberId: 'memberId',
   firstName: 'firstName',
   lastName: 'lastName',
