@@ -184,5 +184,10 @@
   "CANT_UPLOAD_MORE_THAN_7_FILES_AT_A_TIME": "Cannot upload more than 7 files at a time",
   "ORDER_MUST_BE_ASC_OR_DESC": "Order must be asc or desc",
   "PASSWORD_COMPLEXITY_REQUIREMENT": "Password must contain uppercase, lowercase, number, and special character",
-  "PLEASE_PROVIDE_A_TWO_FACTOR_AUTHENTICATION_CODE_TO_CONTINUE": "Please provide a two-factor authentication code to continue"
+  "PLEASE_PROVIDE_A_TWO_FACTOR_AUTHENTICATION_CODE_TO_CONTINUE": "Please provide a two-factor authentication code to continue",
+  "DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND": "Demo with this Stripe subscription was not found",
+  "UNAUTHORIZED_TO_DELETE_EXAM_ATTEMPT": "You are not authorized to delete this exam attempt",
+  "TWO_FACTOR_SECRET_NOT_FOUND": "Two-factor authentication secret was not found",
+  "NO_ACTIVE_SUBSCRIPTION_FOUND_FOR_DEMO": "No active subscription found for this demo workspace",
+  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "Unknown subscription price ID"
 }

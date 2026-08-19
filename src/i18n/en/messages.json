@@ -152,5 +152,6 @@
   "FCM_TOKEN_REMOVED_SUCCESSFULLY": "FCM Token removed successfully",
   "FREE_COURSE_ADDED_TO_ASSETS_SUCCESSFULLY": "Free course added to assets successfully",
   "CHECKOUT_SESSION_CREATED_SUCCESSFULLY": "Checkout session created successfully",
-  "DEPARTMENT_LEADERBOARD_FETCHED_SUCCESSFULLY": "Department leaderboard fetched successfully"
+  "DEPARTMENT_LEADERBOARD_FETCHED_SUCCESSFULLY": "Department leaderboard fetched successfully",
+  "PORTAL_SESSION_CREATED_SUCCESSFULLY": "Customer portal session created successfully"
 }

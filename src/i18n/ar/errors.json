@@ -184,5 +184,10 @@
   "CANT_UPLOAD_MORE_THAN_7_FILES_AT_A_TIME": "لا يمكن رفع أكثر من 7 ملفات في المرة الواحدة",
   "ORDER_MUST_BE_ASC_OR_DESC": "ترتيب الفرز يجب أن يكون asc أو desc",
   "PASSWORD_COMPLEXITY_REQUIREMENT": "يجب أن تحتوي كلمة المرور على حرف كبير، وحرف صغير، ورقم، ورمز خاص",
-  "PLEASE_PROVIDE_A_TWO_FACTOR_AUTHENTICATION_CODE_TO_CONTINUE": "يرجى إدخال رمز المصادقة الثنائية للمتابعة"
+  "PLEASE_PROVIDE_A_TWO_FACTOR_AUTHENTICATION_CODE_TO_CONTINUE": "يرجى إدخال رمز المصادقة الثنائية للمتابعة",
+  "DEMO_WITH_STRIPE_SUBSCRIPTION_NOT_FOUND": "لم يتم العثور على بيئة العرض التوضيحي المرتبطة باشتراك Stripe هذا",
+  "UNAUTHORIZED_TO_DELETE_EXAM_ATTEMPT": "غير مصرح لك بحذف محاولة الاختبار هذه",
+  "TWO_FACTOR_SECRET_NOT_FOUND": "لم يتم العثور على المفتاح السري للمصادقة الثنائية",
+  "NO_ACTIVE_SUBSCRIPTION_FOUND_FOR_DEMO": "لا يوجد اشتراك نشط لبيئة العمل هذه",
+  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "معرّف سعر الاشتراك غير معروف"
 }

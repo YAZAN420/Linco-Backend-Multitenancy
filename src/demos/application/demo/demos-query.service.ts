@@ -44,7 +44,7 @@ export class DemosQueryService {
       demo.subscriptionStatus === SubscriptionStatus.CANCELED
     )
       throw new ForbiddenException(
-        'Your subscription has expired. Please renew to continue.',
+        'errors.YOUR_SUBSCRIPTION_HAS_EXPIRED_PLEASE_UPGRADE_TO_CONTINUE',
       );
 
     return demo;
