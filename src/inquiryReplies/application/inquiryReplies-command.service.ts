@@ -40,7 +40,16 @@ export class InquiryRepliesCommandService {
       const title = 'New Reply to Your Inquiry';
       const body = `You have a new reply on "${inquiry.subject}": ${input.message.slice(0, 100)}`;
 
-      await this.notificationService.sendToUser(inquiry.creatorId, title, body);
+      await this.notificationService.sendToUser(
+        inquiry.creatorId,
+        title,
+        body,
+        {
+          type: 'INQUIRY_REPLY',
+          inquiryId: inquiry.id,
+          demoId: inquiry.demoId,
+        },
+      );
     }
     return inquiryReply;
   }

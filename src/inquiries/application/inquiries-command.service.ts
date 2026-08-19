@@ -35,7 +35,11 @@ export class InquiriesCommandService {
     const title = 'New Demo Inquiry';
     const body = `You received a new inquiry regarding "${demo.name}": ${input.subject}`;
 
-    await this.notificationsService.sendToUser(demo.ownerId, title, body);
+    await this.notificationsService.sendToUser(demo.ownerId, title, body, {
+      type: 'NEW_INQUIRY',
+      inquiryId: inquiry.id,
+      demoId: demoId,
+    });
     return inquiry;
   }
 
