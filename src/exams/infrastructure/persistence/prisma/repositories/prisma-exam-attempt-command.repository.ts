@@ -91,11 +91,9 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
     });
 
     return previousSections.every(
-      (section) =>
-        section.exam !== null &&
-        section.exam.attempts.some(
-          (attempt) => attempt.score >= section.exam!.passingScore,
-        ),
+      ({ exam }) =>
+        exam === null ||
+        exam.attempts.some((attempt) => attempt.score >= exam.passingScore),
     );
   }
 }
