@@ -10,6 +10,7 @@ export interface MemberPerformanceReport {
   userId: string;
   fullName: string;
   email: string;
+  imagePath: string;
   demoRole: DemoMemberRole;
   joinedAt: Date;
   departments: MemberDepartmentReport[];

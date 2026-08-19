@@ -4,12 +4,16 @@ import { MemberPerformanceViewRow } from '../types/member-performance-view-row.t
 
 @Injectable()
 export class PrismaMemberPerformanceReportMapper {
-  toDomain(raw: MemberPerformanceViewRow): MemberPerformanceReport {
+  toDomain(
+    raw: MemberPerformanceViewRow,
+    imagePath: string,
+  ): MemberPerformanceReport {
     return {
       memberId: raw.memberId,
       userId: raw.userId,
       fullName: raw.fullName,
       email: raw.email,
+      imagePath,
       demoRole: raw.demoRole,
       joinedAt: raw.joinedAt,
       departments: raw.departmentIds.map((departmentId, index) => ({
