@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page-meta.dto';
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { InquiryWithDemoMember, InquiryWithReply } from 'src/core/database/prisma/types';
+import { InquiryWithReply } from 'src/core/database/prisma/types';
 
 import { FindInquiriesCursorQuery } from 'src/inquiries/application/interfaces/find-inquiries.query';
 import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
@@ -28,18 +28,18 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
       include: {
         creator: {
           include: {
-            user: true
+            user: true,
           },
         },
         reply: {
           include: {
             sender: {
               include: {
-                user: true
-              }
-            }
-          }
-        }
+                user: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -73,18 +73,18 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
       include: {
         creator: {
           include: {
-            user: true
+            user: true,
           },
         },
         reply: {
           include: {
             sender: {
               include: {
-                user: true
-              }
-            }
-          }
-        }
+                user: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -101,7 +101,7 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
 
   async findById(
     id: string,
-    demoId: string,
+    demoId?: string,
   ): Promise<InquiryWithReply | null> {
     return this.prisma.inquiry.findFirst({
       where: { id, demoId },
@@ -115,11 +115,11 @@ export class PrismaInquiryQueryRepository implements InquiryQueryRepository {
           include: {
             sender: {
               include: {
-                user: true
-              }
-            }
-          }
-        }
+                user: true,
+              },
+            },
+          },
+        },
       },
     });
   }
