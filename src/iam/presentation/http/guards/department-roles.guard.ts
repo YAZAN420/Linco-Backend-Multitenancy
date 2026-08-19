@@ -62,6 +62,7 @@ export class DepartmentRolesGuard implements CanActivate {
       await this.departmentMemberCommandService.addMember(departmentId, {
         demoMemberId: activeDemoMember.id,
         jobTitle: JobTitle.SENIOR,
+        role: DepartmentMemberRole.MANAGER,
       });
       deptMember = await this.departmentMemberQueryRepository.findById(
         departmentId,

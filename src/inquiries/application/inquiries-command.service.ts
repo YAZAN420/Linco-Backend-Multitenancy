@@ -25,6 +25,7 @@ export class InquiriesCommandService {
       demoId,
     );
     await this.inquiryCommandRepository.save(inquiry);
+
     return inquiry;
   }
 
