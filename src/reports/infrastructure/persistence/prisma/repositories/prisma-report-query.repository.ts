@@ -48,8 +48,19 @@ export class PrismaReportQueryRepository implements ReportQueryRepository {
       orderBy: [{ joinedAt: 'desc' }, { memberId: 'desc' }],
     });
 
+    const users = await this.prisma.user.findMany({
+      where: { id: { in: reportRows.map((row) => row.userId) } },
+      select: { id: true, imagePath: true },
+    });
+    const imagePathByUserId = new Map(
+      users.map((user) => [user.id, user.imagePath]),
+    );
+
     return reportRows.map((row) =>
-      this.memberPerformanceReportMapper.toDomain(row),
+      this.memberPerformanceReportMapper.toDomain(
+        row,
+        imagePathByUserId.get(row.userId) ?? '',
+      ),
     );
   }
 
