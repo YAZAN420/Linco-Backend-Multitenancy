@@ -199,3 +199,18 @@ export type CoursePerformanceView = Prisma.CoursePerformanceViewModel
  * 
  */
 export type DepartmentPerformanceView = Prisma.DepartmentPerformanceViewModel
+/**
+ * Model DashboardSummaryView
+ * 
+ */
+export type DashboardSummaryView = Prisma.DashboardSummaryViewModel
+/**
+ * Model DashboardLearnerGrowthView
+ * 
+ */
+export type DashboardLearnerGrowthView = Prisma.DashboardLearnerGrowthViewModel
+/**
+ * Model DashboardUserDistributionView
+ * 
+ */
+export type DashboardUserDistributionView = Prisma.DashboardUserDistributionViewModel

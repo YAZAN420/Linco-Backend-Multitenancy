@@ -50,6 +50,8 @@ import { LiveStreamsModule } from './live-streams/live-streams.module';
 import { LiveStreamsInfrastructureModule } from './live-streams/infrastructure/live-streams-infrastructure.module';
 import { ReportsModule } from './reports/reports.module';
 import { ReportsInfrastructureModule } from './reports/infrastructure/reports-infrastructure.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardInfrastructureModule } from './dashboard/infrastructure/dashboard-infrastructure.module';
 
 @Module({})
 export class AppModule {
@@ -95,6 +97,7 @@ export class AppModule {
           LiveStreamsInfrastructureModule.use(),
         ),
         ReportsModule.withInfrastructure(ReportsInfrastructureModule.use()),
+        DashboardModule.withInfrastructure(DashboardInfrastructureModule.use()),
         this.registerI18n(),
       ],
       providers: [

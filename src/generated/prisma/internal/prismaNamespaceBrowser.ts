@@ -82,7 +82,10 @@ export const ModelName = {
   DemoOwnerReportView: 'DemoOwnerReportView',
   MemberPerformanceView: 'MemberPerformanceView',
   CoursePerformanceView: 'CoursePerformanceView',
-  DepartmentPerformanceView: 'DepartmentPerformanceView'
+  DepartmentPerformanceView: 'DepartmentPerformanceView',
+  DashboardSummaryView: 'DashboardSummaryView',
+  DashboardLearnerGrowthView: 'DashboardLearnerGrowthView',
+  DashboardUserDistributionView: 'DashboardUserDistributionView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -590,6 +593,42 @@ export const DepartmentPerformanceViewScalarFieldEnum = {
 } as const
 
 export type DepartmentPerformanceViewScalarFieldEnum = (typeof DepartmentPerformanceViewScalarFieldEnum)[keyof typeof DepartmentPerformanceViewScalarFieldEnum]
+
+
+export const DashboardSummaryViewScalarFieldEnum = {
+  id: 'id',
+  registeredCompaniesCurrent: 'registeredCompaniesCurrent',
+  registeredCompaniesPrevious: 'registeredCompaniesPrevious',
+  activeLearnersCurrent: 'activeLearnersCurrent',
+  activeLearnersPrevious: 'activeLearnersPrevious',
+  publishedCoursesCurrent: 'publishedCoursesCurrent',
+  publishedCoursesPrevious: 'publishedCoursesPrevious',
+  completedLearnersCurrent: 'completedLearnersCurrent',
+  completedLearnersPrevious: 'completedLearnersPrevious'
+} as const
+
+export type DashboardSummaryViewScalarFieldEnum = (typeof DashboardSummaryViewScalarFieldEnum)[keyof typeof DashboardSummaryViewScalarFieldEnum]
+
+
+export const DashboardLearnerGrowthViewScalarFieldEnum = {
+  id: 'id',
+  period: 'period',
+  bucketIndex: 'bucketIndex',
+  date: 'date',
+  value: 'value'
+} as const
+
+export type DashboardLearnerGrowthViewScalarFieldEnum = (typeof DashboardLearnerGrowthViewScalarFieldEnum)[keyof typeof DashboardLearnerGrowthViewScalarFieldEnum]
+
+
+export const DashboardUserDistributionViewScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  count: 'count',
+  total: 'total'
+} as const
+
+export type DashboardUserDistributionViewScalarFieldEnum = (typeof DashboardUserDistributionViewScalarFieldEnum)[keyof typeof DashboardUserDistributionViewScalarFieldEnum]
 
 
 export const SortOrder = {
