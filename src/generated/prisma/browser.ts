@@ -192,3 +192,13 @@ export type DashboardLearnerGrowthView = Prisma.DashboardLearnerGrowthViewModel
  * 
  */
 export type DashboardUserDistributionView = Prisma.DashboardUserDistributionViewModel
+/**
+ * Model DashboardLearningEngagementView
+ *
+ */
+export type DashboardLearningEngagementView = Prisma.DashboardLearningEngagementViewModel
+/**
+ * Model DashboardPlatformHealthView
+ *
+ */
+export type DashboardPlatformHealthView = Prisma.DashboardPlatformHealthViewModel

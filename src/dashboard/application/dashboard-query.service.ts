@@ -7,6 +7,10 @@ import {
   UserDistributionRole,
 } from './interfaces/dashboard-read-models';
 import { DashboardQueryRepository } from './ports/dashboard-query.repository';
+import {
+  DashboardReportKey,
+  DashboardReports,
+} from './interfaces/dashboard-report-read-models';
 
 @Injectable()
 export class DashboardQueryService {
@@ -52,6 +56,80 @@ export class DashboardQueryService {
       },
       userDistribution: this.toUserDistribution(distribution),
     };
+  }
+
+  async getReports(): Promise<DashboardReports> {
+    const [learningEngagement, platformHealth] = await Promise.all([
+      this.repository.getLearningEngagement(),
+      this.repository.getPlatformHealth(),
+    ]);
+
+    return {
+      learningEngagement: {
+        period: 'LAST_SIX_MONTHS',
+        points: learningEngagement.map((point) => ({
+          ...point,
+          label: point.date.toLocaleDateString('en-US', {
+            month: 'short',
+            timeZone: 'UTC',
+          }),
+        })),
+      },
+      platformHealth: {
+        period: 'CURRENT_MONTH',
+        periodStart: platformHealth.periodStart,
+        apiAvailability: {
+          value: platformHealth.apiAvailability,
+          measured: platformHealth.apiAvailability !== null,
+        },
+        courseCompletion: {
+          value: platformHealth.courseCompletion,
+          completedAssignments: platformHealth.completedCourseAssignments,
+          totalAssignments: platformHealth.courseAssignments,
+        },
+        workspaceActivation: {
+          value: platformHealth.workspaceActivation,
+          activatedWorkspaces: platformHealth.activatedWorkspaces,
+          totalWorkspaces: platformHealth.totalWorkspaces,
+        },
+        supportResponseSla: {
+          value: platformHealth.supportResponseSla,
+          responsesWithinSla: platformHealth.supportResponsesWithinSla,
+          totalInquiries: platformHealth.supportInquiries,
+          targetHours: 24,
+        },
+      },
+      reportCatalog: this.reportCatalog(),
+    };
+  }
+
+  private reportCatalog(): DashboardReports['reportCatalog'] {
+    const reports: Array<{
+      key: DashboardReportKey;
+      title: string;
+      description: string;
+    }> = [
+      {
+        key: 'COMPANY_ADOPTION',
+        title: 'Company adoption',
+        description:
+          'Workspace growth, plan distribution, and company engagement.',
+      },
+      {
+        key: 'LEARNER_PERFORMANCE',
+        title: 'Learner performance',
+        description:
+          'Completion rates, activity levels, scores, and certificate progress.',
+      },
+      {
+        key: 'CONTENT_PERFORMANCE',
+        title: 'Content performance',
+        description:
+          'Enrollment, completion, drop-off, and curriculum quality insights.',
+      },
+    ];
+
+    return reports;
   }
 
   private toMetric(comparison: CountComparison) {

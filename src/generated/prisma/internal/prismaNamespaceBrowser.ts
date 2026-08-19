@@ -85,7 +85,9 @@ export const ModelName = {
   DepartmentPerformanceView: 'DepartmentPerformanceView',
   DashboardSummaryView: 'DashboardSummaryView',
   DashboardLearnerGrowthView: 'DashboardLearnerGrowthView',
-  DashboardUserDistributionView: 'DashboardUserDistributionView'
+  DashboardUserDistributionView: 'DashboardUserDistributionView',
+  DashboardLearningEngagementView: 'DashboardLearningEngagementView',
+  DashboardPlatformHealthView: 'DashboardPlatformHealthView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -629,6 +631,35 @@ export const DashboardUserDistributionViewScalarFieldEnum = {
 } as const
 
 export type DashboardUserDistributionViewScalarFieldEnum = (typeof DashboardUserDistributionViewScalarFieldEnum)[keyof typeof DashboardUserDistributionViewScalarFieldEnum]
+
+
+export const DashboardLearningEngagementViewScalarFieldEnum = {
+  id: 'id',
+  bucketIndex: 'bucketIndex',
+  date: 'date',
+  activeLearners: 'activeLearners',
+  completedLearningPaths: 'completedLearningPaths'
+} as const
+
+export type DashboardLearningEngagementViewScalarFieldEnum = (typeof DashboardLearningEngagementViewScalarFieldEnum)[keyof typeof DashboardLearningEngagementViewScalarFieldEnum]
+
+
+export const DashboardPlatformHealthViewScalarFieldEnum = {
+  id: 'id',
+  periodStart: 'periodStart',
+  apiAvailability: 'apiAvailability',
+  courseCompletion: 'courseCompletion',
+  workspaceActivation: 'workspaceActivation',
+  supportResponseSla: 'supportResponseSla',
+  courseAssignments: 'courseAssignments',
+  completedCourseAssignments: 'completedCourseAssignments',
+  totalWorkspaces: 'totalWorkspaces',
+  activatedWorkspaces: 'activatedWorkspaces',
+  supportInquiries: 'supportInquiries',
+  supportResponsesWithinSla: 'supportResponsesWithinSla'
+} as const
+
+export type DashboardPlatformHealthViewScalarFieldEnum = (typeof DashboardPlatformHealthViewScalarFieldEnum)[keyof typeof DashboardPlatformHealthViewScalarFieldEnum]
 
 
 export const SortOrder = {

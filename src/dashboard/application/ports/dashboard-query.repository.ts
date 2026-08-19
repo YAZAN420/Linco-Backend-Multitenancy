@@ -4,6 +4,10 @@ import {
   LearnerGrowthCount,
   UserDistributionCounts,
 } from '../interfaces/dashboard-read-models';
+import {
+  DashboardPlatformHealthSnapshot,
+  LearningEngagementPoint,
+} from '../interfaces/dashboard-report-read-models';
 
 export abstract class DashboardQueryRepository {
   abstract getSummaryCounts(): Promise<DashboardSummaryCounts>;
@@ -13,4 +17,8 @@ export abstract class DashboardQueryRepository {
   ): Promise<LearnerGrowthCount[]>;
 
   abstract getUserDistribution(): Promise<UserDistributionCounts>;
+
+  abstract getLearningEngagement(): Promise<LearningEngagementPoint[]>;
+
+  abstract getPlatformHealth(): Promise<DashboardPlatformHealthSnapshot>;
 }

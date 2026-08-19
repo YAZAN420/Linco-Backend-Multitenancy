@@ -24,4 +24,14 @@ export class DashboardQueryController {
       data: this.responseMapper.toAnalyticsResponse(analytics),
     };
   }
+
+  @Get('reports')
+  async getReports() {
+    const reports = await this.queryService.getReports();
+
+    return {
+      message: 'messages.REQUEST_SUCCESSFUL',
+      data: this.responseMapper.toReportsResponse(reports),
+    };
+  }
 }

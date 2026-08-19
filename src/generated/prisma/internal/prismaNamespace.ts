@@ -431,7 +431,9 @@ export const ModelName = {
   DepartmentPerformanceView: 'DepartmentPerformanceView',
   DashboardSummaryView: 'DashboardSummaryView',
   DashboardLearnerGrowthView: 'DashboardLearnerGrowthView',
-  DashboardUserDistributionView: 'DashboardUserDistributionView'
+  DashboardUserDistributionView: 'DashboardUserDistributionView',
+  DashboardLearningEngagementView: 'DashboardLearningEngagementView',
+  DashboardPlatformHealthView: 'DashboardPlatformHealthView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -447,7 +449,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification" | "departmentLeaderboard" | "demoOwnerReportView" | "memberPerformanceView" | "coursePerformanceView" | "departmentPerformanceView" | "dashboardSummaryView" | "dashboardLearnerGrowthView" | "dashboardUserDistributionView"
+    modelProps: "user" | "demoMember" | "departmentMember" | "department" | "liveStream" | "demo" | "course" | "courseFaq" | "section" | "lesson" | "attachment" | "exam" | "questionsBank" | "questionChoice" | "examAttempt" | "asset" | "departmentCourse" | "discussionQuestion" | "discussionAnswer" | "invitation" | "payment" | "tag" | "inquiry" | "inquiryReply" | "departmentMessage" | "fcmToken" | "certification" | "departmentLeaderboard" | "demoOwnerReportView" | "memberPerformanceView" | "coursePerformanceView" | "departmentPerformanceView" | "dashboardSummaryView" | "dashboardLearnerGrowthView" | "dashboardUserDistributionView" | "dashboardLearningEngagementView" | "dashboardPlatformHealthView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2753,6 +2755,82 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DashboardLearningEngagementView: {
+      payload: Prisma.$DashboardLearningEngagementViewPayload<ExtArgs>
+      fields: Prisma.DashboardLearningEngagementViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DashboardLearningEngagementViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardLearningEngagementViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DashboardLearningEngagementViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardLearningEngagementViewPayload>
+        }
+        findFirst: {
+          args: Prisma.DashboardLearningEngagementViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardLearningEngagementViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DashboardLearningEngagementViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardLearningEngagementViewPayload>
+        }
+        findMany: {
+          args: Prisma.DashboardLearningEngagementViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardLearningEngagementViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DashboardLearningEngagementViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDashboardLearningEngagementView>
+        }
+        groupBy: {
+          args: Prisma.DashboardLearningEngagementViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardLearningEngagementViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DashboardLearningEngagementViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardLearningEngagementViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    DashboardPlatformHealthView: {
+      payload: Prisma.$DashboardPlatformHealthViewPayload<ExtArgs>
+      fields: Prisma.DashboardPlatformHealthViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DashboardPlatformHealthViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardPlatformHealthViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DashboardPlatformHealthViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardPlatformHealthViewPayload>
+        }
+        findFirst: {
+          args: Prisma.DashboardPlatformHealthViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardPlatformHealthViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DashboardPlatformHealthViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardPlatformHealthViewPayload>
+        }
+        findMany: {
+          args: Prisma.DashboardPlatformHealthViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardPlatformHealthViewPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DashboardPlatformHealthViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDashboardPlatformHealthView>
+        }
+        groupBy: {
+          args: Prisma.DashboardPlatformHealthViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardPlatformHealthViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DashboardPlatformHealthViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardPlatformHealthViewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3319,6 +3397,35 @@ export const DashboardUserDistributionViewScalarFieldEnum = {
 export type DashboardUserDistributionViewScalarFieldEnum = (typeof DashboardUserDistributionViewScalarFieldEnum)[keyof typeof DashboardUserDistributionViewScalarFieldEnum]
 
 
+export const DashboardLearningEngagementViewScalarFieldEnum = {
+  id: 'id',
+  bucketIndex: 'bucketIndex',
+  date: 'date',
+  activeLearners: 'activeLearners',
+  completedLearningPaths: 'completedLearningPaths'
+} as const
+
+export type DashboardLearningEngagementViewScalarFieldEnum = (typeof DashboardLearningEngagementViewScalarFieldEnum)[keyof typeof DashboardLearningEngagementViewScalarFieldEnum]
+
+
+export const DashboardPlatformHealthViewScalarFieldEnum = {
+  id: 'id',
+  periodStart: 'periodStart',
+  apiAvailability: 'apiAvailability',
+  courseCompletion: 'courseCompletion',
+  workspaceActivation: 'workspaceActivation',
+  supportResponseSla: 'supportResponseSla',
+  courseAssignments: 'courseAssignments',
+  completedCourseAssignments: 'completedCourseAssignments',
+  totalWorkspaces: 'totalWorkspaces',
+  activatedWorkspaces: 'activatedWorkspaces',
+  supportInquiries: 'supportInquiries',
+  supportResponsesWithinSla: 'supportResponsesWithinSla'
+} as const
+
+export type DashboardPlatformHealthViewScalarFieldEnum = (typeof DashboardPlatformHealthViewScalarFieldEnum)[keyof typeof DashboardPlatformHealthViewScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3821,6 +3928,8 @@ export type GlobalOmitConfig = {
   dashboardSummaryView?: Prisma.DashboardSummaryViewOmit
   dashboardLearnerGrowthView?: Prisma.DashboardLearnerGrowthViewOmit
   dashboardUserDistributionView?: Prisma.DashboardUserDistributionViewOmit
+  dashboardLearningEngagementView?: Prisma.DashboardLearningEngagementViewOmit
+  dashboardPlatformHealthView?: Prisma.DashboardPlatformHealthViewOmit
 }
 
 /* Types for Logging */

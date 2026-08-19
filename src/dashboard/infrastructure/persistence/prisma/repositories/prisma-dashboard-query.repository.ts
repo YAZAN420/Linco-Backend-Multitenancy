@@ -8,6 +8,10 @@ import {
 } from 'src/dashboard/application/interfaces/dashboard-read-models';
 import { DashboardQueryRepository } from 'src/dashboard/application/ports/dashboard-query.repository';
 import { PrismaDashboardAnalyticsMapper } from '../mappers/prisma-dashboard-analytics.mapper';
+import {
+  DashboardPlatformHealthSnapshot,
+  LearningEngagementPoint,
+} from 'src/dashboard/application/interfaces/dashboard-report-read-models';
 
 @Injectable()
 export class PrismaDashboardQueryRepository implements DashboardQueryRepository {
@@ -38,5 +42,21 @@ export class PrismaDashboardQueryRepository implements DashboardQueryRepository 
   async getUserDistribution(): Promise<UserDistributionCounts> {
     const rows = await this.prisma.dashboardUserDistributionView.findMany();
     return this.mapper.toUserDistribution(rows);
+  }
+
+  async getLearningEngagement(): Promise<LearningEngagementPoint[]> {
+    const rows = await this.prisma.dashboardLearningEngagementView.findMany({
+      orderBy: { bucketIndex: 'asc' },
+    });
+
+    return this.mapper.toLearningEngagement(rows);
+  }
+
+  async getPlatformHealth(): Promise<DashboardPlatformHealthSnapshot> {
+    const row = await this.prisma.dashboardPlatformHealthView.findUnique({
+      where: { id: 'platform-health' },
+    });
+
+    return this.mapper.toPlatformHealth(row);
   }
 }

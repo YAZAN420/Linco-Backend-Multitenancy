@@ -772,3 +772,26 @@ view DashboardUserDistributionView {
   count Int
   total Int
 }
+
+view DashboardLearningEngagementView {
+  id                     String   @unique
+  bucketIndex            Int
+  date                   DateTime
+  activeLearners         Int
+  completedLearningPaths Int
+}
+
+view DashboardPlatformHealthView {
+  id                         String   @unique
+  periodStart                DateTime
+  apiAvailability            Float?
+  courseCompletion           Float
+  workspaceActivation        Float
+  supportResponseSla         Float
+  courseAssignments          Int
+  completedCourseAssignments Int
+  totalWorkspaces            Int
+  activatedWorkspaces        Int
+  supportInquiries           Int
+  supportResponsesWithinSla  Int
+}
