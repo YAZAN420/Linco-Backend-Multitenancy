@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { NotificationsService } from './application/notifications.service';
 import { FcmTokensController } from './presentation/fcm-tokens.controller';
 
@@ -7,6 +7,7 @@ import { PrismaFcmTokenRepository } from './infrastructure/persistence/prisma-fc
 import { FcmTokenRepository } from './application/ports/fcm-token.repository.port';
 import { NotificationsPort } from './application/ports/notifications.port';
 
+@Global()
 @Module({
   controllers: [FcmTokensController],
   providers: [
