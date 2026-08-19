@@ -5,11 +5,15 @@ import { Inquiry } from '../domain/inquiry';
 
 import { CreateInquiryInput } from './interfaces/create-inquiry-input.interface';
 import { UpdateInquiryInput } from './interfaces/update-inquiry-input.interface';
+import { DemosCommandService } from 'src/demos/application/demo/demos-command.service';
+import { NotificationsService } from 'src/notifications/application/notifications.service';
 
 @Injectable()
 export class InquiriesCommandService {
   constructor(
     private readonly inquiryCommandRepository: InquiryCommandRepository,
+    private readonly demoCommandService: DemosCommandService,
+    private readonly notificationsService: NotificationsService,
     private readonly inquiryFactory: InquiryFactory,
   ) {}
 
@@ -25,6 +29,17 @@ export class InquiriesCommandService {
       demoId,
     );
     await this.inquiryCommandRepository.save(inquiry);
+
+    const demo = await this.demoCommandService.findById(demoId);
+
+    const title = 'New Demo Inquiry';
+    const body = `You received a new inquiry regarding "${demo.name}": ${input.subject}`;
+
+    await this.notificationsService.sendToUser(demo.ownerId, title, body, {
+      type: 'NEW_INQUIRY',
+      inquiryId: inquiry.id,
+      demoId: demoId,
+    });
     return inquiry;
   }
 

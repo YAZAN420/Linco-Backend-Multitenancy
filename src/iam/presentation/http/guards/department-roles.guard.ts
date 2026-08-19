@@ -15,6 +15,9 @@ import { DepartmentRoles } from '../decorators/department-roles.decorator';
 import { DepartmentMemberQueryRepository } from 'src/demos/application/ports/department-member/department-member-query.repository';
 import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
+import { DepartmentMembersCommandService } from 'src/demos/application/department-member/department-members-command.service';
+import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
+import { JobTitle } from 'src/demos/domain/enums/job-title.enum';
 
 @Injectable()
 export class DepartmentRolesGuard implements CanActivate {
@@ -22,6 +25,7 @@ export class DepartmentRolesGuard implements CanActivate {
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
     private readonly departmentMemberQueryRepository: DepartmentMemberQueryRepository,
+    private readonly departmentMemberCommandService: DepartmentMembersCommandService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -45,10 +49,26 @@ export class DepartmentRolesGuard implements CanActivate {
       );
     }
 
-    const deptMember = await this.departmentMemberQueryRepository.findById(
+    let deptMember = await this.departmentMemberQueryRepository.findById(
       departmentId,
       activeDemoMember.id,
     );
+
+    if (
+      !deptMember &&
+      (activeDemoMember.role === DemoMemberRole.ADMIN ||
+        activeDemoMember.role === DemoMemberRole.OWNER)
+    ) {
+      await this.departmentMemberCommandService.addMember(departmentId, {
+        demoMemberId: activeDemoMember.id,
+        jobTitle: JobTitle.SENIOR,
+        role: DepartmentMemberRole.MANAGER,
+      });
+      deptMember = await this.departmentMemberQueryRepository.findById(
+        departmentId,
+        activeDemoMember.id,
+      );
+    }
 
     if (!deptMember) {
       throw new ForbiddenException(

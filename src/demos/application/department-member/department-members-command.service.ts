@@ -36,7 +36,7 @@ export class DepartmentMembersCommandService {
     const member = this.departmentMemberFactory.createNew(
       departmentId,
       input.demoMemberId,
-      DepartmentMemberRole.MEMBER,
+      input.role ? input.role : DepartmentMemberRole.MEMBER,
       input.jobTitle,
     );
     await this.departmentMemberCommandRepository.save(member);

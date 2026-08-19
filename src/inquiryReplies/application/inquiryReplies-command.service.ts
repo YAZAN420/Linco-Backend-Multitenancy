@@ -7,11 +7,15 @@ import { CreateInquiryReplyInput } from './interfaces/create-inquiryReply-input.
 import { UpdateInquiryReplyInput } from './interfaces/update-inquiryReply-input.interface';
 import { InquirySenderType } from '../domain/enums/InquirySenderType';
 import { DemoMemberRole } from 'src/generated/prisma/enums';
+import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
+import { NotificationsService } from 'src/notifications/application/notifications.service';
 
 @Injectable()
 export class InquiryRepliesCommandService {
   constructor(
     private readonly inquiryReplyCommandRepository: InquiryReplyCommandRepository,
+    private readonly inquiryQueryRepository: InquiryQueryRepository,
+    private readonly notificationService: NotificationsService,
     private readonly inquiryReplyFactory: InquiryReplyFactory,
   ) {}
 
@@ -29,6 +33,24 @@ export class InquiryRepliesCommandService {
       inquiryId,
     );
     await this.inquiryReplyCommandRepository.save(inquiryReply);
+
+    const inquiry = await this.inquiryQueryRepository.findById(inquiryId);
+
+    if (inquiry?.creatorId) {
+      const title = 'New Reply to Your Inquiry';
+      const body = `You have a new reply on "${inquiry.subject}": ${input.message.slice(0, 100)}`;
+
+      await this.notificationService.sendToUser(
+        inquiry.creatorId,
+        title,
+        body,
+        {
+          type: 'INQUIRY_REPLY',
+          inquiryId: inquiry.id,
+          demoId: inquiry.demoId,
+        },
+      );
+    }
     return inquiryReply;
   }
 
