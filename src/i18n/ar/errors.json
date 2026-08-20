@@ -189,5 +189,6 @@
   "UNAUTHORIZED_TO_DELETE_EXAM_ATTEMPT": "غير مصرح لك بحذف محاولة الاختبار هذه",
   "TWO_FACTOR_SECRET_NOT_FOUND": "لم يتم العثور على المفتاح السري للمصادقة الثنائية",
   "NO_ACTIVE_SUBSCRIPTION_FOUND_FOR_DEMO": "لا يوجد اشتراك نشط لبيئة العمل هذه",
-  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "معرّف سعر الاشتراك غير معروف"
+  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "معرّف سعر الاشتراك غير معروف",
+  "ACCOUNT_SUSPENDED": "تم تعليق حسابك. يرجى التواصل مع الدعم للحصول على المساعدة."
 }

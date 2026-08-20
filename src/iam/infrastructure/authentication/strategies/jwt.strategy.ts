@@ -33,9 +33,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   validate(payload: ActiveUserData) {
     if (payload.status === UserStatus.SUSPENDED)
-      throw new ForbiddenException(
-        'Your account has been suspended. Please contact support for assistance.',
-      );
+      throw new ForbiddenException('errors.ACCOUNT_SUSPENDED');
 
     if (this.cls.isActive()) {
       this.cls.set(CLS_KEYS.USER, payload);

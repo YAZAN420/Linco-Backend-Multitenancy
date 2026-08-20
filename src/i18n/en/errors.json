@@ -189,5 +189,6 @@
   "UNAUTHORIZED_TO_DELETE_EXAM_ATTEMPT": "You are not authorized to delete this exam attempt",
   "TWO_FACTOR_SECRET_NOT_FOUND": "Two-factor authentication secret was not found",
   "NO_ACTIVE_SUBSCRIPTION_FOUND_FOR_DEMO": "No active subscription found for this demo workspace",
-  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "Unknown subscription price ID"
+  "UNKNOWN_SUBSCRIPTION_PRICE_ID": "Unknown subscription price ID",
+  "ACCOUNT_SUSPENDED": "Your account has been suspended. Please contact support for assistance."
 }
