@@ -17,6 +17,7 @@ import {
 } from '../domain/exceptions';
 import { StoragePort } from 'src/core/storage/storage.port';
 import { Role } from '../domain/enums/role.enum';
+import { NotificationsService } from 'src/notifications/application/notifications.service';
 
 @Injectable()
 export class UsersCommandService {
@@ -25,6 +26,7 @@ export class UsersCommandService {
     private readonly userCommandRepository: UserCommandRepository,
     private readonly userFactory: UserFactory,
     private readonly spacesService: StoragePort,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
@@ -88,8 +90,13 @@ export class UsersCommandService {
     const user = await this.findById(id);
     user.suspend();
     await this.userCommandRepository.save(user);
-  }
 
+    await this.notificationsService.sendToUser(
+      user.id,
+      'Account Suspended',
+      'Your account has been suspended due to a policy violation. Please contact support for more details.',
+    );
+  }
   async activate(id: string): Promise<void> {
     const user = await this.findById(id);
     user.activate();
