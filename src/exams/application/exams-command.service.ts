@@ -23,10 +23,6 @@ export class ExamsCommandService {
         sectionId,
       );
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
-    this.ensureEnoughQuestions(
-      input.numberOfQuestions,
-      section._count.questionsBank,
-    );
 
     const exam = this.examFactory.createNew(
       sectionId,
