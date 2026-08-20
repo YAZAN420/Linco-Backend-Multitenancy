@@ -58,6 +58,7 @@ export class JwtTokenAdapter implements TokenPort {
           lastName: user.lastName,
           profileImage: user.imagePath,
           role: user.role,
+          status: user.status,
         },
       ),
       this.jwtService.signAsync(
