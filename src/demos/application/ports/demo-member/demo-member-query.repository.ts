@@ -15,4 +15,6 @@ export abstract class DemoMemberQueryRepository {
     demoId: string,
     userId: string,
   ): Promise<DemoMember | null>;
+
+  abstract countMembersByDemo(demoId: string): Promise<number>;
 }

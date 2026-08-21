@@ -13,6 +13,7 @@ import { DemoMemberCommandRepository } from '../ports/demo-member/demo-member-co
 import { DemoMemberFactory } from 'src/demos/domain/factories/demo-member.factory';
 import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
 import { NotificationsService } from 'src/notifications/application/notifications.service';
+import { DemoMemberQueryRepository } from '../ports/demo-member/demo-member-query.repository';
 
 @Injectable()
 export class InvitationsCommandService {
@@ -21,6 +22,7 @@ export class InvitationsCommandService {
     private readonly invitationCommandRepository: InvitationCommandRepository,
     private readonly invitationFactory: InvitationFactory,
     private readonly demoMemberCommandRepository: DemoMemberCommandRepository,
+    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
     private readonly demoMemberFactory: DemoMemberFactory,
     private readonly notificationsService: NotificationsService,
   ) {}
@@ -33,6 +35,11 @@ export class InvitationsCommandService {
         args: { demoId: input.demoId },
       });
     }
+    const countMembers =
+      await this.demoMemberQueryRepository.countMembersByDemo(demoExists.id);
+
+    demoExists.verifyCanAddMember(countMembers);
+
     const existingMember =
       await this.demoMemberCommandRepository.findByDemoAndUser(
         input.demoId,
