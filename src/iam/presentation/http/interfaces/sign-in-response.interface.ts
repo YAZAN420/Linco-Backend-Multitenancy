@@ -7,3 +7,7 @@ export interface SignInResponse {
     refreshToken: string;
   };
 }
+
+export interface GoogleAuthState {
+  returnTo?: string;
+}

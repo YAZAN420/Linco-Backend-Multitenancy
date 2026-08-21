@@ -1,5 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Injectable()
-export class GoogleAuthGuard extends AuthGuard('google') {}
+export class GoogleAuthGuard extends AuthGuard('google') {
+  getAuthenticateOptions(context: ExecutionContext) {
+    const req = context.switchToHttp().getRequest<Request>();
+
+    const origin =
+      req.query.redirectUrl ||
+      req.get('origin') ||
+      req.get('referer') ||
+      'https://lincolms.me';
+
+    return {
+      state: JSON.stringify({ returnTo: origin }),
+    };
+  }
+}

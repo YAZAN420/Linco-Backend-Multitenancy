@@ -33,6 +33,7 @@ import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Verify2FADto } from '../dto/verify-2fa.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { GoogleAuthState } from '../interfaces/sign-in-response.interface';
 
 @ApiTags('Authentication')
 @Controller('authentication')
@@ -150,11 +151,25 @@ export class AuthenticationController {
       throw new UnauthorizedException('errors.GOOGLE_AUTHENTICATION_FAILED');
     }
 
+    let redirectDomain = 'https://lincolms.me/home';
+    if (request.query.state) {
+      try {
+        const parsedState = JSON.parse(
+          request.query.state as string,
+        ) as unknown as GoogleAuthState;
+        if (parsedState.returnTo) {
+          redirectDomain = parsedState.returnTo;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     const result = await this.authService.signInWithGoogle(googleUser);
 
     this.cookieService.setAuthCookies(response, result.tokens!);
 
-    return response.redirect('https://lincolms.me/home');
+    return response.redirect(redirectDomain);
   }
 
   @Public()
