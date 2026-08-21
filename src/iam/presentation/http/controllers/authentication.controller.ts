@@ -33,7 +33,7 @@ import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Verify2FADto } from '../dto/verify-2fa.dto';
 import { SignInDto } from '../dto/sign-in.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { GoogleAuthState } from '../interfaces/sign-in-response.interface';
+import { GoogleAuthState } from '../interfaces/google-auth-state.interface';
 
 @ApiTags('Authentication')
 @Controller('authentication')
