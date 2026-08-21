@@ -220,6 +220,10 @@ export class Demo {
     if (this.departments.length >= this.maxDepartmentsLimit) {
       throw new DomainException(
         'errors.YOUR_CURRENT_PLAN_PLAN_ALLOWS_A_MAXIMUM_OF_MAX_DEPARTMENTS_LIMIT_DEPARTMENTS_PLEASE_UPGRADE',
+        {
+          plan: this.props.plan,
+          maxDepartmentsLimit: this.maxDepartmentsLimit,
+        },
       );
     }
 
@@ -227,7 +231,9 @@ export class Demo {
       (d) => d.name.toLowerCase() === department.name.toLowerCase(),
     );
     if (exists) {
-      throw new DomainException('errors.DEPARTMENT_NAME_ALREADY_EXISTS');
+      throw new DomainException('errors.DEPARTMENT_NAME_ALREADY_EXISTS', {
+        name: department.name,
+      });
     }
 
     this.props.departments.push(department);
@@ -270,6 +276,7 @@ export class Demo {
     if (nameExists) {
       throw new DomainException(
         'errors.DEPARTMENT_VALUE_ALREADY_EXISTS_IN_THIS_DEMO',
+        { value: newName.value },
       );
     }
 
@@ -315,6 +322,7 @@ export class Demo {
     if (currentCount >= this.maxMembersLimit) {
       throw new DomainException(
         'errors.YOUR_CURRENT_PLAN_PLAN_LIMITS_YOU_TO_MAX_MEMBERS_LIMIT_MEMBERS_PLEASE_UPGRADE',
+        { plan: this.props.plan, maxMembersLimit: this.maxMembersLimit },
       );
     }
   }

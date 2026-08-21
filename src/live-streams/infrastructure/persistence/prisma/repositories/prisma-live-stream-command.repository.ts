@@ -31,9 +31,10 @@ export class PrismaLiveStreamCommandRepository implements LiveStreamsCommandRepo
       ) {
         throw new ConflictException('errors.LIVE_STREAM_ROOM_ALREADY_EXISTS');
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

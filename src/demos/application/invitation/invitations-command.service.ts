@@ -28,7 +28,10 @@ export class InvitationsCommandService {
   async create(input: CreateInvitationInput): Promise<Invitation> {
     const demoExists = await this.demoCommandRepository.findById(input.demoId);
     if (!demoExists) {
-      throw new NotFoundException('errors.DEMO_WITH_ID_DEMO_ID_DOES_NOT_EXIST');
+      throw new NotFoundException({
+        message: 'errors.DEMO_WITH_ID_DEMO_ID_DOES_NOT_EXIST',
+        args: { demoId: input.demoId },
+      });
     }
     const existingMember =
       await this.demoMemberCommandRepository.findByDemoAndUser(

@@ -30,9 +30,10 @@ export class PrismaUserCommandRepository implements UserCommandRepository {
           throw new NotFoundException('errors.USER_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

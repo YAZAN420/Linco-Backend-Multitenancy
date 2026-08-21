@@ -32,9 +32,10 @@ export class PrismaDepartmentMemberCommandRepository implements DepartmentMember
           throw new NotFoundException('errors.DEPARTMENT_MEMBER_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

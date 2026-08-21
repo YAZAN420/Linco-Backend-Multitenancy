@@ -30,9 +30,10 @@ export class PrismaPaymentCommandRepository implements PaymentCommandRepository 
           throw new NotFoundException('errors.PAYMENT_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

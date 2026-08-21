@@ -30,9 +30,10 @@ export class PrismaDiscussionQuestionCommandRepository implements DiscussionQues
           throw new NotFoundException('errors.DISCUSSION_QUESTION_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

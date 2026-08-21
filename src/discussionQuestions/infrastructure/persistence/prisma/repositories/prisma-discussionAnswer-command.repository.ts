@@ -31,9 +31,10 @@ export class PrismaDiscussionAnswerCommandRepository implements DiscussionAnswer
       ) {
         throw new NotFoundException('errors.FOREIGN_KEY_CONSTRAINT_FAILED');
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

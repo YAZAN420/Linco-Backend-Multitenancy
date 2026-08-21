@@ -120,9 +120,11 @@ Output strictly as a JSON object that matches the provided schema. Do not includ
       return JSON.parse(rawJson) as RoadmapResponse;
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER_ERROR_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message:
+          'errors.AI_CANT_GENERATE_THE_ROADMAP_PLEASE_TRY_AGAIN_LATER_ERROR_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 }

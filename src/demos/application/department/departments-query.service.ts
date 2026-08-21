@@ -34,9 +34,10 @@ export class DepartmentsQueryService {
     );
 
     if (!department) {
-      throw new NotFoundException(
-        'errors.DEPARTMENT_WITH_ID_DEPT_ID_NOT_FOUND_IN_THIS_DEMO',
-      );
+      throw new NotFoundException({
+        message: 'errors.DEPARTMENT_WITH_ID_DEPT_ID_NOT_FOUND_IN_THIS_DEMO',
+        args: { deptId },
+      });
     }
 
     return department;

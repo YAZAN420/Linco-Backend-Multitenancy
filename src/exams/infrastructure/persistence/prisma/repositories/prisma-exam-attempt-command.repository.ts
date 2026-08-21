@@ -31,9 +31,10 @@ export class PrismaExamAttemptCommandRepository implements ExamAttemptCommandRep
       ) {
         throw new ConflictException('errors.EXAM_ATTEMPT_ALREADY_EXISTS');
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

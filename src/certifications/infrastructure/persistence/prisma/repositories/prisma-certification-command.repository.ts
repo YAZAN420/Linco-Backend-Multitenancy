@@ -37,9 +37,10 @@ export class PrismaCertificationCommandRepository implements CertificationComman
             'errors.CERTIFICATION_RELATION_NOT_FOUND',
           );
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

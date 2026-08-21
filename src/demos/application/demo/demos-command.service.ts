@@ -50,9 +50,10 @@ export class DemosCommandService {
   ) {
     const demo = await this.demoCommandRepository.findById(demoId);
     if (!demo) {
-      throw new NotFoundException(
-        'errors.DEMO_WORKSPACE_WITH_ID_DEMO_ID_NOT_FOUND',
-      );
+      throw new NotFoundException({
+        message: 'errors.DEMO_WORKSPACE_WITH_ID_DEMO_ID_NOT_FOUND',
+        args: { demoId },
+      });
     }
     demo.updatePlan(plan);
     demo.activateSubscription(stripeSubscriptionId, currentPeriodEnd);

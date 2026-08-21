@@ -29,9 +29,10 @@ export class PrismaAssetCommandRepository implements AssetCommandRepository {
           throw new NotFoundException('errors.ASSET_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

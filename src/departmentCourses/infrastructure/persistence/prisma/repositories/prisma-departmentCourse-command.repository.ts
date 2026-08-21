@@ -36,9 +36,10 @@ export class PrismaDepartmentCourseCommandRepository implements DepartmentCourse
           throw new NotFoundException('errors.DEPARTMENT_COURSE_NOT_FOUND');
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.DATABASE_OPERATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

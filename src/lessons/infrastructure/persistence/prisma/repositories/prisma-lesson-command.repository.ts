@@ -53,9 +53,11 @@ export class PrismaLessonCommandRepository implements LessonCommandRepository {
           );
         }
       }
-      throw new InternalServerErrorException(
-        'errors.DATABASE_OPERATION_FAILED_WHILE_SAVING_COURSE_AGGREGATE_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message:
+          'errors.DATABASE_OPERATION_FAILED_WHILE_SAVING_COURSE_AGGREGATE_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 

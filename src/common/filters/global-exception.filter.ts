@@ -27,6 +27,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     let httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     let messageKey: string | string[] = 'errors.INTERNAL_SERVER_ERROR';
+    let translationArgs: Record<string, unknown> | undefined;
     let errorType = 'InternalServerError';
 
     if (exception instanceof HttpException) {
@@ -38,8 +39,16 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         exceptionResponse !== null &&
         'message' in exceptionResponse
       ) {
-        messageKey = (exceptionResponse as Record<string, unknown>).message as
-          string | string[];
+        const responseBody = exceptionResponse as Record<string, unknown>;
+        messageKey = responseBody.message as string | string[];
+
+        if (
+          typeof responseBody.args === 'object' &&
+          responseBody.args !== null &&
+          !Array.isArray(responseBody.args)
+        ) {
+          translationArgs = responseBody.args as Record<string, unknown>;
+        }
       } else if (typeof exceptionResponse === 'string') {
         messageKey = exceptionResponse;
       } else {
@@ -49,6 +58,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       httpStatus = HttpStatus.BAD_REQUEST;
       errorType = exception.name;
       messageKey = exception.message;
+      translationArgs = exception.translationArgs;
     } else if (exception instanceof Error) {
       this.logger.error(
         `[${method}] ${url} - ${exception.message}`,
@@ -58,7 +68,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     const translateKey = (key: string): string => {
       if (i18n && typeof key === 'string') {
-        return i18n.t(key);
+        return i18n.t(
+          key,
+          translationArgs === undefined ? undefined : { args: translationArgs },
+        );
       }
       return key;
     };

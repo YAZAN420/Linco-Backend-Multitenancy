@@ -66,9 +66,10 @@ export class StripeService implements PaymentGatewayPort {
       };
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.FAILED_TO_CREATE_SUBSCRIPTION_CHECKOUT_SESSION_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.FAILED_TO_CREATE_SUBSCRIPTION_CHECKOUT_SESSION_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 
@@ -120,9 +121,10 @@ export class StripeService implements PaymentGatewayPort {
       };
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.FAILED_TO_CREATE_ONE_TIME_CHECKOUT_SESSION_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.FAILED_TO_CREATE_ONE_TIME_CHECKOUT_SESSION_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 
@@ -135,9 +137,10 @@ export class StripeService implements PaymentGatewayPort {
       );
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.WEBHOOK_SIGNATURE_VERIFICATION_FAILED_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.WEBHOOK_SIGNATURE_VERIFICATION_FAILED_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 
@@ -158,9 +161,10 @@ export class StripeService implements PaymentGatewayPort {
       return await this.stripe.subscriptions.retrieve(subscriptionId);
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.FAILED_TO_FETCH_SUBSCRIPTION_FROM_STRIPE_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.FAILED_TO_FETCH_SUBSCRIPTION_FROM_STRIPE_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 
@@ -171,9 +175,10 @@ export class StripeService implements PaymentGatewayPort {
       return await this.stripe.checkout.sessions.retrieve(sessionId);
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(
-        'errors.FAILED_TO_FETCH_CHECKOUT_SESSION_ERROR',
-      );
+      throw new InternalServerErrorException({
+        message: 'errors.FAILED_TO_FETCH_CHECKOUT_SESSION_ERROR',
+        args: { error: String(error) },
+      });
     }
   }
 }
