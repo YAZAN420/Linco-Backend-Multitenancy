@@ -3,9 +3,15 @@ import { LessonResponseDto } from '../dto/lesson-response.dto';
 import { Lesson as PrismaLesson } from 'src/generated/prisma/client';
 import { Lesson as DomainLesson } from 'src/lessons/domain/lesson';
 
+type PrismaLessonWithAttachmentCount = PrismaLesson & {
+  readonly _count?: { readonly attachments: number };
+};
+
 @Injectable()
 export class LessonResponseMapper {
-  toResponseFromPrisma(lesson: PrismaLesson): LessonResponseDto {
+  toResponseFromPrisma(
+    lesson: PrismaLessonWithAttachmentCount,
+  ): LessonResponseDto {
     return new LessonResponseDto(
       lesson.id,
       lesson.title,
@@ -15,6 +21,7 @@ export class LessonResponseMapper {
       lesson.sectionId,
       lesson.duration,
       lesson.description,
+      lesson._count?.attachments ?? 0,
       lesson.createdAt,
       lesson.updatedAt,
     );
@@ -30,12 +37,15 @@ export class LessonResponseMapper {
       lesson.sectionId,
       lesson.duration,
       lesson.description,
+      lesson.attachments.length,
       lesson.createdAt,
       lesson.updatedAt,
     );
   }
 
-  toResponseManyFromPrisma(lessons: PrismaLesson[]): LessonResponseDto[] {
+  toResponseManyFromPrisma(
+    lessons: PrismaLessonWithAttachmentCount[],
+  ): LessonResponseDto[] {
     return lessons.map((lesson) => this.toResponseFromPrisma(lesson));
   }
 }

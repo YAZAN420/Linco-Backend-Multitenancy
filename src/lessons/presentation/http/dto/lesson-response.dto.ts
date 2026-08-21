@@ -8,6 +8,7 @@ export class LessonResponseDto {
     readonly sectionId: string,
     readonly duration: number,
     readonly description: string,
+    readonly attachmentCount: number,
     readonly createdAt: Date,
     readonly updatedAt: Date,
   ) {}

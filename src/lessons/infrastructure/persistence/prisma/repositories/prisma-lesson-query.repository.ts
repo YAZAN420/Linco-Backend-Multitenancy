@@ -25,6 +25,9 @@ export class PrismaLessonQueryRepository implements LessonQueryRepository {
       where: {
         sectionId: sectionId,
       },
+      include: {
+        _count: { select: { attachments: true } },
+      },
       orderBy: [{ order: 'desc' }],
     });
 
