@@ -57,7 +57,7 @@ export class AttachmentsCommandController {
       dto,
     );
     return {
-      message: 'messages.ATTACHMENT_CREATED_SUCCESSFULLY',
+      message: 'messages.ATTACHMENT_UPDATED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseFromDomain(attachment),
     };
   }

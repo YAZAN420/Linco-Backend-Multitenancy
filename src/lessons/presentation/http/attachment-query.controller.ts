@@ -40,7 +40,7 @@ export class AttachmentsQueryController {
       attachmentId,
     );
     return {
-      message: 'messages.ATTACHMENT_CREATED_SUCCESSFULLY',
+      message: 'messages.ATTACHMENT_RETRIEVED_SUCCESSFULLY',
       data: this.attachmentResponseMapper.toResponseFromPrisma(attachment),
     };
   }

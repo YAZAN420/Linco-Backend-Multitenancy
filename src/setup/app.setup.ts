@@ -1,6 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import { createValidationException } from 'src/common/validation/validation-exception.factory';
 
 export function setupApp(app: INestApplication): void {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -24,6 +25,7 @@ export function setupApp(app: INestApplication): void {
       whitelist: true,
       transform: true,
       transformOptions: { enableImplicitConversion: true },
+      exceptionFactory: createValidationException,
     }),
   );
 }

@@ -50,7 +50,7 @@ export class DepartmentCoursesQueryController {
     );
 
     return {
-      message: 'messages.DEPARTMENT_COURSE_ADDED_SUCCESSFULLY',
+      message: 'messages.DEPARTMENT_COURSE_RETRIEVED_SUCCESSFULLY',
       data: this.departmentCourseResponseMapper.toResponseFromPrisma(
         departmentCourse,
       ),

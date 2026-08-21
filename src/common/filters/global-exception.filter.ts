@@ -9,6 +9,15 @@ import { Request, Response } from 'express';
 import { Logger } from 'nestjs-pino';
 import { I18nContext } from 'nestjs-i18n';
 import { DomainException } from '../exceptions/domain.exception';
+import type { TranslatableMessage } from '../interfaces/translatable-message.interface';
+
+function isTranslatableMessage(value: unknown): value is TranslatableMessage {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return false;
+  }
+
+  return typeof (value as Record<string, unknown>).key === 'string';
+}
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -26,7 +35,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const url = request.originalUrl;
 
     let httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-    let messageKey: string | string[] = 'errors.INTERNAL_SERVER_ERROR';
+    let messageKey: unknown = 'errors.INTERNAL_SERVER_ERROR';
     let translationArgs: Record<string, unknown> | undefined;
     let errorType = 'InternalServerError';
 
@@ -40,7 +49,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         'message' in exceptionResponse
       ) {
         const responseBody = exceptionResponse as Record<string, unknown>;
-        messageKey = responseBody.message as string | string[];
+        messageKey = responseBody.message;
 
         if (
           typeof responseBody.args === 'object' &&
@@ -66,18 +75,24 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       );
     }
 
-    const translateKey = (key: string): string => {
-      if (i18n && typeof key === 'string') {
-        return i18n.t(
-          key,
-          translationArgs === undefined ? undefined : { args: translationArgs },
-        );
+    const translateKey = (message: unknown, args = translationArgs): string => {
+      if (isTranslatableMessage(message)) {
+        return translateKey(message.key, message.args);
       }
-      return key;
+
+      if (typeof message !== 'string') {
+        return String(message);
+      }
+
+      if (i18n) {
+        return i18n.t(message, args === undefined ? undefined : { args });
+      }
+
+      return message;
     };
 
     const translatedMessage = Array.isArray(messageKey)
-      ? messageKey.map((key) => translateKey(key))
+      ? messageKey.map((message) => translateKey(message))
       : translateKey(messageKey);
 
     response.status(httpStatus).json({

@@ -45,7 +45,7 @@ export class DepartmentMessagesQueryController {
     );
 
     return {
-      message: 'messages.DEPARTMENT_MESSAGES_FETCHED_SUCCESSFULLY',
+      message: 'messages.DEPARTMENT_MESSAGE_RETRIEVED_SUCCESSFULLY',
       data: this.departmentMessageResponseMapper.toResponseFromPrisma(
         departmentMessage,
       ),
