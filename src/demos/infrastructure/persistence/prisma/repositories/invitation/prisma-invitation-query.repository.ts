@@ -53,10 +53,4 @@ export class PrismaInvitationQueryRepository implements InvitationQueryRepositor
       },
     });
   }
-
-  async countMembersByDemo(demoId: string): Promise<number> {
-    return this.prisma.demoMember.count({
-      where: { demoId },
-    });
-  }
 }

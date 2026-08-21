@@ -89,4 +89,10 @@ export class PrismaDemoMemberQueryRepository implements DemoMemberQueryRepositor
       where: { demoId: demoId, userId: userId },
     });
   }
+
+  async countMembersByDemo(demoId: string): Promise<number> {
+    return this.prisma.demoMember.count({
+      where: { demoId },
+    });
+  }
 }
