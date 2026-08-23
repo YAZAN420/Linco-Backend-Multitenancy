@@ -11,7 +11,7 @@ export class GoogleAuthGuard extends AuthGuard('google') {
       req.query.redirectUrl ||
       req.get('origin') ||
       req.get('referer') ||
-      'https://lincolms.me';
+      'https://lincolms.me/home';
 
     return {
       state: JSON.stringify({ returnTo: origin }),
