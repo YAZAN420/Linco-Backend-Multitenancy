@@ -30,6 +30,7 @@ async function bootstrap() {
     logger.log(`📚 Scalar documentation at: https://api.lincolms.me/docs`);
   } catch (error) {
     const trace = error instanceof Error ? error.stack : undefined;
+    console.error('Application failed to start', error);
     bootstrapLogger.error('Application failed to start', trace);
     process.exit(1);
   }
