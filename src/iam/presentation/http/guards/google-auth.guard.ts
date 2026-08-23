@@ -7,11 +7,22 @@ export class GoogleAuthGuard extends AuthGuard('google') {
   getAuthenticateOptions(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest<Request>();
 
-    const origin =
-      req.query.redirectUrl ||
-      req.get('origin') ||
-      req.get('referer') ||
-      'https://lincolms.me/home';
+    let returnTo = req.query.redirectUrl as string;
+
+    if (!returnTo) {
+      const referer = req.get('referer');
+      const isAuthPage =
+        referer &&
+        (referer.includes('/signin') ||
+          referer.includes('/login') ||
+          referer.includes('/sign-up'));
+
+      if (referer && !isAuthPage) {
+        returnTo = referer;
+      } else {
+        returnTo = 'https://lincolms.me/home';
+      }
+    }
 
     return {
       state: JSON.stringify({ returnTo: origin }),
