@@ -6,21 +6,21 @@ import { FindQuestionsBankCursorQuery } from './interfaces/find-questionsBank.qu
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
 
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
-import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
+
+import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Injectable()
 export class QuestionsBanksQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
-    private readonly sectionsQueryRepository: SectionQueryRepository,
+    private readonly sectionsQueryService: SectionsQueryService,
   ) {}
 
   async findAllCursor(
     sectionId: string,
     options: FindQuestionsBankCursorQuery,
   ): Promise<CursorPageDto<QuestionsBankWithQuestionChoices>> {
-    const section =
-      await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     return this.questionsBankQueryRepository.findAllCursor(sectionId, options);
   }
@@ -29,8 +29,7 @@ export class QuestionsBanksQueryService {
     sectionId: string,
     id: string,
   ): Promise<QuestionsBankWithQuestionChoices> {
-    const section =
-      await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = await this.questionsBankQueryRepository.findById(

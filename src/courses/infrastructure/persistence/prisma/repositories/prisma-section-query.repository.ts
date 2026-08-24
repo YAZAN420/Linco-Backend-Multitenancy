@@ -12,7 +12,7 @@ import { SectionQueryRepository } from 'src/courses/application/ports/section-qu
 export class PrismaSectionQueryRepository implements SectionQueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findSectionsCursor(
+  async findAllCursor(
     courseId: string,
     options: FindSectionsCursorQuery,
   ): Promise<CursorPageDto<Section>> {
@@ -36,7 +36,7 @@ export class PrismaSectionQueryRepository implements SectionQueryRepository {
     );
   }
 
-  async findSectionById(sectionId: string): Promise<Section | null> {
+  async findById(sectionId: string): Promise<Section | null> {
     return this.prisma.section.findUnique({
       where: { id: sectionId },
     });

@@ -1,4 +1,4 @@
-export class CreateCourseQuizInput {
-  topic!: string;
-  questionCount!: number;
+export interface CreateCourseQuizInput {
+  topic: string;
+  questionCount: number;
 }

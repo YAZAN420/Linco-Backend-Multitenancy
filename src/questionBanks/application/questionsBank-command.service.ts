@@ -6,13 +6,13 @@ import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-inpu
 
 import { QuestionChoiceFactory } from '../domain/factories/question-choice.factory';
 import { DomainException } from 'src/common/exceptions/domain.exception';
-import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
+import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Injectable()
 export class QuestionsBanksCommandService {
   constructor(
     private readonly questionsBankCommandRepository: QuestionsBankCommandRepository,
-    private readonly sectionsQueryRepository: SectionQueryRepository,
+    private readonly sectionsQueryService: SectionsQueryService,
     private readonly questionsBankFactory: QuestionsBankFactory,
     private readonly questionChoiceFactory: QuestionChoiceFactory,
   ) {}
@@ -21,8 +21,7 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     input: CreateQuestionsBankInput,
   ): Promise<QuestionsBank> {
-    const section =
-      await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = this.questionsBankFactory.createNew(
@@ -45,11 +44,8 @@ export class QuestionsBanksCommandService {
   }
 
   async remove(sectionId: string, questionBankId: string): Promise<void> {
-    const section =
-      await this.sectionsQueryRepository.findSectionWithExamAndQuestionCount(
-        sectionId,
-      );
-    if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
+    const validation =
+      await this.sectionsQueryService.getExamValidationData(sectionId);
 
     const questionsBank = await this.questionsBankCommandRepository.findById(
       sectionId,
@@ -59,10 +55,10 @@ export class QuestionsBanksCommandService {
       throw new NotFoundException('errors.QUESTION_BANK_NOT_FOUND');
     }
 
-    const remainingQuestionCount = section._count.questionsBank - 1;
+    const remainingQuestionCount = validation.totalQuestions - 1;
     if (
-      section.exam !== null &&
-      section.exam.numberOfQuestions > remainingQuestionCount
+      validation.requiredExamQuestions !== null &&
+      validation.requiredExamQuestions > remainingQuestionCount
     ) {
       throw new DomainException('errors.NOT_ENOUGH_QUESTIONS_AVAILABLE');
     }
@@ -74,8 +70,7 @@ export class QuestionsBanksCommandService {
     sectionId: string,
     questionBankId: string,
   ): Promise<QuestionsBank> {
-    const section =
-      await this.sectionsQueryRepository.findSectionById(sectionId);
+    const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const questionsBank = await this.questionsBankCommandRepository.findById(
