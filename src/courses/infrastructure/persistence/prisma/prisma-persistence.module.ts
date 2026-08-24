@@ -5,6 +5,8 @@ import { CourseQueryRepository } from 'src/courses/application/ports/course-quer
 import { PrismaCourseQueryRepository } from './repositories/prisma-course-query.repository';
 import { PrismaCourseMapper } from './mappers/prisma-course.mapper';
 import { PrismaSectionMapper } from './mappers/prisma-section.mapper';
+import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
+import { PrismaSectionQueryRepository } from './repositories/prisma-section-query.repository';
 
 @Module({
   providers: [
@@ -18,7 +20,15 @@ import { PrismaSectionMapper } from './mappers/prisma-section.mapper';
       provide: CourseQueryRepository,
       useClass: PrismaCourseQueryRepository,
     },
+    {
+      provide: SectionQueryRepository,
+      useClass: PrismaSectionQueryRepository,
+    },
   ],
-  exports: [CourseCommandRepository, CourseQueryRepository],
+  exports: [
+    CourseCommandRepository,
+    CourseQueryRepository,
+    SectionQueryRepository,
+  ],
 })
 export class PrismaPersistenceModule {}

@@ -5,14 +5,14 @@ import { QuestionsBank } from '../domain/questionsBank';
 import { CreateQuestionsBankInput } from './interfaces/create-questionsBank-input.interface';
 
 import { QuestionChoiceFactory } from '../domain/factories/question-choice.factory';
-import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { DomainException } from 'src/common/exceptions/domain.exception';
+import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
 
 @Injectable()
 export class QuestionsBanksCommandService {
   constructor(
     private readonly questionsBankCommandRepository: QuestionsBankCommandRepository,
-    private readonly sectionsQueryRepository: CourseQueryRepository,
+    private readonly sectionsQueryRepository: SectionQueryRepository,
     private readonly questionsBankFactory: QuestionsBankFactory,
     private readonly questionChoiceFactory: QuestionChoiceFactory,
   ) {}

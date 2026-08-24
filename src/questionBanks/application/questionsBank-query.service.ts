@@ -6,13 +6,13 @@ import { FindQuestionsBankCursorQuery } from './interfaces/find-questionsBank.qu
 import { QuestionsBankQueryRepository } from './ports/questionsBank-query.repository';
 
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
-import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
+import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
 
 @Injectable()
 export class QuestionsBanksQueryService {
   constructor(
     private readonly questionsBankQueryRepository: QuestionsBankQueryRepository,
-    private readonly sectionsQueryRepository: CourseQueryRepository,
+    private readonly sectionsQueryRepository: SectionQueryRepository,
   ) {}
 
   async findAllCursor(
@@ -37,7 +37,8 @@ export class QuestionsBanksQueryService {
       sectionId,
       id,
     );
-    if (!questionsBank) throw new NotFoundException('errors.QUESTIONS_BANK_NOT_FOUND');
+    if (!questionsBank)
+      throw new NotFoundException('errors.QUESTIONS_BANK_NOT_FOUND');
     return questionsBank;
   }
 }

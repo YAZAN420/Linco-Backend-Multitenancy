@@ -6,20 +6,20 @@ import { CreateExamInput } from './interfaces/create-exam-input.interface';
 import { UpdateExamInput } from './interfaces/update-exam-input.interface';
 import { ExamFactory } from '../domain/factories/exam.factory';
 import { Title } from '../domain/value-objects/title.vo';
-import { CourseQueryRepository } from 'src/courses/application/ports/course-query.repository';
 import { DomainException } from 'src/common/exceptions/domain.exception';
+import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
 
 @Injectable()
 export class ExamsCommandService {
   constructor(
     private readonly examCommandRepository: ExamCommandRepository,
-    private readonly courseQueryRepository: CourseQueryRepository,
+    private readonly sectionQueryRepository: SectionQueryRepository,
     private readonly examFactory: ExamFactory,
   ) {}
 
   async create(sectionId: string, input: CreateExamInput): Promise<Exam> {
     const section =
-      await this.courseQueryRepository.findSectionWithExamAndQuestionCount(
+      await this.sectionQueryRepository.findSectionWithExamAndQuestionCount(
         sectionId,
       );
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
@@ -45,7 +45,7 @@ export class ExamsCommandService {
     input: UpdateExamInput,
   ): Promise<Exam> {
     const section =
-      await this.courseQueryRepository.findSectionWithExamAndQuestionCount(
+      await this.sectionQueryRepository.findSectionWithExamAndQuestionCount(
         sectionId,
       );
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
@@ -78,7 +78,8 @@ export class ExamsCommandService {
   }
 
   async findById(sectionId: string, examId: string): Promise<Exam> {
-    const section = await this.courseQueryRepository.findSectionById(sectionId);
+    const section =
+      await this.sectionQueryRepository.findSectionById(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     const exam = await this.examCommandRepository.findById(examId);
     if (!exam || exam.sectionId !== sectionId) {

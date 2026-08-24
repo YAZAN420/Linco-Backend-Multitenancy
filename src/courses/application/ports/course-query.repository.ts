@@ -3,12 +3,7 @@ import {
   FindCoursesCursorQuery,
   FindCoursesQuery,
 } from '../interfaces/find-courses.query';
-import { Section } from 'src/generated/prisma/client';
-import { FindSectionsCursorQuery } from '../interfaces/find-sections.query';
-import {
-  CourseWithStats,
-  SectionWithExamAndQuestionCount,
-} from 'src/core/database/prisma/types';
+import { CourseWithStats } from 'src/core/database/prisma/types';
 import { CourseDashboardStats } from '../interfaces/course-dashboard-stats.interface';
 
 export abstract class CourseQueryRepository {
@@ -22,13 +17,5 @@ export abstract class CourseQueryRepository {
     id: string,
     checkVisibility?: boolean,
   ): Promise<CourseWithStats | null>;
-  abstract findSectionsCursor(
-    courseId: string,
-    options: FindSectionsCursorQuery,
-  ): Promise<CursorPageDto<Section>>;
-  abstract findSectionById(sectionId: string): Promise<Section | null>;
-  abstract findSectionWithExamAndQuestionCount(
-    sectionId: string,
-  ): Promise<SectionWithExamAndQuestionCount | null>;
   abstract getDashboardStats(): Promise<CourseDashboardStats>;
 }
