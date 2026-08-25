@@ -10,11 +10,11 @@ import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import { StoragePort } from 'src/core/storage/storage.port';
 import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
 import { CreateCourseQuizInput } from './interfaces/create-course-quiz.input';
 import { TagRepository } from 'src/tags/application/ports/tag.repository';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
 @Injectable()
 export class CoursesCommandService {
   constructor(
@@ -23,53 +23,17 @@ export class CoursesCommandService {
     private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
-    private readonly spacesService: StoragePort,
     private readonly aiRagService: AiRagService,
     private readonly tagRepository: TagRepository,
+    private readonly uploadUrlService: UploadUrlService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
-    const ext = fileName.split('.').pop()?.toLowerCase() || '';
-
-    const mimeTypes: Record<string, string> = {
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      webp: 'image/webp',
-      gif: 'image/gif',
-      svg: 'image/svg+xml',
-    };
-
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-
-    return await this.spacesService.generateUploadUrl(
-      fileName,
-      contentType,
-      true,
-      'courses',
-    );
+    return await this.uploadUrlService.generateUrl(fileName, 'courses');
   }
 
   async generateSignatureImageUploadUrl(fileName: string) {
-    const ext = fileName.split('.').pop()?.toLowerCase() || '';
-
-    const mimeTypes: Record<string, string> = {
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      webp: 'image/webp',
-      gif: 'image/gif',
-      svg: 'image/svg+xml',
-    };
-
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-
-    return await this.spacesService.generateUploadUrl(
-      fileName,
-      contentType,
-      true,
-      'signatures',
-    );
+    return await this.uploadUrlService.generateUrl(fileName, 'signatures');
   }
 
   async create(input: CreateCourseInput): Promise<Course> {

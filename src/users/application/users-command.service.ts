@@ -15,9 +15,9 @@ import {
   InvalidResetTokenException,
   InvalidVerificationTokenException,
 } from '../domain/exceptions';
-import { StoragePort } from 'src/core/storage/storage.port';
 import { Role } from '../domain/enums/role.enum';
 import { NotificationsService } from 'src/notifications/application/notifications.service';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
 
 @Injectable()
 export class UsersCommandService {
@@ -25,32 +25,13 @@ export class UsersCommandService {
     private readonly hashService: HashingPort,
     private readonly userCommandRepository: UserCommandRepository,
     private readonly userFactory: UserFactory,
-    private readonly spacesService: StoragePort,
     private readonly notificationsService: NotificationsService,
+    private readonly uploadUrlService: UploadUrlService,
   ) {}
 
-  async generateDemoImageUploadUrl(fileName: string) {
-    const ext = fileName.split('.').pop()?.toLowerCase() || '';
-
-    const mimeTypes: Record<string, string> = {
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      webp: 'image/webp',
-      gif: 'image/gif',
-      svg: 'image/svg+xml',
-    };
-
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-
-    return await this.spacesService.generateUploadUrl(
-      fileName,
-      contentType,
-      true,
-      'users',
-    );
+  async generateAvatarUploadUrl(fileName: string) {
+    return await this.uploadUrlService.generateUrl(fileName, 'avatars');
   }
-
   async create(input: CreateUserInput): Promise<User> {
     await this.ensureEmailIsUnique(input.email);
     const hashedPassword = input.password

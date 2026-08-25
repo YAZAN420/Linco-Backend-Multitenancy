@@ -8,24 +8,18 @@ import { UpdateLessonInput } from './interfaces/update-lesson-input.interface';
 import { Title } from '../domain/value-objects/title.vo';
 import { LessonOrder } from '../domain/value-objects/lesson-order.vo';
 import { Url } from '../../common/value-objects/url.vo';
-import { StoragePort } from 'src/core/storage/storage.port';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
 
 @Injectable()
 export class LessonsCommandService {
   constructor(
     private readonly lessonCommandRepository: LessonCommandRepository,
     private readonly lessonFactory: LessonFactory,
-    private readonly storageService: StoragePort,
+    private readonly uploadUrlService: UploadUrlService,
   ) {}
 
   async generateLessonVideoUploadUrl(fileName: string) {
-    return await this.storageService.generateUploadUrl(
-      fileName,
-      'video/mp4',
-      true,
-      'lessons',
-      60,
-    );
+    return await this.uploadUrlService.generateUrl(fileName, 'lessons');
   }
 
   async create(sectionId: string, input: CreateLessonInput): Promise<Lesson> {

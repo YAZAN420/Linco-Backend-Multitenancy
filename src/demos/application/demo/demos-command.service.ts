@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { StoragePort } from 'src/core/storage/storage.port';
 import { DemoCommandRepository } from '../ports/demo/demo-command.repository';
 import { DemoMembersCommandService } from '../demo-member/demo-members-command.service';
 import { DemoFactory } from 'src/demos/domain/factories/demo.factory';
@@ -11,6 +10,7 @@ import { UpdateDemoInput } from './interfaces/update-demo-input.interface';
 import { Name } from 'src/demos/domain/value-objects/name.vo';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
 import { DomainException } from 'src/common/exceptions/domain.exception';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
 
 @Injectable()
 export class DemosCommandService {
@@ -18,28 +18,11 @@ export class DemosCommandService {
     private readonly demoCommandRepository: DemoCommandRepository,
     private readonly demoMemberCommandService: DemoMembersCommandService,
     private readonly demoFactory: DemoFactory,
-    private readonly spacesService: StoragePort,
+    private readonly uploadUrlService: UploadUrlService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
-    const ext = fileName.split('.').pop()?.toLowerCase() || '';
-
-    const mimeTypes: Record<string, string> = {
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      webp: 'image/webp',
-      gif: 'image/gif',
-      svg: 'image/svg+xml',
-    };
-
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-    return await this.spacesService.generateUploadUrl(
-      fileName,
-      contentType,
-      true,
-      'demos',
-    );
+    return await this.uploadUrlService.generateUrl(fileName, 'demos');
   }
 
   async activateDemoSubscription(

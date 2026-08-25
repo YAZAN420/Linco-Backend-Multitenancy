@@ -9,17 +9,5 @@ export abstract class StoragePort {
     expiresInMinutes?: number,
   ): Promise<GenerateUploadUrl>;
 
-  abstract generateDownloadUrl(
-    fileKey: string,
-    isPublic: boolean,
-  ): Promise<string>;
-
-  abstract upload(
-    fileKey: string,
-    data: Buffer,
-    contentType: string,
-    isPublic: boolean,
-  ): Promise<void>;
-
   abstract delete(fileKey: string, isPublic: boolean): Promise<void>;
 }

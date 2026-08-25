@@ -8,47 +8,30 @@ import { AttachmentFactory } from '../domain/factories/attachment.factory';
 import { Title } from '../domain/value-objects/title.vo';
 import { FilePath } from '../../common/value-objects/file-path.vo';
 import { Lesson } from '../domain/lesson';
-import { StoragePort } from 'src/core/storage/storage.port';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
 
 @Injectable()
 export class AttachmentCommandService {
   constructor(
     private readonly lessonCommandRepository: LessonCommandRepository,
     private readonly attachmentFactory: AttachmentFactory,
-    private readonly storageService: StoragePort,
+    private readonly uploadUrlService: UploadUrlService,
   ) {}
 
   async generateAttachmentUrls(fileNames: string[]) {
-    const mimeTypesMap: Record<string, string> = {
-      pdf: 'application/pdf',
-      zip: 'application/zip',
-      rar: 'application/x-rar-compressed',
-      txt: 'text/plain',
-      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-    };
-    const uploadTasks = fileNames.map(async (file) => {
-      const ext = file.split('.').pop()?.toLowerCase() || '';
-      const contentType = mimeTypesMap[ext] || 'application/octet-stream';
-      const storageResult = await this.storageService.generateUploadUrl(
-        file,
-        contentType,
-        true,
-        `attachments`,
-        15,
+    const uploadTasks = fileNames.map(async (fileName) => {
+      const storageResult = await this.uploadUrlService.generateUrl(
+        fileName,
+        'attachments',
       );
 
       return {
-        fileName: file,
+        fileName,
         ...storageResult,
       };
     });
-    const attachmentsUrls = await Promise.all(uploadTasks);
-    return attachmentsUrls;
+
+    return await Promise.all(uploadTasks);
   }
 
   async create(

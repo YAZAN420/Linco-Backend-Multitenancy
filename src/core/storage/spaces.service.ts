@@ -86,51 +86,6 @@ export class SpacesService implements StoragePort {
     });
   }
 
-  generateDownloadUrl(
-    fileKey: string,
-    isPublic: boolean = false,
-  ): Promise<string> {
-    const containerName = isPublic
-      ? this.config.containerName!
-      : 'private-uploads';
-    const containerClient =
-      this.blobServiceClient.getContainerClient(containerName);
-    const blockBlobClient = containerClient.getBlockBlobClient(fileKey);
-
-    const startsOn = new Date();
-    const expiresOn = new Date(startsOn.valueOf() + 300 * 1000);
-
-    const sasToken = generateBlobSASQueryParameters(
-      {
-        containerName,
-        blobName: fileKey,
-        permissions: BlobSASPermissions.parse('r'),
-        startsOn,
-        expiresOn,
-      },
-      this.sharedKeyCredential,
-    ).toString();
-
-    return Promise.resolve(`${blockBlobClient.url}?${sasToken}`);
-  }
-
-  async upload(
-    fileKey: string,
-    data: Buffer,
-    contentType: string,
-    isPublic: boolean = false,
-  ): Promise<void> {
-    const containerName = isPublic
-      ? this.config.containerName!
-      : 'private-uploads';
-    const blob = this.blobServiceClient
-      .getContainerClient(containerName)
-      .getBlockBlobClient(fileKey);
-    await blob.uploadData(data, {
-      blobHTTPHeaders: { blobContentType: contentType },
-    });
-  }
-
   async delete(fileKey: string, isPublic: boolean = false): Promise<void> {
     const containerName = isPublic
       ? this.config.containerName!
