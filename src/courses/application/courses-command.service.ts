@@ -12,9 +12,9 @@ import { CourseCreatedEvent } from 'src/common/events/course-created.event';
 import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
 import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
 import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
-import { CreateCourseQuizInput } from './interfaces/create-course-quiz.input';
 import { TagRepository } from 'src/tags/application/ports/tag.repository';
 import { UploadUrlService } from 'src/core/storage/upload-url.service';
+import { CoursePublishedEvent } from '../domain/events/course-published.event';
 @Injectable()
 export class CoursesCommandService {
   constructor(
@@ -74,21 +74,11 @@ export class CoursesCommandService {
 
     await this.courseCommandRepository.save(course);
 
-    const videos = await this.lessonQueryRepository.findAllByCourseId(courseId);
+    this.eventEmitter.emit(
+      'course.published',
+      new CoursePublishedEvent(course.id, course.title),
+    );
 
-    const formattedVideos = videos.map((lesson) => ({
-      video_name: lesson.title,
-      video_url: lesson.videoUrl,
-    }));
-
-    try {
-      await this.aiRagService.createCourse({
-        course_name: course.title,
-        videos: formattedVideos,
-      });
-    } catch (error) {
-      console.error('Failed to create course in AI RAG service:', error);
-    }
     return course;
   }
 
@@ -143,26 +133,5 @@ export class CoursesCommandService {
     const course = await this.courseCommandRepository.findById(courseId);
     if (!course) throw new NotFoundException('errors.COURSE_NOT_FOUND');
     return course;
-  }
-
-  async askQuestionAboutCourse(courseId: string, question: string) {
-    const course = await this.findById(courseId);
-    return await this.aiRagService.askQuestion(course.title, question);
-  }
-
-  async generateQuizForCourse(courseId: string, dto: CreateCourseQuizInput) {
-    const course = await this.findById(courseId);
-    return await this.aiRagService.generateQuiz(
-      course.title,
-      dto.topic,
-      dto.questionCount,
-    );
-  }
-  async generateRandomQuizForCourse(courseId: string, questionCount: number) {
-    const course = await this.findById(courseId);
-    return await this.aiRagService.generateRandomQuiz(
-      course.title,
-      questionCount,
-    );
   }
 }

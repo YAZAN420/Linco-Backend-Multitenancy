@@ -9,6 +9,7 @@ import { CoursesQueryService } from 'src/courses/application/courses-query.servi
 import { CreateCourseQuizDto } from './dto/create-course-quiz.dto';
 import { CreateCourseRandomQuizDto } from './dto/create-course-random-quiz.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { CourseAiService } from 'src/courses/application/course-ai.service';
 
 @ApiTags('Course')
 @Controller('courses')
@@ -16,6 +17,7 @@ export class CoursesCommandController {
   constructor(
     private readonly courseCommandService: CoursesCommandService,
     private readonly courseQueryService: CoursesQueryService,
+    private readonly courseAiService: CourseAiService,
     private readonly courseResponseMapper: CourseResponseMapper,
   ) {}
 
@@ -90,10 +92,7 @@ export class CoursesCommandController {
     @Param('id') courseId: string,
     @Body('question') question: string,
   ) {
-    const data = await this.courseCommandService.askQuestionAboutCourse(
-      courseId,
-      question,
-    );
+    const data = await this.courseAiService.askQuestion(courseId, question);
     return {
       message: 'messages.QUESTION_ASKED_SUCCESSFULLY',
       data: data.answer,
@@ -105,10 +104,7 @@ export class CoursesCommandController {
     @Param('id') courseId: string,
     @Body() dto: CreateCourseQuizDto,
   ) {
-    const data = await this.courseCommandService.generateQuizForCourse(
-      courseId,
-      dto,
-    );
+    const data = await this.courseAiService.generateQuiz(courseId, dto);
     return {
       message: 'messages.QUIZ_GENERATED_SUCCESSFULLY',
       data: data.quiz,
@@ -120,7 +116,7 @@ export class CoursesCommandController {
     @Param('id') courseId: string,
     @Body() dto: CreateCourseRandomQuizDto,
   ) {
-    const data = await this.courseCommandService.generateRandomQuizForCourse(
+    const data = await this.courseAiService.generateRandomQuiz(
       courseId,
       dto.questionCount,
     );

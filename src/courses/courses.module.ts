@@ -14,6 +14,8 @@ import { SectionResponseMapper } from './presentation/http/mappers/section-respo
 import { TagsModule } from 'src/tags/tags.module';
 import { LessonsModule } from 'src/lessons/lessons.module';
 import { LessonsInfrastructureModule } from 'src/lessons/infrastructure/lessons-infrastructure.module';
+import { CourseAiService } from './application/course-ai.service';
+import { CoursePublishedListener } from './application/event-handlers/course-published.listener';
 
 @Global()
 @Module({
@@ -28,6 +30,8 @@ import { LessonsInfrastructureModule } from 'src/lessons/infrastructure/lessons-
     SectionsQueryController,
   ],
   providers: [
+    CourseAiService,
+    CoursePublishedListener,
     CoursesCommandService,
     CoursesQueryService,
     CourseFactory,
