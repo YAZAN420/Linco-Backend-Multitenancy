@@ -78,8 +78,7 @@ export class ExamsCommandService {
   }
 
   async findById(sectionId: string, examId: string): Promise<Exam> {
-    const section =
-      await this.sectionQueryRepository.findSectionById(sectionId);
+    const section = await this.sectionQueryRepository.findById(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     const exam = await this.examCommandRepository.findById(examId);
     if (!exam || exam.sectionId !== sectionId) {
