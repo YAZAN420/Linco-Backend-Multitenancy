@@ -61,11 +61,11 @@ export class ExamsCommandService {
       section._count.questionsBank,
     );
 
-    if (title) exam.updateTitle(Title.create(title));
-    if (numberOfQuestions !== undefined) {
+    if (title !== undefined) exam.updateTitle(Title.create(title));
+    if (numberOfQuestions !== undefined)
       exam.updateNumberOfQuestions(numberOfQuestions);
-    }
-    if (durationMinutes) exam.updateDurationMinutes(durationMinutes);
+    if (durationMinutes !== undefined)
+      exam.updateDurationMinutes(durationMinutes);
     if (passingScore !== undefined) exam.updatePassingScore(passingScore);
 
     await this.examCommandRepository.save(exam);
