@@ -7,26 +7,21 @@ import { UpdateExamInput } from './interfaces/update-exam-input.interface';
 import { ExamFactory } from '../domain/factories/exam.factory';
 import { Title } from '../domain/value-objects/title.vo';
 import { DomainException } from 'src/common/exceptions/domain.exception';
-import { SectionQueryRepository } from 'src/courses/application/ports/section-query.repository';
+import { SectionsQueryService } from 'src/courses/application/sections-query.service';
 
 @Injectable()
 export class ExamsCommandService {
   constructor(
     private readonly examCommandRepository: ExamCommandRepository,
-    private readonly sectionQueryRepository: SectionQueryRepository,
+    private readonly sectionsQueryService: SectionsQueryService,
     private readonly examFactory: ExamFactory,
   ) {}
 
   async create(sectionId: string, input: CreateExamInput): Promise<Exam> {
     const section =
-      await this.sectionQueryRepository.findSectionWithExamAndQuestionCount(
-        sectionId,
-      );
+      await this.sectionsQueryService.getExamValidationData(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
-    this.ensureEnoughQuestions(
-      input.numberOfQuestions,
-      section._count.questionsBank,
-    );
+    this.ensureEnoughQuestions(input.numberOfQuestions, section.totalQuestions);
 
     const exam = this.examFactory.createNew(
       sectionId,
@@ -45,9 +40,7 @@ export class ExamsCommandService {
     input: UpdateExamInput,
   ): Promise<Exam> {
     const section =
-      await this.sectionQueryRepository.findSectionWithExamAndQuestionCount(
-        sectionId,
-      );
+      await this.sectionsQueryService.getExamValidationData(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
 
     const exam = await this.examCommandRepository.findById(examId);
@@ -58,7 +51,7 @@ export class ExamsCommandService {
     const { title, numberOfQuestions, durationMinutes, passingScore } = input;
     this.ensureEnoughQuestions(
       numberOfQuestions ?? exam.numberOfQuestions,
-      section._count.questionsBank,
+      section.totalQuestions,
     );
 
     if (title !== undefined) exam.updateTitle(Title.create(title));
@@ -78,7 +71,7 @@ export class ExamsCommandService {
   }
 
   async findById(sectionId: string, examId: string): Promise<Exam> {
-    const section = await this.sectionQueryRepository.findById(sectionId);
+    const section = await this.sectionsQueryService.exists(sectionId);
     if (!section) throw new NotFoundException('errors.SECTION_NOT_FOUND');
     const exam = await this.examCommandRepository.findById(examId);
     if (!exam || exam.sectionId !== sectionId) {

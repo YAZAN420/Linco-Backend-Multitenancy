@@ -5,14 +5,12 @@ import { DiscussionQuestion } from '../domain/discussionQuestion';
 
 import { CreateDiscussionQuestionInput } from './interfaces/create-discussionQuestion-input.interface';
 import { UpdateDiscussionQuestionInput } from './interfaces/update-discussionQuestion-input.interface';
-import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
 
 @Injectable()
 export class DiscussionQuestionsCommandService {
   constructor(
     private readonly discussionQuestionCommandRepository: DiscussionQuestionCommandRepository,
     private readonly discussionQuestionFactory: DiscussionQuestionFactory,
-    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
   ) {}
 
   async create(

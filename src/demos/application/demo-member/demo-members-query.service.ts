@@ -39,4 +39,11 @@ export class DemoMembersQueryService {
     }
     return member;
   }
+
+  async findByUserId(demoId: string, userId: string) {
+    return this.demoMemberQueryRepository.findDemoMemberByUserId(
+      demoId,
+      userId,
+    );
+  }
 }

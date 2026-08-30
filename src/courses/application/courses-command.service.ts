@@ -9,35 +9,32 @@ import { Title } from '../domain/value-objects/title.vo';
 import { Price } from '../domain/value-objects/price.vo';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CourseCreatedEvent } from 'src/common/events/course-created.event';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import { AiRagService } from 'src/core/ai-rag/ai-rag.service';
-import { LessonQueryRepository } from 'src/lessons/application/ports/lesson-query.repository';
-import { TagRepository } from 'src/tags/application/ports/tag.repository';
-import { UploadUrlService } from 'src/core/storage/upload-url.service';
+import { DemosQueryService } from 'src/demos/application/demo/demos-query.service';
+import { TagsService } from 'src/tags/application/tags.service';
 import { CoursePublishedEvent } from '../domain/events/course-published.event';
+import { UploadUrlService } from 'src/core/storage/upload-url.service';
+
 @Injectable()
 export class CoursesCommandService {
   constructor(
-    private readonly lessonQueryRepository: LessonQueryRepository,
     private readonly courseCommandRepository: CourseCommandRepository,
-    private readonly demoQueryRepository: DemoQueryRepository,
     private readonly eventEmitter: EventEmitter2,
     private readonly courseFactory: CourseFactory,
-    private readonly aiRagService: AiRagService,
-    private readonly tagRepository: TagRepository,
+    private readonly demosQueryService: DemosQueryService,
+    private readonly tagsService: TagsService,
     private readonly uploadUrlService: UploadUrlService,
   ) {}
 
   async generateDemoImageUploadUrl(fileName: string) {
-    return await this.uploadUrlService.generateUrl(fileName, 'courses');
+    return this.uploadUrlService.generateUrl(fileName, 'courses');
   }
 
   async generateSignatureImageUploadUrl(fileName: string) {
-    return await this.uploadUrlService.generateUrl(fileName, 'signatures');
+    return this.uploadUrlService.generateUrl(fileName, 'signatures');
   }
 
   async create(input: CreateCourseInput): Promise<Course> {
-    const demo = await this.demoQueryRepository.findById(input.demoId);
+    const demo = await this.demosQueryService.findByIdInternal(input.demoId);
     if (!demo) throw new NotFoundException('errors.DEMO_NOT_FOUND');
 
     const course = this.courseFactory.createNew(
@@ -51,10 +48,12 @@ export class CoursesCommandService {
       input.tagIds,
     );
 
-    const tagsExist = await this.tagRepository.existsByIds(course.tagIds);
+    if (course.tagIds && course.tagIds.length > 0) {
+      const tagsExist = await this.tagsService.existsByIds(course.tagIds);
 
-    if (!tagsExist) {
-      throw new NotFoundException('errors.ONE_OR_MORE_TAGS_DO_NOT_EXIST');
+      if (!tagsExist) {
+        throw new NotFoundException('errors.ONE_OR_MORE_TAGS_DO_NOT_EXIST');
+      }
     }
 
     await this.courseCommandRepository.save(course);
@@ -110,12 +109,10 @@ export class CoursesCommandService {
       course.updateVisibility(input.visibility);
     }
 
-    if (input.tagIds !== undefined) {
-      const tagsExist = await this.tagRepository.existsByIds(input.tagIds);
-
-      if (!tagsExist) {
-        throw new NotFoundException('errors.ONE_OR_MORE_TAGS_DO_NOT_EXIST');
-      }
+    if (input.tagIds && input.tagIds.length > 0) {
+      const tagsExist = await this.tagsService.existsByIds(input.tagIds);
+      if (!tagsExist)
+        throw new NotFoundException('errors.ONE_OR_MORE_TAGS_NOT_FOUND');
 
       course.updateTags(input.tagIds);
     }

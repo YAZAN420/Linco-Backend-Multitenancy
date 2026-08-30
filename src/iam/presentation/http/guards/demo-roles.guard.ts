@@ -9,7 +9,7 @@ import { ClsService } from 'nestjs-cls';
 import { AppClsStore } from 'src/common/interfaces/app-cls-store.interface';
 import { Request } from 'express';
 import { CLS_KEYS } from 'src/common/constants/cls-keys.constant';
-import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
+import { DemoMembersQueryService } from 'src/demos/application/demo-member/demo-members-query.service';
 import { ActiveDemoMemberData } from 'src/iam/domain/interfaces/active-demo-member.interface';
 import { DemoMemberRole } from 'src/demos/domain/enums/demo-member-role.enum';
 import { DemoRoles } from '../decorators/demo-roles.decorator';
@@ -19,7 +19,7 @@ export class DemoRolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
-    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
+    private readonly demoMembersQueryService: DemoMembersQueryService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -36,11 +36,10 @@ export class DemoRolesGuard implements CanActivate {
     const user = this.cls.get(CLS_KEYS.USER);
     if (!user) throw new ForbiddenException('errors.USER_IS_NOT_AUTHENTICATED');
 
-    const demoMember =
-      await this.demoMemberQueryRepository.findDemoMemberByUserId(
-        demoId,
-        user.id,
-      );
+    const demoMember = await this.demoMembersQueryService.findByUserId(
+      demoId,
+      user.id,
+    );
 
     if (!demoMember) {
       throw new ForbiddenException(

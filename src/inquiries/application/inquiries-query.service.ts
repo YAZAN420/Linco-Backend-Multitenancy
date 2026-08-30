@@ -23,13 +23,19 @@ export class InquiriesQueryService {
   async findAllForMe(
     demoId: string,
     userId: string,
-    options: FindInquiriesCursorQuery
+    options: FindInquiriesCursorQuery,
   ): Promise<CursorPageDto<InquiryWithReply>> {
     return this.inquiryQueryRepository.findAllForMe(demoId, userId, options);
   }
 
   async findById(id: string, demoId: string): Promise<InquiryWithReply> {
     const inquiry = await this.inquiryQueryRepository.findById(id, demoId);
+    if (!inquiry) throw new NotFoundException('errors.INQUIRY_NOT_FOUND');
+    return inquiry;
+  }
+
+  async findByIdWithoutDemo(id: string): Promise<InquiryWithReply> {
+    const inquiry = await this.inquiryQueryRepository.findById(id);
     if (!inquiry) throw new NotFoundException('errors.INQUIRY_NOT_FOUND');
     return inquiry;
   }

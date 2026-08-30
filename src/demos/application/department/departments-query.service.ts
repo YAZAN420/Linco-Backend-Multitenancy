@@ -52,4 +52,10 @@ export class DepartmentsQueryService {
       options,
     );
   }
+
+  async findDepartmentByIdInternal(
+    deptId: string,
+  ): Promise<DepartmentWithDetails | null> {
+    return await this.demoQueryRepository.findDepartmentById(deptId);
+  }
 }

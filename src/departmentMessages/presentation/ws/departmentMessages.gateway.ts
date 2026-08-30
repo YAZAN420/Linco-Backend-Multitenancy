@@ -16,7 +16,7 @@ import { DepartmentMessagesCommandService } from 'src/departmentMessages/applica
 import { DepartmentMessagesQueryService } from 'src/departmentMessages/application/departmentMessages-query.service';
 import { DepartmentMessageResponseMapper } from '../mappers/departmentMessage-response.mapper';
 
-import { DepartmentMemberQueryRepository } from 'src/demos/application/ports/department-member/department-member-query.repository';
+import { DepartmentMembersQueryService } from 'src/demos/application/department-member/department-members-query.service';
 import { JoinDepartmentDto } from '../dto/join-chat.dto';
 import { SendMessageDto } from '../dto/send-departmentMessage.dto';
 import { EditMessageDto } from '../dto/edit-departmentMessage.dto';
@@ -42,7 +42,7 @@ export class DepartmentMessagesGateway
     private readonly departmentMessageQueryService: DepartmentMessagesQueryService,
     private readonly responseMapper: DepartmentMessageResponseMapper,
     private readonly tokenService: TokenService,
-    private readonly departmentMemberQueryRepository: DepartmentMemberQueryRepository,
+    private readonly departmentMembersQueryService: DepartmentMembersQueryService,
   ) {}
 
   afterInit(server: Server) {
@@ -95,7 +95,7 @@ export class DepartmentMessagesGateway
   ) {
     const userId = client.data.user.id;
 
-    const member = await this.departmentMemberQueryRepository.findByUserId(
+    const member = await this.departmentMembersQueryService.findByUserId(
       departmentId,
       userId,
     );

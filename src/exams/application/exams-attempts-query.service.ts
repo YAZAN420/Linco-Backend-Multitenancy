@@ -4,7 +4,7 @@ import { ExamQueryRepository } from './ports/exam-query.repository';
 import { CursorPageDto } from 'src/common/dtos/pagination';
 import { FindExamAttemptsCursorQuery } from './interfaces/find-exam-attempts.query';
 import { ExamAttemptQueryRepository } from './ports/exam-attempt-query.repository';
-import { PrismaQuestionsBankQueryRepository } from 'src/questionBanks/infrastructure/persistence/prisma/repositories/prisma-questionBank-query.repository';
+import { QuestionsBanksQueryService } from 'src/questionBanks/application/questionsBank-query.service';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
 import { Exam, ExamAttempt } from 'src/generated/prisma/client';
 
@@ -13,7 +13,7 @@ export class ExamAttemptQueryService {
   constructor(
     private readonly examQueryRepository: ExamQueryRepository,
     private readonly examAttemptQueryRepository: ExamAttemptQueryRepository,
-    private readonly questionsBankQueryRepository: PrismaQuestionsBankQueryRepository,
+    private readonly questionsBanksQueryService: QuestionsBanksQueryService,
   ) {}
 
   async findAllCursor(
@@ -37,7 +37,7 @@ export class ExamAttemptQueryService {
     if (!exam) throw new NotFoundException('errors.EXAM_NOT_FOUND');
 
     const randomQuestions =
-      await this.questionsBankQueryRepository.getRandomQuestions(
+      await this.questionsBanksQueryService.getRandomQuestions(
         exam.sectionId,
         exam.numberOfQuestions,
       );

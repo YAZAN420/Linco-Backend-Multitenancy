@@ -50,6 +50,10 @@ export class DemosQueryService {
     return demo;
   }
 
+  async findByIdInternal(id: string): Promise<DemoWithOwnership | null> {
+    return this.demoQueryRepository.findById(id);
+  }
+
   async getAdminStats(): Promise<AdminDemoStats> {
     return this.demoQueryRepository.getAdminStats();
   }

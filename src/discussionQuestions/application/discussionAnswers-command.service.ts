@@ -5,7 +5,6 @@ import { DiscussionAnswerFactory } from '../domain/factories/discussionAnswer.fa
 import { DiscussionAnswer } from '../domain/discussionAnswer';
 import { CreateDiscussionAnswerInput } from './interfaces/create-discussionAnswer-input.interface';
 import { UpdateDiscussionAnswerInput } from './interfaces/update-discussionAnswer-input.interface';
-import { DemoMemberQueryRepository } from 'src/demos/application/ports/demo-member/demo-member-query.repository';
 
 @Injectable()
 export class DiscussionAnswersCommandService {
@@ -13,7 +12,6 @@ export class DiscussionAnswersCommandService {
     private readonly discussionAnswerCommandRepository: DiscussionAnswerCommandRepository,
     private readonly discussionQuestionQueryRepository: DiscussionQuestionQueryRepository,
     private readonly discussionAnswerFactory: DiscussionAnswerFactory,
-    private readonly demoMemberQueryRepository: DemoMemberQueryRepository,
   ) {}
 
   async create(

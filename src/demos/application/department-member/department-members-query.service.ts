@@ -46,4 +46,19 @@ export class DepartmentMembersQueryService {
     }
     return member;
   }
+
+  async findByUserId(
+    departmentId: string,
+    userId: string,
+  ): Promise<DepartmentMemberWithUser | null> {
+    const department =
+      await this.demoQueryRepository.findDepartmentById(departmentId);
+    if (!department) {
+      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
+    }
+    return await this.departmentMemberQueryRepository.findByUserId(
+      departmentId,
+      userId,
+    );
+  }
 }

@@ -90,6 +90,8 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
     DemoResponseMapper,
     DepartmentResponseMapper,
     DemoMemberResponseMapper,
+    DemoMembersCommandService,
+    DemoMembersQueryService,
     DepartmentMembersCommandService,
     DepartmentMembersQueryService,
     DepartmentMemberFactory,

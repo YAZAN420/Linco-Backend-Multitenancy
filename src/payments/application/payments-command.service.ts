@@ -10,7 +10,7 @@ import Stripe from 'stripe';
 
 import stripeConfig from 'src/common/config/stripe.config';
 import { PlanTier } from 'src/common/enums/plan-tier.enum';
-import { CourseCommandRepository } from 'src/courses/application/ports/course-command.repository';
+import { CoursesCommandService } from 'src/courses/application/courses-command.service';
 import { CourseVisibility } from 'src/courses/domain/enums/course-visibility.enum';
 import { Course } from 'src/courses/domain/course';
 
@@ -26,7 +26,7 @@ export class PaymentsCommandService {
 
   constructor(
     private readonly paymentCommandRepository: PaymentCommandRepository,
-    private readonly courseCommandRepository: CourseCommandRepository,
+    private readonly coursesCommandService: CoursesCommandService,
     private readonly paymentFactory: PaymentFactory,
     @Inject(stripeConfig.KEY)
     private readonly stripeConfiguration: ConfigType<typeof stripeConfig>,
@@ -69,7 +69,7 @@ export class PaymentsCommandService {
     demoId: string,
     userEmail: string,
   ) {
-    const course = await this.courseCommandRepository.findById(courseId);
+    const course = await this.coursesCommandService.findById(courseId);
     this.validateCourseForPurchase(course);
 
     if (course.price === 0) {

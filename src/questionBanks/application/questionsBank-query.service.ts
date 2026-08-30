@@ -40,4 +40,32 @@ export class QuestionsBanksQueryService {
       throw new NotFoundException('errors.QUESTIONS_BANK_NOT_FOUND');
     return questionsBank;
   }
+
+  async findCorrectChoicesByQuestionIds(
+    questionIds: string[],
+  ): Promise<{ questionId: string; correctChoiceIds: string[] }[]> {
+    return this.questionsBankQueryRepository.findCorrectChoicesByQuestionIds(
+      questionIds,
+    );
+  }
+
+  async findByIdWithoutSection(
+    id: string,
+  ): Promise<QuestionsBankWithQuestionChoices> {
+    const question =
+      await this.questionsBankQueryRepository.findByIdWithoutSection(id);
+    if (!question)
+      throw new NotFoundException('errors.QUESTIONS_BANK_NOT_FOUND');
+    return question;
+  }
+
+  async getRandomQuestions(
+    sectionId: string,
+    limit: number,
+  ): Promise<QuestionsBankWithQuestionChoices[]> {
+    return this.questionsBankQueryRepository.getRandomQuestions(
+      sectionId,
+      limit,
+    );
+  }
 }

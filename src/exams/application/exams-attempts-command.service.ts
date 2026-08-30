@@ -9,7 +9,7 @@ import { CreateExamAttemptInput } from './interfaces/create-exam-attempt-input.i
 import { ExamAttempt } from '../domain/exam-attempt';
 import { ExamAttemptFactory } from '../domain/factories/exam-attempt.factory';
 import { ExamAttemptCommandRepository } from './ports/exam-attempt-command.repository';
-import { QuestionsBankQueryRepository } from 'src/questionBanks/application/ports/questionsBank-query.repository';
+import { QuestionsBanksQueryService } from 'src/questionBanks/application/questionsBank-query.service';
 import { ExamQueryRepository } from './ports/exam-query.repository';
 import { ExamUserAnswerInput } from './interfaces/exam-user-answer-input.interface';
 import { QuestionsBankWithQuestionChoices } from 'src/core/database/prisma/types';
@@ -22,7 +22,7 @@ export class ExamAttemptCommandService {
     private readonly examAttemptCommandRepository: ExamAttemptCommandRepository,
     private readonly examAttemptFactory: ExamAttemptFactory,
     private readonly examQueryRepository: ExamQueryRepository,
-    private readonly questionBankQueryRepository: QuestionsBankQueryRepository,
+    private readonly questionsBanksQueryService: QuestionsBanksQueryService,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
@@ -48,7 +48,7 @@ export class ExamAttemptCommandService {
     }
 
     const correctChoices =
-      await this.questionBankQueryRepository.findCorrectChoicesByQuestionIds(
+      await this.questionsBanksQueryService.findCorrectChoicesByQuestionIds(
         input.answers.map((a) => a.questionId),
       );
 
@@ -64,11 +64,11 @@ export class ExamAttemptCommandService {
       calculatedScore,
     );
 
-    const questionsWithChoices = (await Promise.all(
+    const questionsWithChoices = await Promise.all(
       input.answers.map((a) =>
-        this.questionBankQueryRepository.findByIdWithoutSection(a.questionId),
+        this.questionsBanksQueryService.findByIdWithoutSection(a.questionId),
       ),
-    )) as QuestionsBankWithQuestionChoices[];
+    );
 
     await this.examAttemptCommandRepository.save(examAttempt);
     await this.eventEmitter.emitAsync('exam.attempt.created', {

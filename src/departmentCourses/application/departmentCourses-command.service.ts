@@ -8,15 +8,15 @@ import { DepartmentCourseFactory } from '../domain/factories/departmentCourse.fa
 import { DepartmentCourse } from '../domain/departmentCourse';
 
 import { CreateDepartmentCourseInput } from './interfaces/create-departmentCourse-input.interface';
-import { DemoQueryRepository } from 'src/demos/application/ports/demo/demo-query.repository';
-import { AssetQueryRepository } from 'src/assets/application/ports/asset-query.repository';
+import { DepartmentsQueryService } from 'src/demos/application/department/departments-query.service';
+import { AssetsQueryService } from 'src/assets/application/assets-query.service';
 
 @Injectable()
 export class DepartmentCoursesCommandService {
   constructor(
+    private readonly departmentsQueryService: DepartmentsQueryService,
+    private readonly assetsQueryService: AssetsQueryService,
     private readonly departmentCourseCommandRepository: DepartmentCourseCommandRepository,
-    private readonly demoQueryRepository: DemoQueryRepository,
-    private readonly assetQueryRepository: AssetQueryRepository,
     private readonly departmentCourseFactory: DepartmentCourseFactory,
   ) {}
 
@@ -25,12 +25,15 @@ export class DepartmentCoursesCommandService {
     input: CreateDepartmentCourseInput,
   ): Promise<DepartmentCourse> {
     const department =
-      await this.demoQueryRepository.findDepartmentById(departmentId);
-    if (!department) {
-      throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
-    }
+      await this.departmentsQueryService.findDepartmentByIdInternal(
+        departmentId,
+      );
+    if (!department) throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
 
-    const asset = await this.assetQueryRepository.findById(input.assetId);
+    const asset = await this.assetsQueryService.findById(
+      department.demoId,
+      input.assetId,
+    );
     if (!asset) {
       throw new NotFoundException('errors.ASSET_NOT_FOUND');
     }
@@ -53,6 +56,11 @@ export class DepartmentCoursesCommandService {
     departmentId: string,
     departmentCourseId: string,
   ): Promise<void> {
+    const department =
+      await this.departmentsQueryService.findDepartmentByIdInternal(
+        departmentId,
+      );
+    if (!department) throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     await this.findById(departmentId, departmentCourseId);
     await this.departmentCourseCommandRepository.delete(departmentCourseId);
   }
@@ -62,7 +70,9 @@ export class DepartmentCoursesCommandService {
     departmentCourseId: string,
   ): Promise<DepartmentCourse> {
     const department =
-      await this.demoQueryRepository.findDepartmentById(departmentId);
+      await this.departmentsQueryService.findDepartmentByIdInternal(
+        departmentId,
+      );
     if (!department) {
       throw new NotFoundException('errors.DEPARTMENT_NOT_FOUND');
     }

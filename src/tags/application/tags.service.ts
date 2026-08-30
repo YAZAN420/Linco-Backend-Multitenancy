@@ -32,4 +32,8 @@ export class TagsService {
     const tag = await this.tagRepository.delete(id);
     return tag;
   }
+
+  async existsByIds(ids: string[]): Promise<boolean> {
+    return this.tagRepository.existsByIds(ids);
+  }
 }

@@ -7,14 +7,14 @@ import { CreateInquiryReplyInput } from './interfaces/create-inquiryReply-input.
 import { UpdateInquiryReplyInput } from './interfaces/update-inquiryReply-input.interface';
 import { InquirySenderType } from '../domain/enums/InquirySenderType';
 import { DemoMemberRole } from 'src/generated/prisma/enums';
-import { InquiryQueryRepository } from 'src/inquiries/application/ports/inquiry-query.repository';
+import { InquiriesQueryService } from 'src/inquiries/application/inquiries-query.service';
 import { NotificationsService } from 'src/notifications/application/notifications.service';
 
 @Injectable()
 export class InquiryRepliesCommandService {
   constructor(
     private readonly inquiryReplyCommandRepository: InquiryReplyCommandRepository,
-    private readonly inquiryQueryRepository: InquiryQueryRepository,
+    private readonly inquiriesQueryService: InquiriesQueryService,
     private readonly notificationService: NotificationsService,
     private readonly inquiryReplyFactory: InquiryReplyFactory,
   ) {}
@@ -34,7 +34,8 @@ export class InquiryRepliesCommandService {
     );
     await this.inquiryReplyCommandRepository.save(inquiryReply);
 
-    const inquiry = await this.inquiryQueryRepository.findById(inquiryId);
+    const inquiry =
+      await this.inquiriesQueryService.findByIdWithoutDemo(inquiryId);
 
     if (inquiry?.creatorId) {
       const title = 'New Reply to Your Inquiry';

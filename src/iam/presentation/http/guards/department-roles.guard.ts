@@ -12,7 +12,7 @@ import { Request } from 'express';
 
 import { DepartmentRoles } from '../decorators/department-roles.decorator';
 
-import { DepartmentMemberQueryRepository } from 'src/demos/application/ports/department-member/department-member-query.repository';
+import { DepartmentMembersQueryService } from 'src/demos/application/department-member/department-members-query.service';
 import { DepartmentMemberRole } from 'src/demos/domain/enums/department-member-role.enum';
 import { ActiveDepartmentMemberData } from 'src/iam/domain/interfaces/active-department-member.interface';
 import { DepartmentMembersCommandService } from 'src/demos/application/department-member/department-members-command.service';
@@ -24,7 +24,7 @@ export class DepartmentRolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly cls: ClsService<AppClsStore>,
-    private readonly departmentMemberQueryRepository: DepartmentMemberQueryRepository,
+    private readonly departmentMembersQueryService: DepartmentMembersQueryService,
     private readonly departmentMemberCommandService: DepartmentMembersCommandService,
   ) {}
 
@@ -49,10 +49,9 @@ export class DepartmentRolesGuard implements CanActivate {
       );
     }
 
-    let deptMember = await this.departmentMemberQueryRepository.findById(
-      departmentId,
-      activeDemoMember.id,
-    );
+    let deptMember = await this.departmentMembersQueryService
+      .findById(departmentId, activeDemoMember.id)
+      .catch(() => null);
 
     if (
       !deptMember &&
@@ -64,10 +63,9 @@ export class DepartmentRolesGuard implements CanActivate {
         jobTitle: JobTitle.SENIOR,
         role: DepartmentMemberRole.MANAGER,
       });
-      deptMember = await this.departmentMemberQueryRepository.findById(
-        departmentId,
-        activeDemoMember.id,
-      );
+      deptMember = await this.departmentMembersQueryService
+        .findById(departmentId, activeDemoMember.id)
+        .catch(() => null);
     }
 
     if (!deptMember) {
