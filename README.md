@@ -176,7 +176,7 @@ kubectl rollout restart deployment/backend-deployment
 
 ```bash
 # Follow real-time backend logs
-kubectl logs -f -l app=backend --tail=100
+kubectl logs -f -l app=backend --tail=50
 
 # View logs of the migration init-container if startup fails
 kubectl logs -f deployment/backend-deployment -c run-migrations
