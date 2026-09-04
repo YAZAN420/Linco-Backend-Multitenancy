@@ -37,8 +37,8 @@ Ensure you have the following installed on your local machine or server:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yazan420/linco-backend.git
-cd linco-backend
+git clone https://github.com/YAZAN420/Linco-Backend-Multitenancy.git
+cd Linco-Backend-Multitenancy
 
 # Install dependencies
 npm install
